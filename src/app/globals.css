@@ -1,108 +1,58 @@
 @import "tailwindcss";
-@import "tw-animate-css";
 
-/* ─── Sala Design System — Minimalismo Técnico ───────────────────────────── */
+/* ─── Sistema visual NYT — Sala ─────────────────────────────────────────── */
 
 @theme inline {
-  /* Paleta Sala */
-  --color-sala-bg:           #F8F8F8;
-  --color-sala-surface:      #FFFFFF;
-  --color-sala-text:         #0A0A0A;
-  --color-sala-muted:        #6B7280;
-  --color-sala-accent:       #0066FF;
-  --color-sala-accent-hover: #0052CC;
-  --color-sala-border:       #E5E7EB;
-  --color-sala-border-hover: #D1D5DB;
+  --color-sala-white:   #FFFFFF;
+  --color-sala-ink:     #121212;
+  --color-sala-gray:    #666666;
+  --color-sala-red:     #C41C1C;
+  --color-sala-rule:    #DEDEDE;
+  --color-sala-alt:     #F7F7F7;
 
-  /* Tokens shadcn mapeados a paleta Sala */
-  --color-background:           var(--background);
-  --color-foreground:           var(--foreground);
-  --color-card:                 var(--card);
-  --color-card-foreground:      var(--card-foreground);
-  --color-popover:              var(--popover);
-  --color-popover-foreground:   var(--popover-foreground);
-  --color-primary:              var(--primary);
-  --color-primary-foreground:   var(--primary-foreground);
-  --color-secondary:            var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted:                var(--muted);
-  --color-muted-foreground:     var(--muted-foreground);
-  --color-accent:               var(--accent);
-  --color-accent-foreground:    var(--accent-foreground);
-  --color-destructive:          var(--destructive);
-  --color-border:               var(--border);
-  --color-input:                var(--input);
-  --color-ring:                 var(--ring);
+  --color-background:   #FFFFFF;
+  --color-foreground:   #121212;
+  --color-border:       #DEDEDE;
+  --color-muted:        #F7F7F7;
+  --color-muted-foreground: #666666;
+  --color-primary:      #121212;
+  --color-primary-foreground: #FFFFFF;
 
-  /* Tipografía — solo Inter */
-  --font-sans: var(--font-inter), "Inter", system-ui, -apple-system, sans-serif;
-  --font-mono: "Geist Mono", "JetBrains Mono", ui-monospace, monospace;
+  --font-serif: "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-sans:  var(--font-inter), "Inter", system-ui, -apple-system, sans-serif;
 
-  /* Radios */
-  --radius-sm:  0.25rem;
-  --radius-md:  0.375rem;
-  --radius-lg:  0.5rem;
-  --radius-xl:  0.75rem;
-  --radius-2xl: 1rem;
-  --radius-3xl: 1.5rem;
-
-  /* Animaciones */
-  --animate-fade-in:  fadeIn 0.35s ease forwards;
-  --animate-slide-up: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  --animate-slide-in: slideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --animate-fade-in: fadeIn 0.5s ease forwards;
 
   @keyframes fadeIn {
     from { opacity: 0; }
     to   { opacity: 1; }
   }
-
-  @keyframes slideUp {
-    from { opacity: 0; transform: translateY(12px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  @keyframes slideIn {
-    from { opacity: 0; transform: translateX(-8px); }
-    to   { opacity: 1; transform: translateX(0); }
-  }
 }
 
-/* ─── Tokens de color (light — único modo) ───────────────────────────────── */
+/* ─── Variables raíz ─────────────────────────────────────────────────────── */
 
 :root {
-  --background:            #F8F8F8;
-  --foreground:            #0A0A0A;
-  --card:                  #FFFFFF;
-  --card-foreground:       #0A0A0A;
-  --popover:               #FFFFFF;
-  --popover-foreground:    #0A0A0A;
-  --primary:               #0066FF;
-  --primary-foreground:    #FFFFFF;
-  --secondary:             #F3F4F6;
-  --secondary-foreground:  #0A0A0A;
-  --muted:                 #F3F4F6;
-  --muted-foreground:      #6B7280;
-  --accent:                #EFF6FF;
-  --accent-foreground:     #0066FF;
-  --destructive:           #EF4444;
-  --border:                #E5E7EB;
-  --input:                 #FFFFFF;
-  --ring:                  #0066FF;
-  --radius:                0.5rem;
+  --background:         #FFFFFF;
+  --foreground:         #121212;
+  --border:             #DEDEDE;
+  --muted:              #F7F7F7;
+  --muted-foreground:   #666666;
+  --primary:            #121212;
+  --primary-foreground: #FFFFFF;
+  --radius:             0;
 }
 
-/* ─── Base styles ────────────────────────────────────────────────────────── */
+/* ─── Base ───────────────────────────────────────────────────────────────── */
 
 @layer base {
   *, *::before, *::after {
-    @apply border-border;
     box-sizing: border-box;
   }
 
   html {
     font-family: var(--font-sans);
-    background-color: var(--background);
-    color: var(--foreground);
+    background-color: #FFFFFF;
+    color: #121212;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
@@ -110,58 +60,44 @@
   }
 
   body {
-    background-color: var(--background);
-    color: var(--foreground);
+    background-color: #FFFFFF;
+    color: #121212;
     line-height: 1.6;
     min-height: 100dvh;
   }
 
-  /* Selección de texto — azul claro */
   ::selection {
-    background-color: #0066FF22;
-    color: #0052CC;
+    background-color: #C41C1C18;
+    color: #C41C1C;
   }
 
-  ::-moz-selection {
-    background-color: #0066FF22;
-    color: #0052CC;
-  }
-
-  /* Focus ring azul */
   :focus-visible {
-    outline: 2px solid #0066FF;
+    outline: 1px solid #121212;
     outline-offset: 2px;
-    border-radius: 3px;
   }
 
-  /* Headings — Inter apretado */
   h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-sans);
+    font-family: var(--font-serif);
     font-weight: 700;
-    letter-spacing: -0.02em;
-    line-height: 1.15;
-    color: var(--foreground);
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+    color: #121212;
   }
 
   p {
-    color: var(--foreground);
+    color: #121212;
     line-height: 1.7;
   }
 
   a {
     color: inherit;
     text-decoration: none;
-    transition: color 0.15s ease;
-  }
-
-  a:hover {
-    color: #0066FF;
   }
 
   hr {
     border: none;
-    border-top: 1px solid var(--border);
-    margin: 2rem 0;
+    border-top: 1px solid #DEDEDE;
+    margin: 0;
   }
 
   img, video {
@@ -171,121 +107,56 @@
   }
 }
 
-/* ─── Scrollbar sutil ────────────────────────────────────────────────────── */
+/* ─── Scrollbar ──────────────────────────────────────────────────────────── */
 
-::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
-}
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #DEDEDE; }
+::-webkit-scrollbar-thumb:hover { background: #999; }
+* { scrollbar-width: thin; scrollbar-color: #DEDEDE transparent; }
 
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #D1D5DB;
-  border-radius: 99px;
-  transition: background 0.2s ease;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #9CA3AF;
-}
-
-::-webkit-scrollbar-corner {
-  background: transparent;
-}
-
-/* Firefox */
-* {
-  scrollbar-width: thin;
-  scrollbar-color: #D1D5DB transparent;
-}
-
-/* ─── Clases de animación ────────────────────────────────────────────────── */
-
-.animate-fade-in {
-  animation: var(--animate-fade-in);
-}
-
-.animate-slide-up {
-  animation: var(--animate-slide-up);
-}
-
-.animate-slide-in {
-  animation: var(--animate-slide-in);
-}
-
-/* Delays */
-.animate-delay-100 { animation-delay: 100ms; }
-.animate-delay-200 { animation-delay: 200ms; }
-.animate-delay-300 { animation-delay: 300ms; }
-.animate-delay-400 { animation-delay: 400ms; }
-.animate-delay-500 { animation-delay: 500ms; }
-
-/* ─── Utilidades Sala ────────────────────────────────────────────────────── */
+/* ─── Utilidades NYT ─────────────────────────────────────────────────────── */
 
 @layer utilities {
-  /* Label / tag técnico */
-  .label-tag {
+  .nyt-rule {
+    border: none;
+    border-top: 1px solid #DEDEDE;
+    width: 100%;
+    display: block;
+  }
+
+  .nyt-rule-thick {
+    border: none;
+    border-top: 3px solid #121212;
+    width: 100%;
+    display: block;
+  }
+
+  .section-label {
     font-family: var(--font-sans);
-    font-weight: 500;
+    font-weight: 600;
     font-size: 11px;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: #6B7280;
+    color: #C41C1C;
+    display: block;
   }
 
-  /* Superficie card */
-  .surface-card {
-    background-color: #FFFFFF;
-    border: 1px solid #E5E7EB;
-    border-radius: var(--radius-lg);
-    transition: border-color 0.15s ease, box-shadow 0.15s ease;
-  }
-
-  .surface-card:hover {
-    border-color: #D1D5DB;
-    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.06);
-  }
-
-  /* Sombras sutiles */
-  .shadow-sala-sm { box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.06); }
-  .shadow-sala-md { box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.08); }
-  .shadow-sala-lg { box-shadow: 0 8px 24px 0 rgba(0, 0, 0, 0.10); }
-
-  /* Divider */
-  .divider-label {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    color: #9CA3AF;
+  .section-label-dark {
+    font-family: var(--font-sans);
+    font-weight: 600;
     font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
+    color: #121212;
+    display: block;
   }
 
-  .divider-label::before,
-  .divider-label::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: #E5E7EB;
+  .animate-fade-in {
+    animation: var(--animate-fade-in);
   }
 
-  /* Estado deshabilitado */
-  .sala-disabled {
-    opacity: 0.4;
-    pointer-events: none;
-    cursor: not-allowed;
-  }
-
-  /* Texto gradiente azul */
-  .text-accent-gradient {
-    background: linear-gradient(135deg, #0066FF 0%, #338BFF 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
+  .animate-delay-100 { animation-delay: 100ms; }
+  .animate-delay-200 { animation-delay: 200ms; }
+  .animate-delay-300 { animation-delay: 300ms; }
 }

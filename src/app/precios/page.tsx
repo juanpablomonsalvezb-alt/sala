@@ -1,10 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Check, ChevronDown, ChevronUp } from "lucide-react";
-
-/* ─── Data ──────────────────────────────────────────────────────────────── */
+import { AnimatePresence, motion } from "framer-motion";
+import { ChevronDown, ChevronUp } from "lucide-react";
 
 const PLANS = [
   {
@@ -12,14 +10,14 @@ const PLANS = [
     name: "Libre",
     price: "$0",
     period: "/mes",
-    commission: "Sala toma 10%",
-    popular: false,
+    commission: "10% de comisión",
+    highlight: false,
     cta: "Abrir mi sala gratis",
     ctaHref: "/abrir",
     features: [
       "Hasta 500 suscriptores",
       "Contenido ilimitado",
-      "Stripe incluido",
+      "Pagos vía Stripe",
       "Panel de gestión",
     ],
   },
@@ -28,8 +26,8 @@ const PLANS = [
     name: "Creador",
     price: "$29 USD",
     period: "/mes",
-    commission: "Sala toma 3%",
-    popular: true,
+    commission: "3% de comisión",
+    highlight: true,
     cta: "Elegir Creador",
     ctaHref: "/abrir?plan=creador",
     features: [
@@ -44,13 +42,13 @@ const PLANS = [
     name: "Pro",
     price: "$59 USD",
     period: "/mes",
-    commission: "Sala toma 0%",
-    popular: false,
+    commission: "0% de comisión",
+    highlight: false,
     cta: "Elegir Pro",
     ctaHref: "/abrir?plan=pro",
     features: [
       "Todo lo del plan Creador",
-      "API access",
+      "Acceso a API",
       "White-label (próximo)",
       "SLA prioritario",
     ],
@@ -87,211 +85,195 @@ const FAQ_ITEMS = [
   },
 ];
 
-/* ─── PlanCard ──────────────────────────────────────────────────────────── */
-
-function PlanCard({
-  plan,
-  index,
-}: {
-  plan: (typeof PLANS)[0];
-  index: number;
-}) {
+function PricingNav() {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 24 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, delay: 0.1 + index * 0.08, ease: [0.16, 1, 0.3, 1] }}
-      className={`relative flex flex-col rounded-xl border p-6 bg-white ${
-        plan.popular ? "border-[#0066FF]" : "border-[#E5E7EB]"
-      }`}
-    >
-      {/* Popular badge */}
-      {plan.popular && (
-        <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-          <span className="rounded-full bg-[#0066FF] px-3 py-0.5 font-[var(--font-inter),Inter,sans-serif] text-[11px] font-[600] text-white">
-            Más popular
-          </span>
+    <header>
+      <div className="h-[3px] bg-[#C41C1C] w-full" />
+      <div className="border-b border-[#DEDEDE] py-3 px-6">
+        <div className="max-w-5xl mx-auto flex items-center justify-between">
+          <a href="/" className="font-serif text-[22px] font-bold text-[#121212] leading-none" style={{ letterSpacing: "-0.01em" }}>
+            SALA
+          </a>
+          <a
+            href="/abrir"
+            className="font-sans text-[12px] font-medium px-4 py-1.5 bg-[#121212] text-white hover:bg-[#333] transition-colors duration-150"
+          >
+            Abrir mi sala
+          </a>
         </div>
-      )}
-
-      {/* Header */}
-      <div className="mb-5">
-        <h3 className="font-[var(--font-inter),Inter,sans-serif] text-lg font-[700] tracking-tight text-[#0A0A0A]">
-          {plan.name}
-        </h3>
-        <div className="mt-2 flex items-baseline gap-1">
-          <span className="font-[var(--font-inter),Inter,sans-serif] text-3xl font-[800] tracking-tight text-[#0A0A0A]">
-            {plan.price}
-          </span>
-          <span className="font-[var(--font-inter),Inter,sans-serif] text-sm text-[#6B7280]">
-            {plan.period}
-          </span>
-        </div>
-        <span className="mt-2 inline-block font-[var(--font-inter),Inter,sans-serif] text-xs text-[#6B7280]">
-          {plan.commission}
-        </span>
       </div>
-
-      {/* Features */}
-      <ul className="mb-6 flex flex-col gap-2.5 flex-1">
-        {plan.features.map((f) => (
-          <li key={f} className="flex items-center gap-2.5">
-            <Check
-              size={14}
-              className={plan.popular ? "text-[#0066FF] shrink-0" : "text-[#6B7280] shrink-0"}
-            />
-            <span className="font-[var(--font-inter),Inter,sans-serif] text-sm text-[#0A0A0A]">
-              {f}
-            </span>
-          </li>
-        ))}
-      </ul>
-
-      {/* CTA */}
-      <a
-        href={plan.ctaHref}
-        className={`block w-full rounded-lg py-2.5 text-center font-[var(--font-inter),Inter,sans-serif] text-sm font-[600] transition-all duration-150 active:scale-[0.98] ${
-          plan.popular
-            ? "bg-[#0066FF] text-white hover:bg-[#0052CC]"
-            : "border border-[#E5E7EB] bg-[#F8F8F8] text-[#0A0A0A] hover:border-[#0A0A0A]"
-        }`}
-      >
-        {plan.cta}
-      </a>
-    </motion.div>
+    </header>
   );
 }
 
-/* ─── Calculator ────────────────────────────────────────────────────────── */
+function PlansGrid() {
+  return (
+    <section className="py-14 px-6">
+      <div className="max-w-5xl mx-auto">
+        <div className="mb-5">
+          <span className="section-label mb-3 inline-block">PLANES</span>
+          <hr className="nyt-rule" />
+        </div>
+        <div className="grid md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[#DEDEDE] border border-[#DEDEDE]">
+          {PLANS.map((plan) => (
+            <div key={plan.id} className={`p-8 flex flex-col ${plan.highlight ? "bg-[#F7F7F7]" : "bg-white"}`}>
+              {plan.highlight && (
+                <span className="section-label mb-3 inline-block">MÁS ELEGIDO</span>
+              )}
+              <h3 className="font-serif text-[24px] font-bold text-[#121212] mb-1" style={{ letterSpacing: "-0.01em" }}>
+                {plan.name}
+              </h3>
+              <div className="flex items-baseline gap-1 mb-1">
+                <span className="font-serif text-[36px] font-bold text-[#121212]" style={{ letterSpacing: "-0.02em" }}>
+                  {plan.price}
+                </span>
+                <span className="font-sans text-[13px] text-[#666666]">{plan.period}</span>
+              </div>
+              <p className="font-sans text-[12px] text-[#C41C1C] font-semibold tracking-wide uppercase mb-6">
+                {plan.commission}
+              </p>
+              <hr className="nyt-rule mb-6" />
+              <ul className="flex-1 space-y-3 mb-8">
+                {plan.features.map((f) => (
+                  <li key={f} className="flex items-start gap-2.5">
+                    <span className="font-serif text-[#121212] leading-none mt-0.5">—</span>
+                    <span className="font-sans text-[13px] text-[#121212] leading-snug">{f}</span>
+                  </li>
+                ))}
+              </ul>
+              <a
+                href={plan.ctaHref}
+                className={`font-sans text-[13px] font-medium py-2.5 text-center transition-colors duration-150 ${
+                  plan.highlight
+                    ? "bg-[#121212] text-white hover:bg-[#333]"
+                    : "border border-[#121212] text-[#121212] hover:bg-[#121212] hover:text-white"
+                }`}
+              >
+                {plan.cta}
+              </a>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
 
 function Calculator() {
   const [subscribers, setSubscribers] = useState(100);
   const [pricePerSub, setPricePerSub] = useState(9990);
-
   const gross = subscribers * pricePerSub;
 
   return (
-    <motion.section
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-      className="mx-auto mt-16 w-full max-w-2xl rounded-xl border border-[#E5E7EB] bg-white p-8"
-    >
-      <h2 className="mb-1 font-[var(--font-inter),Inter,sans-serif] text-xl font-[700] tracking-tight text-[#0A0A0A]">
-        ¿Cuánto podrías ganar?
-      </h2>
-      <p className="mb-8 font-[var(--font-inter),Inter,sans-serif] text-sm text-[#6B7280]">
-        Ajusta los valores y ve tu ingreso mensual estimado.
-      </p>
-
-      {/* Suscriptores */}
-      <div className="mb-6">
-        <div className="mb-2 flex items-center justify-between">
-          <label className="font-[var(--font-inter),Inter,sans-serif] text-sm font-[500] text-[#0A0A0A]">
-            Número de suscriptores
-          </label>
-          <span className="font-[var(--font-inter),Inter,sans-serif] text-sm font-[700] text-[#0066FF]">
-            {subscribers}
-          </span>
+    <section className="border-t border-[#DEDEDE] py-14 px-6 bg-[#F7F7F7]">
+      <div className="max-w-3xl mx-auto">
+        <div className="mb-5">
+          <span className="section-label mb-3 inline-block">CALCULADORA DE INGRESOS</span>
+          <hr className="nyt-rule" />
         </div>
-        <div className="flex gap-2">
-          {SUBSCRIBER_OPTIONS.map((n) => (
-            <button
-              key={n}
-              onClick={() => setSubscribers(n)}
-              className={`flex-1 rounded-lg border py-2 font-[var(--font-inter),Inter,sans-serif] text-sm font-[500] transition-all duration-150 ${
-                subscribers === n
-                  ? "border-[#0066FF] bg-[#EEF4FF] text-[#0066FF]"
-                  : "border-[#E5E7EB] text-[#6B7280] hover:border-[#0A0A0A] hover:text-[#0A0A0A]"
-              }`}
-            >
-              {n}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Precio por suscriptor */}
-      <div className="mb-8">
-        <div className="mb-2 flex items-center justify-between">
-          <label className="font-[var(--font-inter),Inter,sans-serif] text-sm font-[500] text-[#0A0A0A]">
-            Precio por suscriptor
-          </label>
-          <span className="font-[var(--font-inter),Inter,sans-serif] text-sm font-[700] text-[#0066FF]">
-            ${formatCLP(pricePerSub)} CLP/mes
-          </span>
-        </div>
-        <div className="flex gap-2">
-          {PRICE_OPTIONS.map((p) => (
-            <button
-              key={p}
-              onClick={() => setPricePerSub(p)}
-              className={`flex-1 rounded-lg border py-2 font-[var(--font-inter),Inter,sans-serif] text-sm font-[500] transition-all duration-150 ${
-                pricePerSub === p
-                  ? "border-[#0066FF] bg-[#EEF4FF] text-[#0066FF]"
-                  : "border-[#E5E7EB] text-[#6B7280] hover:border-[#0A0A0A] hover:text-[#0A0A0A]"
-              }`}
-            >
-              ${formatCLP(p)}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Resultado */}
-      <div className="rounded-lg border border-[#E5E7EB] bg-[#F8F8F8] p-5">
-        <p className="mb-0.5 font-[var(--font-inter),Inter,sans-serif] text-xs font-[600] uppercase tracking-widest text-[#6B7280]">
-          Tu ingreso estimado
+        <h2 className="font-serif text-[28px] font-bold text-[#121212] mb-2" style={{ letterSpacing: "-0.01em" }}>
+          ¿Cuánto podrías ganar?
+        </h2>
+        <p className="font-sans text-[14px] text-[#666666] mb-10">
+          Ajusta los valores y ve tu ingreso mensual estimado con cada plan.
         </p>
-        <p className="font-[var(--font-inter),Inter,sans-serif] text-3xl font-[800] tracking-tight text-[#0066FF]">
-          ${formatCLP(gross)} CLP
-        </p>
-        <p className="mt-1 font-[var(--font-inter),Inter,sans-serif] text-xs text-[#6B7280]">
-          Con {subscribers} suscriptores a ${formatCLP(pricePerSub)}/mes · Plan Pro (0%)
-        </p>
-        <div className="mt-4 border-t border-[#E5E7EB] pt-4 flex flex-col gap-1.5">
-          <div className="flex justify-between">
-            <span className="font-[var(--font-inter),Inter,sans-serif] text-xs text-[#6B7280]">Plan Libre (10%)</span>
-            <span className="font-[var(--font-inter),Inter,sans-serif] text-xs font-[500] text-[#0A0A0A]">
-              ${formatCLP(Math.round(gross * 0.9))} CLP
+
+        <div className="mb-8">
+          <div className="flex items-center justify-between mb-3">
+            <label className="font-sans text-[13px] font-semibold text-[#121212] uppercase tracking-wide">
+              Suscriptores
+            </label>
+            <span className="font-serif text-[20px] font-bold text-[#121212]">{subscribers}</span>
+          </div>
+          <div className="grid grid-cols-4 gap-2">
+            {SUBSCRIBER_OPTIONS.map((n) => (
+              <button
+                key={n}
+                onClick={() => setSubscribers(n)}
+                className={`py-2 font-sans text-[13px] font-medium border transition-colors duration-150 ${
+                  subscribers === n
+                    ? "border-[#121212] bg-[#121212] text-white"
+                    : "border-[#DEDEDE] text-[#666666] hover:border-[#121212] hover:text-[#121212]"
+                }`}
+              >
+                {n}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="mb-10">
+          <div className="flex items-center justify-between mb-3">
+            <label className="font-sans text-[13px] font-semibold text-[#121212] uppercase tracking-wide">
+              Precio por suscriptor
+            </label>
+            <span className="font-serif text-[20px] font-bold text-[#121212]">
+              ${formatCLP(pricePerSub)} CLP
             </span>
           </div>
-          <div className="flex justify-between">
-            <span className="font-[var(--font-inter),Inter,sans-serif] text-xs text-[#6B7280]">Plan Creador (3%)</span>
-            <span className="font-[var(--font-inter),Inter,sans-serif] text-xs font-[500] text-[#0A0A0A]">
-              ${formatCLP(Math.round(gross * 0.97))} CLP
-            </span>
+          <div className="grid grid-cols-3 gap-2">
+            {PRICE_OPTIONS.map((p) => (
+              <button
+                key={p}
+                onClick={() => setPricePerSub(p)}
+                className={`py-2 font-sans text-[13px] font-medium border transition-colors duration-150 ${
+                  pricePerSub === p
+                    ? "border-[#121212] bg-[#121212] text-white"
+                    : "border-[#DEDEDE] text-[#666666] hover:border-[#121212] hover:text-[#121212]"
+                }`}
+              >
+                ${formatCLP(p)}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="border border-[#DEDEDE] bg-white p-8">
+          <p className="font-sans text-[11px] font-semibold uppercase tracking-widest text-[#666666] mb-2">
+            Tu ingreso estimado
+          </p>
+          <p className="font-serif text-[48px] font-bold text-[#121212] leading-none mb-1" style={{ letterSpacing: "-0.02em" }}>
+            ${formatCLP(gross)}
+          </p>
+          <p className="font-sans text-[12px] text-[#666666] mb-6">
+            CLP al mes · con {subscribers} suscriptores a ${formatCLP(pricePerSub)}
+          </p>
+          <hr className="nyt-rule mb-5" />
+          <div className="space-y-3">
+            {[
+              { label: "Plan Libre (10% comisión)", value: Math.round(gross * 0.9) },
+              { label: "Plan Creador (3% comisión)", value: Math.round(gross * 0.97) },
+              { label: "Plan Pro (0% comisión)", value: gross },
+            ].map((row) => (
+              <div key={row.label} className="flex justify-between">
+                <span className="font-sans text-[12px] text-[#666666]">{row.label}</span>
+                <span className="font-sans text-[12px] font-semibold text-[#121212]">
+                  ${formatCLP(row.value)} CLP
+                </span>
+              </div>
+            ))}
           </div>
         </div>
       </div>
-    </motion.section>
+    </section>
   );
 }
 
-/* ─── FAQItem ────────────────────────────────────────────────────────────── */
-
 function FAQItem({ item, index }: { item: (typeof FAQ_ITEMS)[0]; index: number }) {
   const [open, setOpen] = useState(false);
-
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.35, delay: 0.55 + index * 0.06, ease: [0.16, 1, 0.3, 1] }}
-      className="border-b border-[#E5E7EB] last:border-0"
-    >
+    <div className="border-b border-[#DEDEDE] last:border-b-0">
       <button
         onClick={() => setOpen(!open)}
-        className="flex w-full items-center justify-between py-4 text-left"
+        className="flex w-full items-center justify-between py-4 text-left gap-4"
       >
-        <span className="font-[var(--font-inter),Inter,sans-serif] text-sm font-[500] text-[#0A0A0A] pr-4">
+        <span className="font-serif text-[16px] font-bold text-[#121212]" style={{ letterSpacing: "-0.01em" }}>
           {item.q}
         </span>
-        {open ? (
-          <ChevronUp size={15} className="shrink-0 text-[#0066FF]" />
-        ) : (
-          <ChevronDown size={15} className="shrink-0 text-[#6B7280]" />
-        )}
+        {open
+          ? <ChevronUp size={14} className="shrink-0 text-[#C41C1C]" />
+          : <ChevronDown size={14} className="shrink-0 text-[#666666]" />
+        }
       </button>
       <AnimatePresence>
         {open && (
@@ -302,100 +284,66 @@ function FAQItem({ item, index }: { item: (typeof FAQ_ITEMS)[0]; index: number }
             transition={{ duration: 0.2 }}
             className="overflow-hidden"
           >
-            <p className="pb-4 font-[var(--font-inter),Inter,sans-serif] text-sm text-[#6B7280] leading-relaxed">
+            <p className="font-sans text-[13px] text-[#666666] leading-relaxed pb-5">
               {item.a}
             </p>
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.div>
+    </div>
   );
 }
 
-/* ─── Page ──────────────────────────────────────────────────────────────── */
+function FAQ() {
+  return (
+    <section className="border-t border-[#DEDEDE] py-14 px-6">
+      <div className="max-w-3xl mx-auto">
+        <div className="mb-5">
+          <span className="section-label mb-3 inline-block">PREGUNTAS FRECUENTES</span>
+          <hr className="nyt-rule" />
+        </div>
+        <div className="border border-[#DEDEDE] bg-white px-8">
+          {FAQ_ITEMS.map((item, i) => (
+            <FAQItem key={i} item={item} index={i} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function PricingFooter() {
+  return (
+    <footer className="border-t border-[#DEDEDE] py-6 px-6">
+      <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+        <span className="font-sans text-[11px] font-semibold uppercase tracking-widest text-[#666666]">
+          SALA · CHILE · 2025
+        </span>
+        <a href="mailto:hello@sala.lat" className="font-sans text-[12px] text-[#666666] hover:text-[#121212] transition-colors duration-150">
+          hello@sala.lat
+        </a>
+      </div>
+    </footer>
+  );
+}
 
 export default function PreciosPage() {
   return (
-    <main className="min-h-screen bg-[#F8F8F8] px-6 py-20">
-
-      {/* Nav */}
-      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-[#E5E7EB] bg-[#F8F8F8]/90 backdrop-blur-md">
-        <div className="mx-auto flex h-12 max-w-5xl items-center justify-between px-6">
-          <a href="/" className="font-[var(--font-inter),Inter,sans-serif] text-sm font-[700] tracking-tight text-[#0A0A0A]">
-            Sala
-          </a>
-          <a
-            href="/abrir"
-            className="rounded-md bg-[#0066FF] px-3 py-1.5 font-[var(--font-inter),Inter,sans-serif] text-xs font-[600] text-white transition-colors hover:bg-[#0052CC]"
-          >
-            Abrir mi sala
-          </a>
-        </div>
-      </nav>
-
-      <div className="mx-auto max-w-5xl pt-8">
-
-        {/* Hero */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-14 text-center"
+    <main className="min-h-screen bg-white">
+      <PricingNav />
+      <PlansGrid />
+      <Calculator />
+      <FAQ />
+      <div className="border-t border-[#DEDEDE] py-14 px-6 text-center">
+        <p className="font-sans text-[13px] text-[#666666] mb-5">¿Listo para abrir tu sala?</p>
+        <a
+          href="/abrir"
+          className="font-sans text-[13px] font-medium px-8 py-3 bg-[#121212] text-white hover:bg-[#333] transition-colors duration-150 inline-block"
         >
-          <h1 className="mb-3 font-[var(--font-inter),Inter,sans-serif] text-4xl font-[800] leading-tight tracking-tight text-[#0A0A0A] sm:text-5xl">
-            Empieza gratis.{" "}
-            <span className="text-[#0066FF]">Gana desde el primer día.</span>
-          </h1>
-          <p className="mx-auto max-w-sm font-[var(--font-inter),Inter,sans-serif] text-base text-[#6B7280]">
-            Sala solo gana cuando tú ganas.
-          </p>
-        </motion.div>
-
-        {/* Plans */}
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-          {PLANS.map((plan, i) => (
-            <PlanCard key={plan.id} plan={plan} index={i} />
-          ))}
-        </div>
-
-        {/* Calculator */}
-        <Calculator />
-
-        {/* FAQ */}
-        <motion.section
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.4, delay: 0.5 }}
-          className="mx-auto mt-16 max-w-2xl"
-        >
-          <h2 className="mb-6 font-[var(--font-inter),Inter,sans-serif] text-xl font-[700] tracking-tight text-[#0A0A0A]">
-            Preguntas frecuentes
-          </h2>
-          <div className="rounded-xl border border-[#E5E7EB] bg-white px-6">
-            {FAQ_ITEMS.map((item, i) => (
-              <FAQItem key={i} item={item} index={i} />
-            ))}
-          </div>
-        </motion.section>
-
-        {/* Bottom CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.85 }}
-          className="mt-16 text-center"
-        >
-          <p className="mb-4 font-[var(--font-inter),Inter,sans-serif] text-sm text-[#6B7280]">
-            ¿Listo para abrir tu sala?
-          </p>
-          <a
-            href="/abrir"
-            className="inline-block rounded-lg bg-[#0066FF] px-7 py-3 font-[var(--font-inter),Inter,sans-serif] text-sm font-[600] text-white transition-all hover:bg-[#0052CC] active:scale-[0.98]"
-          >
-            Abrir mi sala gratis →
-          </a>
-        </motion.div>
+          Abrir mi sala gratis →
+        </a>
       </div>
+      <PricingFooter />
     </main>
   );
 }

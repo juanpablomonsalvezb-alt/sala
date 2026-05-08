@@ -121,7 +121,7 @@ export default async function DashboardPage() {
 
   // Cargar creator profile
   const { data: creatorRaw } = await db
-    .from('creators')
+    .from('sala_creators')
     .select('*')
     .eq('user_id', user.id)
     .maybeSingle()
@@ -147,7 +147,7 @@ export default async function DashboardPage() {
 
   // Cargar posts del creador (últimos 5)
   const { data: postsRaw } = await db
-    .from('posts')
+    .from('sala_posts')
     .select('*')
     .eq('creator_id', creator.id)
     .order('created_at', { ascending: false })
@@ -157,7 +157,7 @@ export default async function DashboardPage() {
 
   // Cargar subscriptions activas
   const { data: subsRaw } = await db
-    .from('subscriptions')
+    .from('sala_subscriptions')
     .select('*')
     .eq('creator_id', creator.id)
     .eq('status', 'active')
@@ -166,12 +166,12 @@ export default async function DashboardPage() {
 
   // Total de posts
   const { count: totalPosts } = await db
-    .from('posts')
+    .from('sala_posts')
     .select('*', { count: 'exact', head: true })
     .eq('creator_id', creator.id)
 
   const { count: draftCount } = await db
-    .from('posts')
+    .from('sala_posts')
     .select('*', { count: 'exact', head: true })
     .eq('creator_id', creator.id)
     .is('published_at', null)

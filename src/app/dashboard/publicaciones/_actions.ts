@@ -18,7 +18,7 @@ export async function deletePost(formData: FormData) {
   if (!user) return
 
   const { data: creatorRaw } = await db
-    .from('creators')
+    .from('sala_creators')
     .select('id')
     .eq('user_id', user.id)
     .maybeSingle()
@@ -27,7 +27,7 @@ export async function deletePost(formData: FormData) {
   if (!creator) return
 
   await db
-    .from('posts')
+    .from('sala_posts')
     .delete()
     .eq('id', postId)
     .eq('creator_id', creator.id)
@@ -50,7 +50,7 @@ export async function unpublishPost(formData: FormData) {
   if (!user) return
 
   const { data: creatorRaw } = await db
-    .from('creators')
+    .from('sala_creators')
     .select('id')
     .eq('user_id', user.id)
     .maybeSingle()
@@ -59,7 +59,7 @@ export async function unpublishPost(formData: FormData) {
   if (!creator) return
 
   await db
-    .from('posts')
+    .from('sala_posts')
     .update({ published_at: null })
     .eq('id', postId)
     .eq('creator_id', creator.id)

@@ -47,7 +47,7 @@ export async function createPost(input: CreatePostInput): Promise<CreatePostResu
 
   // Obtener creator del usuario
   const { data: creatorRaw, error: creatorError } = await supabase
-    .from('creators')
+    .from('sala_creators')
     .select('id')
     .eq('user_id', user.id)
     .maybeSingle()
@@ -67,7 +67,7 @@ export async function createPost(input: CreatePostInput): Promise<CreatePostResu
   const supabaseAny = supabase as any
 
   const { data: postRaw, error: insertError } = await supabaseAny
-    .from('posts')
+    .from('sala_posts')
     .insert({
       creator_id: creator.id,
       title: input.title,

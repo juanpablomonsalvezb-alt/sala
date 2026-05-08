@@ -35,7 +35,7 @@ export async function updateCreatorProfile(
   }
 
   const { error } = await db
-    .from('creators')
+    .from('sala_creators')
     .update({
       name: input.name,
       specialty: input.specialty,

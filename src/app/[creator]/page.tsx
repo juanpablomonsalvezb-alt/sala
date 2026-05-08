@@ -99,7 +99,7 @@ export async function generateMetadata({
     try {
       const supabase = await createClient()
       const { data } = await supabase
-        .from('creators')
+        .from('sala_creators')
         .select('*')
         .eq('slug', slug)
         .single()
@@ -406,7 +406,7 @@ export default async function CreatorPage({
 
       // Obtener el creador por slug
       const { data: creatorData, error: creatorError } = await supabase
-        .from('creators')
+        .from('sala_creators')
         .select('*')
         .eq('slug', slug)
         .single()
@@ -424,7 +424,7 @@ export default async function CreatorPage({
 
       if (user) {
         const { data: sub } = await supabase
-          .from('subscriptions')
+          .from('sala_subscriptions')
           .select('id')
           .eq('subscriber_id', user.id)
           .eq('creator_id', creator!.id)
@@ -436,7 +436,7 @@ export default async function CreatorPage({
 
       // Obtener posts publicados
       const postsQuery = supabase
-        .from('posts')
+        .from('sala_posts')
         .select('*')
         .eq('creator_id', creator!.id)
         .not('published_at', 'is', null)

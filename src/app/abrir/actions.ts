@@ -63,7 +63,7 @@ export async function createCreatorProfile(
 
   // Verificar si el usuario ya tiene un perfil de creador
   const { data: existing } = await supabase
-    .from('creators')
+    .from('sala_creators')
     .select('slug')
     .eq('user_id', user.id)
     .maybeSingle()
@@ -78,7 +78,7 @@ export async function createCreatorProfile(
 
   // Verificar unicidad del slug y agregar sufijo si es necesario
   const { data: slugConflict } = await supabase
-    .from('creators')
+    .from('sala_creators')
     .select('slug')
     .eq('slug', slug)
     .maybeSingle()
@@ -88,7 +88,7 @@ export async function createCreatorProfile(
   }
 
   // Insertar en la tabla creators
-  const { error: insertError } = await supabase.from('creators').insert({
+  const { error: insertError } = await supabase.from('sala_creators').insert({
     user_id: user.id,
     name: nombre,
     slug,
@@ -109,7 +109,7 @@ export async function createCreatorProfile(
   }
 
   // Actualizar el perfil marcándolo como creador
-  await supabase.from('profiles').update({ is_creator: true }).eq('id', user.id)
+  await supabase.from('sala_profiles').update({ is_creator: true }).eq('id', user.id)
 
   redirect('/dashboard')
 }

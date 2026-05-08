@@ -20,7 +20,7 @@ export async function GET() {
   try {
     const supabase = await createClient()
     const { data, error } = await supabase
-      .from('creators')
+      .from('sala_creators')
       .select('*')
       .order('subscriber_count', { ascending: false })
 

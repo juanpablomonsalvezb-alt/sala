@@ -21,7 +21,7 @@ export default async function DashboardLayout({
   }
 
   const { data: creatorRaw } = await db
-    .from('creators')
+    .from('sala_creators')
     .select('*')
     .eq('user_id', user.id)
     .maybeSingle()

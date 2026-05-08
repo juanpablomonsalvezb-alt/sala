@@ -67,7 +67,7 @@ export default async function PublicacionesPage() {
   if (!user) redirect('/entrar')
 
   const { data: creatorRaw } = await db
-    .from('creators')
+    .from('sala_creators')
     .select('id')
     .eq('user_id', user.id)
     .maybeSingle()
@@ -76,7 +76,7 @@ export default async function PublicacionesPage() {
   if (!creator) redirect('/abrir')
 
   const { data: postsRaw } = await db
-    .from('posts')
+    .from('sala_posts')
     .select('*')
     .eq('creator_id', creator!.id)
     .order('created_at', { ascending: false })

@@ -4,16 +4,16 @@ export type Creator = {
   id: string
   user_id: string
   name: string
-  slug: string // URL única: sala.lat/[slug]
+  slug: string
   specialty: string
   bio: string
   bio_long: string | null
   linkedin_url: string | null
-  price_clp: number // precio mensual en CLP
+  price_clp: number
   plan: 'free' | 'creator' | 'pro'
   publish_frequency: string
   created_at: string
-  subscriber_count: number // campo calculado/cacheado
+  subscriber_count: number
   stripe_account_id: string | null
 }
 
@@ -22,7 +22,7 @@ export type Post = {
   creator_id: string
   title: string
   excerpt: string | null
-  content: string // markdown
+  content: string
   is_free: boolean
   published_at: string | null
   created_at: string
@@ -32,7 +32,7 @@ export type Post = {
 
 export type Subscription = {
   id: string
-  subscriber_id: string // = auth.users.id del suscriptor
+  subscriber_id: string
   creator_id: string
   status: 'active' | 'cancelled' | 'past_due'
   stripe_subscription_id: string | null
@@ -42,7 +42,7 @@ export type Subscription = {
 }
 
 export type Profile = {
-  id: string // = auth.users.id
+  id: string
   email: string
   full_name: string | null
   avatar_url: string | null
@@ -50,51 +50,45 @@ export type Profile = {
   created_at: string
 }
 
-// ─── Tipos de base de datos (para @supabase/ssr generics) ────────────────────
+// ─── Database type para @supabase/ssr ────────────────────────────────────────
+
+type TableDef<Row, Insert = Partial<Row>, Update = Partial<Row>> = {
+  Row: Row
+  Insert: Insert
+  Update: Update
+  Relationships: []
+}
 
 export type Database = {
   public: {
     Tables: {
-      profiles: {
-        Row: Profile
-        Insert: Omit<Profile, 'created_at'> & { created_at?: string }
-        Update: Partial<Omit<Profile, 'id'>>
-        Relationships: []
-      }
-      creators: {
-        Row: Creator
-        Insert: Omit<Creator, 'id' | 'created_at' | 'subscriber_count'> & {
-          id?: string
-          created_at?: string
-          subscriber_count?: number
-        }
-        Update: Partial<Omit<Creator, 'id' | 'created_at'>>
-        Relationships: []
-      }
-      posts: {
-        Row: Post
-        Insert: Omit<Post, 'id' | 'created_at'> & {
-          id?: string
-          created_at?: string
-        }
-        Update: Partial<Omit<Post, 'id' | 'created_at'>>
-        Relationships: []
-      }
-      subscriptions: {
-        Row: Subscription
-        Insert: Omit<Subscription, 'id' | 'created_at'> & {
-          id?: string
-          created_at?: string
-        }
-        Update: Partial<Omit<Subscription, 'id' | 'created_at'>>
-        Relationships: []
-      }
+      sala_profiles: TableDef<
+        Profile,
+        Omit<Profile, 'created_at'> & { created_at?: string },
+        Partial<Omit<Profile, 'id'>>
+      >
+      sala_creators: TableDef<
+        Creator,
+        Omit<Creator, 'id' | 'created_at' | 'subscriber_count'> & { id?: string; created_at?: string; subscriber_count?: number },
+        Partial<Omit<Creator, 'id'>>
+      >
+      sala_posts: TableDef<
+        Post,
+        Omit<Post, 'id' | 'created_at'> & { id?: string; created_at?: string },
+        Partial<Omit<Post, 'id'>>
+      >
+      sala_subscriptions: TableDef<
+        Subscription,
+        Omit<Subscription, 'id' | 'created_at'> & { id?: string; created_at?: string },
+        Partial<Omit<Subscription, 'id'>>
+      >
     }
     Views: Record<string, never>
     Functions: Record<string, never>
     Enums: {
-      creator_plan: 'free' | 'creator' | 'pro'
-      subscription_status: 'active' | 'cancelled' | 'past_due'
+      sala_creator_plan: 'free' | 'creator' | 'pro'
+      sala_subscription_status: 'active' | 'cancelled' | 'past_due'
     }
+    CompositeTypes: Record<string, never>
   }
 }

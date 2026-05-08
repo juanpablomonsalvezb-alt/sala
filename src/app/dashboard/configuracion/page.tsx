@@ -17,7 +17,7 @@ export default async function ConfiguracionPage() {
   if (!user) redirect('/entrar')
 
   const { data: creatorRaw } = await db
-    .from('creators')
+    .from('sala_creators')
     .select('*')
     .eq('user_id', user.id)
     .maybeSingle()

@@ -108,7 +108,7 @@ export async function generateMetadata({
     try {
       const supabase = await createClient()
       const { data: creatorData } = await supabase
-        .from('creators')
+        .from('sala_creators')
         .select('*')
         .eq('slug', creatorSlug)
         .single()
@@ -117,7 +117,7 @@ export async function generateMetadata({
       if (creator != null) {
         const creatorId = (creator as Creator).id
         const { data: postData } = await supabase
-          .from('posts')
+          .from('sala_posts')
           .select('*')
           .eq('creator_id', creatorId)
           .eq('slug', postSlug)
@@ -392,19 +392,21 @@ export default async function PostPage({
 
       // Obtener creator
       const { data: creatorData, error: creatorError } = await supabase
-        .from('creators')
+        .from('sala_creators')
         .select('*')
         .eq('slug', creatorSlug)
         .single()
 
       if (creatorError || !creatorData) notFound()
-      creator = creatorData
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      creator = creatorData as any
 
       // Obtener post
+      const creatorId = (creator as any).id
       const { data: postData, error: postError } = await supabase
-        .from('posts')
+        .from('sala_posts')
         .select('*')
-        .eq('creator_id', creator!.id)
+        .eq('creator_id', creatorId)
         .eq('slug', postSlug)
         .not('published_at', 'is', null)
         .single()
@@ -419,7 +421,7 @@ export default async function PostPage({
 
       if (user) {
         const { data: sub } = await supabase
-          .from('subscriptions')
+          .from('sala_subscriptions')
           .select('id')
           .eq('subscriber_id', user.id)
           .eq('creator_id', creator!.id)

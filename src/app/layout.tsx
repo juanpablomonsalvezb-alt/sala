@@ -1,19 +1,19 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Playfair_Display } from "next/font/google";
+import { Libre_Baskerville, Public_Sans } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({
-  variable: "--font-inter",
+const publicSans = Public_Sans({
+  variable: "--font-sans",
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
   display: "swap",
   preload: true,
 });
 
-const playfair = Playfair_Display({
-  variable: "--font-playfair",
+const libreBaskerville = Libre_Baskerville({
+  variable: "--font-serif",
   subsets: ["latin"],
-  weight: ["400", "700", "800"],
+  weight: ["400", "700"],
   style: ["normal", "italic"],
   display: "swap",
   preload: true,
@@ -57,7 +57,7 @@ export default function RootLayout({
   return (
     <html
       lang="es"
-      className={`${inter.variable} ${playfair.variable} h-full`}
+      className={`${publicSans.variable} ${libreBaskerville.variable} h-full`}
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col bg-white text-[#121212] font-sans antialiased">

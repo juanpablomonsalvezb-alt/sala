@@ -10,7 +10,7 @@ export async function getCreatorBySlug(slug: string): Promise<Creator | null> {
   const supabase = await createClient()
 
   const { data, error } = await supabase
-    .from('creators')
+    .from('sala_creators')
     .select('*')
     .eq('slug', slug)
     .single()
@@ -32,7 +32,7 @@ export async function getPostsByCreator(
   const supabase = await createClient()
 
   let query = supabase
-    .from('posts')
+    .from('sala_posts')
     .select('*')
     .eq('creator_id', creatorId)
     .not('published_at', 'is', null)
@@ -64,7 +64,7 @@ export async function getSubscriptionStatus(creatorId: string): Promise<boolean>
   if (!user) return false
 
   const { data, error } = await supabase
-    .from('subscriptions')
+    .from('sala_subscriptions')
     .select('id')
     .eq('creator_id', creatorId)
     .eq('subscriber_id', user.id)
@@ -90,7 +90,7 @@ export async function getCurrentUser(): Promise<Profile | null> {
   if (authError || !user) return null
 
   const { data, error } = await supabase
-    .from('profiles')
+    .from('sala_profiles')
     .select('*')
     .eq('id', user.id)
     .single()

@@ -213,7 +213,7 @@ export default async function SuscribirsePage({
     try {
       const supabase = await createClient()
       const { data, error } = await supabase
-        .from('creators')
+        .from('sala_creators')
         .select('*')
         .eq('slug', slug)
         .single()

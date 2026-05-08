@@ -60,7 +60,7 @@ export async function POST(request: Request) {
       }
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const { error } = await (supabase as any).from('subscriptions').insert(newSub)
+      const { error } = await (supabase as any).from('sala_subscriptions').insert(newSub)
 
       if (error) {
         console.error('Error insertando subscription:', error)
@@ -75,7 +75,7 @@ export async function POST(request: Request) {
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const { error } = await (supabase as any)
-        .from('subscriptions')
+        .from('sala_subscriptions')
         .update({ status: 'cancelled', cancelled_at: new Date().toISOString() })
         .eq('stripe_subscription_id', subscription.id)
 
@@ -103,7 +103,7 @@ export async function POST(request: Request) {
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const { error } = await (supabase as any)
-        .from('subscriptions')
+        .from('sala_subscriptions')
         .update({ status: 'past_due' })
         .eq('stripe_subscription_id', subscriptionId)
 

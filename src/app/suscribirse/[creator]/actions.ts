@@ -41,7 +41,7 @@ export async function createCheckoutSession(
 
   // Obtener creator
   const { data: creator, error: creatorError } = await supabase
-    .from('creators')
+    .from('sala_creators')
     .select('*')
     .eq('slug', creatorSlug)
     .single()
@@ -52,7 +52,7 @@ export async function createCheckoutSession(
 
   // Verificar suscripción existente
   const { data: existingSub } = await supabase
-    .from('subscriptions')
+    .from('sala_subscriptions')
     .select('id')
     .eq('subscriber_id', user.id)
     .eq('creator_id', creator.id)

@@ -30,7 +30,7 @@ export async function POST(request: NextRequest) {
 
   // Obtener el creator con su precio
   const { data: creatorRaw, error: creatorError } = await supabase
-    .from('creators')
+    .from('sala_creators')
     .select('*')
     .eq('slug', creatorSlug)
     .single()
@@ -50,7 +50,7 @@ export async function POST(request: NextRequest) {
 
   // Verificar que el usuario no tenga ya una suscripción activa
   const { data: existingSub } = await supabase
-    .from('subscriptions')
+    .from('sala_subscriptions')
     .select('id, status')
     .eq('subscriber_id', userId)
     .eq('creator_id', creator.id)

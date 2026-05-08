@@ -5,281 +5,227 @@ import { NumberTicker } from "@/components/ui/number-ticker";
 import { BlurFade } from "@/components/ui/blur-fade";
 import { BorderBeam } from "@/components/ui/border-beam";
 import { Marquee } from "@/components/ui/marquee";
-import { DotPattern } from "@/components/ui/dot-pattern";
-import { AnimatedList, AnimatedListItem } from "@/components/ui/animated-list";
+import { AnimatedList } from "@/components/ui/animated-list";
+import { LineShadowText } from "@/components/ui/line-shadow-text";
+import { SpinningText } from "@/components/ui/spinning-text";
 import {
-  IconBolt,
-  IconCash,
-  IconShieldLock,
-  IconChartBar,
-  IconUsers,
-  IconEditCircle,
-  IconStar,
-  IconChevronDown,
-  IconChevronUp,
-  IconArrowRight,
+  IconBolt, IconCash, IconShieldLock, IconChartBar,
+  IconUsers, IconEditCircle, IconChevronDown, IconChevronUp, IconArrowRight,
 } from "@tabler/icons-react";
 import { useState } from "react";
 
-/* ─── Paleta ─────────────────────────────────────────────────────────────
-   Blanco #FFFFFF · Crema #F8F7F5 · Tinta #111111 · Crimson #B31C1C
-   Muted #555 · Borde #E5E5E5 · Sombra sutil
-─────────────────────────────────────────────────────────────────────── */
+/* ─── Data ──────────────────────────────────────────────────────────────── */
 
-const stats = [
-  { value: 34,   pre: "",  suf: "",  label: "Creadores activos" },
-  { value: 2418, pre: "",  suf: "+", label: "Suscriptores pagando" },
-  { value: 180,  pre: "$", suf: "K", label: "Generados en 2025" },
-  { value: 95,   pre: "",  suf: "%", label: "Retención mensual" },
+const featuredCreators = [
+  { initial: "RF", name: "RODRIGO FUENTES",  specialty: "ECONOMÍA",          color: "#1a1a2e", earnings: "8.470.000", subscribers: 847,  posts: 48, since: "Ene 2025", href: "/rodrigo-fuentes"  },
+  { initial: "IC", name: "ISABEL CONTRERAS", specialty: "DERECHO TRIBUTARIO", color: "#1a2e1a", earnings: "6.240.000", subscribers: 523,  posts: 31, since: "Feb 2025", href: "/isabel-contreras" },
+  { initial: "MS", name: "MARCO SALINAS",    specialty: "ARQUITECTURA",       color: "#2e1a1a", earnings: "2.490.000", subscribers: 312,  posts: 24, since: "Mar 2025", href: "/marco-salinas"    },
 ];
 
 const features = [
-  { icon: IconEditCircle, title: "Editor profesional",     body: "Escribe, formatea y publica contenido de largo aliento. Tú decides qué es libre y qué es exclusivo." },
-  { icon: IconUsers,      title: "Gestión de audiencia",   body: "CRM completo de tus lectores. Segmenta, comunícate y conoce a quienes realmente pagan." },
-  { icon: IconCash,       title: "Pagos directos",         body: "Cobra suscripciones mes a mes directo a tu cuenta. 0% de comisión con Plan Pro." },
-  { icon: IconChartBar,   title: "Analytics real",         body: "Aperturas, retención, ingresos. Los datos que importan para crecer tu sala." },
-  { icon: IconShieldLock, title: "Acceso por membresía",   body: "Tus suscriptores pagan para leer lo que sólo tú puedes escribir. Sin filtros externos." },
-  { icon: IconBolt,       title: "Listo en 15 minutos",    body: "Sin código, sin diseñador. Configuras tu perfil, fijas tu precio y publicas hoy." },
-];
-
-const creators = [
-  { name: "Rodrigo Fuentes",  specialty: "ECONOMÍA",          initial: "RF", color: "#1a1a2e", bio: "Análisis semanal del mercado chileno sin el filtro del titular.",               price: "$9.990",  subscribers: 847, posts: 48, href: "/rodrigo-fuentes"  },
-  { name: "Isabel Contreras", specialty: "DERECHO TRIBUTARIO", initial: "IC", color: "#1a2e1a", bio: "Lo que el SII no te explica, pero necesitas saber para no pagar de más.",        price: "$12.990", subscribers: 523, posts: 31, href: "/isabel-contreras" },
-  { name: "Marco Salinas",    specialty: "ARQUITECTURA",       initial: "MS", color: "#2e1a1a", bio: "Arquitectura latinoamericana que no sale en los libros.",                        price: "$7.990",  subscribers: 312, posts: 24, href: "/marco-salinas"    },
+  { icon: IconEditCircle, num: "I",   title: "Editor profesional",   body: "Escribe, formatea y publica contenido largo. Tú controlas qué es libre y qué es exclusivo." },
+  { icon: IconUsers,      num: "II",  title: "Gestión de audiencia", body: "CRM de tus lectores. Segmenta, comunícate y conoce a quienes realmente pagan." },
+  { icon: IconCash,       num: "III", title: "Pagos directos",       body: "Cobra suscripciones mes a mes directo a tu cuenta. 0% de comisión con Plan Pro." },
+  { icon: IconChartBar,   num: "IV",  title: "Analytics real",       body: "Aperturas, retención, ingresos. Los datos que importan para crecer." },
+  { icon: IconShieldLock, num: "V",   title: "Acceso por membresía", body: "Tus suscriptores pagan para leer lo que sólo tú puedes escribir." },
+  { icon: IconBolt,       num: "VI",  title: "Listo en 15 minutos",  body: "Sin código, sin diseñador. Configuras tu perfil, precio y publicas hoy." },
 ];
 
 const plans = [
-  { name: "Pro",      price: "$39.990",  period: "al mes",       desc: "Para quienes van en serio.",            cta: "Probar gratis", featured: false, note: "0% de comisión",   perks: ["Todo del plan Creador", "0% de comisión", "Dominio personalizado", "Acceso API"] },
-  { name: "Creador",  price: "$15.990",  period: "al mes",       desc: "Para creadores en crecimiento.",        cta: "Probar gratis", featured: true,  note: "5% de comisión",   perks: ["Todo del plan Gratis", "Suscriptores ilimitados", "Analytics avanzado", "Soporte prioritario"] },
-  { name: "Gratis",   price: "$0",       period: "para siempre", desc: "Lo esencial para empezar.",            cta: "Abre gratis",   featured: false, note: "10% de comisión",  perks: ["Sala personalizada", "Publicaciones ilimitadas", "Hasta 100 suscriptores", "Pagos via Stripe"] },
+  { name: "Pro",     price: "$39.990", period: "/ mes", note: "0% comisión", cta: "Probar gratis", featured: false, perks: ["Todo del plan Creador", "0% de comisión", "Dominio propio", "API"] },
+  { name: "Creador", price: "$15.990", period: "/ mes", note: "5% comisión", cta: "Probar gratis", featured: true,  perks: ["Todo del plan Gratis", "Suscriptores ilimitados", "Analytics", "Soporte"] },
+  { name: "Gratis",  price: "$0",      period: "        ", note: "10% comisión", cta: "Abre gratis",   featured: false, perks: ["Sala personalizada", "Publicaciones ilimitadas", "100 suscriptores", "Stripe"] },
 ];
 
 const faqs = [
-  { q: "¿Necesito saber programar para abrir mi sala?",          a: "No. Sala está diseñado para que cualquier profesional configure su espacio y empiece a publicar en 15 minutos, sin código ni diseño." },
-  { q: "¿Cómo recibo los pagos de mis suscriptores?",            a: "Los pagos se procesan vía Stripe y llegan directamente a tu cuenta. En Plan Gratis Sala toma un 10%; en Plan Pro el 0%." },
-  { q: "¿Puedo tener contenido gratuito y de pago a la vez?",    a: "Sí. Tú decides qué publicaciones son abiertas al público y cuáles son exclusivas para suscriptores." },
-  { q: "¿Qué pasa si quiero cancelar?",                          a: "Puedes cancelar en cualquier momento. Tus datos y publicaciones permanecen accesibles." },
-  { q: "¿Sala funciona fuera de Chile?",                         a: "Sí. Disponible en toda Latinoamérica y para creadores de habla hispana en cualquier país." },
+  { q: "¿Necesito saber programar?",                        a: "No. Configuras tu sala en 15 minutos, sin código ni diseño." },
+  { q: "¿Cómo recibo los pagos?",                           a: "Stripe directo a tu cuenta. Plan Gratis 10% comisión, Plan Pro 0%." },
+  { q: "¿Puedo tener contenido gratuito y de pago?",        a: "Sí. Tú decides qué es abierto y qué es exclusivo." },
+  { q: "¿Qué pasa si cancelo?",                             a: "Cancelas cuando quieras. Tus datos quedan accesibles." },
+  { q: "¿Sala funciona fuera de Chile?",                    a: "Sí. Disponible en toda Latinoamérica." },
 ];
 
-const tickerTags = ["ECONOMÍA","DERECHO","MEDICINA","ARQUITECTURA","FINANZAS","EDUCACIÓN","TECNOLOGÍA","MARKETING","CIENCIA POLÍTICA","NUTRICIÓN","PSICOLOGÍA","INGENIERÍA"];
-
 const liveEvents = [
-  { initial: "MC", color: "#1a1a2e", name: "María C.",     action: "se suscribió a", creator: "Rodrigo Fuentes",  tag: "ECONOMÍA",          price: "$9.990/mes",  time: "ahora mismo" },
-  { initial: "JP", color: "#1a2e1a", name: "Juan P.",      action: "se suscribió a", creator: "Isabel Contreras", tag: "DERECHO",            price: "$12.990/mes", time: "hace 1 min"  },
-  { initial: "AR", color: "#2e1a1a", name: "Ana R.",       action: "se suscribió a", creator: "Marco Salinas",    tag: "ARQUITECTURA",       price: "$7.990/mes",  time: "hace 3 min"  },
-  { initial: "CF", color: "#1e2a3e", name: "Carlos F.",    action: "se suscribió a", creator: "Lucía Morales",    tag: "FINANZAS",           price: "$8.990/mes",  time: "hace 5 min"  },
-  { initial: "SV", color: "#2a1e2e", name: "Sofía V.",     action: "se suscribió a", creator: "Carlos Venegas",   tag: "MEDICINA",           price: "$14.990/mes", time: "hace 7 min"  },
-  { initial: "DM", color: "#1a2e2a", name: "Diego M.",     action: "se suscribió a", creator: "Ana Reyes",        tag: "EDUCACIÓN",          price: "$6.990/mes",  time: "hace 9 min"  },
-  { initial: "PL", color: "#2e2a1a", name: "Patricia L.",  action: "se suscribió a", creator: "Rodrigo Fuentes",  tag: "ECONOMÍA",           price: "$9.990/mes",  time: "hace 11 min" },
+  { initial: "MC", color: "#1a1a2e", name: "María C.",    creator: "Rodrigo Fuentes",  tag: "ECONOMÍA",    price: "$9.990/mes",  time: "ahora" },
+  { initial: "JP", color: "#1a2e1a", name: "Juan P.",     creator: "Isabel Contreras", tag: "DERECHO",     price: "$12.990/mes", time: "1 min" },
+  { initial: "AR", color: "#2e1a1a", name: "Ana R.",      creator: "Marco Salinas",    tag: "ARQUITECTURA",price: "$7.990/mes",  time: "3 min" },
+  { initial: "CF", color: "#1e2a3e", name: "Carlos F.",   creator: "Lucía Morales",    tag: "FINANZAS",    price: "$8.990/mes",  time: "5 min" },
+  { initial: "SV", color: "#2a1e2e", name: "Sofía V.",    creator: "Carlos Venegas",   tag: "MEDICINA",    price: "$14.990/mes", time: "7 min" },
 ];
 
 function FaqItem({ q, a }: { q: string; a: string }) {
   const [open, setOpen] = useState(false);
   return (
-    <button className="w-full text-left border-b border-[#E5E5E5] py-5 group" onClick={() => setOpen(!open)}>
+    <button className="w-full text-left border-b border-[#E0E0E0] py-5 group" onClick={() => setOpen(!open)}>
       <div className="flex items-center justify-between gap-4">
         <span className="text-[15px] font-semibold text-[#111] group-hover:text-[#B31C1C] transition-colors">{q}</span>
-        {open
-          ? <IconChevronUp  size={16} className="text-[#B31C1C] shrink-0" />
-          : <IconChevronDown size={16} className="text-[#767676] shrink-0" />}
+        {open ? <IconChevronUp size={15} className="text-[#B31C1C] shrink-0" /> : <IconChevronDown size={15} className="text-[#767676] shrink-0" />}
       </div>
-      {open && <p className="text-[14px] leading-[1.75] text-[#666] mt-3 pr-6">{a}</p>}
+      {open && <p className="text-[14px] leading-[1.75] text-[#555] mt-3 pr-6">{a}</p>}
     </button>
   );
 }
+
+/* ─── Page ──────────────────────────────────────────────────────────────── */
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-white text-[#111] font-sans">
 
-      {/* ══ NAV ════════════════════════════════════════════════════════════ */}
-      <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-[#E8E8E8]">
+      {/* ── NAV ─────────────────────────────────────────────────────────── */}
+      <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-[#E0E0E0]">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
-            <div className="w-7 h-7 bg-[#B31C1C] flex items-center justify-center shrink-0">
-              <span className="text-white font-black text-[14px] leading-none">S</span>
+            <div className="w-7 h-7 bg-[#B31C1C] flex items-center justify-center">
+              <span className="text-white font-black text-[13px]">S</span>
             </div>
             <span className="text-[18px] font-black uppercase tracking-[0.02em] text-[#111]">ALA</span>
           </Link>
           <nav className="hidden md:flex items-center gap-8">
-            {[
-              { label: "Explorar",        href: "/explorar" },
-              { label: "Para creadores",  href: "/para-creadores" },
-              { label: "Precios",         href: "/precios" },
-            ].map(({ label, href }) => (
-              <Link key={label} href={href} className="text-[13px] font-medium text-[#666] hover:text-[#111] transition-colors">
-                {label}
-              </Link>
+            {[{ label: "Explorar", href: "/explorar" }, { label: "Para creadores", href: "/para-creadores" }, { label: "Precios", href: "/precios" }].map(({ label, href }) => (
+              <Link key={label} href={href} className="text-[13px] font-medium text-[#555] hover:text-[#111] transition-colors">{label}</Link>
             ))}
           </nav>
           <div className="flex items-center gap-3">
-            <Link href="/entrar"  className="text-[13px] font-medium text-[#666] hover:text-[#111] transition-colors">Iniciar sesión</Link>
-            <Link href="/abrir"   className="bg-[#B31C1C] text-white px-5 py-2.5 text-[13px] font-bold rounded-sm hover:bg-[#8E1515] transition-colors">
+            <Link href="/entrar" className="text-[13px] font-medium text-[#555] hover:text-[#111] transition-colors">Iniciar sesión</Link>
+            <Link href="/abrir" className="bg-[#B31C1C] text-white px-5 py-2.5 text-[13px] font-bold hover:bg-[#8E1515] transition-colors">
               Abre tu sala
             </Link>
           </div>
         </div>
       </header>
 
-      {/* ══ HERO ═══════════════════════════════════════════════════════════ */}
-      <section className="border-b border-[#E8E8E8] overflow-hidden relative">
-        <DotPattern
-          width={24} height={24} cr={1}
-          className="text-[#B31C1C]/[0.07] [mask-image:radial-gradient(ellipse_80%_60%_at_50%_0%,white_30%,transparent_100%)]"
-        />
-        <div className="relative max-w-7xl mx-auto px-6 pt-20 pb-24">
-          <div className="grid lg:grid-cols-[1fr_500px] gap-16 items-center">
+      {/* ── HERO — portada editorial, no template SaaS ──────────────────── */}
+      <section className="border-b border-[#E0E0E0]">
+        <div className="max-w-7xl mx-auto px-6 pt-14 pb-0">
 
-            {/* LEFT */}
-            <div>
-              <BlurFade delay={0}>
-                <div className="inline-flex items-center gap-2 border border-[#E8E8E8] bg-[#F8F7F5] px-4 py-2 rounded-full mb-8">
-                  <div className="flex">
-                    {[0,1,2,3,4].map(i => <IconStar key={i} size={11} className="text-[#F59E0B] fill-[#F59E0B]" />)}
-                  </div>
-                  <span className="text-[12px] font-semibold text-[#555]">4.9 de 847 creadores</span>
-                </div>
-              </BlurFade>
-
-              <BlurFade delay={0.06}>
-                <h1 className="font-sans text-[clamp(38px,5vw,68px)] font-black leading-[0.95] tracking-[-0.03em] mb-6">
+          {/* Cabecera de portada */}
+          <div className="flex items-end justify-between pb-4 border-b-2 border-[#111]">
+            <BlurFade delay={0}>
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#767676] mb-1">Plataforma de conocimiento profesional · Chile y LATAM</p>
+                <h1 className="font-sans font-black text-[clamp(42px,6vw,82px)] leading-[0.9] tracking-[-0.04em]">
                   Tu conocimiento<br />
                   ya tiene{" "}
-                  <span className="relative inline-block">
-                    <span className="relative z-10 text-[#B31C1C]">precio.</span>
-                    <span className="absolute bottom-1 left-0 w-full h-[5px] bg-[#B31C1C]/15 -z-0 rounded-sm" />
-                  </span>
-                  <br />
-                  Empieza a cobrarlo.
+                  <LineShadowText shadowColor="#B31C1C" className="text-[#111]">
+                    precio.
+                  </LineShadowText>
                 </h1>
-              </BlurFade>
+              </div>
+            </BlurFade>
 
-              <BlurFade delay={0.12}>
-                <p className="text-[17px] leading-[1.8] text-[#555] max-w-lg mb-8">
-                  Para economistas, abogados, médicos, arquitectos y consultores que tienen clientes esperando su conocimiento — y aún no cobran por él.
-                </p>
-              </BlurFade>
-
-              <BlurFade delay={0.18}>
-                <div className="flex flex-wrap gap-3 mb-5">
-                  <Link href="/registro" className="flex items-center gap-3 border border-[#E0E0E0] bg-white px-6 py-3.5 text-[14px] font-semibold text-[#111] rounded-sm hover:border-[#B31C1C] hover:text-[#B31C1C] transition-all shadow-sm">
-                    <svg width="18" height="18" viewBox="0 0 24 24">
-                      <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-                      <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                      <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
-                      <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
-                    </svg>
-                    Continuar con Google
-                  </Link>
-                  <Link href="/abrir" className="bg-[#B31C1C] text-white px-6 py-3.5 text-[14px] font-bold rounded-sm hover:bg-[#8E1515] transition-colors shadow-sm">
-                    Abre tu sala gratis →
-                  </Link>
-                </div>
-                <p className="text-[12px] text-[#767676] uppercase tracking-[0.08em]">Sin tarjeta · 0% de comisión para empezar</p>
-
-                {/* Prueba social nombrada */}
-                <div className="mt-8 flex items-start gap-3 border-t border-[#F0F0F0] pt-6 max-w-md">
-                  <div className="w-9 h-9 rounded-full bg-[#1a1a2e] flex items-center justify-center shrink-0 text-[11px] font-bold text-white">RF</div>
-                  <div>
-                    <p className="text-[13px] text-[#111] font-medium leading-[1.5]">
-                      <span className="text-[#B31C1C] font-bold">+$510.000/mes recurrentes</span> en su primer trimestre
-                    </p>
-                    <p className="text-[11px] text-[#767676] mt-0.5">Rodrigo F. · Economista · Santiago, Chile · 340 suscriptores</p>
-                  </div>
-                </div>
-              </BlurFade>
-            </div>
-
-            {/* RIGHT — product mockup en blanco */}
-            <BlurFade delay={0.24}>
-              <div className="relative">
-                <div className="relative bg-white border border-[#E5E5E5] rounded-2xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.08)]">
-                  <BorderBeam size={400} duration={20} colorFrom="#B31C1C" colorTo="#FF8080" />
-
-                  {/* Browser chrome */}
-                  <div className="flex items-center gap-2 px-5 py-3 border-b border-[#F0F0F0] bg-[#FAFAFA]">
-                    <div className="flex gap-1.5">
-                      <div className="w-2.5 h-2.5 rounded-full bg-[#FF5F56]" />
-                      <div className="w-2.5 h-2.5 rounded-full bg-[#FFBD2E]" />
-                      <div className="w-2.5 h-2.5 rounded-full bg-[#27C93F]" />
-                    </div>
-                    <div className="flex-1 bg-white border border-[#E8E8E8] rounded-md px-3 py-1 mx-4">
-                      <span className="text-[11px] text-[#767676]">sala.lat/rodrigo-fuentes</span>
-                    </div>
-                  </div>
-
-                  <div className="p-6">
-                    {/* Creator header */}
-                    <div className="flex items-center gap-3 mb-5">
-                      <div className="w-10 h-10 rounded-full bg-[#1a1a2e] flex items-center justify-center shrink-0">
-                        <span className="text-[13px] font-bold text-white">RF</span>
-                      </div>
-                      <div>
-                        <p className="text-[13px] font-bold text-[#111]">Rodrigo Fuentes</p>
-                        <p className="text-[10px] font-bold text-[#B31C1C] uppercase tracking-[0.1em]">Economía</p>
-                      </div>
-                      <span className="ml-auto text-[10px] bg-[#DCFCE7] text-[#166534] px-2.5 py-1 rounded-full font-semibold uppercase tracking-[0.06em]">Activo</span>
-                    </div>
-
-                    {/* Earnings */}
-                    <div className="bg-[#FFF5F5] border border-[#FFD5D5] rounded-xl p-4 mb-4">
-                      <p className="text-[10px] text-[#767676] uppercase tracking-[0.12em] font-bold mb-1">Ingresos este mes</p>
-                      <p className="text-[34px] font-black text-[#111] leading-none tracking-[-0.02em]">$8.470.000</p>
-                      <div className="flex items-center gap-1.5 mt-1.5">
-                        <span className="text-[11px] text-[#166534] font-bold bg-[#DCFCE7] px-1.5 py-0.5 rounded">↑ 12%</span>
-                        <span className="text-[11px] text-[#767676]">vs mes anterior</span>
-                      </div>
-                    </div>
-
-                    {/* Bar chart */}
-                    <div className="mb-4">
-                      <div className="flex items-end gap-1.5 h-14">
-                        {[35,48,42,60,55,70,65,80,72,90,85,100].map((h, i) => (
-                          <div key={i} className={`flex-1 rounded-sm ${i === 11 ? "bg-[#B31C1C]" : "bg-[#F0F0F0]"}`} style={{ height: `${h}%` }} />
-                        ))}
-                      </div>
-                      <div className="flex justify-between mt-1.5">
-                        <span className="text-[9px] text-[#CCC] font-medium">Ene</span>
-                        <span className="text-[9px] text-[#CCC] font-medium">Dic</span>
-                      </div>
-                    </div>
-
-                    {/* Stats */}
-                    <div className="grid grid-cols-2 gap-3">
-                      {[{ label: "Suscriptores", value: "847" }, { label: "Publicaciones", value: "48" }].map(({ label, value }) => (
-                        <div key={label} className="bg-[#F8F7F5] border border-[#EEEEEE] rounded-xl p-3">
-                          <p className="text-[20px] font-black text-[#111]">{value}</p>
-                          <p className="text-[9px] text-[#767676] uppercase tracking-[0.1em] font-bold mt-0.5">{label}</p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Notification */}
-                <div className="absolute -bottom-4 -left-5 bg-white border border-[#E8E8E8] rounded-xl px-4 py-2.5 flex items-center gap-2.5 shadow-[0_8px_24px_rgba(0,0,0,0.1)]">
-                  <div className="w-7 h-7 rounded-full bg-[#B31C1C]/10 flex items-center justify-center shrink-0">
-                    <span className="text-[11px]">🔔</span>
-                  </div>
-                  <div>
-                    <p className="text-[11px] font-bold text-[#111]">María C. se suscribió</p>
-                    <p className="text-[10px] text-[#767676]">hace 2 min · $9.990/mes</p>
+            {/* SpinningText badge */}
+            <BlurFade delay={0.15}>
+              <div className="hidden md:flex items-center justify-center relative w-28 h-28 mb-2">
+                <SpinningText
+                  radius={4.2}
+                  duration={12}
+                  className="text-[10px] font-bold uppercase tracking-widest text-[#B31C1C]"
+                >
+                  {"COBRA · LO · QUE · SABES · "}
+                </SpinningText>
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="w-10 h-10 bg-[#B31C1C] flex items-center justify-center">
+                    <span className="text-white font-black text-[18px]">→</span>
                   </div>
                 </div>
               </div>
             </BlurFade>
           </div>
+
+          {/* Listado editorial de creadores — el visual principal */}
+          <div className="py-0">
+            {featuredCreators.map((c, i) => (
+              <BlurFade key={c.name} delay={0.1 + i * 0.07}>
+                <Link
+                  href={c.href}
+                  className="group flex items-center gap-0 border-b border-[#E8E8E8] py-5 hover:bg-[#FAFAFA] -mx-6 px-6 transition-colors"
+                >
+                  {/* Número */}
+                  <span className="font-serif text-[13px] text-[#767676] w-8 shrink-0">{String(i + 1).padStart(2, "0")}.</span>
+
+                  {/* Avatar inicial */}
+                  <div className="w-10 h-10 rounded-full flex items-center justify-center shrink-0 mr-5 text-[12px] font-black text-white" style={{ backgroundColor: c.color }}>
+                    {c.initial}
+                  </div>
+
+                  {/* Nombre + especialidad */}
+                  <div className="flex-1 min-w-0">
+                    <p className="font-black text-[clamp(16px,2vw,22px)] tracking-[-0.01em] group-hover:text-[#B31C1C] transition-colors">{c.name}</p>
+                    <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#B31C1C] mt-0.5">{c.specialty} · {c.subscribers.toLocaleString()} suscriptores · {c.posts} publicaciones · desde {c.since}</p>
+                  </div>
+
+                  {/* Earnings — el número que llama la atención */}
+                  <div className="text-right shrink-0 ml-6">
+                    <p className="font-serif font-bold text-[clamp(22px,3vw,40px)] leading-none tracking-[-0.02em] text-[#111]">
+                      ${c.earnings}
+                    </p>
+                    <p className="text-[10px] text-[#767676] font-medium mt-1">pesos / mes</p>
+                  </div>
+
+                  <IconArrowRight size={16} className="text-[#767676] ml-4 shrink-0 group-hover:text-[#B31C1C] transition-colors" />
+                </Link>
+              </BlurFade>
+            ))}
+          </div>
+
+          {/* CTA debajo del listado */}
+          <BlurFade delay={0.4}>
+            <div className="py-8 flex flex-col sm:flex-row items-start sm:items-center gap-6 border-b-2 border-[#111]">
+              <div className="flex-1">
+                <p className="text-[16px] font-semibold text-[#111]">
+                  Para economistas, abogados, médicos, arquitectos y consultores{" "}
+                  <span className="text-[#767676] font-normal">que tienen clientes esperando su conocimiento.</span>
+                </p>
+                <div className="flex items-center gap-3 mt-3">
+                  <div className="w-8 h-8 rounded-full bg-[#1a1a2e] flex items-center justify-center text-[10px] font-bold text-white">RF</div>
+                  <p className="text-[12px] text-[#555]">
+                    <span className="text-[#B31C1C] font-bold">+$510.000/mes</span> en su primer trimestre —{" "}
+                    <span className="font-medium">Rodrigo F., Economista, Santiago</span>
+                  </p>
+                </div>
+              </div>
+              <div className="flex flex-wrap gap-3 shrink-0">
+                <Link href="/registro" className="flex items-center gap-2.5 border border-[#DEDEDE] bg-white px-5 py-3 text-[13px] font-semibold text-[#111] hover:border-[#B31C1C] hover:text-[#B31C1C] transition-all">
+                  <svg width="16" height="16" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+                  Continuar con Google
+                </Link>
+                <Link href="/abrir" className="bg-[#B31C1C] text-white px-5 py-3 text-[13px] font-bold hover:bg-[#8E1515] transition-colors">
+                  Abre tu sala gratis →
+                </Link>
+              </div>
+            </div>
+          </BlurFade>
+
+          {/* Barra de stats — inline, no sección separada */}
+          <BlurFade delay={0.45}>
+            <div className="grid grid-cols-4 divide-x divide-[#E8E8E8] py-4">
+              {[
+                { value: 34,   pre: "",  suf: "",  label: "Creadores activos" },
+                { value: 2418, pre: "",  suf: "+", label: "Suscriptores pagando" },
+                { value: 180,  pre: "$", suf: "K", label: "Generados en 2025" },
+                { value: 95,   pre: "",  suf: "%", label: "Retención mensual" },
+              ].map(({ value, pre, suf, label }) => (
+                <div key={label} className="px-5 first:pl-0 last:pr-0 text-center">
+                  <p className="font-black text-[clamp(20px,3vw,34px)] leading-none tracking-[-0.02em] flex items-baseline justify-center gap-0.5">
+                    {pre && <span className="text-[#B31C1C]">{pre}</span>}
+                    <NumberTicker value={value} className="text-[#111]" />
+                    {suf && <span className="text-[#B31C1C]">{suf}</span>}
+                  </p>
+                  <p className="text-[9px] uppercase tracking-[0.15em] text-[#767676] mt-1.5 font-bold">{label}</p>
+                </div>
+              ))}
+            </div>
+          </BlurFade>
         </div>
       </section>
 
-      {/* ══ TRUST MARQUEE ══════════════════════════════════════════════════ */}
-      <div className="border-b border-[#E8E8E8] py-4 overflow-hidden bg-[#F8F7F5]">
-        <p className="text-center text-[10px] font-bold uppercase tracking-[0.2em] text-[#767676] mb-3">Confiado por expertos en</p>
+      {/* ── TRUST MARQUEE ───────────────────────────────────────────────── */}
+      <div className="border-b border-[#E0E0E0] py-3 overflow-hidden bg-[#F8F7F5]">
         <Marquee duration={35} pauseOnHover>
-          {tickerTags.map(tag => (
+          {["ECONOMÍA","DERECHO","MEDICINA","ARQUITECTURA","FINANZAS","EDUCACIÓN","TECNOLOGÍA","MARKETING","CIENCIA POLÍTICA","NUTRICIÓN","PSICOLOGÍA","INGENIERÍA"].map(tag => (
             <div key={tag} className="shrink-0 mx-3">
-              <span className="inline-flex items-center border border-[#E0E0E0] bg-white px-4 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-[0.1em] text-[#555] hover:border-[#B31C1C] hover:text-[#B31C1C] transition-colors cursor-default">
+              <span className="inline-flex items-center border border-[#DEDEDE] bg-white px-4 py-1.5 text-[10px] font-bold uppercase tracking-[0.1em] text-[#555] hover:border-[#B31C1C] hover:text-[#B31C1C] transition-colors cursor-default">
                 {tag}
               </span>
             </div>
@@ -287,49 +233,39 @@ export default function Home() {
         </Marquee>
       </div>
 
-      {/* ══ LIVE ACTIVITY ═════════════════════════════════════════════════ */}
-      <section className="border-b border-[#E8E8E8] py-20">
+      {/* ── LIVE ACTIVITY ───────────────────────────────────────────────── */}
+      <section className="border-b border-[#E0E0E0] py-20">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <BlurFade delay={0}>
-              <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#B31C1C] mb-4">En este momento</p>
-              <h2 className="font-sans font-black text-[clamp(28px,4vw,48px)] leading-[0.95] tracking-[-0.02em] mb-5">
-                Cada minuto, alguien<br />
-                descubre que su<br />
-                <span className="text-[#B31C1C]">conocimiento vale.</span>
+              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#B31C1C] mb-4">En este momento</p>
+              <h2 className="font-sans font-black text-[clamp(28px,4vw,52px)] leading-[0.93] tracking-[-0.02em] mb-5">
+                Cada minuto,<br />
+                alguien descubre<br />
+                <span className="text-[#B31C1C]">que su conocimiento</span><br />
+                vale.
               </h2>
-              <p className="text-[15px] leading-[1.8] text-[#666] max-w-md">
+              <p className="text-[15px] leading-[1.8] text-[#555]">
                 Mientras lees esto, profesionales como tú están recibiendo su primer pago en Sala.
               </p>
             </BlurFade>
-
             <BlurFade delay={0.1}>
-              <div className="relative h-[340px] overflow-hidden">
-                <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-white to-transparent z-10 pointer-events-none" />
-                <AnimatedList delay={1400} className="gap-3">
+              <div className="relative h-[300px] overflow-hidden">
+                <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-white to-transparent z-10 pointer-events-none" />
+                <AnimatedList delay={1600} className="gap-3">
                   {liveEvents.map((ev) => (
-                    <div
-                      key={ev.name + ev.time}
-                      className="w-full bg-white border border-[#EBEBEB] rounded-xl p-4 flex items-center gap-3 shadow-[0_2px_12px_rgba(0,0,0,0.06)] hover:border-[#B31C1C]/30 transition-colors"
-                    >
-                      <div
-                        className="w-9 h-9 rounded-full flex items-center justify-center shrink-0 text-[11px] font-bold text-white"
-                        style={{ backgroundColor: ev.color }}
-                      >
-                        {ev.initial}
-                      </div>
+                    <div key={ev.name} className="w-full bg-white border border-[#EBEBEB] p-4 flex items-center gap-3 shadow-[0_2px_12px_rgba(0,0,0,0.05)] hover:border-[#B31C1C]/30 transition-colors">
+                      <div className="w-9 h-9 rounded-full flex items-center justify-center shrink-0 text-[11px] font-bold text-white" style={{ backgroundColor: ev.color }}>{ev.initial}</div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-[13px] font-semibold text-[#111] leading-tight">
-                          <span>{ev.name}</span>{" "}
-                          <span className="font-normal text-[#666]">{ev.action}</span>{" "}
-                          <span className="text-[#B31C1C]">{ev.creator}</span>
+                        <p className="text-[13px] font-semibold text-[#111]">
+                          {ev.name} <span className="font-normal text-[#555]">se suscribió a</span> <span className="text-[#B31C1C]">{ev.creator}</span>
                         </p>
                         <div className="flex items-center gap-2 mt-0.5">
-                          <span className="text-[9px] font-bold uppercase tracking-[0.1em] text-[#B31C1C] bg-[#FFF5F5] px-1.5 py-0.5 rounded">{ev.tag}</span>
+                          <span className="text-[9px] font-bold uppercase tracking-[0.1em] text-[#B31C1C] bg-[#FFF5F5] px-1.5 py-0.5">{ev.tag}</span>
                           <span className="text-[11px] font-bold text-[#111]">{ev.price}</span>
                         </div>
                       </div>
-                      <span className="text-[10px] text-[#767676] shrink-0">{ev.time}</span>
+                      <span className="text-[10px] text-[#767676] shrink-0">hace {ev.time}</span>
                     </div>
                   ))}
                 </AnimatedList>
@@ -339,60 +275,32 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ══ STATS ══════════════════════════════════════════════════════════ */}
-      <section className="border-b border-[#E8E8E8] py-20">
-        <div className="max-w-5xl mx-auto px-6">
-          <BlurFade delay={0}>
-            <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-[#E8E8E8] border border-[#E8E8E8] rounded-2xl overflow-hidden shadow-sm">
-              {stats.map(({ value, pre, suf, label }, i) => (
-                <div key={label} className="px-8 py-10 text-center bg-white hover:bg-[#FFF5F5] transition-colors duration-300">
-                  <p className="font-black text-[clamp(32px,5vw,56px)] leading-none tracking-[-0.03em] flex items-baseline justify-center gap-0.5">
-                    {pre  && <span className="text-[#B31C1C]">{pre}</span>}
-                    <NumberTicker value={value} className="text-[#111]" />
-                    {suf  && <span className="text-[#B31C1C]">{suf}</span>}
-                  </p>
-                  <p className="text-[10px] uppercase tracking-[0.16em] text-[#767676] mt-3 font-bold">{label}</p>
-                </div>
-              ))}
-            </div>
-          </BlurFade>
-        </div>
-      </section>
-
-      {/* ══ CTA INLINE POST-STATS ══════════════════════════════════════════ */}
-      <div className="border-b border-[#E8E8E8] py-8 bg-[#F8F7F5]">
-        <div className="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-[14px] font-semibold text-[#111]">
-            34 profesionales ya cobran lo que saben.{" "}
-            <span className="text-[#767676] font-normal">¿Cuándo empiezas tú?</span>
-          </p>
-          <Link href="/abrir" className="shrink-0 bg-[#B31C1C] text-white px-6 py-2.5 text-[13px] font-bold rounded-sm hover:bg-[#8E1515] transition-colors">
-            Abre tu sala gratis →
-          </Link>
-        </div>
-      </div>
-
-      {/* ══ FEATURES ═══════════════════════════════════════════════════════ */}
-      <section className="border-b border-[#E8E8E8] py-24 bg-[#F8F7F5]">
+      {/* ── FEATURES — numeradas tipo índice editorial ───────────────────── */}
+      <section className="border-b border-[#E0E0E0] py-24 bg-[#F8F7F5]">
         <div className="max-w-7xl mx-auto px-6">
           <BlurFade delay={0}>
-            <div className="max-w-2xl mb-14">
-              <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#B31C1C] mb-3">Por qué Sala</p>
-              <h2 className="font-sans font-black text-[clamp(28px,4vw,52px)] leading-[1.0] tracking-[-0.02em]">
-                Todo lo que necesitas.<br />
-                <span className="text-[#767676]">Una plataforma.</span>
+            <div className="flex items-end gap-6 mb-12 pb-4 border-b-2 border-[#111]">
+              <h2 className="font-sans font-black text-[clamp(28px,4vw,52px)] leading-tight tracking-[-0.02em]">
+                Todo lo que necesitas.
               </h2>
+              <p className="font-sans font-black text-[clamp(28px,4vw,52px)] leading-tight tracking-[-0.02em] text-[#D0D0D0] hidden md:block">
+                Una plataforma.
+              </p>
             </div>
           </BlurFade>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {features.map(({ icon: Icon, title, body }, i) => (
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-0 divide-y md:divide-y-0 border border-[#E0E0E0]">
+            {features.map(({ icon: Icon, num, title, body }, i) => (
               <BlurFade key={title} delay={i * 0.05}>
-                <div className="bg-white border border-[#EBEBEB] rounded-2xl p-7 group hover:border-[#B31C1C]/30 hover:shadow-[0_4px_24px_rgba(179,28,28,0.08)] transition-all duration-300">
-                  <div className="w-10 h-10 bg-[#FFF5F5] border border-[#FFD5D5] rounded-xl flex items-center justify-center mb-5 group-hover:bg-[#B31C1C] group-hover:border-[#B31C1C] transition-all duration-300">
-                    <Icon size={18} className="text-[#B31C1C] group-hover:text-white transition-colors duration-300" strokeWidth={1.8} />
+                <div className="bg-white p-8 border-r border-[#E0E0E0] last:border-r-0 group hover:bg-[#FFF5F5] transition-colors duration-300">
+                  <div className="flex items-start justify-between mb-5">
+                    <div className="w-10 h-10 bg-[#FFF5F5] border border-[#FFD5D5] flex items-center justify-center group-hover:bg-[#B31C1C] group-hover:border-[#B31C1C] transition-all duration-300">
+                      <Icon size={18} className="text-[#B31C1C] group-hover:text-white transition-colors duration-300" strokeWidth={1.8} />
+                    </div>
+                    <span className="font-serif text-[11px] text-[#D0D0D0] font-bold tracking-[0.1em]">{num}</span>
                   </div>
                   <h3 className="text-[15px] font-bold text-[#111] mb-2">{title}</h3>
-                  <p className="text-[13px] leading-[1.75] text-[#666]">{body}</p>
+                  <p className="text-[13px] leading-[1.75] text-[#555]">{body}</p>
                 </div>
               </BlurFade>
             ))}
@@ -400,39 +308,41 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ══ FOR THOSE ══════════════════════════════════════════════════════ */}
-      <section className="border-b border-[#E8E8E8] py-24">
+      {/* ── PARA QUIENES — split editorial ──────────────────────────────── */}
+      <section className="border-b border-[#E0E0E0] py-24">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
+          <div className="grid lg:grid-cols-2 gap-0 lg:divide-x divide-[#E0E0E0]">
             <BlurFade delay={0}>
-              <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#B31C1C] mb-4">Para quienes tienen algo real</p>
-              <h2 className="font-sans font-black text-[clamp(28px,4vw,56px)] leading-[0.95] tracking-[-0.02em] mb-6">
-                Para quienes tienen<br />
-                algo real que<br />
-                <span className="text-[#B31C1C]">cobrar.</span>
-              </h2>
-              <p className="text-[16px] leading-[1.8] text-[#555] mb-8 max-w-md">
-                Ya seas un consultor independiente, un experto de industria o un profesional de área, Sala te da las herramientas para publicar, crecer y cobrar — sin depender de nadie.
-              </p>
-              <Link href="/abrir" className="inline-flex items-center gap-2 bg-[#111] text-white px-6 py-3.5 text-[13px] font-bold rounded-sm hover:bg-[#B31C1C] transition-colors duration-200">
-                Registrarse gratis <IconArrowRight size={15} />
-              </Link>
+              <div className="lg:pr-16 pb-10 lg:pb-0">
+                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#B31C1C] mb-6">Para quienes tienen algo real</p>
+                <h2 className="font-sans font-black text-[clamp(28px,4vw,52px)] leading-[0.95] tracking-[-0.02em] mb-6">
+                  Para quienes tienen<br />
+                  algo real que<br />
+                  <span className="text-[#B31C1C]">cobrar.</span>
+                </h2>
+                <p className="text-[15px] leading-[1.8] text-[#555] mb-8 max-w-md">
+                  Sala es para el profesional que ha pasado años construyendo expertise y todavía no cobra por compartirlo.
+                </p>
+                <Link href="/abrir" className="inline-flex items-center gap-2 bg-[#111] text-white px-6 py-3.5 text-[13px] font-bold hover:bg-[#B31C1C] transition-colors duration-200">
+                  Registrarse gratis <IconArrowRight size={14} />
+                </Link>
+              </div>
             </BlurFade>
 
-            <div className="space-y-4">
+            <div className="lg:pl-16 pt-10 lg:pt-0 space-y-0 divide-y divide-[#E8E8E8]">
               {[
-                { icon: "👤", title: "Creadores independientes", body: "Publica tu expertise y cobra por el acceso. Sin algoritmos, sin depender de redes sociales." },
-                { icon: "🎓", title: "Expertos de industria",    body: "Conecta directamente con tu audiencia y convierte tu experiencia en ingresos recurrentes." },
-                { icon: "⚖️", title: "Profesionales de área",    body: "Economistas, abogados, médicos, arquitectos. Tu campo tiene un público que quiere aprender." },
+                { icon: "👤", title: "Creadores independientes", body: "Publica tu expertise y cobra por el acceso. Sin algoritmos ni redes sociales." },
+                { icon: "🎓", title: "Expertos de industria",    body: "Conecta directo con tu audiencia. Convierte experiencia en ingreso recurrente." },
+                { icon: "⚖️", title: "Profesionales de área",    body: "Economistas, abogados, médicos, arquitectos. Tu campo tiene un público que paga." },
               ].map(({ icon, title, body }, i) => (
                 <BlurFade key={title} delay={i * 0.08}>
-                  <div className="bg-white border border-[#EBEBEB] rounded-2xl p-5 flex items-start gap-4 group hover:border-[#B31C1C]/30 hover:shadow-[0_4px_20px_rgba(179,28,28,0.06)] transition-all duration-300">
-                    <div className="w-12 h-12 rounded-xl border border-[#E8E8E8] bg-[#F8F7F5] flex items-center justify-center text-[20px] shrink-0 group-hover:border-[#B31C1C]/20 transition-colors">
+                  <div className="flex items-start gap-5 py-6 group">
+                    <div className="w-12 h-12 border border-[#E8E8E8] flex items-center justify-center text-[20px] shrink-0 group-hover:border-[#B31C1C] transition-colors">
                       {icon}
                     </div>
                     <div>
                       <p className="text-[14px] font-bold text-[#111] mb-1">{title}</p>
-                      <p className="text-[13px] text-[#666] leading-[1.65]">{body}</p>
+                      <p className="text-[13px] text-[#555] leading-[1.65]">{body}</p>
                     </div>
                   </div>
                 </BlurFade>
@@ -442,103 +352,50 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ══ CREATORS ═══════════════════════════════════════════════════════ */}
-      <section className="border-b border-[#E8E8E8] py-24 bg-[#F8F7F5]">
-        <div className="max-w-7xl mx-auto px-6">
-          <BlurFade delay={0}>
-            <div className="flex items-end justify-between mb-12">
-              <div>
-                <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#B31C1C] mb-2">Salas activas</p>
-                <h2 className="font-sans font-black text-[clamp(24px,3.5vw,44px)] leading-tight tracking-[-0.02em]">
-                  Impulsando a los mejores<br />
-                  <span className="text-[#767676]">expertos del mundo hispanohablante.</span>
-                </h2>
-              </div>
-              <Link href="/explorar" className="hidden md:flex items-center gap-1.5 text-[13px] font-semibold text-[#B31C1C] hover:underline shrink-0">
-                Ver todas <IconArrowRight size={14} />
-              </Link>
-            </div>
-          </BlurFade>
-
-          <div className="grid md:grid-cols-3 gap-4">
-            {creators.map((c, i) => (
-              <BlurFade key={c.name} delay={i * 0.07}>
-                <Link href={c.href} className="group block bg-white border border-[#EBEBEB] rounded-2xl p-7 hover:border-[#B31C1C]/30 hover:shadow-[0_8px_30px_rgba(179,28,28,0.08)] transition-all duration-300">
-                  <div className="flex items-center gap-3 mb-5">
-                    <div className="w-12 h-12 rounded-full flex items-center justify-center shrink-0" style={{ backgroundColor: c.color }}>
-                      <span className="font-serif text-[14px] font-bold text-white">{c.initial}</span>
-                    </div>
-                    <div>
-                      <p className="text-[9px] font-bold uppercase tracking-[0.16em] text-[#B31C1C]">{c.specialty}</p>
-                      <h3 className="text-[16px] font-bold text-[#111] group-hover:text-[#B31C1C] transition-colors">{c.name}</h3>
-                    </div>
-                  </div>
-                  <p className="text-[13px] leading-[1.7] text-[#666] mb-5">{c.bio}</p>
-                  <div className="flex items-center justify-between pt-4 border-t border-[#F0F0F0]">
-                    <div>
-                      <p className="text-[18px] font-black text-[#111]">{c.price}<span className="text-[12px] font-normal text-[#767676]">/mes</span></p>
-                      <p className="text-[10px] text-[#767676] mt-0.5">{c.subscribers.toLocaleString()} suscriptores</p>
-                    </div>
-                    <span className="text-[11px] font-bold text-[#B31C1C] uppercase tracking-[0.1em] group-hover:underline">Ver sala →</span>
-                  </div>
-                </Link>
-              </BlurFade>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ══ PRICING ════════════════════════════════════════════════════════ */}
-      <section className="border-b border-[#E8E8E8] py-24">
+      {/* ── PRICING ─────────────────────────────────────────────────────── */}
+      <section className="border-b border-[#E0E0E0] py-24 bg-[#F8F7F5]">
         <div className="max-w-5xl mx-auto px-6">
           <BlurFade delay={0}>
-            <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#B31C1C] text-center mb-3">Precios</p>
-            <h2 className="font-sans font-black text-[clamp(24px,3.5vw,44px)] tracking-[-0.02em] text-center mb-2">
-              Elige el plan para crecer
-            </h2>
-            <p className="text-center text-[14px] text-[#767676] mb-3">Empieza gratis. Escala cuando estés listo.</p>
-            {/* Logos de medios de pago */}
-            <div className="flex items-center justify-center gap-3 mb-10">
-              <span className="text-[10px] text-[#767676] uppercase tracking-[0.1em] font-medium">Pagos via</span>
-              {[
-                { name: "Stripe",        bg: "#635BFF", text: "Stripe"   },
-                { name: "Webpay",        bg: "#E5001E", text: "Webpay"   },
-                { name: "Mercado Pago",  bg: "#00B1EA", text: "MP"       },
-              ].map(({ name, bg, text }) => (
-                <span key={name} className="inline-flex items-center px-2.5 py-1 rounded text-[10px] font-bold text-white" style={{ backgroundColor: bg }}>
-                  {text}
-                </span>
-              ))}
+            <div className="pb-4 border-b-2 border-[#111] mb-12 flex items-end justify-between">
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#B31C1C] mb-2">Precios</p>
+                <h2 className="font-sans font-black text-[clamp(24px,3.5vw,44px)] tracking-[-0.02em]">Elige el plan para crecer</h2>
+              </div>
+              <div className="hidden sm:flex items-center gap-2 pb-1">
+                <span className="text-[10px] text-[#767676] uppercase tracking-[0.1em] font-medium">Pagos via</span>
+                {[{ bg: "#635BFF", t: "Stripe" }, { bg: "#E5001E", t: "Webpay" }, { bg: "#00B1EA", t: "MP" }].map(({ bg, t }) => (
+                  <span key={t} className="inline-flex items-center px-2 py-0.5 text-[10px] font-bold text-white" style={{ backgroundColor: bg }}>{t}</span>
+                ))}
+              </div>
             </div>
           </BlurFade>
 
-          <div className="grid md:grid-cols-3 gap-5">
-            {plans.map(({ name, price, period, desc, cta, featured, note, perks }) => (
-              <BlurFade key={name} delay={0.05}>
-                <div className={`relative rounded-2xl p-7 flex flex-col h-full ${featured ? "bg-[#B31C1C] shadow-[0_16px_48px_rgba(179,28,28,0.3)]" : "bg-white border border-[#EBEBEB]"}`}>
+          <div className="grid md:grid-cols-3 gap-0 border border-[#E0E0E0]">
+            {plans.map(({ name, price, period, note, cta, featured, perks }, i) => (
+              <BlurFade key={name} delay={i * 0.06}>
+                <div className={`relative flex flex-col h-full p-8 border-r border-[#E0E0E0] last:border-r-0 ${featured ? "bg-[#B31C1C]" : "bg-white"}`}>
                   {featured && (
-                    <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                      <span className="bg-[#111] text-white text-[10px] font-black uppercase tracking-[0.1em] px-3 py-1 rounded-full">Recomendado</span>
-                    </div>
+                    <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#111] text-white text-[9px] font-black uppercase tracking-[0.12em] px-3 py-1">
+                      Recomendado
+                    </span>
                   )}
                   <div className="mb-6">
-                    <p className={`text-[12px] font-bold uppercase tracking-[0.12em] mb-3 ${featured ? "text-white/70" : "text-[#767676]"}`}>{name}</p>
+                    <p className={`text-[10px] font-bold uppercase tracking-[0.14em] mb-3 ${featured ? "text-white/70" : "text-[#767676]"}`}>{name}</p>
                     <div className="flex items-baseline gap-1 mb-1">
-                      <span className={`text-[34px] font-black leading-none ${featured ? "text-white" : "text-[#111]"}`}>{price}</span>
-                      <span className={`text-[13px] ${featured ? "text-white/60" : "text-[#767676]"}`}>{period}</span>
+                      <span className={`font-black text-[32px] leading-none tracking-[-0.02em] ${featured ? "text-white" : "text-[#111]"}`}>{price}</span>
+                      <span className={`text-[12px] ${featured ? "text-white/60" : "text-[#767676]"}`}>{period}</span>
                     </div>
-                    <p className={`text-[12px] mb-1 ${featured ? "text-white/60" : "text-[#888]"}`}>{desc}</p>
-                    <p className={`text-[11px] font-bold uppercase tracking-[0.08em] ${featured ? "text-white/80" : "text-[#B31C1C]"}`}>{note}</p>
+                    <p className={`text-[11px] font-bold uppercase tracking-[0.08em] mt-1 ${featured ? "text-white/80" : "text-[#B31C1C]"}`}>{note}</p>
                   </div>
                   <div className="space-y-2.5 mb-7 flex-1">
                     {perks.map(p => (
                       <div key={p} className="flex items-center gap-2.5">
-                        <div className={`w-1.5 h-1.5 rounded-full shrink-0 ${featured ? "bg-white" : "bg-[#B31C1C]"}`} />
-                        <span className={`text-[13px] ${featured ? "text-white/80" : "text-[#555]"}`}>{p}</span>
+                        <div className={`w-1 h-1 shrink-0 ${featured ? "bg-white" : "bg-[#B31C1C]"}`} />
+                        <span className={`text-[12px] ${featured ? "text-white/80" : "text-[#555]"}`}>{p}</span>
                       </div>
                     ))}
                   </div>
-                  <Link href="/abrir" className={`block text-center py-3.5 text-[13px] font-bold uppercase tracking-[0.1em] rounded-sm transition-colors ${featured ? "bg-white text-[#B31C1C] hover:bg-white/90" : "border border-[#E0E0E0] text-[#111] hover:border-[#B31C1C] hover:text-[#B31C1C]"}`}>
+                  <Link href="/abrir" className={`block text-center py-3 text-[12px] font-bold uppercase tracking-[0.1em] transition-colors ${featured ? "bg-white text-[#B31C1C] hover:bg-white/90" : "border border-[#DEDEDE] text-[#111] hover:border-[#B31C1C] hover:text-[#B31C1C]"}`}>
                     {cta}
                   </Link>
                 </div>
@@ -548,21 +405,21 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ══ FAQ ════════════════════════════════════════════════════════════ */}
-      <section className="border-b border-[#E8E8E8] py-24 bg-[#F8F7F5]">
+      {/* ── FAQ ─────────────────────────────────────────────────────────── */}
+      <section className="border-b border-[#E0E0E0] py-24">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="grid lg:grid-cols-[380px_1fr] gap-16">
+          <div className="grid lg:grid-cols-[360px_1fr] gap-16">
             <BlurFade delay={0}>
               <div className="lg:sticky lg:top-28">
-                <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#B31C1C] mb-4">FAQ</p>
-                <h2 className="font-sans font-black text-[clamp(28px,4vw,44px)] leading-[0.95] tracking-[-0.02em]">
+                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#B31C1C] mb-4">Preguntas</p>
+                <h2 className="font-sans font-black text-[clamp(28px,4vw,44px)] leading-[0.93] tracking-[-0.02em]">
                   ¿Tienes<br />preguntas?<br />
                   <span className="text-[#B31C1C]">Tenemos<br />respuestas.</span>
                 </h2>
               </div>
             </BlurFade>
             <BlurFade delay={0.1}>
-              <div className="border-t border-[#E5E5E5]">
+              <div className="border-t border-[#E0E0E0]">
                 {faqs.map(({ q, a }) => <FaqItem key={q} q={q} a={a} />)}
               </div>
             </BlurFade>
@@ -570,32 +427,26 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ══ CTA FINAL — única sección oscura ═══════════════════════════════ */}
-      <section className="bg-[#111] py-32 relative overflow-hidden">
+      {/* ── CTA FINAL — full bleed, sin sidebar ─────────────────────────── */}
+      <section className="bg-[#111] py-36 relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-[#B31C1C]/20 rounded-full blur-[100px]" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-[#B31C1C]/15 rounded-full blur-[100px]" />
         </div>
-        <div className="relative z-10 max-w-3xl mx-auto px-6 text-center">
+        <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
           <BlurFade delay={0}>
-            <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#FF8080] mb-6">Empieza hoy</p>
-            <h2 className="font-sans font-black text-[clamp(32px,5.5vw,68px)] leading-[0.93] tracking-[-0.03em] text-white mb-6">
-              ¿Listo para cobrar<br />
-              lo que sabes?
+            <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#B31C1C] mb-8">Empieza hoy</p>
+            <h2 className="font-sans font-black text-[clamp(36px,6vw,76px)] leading-[0.92] tracking-[-0.03em] text-white mb-6">
+              ¿Listo para cobrar<br />lo que sabes?
             </h2>
             <p className="text-[16px] text-white/50 max-w-md mx-auto mb-10">
-              Únete a los 34 creadores que ya generan ingresos reales con su conocimiento.
+              Únete a los 34 profesionales que ya generan ingresos reales con su conocimiento.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link href="/registro" className="flex items-center gap-3 bg-white text-[#111] px-8 py-4 text-[14px] font-bold rounded-sm hover:bg-[#F8F7F5] transition-colors">
-                <svg width="18" height="18" viewBox="0 0 24 24">
-                  <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-                  <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                  <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
-                  <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
-                </svg>
+              <Link href="/registro" className="flex items-center gap-3 bg-white text-[#111] px-8 py-4 text-[14px] font-bold hover:bg-[#F8F7F5] transition-colors">
+                <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
                 Continuar con Google
               </Link>
-              <Link href="/abrir" className="border border-white/20 text-white px-8 py-4 text-[14px] font-semibold rounded-sm hover:bg-white/5 transition-colors">
+              <Link href="/abrir" className="border border-white/20 text-white px-8 py-4 text-[14px] font-semibold hover:bg-white/5 transition-colors">
                 Abre tu sala gratis →
               </Link>
             </div>
@@ -604,24 +455,24 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ══ FOOTER ═════════════════════════════════════════════════════════ */}
+      {/* ── FOOTER ──────────────────────────────────────────────────────── */}
       <footer className="bg-[#0A0A0A] border-t border-white/10">
         <div className="max-w-7xl mx-auto px-6 py-16">
           <div className="grid grid-cols-2 md:grid-cols-5 gap-10 mb-12">
             <div className="col-span-2 md:col-span-1">
               <div className="flex items-center gap-2 mb-3">
-              <div className="w-6 h-6 bg-[#B31C1C] flex items-center justify-center shrink-0">
-                <span className="text-white font-black text-[11px]">S</span>
+                <div className="w-6 h-6 bg-[#B31C1C] flex items-center justify-center">
+                  <span className="text-white font-black text-[11px]">S</span>
+                </div>
+                <span className="text-[16px] font-black uppercase tracking-[0.02em] text-white">ALA</span>
               </div>
-              <span className="text-[16px] font-black uppercase tracking-[0.02em] text-white">ALA</span>
-            </div>
               <p className="text-[12px] text-white/40 leading-[1.7] max-w-[160px]">La plataforma que convierte expertos en creadores que cobran.</p>
             </div>
             {[
-              { title: "Plataforma",      links: ["Editor", "Analytics", "Pagos", "Membresías"] },
-              { title: "Para creadores",  links: ["Cómo funciona", "Precios", "Casos de uso", "Blog"] },
-              { title: "Explorar",        links: ["Economía", "Derecho", "Medicina", "Arquitectura"] },
-              { title: "Empresa",         links: ["Acerca de", "Contacto", "Términos", "Privacidad"] },
+              { title: "Plataforma",     links: ["Editor", "Analytics", "Pagos", "Membresías"] },
+              { title: "Para creadores", links: ["Cómo funciona", "Precios", "Casos de uso", "Blog"] },
+              { title: "Explorar",       links: ["Economía", "Derecho", "Medicina", "Arquitectura"] },
+              { title: "Empresa",        links: ["Acerca de", "Contacto", "Términos", "Privacidad"] },
             ].map(({ title, links }) => (
               <div key={title}>
                 <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-white/40 mb-4">{title}</p>

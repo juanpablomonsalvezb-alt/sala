@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Check, ChevronDown, ChevronUp } from "lucide-react";
 
 /* ─── Data ──────────────────────────────────────────────────────────────── */
@@ -10,39 +10,31 @@ const PLANS = [
   {
     id: "libre",
     name: "Libre",
-    tagline: "Para empezar",
-    price: 0,
-    priceLabel: "$0",
+    price: "$0",
     period: "/mes",
-    commission: "10%",
-    commissionLabel: "Sala toma el 10% de tus ingresos",
+    commission: "Sala toma 10%",
     popular: false,
     cta: "Abrir mi sala gratis",
     ctaHref: "/abrir",
     features: [
       "Hasta 500 suscriptores",
       "Contenido ilimitado",
-      "Pagos vía Stripe",
+      "Stripe incluido",
       "Panel de gestión",
-      "Página de sala personalizada",
     ],
   },
   {
     id: "creador",
     name: "Creador",
-    tagline: "El más popular",
-    price: 29,
-    priceLabel: "$29 USD",
+    price: "$29 USD",
     period: "/mes",
-    commission: "3%",
-    commissionLabel: "Sala toma solo el 3%",
+    commission: "Sala toma 3%",
     popular: true,
     cta: "Elegir Creador",
     ctaHref: "/abrir?plan=creador",
     features: [
       "Suscriptores ilimitados",
       "Analytics avanzado",
-      "Dominio propio (próximamente)",
       "Soporte prioritario",
       "Todo lo del plan Libre",
     ],
@@ -50,20 +42,16 @@ const PLANS = [
   {
     id: "pro",
     name: "Pro",
-    tagline: "Para los que escalan",
-    price: 59,
-    priceLabel: "$59 USD",
+    price: "$59 USD",
     period: "/mes",
-    commission: "0%",
-    commissionLabel: "Sala toma 0% — todo es tuyo",
+    commission: "Sala toma 0%",
     popular: false,
     cta: "Elegir Pro",
     ctaHref: "/abrir?plan=pro",
     features: [
       "Todo lo del plan Creador",
       "API access",
-      "Exportación de datos",
-      "White-label (próximamente)",
+      "White-label (próximo)",
       "SLA prioritario",
     ],
   },
@@ -99,7 +87,7 @@ const FAQ_ITEMS = [
   },
 ];
 
-/* ─── Components ────────────────────────────────────────────────────────── */
+/* ─── PlanCard ──────────────────────────────────────────────────────────── */
 
 function PlanCard({
   plan,
@@ -110,125 +98,99 @@ function PlanCard({
 }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 32 }}
+      initial={{ opacity: 0, y: 24 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: 0.1 + index * 0.1, ease: [0.16, 1, 0.3, 1] }}
-      className={`relative flex flex-col rounded-2xl border p-8 ${
-        plan.popular
-          ? "border-[#C9A96E] bg-[#111111]"
-          : "border-[#1E1E1E] bg-[#0D0D0D]"
+      transition={{ duration: 0.4, delay: 0.1 + index * 0.08, ease: [0.16, 1, 0.3, 1] }}
+      className={`relative flex flex-col rounded-xl border p-6 bg-white ${
+        plan.popular ? "border-[#0066FF]" : "border-[#E5E7EB]"
       }`}
     >
+      {/* Popular badge */}
       {plan.popular && (
-        <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
-          <span className="rounded-full bg-[#C9A96E] px-4 py-1 text-[11px] font-semibold uppercase tracking-widest text-[#0A0A0A]">
+        <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+          <span className="rounded-full bg-[#0066FF] px-3 py-0.5 font-[var(--font-inter),Inter,sans-serif] text-[11px] font-[600] text-white">
             Más popular
           </span>
         </div>
       )}
 
       {/* Header */}
-      <div className="mb-6">
-        <p className="mb-1 font-sans text-xs font-medium uppercase tracking-widest text-[#8A8070]">
-          {plan.tagline}
-        </p>
-        <h3
-          className="font-serif text-2xl font-semibold text-[#F5F0E8]"
-          style={{ fontFamily: "var(--font-serif)" }}
-        >
+      <div className="mb-5">
+        <h3 className="font-[var(--font-inter),Inter,sans-serif] text-lg font-[700] tracking-tight text-[#0A0A0A]">
           {plan.name}
         </h3>
-      </div>
-
-      {/* Price */}
-      <div className="mb-2">
-        <div className="flex items-baseline gap-1">
-          <span
-            className="font-serif text-4xl font-bold text-[#F5F0E8]"
-            style={{ fontFamily: "var(--font-serif)" }}
-          >
-            {plan.priceLabel}
+        <div className="mt-2 flex items-baseline gap-1">
+          <span className="font-[var(--font-inter),Inter,sans-serif] text-3xl font-[800] tracking-tight text-[#0A0A0A]">
+            {plan.price}
           </span>
-          <span className="font-sans text-sm text-[#8A8070]">{plan.period}</span>
+          <span className="font-[var(--font-inter),Inter,sans-serif] text-sm text-[#6B7280]">
+            {plan.period}
+          </span>
         </div>
-      </div>
-
-      {/* Commission badge */}
-      <div className="mb-6">
-        <span
-          className={`inline-block rounded-full px-3 py-1 font-sans text-xs font-medium ${
-            plan.popular
-              ? "bg-[#C9A96E]/15 text-[#C9A96E]"
-              : "bg-[#1E1E1E] text-[#8A8070]"
-          }`}
-        >
-          {plan.commissionLabel}
+        <span className="mt-2 inline-block font-[var(--font-inter),Inter,sans-serif] text-xs text-[#6B7280]">
+          {plan.commission}
         </span>
       </div>
 
       {/* Features */}
-      <ul className="mb-8 flex flex-col gap-3">
+      <ul className="mb-6 flex flex-col gap-2.5 flex-1">
         {plan.features.map((f) => (
-          <li key={f} className="flex items-start gap-3">
+          <li key={f} className="flex items-center gap-2.5">
             <Check
-              size={15}
-              className={`mt-0.5 shrink-0 ${
-                plan.popular ? "text-[#C9A96E]" : "text-[#8A8070]"
-              }`}
+              size={14}
+              className={plan.popular ? "text-[#0066FF] shrink-0" : "text-[#6B7280] shrink-0"}
             />
-            <span className="font-sans text-sm text-[#F5F0E8]/80">{f}</span>
+            <span className="font-[var(--font-inter),Inter,sans-serif] text-sm text-[#0A0A0A]">
+              {f}
+            </span>
           </li>
         ))}
       </ul>
 
       {/* CTA */}
-      <div className="mt-auto">
-        <a
-          href={plan.ctaHref}
-          className={`block w-full rounded-xl py-3.5 text-center font-sans text-sm font-semibold transition-all duration-200 ${
-            plan.popular
-              ? "bg-[#C9A96E] text-[#0A0A0A] hover:bg-[#D4B47A]"
-              : "border border-[#1E1E1E] text-[#F5F0E8]/70 hover:border-[#C9A96E]/40 hover:text-[#F5F0E8]"
-          }`}
-        >
-          {plan.cta}
-        </a>
-      </div>
+      <a
+        href={plan.ctaHref}
+        className={`block w-full rounded-lg py-2.5 text-center font-[var(--font-inter),Inter,sans-serif] text-sm font-[600] transition-all duration-150 active:scale-[0.98] ${
+          plan.popular
+            ? "bg-[#0066FF] text-white hover:bg-[#0052CC]"
+            : "border border-[#E5E7EB] bg-[#F8F8F8] text-[#0A0A0A] hover:border-[#0A0A0A]"
+        }`}
+      >
+        {plan.cta}
+      </a>
     </motion.div>
   );
 }
+
+/* ─── Calculator ────────────────────────────────────────────────────────── */
 
 function Calculator() {
   const [subscribers, setSubscribers] = useState(100);
   const [pricePerSub, setPricePerSub] = useState(9990);
 
   const gross = subscribers * pricePerSub;
-  const commissionFree = gross; // Plan Pro: 0%
 
   return (
     <motion.section
-      initial={{ opacity: 0, y: 24 }}
+      initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-      className="mx-auto mt-20 w-full max-w-2xl rounded-2xl border border-[#1E1E1E] bg-[#0D0D0D] p-8"
+      transition={{ duration: 0.4, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+      className="mx-auto mt-16 w-full max-w-2xl rounded-xl border border-[#E5E7EB] bg-white p-8"
     >
-      <h2
-        className="mb-2 font-serif text-2xl font-semibold text-[#F5F0E8]"
-        style={{ fontFamily: "var(--font-serif)" }}
-      >
-        ¿Cuánto ganarías?
+      <h2 className="mb-1 font-[var(--font-inter),Inter,sans-serif] text-xl font-[700] tracking-tight text-[#0A0A0A]">
+        ¿Cuánto podrías ganar?
       </h2>
-      <p className="mb-8 font-sans text-sm text-[#8A8070]">
+      <p className="mb-8 font-[var(--font-inter),Inter,sans-serif] text-sm text-[#6B7280]">
         Ajusta los valores y ve tu ingreso mensual estimado.
       </p>
 
-      {/* Subscribers */}
+      {/* Suscriptores */}
       <div className="mb-6">
-        <div className="mb-3 flex items-center justify-between">
-          <label className="font-sans text-sm font-medium text-[#F5F0E8]/80">
+        <div className="mb-2 flex items-center justify-between">
+          <label className="font-[var(--font-inter),Inter,sans-serif] text-sm font-[500] text-[#0A0A0A]">
             Número de suscriptores
           </label>
-          <span className="font-sans text-sm font-semibold text-[#C9A96E]">
+          <span className="font-[var(--font-inter),Inter,sans-serif] text-sm font-[700] text-[#0066FF]">
             {subscribers}
           </span>
         </div>
@@ -237,10 +199,10 @@ function Calculator() {
             <button
               key={n}
               onClick={() => setSubscribers(n)}
-              className={`flex-1 rounded-lg border py-2.5 font-sans text-sm font-medium transition-all duration-150 ${
+              className={`flex-1 rounded-lg border py-2 font-[var(--font-inter),Inter,sans-serif] text-sm font-[500] transition-all duration-150 ${
                 subscribers === n
-                  ? "border-[#C9A96E] bg-[#C9A96E]/10 text-[#C9A96E]"
-                  : "border-[#1E1E1E] text-[#8A8070] hover:border-[#C9A96E]/30 hover:text-[#F5F0E8]/60"
+                  ? "border-[#0066FF] bg-[#EEF4FF] text-[#0066FF]"
+                  : "border-[#E5E7EB] text-[#6B7280] hover:border-[#0A0A0A] hover:text-[#0A0A0A]"
               }`}
             >
               {n}
@@ -249,13 +211,13 @@ function Calculator() {
         </div>
       </div>
 
-      {/* Price per subscriber */}
+      {/* Precio por suscriptor */}
       <div className="mb-8">
-        <div className="mb-3 flex items-center justify-between">
-          <label className="font-sans text-sm font-medium text-[#F5F0E8]/80">
+        <div className="mb-2 flex items-center justify-between">
+          <label className="font-[var(--font-inter),Inter,sans-serif] text-sm font-[500] text-[#0A0A0A]">
             Precio por suscriptor
           </label>
-          <span className="font-sans text-sm font-semibold text-[#C9A96E]">
+          <span className="font-[var(--font-inter),Inter,sans-serif] text-sm font-[700] text-[#0066FF]">
             ${formatCLP(pricePerSub)} CLP/mes
           </span>
         </div>
@@ -264,10 +226,10 @@ function Calculator() {
             <button
               key={p}
               onClick={() => setPricePerSub(p)}
-              className={`flex-1 rounded-lg border py-2.5 font-sans text-sm font-medium transition-all duration-150 ${
+              className={`flex-1 rounded-lg border py-2 font-[var(--font-inter),Inter,sans-serif] text-sm font-[500] transition-all duration-150 ${
                 pricePerSub === p
-                  ? "border-[#C9A96E] bg-[#C9A96E]/10 text-[#C9A96E]"
-                  : "border-[#1E1E1E] text-[#8A8070] hover:border-[#C9A96E]/30 hover:text-[#F5F0E8]/60"
+                  ? "border-[#0066FF] bg-[#EEF4FF] text-[#0066FF]"
+                  : "border-[#E5E7EB] text-[#6B7280] hover:border-[#0A0A0A] hover:text-[#0A0A0A]"
               }`}
             >
               ${formatCLP(p)}
@@ -276,30 +238,27 @@ function Calculator() {
         </div>
       </div>
 
-      {/* Result */}
-      <div className="rounded-xl bg-[#111111] p-6">
-        <p className="mb-1 font-sans text-xs uppercase tracking-widest text-[#8A8070]">
+      {/* Resultado */}
+      <div className="rounded-lg border border-[#E5E7EB] bg-[#F8F8F8] p-5">
+        <p className="mb-0.5 font-[var(--font-inter),Inter,sans-serif] text-xs font-[600] uppercase tracking-widest text-[#6B7280]">
           Tu ingreso estimado
         </p>
-        <p
-          className="font-serif text-4xl font-bold text-[#C9A96E]"
-          style={{ fontFamily: "var(--font-serif)" }}
-        >
-          ${formatCLP(commissionFree)} CLP
+        <p className="font-[var(--font-inter),Inter,sans-serif] text-3xl font-[800] tracking-tight text-[#0066FF]">
+          ${formatCLP(gross)} CLP
         </p>
-        <p className="mt-2 font-sans text-sm text-[#8A8070]">
-          Con {subscribers} suscriptores a ${formatCLP(pricePerSub)}/mes · Plan Pro (0% comisión)
+        <p className="mt-1 font-[var(--font-inter),Inter,sans-serif] text-xs text-[#6B7280]">
+          Con {subscribers} suscriptores a ${formatCLP(pricePerSub)}/mes · Plan Pro (0%)
         </p>
-        <div className="mt-4 border-t border-[#1E1E1E] pt-4">
+        <div className="mt-4 border-t border-[#E5E7EB] pt-4 flex flex-col gap-1.5">
           <div className="flex justify-between">
-            <span className="font-sans text-xs text-[#8A8070]">Plan Libre (10%)</span>
-            <span className="font-sans text-xs text-[#F5F0E8]/60">
+            <span className="font-[var(--font-inter),Inter,sans-serif] text-xs text-[#6B7280]">Plan Libre (10%)</span>
+            <span className="font-[var(--font-inter),Inter,sans-serif] text-xs font-[500] text-[#0A0A0A]">
               ${formatCLP(Math.round(gross * 0.9))} CLP
             </span>
           </div>
-          <div className="mt-1.5 flex justify-between">
-            <span className="font-sans text-xs text-[#8A8070]">Plan Creador (3%)</span>
-            <span className="font-sans text-xs text-[#F5F0E8]/60">
+          <div className="flex justify-between">
+            <span className="font-[var(--font-inter),Inter,sans-serif] text-xs text-[#6B7280]">Plan Creador (3%)</span>
+            <span className="font-[var(--font-inter),Inter,sans-serif] text-xs font-[500] text-[#0A0A0A]">
               ${formatCLP(Math.round(gross * 0.97))} CLP
             </span>
           </div>
@@ -309,40 +268,46 @@ function Calculator() {
   );
 }
 
+/* ─── FAQItem ────────────────────────────────────────────────────────────── */
+
 function FAQItem({ item, index }: { item: (typeof FAQ_ITEMS)[0]; index: number }) {
   const [open, setOpen] = useState(false);
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 16 }}
+      initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, delay: 0.6 + index * 0.07, ease: [0.16, 1, 0.3, 1] }}
-      className="border-b border-[#1E1E1E]"
+      transition={{ duration: 0.35, delay: 0.55 + index * 0.06, ease: [0.16, 1, 0.3, 1] }}
+      className="border-b border-[#E5E7EB] last:border-0"
     >
       <button
         onClick={() => setOpen(!open)}
-        className="flex w-full items-center justify-between py-5 text-left"
+        className="flex w-full items-center justify-between py-4 text-left"
       >
-        <span className="font-sans text-base font-medium text-[#F5F0E8]/90 pr-4">
+        <span className="font-[var(--font-inter),Inter,sans-serif] text-sm font-[500] text-[#0A0A0A] pr-4">
           {item.q}
         </span>
         {open ? (
-          <ChevronUp size={16} className="shrink-0 text-[#C9A96E]" />
+          <ChevronUp size={15} className="shrink-0 text-[#0066FF]" />
         ) : (
-          <ChevronDown size={16} className="shrink-0 text-[#8A8070]" />
+          <ChevronDown size={15} className="shrink-0 text-[#6B7280]" />
         )}
       </button>
-      {open && (
-        <motion.div
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: "auto" }}
-          exit={{ opacity: 0, height: 0 }}
-          transition={{ duration: 0.25 }}
-          className="pb-5"
-        >
-          <p className="font-sans text-sm leading-relaxed text-[#8A8070]">{item.a}</p>
-        </motion.div>
-      )}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.2 }}
+            className="overflow-hidden"
+          >
+            <p className="pb-4 font-[var(--font-inter),Inter,sans-serif] text-sm text-[#6B7280] leading-relaxed">
+              {item.a}
+            </p>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 }
@@ -351,35 +316,43 @@ function FAQItem({ item, index }: { item: (typeof FAQ_ITEMS)[0]; index: number }
 
 export default function PreciosPage() {
   return (
-    <main className="min-h-screen bg-[#0A0A0A] px-6 py-24">
-      <div className="mx-auto max-w-5xl">
+    <main className="min-h-screen bg-[#F8F8F8] px-6 py-20">
+
+      {/* Nav */}
+      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-[#E5E7EB] bg-[#F8F8F8]/90 backdrop-blur-md">
+        <div className="mx-auto flex h-12 max-w-5xl items-center justify-between px-6">
+          <a href="/" className="font-[var(--font-inter),Inter,sans-serif] text-sm font-[700] tracking-tight text-[#0A0A0A]">
+            Sala
+          </a>
+          <a
+            href="/abrir"
+            className="rounded-md bg-[#0066FF] px-3 py-1.5 font-[var(--font-inter),Inter,sans-serif] text-xs font-[600] text-white transition-colors hover:bg-[#0052CC]"
+          >
+            Abrir mi sala
+          </a>
+        </div>
+      </nav>
+
+      <div className="mx-auto max-w-5xl pt-8">
+
         {/* Hero */}
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-16 text-center"
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-14 text-center"
         >
-          <div className="mb-4 inline-block">
-            <span className="rounded-full border border-[#C9A96E]/30 px-4 py-1.5 font-sans text-xs font-medium uppercase tracking-widest text-[#C9A96E]">
-              Planes para creadores
-            </span>
-          </div>
-          <h1
-            className="mb-4 font-serif text-4xl font-bold leading-tight text-[#F5F0E8] sm:text-5xl md:text-6xl"
-            style={{ fontFamily: "var(--font-serif)" }}
-          >
-            Empieza gratis.
-            <br />
-            <em>Gana desde el primer día.</em>
+          <h1 className="mb-3 font-[var(--font-inter),Inter,sans-serif] text-4xl font-[800] leading-tight tracking-tight text-[#0A0A0A] sm:text-5xl">
+            Empieza gratis.{" "}
+            <span className="text-[#0066FF]">Gana desde el primer día.</span>
           </h1>
-          <p className="mx-auto max-w-md font-sans text-base text-[#8A8070] sm:text-lg">
+          <p className="mx-auto max-w-sm font-[var(--font-inter),Inter,sans-serif] text-base text-[#6B7280]">
             Sala solo gana cuando tú ganas.
           </p>
         </motion.div>
 
-        {/* Plans grid */}
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+        {/* Plans */}
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
           {PLANS.map((plan, i) => (
             <PlanCard key={plan.id} plan={plan} index={i} />
           ))}
@@ -392,16 +365,13 @@ export default function PreciosPage() {
         <motion.section
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.55 }}
-          className="mx-auto mt-20 max-w-2xl"
+          transition={{ duration: 0.4, delay: 0.5 }}
+          className="mx-auto mt-16 max-w-2xl"
         >
-          <h2
-            className="mb-8 font-serif text-2xl font-semibold text-[#F5F0E8]"
-            style={{ fontFamily: "var(--font-serif)" }}
-          >
+          <h2 className="mb-6 font-[var(--font-inter),Inter,sans-serif] text-xl font-[700] tracking-tight text-[#0A0A0A]">
             Preguntas frecuentes
           </h2>
-          <div>
+          <div className="rounded-xl border border-[#E5E7EB] bg-white px-6">
             {FAQ_ITEMS.map((item, i) => (
               <FAQItem key={i} item={item} index={i} />
             ))}
@@ -410,17 +380,17 @@ export default function PreciosPage() {
 
         {/* Bottom CTA */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.9 }}
-          className="mt-20 text-center"
+          transition={{ duration: 0.4, delay: 0.85 }}
+          className="mt-16 text-center"
         >
-          <p className="mb-6 font-sans text-sm text-[#8A8070]">
+          <p className="mb-4 font-[var(--font-inter),Inter,sans-serif] text-sm text-[#6B7280]">
             ¿Listo para abrir tu sala?
           </p>
           <a
             href="/abrir"
-            className="inline-block rounded-xl bg-[#C9A96E] px-8 py-4 font-sans text-sm font-semibold text-[#0A0A0A] transition-all duration-200 hover:bg-[#D4B47A] hover:shadow-[0_0_40px_rgba(201,169,110,0.2)]"
+            className="inline-block rounded-lg bg-[#0066FF] px-7 py-3 font-[var(--font-inter),Inter,sans-serif] text-sm font-[600] text-white transition-all hover:bg-[#0052CC] active:scale-[0.98]"
           >
             Abrir mi sala gratis →
           </a>

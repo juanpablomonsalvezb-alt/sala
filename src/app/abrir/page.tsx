@@ -7,16 +7,13 @@ import { Check, ArrowRight, User, BookOpen, Tag } from "lucide-react";
 /* ─── Types ──────────────────────────────────────────────────────────────── */
 
 interface FormData {
-  // Step 1
   nombre: string;
   especialidad: string;
   bio: string;
   linkedin: string;
-  // Step 2
   nombreSala: string;
   pitch: string;
   frecuencia: string;
-  // Step 3
   precio: number;
 }
 
@@ -53,11 +50,11 @@ const STEPS = [
   { id: 3, label: "Tu precio", icon: Tag },
 ];
 
-/* ─── Stepper Header ────────────────────────────────────────────────────── */
+/* ─── StepperHeader ─────────────────────────────────────────────────────── */
 
 function StepperHeader({ current }: { current: number }) {
   return (
-    <div className="mb-12 flex items-center justify-center gap-0">
+    <div className="mb-10 flex items-center justify-center gap-0">
       {STEPS.map((step, i) => {
         const done = current > step.id;
         const active = current === step.id;
@@ -65,44 +62,43 @@ function StepperHeader({ current }: { current: number }) {
 
         return (
           <div key={step.id} className="flex items-center">
-            {/* Node */}
             <div className="flex flex-col items-center gap-2">
               <div
-                className={`flex h-10 w-10 items-center justify-center rounded-full border transition-all duration-300 ${
+                className={`flex h-8 w-8 items-center justify-center rounded-full border-2 transition-all duration-300 ${
                   done
-                    ? "border-[#C9A96E] bg-[#C9A96E]"
+                    ? "border-[#0066FF] bg-[#0066FF]"
                     : active
-                    ? "border-[#C9A96E] bg-[#C9A96E]/10"
-                    : "border-[#1E1E1E] bg-transparent"
+                    ? "border-[#0066FF] bg-white"
+                    : "border-[#E5E7EB] bg-white"
                 }`}
               >
                 {done ? (
-                  <Check size={16} className="text-[#0A0A0A]" />
+                  <Check size={13} className="text-white" />
                 ) : (
                   <Icon
-                    size={16}
-                    className={active ? "text-[#C9A96E]" : "text-[#8A8070]"}
+                    size={13}
+                    className={active ? "text-[#0066FF]" : "text-[#6B7280]"}
                   />
                 )}
               </div>
               <span
-                className={`font-sans text-xs font-medium whitespace-nowrap ${
+                className={`font-[var(--font-inter),Inter,sans-serif] text-xs font-[500] whitespace-nowrap ${
                   active
-                    ? "text-[#C9A96E]"
+                    ? "text-[#0066FF]"
                     : done
-                    ? "text-[#F5F0E8]/60"
-                    : "text-[#8A8070]"
+                    ? "text-[#0A0A0A]"
+                    : "text-[#6B7280]"
                 }`}
               >
                 {step.label}
               </span>
             </div>
 
-            {/* Connector */}
+            {/* Conector */}
             {i < STEPS.length - 1 && (
               <div
-                className={`mb-5 mx-3 h-px w-16 transition-all duration-500 sm:w-24 ${
-                  done ? "bg-[#C9A96E]" : "bg-[#1E1E1E]"
+                className={`mb-5 mx-3 h-px w-16 sm:w-20 transition-all duration-500 ${
+                  done ? "bg-[#0066FF]" : "bg-[#E5E7EB]"
                 }`}
               />
             )}
@@ -117,7 +113,7 @@ function StepperHeader({ current }: { current: number }) {
 
 function Label({ children }: { children: React.ReactNode }) {
   return (
-    <label className="mb-1.5 block font-sans text-xs font-medium uppercase tracking-wider text-[#8A8070]">
+    <label className="mb-1.5 block font-[var(--font-inter),Inter,sans-serif] text-xs font-[600] uppercase tracking-wider text-[#6B7280]">
       {children}
     </label>
   );
@@ -142,8 +138,8 @@ function Input({
       value={value}
       onChange={(e) => onChange(e.target.value)}
       placeholder={placeholder}
-      className={`w-full rounded-xl border bg-[#111111] px-4 py-3.5 font-sans text-sm text-[#F5F0E8] outline-none placeholder:text-[#8A8070]/50 transition-all duration-150 focus:border-[#C9A96E]/60 focus:ring-1 focus:ring-[#C9A96E]/20 ${
-        error ? "border-red-500/50" : "border-[#1E1E1E]"
+      className={`w-full rounded-lg border bg-white px-4 py-3 font-[var(--font-inter),Inter,sans-serif] text-sm text-[#0A0A0A] outline-none placeholder:text-[#6B7280]/50 transition-all duration-150 focus:border-[#0066FF] focus:ring-2 focus:ring-[#0066FF]/10 ${
+        error ? "border-red-400" : "border-[#E5E7EB]"
       }`}
     />
   );
@@ -170,12 +166,12 @@ function Textarea({
         placeholder={placeholder}
         maxLength={maxLength}
         rows={4}
-        className={`w-full resize-none rounded-xl border bg-[#111111] px-4 py-3.5 font-sans text-sm text-[#F5F0E8] outline-none placeholder:text-[#8A8070]/50 transition-all duration-150 focus:border-[#C9A96E]/60 focus:ring-1 focus:ring-[#C9A96E]/20 ${
-          error ? "border-red-500/50" : "border-[#1E1E1E]"
+        className={`w-full resize-none rounded-lg border bg-white px-4 py-3 font-[var(--font-inter),Inter,sans-serif] text-sm text-[#0A0A0A] outline-none placeholder:text-[#6B7280]/50 transition-all duration-150 focus:border-[#0066FF] focus:ring-2 focus:ring-[#0066FF]/10 ${
+          error ? "border-red-400" : "border-[#E5E7EB]"
         }`}
       />
       {maxLength && (
-        <div className="mt-1 text-right font-sans text-xs text-[#8A8070]/50">
+        <div className="mt-1 text-right font-[var(--font-inter),Inter,sans-serif] text-xs text-[#6B7280]/50">
           {value.length}/{maxLength}
         </div>
       )}
@@ -198,7 +194,7 @@ function Select({
     <select
       value={value}
       onChange={(e) => onChange(e.target.value)}
-      className="w-full rounded-xl border border-[#1E1E1E] bg-[#111111] px-4 py-3.5 font-sans text-sm text-[#F5F0E8] outline-none transition-all duration-150 focus:border-[#C9A96E]/60 focus:ring-1 focus:ring-[#C9A96E]/20 appearance-none cursor-pointer"
+      className="w-full rounded-lg border border-[#E5E7EB] bg-white px-4 py-3 font-[var(--font-inter),Inter,sans-serif] text-sm text-[#0A0A0A] outline-none transition-all duration-150 focus:border-[#0066FF] focus:ring-2 focus:ring-[#0066FF]/10 appearance-none cursor-pointer"
     >
       {placeholder && (
         <option value="" disabled>
@@ -206,7 +202,7 @@ function Select({
         </option>
       )}
       {options.map((o) => (
-        <option key={o.value} value={o.value} className="bg-[#111111]">
+        <option key={o.value} value={o.value}>
           {o.label}
         </option>
       ))}
@@ -236,7 +232,7 @@ function Step1({
           error={errors.nombre}
         />
         {errors.nombre && (
-          <p className="mt-1 font-sans text-xs text-red-400">Campo obligatorio</p>
+          <p className="mt-1 font-[var(--font-inter),Inter,sans-serif] text-xs text-red-500">Campo obligatorio</p>
         )}
       </div>
 
@@ -249,7 +245,7 @@ function Step1({
           placeholder="Selecciona tu especialidad"
         />
         {errors.especialidad && (
-          <p className="mt-1 font-sans text-xs text-red-400">Selecciona una especialidad</p>
+          <p className="mt-1 font-[var(--font-inter),Inter,sans-serif] text-xs text-red-500">Selecciona una especialidad</p>
         )}
       </div>
 
@@ -263,7 +259,7 @@ function Step1({
           error={errors.bio}
         />
         {errors.bio && (
-          <p className="mt-1 font-sans text-xs text-red-400">Escribe una bio corta</p>
+          <p className="mt-1 font-[var(--font-inter),Inter,sans-serif] text-xs text-red-500">Escribe una bio corta</p>
         )}
       </div>
 
@@ -307,15 +303,15 @@ function Step2({
           error={errors.nombreSala}
         />
         {slug && (
-          <div className="mt-2 flex items-center gap-2 rounded-lg border border-[#1E1E1E] bg-[#0D0D0D] px-3 py-2">
-            <span className="font-sans text-xs text-[#8A8070]">Tu URL:</span>
-            <span className="font-sans text-xs font-medium text-[#C9A96E]">
+          <div className="mt-2 flex items-center gap-2 rounded-lg border border-[#E5E7EB] bg-[#F8F8F8] px-3 py-2">
+            <span className="font-[var(--font-inter),Inter,sans-serif] text-xs text-[#6B7280]">Tu URL:</span>
+            <span className="font-[var(--font-inter),Inter,sans-serif] text-xs font-[600] text-[#0066FF]">
               sala.lat/{slug}
             </span>
           </div>
         )}
         {errors.nombreSala && (
-          <p className="mt-1 font-sans text-xs text-red-400">Dale un nombre a tu sala</p>
+          <p className="mt-1 font-[var(--font-inter),Inter,sans-serif] text-xs text-red-500">Dale un nombre a tu sala</p>
         )}
       </div>
 
@@ -328,7 +324,7 @@ function Step2({
           error={errors.pitch}
         />
         {errors.pitch && (
-          <p className="mt-1 font-sans text-xs text-red-400">Describe qué publicarás</p>
+          <p className="mt-1 font-[var(--font-inter),Inter,sans-serif] text-xs text-red-500">Describe qué publicarás</p>
         )}
       </div>
 
@@ -341,7 +337,7 @@ function Step2({
           placeholder="¿Con qué frecuencia publicarás?"
         />
         {errors.frecuencia && (
-          <p className="mt-1 font-sans text-xs text-red-400">Elige una frecuencia</p>
+          <p className="mt-1 font-[var(--font-inter),Inter,sans-serif] text-xs text-red-500">Elige una frecuencia</p>
         )}
       </div>
     </div>
@@ -357,75 +353,70 @@ function Step3({
   data: FormData;
   setData: (d: Partial<FormData>) => void;
 }) {
-  const earningsWith100 = data.precio * 100;
-
   return (
     <div className="flex flex-col gap-6">
-      <div>
-        <p className="mb-4 font-sans text-sm text-[#8A8070]">
-          Elige el precio mensual que cobrarás a tus suscriptores. Siempre puedes cambiarlo después.
-        </p>
+      <p className="font-[var(--font-inter),Inter,sans-serif] text-sm text-[#6B7280]">
+        Elige el precio mensual que cobrarás a tus suscriptores. Siempre puedes cambiarlo después.
+      </p>
 
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-          {PRECIOS.map((p) => (
-            <button
-              key={p}
-              onClick={() => setData({ precio: p })}
-              className={`flex flex-col items-center justify-center rounded-xl border px-4 py-5 transition-all duration-200 ${
-                data.precio === p
-                  ? "border-[#C9A96E] bg-[#C9A96E]/10"
-                  : "border-[#1E1E1E] bg-[#111111] hover:border-[#C9A96E]/30"
+      <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3">
+        {PRECIOS.map((p) => (
+          <button
+            key={p}
+            onClick={() => setData({ precio: p })}
+            className={`flex flex-col items-center justify-center rounded-lg border px-4 py-4 transition-all duration-150 ${
+              data.precio === p
+                ? "border-[#0066FF] bg-[#EEF4FF]"
+                : "border-[#E5E7EB] bg-white hover:border-[#0066FF]/40"
+            }`}
+          >
+            <span
+              className={`font-[var(--font-inter),Inter,sans-serif] text-xl font-[700] ${
+                data.precio === p ? "text-[#0066FF]" : "text-[#0A0A0A]"
               }`}
             >
-              <span
-                className={`font-serif text-xl font-bold ${
-                  data.precio === p ? "text-[#C9A96E]" : "text-[#F5F0E8]"
-                }`}
-                style={{ fontFamily: "var(--font-serif)" }}
-              >
-                ${formatCLP(p)}
-              </span>
-              <span className="mt-0.5 font-sans text-xs text-[#8A8070]">CLP/mes</span>
-            </button>
-          ))}
-        </div>
+              ${formatCLP(p)}
+            </span>
+            <span className="mt-0.5 font-[var(--font-inter),Inter,sans-serif] text-xs text-[#6B7280]">CLP/mes</span>
+          </button>
+        ))}
       </div>
 
-      {/* Earnings preview */}
+      {/* Preview de ganancias */}
       {data.precio > 0 && (
         <motion.div
-          initial={{ opacity: 0, y: 8 }}
+          initial={{ opacity: 0, y: 6 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3 }}
-          className="rounded-xl bg-[#111111] p-5 border border-[#1E1E1E]"
+          transition={{ duration: 0.25 }}
+          className="rounded-lg border border-[#E5E7EB] bg-[#F8F8F8] p-5"
         >
-          <p className="mb-3 font-sans text-xs uppercase tracking-wider text-[#8A8070]">
+          <p className="mb-3 font-[var(--font-inter),Inter,sans-serif] text-xs font-[600] uppercase tracking-wider text-[#6B7280]">
             Tu ingreso proyectado
           </p>
           <div className="flex flex-col gap-2">
             {[50, 100, 200, 500].map((subs) => (
               <div key={subs} className="flex items-center justify-between">
-                <span className="font-sans text-sm text-[#8A8070]">
+                <span className="font-[var(--font-inter),Inter,sans-serif] text-sm text-[#6B7280]">
                   Con {subs} suscriptores
                 </span>
-                <span className="font-sans text-sm font-semibold text-[#F5F0E8]">
+                <span className="font-[var(--font-inter),Inter,sans-serif] text-sm font-[600] text-[#0A0A0A]">
                   ${formatCLP(data.precio * subs)} CLP/mes
                 </span>
               </div>
             ))}
           </div>
-          <div className="mt-3 border-t border-[#1E1E1E] pt-3">
-            <p className="font-sans text-xs text-[#8A8070]/60">
-              * Estimado con Plan Pro (0% comisión). Con Plan Libre descontamos 10%.
+          <div className="mt-3 border-t border-[#E5E7EB] pt-3">
+            <p className="font-[var(--font-inter),Inter,sans-serif] text-xs text-[#6B7280]/60">
+              * Estimado con Plan Pro (0% comisión).
             </p>
           </div>
         </motion.div>
       )}
 
-      <div className="rounded-xl border border-[#C9A96E]/20 bg-[#C9A96E]/5 p-4">
-        <p className="font-sans text-sm text-[#C9A96E]/90">
+      <div className="rounded-lg border border-[#0066FF]/20 bg-[#EEF4FF] p-4">
+        <p className="font-[var(--font-inter),Inter,sans-serif] text-sm text-[#0066FF]">
           Con 100 suscriptores a ${formatCLP(data.precio)}/mes →{" "}
-          <strong>${formatCLP(earningsWith100)} CLP</strong> para ti.
+          <strong>${formatCLP(data.precio * 100)} CLP</strong> para ti.
         </p>
       </div>
     </div>
@@ -447,7 +438,7 @@ const INITIAL: FormData = {
 
 const slideVariants = {
   enter: (dir: number) => ({
-    x: dir > 0 ? 40 : -40,
+    x: dir > 0 ? 32 : -32,
     opacity: 0,
   }),
   center: {
@@ -455,7 +446,7 @@ const slideVariants = {
     opacity: 1,
   },
   exit: (dir: number) => ({
-    x: dir > 0 ? -40 : 40,
+    x: dir > 0 ? -32 : 32,
     opacity: 0,
   }),
 };
@@ -469,7 +460,6 @@ export default function AbrirPage() {
 
   function patch(data: Partial<FormData>) {
     setForm((prev) => ({ ...prev, ...data }));
-    // Clear errors on change
     const keys = Object.keys(data) as (keyof FormData)[];
     setErrors((prev) => {
       const next = { ...prev };
@@ -513,41 +503,39 @@ export default function AbrirPage() {
   }
 
   function handleSubmit() {
-    // In production: POST to API
     setSubmitted(true);
   }
 
+  /* ─── Success state ─────────────────────────────────────────────────── */
+
   if (submitted) {
     return (
-      <main className="flex min-h-screen items-center justify-center bg-[#0A0A0A] px-6 py-24">
+      <main className="flex min-h-screen items-center justify-center bg-[#F8F8F8] px-6">
         <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
+          initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
           className="max-w-md text-center"
         >
-          <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-[#C9A96E]/15 border border-[#C9A96E]/30">
-            <Check size={28} className="text-[#C9A96E]" />
+          <div className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-full bg-[#0066FF]">
+            <Check size={24} className="text-white" />
           </div>
-          <h1
-            className="mb-3 font-serif text-3xl font-bold text-[#F5F0E8]"
-            style={{ fontFamily: "var(--font-serif)" }}
-          >
+          <h1 className="mb-2 font-[var(--font-inter),Inter,sans-serif] text-2xl font-[800] tracking-tight text-[#0A0A0A]">
             ¡Tu sala está lista!
           </h1>
-          <p className="mb-2 font-sans text-base text-[#8A8070]">
+          <p className="mb-1 font-[var(--font-inter),Inter,sans-serif] text-sm text-[#6B7280]">
             Hemos creado{" "}
-            <span className="font-medium text-[#C9A96E]">
+            <span className="font-[600] text-[#0066FF]">
               sala.lat/
               {form.nombreSala.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "")}
             </span>
           </p>
-          <p className="font-sans text-sm text-[#8A8070]/70">
-            Te enviaremos un correo con los siguientes pasos para activar tu sala.
+          <p className="font-[var(--font-inter),Inter,sans-serif] text-sm text-[#6B7280]">
+            Te enviaremos un correo con los siguientes pasos.
           </p>
           <a
             href="/precios"
-            className="mt-8 inline-block rounded-xl border border-[#1E1E1E] px-6 py-3 font-sans text-sm text-[#F5F0E8]/70 transition-all hover:border-[#C9A96E]/40 hover:text-[#F5F0E8]"
+            className="mt-8 inline-block rounded-lg border border-[#E5E7EB] bg-white px-5 py-2.5 font-[var(--font-inter),Inter,sans-serif] text-sm font-[500] text-[#0A0A0A] transition-all hover:border-[#0A0A0A]"
           >
             Ver planes →
           </a>
@@ -556,24 +544,26 @@ export default function AbrirPage() {
     );
   }
 
+  /* ─── Main ──────────────────────────────────────────────────────────── */
+
   return (
-    <main className="min-h-screen bg-[#0A0A0A] px-6 py-20">
+    <main className="min-h-screen bg-[#F8F8F8] px-6 py-16">
       <div className="mx-auto max-w-xl">
-        {/* Top label */}
+
+        {/* Logo */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.4 }}
+          transition={{ duration: 0.3 }}
           className="mb-10 text-center"
         >
           <a
             href="/"
-            className="font-serif text-xl font-semibold text-[#F5F0E8] hover:text-[#C9A96E] transition-colors"
-            style={{ fontFamily: "var(--font-serif)" }}
+            className="font-[var(--font-inter),Inter,sans-serif] text-lg font-[700] tracking-tight text-[#0A0A0A] hover:text-[#0066FF] transition-colors"
           >
             Sala
           </a>
-          <p className="mt-1 font-sans text-xs text-[#8A8070]">
+          <p className="mt-1 font-[var(--font-inter),Inter,sans-serif] text-xs text-[#6B7280]">
             Abre tu sala en 3 pasos
           </p>
         </motion.div>
@@ -581,46 +571,36 @@ export default function AbrirPage() {
         {/* Stepper */}
         <StepperHeader current={step} />
 
-        {/* Step content */}
-        <div className="relative overflow-hidden rounded-2xl border border-[#1E1E1E] bg-[#0D0D0D] p-8">
-          {/* Step title */}
+        {/* Card con step */}
+        <div className="relative overflow-hidden rounded-xl border border-[#E5E7EB] bg-white p-8">
           <AnimatePresence mode="wait" custom={dir}>
             <motion.div
-              key={`title-${step}`}
+              key={`step-${step}`}
               custom={dir}
               variants={slideVariants}
               initial="enter"
               animate="center"
               exit="exit"
-              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
             >
-              <h2
-                className="mb-6 font-serif text-2xl font-semibold text-[#F5F0E8]"
-                style={{ fontFamily: "var(--font-serif)" }}
-              >
+              <h2 className="mb-6 font-[var(--font-inter),Inter,sans-serif] text-xl font-[700] tracking-tight text-[#0A0A0A]">
                 {step === 1 && "Cuéntanos sobre ti"}
                 {step === 2 && "Configura tu sala"}
                 {step === 3 && "Define tu precio"}
               </h2>
 
-              {step === 1 && (
-                <Step1 data={form} setData={patch} errors={errors} />
-              )}
-              {step === 2 && (
-                <Step2 data={form} setData={patch} errors={errors} />
-              )}
-              {step === 3 && (
-                <Step3 data={form} setData={patch} />
-              )}
+              {step === 1 && <Step1 data={form} setData={patch} errors={errors} />}
+              {step === 2 && <Step2 data={form} setData={patch} errors={errors} />}
+              {step === 3 && <Step3 data={form} setData={patch} />}
             </motion.div>
           </AnimatePresence>
         </div>
 
         {/* Navigation */}
-        <div className="mt-6 flex items-center justify-between">
+        <div className="mt-4 flex items-center justify-between">
           <button
             onClick={goBack}
-            className={`rounded-xl border border-[#1E1E1E] px-5 py-3 font-sans text-sm text-[#8A8070] transition-all hover:border-[#C9A96E]/30 hover:text-[#F5F0E8] ${
+            className={`rounded-lg border border-[#E5E7EB] bg-white px-4 py-2.5 font-[var(--font-inter),Inter,sans-serif] text-sm font-[500] text-[#6B7280] transition-all hover:border-[#0A0A0A] hover:text-[#0A0A0A] ${
               step === 1 ? "invisible" : ""
             }`}
           >
@@ -630,24 +610,23 @@ export default function AbrirPage() {
           {step < 3 ? (
             <button
               onClick={goNext}
-              className="flex items-center gap-2 rounded-xl bg-[#C9A96E] px-6 py-3 font-sans text-sm font-semibold text-[#0A0A0A] transition-all hover:bg-[#D4B47A]"
+              className="flex items-center gap-2 rounded-lg bg-[#0066FF] px-5 py-2.5 font-[var(--font-inter),Inter,sans-serif] text-sm font-[600] text-white transition-all hover:bg-[#0052CC] active:scale-[0.98]"
             >
               Continuar
-              <ArrowRight size={15} />
+              <ArrowRight size={14} />
             </button>
           ) : (
             <button
               onClick={handleSubmit}
-              className="flex items-center gap-2 rounded-xl bg-[#C9A96E] px-8 py-3.5 font-sans text-sm font-semibold text-[#0A0A0A] transition-all hover:bg-[#D4B47A] hover:shadow-[0_0_40px_rgba(201,169,110,0.25)]"
+              className="flex items-center gap-2 rounded-lg bg-[#0066FF] px-6 py-2.5 font-[var(--font-inter),Inter,sans-serif] text-sm font-[600] text-white transition-all hover:bg-[#0052CC] active:scale-[0.98]"
             >
               Abrir mi sala
-              <ArrowRight size={15} />
+              <ArrowRight size={14} />
             </button>
           )}
         </div>
 
-        {/* Step indicator text */}
-        <p className="mt-4 text-center font-sans text-xs text-[#8A8070]/50">
+        <p className="mt-4 text-center font-[var(--font-inter),Inter,sans-serif] text-xs text-[#6B7280]/50">
           Paso {step} de {STEPS.length}
         </p>
       </div>

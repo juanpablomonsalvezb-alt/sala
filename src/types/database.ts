@@ -50,6 +50,16 @@ export type Profile = {
   created_at: string
 }
 
+export type Discipline = {
+  id: string
+  name_es: string
+  name_en: string
+  icon: string | null
+  is_active: boolean
+  sort_order: number
+  created_at: string
+}
+
 // ─── Database type para @supabase/ssr ────────────────────────────────────────
 
 type TableDef<Row, Insert = Partial<Row>, Update = Partial<Row>> = {
@@ -81,6 +91,11 @@ export type Database = {
         Subscription,
         Omit<Subscription, 'id' | 'created_at'> & { id?: string; created_at?: string },
         Partial<Omit<Subscription, 'id'>>
+      >
+      sala_disciplines: TableDef<
+        Discipline,
+        Omit<Discipline, 'created_at'> & { created_at?: string },
+        Partial<Omit<Discipline, 'id'>>
       >
     }
     Views: Record<string, never>

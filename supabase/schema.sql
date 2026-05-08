@@ -180,3 +180,151 @@ create policy "sala_subscriptions: select as creator" on public.sala_subscriptio
 create policy "sala_subscriptions: insert own"        on public.sala_subscriptions for insert with check (auth.uid() = subscriber_id);
 create policy "sala_subscriptions: update own"        on public.sala_subscriptions for update using (auth.uid() = subscriber_id) with check (auth.uid() = subscriber_id);
 create policy "sala_subscriptions: delete own"        on public.sala_subscriptions for delete using (auth.uid() = subscriber_id);
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- sala_disciplines — FK normalizada (DECISIÓN IRREVERSIBLE)
+-- ─────────────────────────────────────────────────────────────────────────────
+
+create table if not exists public.sala_disciplines (
+  id          text primary key,
+  name_es     text not null,
+  name_en     text not null,
+  icon        text,
+  is_active   boolean not null default true,
+  sort_order  integer not null default 0,
+  created_at  timestamptz not null default now()
+);
+
+insert into public.sala_disciplines (id, name_es, name_en, icon, sort_order) values
+  ('economia',        'Economía',          'Economics',        '📈', 1),
+  ('derecho',         'Derecho',           'Law',              '⚖️', 2),
+  ('medicina',        'Medicina',          'Medicine',         '🩺', 3),
+  ('finanzas',        'Finanzas',          'Finance',          '💼', 4),
+  ('arquitectura',    'Arquitectura',      'Architecture',     '🏛️', 5),
+  ('ingenieria',      'Ingeniería',        'Engineering',      '⚙️', 6),
+  ('psicologia',      'Psicología',        'Psychology',       '🧠', 7),
+  ('negocios',        'Negocios',          'Business',         '📊', 8),
+  ('tecnologia',      'Tecnología',        'Technology',       '💻', 9),
+  ('educacion',       'Educación',         'Education',        '📚', 10),
+  ('salud-publica',   'Salud Pública',     'Public Health',    '🏥', 11),
+  ('contabilidad',    'Contabilidad',      'Accounting',       '🔢', 12),
+  ('marketing',       'Marketing',         'Marketing',        '📣', 13),
+  ('recursos-humanos','Recursos Humanos',  'Human Resources',  '👥', 14),
+  ('medioambiente',   'Medioambiente',     'Environment',      '🌿', 15),
+  ('politica',        'Ciencia Política',  'Political Science','🏛', 16),
+  ('sociologia',      'Sociología',        'Sociology',        '🤝', 17),
+  ('comunicaciones',  'Comunicaciones',    'Communications',   '📡', 18)
+on conflict (id) do nothing;
+
+-- Agregar discipline_id a sala_creators (con retrocompatibilidad)
+alter table public.sala_creators
+  add column if not exists discipline_id text references public.sala_disciplines(id);
+
+-- Agregar verified a sala_creators (con retrocompatibilidad)
+alter table public.sala_creators
+  add column if not exists verified boolean not null default false;
+alter table public.sala_creators
+  add column if not exists verified_at timestamptz;
+
+-- Index para directorio público
+create index if not exists sala_creators_discipline_idx on public.sala_creators (discipline_id);
+create index if not exists sala_creators_verified_idx   on public.sala_creators (verified) where verified = true;
+
+-- sala_creator_directory — Vista materializada para el directorio público
+create materialized view if not exists public.sala_creator_directory as
+  select
+    c.id,
+    c.slug,
+    c.name,
+    c.specialty,
+    c.bio,
+    c.price_clp,
+    c.plan,
+    c.subscriber_count,
+    c.publish_frequency,
+    c.discipline_id,
+    d.name_es  as discipline_name_es,
+    d.name_en  as discipline_name_en,
+    d.icon     as discipline_icon,
+    c.verified,
+    c.created_at
+  from public.sala_creators c
+  left join public.sala_disciplines d on d.id = c.discipline_id
+  where c.plan in ('creator', 'pro')
+  order by d.sort_order, c.subscriber_count desc;
+
+create unique index if not exists sala_creator_directory_id_idx on public.sala_creator_directory (id);
+
+-- Función para refrescar la vista
+create or replace function public.sala_refresh_creator_directory()
+returns void language plpgsql security definer as $$
+begin
+  refresh materialized view concurrently public.sala_creator_directory;
+end;
+$$;
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- sala_reading_events — Grafo de Curiosidad (particionado por mes)
+-- ─────────────────────────────────────────────────────────────────────────────
+
+create table if not exists public.sala_reading_events (
+  id              uuid default gen_random_uuid(),
+  reader_id       uuid not null references auth.users(id) on delete cascade,
+  article_id      uuid not null references public.sala_posts(id) on delete cascade,
+  event_type      text not null check (event_type in ('started','reading','completed','abandoned','revisited')),
+  scroll_depth_pct numeric(5,2),
+  reading_time_s  integer,
+  visible_pct     numeric(5,2),
+  occurred_at     timestamptz not null default now(),
+  primary key (id, occurred_at)
+) partition by range (occurred_at);
+
+create table if not exists public.sala_reading_events_2026_05
+  partition of public.sala_reading_events
+  for values from ('2026-05-01') to ('2026-06-01');
+
+create table if not exists public.sala_reading_events_2026_06
+  partition of public.sala_reading_events
+  for values from ('2026-06-01') to ('2026-07-01');
+
+create index if not exists sala_reading_events_reader_idx on public.sala_reading_events (reader_id, occurred_at desc);
+create index if not exists sala_reading_events_article_idx on public.sala_reading_events (article_id);
+create index if not exists sala_reading_events_completed_idx on public.sala_reading_events (event_type) where event_type = 'completed';
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- sala_curiosity_graph — Un row por lector × tema
+-- ─────────────────────────────────────────────────────────────────────────────
+
+create table if not exists public.sala_curiosity_graph (
+  reader_id         uuid not null references auth.users(id) on delete cascade,
+  discipline_id     text not null references public.sala_disciplines(id),
+  affinity_score    numeric(5,4) default 0 check (affinity_score >= 0 and affinity_score <= 1),
+  articles_completed integer default 0,
+  total_reading_s   integer default 0,
+  trend             text check (trend in ('rising','stable','declining')),
+  last_read_at      timestamptz,
+  primary key (reader_id, discipline_id)
+);
+
+create index if not exists sala_curiosity_graph_reader_idx on public.sala_curiosity_graph (reader_id, affinity_score desc);
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- sala_fx_rates — Tipos de cambio multi-moneda (actualizado vía cron)
+-- ─────────────────────────────────────────────────────────────────────────────
+
+create table if not exists public.sala_fx_rates (
+  from_currency text not null default 'USD',
+  to_currency   text not null,
+  rate          numeric(15,6) not null,
+  updated_at    timestamptz default now(),
+  primary key (from_currency, to_currency)
+);
+
+insert into public.sala_fx_rates (from_currency, to_currency, rate) values
+  ('USD', 'CLP', 920.00),
+  ('USD', 'COP', 3950.00),
+  ('USD', 'MXN', 17.20),
+  ('USD', 'PEN', 3.72),
+  ('USD', 'ARS', 1050.00),
+  ('USD', 'USD', 1.00)
+on conflict (from_currency, to_currency) do nothing;

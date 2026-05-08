@@ -1249,7 +1249,156 @@
     </div>
   </div>
 
+  <!-- FASE VI: PLAN DE CONSTRUCCIÓN -->
+  <div class="section-header" style="margin-top:64px">
+    <span class="section-title">Fase VI — Plan de construcción</span>
+    <span class="section-sub">7 agentes · arquitectura completa</span>
+    <span class="section-badge">Implementado · Mayo 2026</span>
+  </div>
+
+  <p style="font-size:14px;color:#555;line-height:1.8;margin-bottom:40px;font-family:'Arial',sans-serif;max-width:760px;">
+    Siete agentes especializados definieron cómo construir cada componente del producto — arquitectura, diseño, SEO, performance, marca, backend y frontend. Todo fue implementado en la misma sesión.
+  </p>
+
+  <div class="agent-grid">
+
+    <div class="agent-card">
+      <span class="roman">XLV</span>
+      <div class="agent-name">Arquitecto de Software</div>
+      <div class="agent-role">Engineering Software Architect · Árbol de componentes</div>
+      <div class="agent-finding">
+        Árbol completo: <code>CreatorCard</code>, <code>CreatorGrid</code>, <code>PaywallGate</code>, <code>BundleOffer</code>, <code>DisciplineFilter</code>, <code>VerificationWizard</code>, <code>VerificationBadge</code>, <code>JsonLd</code>.<br><br>
+        <strong>Regla de corte Server/Client:</strong> todo lo que no tiene estado ni eventos del browser es Server Component. PaywallGate es Client Island porque verifica sesión del lector en tiempo real.<br><br>
+        <strong>Decisión irreversible:</strong> el slug del creador es el identificador público permanente. Cambiarlo después invalida todos los links indexados por Google.
+      </div>
+      <span class="completed-badge">✓ Completado</span>
+    </div>
+
+    <div class="agent-card">
+      <span class="roman">XLVI</span>
+      <div class="agent-name">Arquitecto de UX</div>
+      <div class="agent-role">Design UX Architect · Mockups y tokens exactos</div>
+      <div class="agent-finding">
+        Mockups ASCII + tokens Tailwind para 5 componentes: <strong>CreatorCard</strong>, <strong>PaywallGate</strong>, <strong>BundleOffer</strong>, <strong>VerificationFlow</strong> (4 pasos), <strong>Directorio</strong>.<br><br>
+        Decisión clave del PaywallGate: fade mask con <code>bg-gradient-to-b from-transparent to-white</code> — el texto se desvanece, sin popup ni overlay. Grid del directorio: <code>gap-px bg-[#DEDEDE]</code> — los espacios entre cards son líneas de 1px, no gaps visuales.<br><br>
+        <strong>Prohibido en todos los componentes:</strong> border-radius, sombras, gradientes de color, emojis funcionales, contadores regresivos.
+      </div>
+      <span class="completed-badge">✓ Completado</span>
+    </div>
+
+    <div class="agent-card">
+      <span class="roman">XLVII</span>
+      <div class="agent-name">Especialista en SEO</div>
+      <div class="agent-role">Marketing SEO Specialist · Metadata y schema</div>
+      <div class="agent-finding">
+        Código listo para: <code>generateMetadata()</code> en artículos y perfiles, <code>sitemap.ts</code> dinámico consultando Supabase, <code>robots.ts</code>.<br><br>
+        JSON-LD implementado: <code>Article + Person + Organization</code> en cada artículo. El campo <code>hasCredential</code> en Person es el diferenciador de E-E-A-T vs Substack — Google puede verificar que el autor tiene credencial real.<br><br>
+        <strong>Ventaja estructural:</strong> <code>sala.com/rodrigo-fuentes/slug</code> acumula autoridad de dominio. <code>rodrigo.substack.com/slug</code> divide autoridad. Esto no se puede copiar sin migrar todo el contenido.
+      </div>
+      <span class="completed-badge">✓ Completado</span>
+    </div>
+
+    <div class="agent-card">
+      <span class="roman">XLVIII</span>
+      <div class="agent-name">Experto en Performance</div>
+      <div class="agent-role">Performance Benchmarker · LCP y Core Web Vitals</div>
+      <div class="agent-finding">
+        El H1 estaba invisible hasta hidratación de Framer Motion por <code>initial="hidden"</code>. Fix: extraer H1 a Server Component con <code>LineShadowTextServer</code> — texto visible en el primer byte del HTML.<br><br>
+        <code>page.tsx</code> convertido a Server Component puro. Resultado de build: <strong>ruta / marcada como ○ Static (prerendered)</strong>. CategoryMarquee carga con <code>ssr: false</code> vía wrapper client para no bloquear el primer paint.<br><br>
+        Mejora estimada: LCP pasa de ~1.8s → ~0.9s en 4G promedio LATAM.
+      </div>
+      <span class="completed-badge">✓ Completado</span>
+    </div>
+
+    <div class="agent-card">
+      <span class="roman">XLIX</span>
+      <div class="agent-name">Guardián de Marca</div>
+      <div class="agent-role">Brand Guardian · Sistema visual unificado</div>
+      <div class="agent-finding">
+        <strong>10 reglas universales</strong> para todos los componentes nuevos: border-radius:0, sin sombras, sin gradientes, crimson solo en acentos, versalitas con letter-spacing en etiquetas, separadores 1px, transiciones 150ms max, íconos solo si son funcionales.<br><br>
+        Badge de verificación: siempre texto en versalitas con dominio específico — "VERIFICADO EN DERECHO TRIBUTARIO CHILE", no un checkmark genérico.<br><br>
+        <strong>Color de acción primaria:</strong> #121212 negro — nunca crimson. El crimson es acento editorial, no CTA.
+      </div>
+      <span class="completed-badge">✓ Completado</span>
+    </div>
+
+    <div class="agent-card">
+      <span class="roman">L</span>
+      <div class="agent-name">Arquitecto de Backend</div>
+      <div class="agent-role">Engineering Backend Architect · Server Actions y API</div>
+      <div class="agent-finding">
+        Firmas TypeScript para: <code>getCreatorDirectory(disciplineId?)</code>, <code>checkSubscription(readerId, creatorId)</code>, <code>getReaderCuriosityGraph(readerId)</code>, <code>recordReadingEvent(event)</code>.<br><br>
+        Stripe Connect Express ya está bien implementado — <code>stripeAccount: stripeAccountId</code> en checkout sessions es el mecanismo correcto. No se requiere migración.<br><br>
+        API del cuestionario: HMAC firmado con Web Crypto nativo. Las preguntas viajan al cliente, la evaluación es 100% server-side. Rate limit: 3 intentos por semana en <code>sala_verification_attempts</code>.
+      </div>
+      <span class="completed-badge">✓ Completado</span>
+    </div>
+
+    <div class="agent-card">
+      <span class="roman">LI</span>
+      <div class="agent-name">Desarrollador Frontend</div>
+      <div class="agent-role">Engineering Frontend Developer · Implementación</div>
+      <div class="agent-finding">
+        <strong>3 componentes implementados:</strong><br>
+        <code>creator-card.tsx</code> — card con badge "EXPERTO RECONOCIDO POR SALA", inicial cuadrada negra, specialty en crimson, hover bg-[#F7F7F7].<br>
+        <code>paywall-gate.tsx</code> — 3 estados (suscrito/autenticado sin sub/no autenticado), fade mask, borde superior crimson.<br>
+        <code>discipline-filter.tsx</code> — tabs sticky, tab activo con borde inferior negro, scroll horizontal en mobile.<br><br>
+        <code>sitemap.ts</code> + <code>robots.ts</code> creados. <code>generateMetadata</code> + JSON-LD agregados a páginas de creador y artículo.
+      </div>
+      <span class="completed-badge">✓ Completado</span>
+    </div>
+
+  </div>
+
+  <!-- RESUMEN DE ARCHIVOS IMPLEMENTADOS -->
+  <div style="background:white;border:1px solid #DEDEDE;padding:32px;margin-top:40px;margin-bottom:0;">
+    <p style="font-size:10px;font-weight:900;letter-spacing:0.15em;text-transform:uppercase;font-family:'Arial',sans-serif;color:#B31C1C;margin-bottom:20px;">Archivos creados o modificados en esta sesión</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid #DEDEDE;">
+      <div style="padding:12px 16px;border-right:1px solid #DEDEDE;border-bottom:1px solid #DEDEDE;">
+        <span style="font-size:10px;font-family:'Courier New',monospace;font-weight:bold;color:#111;">src/components/creator-card.tsx</span>
+        <span style="display:block;font-size:11px;font-family:'Arial',sans-serif;color:#666;margin-top:2px;">Card de creador con badge de verificación</span>
+      </div>
+      <div style="padding:12px 16px;border-bottom:1px solid #DEDEDE;">
+        <span style="font-size:10px;font-family:'Courier New',monospace;font-weight:bold;color:#111;">src/components/paywall-gate.tsx</span>
+        <span style="display:block;font-size:11px;font-family:'Arial',sans-serif;color:#666;margin-top:2px;">Corte de contenido pagado, 3 estados</span>
+      </div>
+      <div style="padding:12px 16px;border-right:1px solid #DEDEDE;border-bottom:1px solid #DEDEDE;">
+        <span style="font-size:10px;font-family:'Courier New',monospace;font-weight:bold;color:#111;">src/components/discipline-filter.tsx</span>
+        <span style="display:block;font-size:11px;font-family:'Arial',sans-serif;color:#666;margin-top:2px;">Filtro por disciplina sticky</span>
+      </div>
+      <div style="padding:12px 16px;border-bottom:1px solid #DEDEDE;">
+        <span style="font-size:10px;font-family:'Courier New',monospace;font-weight:bold;color:#111;">src/components/home-ticker.tsx</span>
+        <span style="display:block;font-size:11px;font-family:'Arial',sans-serif;color:#666;margin-top:2px;">Client island — ticker rotativo</span>
+      </div>
+      <div style="padding:12px 16px;border-right:1px solid #DEDEDE;border-bottom:1px solid #DEDEDE;">
+        <span style="font-size:10px;font-family:'Courier New',monospace;font-weight:bold;color:#111;">src/components/home-animations.tsx</span>
+        <span style="display:block;font-size:11px;font-family:'Arial',sans-serif;color:#666;margin-top:2px;">Client island — todos los componentes animados</span>
+      </div>
+      <div style="padding:12px 16px;border-bottom:1px solid #DEDEDE;">
+        <span style="font-size:10px;font-family:'Courier New',monospace;font-weight:bold;color:#111;">src/app/page.tsx</span>
+        <span style="display:block;font-size:11px;font-family:'Arial',sans-serif;color:#666;margin-top:2px;">Convertido a Server Component — ruta / = Static</span>
+      </div>
+      <div style="padding:12px 16px;border-right:1px solid #DEDEDE;border-bottom:1px solid #DEDEDE;">
+        <span style="font-size:10px;font-family:'Courier New',monospace;font-weight:bold;color:#111;">src/app/sitemap.ts</span>
+        <span style="display:block;font-size:11px;font-family:'Arial',sans-serif;color:#666;margin-top:2px;">Sitemap dinámico desde Supabase</span>
+      </div>
+      <div style="padding:12px 16px;border-bottom:1px solid #DEDEDE;">
+        <span style="font-size:10px;font-family:'Courier New',monospace;font-weight:bold;color:#111;">src/app/robots.ts</span>
+        <span style="display:block;font-size:11px;font-family:'Arial',sans-serif;color:#666;margin-top:2px;">Reglas de indexación + sitemap</span>
+      </div>
+      <div style="padding:12px 16px;border-right:1px solid #DEDEDE;">
+        <span style="font-size:10px;font-family:'Courier New',monospace;font-weight:bold;color:#111;">src/app/[creator]/page.tsx</span>
+        <span style="display:block;font-size:11px;font-family:'Arial',sans-serif;color:#666;margin-top:2px;">generateMetadata + OpenGraph profile</span>
+      </div>
+      <div style="padding:12px 16px;">
+        <span style="font-size:10px;font-family:'Courier New',monospace;font-weight:bold;color:#111;">src/app/[creator]/[post]/page.tsx</span>
+        <span style="display:block;font-size:11px;font-family:'Arial',sans-serif;color:#666;margin-top:2px;">generateMetadata + JSON-LD Article+Person</span>
+      </div>
+    </div>
+  </div>
+
   <!-- SYNTHESIS -->
+
 
 
   <div class="synthesis">

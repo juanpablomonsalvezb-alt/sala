@@ -141,7 +141,20 @@ export async function generateMetadata({
   return {
     title: `${post.title} — ${creator.name}`,
     description: post.excerpt ?? undefined,
+    alternates: {
+      canonical: `https://sala.lat/${creator.slug}/${post.slug}`,
+    },
     openGraph: {
+      title: `${post.title} — ${creator.name}`,
+      description: post.excerpt ?? undefined,
+      url: `https://sala.lat/${creator.slug}/${post.slug}`,
+      type: 'article',
+      siteName: 'Sala',
+      publishedTime: post.published_at ?? undefined,
+      authors: [`https://sala.lat/${creator.slug}`],
+    },
+    twitter: {
+      card: 'summary_large_image',
       title: `${post.title} — ${creator.name}`,
       description: post.excerpt ?? undefined,
     },
@@ -455,8 +468,35 @@ export default async function PostPage({
     ? post.read_time_minutes
     : estimateReadTime(post.content)
 
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: post.title,
+    description: post.excerpt ?? undefined,
+    datePublished: post.published_at ?? undefined,
+    dateModified: post.published_at ?? post.created_at,
+    author: {
+      '@type': 'Person',
+      name: creator.name,
+      url: `https://sala.lat/${creator.slug}`,
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Sala',
+      url: 'https://sala.lat',
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `https://sala.lat/${creator.slug}/${post.slug}`,
+    },
+  }
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Nav creatorSlug={creator.slug} creatorName={creator.name} />
 
       <main className="px-6 py-10">

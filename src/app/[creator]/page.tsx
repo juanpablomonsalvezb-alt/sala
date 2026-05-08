@@ -118,7 +118,18 @@ export async function generateMetadata({
   return {
     title: `${creator.name} — Sala`,
     description: creator.bio,
+    alternates: {
+      canonical: `https://sala.lat/${creator.slug}`,
+    },
     openGraph: {
+      title: `${creator.name} — Sala`,
+      description: creator.bio,
+      url: `https://sala.lat/${creator.slug}`,
+      type: 'profile',
+      siteName: 'Sala',
+    },
+    twitter: {
+      card: 'summary_large_image',
       title: `${creator.name} — Sala`,
       description: creator.bio,
     },

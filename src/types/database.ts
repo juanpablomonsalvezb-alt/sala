@@ -15,6 +15,8 @@ export type Creator = {
   created_at: string
   subscriber_count: number
   stripe_account_id: string | null
+  verified?: boolean
+  discipline_name_es?: string
 }
 
 export type Post = {

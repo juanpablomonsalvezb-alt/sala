@@ -1,57 +1,55 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-@custom-variant dark (&:is(.dark *));
-
-/* ─── Sala Design System ─────────────────────────────────────────────────── */
+/* ─── Sala Design System — Minimalismo Técnico ───────────────────────────── */
 
 @theme inline {
-  /* Colores Sala */
-  --color-sala-black:  #0A0A0A;
-  --color-sala-surface: #111111;
-  --color-sala-cream:  #F5F0E8;
-  --color-sala-gold:   #C9A96E;
-  --color-sala-muted:  #8A8070;
-  --color-sala-border: #1E1E1E;
-  --color-sala-hover:  #141414;
+  /* Paleta Sala */
+  --color-sala-bg:           #F8F8F8;
+  --color-sala-surface:      #FFFFFF;
+  --color-sala-text:         #0A0A0A;
+  --color-sala-muted:        #6B7280;
+  --color-sala-accent:       #0066FF;
+  --color-sala-accent-hover: #0052CC;
+  --color-sala-border:       #E5E7EB;
+  --color-sala-border-hover: #D1D5DB;
 
-  /* Sobrescribe tokens shadcn con paleta Sala */
-  --color-background:          var(--background);
-  --color-foreground:          var(--foreground);
-  --color-card:                var(--card);
-  --color-card-foreground:     var(--card-foreground);
-  --color-popover:             var(--popover);
-  --color-popover-foreground:  var(--popover-foreground);
-  --color-primary:             var(--primary);
-  --color-primary-foreground:  var(--primary-foreground);
-  --color-secondary:           var(--secondary);
+  /* Tokens shadcn mapeados a paleta Sala */
+  --color-background:           var(--background);
+  --color-foreground:           var(--foreground);
+  --color-card:                 var(--card);
+  --color-card-foreground:      var(--card-foreground);
+  --color-popover:              var(--popover);
+  --color-popover-foreground:   var(--popover-foreground);
+  --color-primary:              var(--primary);
+  --color-primary-foreground:   var(--primary-foreground);
+  --color-secondary:            var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted:               var(--muted);
-  --color-muted-foreground:    var(--muted-foreground);
-  --color-accent:              var(--accent);
-  --color-accent-foreground:   var(--accent-foreground);
-  --color-destructive:         var(--destructive);
-  --color-border:              var(--border);
-  --color-input:               var(--input);
-  --color-ring:                var(--ring);
+  --color-muted:                var(--muted);
+  --color-muted-foreground:     var(--muted-foreground);
+  --color-accent:               var(--accent);
+  --color-accent-foreground:    var(--accent-foreground);
+  --color-destructive:          var(--destructive);
+  --color-border:               var(--border);
+  --color-input:                var(--input);
+  --color-ring:                 var(--ring);
 
-  /* Tipografías */
-  --font-serif: var(--font-playfair), "Playfair Display", Georgia, serif;
-  --font-sans:  var(--font-inter), "Inter", system-ui, sans-serif;
-  --font-mono:  "Geist Mono", "JetBrains Mono", monospace;
+  /* Tipografía — solo Inter */
+  --font-sans: var(--font-inter), "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: "Geist Mono", "JetBrains Mono", ui-monospace, monospace;
 
   /* Radios */
-  --radius-sm: 0.25rem;
-  --radius-md: 0.375rem;
-  --radius-lg: 0.5rem;
-  --radius-xl: 0.75rem;
+  --radius-sm:  0.25rem;
+  --radius-md:  0.375rem;
+  --radius-lg:  0.5rem;
+  --radius-xl:  0.75rem;
   --radius-2xl: 1rem;
   --radius-3xl: 1.5rem;
 
-  /* Animaciones keyframes */
-  --animate-fade-in:  fadeIn 0.4s ease forwards;
-  --animate-slide-up: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  --animate-slide-in: slideIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  /* Animaciones */
+  --animate-fade-in:  fadeIn 0.35s ease forwards;
+  --animate-slide-up: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --animate-slide-in: slideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 
   @keyframes fadeIn {
     from { opacity: 0; }
@@ -59,60 +57,38 @@
   }
 
   @keyframes slideUp {
-    from { opacity: 0; transform: translateY(16px); }
+    from { opacity: 0; transform: translateY(12px); }
     to   { opacity: 1; transform: translateY(0); }
   }
 
   @keyframes slideIn {
-    from { opacity: 0; transform: translateX(-12px); }
+    from { opacity: 0; transform: translateX(-8px); }
     to   { opacity: 1; transform: translateX(0); }
   }
 }
 
-/* ─── Tokens de color (modo oscuro por defecto) ──────────────────────────── */
+/* ─── Tokens de color (light — único modo) ───────────────────────────────── */
 
 :root {
-  --background:           #0A0A0A;
-  --foreground:           #F5F0E8;
-  --card:                 #111111;
-  --card-foreground:      #F5F0E8;
-  --popover:              #111111;
-  --popover-foreground:   #F5F0E8;
-  --primary:              #C9A96E;
-  --primary-foreground:   #0A0A0A;
-  --secondary:            #1E1E1E;
-  --secondary-foreground: #F5F0E8;
-  --muted:                #141414;
-  --muted-foreground:     #8A8070;
-  --accent:               #1E1E1E;
-  --accent-foreground:    #C9A96E;
-  --destructive:          #A8433A;
-  --border:               #1E1E1E;
-  --input:                #1A1A1A;
-  --ring:                 #C9A96E;
-  --radius:               0.5rem;
-}
-
-/* Sala es siempre dark — .dark replica el mismo esquema */
-.dark {
-  --background:           #0A0A0A;
-  --foreground:           #F5F0E8;
-  --card:                 #111111;
-  --card-foreground:      #F5F0E8;
-  --popover:              #111111;
-  --popover-foreground:   #F5F0E8;
-  --primary:              #C9A96E;
-  --primary-foreground:   #0A0A0A;
-  --secondary:            #1E1E1E;
-  --secondary-foreground: #F5F0E8;
-  --muted:                #141414;
-  --muted-foreground:     #8A8070;
-  --accent:               #1E1E1E;
-  --accent-foreground:    #C9A96E;
-  --destructive:          #A8433A;
-  --border:               #1E1E1E;
-  --input:                #1A1A1A;
-  --ring:                 #C9A96E;
+  --background:            #F8F8F8;
+  --foreground:            #0A0A0A;
+  --card:                  #FFFFFF;
+  --card-foreground:       #0A0A0A;
+  --popover:               #FFFFFF;
+  --popover-foreground:    #0A0A0A;
+  --primary:               #0066FF;
+  --primary-foreground:    #FFFFFF;
+  --secondary:             #F3F4F6;
+  --secondary-foreground:  #0A0A0A;
+  --muted:                 #F3F4F6;
+  --muted-foreground:      #6B7280;
+  --accent:                #EFF6FF;
+  --accent-foreground:     #0066FF;
+  --destructive:           #EF4444;
+  --border:                #E5E7EB;
+  --input:                 #FFFFFF;
+  --ring:                  #0066FF;
+  --radius:                0.5rem;
 }
 
 /* ─── Base styles ────────────────────────────────────────────────────────── */
@@ -140,30 +116,30 @@
     min-height: 100dvh;
   }
 
-  /* Selección de texto — dorado sobre crema apagado */
+  /* Selección de texto — azul claro */
   ::selection {
-    background-color: #C9A96E33;
-    color: #C9A96E;
+    background-color: #0066FF22;
+    color: #0052CC;
   }
 
   ::-moz-selection {
-    background-color: #C9A96E33;
-    color: #C9A96E;
+    background-color: #0066FF22;
+    color: #0052CC;
   }
 
-  /* Focus ring elegante */
+  /* Focus ring azul */
   :focus-visible {
-    outline: 1.5px solid #C9A96E;
-    outline-offset: 3px;
-    border-radius: 2px;
+    outline: 2px solid #0066FF;
+    outline-offset: 2px;
+    border-radius: 3px;
   }
 
-  /* Headings heredan serif por defecto */
+  /* Headings — Inter apretado */
   h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-serif);
-    font-weight: 400;
-    letter-spacing: -0.01em;
-    line-height: 1.2;
+    font-family: var(--font-sans);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
     color: var(--foreground);
   }
 
@@ -175,11 +151,11 @@
   a {
     color: inherit;
     text-decoration: none;
-    transition: color 0.2s ease;
+    transition: color 0.15s ease;
   }
 
   a:hover {
-    color: #C9A96E;
+    color: #0066FF;
   }
 
   hr {
@@ -195,45 +171,35 @@
   }
 }
 
-/* ─── Scrollbar personalizada ────────────────────────────────────────────── */
+/* ─── Scrollbar sutil ────────────────────────────────────────────────────── */
 
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0A0A0A;
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #2A2A2A;
-  border-radius: 3px;
+  background: #D1D5DB;
+  border-radius: 99px;
   transition: background 0.2s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #3A3A3A;
+  background: #9CA3AF;
 }
 
 ::-webkit-scrollbar-corner {
-  background: #0A0A0A;
+  background: transparent;
 }
 
 /* Firefox */
 * {
   scrollbar-width: thin;
-  scrollbar-color: #2A2A2A #0A0A0A;
-}
-
-/* ─── Clases tipográficas ────────────────────────────────────────────────── */
-
-.font-serif {
-  font-family: var(--font-serif);
-}
-
-.font-sans {
-  font-family: var(--font-sans);
+  scrollbar-color: #D1D5DB transparent;
 }
 
 /* ─── Clases de animación ────────────────────────────────────────────────── */
@@ -250,7 +216,7 @@
   animation: var(--animate-slide-in);
 }
 
-/* Variantes con delay */
+/* Delays */
 .animate-delay-100 { animation-delay: 100ms; }
 .animate-delay-200 { animation-delay: 200ms; }
 .animate-delay-300 { animation-delay: 300ms; }
@@ -260,64 +226,66 @@
 /* ─── Utilidades Sala ────────────────────────────────────────────────────── */
 
 @layer utilities {
-  /* Texto con gradiente dorado */
-  .text-gold-gradient {
-    background: linear-gradient(135deg, #C9A96E 0%, #E8C99A 50%, #C9A96E 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  /* Borde dorado sutil */
-  .border-gold {
-    border-color: #C9A96E;
-  }
-
-  /* Superficie con ligero glow dorado */
-  .glow-gold {
-    box-shadow: 0 0 24px 0 #C9A96E18;
-  }
-
-  /* Separador decorativo editorial */
-  .divider-editorial {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    color: #8A8070;
-    font-size: 0.75rem;
-    letter-spacing: 0.15em;
+  /* Label / tag técnico */
+  .label-tag {
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: 11px;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
+    color: #6B7280;
   }
 
-  .divider-editorial::before,
-  .divider-editorial::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: linear-gradient(to right, transparent, #1E1E1E);
-  }
-
-  .divider-editorial::after {
-    background: linear-gradient(to left, transparent, #1E1E1E);
-  }
-
-  /* Superficie card con borde sutil */
+  /* Superficie card */
   .surface-card {
-    background-color: #111111;
-    border: 1px solid #1E1E1E;
+    background-color: #FFFFFF;
+    border: 1px solid #E5E7EB;
     border-radius: var(--radius-lg);
-    transition: border-color 0.2s ease, background-color 0.2s ease;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
   }
 
   .surface-card:hover {
-    background-color: #141414;
-    border-color: #2A2820;
+    border-color: #D1D5DB;
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.06);
   }
 
-  /* Opacidad de elementos deshabilitados */
+  /* Sombras sutiles */
+  .shadow-sala-sm { box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.06); }
+  .shadow-sala-md { box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.08); }
+  .shadow-sala-lg { box-shadow: 0 8px 24px 0 rgba(0, 0, 0, 0.10); }
+
+  /* Divider */
+  .divider-label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: #9CA3AF;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .divider-label::before,
+  .divider-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #E5E7EB;
+  }
+
+  /* Estado deshabilitado */
   .sala-disabled {
-    opacity: 0.38;
+    opacity: 0.4;
     pointer-events: none;
     cursor: not-allowed;
+  }
+
+  /* Texto gradiente azul */
+  .text-accent-gradient {
+    background: linear-gradient(135deg, #0066FF 0%, #338BFF 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 }

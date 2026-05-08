@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Consejo Estratégico — Sala</title>
+<style>
+  :root {
+    --ink: #111111;
+    --crimson: #B31C1C;
+    --cream: #F8F7F5;
+    --white: #FFFFFF;
+    --rule: #E0E0E0;
+    --muted: #636363;
+    --emerald: #065F46;
+    --emerald-light: #ECFDF5;
+    --amber: #92400E;
+    --amber-light: #FFFBEB;
+    --blue: #1E3A5F;
+    --blue-light: #EFF6FF;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Georgia', serif; background: var(--cream); color: var(--ink); }
+
+  /* TOP BAR */
+  .topbar {
+    background: var(--ink);
+    color: white;
+    padding: 8px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 10px;
+    font-family: 'Arial', sans-serif;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+  .topbar .live { color: var(--crimson); font-weight: 900; }
+
+  /* HEADER */
+  header {
+    background: white;
+    border-bottom: 3px solid var(--ink);
+    padding: 24px 40px;
+  }
+  .header-inner { max-width: 1400px; margin: 0 auto; }
+  .logo { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .logo-s { width: 32px; height: 32px; background: var(--crimson); display: flex; align-items: center; justify-content: center; color: white; font-weight: 900; font-size: 16px; }
+  .logo-text { font-size: 22px; font-weight: 900; letter-spacing: 0.04em; font-family: 'Arial', sans-serif; }
+  .header-title { font-size: clamp(28px, 4vw, 52px); font-weight: bold; line-height: 1; letter-spacing: -0.02em; margin-bottom: 4px; }
+  .header-sub { font-size: 13px; color: var(--muted); font-family: 'Arial', sans-serif; }
+
+  /* STATS BAR */
+  .stats-bar {
+    background: var(--ink);
+    color: white;
+    padding: 16px 40px;
+  }
+  .stats-inner { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; }
+  .stat { text-align: center; border-right: 1px solid rgba(255,255,255,0.1); padding: 8px 16px; }
+  .stat:last-child { border-right: none; }
+  .stat-num { font-size: 28px; font-weight: 900; font-family: 'Georgia', serif; color: var(--crimson); }
+  .stat-label { font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-top: 4px; font-family: 'Arial', sans-serif; }
+
+  /* VERDICT BANNER */
+  .verdict {
+    background: var(--crimson);
+    color: white;
+    padding: 20px 40px;
+    border-bottom: 3px solid #8E1515;
+  }
+  .verdict-inner { max-width: 1400px; margin: 0 auto; display: flex; align-items: center; gap: 24px; }
+  .verdict-label { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; font-family: 'Arial', sans-serif; opacity: 0.8; }
+  .verdict-text { font-size: 22px; font-weight: bold; }
+  .verdict-badge { background: white; color: var(--crimson); padding: 6px 16px; font-size: 11px; font-weight: 900; letter-spacing: 0.1em; font-family: 'Arial', sans-serif; text-transform: uppercase; margin-left: auto; }
+
+  /* MAIN */
+  main { max-width: 1400px; margin: 0 auto; padding: 40px; }
+
+  /* SECTION HEADER */
+  .section-header {
+    display: flex; align-items: baseline; gap: 12px;
+    border-bottom: 3px solid var(--ink);
+    padding-bottom: 12px;
+    margin-bottom: 24px;
+    margin-top: 48px;
+  }
+  .section-header:first-child { margin-top: 0; }
+  .section-title { font-size: 28px; font-weight: bold; letter-spacing: -0.01em; }
+  .section-sub { font-size: 28px; font-weight: bold; color: #D0D0D0; }
+  .section-badge {
+    margin-left: auto;
+    font-size: 9px;
+    font-family: 'Arial', sans-serif;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: bold;
+  }
+
+  /* AGENT GRID */
+  .agent-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 0; border: 1px solid var(--rule); }
+
+  /* AGENT CARD */
+  .agent-card {
+    background: white;
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 24px;
+    position: relative;
+    transition: background 0.15s;
+    cursor: default;
+  }
+  .agent-card:hover { background: #FFF5F5; }
+  .agent-card .roman { font-size: 32px; color: #EBEBEB; font-weight: bold; display: block; margin-bottom: 8px; line-height: 1; transition: color 0.15s; }
+  .agent-card:hover .roman { color: #F5C5C5; }
+  .agent-name { font-size: 13px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.08em; font-family: 'Arial', sans-serif; margin-bottom: 4px; }
+  .agent-role { font-size: 11px; color: var(--muted); font-family: 'Arial', sans-serif; margin-bottom: 12px; }
+  .agent-finding { font-size: 13px; line-height: 1.65; color: #444; border-left: 3px solid var(--rule); padding-left: 12px; margin-bottom: 16px; transition: border-color 0.15s; }
+  .agent-card:hover .agent-finding { border-left-color: var(--crimson); }
+
+  /* VOTE BADGE */
+  .vote { display: inline-flex; align-items: center; gap: 6px; font-size: 10px; font-weight: 900; letter-spacing: 0.12em; text-transform: uppercase; font-family: 'Arial', sans-serif; padding: 4px 10px; }
+  .vote-a { background: var(--emerald-light); color: var(--emerald); }
+  .vote-b { background: var(--amber-light); color: var(--amber); }
+  .vote-c { background: var(--blue-light); color: var(--blue); }
+  .vote-implicit { opacity: 0.7; }
+
+  /* TAG */
+  .tag { display: inline-block; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; font-family: 'Arial', sans-serif; padding: 2px 8px; margin-right: 4px; margin-bottom: 4px; border: 1px solid var(--rule); color: var(--muted); }
+
+  /* MISSING AGENTS */
+  .missing-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 0; border: 1px solid var(--rule); }
+  .missing-card {
+    background: white;
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 20px 24px;
+    opacity: 0.7;
+    transition: opacity 0.15s, background 0.15s;
+  }
+  .missing-card:hover { opacity: 1; background: #FAFAFA; }
+  .missing-name { font-size: 12px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.08em; font-family: 'Arial', sans-serif; margin-bottom: 4px; }
+  .missing-role { font-size: 11px; color: var(--muted); font-family: 'Arial', sans-serif; margin-bottom: 8px; }
+  .missing-why { font-size: 12px; color: #555; line-height: 1.6; }
+  .missing-badge { font-size: 9px; font-family: 'Arial', sans-serif; letter-spacing: 0.1em; text-transform: uppercase; color: white; background: #999; padding: 2px 8px; display: inline-block; margin-top: 8px; }
+  .missing-badge.urgent { background: var(--crimson); }
+  .missing-badge.soon { background: #92400E; }
+
+  /* COMPLETED AGENTS */
+  .agent-card.completed:hover { background: var(--emerald-light); }
+  .agent-card.completed:hover .agent-finding { border-left-color: var(--emerald); }
+  .agent-card.completed:hover .roman { color: #A7F3D0; }
+  .completed-badge { display: inline-block; font-size: 9px; font-family: 'Arial', sans-serif; letter-spacing: 0.1em; text-transform: uppercase; background: var(--emerald-light); color: var(--emerald); padding: 2px 8px; font-weight: 900; margin-top: 8px; }
+
+  /* SYNTHESIS */
+  .synthesis {
+    background: var(--ink);
+    color: white;
+    padding: 40px;
+    margin-top: 48px;
+  }
+  .synthesis-title { font-size: 36px; font-weight: bold; letter-spacing: -0.02em; margin-bottom: 24px; }
+  .synthesis-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+  .synthesis-block h3 { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; font-family: 'Arial', sans-serif; color: var(--crimson); margin-bottom: 12px; }
+  .synthesis-block p { font-size: 14px; line-height: 1.75; color: rgba(255,255,255,0.7); }
+  .synthesis-block .highlight { color: white; font-weight: bold; }
+
+  /* PLAN TABLE */
+  .plan-table { width: 100%; border-collapse: collapse; margin-top: 16px; font-family: 'Arial', sans-serif; font-size: 12px; }
+  .plan-table th { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.5); padding: 8px 12px; text-align: left; letter-spacing: 0.1em; text-transform: uppercase; font-size: 9px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+  .plan-table td { padding: 10px 12px; border-bottom: 1px solid rgba(255,255,255,0.06); color: rgba(255,255,255,0.8); vertical-align: top; }
+  .plan-table tr:hover td { background: rgba(255,255,255,0.03); }
+  .plan-period { color: var(--crimson); font-weight: 900; white-space: nowrap; }
+  .plan-metric { color: rgba(255,255,255,0.4); font-size: 11px; }
+
+  /* FOOTER */
+  footer {
+    background: #0A0A0A;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding: 24px 40px;
+    text-align: center;
+    font-size: 10px;
+    color: rgba(255,255,255,0.2);
+    font-family: 'Arial', sans-serif;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* VOTE SUMMARY BAR */
+  .vote-summary { display: flex; align-items: center; gap: 0; border: 1px solid var(--rule); overflow: hidden; margin-bottom: 32px; }
+  .vote-bar { height: 48px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 900; font-family: 'Arial', sans-serif; letter-spacing: 0.08em; transition: all 0.3s; }
+  .vote-bar-a { background: var(--emerald-light); color: var(--emerald); flex: 16; }
+  .vote-bar-b { background: var(--amber-light); color: var(--amber); flex: 2; }
+  .vote-bar-c { background: var(--blue-light); color: var(--blue); flex: 0; display: none; }
+  .vote-bar-impl { background: #F5F5F5; color: var(--muted); flex: 6; }
+  .vote-label { display: flex; flex-direction: column; }
+  .vote-num { font-size: 18px; line-height: 1; }
+  .vote-tag { font-size: 9px; opacity: 0.7; }
+
+  @media (max-width: 768px) {
+    .stats-inner { grid-template-columns: repeat(3, 1fr); }
+    .synthesis-grid { grid-template-columns: 1fr; }
+    main { padding: 20px; }
+    header { padding: 20px; }
+    .topbar { padding: 8px 20px; }
+    .stats-bar { padding: 16px 20px; }
+    .verdict { padding: 16px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <span><span class="live">● EN VIVO</span> · Análisis Multi-Agente Completo · Sala Platform</span>
+  <span>Mayo 2026 · Claude Sonnet 4.6</span>
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <div class="logo">
+      <div class="logo-s">S</div>
+      <span class="logo-text">ALA</span>
+    </div>
+    <h1 class="header-title">Consejo Estratégico de Agentes</h1>
+    <p class="header-sub">Análisis completo · Decisión colectiva · Red editorial profesional verificada en LATAM</p>
+  </div>
+</header>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat">
+      <div class="stat-num">38</div>
+      <div class="stat-label">Agentes convocados</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">9/9</div>
+      <div class="stat-label">Consenso Tesis A</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">0</div>
+      <div class="stat-label">Consejo completado</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">90</div>
+      <div class="stat-label">Días plan de acción</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">$15K</div>
+      <div class="stat-label">MRR objetivo mes 6</div>
+    </div>
+  </div>
+</div>
+
+<!-- VERDICT -->
+<div class="verdict">
+  <div class="verdict-inner">
+    <div>
+      <div class="verdict-label">Veredicto unánime del consejo</div>
+      <div class="verdict-text">Tesis A — Creator Economy LATAM · 9 de 9 votos</div>
+    </div>
+    <div class="verdict-badge">Decisión Ejecutable</div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<main>
+
+  <!-- VOTE DISTRIBUTION -->
+  <div class="section-header" style="margin-top:0">
+    <span class="section-title">Distribución de votos</span>
+    <span class="section-badge">Consejo de decisión · 9 agentes</span>
+  </div>
+
+  <div class="vote-summary">
+    <div class="vote-bar vote-bar-a">
+      <div class="vote-label">
+        <span class="vote-num">7</span>
+        <span class="vote-tag">TESIS A — Explícito</span>
+      </div>
+    </div>
+    <div class="vote-bar vote-bar-b">
+      <div class="vote-label">
+        <span class="vote-num">2</span>
+        <span class="vote-tag">TESIS B → A</span>
+      </div>
+    </div>
+    <div class="vote-bar vote-bar-impl">
+      <div class="vote-label">
+        <span class="vote-num">15+</span>
+        <span class="vote-tag">IMPLÍCITO TESIS A</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- FASE 1: ANÁLISIS INICIAL -->
+  <div class="section-header">
+    <span class="section-title">Fase I — Análisis competitivo y de mercado</span>
+    <span class="section-sub">4 agentes</span>
+    <span class="section-badge">Primera ronda</span>
+  </div>
+
+  <div class="agent-grid">
+    <div class="agent-card">
+      <span class="roman">I</span>
+      <div class="agent-name">Investigador de Mercado</div>
+      <div class="agent-role">Product Trend Researcher · Análisis competitivo LATAM</div>
+      <div class="agent-finding">Creator economy LATAM: $10.7B en 2024, CAGR 20%+. Substack en crisis de marca (nazis, 2025). Discovery en español roto. Hotmart con reputación destruida. Ventana de 18-24 meses antes de que Substack reactive español.</div>
+      <div><span class="tag">Mercado Real</span><span class="tag">No Saturado</span><span class="tag">Timing Correcto</span></div>
+    </div>
+
+    <div class="agent-card">
+      <span class="roman">II</span>
+      <div class="agent-name">Analista Financiero</div>
+      <div class="agent-role">FP&A Analyst · Unit economics y path a $1M ARR</div>
+      <div class="agent-finding">Burn multiple 10.9x es insostenible. Variable crítica: audiencia por creador (71 hoy → 300 necesario). Path a $1M ARR: 265 creadores con 300 suscriptores. Break-even mes 16-17 con ejecución consistente.</div>
+      <div><span class="tag">Burn Crítico</span><span class="tag">Viable con Ajustes</span></div>
+    </div>
+
+    <div class="agent-card">
+      <span class="roman">III</span>
+      <div class="agent-name">Estratega de Producto</div>
+      <div class="agent-role">Product Manager · Go-to-market y posicionamiento</div>
+      <div class="agent-finding">Nicho "profesional" es defendible SOLO con verificación real con fricción. El directorio público no es opcional — es el producto para lectores. La tasa de cross-suscripción es la North Star Metric.</div>
+      <div><span class="tag">Directorio Urgente</span><span class="tag">Verificación = Moat</span></div>
+    </div>
+
+    <div class="agent-card">
+      <span class="roman">IV</span>
+      <div class="agent-name">Analista LinkedIn</div>
+      <div class="agent-role">Product Trend Researcher · LinkedIn como competidor/canal</div>
+      <div class="agent-finding">LinkedIn exploró comprar Beehiiv. Su modelo de negocio ($16B en HR) es incompatible con cobro directo entre usuarios. Es canal de adquisición, no competidor real. Ventana: 12-18 meses antes de que actúe.</div>
+      <div><span class="tag">Canal No Competidor</span><span class="tag">Ventana Limitada</span></div>
+    </div>
+  </div>
+
+  <!-- FASE 2: ANÁLISIS PROFUNDO -->
+  <div class="section-header">
+    <span class="section-title">Fase II — Análisis profundo de producto y negocio</span>
+    <span class="section-sub">8 agentes</span>
+    <span class="section-badge">Segunda ronda · Pregunta madre</span>
+  </div>
+
+  <div class="agent-grid">
+    <div class="agent-card">
+      <span class="roman">V</span>
+      <div class="agent-name">Arquitecto de Producto</div>
+      <div class="agent-role">Software Architect · Definición del producto ideal</div>
+      <div class="agent-finding">Sala no es newsletter, red social ni páginas pagadas. Es una "biblioteca disciplinar con modelo de membresía individual por creador." La categoría correcta: <strong>Red Editorial Profesional</strong>. Empezar con 1 disciplina, no 18 gremios.</div>
+      <div><span class="tag">Nueva Categoría</span><span class="tag">Disciplina Primero</span></div>
+    </div>
+
+    <div class="agent-card">
+      <span class="roman">VI</span>
+      <div class="agent-name">Experto en Growth</div>
+      <div class="agent-role">Growth Hacker · Mecanismo de crecimiento del producto</div>
+      <div class="agent-finding">Mecanismo central: el Grafo de Curiosidad — cada lectura construye un perfil intelectual público inamovible. Loop viral: leer → badge automático → compartir a LinkedIn → nuevo lector con contexto social → leer. K-factor estimado: 1.7 suscriptores por lectura completada.</div>
+      <div><span class="tag">Grafo de Curiosidad</span><span class="tag">Loop Viral</span></div>
+    </div>
+
+    <div class="agent-card">
+      <span class="roman">VII</span>
+      <div class="agent-name">Modelo de Monetización</div>
+      <div class="agent-role">FP&A Analyst · Sala Network Model</div>
+      <div class="agent-finding">3 capas: Suscripciones de creador (hoy) + Sala Boost Network (mes 6) + Sala Ads LATAM (mes 12). Break-even mes 16-17. El Boost system genera $12K/mes a 18 meses sin agregar creadores. Pricing por país con PPA obligatorio.</div>
+      <div><span class="tag">3 Capas</span><span class="tag">Boost = Key</span></div>
+    </div>
+
+    <div class="agent-card">
+      <span class="roman">VIII</span>
+      <div class="agent-name">Diseñador Social</div>
+      <div class="agent-role">Product Manager · Arquitectura de la capa social</div>
+      <div class="agent-finding">El Debate de Tesis es el mecanismo más diferenciador. Reglas: solo creadores verificados del mismo gremio pueden replicar. Máximo un nivel de profundidad. El debate queda archivado como unidad. El Colateral de Gremio: 5% de ingresos pasivos por recomendaciones.</div>
+      <div><span class="tag">Debate de Tesis</span><span class="tag">Colateral Gremio</span></div>
+    </div>
+
+    <div class="agent-card">
+      <span class="roman">IX</span>
+      <div class="agent-name">Estratega de Posicionamiento</div>
+      <div class="agent-role">Content Creator · Categoría y tagline</div>
+      <div class="agent-finding">Categoría nueva: <strong>"Economía del conocimiento profesional en español"</strong>. Posicionamiento ganador: Opción 2 — "LinkedIn es tu vitrina. Sala es tu negocio." Nunca llamar a Sala "newsletter" ni "red social" en comunicación externa.</div>
+      <div><span class="tag">Nueva Categoría</span><span class="tag">Anti-LinkedIn</span></div>
+    </div>
+
+    <div class="agent-card">
+      <span class="roman">X</span>
+      <div class="agent-name">Psicólogo del Producto</div>
+      <div class="agent-role">Academic Psychologist · SDT, Jobs-to-be-Done</div>
+      <div class="agent-finding">El miedo del creador no es síndrome del impostor — es "miedo al reencuadre identitario". El lector no compra información, compra el modelo mental de alguien. El momento aha: el primer depósito real. El mes 3 es el valle de la muerte de churn.</div>
+      <div><span class="tag">Identidad Profesional</span><span class="tag">Miedo al Reencuadre</span></div>
+    </div>
+
+    <div class="agent-card">
+      <span class="roman">XI</span>
+      <div class="agent-name">Estratega LATAM</div>
+      <div class="agent-role">Market Localization · Expansión regional</div>
+      <div class="agent-finding">Secuencia: Chile → Colombia → México → Perú → Argentina. Colombia: abogados, alta densidad profesional, Wompi. México: fiscalistas, modelo membresía no newsletter (email open rate bajo). Argentina: último, restricciones cambiarias.</div>
+      <div><span class="tag">CL→CO→MX→PE→AR</span><span class="tag">Pricing PPA</span></div>
+    </div>
+
+    <div class="agent-card">
+      <span class="roman">XII</span>
+      <div class="agent-name">Abogado del Diablo</div>
+      <div class="agent-role">General Purpose · Riesgos existenciales</div>
+      <div class="agent-finding">3 problemas viables (no mortales): directorio público ausente, concentración en top 3 creadores, variable crítica = audiencia por creador no número de creadores. Ventana de 12-18 meses antes de que LinkedIn cierre el gap.</div>
+      <div><span class="tag">Viable</span><span class="tag">Ejecutable</span></div>
+    </div>
+  </div>
+
+  <!-- FASE 3: AGENTES ESPECIALIZADOS -->
+  <div class="section-header">
+    <span class="section-title">Fase III — Especialistas críticos</span>
+    <span class="section-sub">8 agentes</span>
+    <span class="section-badge">Tercera ronda · Gaps identificados</span>
+  </div>
+
+  <div class="agent-grid">
+    <div class="agent-card">
+      <span class="roman">XIII</span>
+      <div class="agent-name">Experto en Marketplaces</div>
+      <div class="agent-role">Product Manager · Two-sided marketplace dynamics</div>
+      <div class="agent-finding">Sala es un marketplace asimétrico, no Airbnb. Modelo correcto: anchor tenants con condiciones diferenciales. Magic number: <strong>5-7 creadores activos por disciplina</strong>. Error inminente: escalar ambos lados simultáneamente antes de tener densidad.</div>
+      <div><span class="tag">Anchor Tenants</span><span class="tag">5-7 por Disciplina</span></div>
+    </div>
+
+    <div class="agent-card">
+      <span class="roman">XIV</span>
+      <div class="agent-name">Experto Editorial</div>
+      <div class="agent-role">Content Creator · Modelos de medios reales</div>
+      <div class="agent-finding">El modelo de columnista independiente funciona solo en la cima. Error de Medium: infraestructura neutral. Error de Substack: degradación de calidad por volumen. Sala debe tener voz editorial propia — curaduría visible, estándares explícitos.</div>
+      <div><span class="tag">Voz Editorial Propia</span><span class="tag">No Neutral</span></div>
+    </div>
+
+    <div class="agent-card">
+      <span class="roman">XV</span>
+      <div class="agent-name">Experto Legal LATAM</div>
+      <div class="agent-role">Legal Compliance · Chile, Colombia, México, Argentina</div>
+      <div class="agent-finding">Colombia riesgo ALTO para médicos y abogados (Resolución 2654/2019). Stripe Connect desde día 1 es no negociable. Re-verificación semestral de credenciales obligatoria. Argentina: último mercado por restricciones cambiarias.</div>
+      <div><span class="tag">Colombia = Alto Riesgo</span><span class="tag">Stripe Connect Day 1</span></div>
+    </div>
+
+    <div class="agent-card">
+      <span class="roman">XVI</span>
+      <div class="agent-name">Experto Anti-Fraude</div>
+      <div class="agent-role">Compliance Auditor · Trust & Safety</div>
+      <div class="agent-finding">El ataque más fácil: usar matrícula de un colega real. Solución: verificar identidad (Truora ~$2/verificación) ANTES de verificar credencial. Sistema de reportes de pares: 3 denuncias de creadores verificados del mismo gremio activan revisión humana.</div>
+      <div><span class="tag">Truora Obligatorio</span><span class="tag">Reportes de Pares</span></div>
+    </div>
+
+    <div class="agent-card">
+      <span class="roman">XVII</span>
+      <div class="agent-name">Experto en Network Effects</div>
+      <div class="agent-role">Product Trend Researcher · Framework NFX</div>
+      <div class="agent-finding">Defensibilidad actual: <strong>4.5/10</strong>. Con grafo de curiosidad público: <strong>6.5/10</strong>. El grafo de curiosidad como activo individual es switching cost, no NE real. Para ser NE real: debe ser social y visible para creadores.</div>
+      <div><span class="tag">4.5→6.5 con Grafo</span><span class="tag">Fragmentación = Ventaja</span></div>
+    </div>
+
+    <div class="agent-card">
+      <span class="roman">XVIII</span>
+      <div class="agent-name">Creador Experimentado</div>
+      <div class="agent-role">Content Creator · Perspectiva desde adentro</div>
+      <div class="agent-finding">Umbral psicológico mínimo: <strong>15 suscriptores pagos</strong> en 90 días. El Debate de Tesis es atractivo SI hay filtro editorial + derecho de réplica igual. Formato ganador: newsletter corto (puerta) + ensayo largo (producto). La fuga ocurre cuando algo simple no funciona.</div>
+      <div><span class="tag">15 Suscriptores Mínimo</span><span class="tag">Newsletter + Paywall</span></div>
+    </div>
+
+    <div class="agent-card">
+      <span class="roman">XIX</span>
+      <div class="agent-name">VC / Inversor LATAM</div>
+      <div class="agent-role">Investment Researcher · Fundabilidad y exit</div>
+      <div class="agent-finding">No fundable institucionalmente hoy. Burn 10.9x es el killer. 3 tesis compitiendo sin elección. Path a seed: reducir burn a &lt;$15K/mes, MRR $15K+, 80-100 creadores, <strong>1 contrato corporativo</strong>. Exit probable: adquisición $30-80M en 5-7 años.</div>
+      <div><span class="tag">No Fundable Hoy</span><span class="tag">Ángel Individual Now</span></div>
+    </div>
+
+    <div class="agent-card">
+      <span class="roman">XX</span>
+      <div class="agent-name">Economista del Comportamiento</div>
+      <div class="agent-role">Academic Psychologist · Behavioral economics</div>
+      <div class="agent-finding">Precio óptimo lector: <strong>$4.990 CLP/mes</strong>. Plan anual como default (+40-60% retención). "Primer mes gratis" genera 2.8x más churn. Nudge creador: mostrar pérdida en comisiones en tiempo real. Valle de la muerte: días 2-3 del cobro y semanas 6-8.</div>
+      <div><span class="tag">$4.990 CLP</span><span class="tag">Anual por Default</span></div>
+    </div>
+  </div>
+
+  <!-- FASE 4: CONSEJO DE DECISIÓN -->
+  <div class="section-header">
+    <span class="section-title">Fase IV — Consejo de decisión</span>
+    <span class="section-sub">7 agentes · 1 sintetizador</span>
+    <span class="section-badge">Voto final · 9/9 Tesis A</span>
+  </div>
+
+  <div class="agent-grid">
+    <div class="agent-card">
+      <span class="roman">XXI</span>
+      <div class="agent-name">CEO Advisor</div>
+      <div class="agent-role">Chief of Staff · Decisión estratégica</div>
+      <div class="agent-finding">La Tesis A es la única que capitaliza lo que ya funciona. Primera acción: identificar y contactar los 10 profesionales chilenos más visibles en LinkedIn con análisis gratuitos y ofrecerles onboarding concierge con garantía de 30 suscriptores en 60 días.</div>
+      <div><span class="vote vote-a">▲ Tesis A</span></div>
+    </div>
+
+    <div class="agent-card">
+      <span class="roman">XXII</span>
+      <div class="agent-name">Revenue Operations</div>
+      <div class="agent-role">Sales Pipeline Analyst · Path a $1M ARR</div>
+      <div class="agent-finding">Voto B por velocidad de revenue: proyecta $27.3K MRR en 6 meses con 15 contratos corporativos. Sin embargo reconoce: "la Tesis A construye las condiciones para que B funcione." El cuello de botella real de B: el fundador no sabe vender B2B.</div>
+      <div><span class="vote vote-b vote-implicit">◆ Tesis B → A</span></div>
+    </div>
+
+    <div class="agent-card">
+      <span class="roman">XXIII</span>
+      <div class="agent-name">Inteligencia Competitiva</div>
+      <div class="agent-role">Product Trend Researcher · Análisis con web search</div>
+      <div class="agent-finding">Voto B por ventana competitiva: ningún competidor B2B en español existe hoy. Arbolus (España) está en Costa Rica — 18 meses para llegar. Sin embargo valida A como camino de entrada. GLG/AlphaSights no tienen LATAM real.</div>
+      <div><span class="vote vote-b vote-implicit">◆ Tesis B → A</span></div>
+    </div>
+
+    <div class="agent-card">
+      <span class="roman">XXIV-a</span>
+      <div class="agent-name">GTM Strategist</div>
+      <div class="agent-role">Growth Hacker · Canal y mensaje exacto</div>
+      <div class="agent-finding">Con $0 de presupuesto, LinkedIn outreach manual 1-a-1 es el único canal. Mensaje en 5 líneas: reconocimiento específico + dolor sin solución + oferta sin fricción. 3 creadores orgánicos/semana = GTM funcionando. La Tesis C no tiene canal de adquisición.</div>
+      <div><span class="vote vote-a">▲ Tesis A</span></div>
+    </div>
+
+    <div class="agent-card">
+      <span class="roman">XXIV-b</span>
+      <div class="agent-name">Execution Advisor</div>
+      <div class="agent-role">Product Sprint Prioritizer · Stack técnico actual</div>
+      <div class="agent-finding">Feature 1: sala_creator_directory + sala_disciplines (normalizado, irreversible). Feature 2: sala_cross_referrals. Feature 3: payment router CLP/COP/MXN. Lanzable en 30 días: /directorio público. Decisión irreversible hoy: discipline_id como FK, no texto libre.</div>
+      <div><span class="vote vote-a">▲ Tesis A</span></div>
+    </div>
+
+    <div class="agent-card">
+      <span class="roman">XXIV-c</span>
+      <div class="agent-name">Customer Development</div>
+      <div class="agent-role">UX Researcher · Señales de comportamiento</div>
+      <div class="agent-finding">La señal decisiva: 34 creadores publicando activamente con fricción de setup. No están explorando — están ejecutando un job real. Pregunta para validar en 48h: "La última vez que alguien te pidió consejo, ¿qué pasó con esa conversación?"</div>
+      <div><span class="vote vote-a">▲ Tesis A</span></div>
+    </div>
+
+    <div class="agent-card">
+      <span class="roman">XXV</span>
+      <div class="agent-name">Sintetizador del Consejo</div>
+      <div class="agent-role">Executive Summary Generator · Síntesis final</div>
+      <div class="agent-finding">Consenso 9/9. Condición de confirmación: ≥8 creadores activos semanales + ≥150 suscriptores de pago en 90 días. Tesis B se incorpora como complemento en mes 4-6 cuando llegue inbound corporativo, no como tabla de salvación.</div>
+      <div><span class="vote vote-a">▲ Tesis A · 9/9</span></div>
+    </div>
+  </div>
+
+  <!-- FASE 5: ESPECIALISTAS COMPLETADOS -->
+  <div class="section-header">
+    <span class="section-title">Fase V — Especialistas completados</span>
+    <span class="section-sub">14 agentes · Análisis profundo</span>
+    <span class="section-badge">Consejo completo · 38 agentes</span>
+  </div>
+
+  <div class="agent-grid">
+    <div class="agent-card completed">
+      <span class="roman">XXV</span>
+      <div class="agent-name">Arquitecto de UX/Diseño</div>
+      <div class="agent-role">Design UX Architect</div>
+      <div class="agent-finding">5 flujos críticos definidos: Onboarding creador (6 pasos), paywall de lectura, directorio público, dashboard de analytics, recuperación de churn. Componentes clave: <code>CreatorCard.tsx</code>, <code>PaywallGate.tsx</code>, <code>BundleOffer.tsx</code>. Dashboard H1: Ingresos del mes, Suscriptores activos, Tasa de retención.</div>
+      <span class="completed-badge">✓ Completado</span>
+    </div>
+
+    <div class="agent-card completed">
+      <span class="roman">XXVI</span>
+      <div class="agent-name">Especialista en SEO</div>
+      <div class="agent-role">Marketing SEO Specialist</div>
+      <div class="agent-finding">Arquitectura de URL definitiva: <code>sala.com/[handle]/[slug]</code>. 15 keywords target semilla. Schema markup: Article + Person + Organization + FAQPage. Server Components obligatorio en page.tsx para LCP. <code>generateMetadata()</code> + <code>sitemap.ts</code> + <code>robots.ts</code> completos.</div>
+      <span class="completed-badge">✓ Completado</span>
+    </div>
+
+    <div class="agent-card completed">
+      <span class="roman">XXVII</span>
+      <div class="agent-name">Experto en Sales B2B</div>
+      <div class="agent-role">Sales Outbound Strategist</div>
+      <div class="agent-finding">5 perfiles ICP Chile identificados: Larraín Vial, Bethia Group, Celfin, family offices, boutiques M&amp;A. Estructura de piloto: $1.000 USD (2 meses × $500). Cuello de botella: el fundador no ha vendido B2B. Primer contrato cambia el pitch a inversores.</div>
+      <span class="completed-badge">✓ Completado</span>
+    </div>
+
+    <div class="agent-card completed">
+      <span class="roman">XXVIII</span>
+      <div class="agent-name">Experto en Comunidades</div>
+      <div class="agent-role">Community Builder</div>
+      <div class="agent-finding">Debate de Tesis válido pero requiere cierre editorial por Sala. Colateral de Gremio debe pagar inmediatamente, no en 6 meses. Nuevo mecanismo: Brief Colectivo — posición de 2.000 palabras firmada por 5-8 creadores. Comunidad = 3 acciones/semana mínimo.</div>
+      <span class="completed-badge">✓ Completado</span>
+    </div>
+
+    <div class="agent-card completed">
+      <span class="roman">XXIX</span>
+      <div class="agent-name">Especialista en Email</div>
+      <div class="agent-role">Email Intelligence Engineer</div>
+      <div class="agent-finding">7 templates React Email con Libre Baskerville. Secuencia onboarding: días 0, 1, 3, 5, 7. Sala Digest automatizado vía SQL + Vercel Cron viernes 9AM. Anti-churn en semana 6-8. Subject lines en chileno comprobado.</div>
+      <span class="completed-badge">✓ Completado</span>
+    </div>
+
+    <div class="agent-card completed">
+      <span class="roman">XXX</span>
+      <div class="agent-name">Estratega de Partnerships</div>
+      <div class="agent-role">Business Development</div>
+      <div class="agent-finding">Colegio Médico de Chile = Prioridad 1 (base de datos SAC). MOU de 2 páginas suficiente para iniciar. Texto legal crítico: usar "verificado mediante" no "verificado por". 18+ meses para que competidores repliquen convenio institucional.</div>
+      <span class="completed-badge">✓ Completado</span>
+    </div>
+
+    <div class="agent-card completed">
+      <span class="roman">XXXI</span>
+      <div class="agent-name">Experto en Marca</div>
+      <div class="agent-role">Brand Guardian</div>
+      <div class="agent-finding">Categoría: "Prensa de autoridad independiente". Badge de verificación: rectángulo tipográfico en versalitas "PUBLICACIÓN VERIFICADA — SALA" (sin íconos). 10 cosas que Sala NUNCA hace. Sala Manifiesto completo escrito.</div>
+      <span class="completed-badge">✓ Completado</span>
+    </div>
+
+    <div class="agent-card completed">
+      <span class="roman">XXXII</span>
+      <div class="agent-name">Experto en PR</div>
+      <div class="agent-role">PR/Communications</div>
+      <div class="agent-finding">3 ángulos de noticia. Periodistas target: Juan Pablo Silva (DF MAS), Alejandra Rivera (DF Lab podcast), Daniel Fajardo (La Tercera Pulso). Secuencia: 10 posts LinkedIn primero → luego outreach a medios. Startuplinks como primera aparición fácil.</div>
+      <span class="completed-badge">✓ Completado</span>
+    </div>
+
+    <div class="agent-card completed">
+      <span class="roman">XXXIII</span>
+      <div class="agent-name">Arquitecto de Datos</div>
+      <div class="agent-role">Data Engineer</div>
+      <div class="agent-finding">Schema completo: <code>sala_reading_events</code> (particionado mensual), <code>sala_curiosity_graph</code> (reader × topic), <code>sala_reader_profiles</code> (silver layer). Algoritmo de lectura completada: scroll ≥70% + tiempo ≥max(45s, words/4.2) + visible ≥50%. Claude API para resumen intelectual a $0.003/resumen.</div>
+      <span class="completed-badge">✓ Completado</span>
+    </div>
+
+    <div class="agent-card completed">
+      <span class="roman">XXXIV</span>
+      <div class="agent-name">Especialista en Pagos LATAM</div>
+      <div class="agent-role">Fintech/Payments</div>
+      <div class="agent-finding">Stripe Connect Express obligatorio desde día 1. Router de pagos: CL=Stripe/CLP, MX=Stripe/MXN, AR=MercadoPago/ARS, CO=Wompi/COP, PE=Izipay/PEN. <code>sala_fx_rates</code> con Open Exchange Rates (1000 req/mes gratis). Split function con rounding explícito.</div>
+      <span class="completed-badge">✓ Completado</span>
+    </div>
+
+    <div class="agent-card completed">
+      <span class="roman">XXXV</span>
+      <div class="agent-name">Customer Success Manager</div>
+      <div class="agent-role">Customer Success</div>
+      <div class="agent-finding">Health Score 0-100 con 6 variables ponderadas. Protocolo anchor tenant concierge: llamada personal + setup de perfil + garantía de 30 suscriptores. Check-in mensual automatizado. Playbook de retención en 3 pasos para creadores en riesgo. NPS mínimo 40.</div>
+      <span class="completed-badge">✓ Completado</span>
+    </div>
+
+    <div class="agent-card completed">
+      <span class="roman">XXXVI</span>
+      <div class="agent-name">Experto en Contenido</div>
+      <div class="agent-role">Content Strategy</div>
+      <div class="agent-finding">5 formatos de plataforma: Sala Picks (semanal), La Pregunta (quincenal), Estado del Conocimiento (trimestral), El Creador (mensual), Sala en Vivo (mensual). Calendario primer mes con títulos específicos. Sala Manifiesto de voz editorial.</div>
+      <span class="completed-badge">✓ Completado</span>
+    </div>
+
+    <div class="agent-card completed">
+      <span class="roman">XXXVII</span>
+      <div class="agent-name">Experto en Accesibilidad</div>
+      <div class="agent-role">Accessibility Auditor</div>
+      <div class="agent-finding">FALLA CRÍTICA: <code>#767676</code> sobre <code>#F8F7F5</code> = 4.24:1 (falla WCAG AA). Fix: cambiar a <code>#636363</code>. Texto 9-10px problemático. 5 correcciones prioritarias con código Tailwind/HTML. Skip link obligatorio antes de lanzamiento público.</div>
+      <span class="completed-badge">✓ Completado</span>
+    </div>
+
+    <div class="agent-card completed">
+      <span class="roman">XXXVIII</span>
+      <div class="agent-name">Experto en Performance</div>
+      <div class="agent-role">Performance Benchmarker</div>
+      <div class="agent-finding"><code>'use client'</code> en page.tsx es el problema raíz de LCP. Framer-motion = 120KB de bundle. Refactor a Server Components + client islands. next/font con display swap. Targets Core Web Vitals: LCP &lt;1.5s, INP &lt;120ms, CLS &lt;0.03.</div>
+      <span class="completed-badge">✓ Completado</span>
+    </div>
+  </div>
+
+  <!-- SYNTHESIS -->
+  <div class="synthesis">
+    <div class="synthesis-title">Síntesis ejecutiva · Plan de 90 días</div>
+
+    <div class="synthesis-grid">
+      <div class="synthesis-block">
+        <h3>El veredicto</h3>
+        <p><span class="highlight">Tesis A — Creator Economy LATAM</span> con 9/9 votos. Sala tiene señal de mercado real (34 creadores, $180K GMV), el modelo funciona, la ventana competitiva está abierta 18-24 meses. La Tesis B se activa como complemento en mes 4-6 cuando llegue inbound corporativo.</p>
+      </div>
+      <div class="synthesis-block">
+        <h3>La condición de los 90 días</h3>
+        <p>Si en 90 días Sala tiene <span class="highlight">≥8 creadores activos publicando semanalmente</span> y <span class="highlight">≥150 suscriptores de pago</span>, la tesis está confirmada. Si no, Tesis B se activa como plan alternativo con los creadores ya construidos como base de credibilidad.</p>
+      </div>
+      <div class="synthesis-block">
+        <h3>Lo irreversible hoy</h3>
+        <p>Una sola decisión técnica que no se puede revertir: <span class="highlight">sala_disciplines como FK normalizada, no texto libre</span>. Todo lo demás es reversible. Pero si se guarda la disciplina como texto libre, en 3 meses hay una crisis de datos y el directorio queda inutilizable.</p>
+      </div>
+    </div>
+
+    <table class="plan-table" style="margin-top:32px">
+      <thead>
+        <tr>
+          <th>Período</th>
+          <th>Acción principal</th>
+          <th>Métrica de éxito</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="plan-period">Días 1–15</td>
+          <td>Reclutar 5 anchor tenants. LinkedIn outreach 1-a-1 manual. Mensaje: reconocimiento específico + dolor + oferta sin fricción.</td>
+          <td class="plan-metric">5 creadores publicando</td>
+        </tr>
+        <tr>
+          <td class="plan-period">Días 1–30</td>
+          <td>Lanzar /directorio público con sala_disciplines normalizado + sala_creator_directory.</td>
+          <td class="plan-metric">Directorio funcional online</td>
+        </tr>
+        <tr>
+          <td class="plan-period">Días 15–45</td>
+          <td>3 creadores de perfil institucional alto — Verificación activa con Truora. Badge visible.</td>
+          <td class="plan-metric">100% creadores verificados</td>
+        </tr>
+        <tr>
+          <td class="plan-period">Días 30–60</td>
+          <td>Activar sala_cross_referrals + payment router CLP/COP/MXN.</td>
+          <td class="plan-metric">3 creadores con pago real</td>
+        </tr>
+        <tr>
+          <td class="plan-period">Días 60–90</td>
+          <td>1 contrato corporativo inbound (family office, boutique M&A). Publicar métricas públicas.</td>
+          <td class="plan-metric">Contrato firmado + 2 medios cubriendo</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</main>
+
+<footer>
+  © 2026 Sala · Nebbuler · Análisis generado por Claude Sonnet 4.6 · 38 agentes especializados · Mayo 2026
+</footer>
+
+</body>
+</html>

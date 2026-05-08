@@ -59,6 +59,7 @@ export type Database = {
         Row: Profile
         Insert: Omit<Profile, 'created_at'> & { created_at?: string }
         Update: Partial<Omit<Profile, 'id'>>
+        Relationships: []
       }
       creators: {
         Row: Creator
@@ -68,6 +69,7 @@ export type Database = {
           subscriber_count?: number
         }
         Update: Partial<Omit<Creator, 'id' | 'created_at'>>
+        Relationships: []
       }
       posts: {
         Row: Post
@@ -76,6 +78,7 @@ export type Database = {
           created_at?: string
         }
         Update: Partial<Omit<Post, 'id' | 'created_at'>>
+        Relationships: []
       }
       subscriptions: {
         Row: Subscription
@@ -84,6 +87,7 @@ export type Database = {
           created_at?: string
         }
         Update: Partial<Omit<Subscription, 'id' | 'created_at'>>
+        Relationships: []
       }
     }
     Views: Record<string, never>

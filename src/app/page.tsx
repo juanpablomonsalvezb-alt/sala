@@ -5,6 +5,9 @@ import { NumberTicker } from "@/components/ui/number-ticker";
 import { BlurFade } from "@/components/ui/blur-fade";
 import { BorderBeam } from "@/components/ui/border-beam";
 import { Marquee } from "@/components/ui/marquee";
+import { WordRotate } from "@/components/ui/word-rotate";
+import { DotPattern } from "@/components/ui/dot-pattern";
+import { AnimatedList, AnimatedListItem } from "@/components/ui/animated-list";
 import {
   IconBolt,
   IconCash,
@@ -62,6 +65,16 @@ const faqs = [
 
 const tickerTags = ["ECONOMÍA","DERECHO","MEDICINA","ARQUITECTURA","FINANZAS","EDUCACIÓN","TECNOLOGÍA","MARKETING","CIENCIA POLÍTICA","NUTRICIÓN","PSICOLOGÍA","INGENIERÍA"];
 
+const liveEvents = [
+  { initial: "MC", color: "#1a1a2e", name: "María C.",     action: "se suscribió a", creator: "Rodrigo Fuentes",  tag: "ECONOMÍA",          price: "$9.990/mes",  time: "ahora mismo" },
+  { initial: "JP", color: "#1a2e1a", name: "Juan P.",      action: "se suscribió a", creator: "Isabel Contreras", tag: "DERECHO",            price: "$12.990/mes", time: "hace 1 min"  },
+  { initial: "AR", color: "#2e1a1a", name: "Ana R.",       action: "se suscribió a", creator: "Marco Salinas",    tag: "ARQUITECTURA",       price: "$7.990/mes",  time: "hace 3 min"  },
+  { initial: "CF", color: "#1e2a3e", name: "Carlos F.",    action: "se suscribió a", creator: "Lucía Morales",    tag: "FINANZAS",           price: "$8.990/mes",  time: "hace 5 min"  },
+  { initial: "SV", color: "#2a1e2e", name: "Sofía V.",     action: "se suscribió a", creator: "Carlos Venegas",   tag: "MEDICINA",           price: "$14.990/mes", time: "hace 7 min"  },
+  { initial: "DM", color: "#1a2e2a", name: "Diego M.",     action: "se suscribió a", creator: "Ana Reyes",        tag: "EDUCACIÓN",          price: "$6.990/mes",  time: "hace 9 min"  },
+  { initial: "PL", color: "#2e2a1a", name: "Patricia L.",  action: "se suscribió a", creator: "Rodrigo Fuentes",  tag: "ECONOMÍA",           price: "$9.990/mes",  time: "hace 11 min" },
+];
+
 function FaqItem({ q, a }: { q: string; a: string }) {
   const [open, setOpen] = useState(false);
   return (
@@ -108,8 +121,12 @@ export default function Home() {
       </header>
 
       {/* ══ HERO ═══════════════════════════════════════════════════════════ */}
-      <section className="border-b border-[#E8E8E8] overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 pt-20 pb-24">
+      <section className="border-b border-[#E8E8E8] overflow-hidden relative">
+        <DotPattern
+          width={24} height={24} cr={1}
+          className="text-[#B31C1C]/[0.07] [mask-image:radial-gradient(ellipse_80%_60%_at_50%_0%,white_30%,transparent_100%)]"
+        />
+        <div className="relative max-w-7xl mx-auto px-6 pt-20 pb-24">
           <div className="grid lg:grid-cols-[1fr_500px] gap-16 items-center">
 
             {/* LEFT */}
@@ -137,9 +154,15 @@ export default function Home() {
               </BlurFade>
 
               <BlurFade delay={0.12}>
-                <p className="text-[17px] leading-[1.8] text-[#555] max-w-lg mb-8">
-                  La plataforma todo-en-uno para que economistas, abogados, médicos y consultores publiquen lo que saben — y cobren por ello directamente.
-                </p>
+                <div className="text-[17px] leading-[1.8] text-[#555] max-w-lg mb-8">
+                  <p>La plataforma todo-en-uno para que</p>
+                  <WordRotate
+                    words={["economistas", "abogados", "médicos", "consultores", "arquitectos", "ingenieros"]}
+                    duration={2200}
+                    className="text-[17px] font-bold text-[#B31C1C] leading-[1.8] inline-block"
+                  />
+                  <p>publiquen lo que saben — y cobren por ello directamente.</p>
+                </div>
               </BlurFade>
 
               <BlurFade delay={0.18}>
@@ -256,6 +279,58 @@ export default function Home() {
           ))}
         </Marquee>
       </div>
+
+      {/* ══ LIVE ACTIVITY ═════════════════════════════════════════════════ */}
+      <section className="border-b border-[#E8E8E8] py-20">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <BlurFade delay={0}>
+              <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#B31C1C] mb-4">En este momento</p>
+              <h2 className="font-sans font-black text-[clamp(28px,4vw,48px)] leading-[0.95] tracking-[-0.02em] mb-5">
+                Cada minuto, alguien<br />
+                descubre que su<br />
+                <span className="text-[#B31C1C]">conocimiento vale.</span>
+              </h2>
+              <p className="text-[15px] leading-[1.8] text-[#666] max-w-md">
+                Mientras lees esto, profesionales como tú están recibiendo su primer pago en Sala.
+              </p>
+            </BlurFade>
+
+            <BlurFade delay={0.1}>
+              <div className="relative h-[340px] overflow-hidden">
+                <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-white to-transparent z-10 pointer-events-none" />
+                <AnimatedList delay={1400} className="gap-3">
+                  {liveEvents.map((ev) => (
+                    <div
+                      key={ev.name + ev.time}
+                      className="w-full bg-white border border-[#EBEBEB] rounded-xl p-4 flex items-center gap-3 shadow-[0_2px_12px_rgba(0,0,0,0.06)] hover:border-[#B31C1C]/30 transition-colors"
+                    >
+                      <div
+                        className="w-9 h-9 rounded-full flex items-center justify-center shrink-0 text-[11px] font-bold text-white"
+                        style={{ backgroundColor: ev.color }}
+                      >
+                        {ev.initial}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-[13px] font-semibold text-[#111] leading-tight">
+                          <span>{ev.name}</span>{" "}
+                          <span className="font-normal text-[#666]">{ev.action}</span>{" "}
+                          <span className="text-[#B31C1C]">{ev.creator}</span>
+                        </p>
+                        <div className="flex items-center gap-2 mt-0.5">
+                          <span className="text-[9px] font-bold uppercase tracking-[0.1em] text-[#B31C1C] bg-[#FFF5F5] px-1.5 py-0.5 rounded">{ev.tag}</span>
+                          <span className="text-[11px] font-bold text-[#111]">{ev.price}</span>
+                        </div>
+                      </div>
+                      <span className="text-[10px] text-[#BBB] shrink-0">{ev.time}</span>
+                    </div>
+                  ))}
+                </AnimatedList>
+              </div>
+            </BlurFade>
+          </div>
+        </div>
+      </section>
 
       {/* ══ STATS ══════════════════════════════════════════════════════════ */}
       <section className="border-b border-[#E8E8E8] py-20">

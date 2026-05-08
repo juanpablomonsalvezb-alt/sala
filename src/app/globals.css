@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:is(.dark *));
+
 /* ─── Sistema visual NYT — Sala ─────────────────────────────────────────── */
 
 @theme inline {
@@ -18,14 +20,44 @@
   --color-primary:      #121212;
   --color-primary-foreground: #FFFFFF;
 
-  --font-serif: "Playfair Display", Georgia, "Times New Roman", serif;
-  --font-sans:  var(--font-inter), "Inter", system-ui, -apple-system, sans-serif;
+  --font-serif: var(--font-serif, "Libre Baskerville"), Georgia, "Times New Roman", serif;
+  --font-sans:  var(--font-sans, "Public Sans"), system-ui, -apple-system, sans-serif;
 
   --animate-fade-in: fadeIn 0.5s ease forwards;
 
   @keyframes fadeIn {
     from { opacity: 0; }
     to   { opacity: 1; }
+  }
+
+  --animate-gradient:   gradient 8s linear infinite;
+  @keyframes gradient {
+  to {
+    backgroundPosition:   var(--bg-size) 0;
+    }
+  }
+  --animate-border-beam:   border-beam calc(var(--duration)*1s) infinite linear;
+  @keyframes border-beam {
+  100% {
+    offset-distance:   100%;
+    }
+  }
+
+  --animate-marquee: marquee var(--marquee-duration, 35s) linear infinite;
+  --animate-marquee-reverse: marquee-reverse var(--marquee-duration, 35s) linear infinite;
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  @keyframes marquee-reverse {
+    from { transform: translateX(-50%); }
+    to   { transform: translateX(0); }
+  }
+
+  --animate-pulse-dot: pulse-dot 2s ease-in-out infinite;
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%       { opacity: 0.4; transform: scale(0.85); }
   }
 }
 

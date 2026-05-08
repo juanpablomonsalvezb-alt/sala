@@ -2,15 +2,82 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { createClient } from "@/lib/supabase/client";
+
+const schema = z.object({
+  email: z.string().email("Correo electrónico inválido"),
+  password: z.string().min(6, "La contraseña debe tener al menos 6 caracteres"),
+});
+
+type FormValues = z.infer<typeof schema>;
 
 export default function EntrarPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const router = useRouter();
+  const [authError, setAuthError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [googleLoading, setGoogleLoading] = useState(false);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormValues>({
+    resolver: zodResolver(schema),
+  });
+
+  const onSubmit = async (data: FormValues) => {
+    setLoading(true);
+    setAuthError(null);
+
+    const supabase = createClient();
+    const { error } = await supabase.auth.signInWithPassword({
+      email: data.email,
+      password: data.password,
+    });
+
+    if (error) {
+      setAuthError(
+        error.message === "Invalid login credentials"
+          ? "Email o contraseña incorrectos."
+          : error.message
+      );
+      setLoading(false);
+      return;
+    }
+
+    router.push("/dashboard");
+  };
+
+  const handleGoogle = async () => {
+    setGoogleLoading(true);
+    setAuthError(null);
+
+    const supabase = createClient();
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        redirectTo: `${window.location.origin}/auth/callback?next=/dashboard`,
+      },
+    });
+
+    if (error) {
+      setAuthError(error.message);
+      setGoogleLoading(false);
+    }
+    // Si no hay error, Supabase redirige al proveedor — no se hace nada más
+  };
 
   return (
     <div className="min-h-dvh bg-white flex flex-col">
+      {/* Franja roja superior */}
+      <div className="h-[3px] bg-[#C41C1C] w-full" />
+
       {/* Header */}
-      <header className="pt-12 pb-0 text-center px-6">
+      <header className="pt-10 pb-0 text-center px-6">
         <Link
           href="/"
           className="font-serif text-[38px] font-bold tracking-tight text-[#121212] leading-none inline-block"
@@ -18,13 +85,13 @@ export default function EntrarPage() {
         >
           SALA
         </Link>
-        <hr className="nyt-rule mt-5" />
+        <hr className="mt-5 border-t border-[#121212]" />
       </header>
 
       {/* Main */}
       <main className="flex-1 flex flex-col items-center justify-center px-6 py-16">
         <div className="w-full max-w-[400px]">
-          {/* Titles */}
+          {/* Título */}
           <div className="mb-8 text-center">
             <h1
               className="font-serif text-[#121212] mb-2 leading-tight"
@@ -37,11 +104,16 @@ export default function EntrarPage() {
             </p>
           </div>
 
-          {/* Form */}
-          <form
-            className="flex flex-col gap-4"
-            onSubmit={(e) => e.preventDefault()}
-          >
+          {/* Error global */}
+          {authError && (
+            <div className="mb-5 border-l-2 border-[#C41C1C] pl-3 py-1">
+              <p className="font-sans text-[13px] text-[#C41C1C]">{authError}</p>
+            </div>
+          )}
+
+          {/* Formulario */}
+          <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)} noValidate>
+            {/* Email */}
             <div className="flex flex-col gap-1.5">
               <label
                 htmlFor="email"
@@ -53,13 +125,18 @@ export default function EntrarPage() {
                 id="email"
                 type="email"
                 autoComplete="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
                 placeholder="tu@email.com"
-                className="w-full border border-[#DEDEDE] px-4 py-3 font-sans text-[14px] text-[#121212] placeholder:text-[#AAAAAA] bg-white transition-colors duration-150 focus:outline-none focus:border-[#121212]"
+                {...register("email")}
+                className="w-full border-b border-[#DEDEDE] px-0 py-2.5 font-sans text-[14px] text-[#121212] placeholder:text-[#AAAAAA] bg-white transition-colors duration-150 focus:outline-none focus:border-[#121212]"
               />
+              {errors.email && (
+                <p className="font-sans text-[12px] text-[#C41C1C]">
+                  {errors.email.message}
+                </p>
+              )}
             </div>
 
+            {/* Contraseña */}
             <div className="flex flex-col gap-1.5">
               <label
                 htmlFor="password"
@@ -71,31 +148,38 @@ export default function EntrarPage() {
                 id="password"
                 type="password"
                 autoComplete="current-password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className="w-full border border-[#DEDEDE] px-4 py-3 font-sans text-[14px] text-[#121212] placeholder:text-[#AAAAAA] bg-white transition-colors duration-150 focus:outline-none focus:border-[#121212]"
+                {...register("password")}
+                className="w-full border-b border-[#DEDEDE] px-0 py-2.5 font-sans text-[14px] text-[#121212] placeholder:text-[#AAAAAA] bg-white transition-colors duration-150 focus:outline-none focus:border-[#121212]"
               />
+              {errors.password && (
+                <p className="font-sans text-[12px] text-[#C41C1C]">
+                  {errors.password.message}
+                </p>
+              )}
             </div>
 
-            <button
-              type="submit"
-              className="w-full bg-[#121212] text-white font-sans text-[13px] font-medium py-3.5 hover:bg-[#333] transition-colors duration-150 mt-1"
-            >
-              Entrar →
-            </button>
-
-            <div className="text-center">
+            {/* Olvidé contraseña */}
+            <div className="flex justify-end -mt-1">
               <Link
-                href="/recuperar"
-                className="font-sans text-[12px] text-[#666666] hover:text-[#121212] transition-colors duration-150 underline underline-offset-2"
+                href="/recuperar-contrasena"
+                className="font-sans text-[12px] text-[#666666] hover:text-[#121212] transition-colors duration-150"
               >
                 ¿Olvidaste tu contraseña?
               </Link>
             </div>
+
+            {/* Submit */}
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full bg-[#121212] text-white font-sans text-[13px] font-medium py-3.5 hover:bg-[#333] transition-colors duration-150 mt-1 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {loading ? "Entrando…" : "Entrar →"}
+            </button>
           </form>
 
-          {/* Separator */}
+          {/* Separador */}
           <div className="my-7 flex items-center gap-4">
             <hr className="flex-1 border-t border-[#DEDEDE]" />
             <span className="font-sans text-[11px] font-medium text-[#666666] uppercase tracking-widest">
@@ -107,7 +191,9 @@ export default function EntrarPage() {
           {/* Google */}
           <button
             type="button"
-            className="w-full border border-[#DEDEDE] bg-white text-[#121212] font-sans text-[13px] font-medium py-3.5 hover:border-[#121212] hover:bg-[#F7F7F7] transition-colors duration-150 flex items-center justify-center gap-2.5"
+            onClick={handleGoogle}
+            disabled={googleLoading}
+            className="w-full border border-[#DEDEDE] bg-white text-[#121212] font-sans text-[13px] font-medium py-3.5 hover:border-[#121212] hover:bg-[#F7F7F7] transition-colors duration-150 flex items-center justify-center gap-2.5 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
               <path
@@ -127,10 +213,10 @@ export default function EntrarPage() {
                 fill="#EA4335"
               />
             </svg>
-            Continuar con Google
+            {googleLoading ? "Redirigiendo…" : "Continuar con Google"}
           </button>
 
-          {/* Register link */}
+          {/* Registro */}
           <p className="font-sans text-[12px] text-[#666666] text-center mt-7">
             ¿No tienes cuenta?{" "}
             <Link

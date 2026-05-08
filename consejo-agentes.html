@@ -198,6 +198,132 @@
   .vote-num { font-size: 18px; line-height: 1; }
   .vote-tag { font-size: 9px; opacity: 0.7; }
 
+  /* ─── EXPLAINER STORIES ─────────────────────────────────────────── */
+  .explainer-story {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 0;
+    border-bottom: 1px solid var(--rule);
+    padding: 48px 0;
+  }
+  .explainer-agent {
+    padding-right: 32px;
+    border-right: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding-top: 4px;
+  }
+  .explainer-agent-num {
+    font-size: 48px;
+    font-weight: 900;
+    color: #EBEBEB;
+    line-height: 1;
+    font-family: 'Georgia', serif;
+  }
+  .explainer-agent-name {
+    font-size: 11px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-family: 'Arial', sans-serif;
+    color: var(--ink);
+    margin-top: 8px;
+  }
+  .explainer-agent-role {
+    font-size: 10px;
+    color: var(--muted);
+    font-family: 'Arial', sans-serif;
+  }
+  .explainer-content {
+    padding-left: 40px;
+  }
+  .explainer-title {
+    font-size: 22px;
+    font-weight: bold;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    margin-bottom: 12px;
+  }
+  .explainer-body {
+    font-size: 14px;
+    line-height: 1.75;
+    color: #444;
+    margin-bottom: 24px;
+    max-width: 700px;
+  }
+  .explainer-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .explainer-step {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .step-num {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    background: var(--ink);
+    color: white;
+    font-size: 11px;
+    font-weight: 900;
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px;
+  }
+  .step-text {
+    font-size: 14px;
+    line-height: 1.7;
+    color: #333;
+    flex: 1;
+  }
+  .step-text strong {
+    color: var(--ink);
+  }
+  .step-text em {
+    font-style: italic;
+    color: #555;
+  }
+  .step-text code {
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    background: #F3F3F3;
+    padding: 1px 5px;
+    color: #333;
+  }
+  .explainer-insight {
+    background: var(--cream);
+    border-left: 4px solid var(--crimson);
+    padding: 16px 20px;
+    font-size: 13px;
+    line-height: 1.7;
+    color: #444;
+    max-width: 680px;
+  }
+  .insight-label {
+    display: block;
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-family: 'Arial', sans-serif;
+    color: var(--crimson);
+    margin-bottom: 8px;
+  }
+
+  @media (max-width: 768px) {
+    .explainer-story { grid-template-columns: 1fr; gap: 24px; }
+    .explainer-agent { border-right: none; border-bottom: 1px solid var(--rule); padding-right: 0; padding-bottom: 20px; flex-direction: row; align-items: center; gap: 16px; }
+    .explainer-agent-num { font-size: 32px; }
+    .explainer-content { padding-left: 0; }
+  }
+
   @media (max-width: 768px) {
     .stats-inner { grid-template-columns: repeat(3, 1fr); }
     .synthesis-grid { grid-template-columns: 1fr; }
@@ -669,7 +795,320 @@
     </div>
   </div>
 
+  <!-- CÓMO FUNCIONA -->
+  <div class="section-header" style="margin-top:64px">
+    <span class="section-title">Cómo funciona Sala</span>
+    <span class="section-sub">en palabras simples</span>
+    <span class="section-badge">Explicado por los agentes · Con ejemplos reales</span>
+  </div>
+
+  <p style="font-size:14px;color:#555;line-height:1.8;margin-bottom:40px;font-family:'Arial',sans-serif;">
+    Ocho agentes explican cómo funciona cada pieza del sistema — desde que un profesional se registra hasta que un lector paga y ese dinero llega a la cuenta del creador.
+  </p>
+
+  <!-- HISTORIA 1 -->
+  <div class="explainer-story">
+    <div class="explainer-agent">
+      <div class="explainer-agent-num">01</div>
+      <div class="explainer-agent-name">Estratega de Producto</div>
+      <div class="explainer-agent-role">Arquitecto de Producto</div>
+    </div>
+    <div class="explainer-content">
+      <h3 class="explainer-title">El creador: cómo Rodrigo empieza a cobrar</h3>
+      <p class="explainer-body">
+        Imagina a <strong>Rodrigo Fuentes</strong>, economista de 38 años. Trabaja en una consultora,
+        lleva 10 años escribiendo análisis que le mandan por WhatsApp a sus colegas. Nunca cobró por eso.
+      </p>
+      <div class="explainer-steps">
+        <div class="explainer-step">
+          <span class="step-num">1</span>
+          <span class="step-text">Rodrigo entra a <strong>sala.com/para-creadores</strong> y abre su cuenta en 15 minutos. Sin código, sin diseñador. Sube su foto, escribe dos líneas sobre qué analiza, y elige su precio: <strong>$9.990 CLP/mes</strong>.</span>
+        </div>
+        <div class="explainer-step">
+          <span class="step-num">2</span>
+          <span class="step-text">Su perfil queda en <strong>sala.com/rodrigo-fuentes</strong>. Eso es todo. Un link. Lo pega en su LinkedIn, lo manda por WhatsApp al grupo de colegas.</span>
+        </div>
+        <div class="explainer-step">
+          <span class="step-num">3</span>
+          <span class="step-text">Publica su primer análisis: "Por qué el dólar no baja aunque el cobre sube." La mitad es gratis. La otra mitad, sólo para suscriptores.</span>
+        </div>
+        <div class="explainer-step">
+          <span class="step-num">4</span>
+          <span class="step-text">En 30 días tiene <strong>47 suscriptores</strong>. Eso es <strong>$469.530 CLP/mes</strong> directo a su cuenta Stripe. Sala cobra 5% de comisión.</span>
+        </div>
+      </div>
+      <div class="explainer-insight">
+        <span class="insight-label">Por qué funciona</span>
+        Rodrigo no necesita "construir una audiencia desde cero". Sus lectores ya existen — están en su LinkedIn, su WhatsApp, su red profesional. Sala es el lugar donde ese conocimiento que antes era gratis, ahora tiene precio.
+      </div>
+    </div>
+  </div>
+
+  <!-- HISTORIA 2 -->
+  <div class="explainer-story">
+    <div class="explainer-agent">
+      <div class="explainer-agent-num">02</div>
+      <div class="explainer-agent-name">Experto Anti-Fraude</div>
+      <div class="explainer-agent-role">Compliance Auditor</div>
+    </div>
+    <div class="explainer-content">
+      <h3 class="explainer-title">La verificación: cómo Sala comprueba que Rodrigo es realmente economista</h3>
+      <p class="explainer-body">
+        El problema: cualquiera puede escribir "economista" en un perfil. Eso lo hace LinkedIn, Medium, Substack.
+        Sala hace algo diferente.
+      </p>
+      <div class="explainer-steps">
+        <div class="explainer-step">
+          <span class="step-num">1</span>
+          <span class="step-text"><strong>Primero, identidad.</strong> Rodrigo hace una verificación de identidad con <strong>Truora</strong> (~$2 USD). Comprueba que el RUT es real y que la cara coincide con el carnet. Esto pasa antes de revisar el título.</span>
+        </div>
+        <div class="explainer-step">
+          <span class="step-num">2</span>
+          <span class="step-text"><strong>Luego, credencial.</strong> Rodrigo sube su título universitario o número de registro profesional. Sala lo cruza con la base de datos del Colegio de Economistas.</span>
+        </div>
+        <div class="explainer-step">
+          <span class="step-num">3</span>
+          <span class="step-text">Si pasa, aparece el badge en su perfil: <strong>"PUBLICACIÓN VERIFICADA — SALA"</strong>. No es un ícono genérico. Es una marca tipográfica, como el sello de un notario.</span>
+        </div>
+        <div class="explainer-step">
+          <span class="step-num">4</span>
+          <span class="step-text"><strong>Cada 6 meses</strong> se re-verifica automáticamente. Si Rodrigo pierde su registro profesional, el badge desaparece solo.</span>
+        </div>
+      </div>
+      <div class="explainer-insight">
+        <span class="insight-label">El ataque que Sala previene</span>
+        El fraude más fácil sería usar la matrícula de un colega real. Truora lo bloquea: primero comprueba que eres tú la persona, y luego que eres tú el profesional. Sin identidad verificada, no hay credencial posible.
+      </div>
+    </div>
+  </div>
+
+  <!-- HISTORIA 3 -->
+  <div class="explainer-story">
+    <div class="explainer-agent">
+      <div class="explainer-agent-num">03</div>
+      <div class="explainer-agent-name">Experto en Growth</div>
+      <div class="explainer-agent-role">Growth Hacker</div>
+    </div>
+    <div class="explainer-content">
+      <h3 class="explainer-title">El lector: cómo María llega a Sala sin que Sala le haga publicidad</h3>
+      <p class="explainer-body">
+        <strong>María</strong> es gerente de finanzas en una empresa mediana. Lee artículos en LinkedIn todos los días,
+        pero siempre son los mismos consejos genéricos que no le sirven para nada concreto.
+      </p>
+      <div class="explainer-steps">
+        <div class="explainer-step">
+          <span class="step-num">1</span>
+          <span class="step-text">En Google escribe <em>"análisis tipo de cambio Chile mayo 2026"</em>. Aparece un artículo de <strong>sala.com/rodrigo-fuentes/tipo-cambio-mayo</strong>. Lo abre. Los primeros tres párrafos son gratuitos y son exactamente lo que necesitaba.</span>
+        </div>
+        <div class="explainer-step">
+          <span class="step-num">2</span>
+          <span class="step-text">Para leer el resto, ve el paywall: <em>"Este análisis es exclusivo para suscriptores de Rodrigo Fuentes · $9.990/mes"</em>. Piensa: "Esto es mejor que lo que me cuesta Netflix."</span>
+        </div>
+        <div class="explainer-step">
+          <span class="step-num">3</span>
+          <span class="step-text">María se suscribe. Paga con tarjeta. El dinero va directo a Rodrigo (menos 5% de Sala). María recibe el artículo completo y todos los anteriores.</span>
+        </div>
+        <div class="explainer-step">
+          <span class="step-num">4</span>
+          <span class="step-text">Sala construye su <strong>Grafo de Curiosidad</strong>: María lee mucho de economía, algo de finanzas, casi nada de arquitectura. Ese perfil es de ella. Lo lleva de plataforma en plataforma.</span>
+        </div>
+      </div>
+      <div class="explainer-insight">
+        <span class="insight-label">El loop viral</span>
+        María comparte el artículo en su LinkedIn. Sus colegas lo ven, entran, leen los tres párrafos gratuitos. Algunos se suscriben. Rodrigo nunca pagó un peso en publicidad.
+      </div>
+    </div>
+  </div>
+
+  <!-- HISTORIA 4 -->
+  <div class="explainer-story">
+    <div class="explainer-agent">
+      <div class="explainer-agent-num">04</div>
+      <div class="explainer-agent-name">Especialista en Pagos LATAM</div>
+      <div class="explainer-agent-role">Fintech / Payments</div>
+    </div>
+    <div class="explainer-content">
+      <h3 class="explainer-title">Los pagos: cómo fluye el dinero en 5 países distintos</h3>
+      <p class="explainer-body">
+        Sala opera en Chile, Colombia, México, Perú y Argentina. Cada país tiene su moneda y su método de pago preferido. El dinero no puede perderse en el camino.
+      </p>
+      <div class="explainer-steps">
+        <div class="explainer-step">
+          <span class="step-num">1</span>
+          <span class="step-text"><strong>María en Chile</strong> paga en CLP con tarjeta vía <strong>Stripe</strong>. El cobro en su resumen bancario dice "SALA*RODRIGO".</span>
+        </div>
+        <div class="explainer-step">
+          <span class="step-num">2</span>
+          <span class="step-text"><strong>Carlos en Colombia</strong> paga en COP via <strong>Wompi</strong>. <strong>Diego en México</strong> paga en MXN con Stripe. <strong>Ana en Perú</strong> paga en PEN con Izipay.</span>
+        </div>
+        <div class="explainer-step">
+          <span class="step-num">3</span>
+          <span class="step-text">Sala usa <strong>Stripe Connect Express</strong>: el dinero va directamente desde el lector a la cuenta del creador. Sala nunca "toca" el dinero — solo cobra su 5% de comisión automáticamente en cada transacción.</span>
+        </div>
+        <div class="explainer-step">
+          <span class="step-num">4</span>
+          <span class="step-text">Rodrigo tiene 847 suscriptores en 3 países. Su dashboard muestra todo en <strong>CLP equivalente</strong>, con el tipo de cambio actualizado semanalmente via Open Exchange Rates.</span>
+        </div>
+      </div>
+      <div class="explainer-insight">
+        <span class="insight-label">Por qué Stripe Connect Express y no otra cosa</span>
+        Si Sala recibiera el dinero y luego lo mandara al creador, legalmente sería un intermediario financiero no regulado. Con Connect Express, Sala nunca custodia fondos ajenos. Es la diferencia entre ser una plataforma y ser un banco.
+      </div>
+    </div>
+  </div>
+
+  <!-- HISTORIA 5 -->
+  <div class="explainer-story">
+    <div class="explainer-agent">
+      <div class="explainer-agent-num">05</div>
+      <div class="explainer-agent-name">Arquitecto de Datos</div>
+      <div class="explainer-agent-role">Data Engineer</div>
+    </div>
+    <div class="explainer-content">
+      <h3 class="explainer-title">El Grafo de Curiosidad: el perfil intelectual que María no puede borrar</h3>
+      <p class="explainer-body">
+        Cada vez que María lee un artículo en Sala, el sistema registra cosas que ni María nota consciente. Con el tiempo, se construye algo que no existe en ninguna otra plataforma.
+      </p>
+      <div class="explainer-steps">
+        <div class="explainer-step">
+          <span class="step-num">1</span>
+          <span class="step-text">María lee un artículo de economía. El sistema mide: ¿llegó al 70% del scroll? ¿estuvo más de 45 segundos leyendo activamente? ¿lo revisitó? Si las tres condiciones se cumplen, cuenta como <strong>"lectura completada"</strong>.</span>
+        </div>
+        <div class="explainer-step">
+          <span class="step-num">2</span>
+          <span class="step-text">Después de 8 lecturas completadas en economía, María tiene un score de afinidad <strong>0.74 en Economía</strong>. En su perfil público aparece: <em>"Lectora activa · Economía · 8 análisis completados"</em>.</span>
+        </div>
+        <div class="explainer-step">
+          <span class="step-num">3</span>
+          <span class="step-text">Este perfil es público y se lleva a LinkedIn con un solo click. Sus colegas lo ven y le preguntan qué está leyendo. Es una señal de identidad profesional, como decir que eres runner o que estudias japonés.</span>
+        </div>
+        <div class="explainer-step">
+          <span class="step-num">4</span>
+          <span class="step-text">Si María cancela su suscripción a Sala, el grafo no desaparece. <strong>Le pertenece a ella.</strong> Ese es el switching cost: si se va a Substack, pierde su historial intelectual.</span>
+        </div>
+      </div>
+      <div class="explainer-insight">
+        <span class="insight-label">Por qué esto importa para el negocio</span>
+        El grafo hace que Sala sea cada vez más difícil de abandonar. No porque sea difícil cancelar (eso sería trampa), sino porque marcharse tiene un costo real: perder tu identidad intelectual construida durante meses.
+      </div>
+    </div>
+  </div>
+
+  <!-- HISTORIA 6 -->
+  <div class="explainer-story">
+    <div class="explainer-agent">
+      <div class="explainer-agent-num">06</div>
+      <div class="explainer-agent-name">Diseñador Social</div>
+      <div class="explainer-agent-role">Product Manager</div>
+    </div>
+    <div class="explainer-content">
+      <h3 class="explainer-title">El Debate de Tesis: cuando dos economistas no están de acuerdo</h3>
+      <p class="explainer-body">
+        <strong>Rodrigo</strong> publica que el dólar va a subir. <strong>Felipe</strong>, otro economista verificado en Sala,
+        cree que no. En Twitter se insultarían. En LinkedIn se ignorarían. En Sala, debaten formalmente.
+      </p>
+      <div class="explainer-steps">
+        <div class="explainer-step">
+          <span class="step-num">1</span>
+          <span class="step-text">Felipe hace click en "Replicar análisis" en el artículo de Rodrigo. Escribe su contra-argumento con datos. El debate queda enlazado permanentemente al artículo original.</span>
+        </div>
+        <div class="explainer-step">
+          <span class="step-num">2</span>
+          <span class="step-text">Solo pueden replicar creadores verificados del mismo gremio. No hay debate entre un economista y alguien que "estudió administración". La verificación protege la calidad del debate.</span>
+        </div>
+        <div class="explainer-step">
+          <span class="step-num">3</span>
+          <span class="step-text">El debate tiene máximo un nivel de profundidad. Rodrigo puede responder una vez. Luego el equipo editorial de Sala escribe un cierre: <em>"Ambas posiciones asumen X. El dato que falta es Y."</em></span>
+        </div>
+        <div class="explainer-step">
+          <span class="step-num">4</span>
+          <span class="step-text">Este debate queda archivado y es <strong>completamente gratuito</strong> para cualquier lector. Es el mejor contenido de adquisición que tiene Sala — dos expertos reales discutiendo algo que importa.</span>
+        </div>
+      </div>
+      <div class="explainer-insight">
+        <span class="insight-label">El efecto secundario que nadie esperaba</span>
+        Cuando Felipe replica a Rodrigo, los suscriptores de Felipe ven el debate y descubren a Rodrigo. Los suscriptores de Rodrigo descubren a Felipe. Sin pagarle nada a nadie, los dos crecen su audiencia mutuamente.
+      </div>
+    </div>
+  </div>
+
+  <!-- HISTORIA 7 -->
+  <div class="explainer-story">
+    <div class="explainer-agent">
+      <div class="explainer-agent-num">07</div>
+      <div class="explainer-agent-name">Modelo de Monetización</div>
+      <div class="explainer-agent-role">FP&amp;A Analyst</div>
+    </div>
+    <div class="explainer-content">
+      <h3 class="explainer-title">El Colateral de Gremio: cómo Rodrigo gana dinero cuando recomienda a otro</h3>
+      <p class="explainer-body">
+        Rodrigo le dice a sus suscriptores: <em>"También deberían leer a Isabel Contreras sobre derecho tributario."</em>
+        En cualquier otra plataforma, eso sería altruismo puro. En Sala, tiene retorno económico.
+      </p>
+      <div class="explainer-steps">
+        <div class="explainer-step">
+          <span class="step-num">1</span>
+          <span class="step-text">Rodrigo activa el <strong>Colateral de Gremio</strong> con Isabel. Cada vez que un suscriptor de Rodrigo se suscribe también a Isabel usando el link de Rodrigo, Rodrigo recibe el <strong>5% de los ingresos de Isabel</strong> de esa persona.</span>
+        </div>
+        <div class="explainer-step">
+          <span class="step-num">2</span>
+          <span class="step-text">Eso sucede desde el primer día, no después de 6 meses. El pago es automático, no hay facturas ni negociaciones.</span>
+        </div>
+        <div class="explainer-step">
+          <span class="step-num">3</span>
+          <span class="step-text">Si María (suscriptora de Rodrigo) se suscribe a Isabel a $12.990/mes, Rodrigo recibe <strong>$649 CLP extra al mes</strong> sin hacer nada. Si 20 suscriptores hacen lo mismo, son $12.980 CLP extra al mes.</span>
+        </div>
+        <div class="explainer-step">
+          <span class="step-num">4</span>
+          <span class="step-text">El efecto en red es exponencial: cuantos más creadores recomiendan a otros, más densa se vuelve la red. Un lector que llega a través de 3 recomendaciones cruzadas tiene un churn 40% más bajo que uno que llegó directo.</span>
+        </div>
+      </div>
+      <div class="explainer-insight">
+        <span class="insight-label">Por qué Sala puede hacer esto y Substack no</span>
+        Substack tiene creadores, no gremios. Sala tiene gremios verificados. El Colateral funciona porque dos economistas verificados tienen credibilidad mutua. Si uno recomienda al otro, el lector confía. En Substack, dos personas aleatorias no tienen esa credibilidad conjunta.
+      </div>
+    </div>
+  </div>
+
+  <!-- HISTORIA 8 -->
+  <div class="explainer-story" style="border-bottom:none">
+    <div class="explainer-agent">
+      <div class="explainer-agent-num">08</div>
+      <div class="explainer-agent-name">Especialista en SEO</div>
+      <div class="explainer-agent-role">Marketing SEO Specialist</div>
+    </div>
+    <div class="explainer-content">
+      <h3 class="explainer-title">El Directorio: cómo Google trae lectores sin que Sala pague un peso</h3>
+      <p class="explainer-body">
+        Sala tiene una ventaja estructural sobre Substack que casi nadie menciona: la URL.
+      </p>
+      <div class="explainer-steps">
+        <div class="explainer-step">
+          <span class="step-num">1</span>
+          <span class="step-text"><strong>Substack</strong> publica en <code>rodrigo.substack.com</code>. Cada vez que alguien comparte ese link, el crédito de SEO se divide entre el subdominio de Rodrigo y el dominio de Substack. Nadie acumula mucha autoridad.</span>
+        </div>
+        <div class="explainer-step">
+          <span class="step-num">2</span>
+          <span class="step-text"><strong>Sala</strong> publica en <code>sala.com/rodrigo-fuentes/tipo-cambio-mayo</code>. Cada link que apunta a ese artículo es crédito para <code>sala.com</code>. Después de 100 artículos de 34 creadores, <code>sala.com</code> tiene más autoridad de dominio que cualquier subdominio individual.</span>
+        </div>
+        <div class="explainer-step">
+          <span class="step-num">3</span>
+          <span class="step-text">El directorio <code>sala.com/directorio</code> aparece en Google cuando alguien busca <em>"economista Chile"</em>, <em>"abogado tributario análisis"</em>, <em>"arquitecto urbano Colombia"</em>. Esas búsquedas no tienen buena respuesta hoy — Sala las puede capturar.</span>
+        </div>
+        <div class="explainer-step">
+          <span class="step-num">4</span>
+          <span class="step-text">Cada artículo lleva Schema Markup: le dice a Google que Rodrigo es una <strong>Person</strong> con credencial verificada publicando un <strong>Article</strong>. Google sube ese contenido en rankings de E-E-A-T (Experience, Expertise, Authoritativeness, Trustworthiness) — exactamente lo que busca.</span>
+        </div>
+      </div>
+      <div class="explainer-insight">
+        <span class="insight-label">El número que importa</span>
+        Ghost rankea en Google con PageSpeed 95+. Substack está en 70-80. El objetivo de Sala es llegar a 90+ en Core Web Vitals. Eso no es optimización cosmética — es la diferencia entre aparecer en la primera página de Google o en la segunda.
+      </div>
+    </div>
+  </div>
+
   <!-- SYNTHESIS -->
+
   <div class="synthesis">
     <div class="synthesis-title">Síntesis ejecutiva · Plan de 90 días</div>
 

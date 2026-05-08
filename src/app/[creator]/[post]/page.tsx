@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
 import type { Creator, Post } from '@/types/database'
+import PaywallGate from '@/components/paywall-gate'
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -243,51 +244,16 @@ function CreatorSidebar({ creator }: { creator: Creator }) {
   )
 }
 
-function PaywallCard({ creator }: { creator: Creator }) {
-  return (
-    <div className="relative my-8">
-      {/* Degradado que simula blur sobre el texto anterior */}
-      <div
-        className="pointer-events-none absolute -top-20 left-0 right-0 h-20"
-        style={{
-          background: 'linear-gradient(to bottom, transparent, rgba(255,255,255,0.97))',
-        }}
-      />
-      {/* Card paywall */}
-      <div className="border border-[#DEDEDE] p-8 text-center bg-[#F7F7F7]">
-        <span className="section-label mb-3 inline-block">ACCESO EXCLUSIVO</span>
-        <h4
-          className="font-serif text-[22px] font-bold text-[#121212] mb-3 leading-[1.1]"
-          style={{ letterSpacing: '-0.01em' }}
-        >
-          Este artículo es exclusivo para suscriptores de {creator.name}
-        </h4>
-        <p className="font-sans text-[13px] text-[#666666] max-w-sm mx-auto mb-6 leading-relaxed">
-          Únete para acceder a este análisis completo y a todos los artículos anteriores sin
-          restricciones.
-        </p>
-        <Link
-          href={`/suscribirse/${creator.slug}`}
-          className="font-sans text-[13px] font-medium px-8 py-3 bg-[#C41C1C] text-white hover:bg-[#a01515] transition-colors duration-150 inline-block"
-        >
-          Suscribirse · {formatPriceCLP(creator.price_clp)}/mes
-        </Link>
-        <p className="font-sans text-[11px] text-[#666666] mt-4">
-          Cancela cuando quieras. Sin permanencia.
-        </p>
-      </div>
-    </div>
-  )
-}
-
 function ArticleContent({
   post,
   creator,
   isSubscribed,
+  isAuthenticated,
 }: {
   post: Post
   creator: Creator
   isSubscribed: boolean
+  isAuthenticated: boolean
 }) {
   const showPaywall = !post.is_free && !isSubscribed
   const content = showPaywall ? extractPreview(post.content) : post.content
@@ -344,25 +310,15 @@ function ArticleContent({
   return (
     <div className="font-sans text-[18px] text-[#121212] leading-[1.8]">
       {renderContent(content)}
-      {showPaywall && <PaywallCard creator={creator} />}
-      {/* Contenido borroso tras paywall */}
       {showPaywall && (
-        <div
-          className="relative mt-4"
-          style={{ filter: 'blur(5px)', userSelect: 'none', pointerEvents: 'none' }}
-          aria-hidden="true"
-        >
-          <p className="mb-6">
-            Para los que sí tienen acceso a este análisis, las implicaciones son concretas.
-            Existe un patrón estadísticamente robusto en el comportamiento de los mercados en
-            los 45 días posteriores a ciertos eventos que aquí se detallan con precisión.
-          </p>
-          <p className="mb-6">
-            Las tres ventanas de oportunidad que se identifican aquí son: la primera en las
-            48 horas posteriores al anuncio, la segunda durante el período de ajuste, y la
-            tercera en la consolidación.
-          </p>
-        </div>
+        <PaywallGate
+          creatorName={creator.name}
+          creatorSlug={creator.slug}
+          price_clp={creator.price_clp}
+          isAuthenticated={isAuthenticated}
+          isSubscribed={isSubscribed}
+          postCount={undefined}
+        />
       )}
     </div>
   )
@@ -398,6 +354,7 @@ export default async function PostPage({
   let creator: Creator | null = null
   let post: Post | null = null
   let isSubscribed = false
+  let isAuthenticated = false
 
   if (isSupabaseConfigured()) {
     try {
@@ -433,6 +390,7 @@ export default async function PostPage({
       } = await supabase.auth.getUser()
 
       if (user) {
+        isAuthenticated = true
         const { data: sub } = await supabase
           .from('sala_subscriptions')
           .select('id')
@@ -560,6 +518,7 @@ export default async function PostPage({
                 post={post}
                 creator={creator}
                 isSubscribed={isSubscribed}
+                isAuthenticated={isAuthenticated}
               />
             </div>
 

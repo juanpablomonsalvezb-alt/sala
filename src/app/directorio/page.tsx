@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import DirectorioClient from './directorio-client'
 
 export const metadata: Metadata = {
   title: 'Directorio de Profesionales — Sala',
@@ -71,10 +72,6 @@ const MOCK_CREATORS = [
   },
 ]
 
-function formatPrice(clp: number) {
-  return `$${clp.toLocaleString('es-CL')}`
-}
-
 export default function DirectorioPage() {
   return (
     <>
@@ -108,24 +105,6 @@ export default function DirectorioPage() {
           </div>
         </div>
 
-        {/* Filter bar */}
-        <div className="border-b border-[#DEDEDE] bg-white sticky top-0 z-10">
-          <div className="max-w-6xl mx-auto px-6">
-            <div className="flex gap-0 overflow-x-auto">
-              {DISCIPLINES.map((d) => (
-                <a
-                  key={d.id}
-                  href={d.id === 'todos' ? '/directorio' : `/directorio?disciplina=${d.id}`}
-                  className="flex items-center gap-1.5 px-4 py-3.5 text-xs font-sans font-bold tracking-[0.08em] uppercase whitespace-nowrap border-b-2 border-transparent text-[#666] hover:text-[#121212] hover:border-[#121212] transition-colors"
-                >
-                  <span className="text-sm">{d.icon}</span>
-                  {d.name}
-                </a>
-              ))}
-            </div>
-          </div>
-        </div>
-
         {/* Stats bar */}
         <div className="bg-[#F7F7F7] border-b border-[#DEDEDE]">
           <div className="max-w-6xl mx-auto px-6 py-3 flex gap-8">
@@ -141,64 +120,14 @@ export default function DirectorioPage() {
           </div>
         </div>
 
-        {/* Creator grid */}
-        <div className="max-w-6xl mx-auto px-6 py-12">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-[#DEDEDE]">
-            {MOCK_CREATORS.map((creator) => (
-              <Link
-                key={creator.id}
-                href={`/${creator.slug}`}
-                className="bg-white p-6 hover:bg-[#F7F7F7] transition-colors group block"
-              >
-                <div className="flex items-start justify-between mb-4">
-                  <div className="w-10 h-10 bg-[#121212] flex items-center justify-center text-white font-serif font-bold text-sm">
-                    {creator.name.split(' ').map(n => n[0]).join('').slice(0, 2)}
-                  </div>
-                  <div className="flex items-center gap-2">
-                    {creator.verified && (
-                      <span className="text-[9px] font-sans font-bold tracking-[0.1em] uppercase bg-[#ECFDF5] text-[#065F46] px-2 py-0.5">
-                        Verificado
-                      </span>
-                    )}
-                  </div>
-                </div>
-
-                <div className="mb-1">
-                  <span className="text-[9px] font-sans font-bold tracking-[0.15em] uppercase text-[#C41C1C]">
-                    {creator.specialty}
-                  </span>
-                </div>
-
-                <h2 className="font-serif text-lg font-bold text-[#121212] mb-2 group-hover:text-[#C41C1C] transition-colors leading-tight">
-                  {creator.name}
-                </h2>
-
-                <p className="text-sm font-sans text-[#666] leading-relaxed mb-4 line-clamp-2">
-                  {creator.bio}
-                </p>
-
-                <div className="flex items-center justify-between pt-4 border-t border-[#DEDEDE]">
-                  <div>
-                    <div className="text-xs font-sans font-bold text-[#121212]">
-                      {formatPrice(creator.price_clp)}<span className="text-[#999] font-normal">/mes</span>
-                    </div>
-                    <div className="text-[10px] font-sans text-[#999] mt-0.5">
-                      {creator.publish_frequency}
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <div className="text-xs font-sans font-bold text-[#121212]">
-                      {creator.subscriber_count.toLocaleString('es-CL')}
-                    </div>
-                    <div className="text-[10px] font-sans text-[#999] mt-0.5">
-                      suscriptores
-                    </div>
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
+        <DirectorioClient
+          creators={MOCK_CREATORS as Parameters<typeof DirectorioClient>[0]['creators']}
+          disciplines={DISCIPLINES.filter((d) => d.id !== 'todos').map((d) => ({
+            id: d.id,
+            name_es: d.name,
+            icon: d.icon,
+          }))}
+        />
 
         {/* CTA creador */}
         <div className="border-t-4 border-[#121212] bg-[#121212] py-16">

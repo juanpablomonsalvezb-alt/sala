@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import type { Creator } from '@/types/database'
+import CreatorCardComponent from '@/components/creator-card'
 
 // ─── Mock fallback ────────────────────────────────────────────────────────────
 
@@ -390,15 +391,35 @@ export default function ExplorarPage() {
                     <div className="pr-0 md:pr-8">
                       {rest
                         .filter((_, i) => i % 2 === 0)
-                        .map((c, i, arr) => (
-                          <CreatorCard key={c.id} creator={c} showBorder={i < arr.length - 1} />
+                        .map((c) => (
+                          <CreatorCardComponent
+                            key={c.id}
+                            name={c.name}
+                            slug={c.slug}
+                            specialty={c.specialty}
+                            bio={c.bio}
+                            price_clp={c.price_clp}
+                            subscriber_count={c.subscriber_count}
+                            publish_frequency={c.publish_frequency}
+                            plan={c.plan as 'free' | 'creator' | 'pro'}
+                          />
                         ))}
                     </div>
                     <div className="pl-0 md:pl-8 border-t md:border-t-0 border-[#DEDEDE]">
                       {rest
                         .filter((_, i) => i % 2 === 1)
-                        .map((c, i, arr) => (
-                          <CreatorCard key={c.id} creator={c} showBorder={i < arr.length - 1} />
+                        .map((c) => (
+                          <CreatorCardComponent
+                            key={c.id}
+                            name={c.name}
+                            slug={c.slug}
+                            specialty={c.specialty}
+                            bio={c.bio}
+                            price_clp={c.price_clp}
+                            subscriber_count={c.subscriber_count}
+                            publish_frequency={c.publish_frequency}
+                            plan={c.plan as 'free' | 'creator' | 'pro'}
+                          />
                         ))}
                     </div>
                   </div>

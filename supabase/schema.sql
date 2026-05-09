@@ -349,3 +349,66 @@ returns boolean language sql security definer stable as $$
     false
   )
 $$;
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- RLS Policies
+-- ─────────────────────────────────────────────────────────────────────────────
+
+alter table public.sala_creators enable row level security;
+alter table public.sala_profiles enable row level security;
+alter table public.sala_posts enable row level security;
+alter table public.sala_subscriptions enable row level security;
+
+-- sala_profiles
+create policy if not exists "Perfil propio visible para todos"
+  on public.sala_profiles for select using (true);
+
+create policy if not exists "Usuario actualiza su propio perfil"
+  on public.sala_profiles for update using (auth.uid() = id);
+
+-- sala_creators: lectura pública, escritura solo propia
+create policy if not exists "Creadores visibles para todos"
+  on public.sala_creators for select using (true);
+
+create policy if not exists "Usuario crea su propio perfil de creador"
+  on public.sala_creators for insert with check (auth.uid() = user_id);
+
+create policy if not exists "Creador actualiza su propio perfil"
+  on public.sala_creators for update using (auth.uid() = user_id);
+
+-- sala_posts: libres visibles para todos, de pago solo para suscriptores
+create policy if not exists "Posts libres visibles para todos"
+  on public.sala_posts for select
+  using (
+    is_free = true
+    or auth.uid() in (
+      select subscriber_id from public.sala_subscriptions
+      where creator_id = sala_posts.creator_id
+        and status = 'active'
+    )
+    or auth.uid() in (
+      select user_id from public.sala_creators
+      where id = sala_posts.creator_id
+    )
+  );
+
+create policy if not exists "Creador gestiona sus propios posts"
+  on public.sala_posts for all
+  using (
+    auth.uid() in (
+      select user_id from public.sala_creators where id = creator_id
+    )
+  );
+
+-- sala_subscriptions
+create policy if not exists "Suscriptor ve sus propias suscripciones"
+  on public.sala_subscriptions for select
+  using (auth.uid() = subscriber_id);
+
+create policy if not exists "Creador ve sus suscriptores"
+  on public.sala_subscriptions for select
+  using (
+    auth.uid() in (
+      select user_id from public.sala_creators where id = creator_id
+    )
+  );

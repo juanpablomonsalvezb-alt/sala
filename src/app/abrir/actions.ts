@@ -87,10 +87,7 @@ export async function createCreatorProfile(
     slug = `${slug}-${Math.random().toString(36).slice(2, 6)}`
   }
 
-  // Usar service client para el INSERT (bypasa RLS)
-  const service = createServiceClient()
-
-  const { error: insertError } = await service.from('sala_creators').insert({
+  const { error: insertError } = await supabase.from('sala_creators').insert({
     user_id: user.id,
     name: nombre,
     slug,
@@ -111,7 +108,7 @@ export async function createCreatorProfile(
   }
 
   // Actualizar el perfil marcándolo como creador
-  await service.from('sala_profiles').update({ is_creator: true }).eq('id', user.id)
+  await supabase.from('sala_profiles').update({ is_creator: true }).eq('id', user.id)
 
   redirect('/dashboard')
 }

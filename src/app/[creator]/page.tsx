@@ -4,6 +4,88 @@ import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
 import type { Creator, Post } from '@/types/database'
 import { CreatorStickyBar } from '@/components/creator-sticky-bar'
+import { creators as staticCreators } from '@/data/creators'
+
+// ─── Mapeo de mes español a número ───────────────────────────────────────────
+
+const MONTH_MAP: Record<string, string> = {
+  enero: '01', febrero: '02', marzo: '03', abril: '04',
+  mayo: '05', junio: '06', julio: '07', agosto: '08',
+  septiembre: '09', octubre: '10', noviembre: '11', diciembre: '12',
+}
+
+function sinceToISO(since: string): string {
+  const [mes, anio] = since.toLowerCase().split(' ')
+  return `${anio}-${MONTH_MAP[mes] ?? '01'}-01T00:00:00Z`
+}
+
+const PUBLICATION_NAMES: Record<string, string> = {
+  'rodrigo-fuentes-marin':    'Política Monetaria',
+  'carolina-vega-toro':       'Mercado & Capital',
+  'matias-cornejo-silva':     'Tributario Chile',
+  'andrea-poblete-rios':      'Salud Pública',
+  'ignacio-leal-espinoza':    'Sistema Político',
+  'francisca-araya-medina':   'Ciudad & Territorio',
+  'pablo-herrera-zuniga':     'Laboral al Día',
+  'valentina-soto-burgos':    'Metabolismo & Nutrición',
+  'sebastian-miranda-lagos':  'Infraestructura',
+  'catalina-rojas-henriquez': 'Historia Económica',
+}
+
+const PUBLISH_FREQ: Record<string, string> = {
+  pro: 'Publica dos veces por semana',
+  creator: 'Publica semanalmente',
+  free: 'Publica mensualmente',
+}
+
+function findStaticCreator(slug: string): { creator: Creator; posts: Post[] } | null {
+  const found = staticCreators.find((c) => c.slug === slug)
+  if (!found) return null
+
+  const creator: Creator = {
+    id: `mock-${slug}`,
+    user_id: `mock-user-${slug}`,
+    name: found.name,
+    slug: found.slug,
+    specialty: found.specialty,
+    bio: found.bio,
+    bio_long: found.bio,
+    linkedin_url: null,
+    price_clp: found.price_clp,
+    plan: found.plan,
+    publish_frequency: PUBLISH_FREQ[found.plan] ?? 'Publica semanalmente',
+    created_at: sinceToISO(found.since),
+    subscriber_count: found.subscriber_count,
+    stripe_account_id: null,
+    verified: found.verified,
+    publication_name: PUBLICATION_NAMES[found.slug] ?? found.name,
+    pull_quote: null,
+    cover_image_url: null,
+  }
+
+  const baseDate = new Date(sinceToISO(found.since))
+  const posts: Post[] = found.articles.map((title, i) => {
+    const pub = new Date(baseDate)
+    pub.setDate(pub.getDate() + i * 14 + 7)
+    const slug2 = title.toLowerCase()
+      .normalize('NFD').replace(/[̀-ͯ]/g, '')
+      .replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 60)
+    return {
+      id: `mock-${found.slug}-${i}`,
+      creator_id: `mock-${found.slug}`,
+      title,
+      excerpt: null,
+      content: '',
+      is_free: i === 0,
+      published_at: pub.toISOString(),
+      created_at: pub.toISOString(),
+      read_time_minutes: 6 + i * 2,
+      slug: slug2,
+    }
+  })
+
+  return { creator, posts }
+}
 
 // ─── Fallback mock (cuando Supabase no está configurado) ──────────────────────
 
@@ -151,16 +233,20 @@ export async function generateMetadata({
     }
   }
 
+  if (!creator) {
+    const staticMatch = findStaticCreator(slug)
+    if (staticMatch) creator = staticMatch.creator
+  }
   if (!creator && slug === 'rodrigo-fuentes') creator = MOCK_CREATOR
 
   if (!creator) {
-    return { title: 'Perfil no encontrado — Nebbuler' }
+    return { title: 'Perfil no encontrado' }
   }
 
   const publicationTitle = creator.publication_name ?? creator.name
 
   return {
-    title: `${publicationTitle} — ${creator.name} | Nebbuler`,
+    title: `${publicationTitle} — ${creator.name}`,
     description: creator.bio,
     alternates: {
       canonical: `https://nebbuler.com/${creator.slug}`,
@@ -185,7 +271,6 @@ export async function generateMetadata({
 function SiteNav() {
   return (
     <header>
-      <div className="h-[3px] bg-[#C41C1C] w-full" />
       <div className="border-b border-[#DEDEDE] py-3 px-6">
         <div className="max-w-5xl mx-auto flex items-center justify-between">
           <Link
@@ -563,7 +648,13 @@ export default async function CreatorPage({
         creator = MOCK_CREATOR
         posts = MOCK_POSTS
       } else {
-        notFound()
+        const staticMatch = findStaticCreator(slug)
+        if (staticMatch) {
+          creator = staticMatch.creator
+          posts = staticMatch.posts
+        } else {
+          notFound()
+        }
       }
     }
   } else {
@@ -571,7 +662,13 @@ export default async function CreatorPage({
       creator = MOCK_CREATOR
       posts = MOCK_POSTS
     } else {
-      notFound()
+      const staticMatch = findStaticCreator(slug)
+      if (staticMatch) {
+        creator = staticMatch.creator
+        posts = staticMatch.posts
+      } else {
+        notFound()
+      }
     }
   }
 

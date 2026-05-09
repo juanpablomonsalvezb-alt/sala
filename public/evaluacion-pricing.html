@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nebbuler — Evaluación Pricing · 4 Agentes Comerciales</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --oxford: #0A1628;
+    --crimson: #B31C1C;
+    --cream: #F8F7F5;
+    --ink: #111;
+    --mid: #666;
+    --border: #E0DDD8;
+    --gold: #C4922A;
+    --green: #0D7A3A;
+    --red: #B31C1C;
+    --warn: #C4922A;
+  }
+  body { font-family: Georgia, serif; background: var(--cream); color: var(--ink); }
+
+  .header {
+    background: var(--oxford); padding: 28px 64px;
+    display: flex; align-items: center; gap: 18px;
+    border-bottom: 3px solid var(--crimson);
+  }
+  .bar { width: 4px; height: 44px; background: var(--crimson); }
+  .header h1 { font-size: 22px; font-weight: 700; color: white; }
+  .header p { font-family: Arial, sans-serif; font-size: 10px; color: #6B8299; letter-spacing: 0.18em; text-transform: uppercase; margin-top: 3px; }
+
+  /* VEREDICTO HERO */
+  .veredicto {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 2px; border-bottom: 2px solid var(--border);
+  }
+  .v-card {
+    padding: 48px 44px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; min-height: 260px;
+  }
+  .v-card.mensual { background: var(--green); }
+  .v-card.semestral { background: var(--red); }
+  .v-card.anual { background: var(--warn); }
+
+  .v-plan { font-family: Arial, sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-bottom: 16px; }
+  .v-verdict { font-size: 32px; font-weight: 900; color: white; line-height: 1; margin-bottom: 12px; }
+  .v-sub { font-family: Arial, sans-serif; font-size: 13px; color: rgba(255,255,255,0.75); line-height: 1.5; max-width: 260px; }
+  .v-unanimity { font-family: Arial, sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-top: 16px; }
+
+  /* LAYOUT */
+  .page { max-width: 1160px; margin: 0 auto; padding: 52px 64px; }
+  .section-label {
+    font-family: Arial, sans-serif; font-size: 9px; letter-spacing: 0.25em;
+    text-transform: uppercase; color: #999;
+    border-bottom: 1px solid var(--border); padding-bottom: 10px; margin-bottom: 36px;
+  }
+  .section-label b { color: var(--crimson); }
+
+  /* TABLA RESUMEN */
+  .summary-table { background: white; border: 1px solid var(--border); overflow: hidden; margin-bottom: 2px; }
+  .summary-table table { width: 100%; border-collapse: collapse; }
+  .summary-table th { font-family: Arial, sans-serif; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; padding: 12px 20px; text-align: left; background: var(--oxford); color: #6B8299; }
+  .summary-table td { padding: 16px 20px; border-bottom: 1px solid var(--border); font-family: Arial, sans-serif; font-size: 13px; vertical-align: top; }
+  .summary-table tr:last-child td { border-bottom: none; }
+  .summary-table tr.red-row td { background: #FFF5F5; }
+  .summary-table tr.green-row td { background: #F0FAF4; }
+  .summary-table tr.warn-row td { background: #FFF9F0; }
+
+  .tag-si { display: inline-block; background: var(--green); color: white; font-family: Arial, sans-serif; font-size: 9px; font-weight: 700; padding: 2px 8px; letter-spacing: 0.1em; }
+  .tag-no { display: inline-block; background: var(--red); color: white; font-family: Arial, sans-serif; font-size: 9px; font-weight: 700; padding: 2px 8px; letter-spacing: 0.1em; }
+  .tag-cond { display: inline-block; background: var(--warn); color: white; font-family: Arial, sans-serif; font-size: 9px; font-weight: 700; padding: 2px 8px; letter-spacing: 0.1em; }
+
+  /* HALLAZGOS GRID */
+  .hallazgos { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-bottom: 2px; }
+  .h-card { background: white; border: 1px solid var(--border); padding: 32px 36px; }
+  .h-card.dark { background: var(--oxford); border-color: #1A2E45; }
+  .h-card.warn { border-left: 3px solid var(--warn); }
+  .h-card.danger { border-left: 3px solid var(--red); }
+  .h-card.good { border-left: 3px solid var(--green); }
+
+  .h-label { font-family: Arial, sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 14px; }
+  .h-label.red { color: var(--red); }
+  .h-label.gold { color: var(--gold); }
+  .h-label.green { color: var(--green); }
+  .h-label.blue { color: #6B8299; }
+
+  .h-title { font-size: 18px; font-weight: 700; line-height: 1.3; margin-bottom: 12px; }
+  .h-card.dark .h-title { color: white; }
+  .h-body { font-family: Arial, sans-serif; font-size: 13px; color: #555; line-height: 1.65; }
+  .h-card.dark .h-body { color: #6B8299; }
+  .h-body strong { color: var(--ink); }
+  .h-card.dark .h-body strong { color: white; }
+
+  /* ROADMAP */
+  .roadmap { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; margin-bottom: 2px; }
+  .rm-card { background: white; border: 1px solid var(--border); padding: 32px 36px; }
+  .rm-etapa { font-family: Arial, sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 8px; }
+  .rm-periodo { font-size: 20px; font-weight: 700; line-height: 1.2; margin-bottom: 6px; }
+  .rm-divider { width: 28px; height: 1px; background: var(--border); margin: 14px 0; }
+  .rm-item { font-family: Arial, sans-serif; font-size: 13px; color: #444; margin-bottom: 8px; padding-left: 14px; border-left: 2px solid var(--border); line-height: 1.5; }
+  .rm-item.active { border-left-color: var(--green); color: var(--ink); font-weight: 600; }
+  .rm-item.future { border-left-color: var(--warn); }
+  .rm-item.never { border-left-color: var(--red); color: #999; text-decoration: line-through; }
+  .rm-card.highlight { background: var(--oxford); border-color: #1A2E45; }
+  .rm-card.highlight .rm-periodo { color: white; }
+  .rm-card.highlight .rm-etapa { color: #6B8299; }
+  .rm-card.highlight .rm-divider { background: #1A2E45; }
+  .rm-card.highlight .rm-item { color: #94A3B8; border-left-color: #2A3E52; }
+  .rm-card.highlight .rm-item.active { color: white; border-left-color: var(--green); }
+  .rm-card.highlight .rm-item.future { border-left-color: var(--gold); color: #CBD5E1; }
+
+  /* PRICING CALC */
+  .calc-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; margin-bottom: 2px; }
+  .calc-card { background: white; border: 1px solid var(--border); padding: 32px; text-align: center; }
+  .calc-card.rechazado { background: #FFF5F5; border-color: #F0CCCC; opacity: 0.7; }
+  .calc-plan { font-family: Arial, sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 12px; color: var(--mid); }
+  .calc-price { font-size: 36px; font-weight: 900; color: var(--oxford); line-height: 1; margin-bottom: 4px; }
+  .calc-price.strike { text-decoration: line-through; color: #CCC; }
+  .calc-per { font-family: Arial, sans-serif; font-size: 12px; color: #999; margin-bottom: 16px; }
+  .calc-divider { width: 40px; height: 1px; background: var(--border); margin: 16px auto; }
+  .calc-saving { font-family: Arial, sans-serif; font-size: 13px; color: #555; line-height: 1.5; }
+  .calc-badge { display: inline-block; font-family: Arial, sans-serif; font-size: 9px; font-weight: 700; padding: 3px 10px; margin-top: 12px; }
+  .calc-badge.approved { background: var(--green); color: white; }
+  .calc-badge.rejected { background: var(--red); color: white; }
+  .calc-badge.conditional { background: var(--warn); color: white; }
+
+  /* NUMERO FINANCIERO */
+  .fin-strip { background: var(--oxford); padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); }
+  .fin-item { padding: 32px 28px; border-right: 1px solid #1A2E45; }
+  .fin-item:last-child { border-right: none; }
+  .fin-num { font-size: 32px; font-weight: 900; color: white; line-height: 1; margin-bottom: 6px; }
+  .fin-num.warn { color: var(--gold); }
+  .fin-num.danger { color: var(--crimson); }
+  .fin-num.good { color: #4ADE80; }
+  .fin-label { font-family: Arial, sans-serif; font-size: 11px; color: #4A6075; line-height: 1.5; }
+
+  /* PREREQS */
+  .prereqs { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+  .pr-card { background: white; border: 1px solid var(--border); padding: 28px 32px; display: flex; gap: 16px; align-items: flex-start; }
+  .pr-num { font-family: Arial, sans-serif; font-size: 24px; font-weight: 900; color: var(--cream); flex-shrink: 0; line-height: 1; }
+  .pr-title { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+  .pr-body { font-family: Arial, sans-serif; font-size: 12.5px; color: #666; line-height: 1.6; }
+
+  /* FOUNDING MEMBER */
+  .fm-block { background: var(--oxford); padding: 40px 48px; margin-bottom: 2px; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+  .fm-left h2 { font-size: 24px; font-weight: 700; color: white; line-height: 1.3; margin-bottom: 12px; }
+  .fm-left h2 span { color: var(--gold); }
+  .fm-left p { font-family: Arial, sans-serif; font-size: 13px; color: #6B8299; line-height: 1.7; }
+  .fm-right { display: flex; flex-direction: column; gap: 14px; }
+  .fm-point { display: flex; gap: 12px; align-items: flex-start; }
+  .fm-dot { width: 6px; height: 6px; background: var(--gold); border-radius: 50%; flex-shrink: 0; margin-top: 6px; }
+  .fm-text { font-family: Arial, sans-serif; font-size: 13px; color: #94A3B8; line-height: 1.5; }
+  .fm-text strong { color: white; }
+
+  .footer { background: #070E1A; padding: 24px 64px; display: flex; justify-content: space-between; font-family: Arial, sans-serif; font-size: 11px; color: #2A3E52; }
+  .footer b { color: #4A6075; }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="bar"></div>
+  <div>
+    <h1>Evaluación Pricing — Mensual · Semestral · Anual</h1>
+    <p>4 Agentes Comerciales · Análisis honesto y en profundidad · Mayo 2026</p>
+  </div>
+</header>
+
+<!-- ═══════ VEREDICTO HERO ═══════ -->
+<div class="veredicto">
+  <div class="v-card mensual">
+    <p class="v-plan">Plan Mensual</p>
+    <div class="v-verdict">✓ SÍ</div>
+    <p class="v-sub">Implementar ahora. Es el único plan correcto en este momento del producto.</p>
+    <p class="v-unanimity">Unanimidad — 4 de 4 agentes</p>
+  </div>
+  <div class="v-card semestral">
+    <p class="v-plan">Plan Semestral (6 meses)</p>
+    <div class="v-verdict">✗ NO</div>
+    <p class="v-sub">Eliminado por unanimidad. Complejidad sin beneficio. El plan que nadie elige.</p>
+    <p class="v-unanimity">Unanimidad — 4 de 4 agentes</p>
+  </div>
+  <div class="v-card anual">
+    <p class="v-plan">Plan Anual (12 meses)</p>
+    <div class="v-verdict">⏳ LUEGO</div>
+    <p class="v-sub">Implementar en 6–9 meses. Con condiciones. Descuento máximo: 20%.</p>
+    <p class="v-unanimity">Condicional — 4 de 4 agentes</p>
+  </div>
+</div>
+
+<!-- ═══════ NÚMEROS CLAVE ═══════ -->
+<div class="fin-strip">
+  <div class="fin-item">
+    <div class="fin-num warn">~15%</div>
+    <div class="fin-label">de suscriptores elige anual en newsletters de nicho. Solo después de 3+ meses de historial.</div>
+  </div>
+  <div class="fin-item">
+    <div class="fin-num danger">65–80%</div>
+    <div class="fin-label">de suscriptores anuales que no abrieron en el segundo semestre NO renuevan.</div>
+  </div>
+  <div class="fin-item">
+    <div class="fin-num good">+2.8x</div>
+    <div class="fin-label">mayor LTV tienen suscriptores que empezaron mensual y convirtieron voluntariamente a anual.</div>
+  </div>
+  <div class="fin-item">
+    <div class="fin-num warn">20%</div>
+    <div class="fin-label">es el descuento máximo anual antes de erosionar el posicionamiento premium de la marca.</div>
+  </div>
+</div>
+
+<!-- ═══════ PRICING RECOMENDADO ═══════ -->
+<div class="page">
+  <p class="section-label"><b>01</b> &nbsp; Estructura de Precios Recomendada por los Agentes</p>
+
+  <div class="calc-grid">
+    <div class="calc-card">
+      <div class="calc-plan">Plan Mensual · Ahora</div>
+      <div class="calc-price">$9.990</div>
+      <div class="calc-per">CLP / mes</div>
+      <div class="calc-divider"></div>
+      <div class="calc-saving">Sin compromiso. Máxima conversión. El único plan correcto para adquirir suscriptores que no conocen el producto.</div>
+      <div><span class="calc-badge approved">✓ Implementar hoy</span></div>
+    </div>
+    <div class="calc-card rechazado">
+      <div class="calc-plan">Plan Semestral · Rechazado</div>
+      <div class="calc-price strike">~$50.940</div>
+      <div class="calc-per">CLP / 6 meses</div>
+      <div class="calc-divider"></div>
+      <div class="calc-saving" style="color:#999;">Demasiado largo para el suscriptor incierto. Descuento insuficiente para el comprometido. El plan que estadísticamente nadie elige (&lt;10% de distribución).</div>
+      <div><span class="calc-badge rejected">✗ No implementar</span></div>
+    </div>
+    <div class="calc-card">
+      <div class="calc-plan">Plan Anual · En 6–9 meses</div>
+      <div class="calc-price">$99.900</div>
+      <div class="calc-per">CLP / año (~$8.325/mes efectivo)</div>
+      <div class="calc-divider"></div>
+      <div class="calc-saving">Equivale a <strong>2 meses gratis</strong> — el framing que mejor convierte. Descuento del ~16.7%. Solo para suscriptores con 3+ meses de historial activo.</div>
+      <div><span class="calc-badge conditional">⏳ Condicionado a 6–9 meses</span></div>
+    </div>
+  </div>
+
+  <!-- TABLA RESUMEN DE LOS 4 AGENTES -->
+  <div class="summary-table" style="margin-top:2px;">
+    <table>
+      <thead>
+        <tr>
+          <th>Agente</th>
+          <th>Mensual</th>
+          <th>Semestral</th>
+          <th>Anual</th>
+          <th>Timing recomendado</th>
+          <th>Condición principal</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="green-row">
+          <td><strong>Estratega Comercial</strong></td>
+          <td><span class="tag-si">SÍ — hoy</span></td>
+          <td><span class="tag-no">NO</span></td>
+          <td><span class="tag-cond">En 6 meses</span></td>
+          <td>Solo mensual ahora. Free trial 14 días primero.</td>
+          <td>Umbral: 3 meses de publicación + 35% apertura</td>
+        </tr>
+        <tr class="warn-row">
+          <td><strong>Analista Financiero</strong></td>
+          <td><span class="tag-si">SÍ — hoy</span></td>
+          <td><span class="tag-no">NO — nunca</span></td>
+          <td><span class="tag-cond">Con condiciones</span></td>
+          <td>2 planes: mensual + anual. Eliminar semestral.</td>
+          <td>Descuento máximo 20%. Política de reembolso obligatoria antes.</td>
+        </tr>
+        <tr class="green-row">
+          <td><strong>Product Manager</strong></td>
+          <td><span class="tag-si">SÍ — hoy</span></td>
+          <td><span class="tag-no">NO — nunca</span></td>
+          <td><span class="tag-cond">Mes 6–12</span></td>
+          <td>Validar retención mensual primero. Founding member &gt; semestral.</td>
+          <td>Retención mes 1→3 &gt;60% antes de agregar anual.</td>
+        </tr>
+        <tr class="warn-row">
+          <td><strong>Analista de Retención</strong></td>
+          <td><span class="tag-si">SÍ — hoy</span></td>
+          <td><span class="tag-no">NO — o solo 12+ meses</span></td>
+          <td><span class="tag-cond">Mes 6–12</span></td>
+          <td>Descuento anual máximo 16–17%. Solo a suscriptores con historial.</td>
+          <td>Nunca ofrecer anual en primera interacción.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════ HALLAZGOS CRÍTICOS ═══════ -->
+<div class="page" style="padding-top:0;">
+  <p class="section-label"><b>02</b> &nbsp; Los 6 Hallazgos Más Importantes — Sin Suavizar</p>
+
+  <div class="hallazgos">
+
+    <div class="h-card danger">
+      <p class="h-label red">⚠ Riesgo crítico — El creador que abandona</p>
+      <h3 class="h-title">El plan anual crea un pasivo que nadie está listo para absorber</h3>
+      <p class="h-body">
+        Si un creador recibe pagos anuales de 50 suscriptores (~$4.195.800 CLP) y abandona a los 3 meses,
+        existe un pasivo de ~$3.496.500 en servicios no entregados. El creador ya gastó el dinero.
+        Nebbuler no tiene política de reembolso. MercadoPago no cubre esto.
+        <strong>Sin un fondo de reserva obligatorio o política de reembolso prorrateado, los planes anuales
+        son una bomba de tiempo reputacional.</strong> El primer caso de abandono en un mercado pequeño
+        como Chile puede destruir años de construcción de confianza.
+      </p>
+    </div>
+
+    <div class="h-card warn">
+      <p class="h-label gold">⚡ Hallazgo contraintuitivo — El anual puede bajar el engagement</p>
+      <h3 class="h-title">Los suscriptores mensuales abren más que los anuales</h3>
+      <p class="h-body">
+        Datos de Substack y Ghost muestran que los suscriptores mensuales tienen tasas de apertura
+        8–15 puntos porcentuales más altas que los anuales en el mismo período.
+        La razón: el cobro mensual es un recordatorio de valor. El anual "cierra el tema".
+        <strong>Si Nebbuler mide éxito por engagement (lo que debería), los mensuales son mejores clientes.</strong>
+        Si mide por flujo de caja, los anuales son mejores. Son objetivos en tensión.
+        Elegir bien cuál priorizar en esta etapa define qué plan impulsar.
+      </p>
+    </div>
+
+    <div class="h-card danger">
+      <p class="h-label red">⚠ El semestral es el plan que nadie elige</p>
+      <h3 class="h-title">El semestral representa menos del 10% de adopción. Siempre.</h3>
+      <p class="h-body">
+        En plataformas con tres planes (mensual/semestral/anual), el semestral raramente supera el 8–12%
+        de distribución cuando coexiste con un plan anual atractivo.
+        <strong>El suscriptor conservador elige mensual. El convencido elige anual.
+        El semestral no sirve a ninguno bien:</strong> demasiado comprometido para el incierto,
+        demasiado poco rentable para el fiel. Añade complejidad técnica (3 flujos de facturación,
+        3 casos de reembolso, 3 estados de churn) sin retorno proporcional.
+        La recomendación unánime: eliminarlo del roadmap.
+      </p>
+    </div>
+
+    <div class="h-card warn">
+      <p class="h-label gold">⚡ El descuento del 30% daña el posicionamiento</p>
+      <h3 class="h-title">El profesional chileno lee descuentos de +20% como señal de inseguridad de valor</h3>
+      <p class="h-body">
+        En servicios profesionales, el descuento agresivo activa una señal histórica:
+        "el producto no se vende solo" o "el creador tiene urgencia de caja."
+        The Economist, The Information, Stratechery — los newsletters premium de referencia global —
+        ofrecen <strong>15–20% de descuento anual máximo.</strong>
+        El framing correcto no es "30% de descuento" sino "2 meses gratis" (~16.7% equivalente).
+        El mismo ahorro, presentado como regalo, no como liquidación.
+        El umbral psicológico del profesional chileno es claro: arriba del 20% empieza la erosión de marca.
+      </p>
+    </div>
+
+    <div class="h-card good">
+      <p class="h-label green">✓ El anual correcto — conversión mensual→anual en el mes 3</p>
+      <h3 class="h-title">LTV 2.8x mayor en suscriptores que convierten voluntariamente en el mes 3–4</h3>
+      <p class="h-body">
+        El dato más importante del análisis: suscriptores que empezaron mensual y convirtieron a anual
+        voluntariamente (sin presión de descuento) tienen <strong>LTV 2.8x mayor</strong> que quienes entran
+        directo al plan anual motivados por precio. La razón: construyeron hábito activo antes de comprometerse.
+        El flujo correcto es: mensual → 3 meses de valor demostrado → oferta de conversión a anual.
+        No al revés. El plan anual como herramienta de retención, no de adquisición.
+      </p>
+    </div>
+
+    <div class="h-card dark good">
+      <p class="h-label green">✓ Lo que realmente aumenta conversión ahora</p>
+      <h3 class="h-title">"El problema de Nebbuler hoy no es el LTV — es la conversión inicial"</h3>
+      <p class="h-body" style="color:#94A3B8;">
+        Agente Comercial: "El pricing multi-plan es una optimización de monetización.
+        Una prueba gratuita de 14 días es adquisición. Nebbuler necesita adquisición
+        antes de optimizar monetización."
+        <br><br>
+        <strong style="color:white;">Lo que aumenta más conversión ahora:</strong> una prueba gratuita de 14 días
+        o acceso a 1–2 ediciones de muestra antes del primer cobro. Eso resuelve el mayor bloqueador:
+        el suscriptor que no paga porque no conoce el producto, no porque no pueda pagarlo.
+        Más impacto que cualquier estructura de precios.
+      </p>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════ ALTERNATIVA: FOUNDING MEMBER ═══════ -->
+<div class="fm-block">
+  <div class="fm-left">
+    <h2>La alternativa al semestral que <span>nadie consideró:</span> Founding Member</h2>
+    <p>
+      En vez de un plan de 6 meses con descuento, el modelo "founding member" resuelve
+      el mismo problema con mucho mayor upside: convierte al suscriptor temprano en
+      embajador de la marca, no solo en cliente con descuento.
+      Es el mecanismo que usan Ghost, Substack destacados y Patreon premium — y
+      funciona mejor que el semestral en prácticamente todos los benchmarks disponibles.
+    </p>
+  </div>
+  <div class="fm-right">
+    <div class="fm-point">
+      <div class="fm-dot"></div>
+      <div class="fm-text"><strong>Precio bloqueado de por vida</strong> — quien entra en los primeros 30 días paga $7.990/mes para siempre. No es un descuento temporal: es un privilegio permanente.</div>
+    </div>
+    <div class="fm-point">
+      <div class="fm-dot"></div>
+      <div class="fm-text"><strong>Elimina la comparación de descuentos</strong> — "precio que cierra en X fecha" crea urgencia real sin parecer táctica comercial.</div>
+    </div>
+    <div class="fm-point">
+      <div class="fm-dot"></div>
+      <div class="fm-text"><strong>Genera comunidad fundadora</strong> con incentivos para dar feedback y recomendar. Los primeros 50 suscriptores se convierten en evangelistas.</div>
+    </div>
+    <div class="fm-point">
+      <div class="fm-dot"></div>
+      <div class="fm-text"><strong>Compatible con plan mensual y anual</strong> — no son excluyentes. El founding member es una capa de lanzamiento, no un plan permanente.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ ROADMAP ═══════ -->
+<div class="page" style="padding-top:0;">
+  <p class="section-label"><b>03</b> &nbsp; Roadmap Recomendado — Cuándo Implementar Qué</p>
+
+  <div class="roadmap">
+    <div class="rm-card highlight">
+      <p class="rm-etapa">Etapa actual</p>
+      <h3 class="rm-periodo">Hoy — Mes 6</h3>
+      <div class="rm-divider"></div>
+      <div class="rm-item active">✓ Plan mensual $9.990 CLP — único plan</div>
+      <div class="rm-item active">✓ Founding member para lanzamiento de creadores nuevos</div>
+      <div class="rm-item active">✓ Free trial 14 días o 2 ediciones de muestra gratuitas</div>
+      <div class="rm-item" style="color:#4A6075;">Prioridad: demostrar que la retención mes 1→3 supera el 60%</div>
+      <div class="rm-item" style="color:#4A6075;">Prioridad: tasa de apertura sostenida &gt;40%</div>
+      <div class="rm-item never">✗ Plan semestral</div>
+      <div class="rm-item never">✗ Plan anual</div>
+    </div>
+
+    <div class="rm-card">
+      <p class="rm-etapa" style="color:var(--warn);">Etapa de crecimiento</p>
+      <h3 class="rm-periodo">Mes 6 — Mes 12</h3>
+      <div class="rm-divider"></div>
+      <div class="rm-item active">✓ Plan mensual $9.990 — mantener</div>
+      <div class="rm-item future">→ Introducir plan anual ~$99.900 ("2 meses gratis")</div>
+      <div class="rm-item future">→ Solo para suscriptores con 3+ meses de historial</div>
+      <div class="rm-item future">→ Email de conversión en mes 3–4 de cada suscriptor</div>
+      <div class="rm-item">Prerequisito: política de reembolso prorrateado activa</div>
+      <div class="rm-item">Prerequisito: creadores con 3+ meses de publicación continua</div>
+      <div class="rm-item never">✗ Plan semestral</div>
+    </div>
+
+    <div class="rm-card">
+      <p class="rm-etapa" style="color:var(--mid);">Etapa de escala</p>
+      <h3 class="rm-periodo">Mes 12 en adelante</h3>
+      <div class="rm-divider"></div>
+      <div class="rm-item active">✓ Plan mensual — mantener</div>
+      <div class="rm-item active">✓ Plan anual — madurado</div>
+      <div class="rm-item future">→ Founding member para todos los creadores nuevos</div>
+      <div class="rm-item future">→ Evaluar semestral SOLO si los datos muestran demanda</div>
+      <div class="rm-item">Métrica: anual no debe superar 25% de mix de suscriptores</div>
+      <div class="rm-item">Métrica: tasa de renovación anual &gt;60% antes de escalar</div>
+    </div>
+  </div>
+
+  <!-- PRERREQUISITOS NO NEGOCIABLES -->
+  <p class="section-label" style="margin-top:40px;"><b>04</b> &nbsp; Prerrequisitos — Lo Que Debe Existir Antes del Plan Anual</p>
+
+  <div class="prereqs">
+    <div class="pr-card">
+      <div class="pr-num">01</div>
+      <div>
+        <div class="pr-title">Política de reembolso prorrateado</div>
+        <div class="pr-body">Si un creador abandona, debe existir un mecanismo técnico y legal que permita devolver los meses no entregados. Sin esto, el primer abandono es una crisis reputacional en un mercado pequeño. Considerar fondo de reserva: retener el 30% del pago anual hasta que el creador entregue el 50% del contenido comprometido.</div>
+      </div>
+    </div>
+    <div class="pr-card">
+      <div class="pr-num">02</div>
+      <div>
+        <div class="pr-title">3 meses de publicación continua del creador</div>
+        <div class="pr-body">El plan anual solo debe activarse para newsletters con mínimo 3 meses de historia publicada y tasa de apertura documentada superior al 35%. Un creador que lanzó hace 2 semanas no debería poder cobrar anual. El riesgo de abandono es directamente proporcional a la novedad del newsletter.</div>
+      </div>
+    </div>
+    <div class="pr-card">
+      <div class="pr-num">03</div>
+      <div>
+        <div class="pr-title">Prueba gratuita o muestra de contenido</div>
+        <div class="pr-body">Antes de que un suscriptor que no conoce el producto pague semestral o anual, debe existir un mecanismo de validación: 14 días de prueba, 2 ediciones gratuitas, o acceso al archivo histórico. Reducir el riesgo percibido de la compra es más poderoso que el descuento. Aumenta conversión sin ninguno de los riesgos del anual.</div>
+      </div>
+    </div>
+    <div class="pr-card">
+      <div class="pr-num">04</div>
+      <div>
+        <div class="pr-title">Métricas de retención validadas</div>
+        <div class="pr-body">El plan anual antes de tener datos de retención real es maquillaje. Si la tasa de retención mes 1→3 no supera el 60%, el problema no es el pricing — es el producto o la propuesta de valor. Agregar planes anuales ocultaría ese problema durante 12 meses y lo haría estallar con mayor fuerza. Validar retención primero, optimizar pricing después.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div><b>Nebbuler</b> · Evaluación de Pricing · 4 Agentes Comerciales · Mayo 2026</div>
+  <div>nebbuler.com</div>
+</footer>
+
+</body>
+</html>

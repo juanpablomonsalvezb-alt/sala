@@ -22,31 +22,45 @@ export function ProfileShare({ slug, publicationName, creatorName, specialty, bi
     setCanNativeShare(isMobile && !!navigator.share)
   }, [])
 
+  const spec = specialty.toLowerCase()
+
   const texts = {
-    whatsapp: `*${publicationName}* — por ${creatorName}\n\n${shortBio}\n\nPrimer artículo gratis: ${url}`,
-    twitter:  `Lancé "${publicationName}" en @nebbuler — análisis sobre ${specialty.toLowerCase()} sin ruido.\n\nPrimer artículo gratis:`,
-    linkedin: `Acabo de lanzar mi publicación en Nebbuler: "${publicationName}".\n\nPublico análisis sobre ${specialty.toLowerCase()} para quienes toman decisiones que dependen de entender bien este campo.\n\nEl primer artículo es gratuito → ${url}`,
-    email:    `Te comparto mi perfil profesional en Nebbuler.\n\nPublico "${publicationName}" — análisis sobre ${specialty.toLowerCase()}.\n\n${shortBio}\n\nPuedes leer el primer artículo gratis aquí: ${url}`,
-    facebook: `Acabo de lanzar mi publicación "${publicationName}" en Nebbuler — análisis sobre ${specialty.toLowerCase()}. Primer artículo gratis: ${url}`,
-    telegram: `*${publicationName}* — por ${creatorName}\n\n${shortBio}\n\nPrimer artículo gratis: ${url}`,
-    threads:  `Lancé "${publicationName}" en @nebbuler — análisis sobre ${specialty.toLowerCase()} sin ruido. Primer artículo gratis:`,
+    // WhatsApp: nombre en negrita nativa, 3 líneas, sin promesas de acceso
+    whatsapp: `*${publicationName}*\n\nEscribo sobre ${spec} para profesionales que necesitan ir más allá del ruido.\n\n${url}`,
+
+    // Twitter/X: ≤180 chars con URL
+    twitter: `${publicationName} — análisis de ${spec} sin filtros editoriales ni ruido.`,
+
+    // LinkedIn: tono profesional, primera persona
+    linkedin: `Lancé ${publicationName} — un espacio donde escribo sobre ${spec} con la profundidad que los medios tradicionales no se toman.\n\nSi te interesa este campo, está en ${url}`,
+
+    // Email: asunto limpio + cuerpo de 3 líneas
+    emailSubject: `${publicationName}, de ${creatorName}`,
+    email: `Escribo ${publicationName}: análisis sobre ${spec} para quienes necesitan pensar en serio.\n\nSin patrocinadores. Sin agenda editorial. Solo criterio propio.\n\n${url}`,
+
+    // Resto de plataformas: texto plano corto
+    generic: `${publicationName} — escribo sobre ${spec} para quienes necesitan análisis de fondo, no titulares.\n\n${url}`,
   }
 
   const links = {
     linkedin:  `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`,
     whatsapp:  `https://wa.me/?text=${encodeURIComponent(texts.whatsapp)}`,
     twitter:   `https://twitter.com/intent/tweet?text=${encodeURIComponent(texts.twitter)}&url=${encodeURIComponent(url)}`,
-    facebook:  `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`,
+    facebook:  `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(texts.generic)}`,
     messenger: `https://m.me/?link=${encodeURIComponent(url)}`,
-    telegram:  `https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(texts.telegram)}`,
+    telegram:  `https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(texts.generic)}`,
     reddit:    `https://www.reddit.com/submit?url=${encodeURIComponent(url)}&title=${encodeURIComponent(publicationName + ' — ' + creatorName)}`,
-    threads:   `https://www.threads.net/intent/post?text=${encodeURIComponent(texts.threads + ' ' + url)}`,
-    email:     `mailto:?subject=${encodeURIComponent(publicationName + ' — mi publicación en Nebbuler')}&body=${encodeURIComponent(texts.email)}`,
+    threads:   `https://www.threads.net/intent/post?text=${encodeURIComponent(texts.twitter + ' ' + url)}`,
+    email:     `mailto:?subject=${encodeURIComponent(texts.emailSubject)}&body=${encodeURIComponent(texts.email)}`,
   }
 
   const handleNativeShare = useCallback(async () => {
     try {
-      await navigator.share({ title: publicationName, text: `${publicationName} — por ${creatorName}. ${shortBio}`, url })
+      await navigator.share({
+        title: publicationName,
+        text: `${publicationName} — análisis de ${spec} para quienes necesitan ir más allá del ruido.`,
+        url,
+      })
     } catch (err: unknown) {
       if (err instanceof Error && err.name !== 'AbortError') console.error(err)
     }

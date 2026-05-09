@@ -86,7 +86,7 @@ const MOCK_POST: Post = {
 El problema está en el tiempo. Entre la venta del mineral en los mercados de futuros y la liquidación efectiva de divisas en el mercado chileno pueden pasar entre 30 y 90 días. Durante ese período, el mercado cambiario opera sobre expectativas, no sobre flujos reales.
 
 El Banco Central tiene un mandato implícito de suavizar la volatilidad cambiaria. Cuando el cobre sube de manera brusca, la institución suele intervenir comprando dólares para evitar una apreciación excesiva del peso que dañe la competitividad de exportadores no mineros: forestales, salmones, vino.`,
-  is_free: true,
+  is_free: false,
   published_at: '2025-05-12T00:00:00Z',
   created_at: '2025-05-12T00:00:00Z',
   read_time_minutes: 8,

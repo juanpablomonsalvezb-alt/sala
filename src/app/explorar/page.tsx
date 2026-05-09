@@ -24,6 +24,9 @@ const MOCK_CREATORS: (Creator & { category: string; featured: boolean })[] = all
   subscriber_count: c.subscriber_count,
   stripe_account_id: null,
   verified: c.verified,
+  publication_name: null,
+  pull_quote: null,
+  cover_image_url: null,
   category: inferCategoryFromDiscipline(c.discipline),
   featured: c.featured,
 }))

@@ -113,6 +113,9 @@ export async function createCreatorProfile(
     publish_frequency: frecuencia,
     subscriber_count: 0,
     stripe_account_id: null,
+    publication_name: nombreSala || null,
+    pull_quote: null,
+    cover_image_url: null,
   })
 
   if (insertError) {

@@ -412,3 +412,9 @@ create policy if not exists "Creador ve sus suscriptores"
       select user_id from public.sala_creators where id = creator_id
     )
   );
+
+-- ─── Nuevos campos en sala_creators (migración) ───────────────────────────────
+alter table public.sala_creators
+  add column if not exists publication_name text,
+  add column if not exists pull_quote text,
+  add column if not exists cover_image_url text;

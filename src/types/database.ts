@@ -17,6 +17,9 @@ export type Creator = {
   stripe_account_id: string | null
   verified?: boolean
   discipline_name_es?: string
+  publication_name: string | null
+  pull_quote: string | null
+  cover_image_url: string | null
 }
 
 export type Post = {

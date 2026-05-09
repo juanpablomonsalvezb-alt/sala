@@ -73,6 +73,9 @@ const MOCK_CREATOR: Creator = {
   created_at: '2024-03-01T00:00:00Z',
   subscriber_count: 847,
   stripe_account_id: null,
+  publication_name: 'Análisis Económico',
+  pull_quote: null,
+  cover_image_url: null,
 }
 
 const MOCK_POST: Post = {

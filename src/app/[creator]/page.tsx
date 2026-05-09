@@ -29,7 +29,8 @@ const PUBLICATION_NAMES: Record<string, string> = {
   'pablo-herrera-zuniga':     'Laboral al Día',
   'valentina-soto-burgos':    'Metabolismo & Nutrición',
   'sebastian-miranda-lagos':  'Infraestructura',
-  'catalina-rojas-henriquez': 'Historia Económica',
+  'catalina-rojas-henriquez':  'Historia Económica',
+  'alejandro-vasquez-mora':   'IA & Estrategia Tech',
 }
 
 const PUBLISH_FREQ: Record<string, string> = {
@@ -273,12 +274,15 @@ function SiteNav() {
     <header>
       <div className="border-b border-[#DEDEDE] py-3 px-6">
         <div className="max-w-5xl mx-auto flex items-center justify-between">
-          <Link
-            href="/"
-            className="font-serif text-[22px] font-bold text-[#121212] leading-none"
-            style={{ letterSpacing: '-0.01em' }}
-          >
-            NEBBULER
+          <Link href="/" className="flex items-center gap-2">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/nebbuler-logo.png" alt="Nebbuler" className="h-8 w-auto" />
+            <span
+              className="font-serif text-[20px] font-bold text-[#121212] leading-none"
+              style={{ letterSpacing: '-0.01em' }}
+            >
+              EBBULER
+            </span>
           </Link>
           <Link
             href="/entrar"
@@ -327,15 +331,24 @@ function HeroSection({
           {creator.publication_name ?? creator.name}
         </h1>
 
-        {/* Byline */}
-        <p className="font-sans text-sm text-[#666] mb-1">
-          por <span className="font-bold text-[#121212]">{creator.name}</span>
-          {creator.verified && (
-            <span className="ml-2 text-[9px] font-bold tracking-[0.1em] uppercase text-[#065F46] border-l border-[#065F46] pl-2">
-              EXPERTO RECONOCIDO
+        {/* Byline — solo si la publicación tiene nombre distinto al autor */}
+        {creator.publication_name && creator.publication_name !== creator.name && (
+          <p className="font-sans text-sm text-[#666] mb-1">
+            por <span className="font-bold text-[#121212]">{creator.name}</span>
+            {creator.verified && (
+              <span className="ml-2 text-[9px] font-bold tracking-[0.1em] uppercase text-[#065F46] border-l border-[#065F46] pl-2">
+                EXPERTO RECONOCIDO
+              </span>
+            )}
+          </p>
+        )}
+        {(!creator.publication_name || creator.publication_name === creator.name) && creator.verified && (
+          <p className="font-sans text-sm text-[#666] mb-1">
+            <span className="text-[9px] font-bold tracking-[0.1em] uppercase text-[#065F46]">
+              EXPERTO RECONOCIDO POR NEBBULER
             </span>
-          )}
-        </p>
+          </p>
+        )}
         <p className="text-xs font-sans text-[#999] mb-6">
           Publicado en Nebbuler · plataforma de conocimiento profesional
         </p>

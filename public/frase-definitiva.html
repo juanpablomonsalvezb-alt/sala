@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nebbuler — La Frase Definitiva · 6 Agentes</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --oxford: #0A1628;
+    --crimson: #B31C1C;
+    --cream: #F8F7F5;
+    --ink: #111;
+    --mid: #666;
+    --border: #E0DDD8;
+    --gold: #C4922A;
+  }
+  body { font-family: Georgia, serif; background: var(--cream); color: var(--ink); }
+
+  /* ── HEADER ── */
+  .header {
+    background: var(--oxford); padding: 28px 64px;
+    display: flex; align-items: center; gap: 18px;
+    border-bottom: 3px solid var(--crimson);
+  }
+  .bar { width: 4px; height: 44px; background: var(--crimson); }
+  .header h1 { font-size: 22px; font-weight: 700; color: white; }
+  .header p { font-family: Arial, sans-serif; font-size: 10px; color: #6B8299; letter-spacing: 0.18em; text-transform: uppercase; margin-top: 3px; }
+
+  /* ── GANADORA HERO ── */
+  .ganadora-hero {
+    background: var(--oxford);
+    min-height: 480px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 80px 64px;
+    text-align: center;
+    position: relative;
+    border-bottom: 1px solid #1A2E45;
+  }
+  .ganadora-hero::before {
+    content: '';
+    position: absolute; left: 0; top: 0; bottom: 0; width: 5px;
+    background: var(--crimson);
+  }
+  .ganadora-label {
+    font-family: Arial, sans-serif; font-size: 9px; font-weight: 700;
+    letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold);
+    margin-bottom: 40px;
+  }
+  .ganadora-frase {
+    font-size: clamp(28px, 5vw, 52px);
+    font-weight: 700; color: white; line-height: 1.15;
+    max-width: 900px; margin-bottom: 40px;
+  }
+  .ganadora-frase span { color: var(--crimson); }
+  .ganadora-punto { color: var(--gold); }
+  .ganadora-autor {
+    font-family: Arial, sans-serif; font-size: 11px; color: #4A6075;
+    letter-spacing: 0.15em; text-transform: uppercase;
+  }
+  .ganadora-razon {
+    max-width: 680px; margin: 32px auto 0;
+    font-family: Arial, sans-serif; font-size: 14px; color: #6B8299;
+    line-height: 1.7; text-align: center;
+  }
+
+  /* ── LAYOUT ── */
+  .page { max-width: 1160px; margin: 0 auto; padding: 52px 64px; }
+  .section-label {
+    font-family: Arial, sans-serif; font-size: 9px; letter-spacing: 0.25em;
+    text-transform: uppercase; color: #999;
+    border-bottom: 1px solid var(--border); padding-bottom: 10px; margin-bottom: 36px;
+  }
+  .section-label b { color: var(--crimson); }
+
+  /* ── FINALISTAS GRID ── */
+  .finalistas { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+
+  .f-card {
+    background: white; border: 1px solid var(--border); padding: 36px 40px;
+    position: relative; overflow: hidden;
+  }
+  .f-card::after {
+    content: attr(data-num);
+    position: absolute; bottom: -10px; right: 16px;
+    font-family: Arial, sans-serif; font-weight: 900;
+    font-size: 100px; color: var(--cream);
+    line-height: 1; pointer-events: none;
+  }
+  .f-card.dark { background: var(--oxford); border-color: #1A2E45; }
+  .f-card.dark::after { color: #0D1E2E; }
+
+  .f-agente {
+    font-family: Arial, sans-serif; font-size: 8.5px; font-weight: 700;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    padding: 2px 8px; margin-bottom: 20px; display: inline-block;
+    background: var(--oxford); color: white;
+  }
+  .f-card.dark .f-agente { background: #1A2E45; color: #6B8299; }
+  .f-agente.gold { background: var(--gold); color: #1A0A00; }
+
+  .f-frase { font-size: 24px; font-weight: 700; line-height: 1.25; margin-bottom: 16px; }
+  .f-card.dark .f-frase { color: white; }
+
+  .f-divider { width: 28px; height: 1px; background: var(--border); margin-bottom: 16px; }
+  .f-card.dark .f-divider { background: #1A2E45; }
+
+  .f-arg { font-family: Arial, sans-serif; font-size: 13px; color: #555; line-height: 1.65; }
+  .f-card.dark .f-arg { color: #6B8299; }
+
+  .f-mecanismo {
+    font-family: Arial, sans-serif; font-size: 9px; font-weight: 700;
+    letter-spacing: 0.15em; text-transform: uppercase; color: var(--crimson);
+    margin-top: 16px; display: block;
+  }
+  .f-card.dark .f-mecanismo { color: #8B4040; }
+
+  /* ── TODOS LOS CANDIDATOS ── */
+  .candidatos { display: flex; flex-direction: column; gap: 2px; }
+  .c-row {
+    display: grid; grid-template-columns: 80px 1fr 1fr 120px;
+    align-items: center; gap: 0;
+    background: white; border: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .c-row.highlight { background: var(--oxford); border-color: #1A2E45; }
+  .c-num {
+    padding: 24px 20px; font-family: Arial, sans-serif;
+    font-weight: 900; font-size: 28px; color: var(--cream);
+    text-align: center; border-right: 1px solid var(--border);
+    background: var(--oxford);
+  }
+  .c-row.highlight .c-num { background: #1A2E45; color: #3A5268; }
+  .c-frase-wrap { padding: 24px 28px; border-right: 1px solid var(--border); }
+  .c-frase-text { font-size: 20px; font-weight: 700; line-height: 1.2; margin-bottom: 4px; }
+  .c-row.highlight .c-frase-text { color: white; }
+  .c-frase-sub { font-family: Arial, sans-serif; font-size: 11px; color: #999; }
+  .c-row.highlight .c-frase-sub { color: #4A6075; }
+  .c-razon { padding: 24px 28px; font-family: Arial, sans-serif; font-size: 12.5px; color: #666; line-height: 1.55; border-right: 1px solid var(--border); }
+  .c-row.highlight .c-razon { color: #6B8299; border-right-color: #1A2E45; }
+  .c-score { padding: 24px 20px; text-align: center; }
+  .c-score-num { font-family: Georgia, serif; font-size: 26px; font-weight: 700; color: var(--oxford); line-height: 1; }
+  .c-row.highlight .c-score-num { color: var(--gold); }
+  .c-score-label { font-family: Arial, sans-serif; font-size: 9px; color: #999; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 3px; }
+  .c-row.highlight .c-score-label { color: #4A6075; }
+  .c-num-highlight { color: var(--gold) !important; }
+
+  /* ── MOCKUP WALL ── */
+  .mockup-wall { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; }
+  .mockup-ad {
+    background: var(--oxford); aspect-ratio: 1 / 1.2;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 40px 36px; text-align: center; position: relative;
+  }
+  .mockup-ad .m-bar { position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--crimson); }
+  .mockup-ad .m-frase { font-size: 20px; font-weight: 700; color: white; line-height: 1.35; margin-bottom: 28px; }
+  .mockup-ad .m-frase span { color: var(--crimson); }
+  .mockup-ad .m-logo { font-family: Arial, sans-serif; font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase; color: #2A3E52; }
+  .mockup-ad.winner { background: var(--ink); border: 2px solid var(--gold); }
+  .mockup-ad.winner .m-frase { color: white; font-size: 24px; }
+  .mockup-ad.winner .m-logo { color: var(--gold); }
+
+  /* ── FOOTER ── */
+  .footer { background: #070E1A; padding: 24px 64px; display: flex; justify-content: space-between; font-family: Arial, sans-serif; font-size: 11px; color: #2A3E52; }
+  .footer b { color: #4A6075; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="bar"></div>
+  <div>
+    <h1>La Frase Definitiva — Nebbuler</h1>
+    <p>6 Agentes · Proceso completo · Mayo 2026</p>
+  </div>
+</header>
+
+<!-- ═══════════ LA GANADORA ═══════════ -->
+<section class="ganadora-hero">
+  <p class="ganadora-label">★ Veredicto de 6 Agentes · La Frase Definitiva</p>
+  <h1 class="ganadora-frase">
+    "Lo que se piensa bien<span class="ganadora-punto">,</span> dura<span class="ganadora-punto">."</span>
+  </h1>
+  <p class="ganadora-autor">Agente Creativo 4 · Ángulo Poético-Literario · 4 palabras</p>
+  <p class="ganadora-razon">
+    No habla de la plataforma — habla de lo que la plataforma protege. Cuatro palabras sin sujeto,
+    sin fecha, sin contexto. El adverbio <em>bien</em> carga todo el peso filosófico.
+    <em>Dura</em> es la promesa más honesta que existe: en un ecosistema donde el contenido se olvida en horas,
+    decir que algo dura es el gesto más radical. Y la frase se valida a sí misma — ella también es algo que se pensó bien.
+  </p>
+</section>
+
+<!-- ═══════════ LOS 6 FINALISTAS ═══════════ -->
+<div class="page">
+  <p class="section-label"><b>01</b> &nbsp; Los 6 Finalistas — Un Agente, Una Frase, Un Argumento</p>
+
+  <div class="finalistas">
+
+    <!-- Ganadora -->
+    <div class="f-card dark" data-num="I">
+      <span class="f-agente gold">★ Ganadora · Agente 4 · Poético-Literario</span>
+      <div class="f-frase" style="color:white;font-size:28px;">"Lo que se piensa bien, dura."</div>
+      <div class="f-divider"></div>
+      <div class="f-arg">
+        Cuatro palabras. Sin sujeto — lo que la hace universal. Sin tiempo verbal dominante — lo que la hace atemporal.
+        Podría ser una máxima latina, un proverbio andino, una nota al margen de un tratado de economía de 1920.
+        Y sin embargo nadie la había dicho aún. <em>Dura</em> es la promesa más honesta que una plataforma de conocimiento
+        puede hacer — no "transforma", no "empodera": dura. En un ecosistema donde el contenido se consume y se olvida en horas,
+        esa es la declaración más radical posible. La frase además se valida a sí misma: si se pensó bien, durará.
+      </div>
+      <span class="f-mecanismo" style="color:var(--gold);">Mecanismo: la verdad que siempre existió y nadie había reclamado</span>
+    </div>
+
+    <!-- Alternativa fuerte -->
+    <div class="f-card" data-num="II">
+      <span class="f-agente">Agente 3 · Identidad y Tribu</span>
+      <div class="f-frase">"El lugar que merecías."</div>
+      <div class="f-divider"></div>
+      <div class="f-arg">
+        Tres palabras y un artículo. El tiempo verbal es la decisión de diseño más importante:
+        "merecías" — pasado imperfecto — activa una emoción específica: la de haber esperado
+        demasiado tiempo algo que era tuyo desde el principio. No dice "el lugar que mereces" (neutro).
+        Dice lo que debió existir antes. Para el creador: validación total. Para el lector: aspiración activada.
+        Para el competidor: degradación implícita sin nombrarlo.
+      </div>
+      <span class="f-mecanismo">Mecanismo: acusación amable al pasado, promesa sobre el presente</span>
+    </div>
+
+    <div class="f-card dark" data-num="III">
+      <span class="f-agente">Agente 2 · Económico y Poder</span>
+      <div class="f-frase" style="color:white;">"El que sabe no espera turno."</div>
+      <div class="f-divider"></div>
+      <div class="f-arg" style="color:#94A3B8;">
+        "Turno" es la palabra que lo eleva: implica cola, jerarquía, permiso — y lo rechaza.
+        El enemigo implícito es el sistema de permisos: el publisher que no responde, el algoritmo que no muestra,
+        el congreso que no invita. Los entierra a todos sin nombrar ninguno. Captura los cuatro insights de la marca
+        al mismo tiempo sin intentarlo. Suena a América Latina: quien ha visto cómo el mérito real se pierde
+        esperando en la fila equivocada, entiende esta frase en cero coma cinco segundos.
+      </div>
+      <span class="f-mecanismo" style="color:#8B4040;">Mecanismo: rechazo del sistema de permisos sin nombrarlo</span>
+    </div>
+
+    <div class="f-card" data-num="IV">
+      <span class="f-agente">Agente 1 · Identidad y Legado</span>
+      <div class="f-frase">"El pensamiento profundo encontró su precio."</div>
+      <div class="f-divider"></div>
+      <div class="f-arg">
+        "Encontró" implica que había algo perdido: el pensamiento profundo existía —
+        en tesis, en informes privados, en conversaciones de directorio — pero no tenía mercado.
+        Nebbuler no inventa nada: descubre algo que ya existía y le da su lugar.
+        "Su precio" — no "su valor" (filosófico), no "su mercado" (frío) — es concreto, real,
+        lo que sucede cuando algo que merece existir finalmente existe en condiciones dignas.
+        Funciona en dos registros: para el creador, validación. Para el lector, promesa.
+      </div>
+      <span class="f-mecanismo">Mecanismo: restauración de un orden natural, no disrupción</span>
+    </div>
+
+    <div class="f-card dark" data-num="V">
+      <span class="f-agente">Agente 5 · Estratégico</span>
+      <div class="f-frase" style="color:white;">"Conocimiento de fondo, no de titular."</div>
+      <div class="f-divider"></div>
+      <div class="f-arg" style="color:#94A3B8;">
+        Define la categoría por oposición — la táctica más efectiva cuando la categoría nueva
+        aún no tiene nombre propio. "De fondo" posee el territorio intelectual que Nebbuler reclama.
+        "No de titular" descalifica implícitamente a todos los medios masivos sin nombrarlos.
+        Es limpia, tiene ritmo binario, es memorizable en la primera lectura.
+        La frase más cercana a Ries &amp; Trout: posiciona ganando el vacío en la mente del profesional.
+      </div>
+      <span class="f-mecanismo" style="color:#8B4040;">Mecanismo: posicionamiento por oposición directa</span>
+    </div>
+
+    <div class="f-card" data-num="VI">
+      <span class="f-agente">Agente 6 · Provocación Intelectual</span>
+      <div class="f-frase">"Lo gratuito no te debe nada."</div>
+      <div class="f-divider"></div>
+      <div class="f-arg">
+        La frase más filosófica del grupo. No ataca, observa.
+        No vende, define. El lector que lleva años consumiendo newsletters gratuitos
+        la lee y siente reconocimiento y vergüenza productiva al mismo tiempo.
+        Es la que más se acerca al mecanismo original de The Economist:
+        no convence, crea incomodidad. Quien suscribe a Nebbuler no está comprando contenido
+        — está tomando partido por una postura sobre cómo debe circular el conocimiento.
+        En blanco sobre Oxford Blue, sola en una pared: funciona. Parece que siempre existió.
+      </div>
+      <span class="f-mecanismo">Mecanismo: verdad universal que provoca sin atacar</span>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════ TABLA COMPARATIVA ═══════════ -->
+<div class="page" style="padding-top:0;">
+  <p class="section-label"><b>02</b> &nbsp; Todos los Candidatos — Ranking por Fuerza</p>
+
+  <div class="candidatos">
+
+    <div class="c-row highlight">
+      <div class="c-num c-num-highlight">1</div>
+      <div class="c-frase-wrap">
+        <div class="c-frase-text">"Lo que se piensa bien, dura."</div>
+        <div class="c-frase-sub">4 palabras · Atemporal · Agente 4</div>
+      </div>
+      <div class="c-razon">Se valida a sí misma. Sin sujeto, sin fecha. La promesa más honesta del ecosistema: no viralidad, no impacto, <em>durabilidad</em>. Nadie la había dicho.</div>
+      <div class="c-score"><div class="c-score-num">★</div><div class="c-score-label">Ganadora</div></div>
+    </div>
+
+    <div class="c-row">
+      <div class="c-num">2</div>
+      <div class="c-frase-wrap">
+        <div class="c-frase-text">"El lugar que merecías."</div>
+        <div class="c-frase-sub">3 palabras · Emocional · Agente 3</div>
+      </div>
+      <div class="c-razon">El pasado imperfecto hace todo el trabajo. Activa la emoción de haber esperado algo que era tuyo. Funciona para creadores y lectores simultáneamente.</div>
+      <div class="c-score"><div class="c-score-num">9.5</div><div class="c-score-label">Finalista</div></div>
+    </div>
+
+    <div class="c-row">
+      <div class="c-num">3</div>
+      <div class="c-frase-wrap">
+        <div class="c-frase-text">"El que sabe no espera turno."</div>
+        <div class="c-frase-sub">6 palabras · Power · Agente 2</div>
+      </div>
+      <div class="c-razon">"Turno" entierra el sistema de permisos sin nombrarlo. Tiene el DNA de América Latina. Capta cuatro insights de marca en una sola frase.</div>
+      <div class="c-score"><div class="c-score-num">9.5</div><div class="c-score-label">Finalista</div></div>
+    </div>
+
+    <div class="c-row">
+      <div class="c-num">4</div>
+      <div class="c-frase-wrap">
+        <div class="c-frase-text">"Lo gratuito no te debe nada."</div>
+        <div class="c-frase-sub">6 palabras · Filosófica · Agente 6</div>
+      </div>
+      <div class="c-razon">La más cercana al mecanismo The Economist. No convence — incomoda. Quien la entiende ya es el usuario correcto. Verdad que siempre fue verdad.</div>
+      <div class="c-score"><div class="c-score-num">9</div><div class="c-score-label">Finalista</div></div>
+    </div>
+
+    <div class="c-row">
+      <div class="c-num">5</div>
+      <div class="c-frase-wrap">
+        <div class="c-frase-text">"El pensamiento profundo encontró su precio."</div>
+        <div class="c-frase-sub">6 palabras · Histórica · Agente 1</div>
+      </div>
+      <div class="c-razon">Declara que Nebbuler no inventó nada, solo formalizó lo que ya existía. "Encontró" implica que algo estaba perdido. Funciona en dos registros: creadores y lectores.</div>
+      <div class="c-score"><div class="c-score-num">9</div><div class="c-score-label">Finalista</div></div>
+    </div>
+
+    <div class="c-row">
+      <div class="c-num">6</div>
+      <div class="c-frase-wrap">
+        <div class="c-frase-text">"Conocimiento de fondo, no de titular."</div>
+        <div class="c-frase-sub">6 palabras · Estratégica · Agente 5</div>
+      </div>
+      <div class="c-razon">Posiciona por oposición directa. Descalifica a todos los medios masivos sin nombrarlos. Ritmo binario, memorable. La más táctica del grupo.</div>
+      <div class="c-score"><div class="c-score-num">8.5</div><div class="c-score-label">Finalista</div></div>
+    </div>
+
+    <!-- Otras fuertes -->
+    <div class="c-row">
+      <div class="c-num" style="font-size:14px;color:#555;">—</div>
+      <div class="c-frase-wrap"><div class="c-frase-text" style="font-size:15px;color:#555;">"Lo que vale saber, vale pagar."</div><div class="c-frase-sub">Estructura de aforismo clásico</div></div>
+      <div class="c-razon" style="color:#999;">Ritmo de refrán. Resuelve la pregunta del modelo de negocio en 6 palabras. Ligeramente transaccional.</div>
+      <div class="c-score"><div class="c-score-num" style="color:#999;">8</div><div class="c-score-label">Reserva</div></div>
+    </div>
+
+    <div class="c-row">
+      <div class="c-num" style="font-size:14px;color:#555;">—</div>
+      <div class="c-frase-wrap"><div class="c-frase-text" style="font-size:15px;color:#555;">"Suscríbete al criterio."</div><div class="c-frase-sub">3 palabras · CTA + identidad</div></div>
+      <div class="c-razon" style="color:#999;">La palabra "criterio" resuena en el profesional latinoamericano. Compacta, memorable. Mejor como subtítulo que como tagline principal.</div>
+      <div class="c-score"><div class="c-score-num" style="color:#999;">8</div><div class="c-score-label">Subtítulo</div></div>
+    </div>
+
+    <div class="c-row">
+      <div class="c-num" style="font-size:14px;color:#555;">—</div>
+      <div class="c-frase-wrap"><div class="c-frase-text" style="font-size:15px;color:#555;">"El rigor no se regala."</div><div class="c-frase-sub">5 palabras · Postura</div></div>
+      <div class="c-razon" style="color:#999;">Directa. Funciona en piedra. No tiene fecha. El abogado de 48 años la enmarcaría. Podría convivir con la ganadora como frase secundaria.</div>
+      <div class="c-score"><div class="c-score-num" style="color:#999;">7.5</div><div class="c-score-label">Secundaria</div></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════ MOCKUPS ═══════════ -->
+<div class="page" style="padding-top:0;">
+  <p class="section-label"><b>03</b> &nbsp; Las 6 Finalistas Sobre Fondo Oxford Blue — Cómo Se Ven Reales</p>
+
+  <div class="mockup-wall">
+    <div class="mockup-ad winner">
+      <div class="m-bar"></div>
+      <div class="m-frase">"Lo que se piensa bien, dura."</div>
+      <div class="m-logo">★ Ganadora · Nebbuler</div>
+    </div>
+    <div class="mockup-ad">
+      <div class="m-bar"></div>
+      <div class="m-frase">"El lugar que merecías."</div>
+      <div class="m-logo">Nebbuler · nebbuler.com</div>
+    </div>
+    <div class="mockup-ad">
+      <div class="m-bar"></div>
+      <div class="m-frase">"El que sabe no espera turno."</div>
+      <div class="m-logo">Nebbuler · nebbuler.com</div>
+    </div>
+    <div class="mockup-ad">
+      <div class="m-bar"></div>
+      <div class="m-frase">"Lo gratuito no te debe nada."</div>
+      <div class="m-logo">Nebbuler · nebbuler.com</div>
+    </div>
+    <div class="mockup-ad">
+      <div class="m-bar"></div>
+      <div class="m-frase">"El pensamiento profundo encontró su precio."</div>
+      <div class="m-logo">Nebbuler · nebbuler.com</div>
+    </div>
+    <div class="mockup-ad">
+      <div class="m-bar"></div>
+      <div class="m-frase">"Conocimiento de fondo, no de titular."</div>
+      <div class="m-logo">Nebbuler · nebbuler.com</div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div><b>Nebbuler</b> · La Frase Definitiva · 6 Agentes · Mayo 2026</div>
+  <div>nebbuler.com</div>
+</footer>
+
+</body>
+</html>

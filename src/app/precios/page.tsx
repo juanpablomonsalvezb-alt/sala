@@ -10,63 +10,23 @@ import Nav from "@/components/nav";
 
 const PLANS = [
   {
-    id: "libre",
-    name: "Libre",
-    price: "$0",
-    period: "/mes",
-    commission: "10%",
-    commissionLabel: "de comisión",
-    highlight: false,
-    cta: "Empezar gratis en Nebbuler",
-    ctaHref: "/abrir",
-    features: [
-      { label: "Hasta 500 suscriptores", included: true },
-      { label: "Contenido ilimitado", included: true },
-      { label: "Pagos vía Stripe", included: true },
-      { label: "Panel de gestión", included: true },
-      { label: "Analytics avanzado", included: false },
-      { label: "Soporte prioritario", included: false },
-      { label: "Acceso a API", included: false },
-    ],
-  },
-  {
-    id: "creador",
-    name: "Creador",
-    price: "$29 USD",
-    period: "/mes",
-    commission: "3%",
-    commissionLabel: "de comisión",
-    highlight: true,
-    cta: "Elegir Creador",
-    ctaHref: "/abrir?plan=creador",
-    features: [
-      { label: "Suscriptores ilimitados", included: true },
-      { label: "Contenido ilimitado", included: true },
-      { label: "Pagos vía Stripe", included: true },
-      { label: "Panel de gestión", included: true },
-      { label: "Analytics avanzado", included: true },
-      { label: "Soporte prioritario", included: true },
-      { label: "Acceso a API", included: false },
-    ],
-  },
-  {
-    id: "pro",
-    name: "Pro",
-    price: "$59 USD",
+    id: "nebbuler",
+    name: "Nebbuler",
+    price: "$29.990",
     period: "/mes",
     commission: "0%",
     commissionLabel: "de comisión",
-    highlight: false,
-    cta: "Elegir Pro",
-    ctaHref: "/abrir?plan=pro",
+    highlight: true,
+    cta: "30 días gratis — sin tarjeta",
+    ctaHref: "/abrir",
     features: [
       { label: "Suscriptores ilimitados", included: true },
       { label: "Contenido ilimitado", included: true },
-      { label: "Pagos vía Stripe", included: true },
-      { label: "Panel de gestión", included: true },
-      { label: "Analytics avanzado", included: true },
+      { label: "0% de comisión sobre tus ingresos", included: true },
+      { label: "Editor premium Tiptap", included: true },
+      { label: "Analytics completo", included: true },
       { label: "Soporte prioritario", included: true },
-      { label: "Acceso a API", included: true },
+      { label: "30 días de prueba sin tarjeta", included: true },
     ],
   },
 ];
@@ -88,16 +48,16 @@ const FAQ_ITEMS = [
     a: "Siempre. Tus suscriptores son tuyos: puedes exportar la lista completa en cualquier momento.",
   },
   {
-    q: "¿Qué pasa si quiero cambiar de plan?",
-    a: "Cambias cuando quieras, el ajuste se aplica de inmediato. Sin procesos complicados.",
+    q: "¿Solo hay un plan?",
+    a: "Sí. Un plan, un precio, todo incluido. Sin niveles que te hacen sentir que siempre te falta algo.",
   },
   {
     q: "¿Aceptan tarjetas chilenas?",
     a: "Sí. Procesamos pagos vía Stripe con tarjetas de débito y crédito emitidas en Chile y el resto del mundo.",
   },
   {
-    q: "¿Cómo funciona la comisión?",
-    a: "La comisión se descuenta automáticamente de cada cobro. Nunca pagas por adelantado: Nebbuler gana cuando tú ganas.",
+    q: "¿Por qué $29.990 y no una comisión?",
+    a: "Porque si cobras $500.000 al mes, con Substack pagas $50.000 en comisiones. Con Nebbuler pagas $29.990 fijo y te quedas con todo lo demás.",
   },
 ];
 
@@ -279,13 +239,12 @@ function Calculator() {
           <hr className="nyt-rule mb-5" />
           <div className="space-y-3">
             {[
-              { label: "Plan Libre", sublabel: "10% comisión", value: Math.round(gross * 0.9) },
-              { label: "Plan Creador", sublabel: "3% comisión", value: Math.round(gross * 0.97) },
-              { label: "Plan Pro", sublabel: "0% comisión", value: gross },
+              { label: "Substack", sublabel: "10% + ~3% Stripe", value: Math.round(gross * 0.87), highlight: false },
+              { label: "Nebbuler", sublabel: "$29.990/mes fijo · 0% comisión", value: gross - 29990, highlight: true },
             ].map((row) => (
-              <div key={row.label} className="flex items-center justify-between">
+              <div key={row.label} className={`flex items-center justify-between p-3 ${row.highlight ? 'bg-[#F0FFF4] border border-[#065F46]' : 'bg-[#F7F7F7]'}`}>
                 <div>
-                  <span className="font-sans text-[13px] text-[#121212] font-medium">{row.label}</span>
+                  <span className={`font-sans text-[13px] font-bold ${row.highlight ? 'text-[#065F46]' : 'text-[#121212]'}`}>{row.label}</span>
                   <span className="font-sans text-[11px] text-[#888] ml-2">({row.sublabel})</span>
                 </div>
                 <span className="font-serif text-[16px] font-bold text-[#121212]">
@@ -368,12 +327,12 @@ export default function PreciosPage() {
           <p className="section-label mb-4">PRECIOS</p>
           <hr className="nyt-rule mb-8" />
           <h1 className="font-serif text-[52px] md:text-[64px] font-bold text-[#121212] leading-[1.0] tracking-[-0.02em] mb-4">
-            Empieza gratis.
+            $29.990 al mes.
             <br />
-            Gana desde el primer día.
+            Tú te quedas con todo.
           </h1>
           <p className="font-sans text-[18px] text-[#555] max-w-lg">
-            Nebbuler solo gana cuando tú ganas. Sin cuotas fijas que te ahoguen cuando empiezas.
+            Un plan. Un precio. 0% de comisión sobre tus ingresos. 30 días gratis sin tarjeta.
           </p>
         </div>
       </section>

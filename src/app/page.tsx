@@ -31,21 +31,19 @@ const featuredCreators = [
 const features = [
   { num: "I",   title: "Editor profesional",   body: "Escribe, formatea y publica contenido largo. Tú controlas qué es libre y qué es exclusivo." },
   { num: "II",  title: "Gestión de audiencia", body: "CRM de tus lectores. Segmenta, comunícate y conoce a quienes realmente pagan." },
-  { num: "III", title: "Pagos directos",       body: "Cobra suscripciones mes a mes directo a tu cuenta. 0% de comisión con Plan Pro." },
+  { num: "III", title: "Pagos directos",       body: "Cobra suscripciones mes a mes directo a tu cuenta. 0% de comisión — siempre." },
   { num: "IV",  title: "Analytics real",       body: "Aperturas, retención, ingresos. Los datos que importan para crecer." },
   { num: "V",   title: "Acceso por membresía", body: "Tus suscriptores pagan para leer lo que sólo tú puedes escribir." },
   { num: "VI",  title: "Listo en 15 minutos",  body: "Sin código, sin diseñador. Configuras tu perfil, precio y publicas hoy." },
 ];
 
 const plans = [
-  { name: "Pro",     price: "$39.990", period: "/ mes", note: "0% comisión", cta: "Probar gratis", featured: false, perks: ["Todo del plan Creador", "0% de comisión", "Dominio propio", "API"] },
-  { name: "Creador", price: "$15.990", period: "/ mes", note: "5% comisión", cta: "Probar gratis", featured: true,  perks: ["Todo del plan Gratis", "Suscriptores ilimitados", "Analytics", "Soporte"] },
-  { name: "Gratis",  price: "$0",      period: "        ", note: "10% comisión", cta: "Abre gratis",   featured: false, perks: ["Perfil en Nebbuler", "Publicaciones ilimitadas", "100 suscriptores", "Stripe"] },
+  { name: "Nebbuler", price: "$29.990", period: "/ mes", note: "0% comisión", cta: "30 días gratis", featured: true, perks: ["Suscriptores ilimitados", "0% de comisión sobre tus ingresos", "Editor premium", "Analytics completo", "Soporte prioritario", "30 días de prueba sin tarjeta"] },
 ];
 
 const faqs = [
   { q: "¿Necesito saber programar?",                        a: "No. Configuras tu sala en 15 minutos, sin código ni diseño." },
-  { q: "¿Cómo recibo los pagos?",                           a: "Stripe directo a tu cuenta. Plan Gratis 10% comisión, Plan Pro 0%." },
+  { q: "¿Cómo recibo los pagos?",                           a: "Directo a tu cuenta. Nebbuler cobra $29.990/mes fijo — tú te quedas con el 100% de tus ingresos." },
   { q: "¿Puedo tener contenido gratuito y de pago?",        a: "Sí. Tú decides qué es abierto y qué es exclusivo." },
   { q: "¿Qué pasa si cancelo?",                             a: "Cancelas cuando quieras. Tus datos quedan accesibles." },
   { q: "¿Nebbuler funciona fuera de Chile?",                a: "Sí. Disponible en toda Latinoamérica." },

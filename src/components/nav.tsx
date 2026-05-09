@@ -11,8 +11,8 @@ export default function Nav() {
             <Image
               src="/nebbuler-logo.svg"
               alt="Nebbuler"
-              width={52}
-              height={42}
+              width={64}
+              height={52}
               priority
             />
             <span className="font-serif text-[36px] font-bold leading-none tracking-[-0.03em] text-[#121212]">

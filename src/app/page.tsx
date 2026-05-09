@@ -73,7 +73,7 @@ export default function Home() {
 
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 border-r border-[#E0E0E0] pr-6 mr-0">
-            <img src="/nebbuler-logo.svg" alt="Nebbuler" className="h-7 w-auto" />
+            <img src="/nebbuler-logo.svg" alt="Nebbuler" className="h-9 w-auto" />
             <span className="text-[17px] font-black uppercase tracking-[0.04em] text-[#111] font-serif">EBBULER</span>
           </Link>
 

@@ -61,6 +61,12 @@ export async function createCreatorProfile(
     return { error: 'Debes iniciar sesión para crear una sala.' }
   }
 
+  // Garantizar que existe el sala_profile (el trigger puede no haber corrido)
+  await supabase.from('sala_profiles').upsert(
+    { id: user.id, email: user.email!, full_name: user.user_metadata?.full_name ?? null },
+    { onConflict: 'id', ignoreDuplicates: true }
+  )
+
   // Verificar si el usuario ya tiene un perfil de creador
   const { data: existing } = await supabase
     .from('sala_creators')

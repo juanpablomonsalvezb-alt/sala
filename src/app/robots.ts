@@ -9,6 +9,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ['/api/', '/dashboard/', '/admin/'],
       },
     ],
-    sitemap: 'https://sala.lat/sitemap.xml',
+    sitemap: 'https://nebbuler.com/sitemap.xml',
   }
 }

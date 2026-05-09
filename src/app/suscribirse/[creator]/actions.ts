@@ -68,7 +68,7 @@ export async function createCheckoutSession(
     return { error: 'Los pagos con Stripe aún no están activos. Vuelve pronto.' }
   }
 
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://sala.lat'
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://nebbuler.com'
 
   // Si el creator no tiene cuenta Stripe Connect → checkout directo a la plataforma
   // (modo simplificado: el pago va a la cuenta principal)
@@ -81,7 +81,7 @@ export async function createCheckoutSession(
           unit_amount: creator.price_clp,
           recurring: { interval: 'month' },
           product_data: {
-            name: `Sala — ${creator.name}`,
+            name: `Nebbuler — ${creator.name}`,
             description: creator.bio,
             metadata: {
               creator_id: creator.id,

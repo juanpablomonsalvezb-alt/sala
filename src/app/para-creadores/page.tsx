@@ -9,8 +9,8 @@ import Nav from "@/components/nav";
 const HOW_IT_WORKS = [
   {
     roman: "I.",
-    title: "Abre tu sala",
-    body: "Configuras tu perfil, el nombre de tu sala y tu precio en menos de 15 minutos. Sin código. Sin diseñador. Sin contrato.",
+    title: "Abre tu espacio",
+    body: "Configuras tu perfil, el nombre de tu espacio y tu precio en menos de 15 minutos. Sin código. Sin diseñador. Sin contrato.",
   },
   {
     roman: "II.",
@@ -20,28 +20,28 @@ const HOW_IT_WORKS = [
   {
     roman: "III.",
     title: "Cobra mes a mes",
-    body: "Tus suscriptores pagan cada mes de forma automática. Tú recibes el dinero directo. Sala cobra solo cuando tú ganas.",
+    body: "Tus suscriptores pagan cada mes de forma automática. Tú recibes el dinero directo. Nebbuler cobra solo cuando tú ganas.",
   },
 ];
 
 const TESTIMONIALS = [
   {
     quote:
-      "Sala me hizo entender que mis análisis macroeconómicos tenían un precio real. En tres meses pasé de escribir gratis a generar un ingreso mensual estable.",
+      "Nebbuler me hizo entender que mis análisis macroeconómicos tenían un precio real. En tres meses pasé de escribir gratis a generar un ingreso mensual estable.",
     name: "Camila Rojas",
     specialty: "Economista · Santiago",
     income: "$1.200.000 CLP/mes",
   },
   {
     quote:
-      "Tenía 4.000 seguidores en LinkedIn que leían todo lo que publicaba pero yo no cobraba nada. Sala cambió esa ecuación en quince minutos.",
+      "Tenía 4.000 seguidores en LinkedIn que leían todo lo que publicaba pero yo no cobraba nada. Nebbuler cambió esa ecuación en quince minutos.",
     name: "Felipe Vargas",
     specialty: "Abogado tributarista · Bogotá",
     income: "$890.000 CLP/mes",
   },
   {
     quote:
-      "Lo que publico en Sala es lo que no puedo decir en medios tradicionales. Mis lectores pagan precisamente por eso: la versión sin filtros.",
+      "Lo que publico en Nebbuler es lo que no puedo decir en medios tradicionales. Mis lectores pagan precisamente por eso: la versión sin filtros.",
     name: "Valentina Ibáñez",
     specialty: "Periodista · Ciudad de México",
     income: "$1.500.000 CLP/mes",
@@ -168,11 +168,11 @@ export default function ParaCreadoresPage() {
           <h1 className="font-serif text-[56px] md:text-[72px] font-bold text-[#121212] leading-[1.0] tracking-[-0.02em] mb-8 max-w-4xl">
             Tienes conocimiento que vale.
             <br />
-            <em className="not-italic text-[#C41C1C]">Sala te ayuda a cobrarlo.</em>
+            <em className="not-italic text-[#C41C1C]">Nebbuler te ayuda a cobrarlo.</em>
           </h1>
           <p className="font-sans text-[18px] text-[#555] leading-relaxed max-w-xl mb-10">
             Miles de profesionales en Chile y LATAM comparten lo que saben gratis.
-            Sala existe para cambiar esa ecuación.
+            Nebbuler existe para cambiar esa ecuación.
           </p>
           <Link
             href="/abrir"
@@ -203,7 +203,7 @@ export default function ParaCreadoresPage() {
             </p>
             <p className="font-sans text-[18px] text-[#121212] leading-[1.8]">
               El problema no es tu contenido. El problema es que nunca tuviste
-              una infraestructura para cobrarlo. Eso es exactamente lo que hace Sala.
+              una infraestructura para cobrarlo. Eso es exactamente lo que hace Nebbuler.
             </p>
           </div>
         </div>
@@ -219,7 +219,7 @@ export default function ParaCreadoresPage() {
           </p>
           <p className="font-sans text-[16px] text-[#888] max-w-lg">
             La mayoría tiene un conocimiento que vale cientos de miles de pesos al mes.
-            Sala es la infraestructura para cobrar por él.
+            Nebbuler es la infraestructura para cobrar por él.
           </p>
         </div>
       </section>
@@ -259,7 +259,7 @@ export default function ParaCreadoresPage() {
       <section className="border-t border-[#DEDEDE] py-16 px-6 bg-[#F7F7F7]">
         <div className="max-w-5xl mx-auto">
           <div className="mb-8">
-            <span className="section-label mb-3 inline-block">CREADORES QUE YA ABRIERON SU SALA</span>
+            <span className="section-label mb-3 inline-block">CREADORES QUE YA ESTÁN EN NEBBULER</span>
             <hr className="nyt-rule" />
           </div>
           <div className="grid md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[#DEDEDE]">
@@ -296,7 +296,7 @@ export default function ParaCreadoresPage() {
             tu conocimiento.
           </h2>
           <p className="font-serif text-[24px] text-[#C41C1C] font-bold mb-10">
-            Sala existe para que eso cambie.
+            Nebbuler existe para que eso cambie.
           </p>
           <Link
             href="/abrir"
@@ -314,10 +314,10 @@ export default function ParaCreadoresPage() {
       <footer className="border-t border-[#DEDEDE] py-6 px-6">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <span className="font-sans text-[11px] uppercase tracking-[0.1em] text-[#888]">
-            SALA · CHILE · 2025
+            NEBBULER · CHILE · 2026
           </span>
-          <a href="mailto:hello@sala.lat" className="font-sans text-[11px] text-[#888] hover:text-[#121212] transition-colors">
-            hello@sala.lat
+          <a href="mailto:hello@nebbuler.com" className="font-sans text-[11px] text-[#888] hover:text-[#121212] transition-colors">
+            hello@nebbuler.com
           </a>
         </div>
       </footer>

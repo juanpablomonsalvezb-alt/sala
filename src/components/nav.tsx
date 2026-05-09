@@ -10,7 +10,7 @@ export default function Nav() {
             href="/"
             className="font-serif text-[44px] font-bold leading-none tracking-[-0.03em] text-[#121212]"
           >
-            SALA
+            NEBBULER
           </Link>
           <div className="h-px w-full bg-[#DEDEDE]" />
           <nav className="flex items-center gap-1 text-[12px] font-sans text-[#666666]">

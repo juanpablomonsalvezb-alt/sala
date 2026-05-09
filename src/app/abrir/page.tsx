@@ -289,7 +289,7 @@ function Step2({
   return (
     <div className="flex flex-col gap-5">
       <div>
-        <Label>Nombre de tu sala *</Label>
+        <Label>Nombre de tu espacio *</Label>
         <Input
           value={data.nombreSala}
           onChange={(v) => setData({ nombreSala: v })}
@@ -300,12 +300,12 @@ function Step2({
           <div className="mt-2 flex items-center gap-2 rounded-lg border border-[#E5E7EB] bg-[#F8F8F8] px-3 py-2">
             <span className="font-sans text-xs text-[#6B7280]">Tu URL:</span>
             <span className="font-sans text-xs font-semibold text-[#0066FF]">
-              sala.lat/{slug}
+              nebbuler.com/{slug}
             </span>
           </div>
         )}
         {errors.nombreSala && (
-          <p className="mt-1 font-sans text-xs text-red-500">Dale un nombre a tu sala</p>
+          <p className="mt-1 font-sans text-xs text-red-500">Dale un nombre a tu espacio</p>
         )}
       </div>
 
@@ -531,11 +531,11 @@ export default function AbrirPage() {
             <Check size={24} className="text-white" />
           </div>
           <h1 className="mb-2 font-sans text-2xl font-extrabold tracking-tight text-[#0A0A0A]">
-            ¡Tu sala está lista!
+            ¡Tu espacio está listo!
           </h1>
           <p className="mb-1 font-sans text-sm text-[#6B7280]">
             Hemos creado{' '}
-            <span className="font-semibold text-[#0066FF]">sala.lat/{slug}</span>
+            <span className="font-semibold text-[#0066FF]">nebbuler.com/{slug}</span>
           </p>
           <p className="font-sans text-sm text-[#6B7280]">
             Ya puedes empezar a publicar desde tu dashboard.
@@ -567,9 +567,9 @@ export default function AbrirPage() {
             href="/"
             className="font-sans text-lg font-bold tracking-tight text-[#0A0A0A] hover:text-[#0066FF] transition-colors"
           >
-            Sala
+            Nebbuler
           </a>
-          <p className="mt-1 font-sans text-xs text-[#6B7280]">Abre tu sala en 3 pasos</p>
+          <p className="mt-1 font-sans text-xs text-[#6B7280]">Configura tu espacio en 3 pasos</p>
         </motion.div>
 
         {/* Stepper */}
@@ -589,7 +589,7 @@ export default function AbrirPage() {
             >
               <h2 className="mb-6 font-sans text-xl font-bold tracking-tight text-[#0A0A0A]">
                 {step === 1 && 'Cuéntanos sobre ti'}
-                {step === 2 && 'Configura tu sala'}
+                {step === 2 && 'Configura tu espacio'}
                 {step === 3 && 'Define tu precio'}
               </h2>
 
@@ -635,7 +635,7 @@ export default function AbrirPage() {
               disabled={isPending}
               className="flex items-center gap-2 rounded-lg bg-[#0066FF] px-6 py-2.5 font-sans text-sm font-semibold text-white transition-all hover:bg-[#0052CC] active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed"
             >
-              {isPending ? 'Creando sala…' : 'Abrir mi sala'}
+              {isPending ? 'Creando perfil…' : 'Abrir mi espacio'}
               {!isPending && <ArrowRight size={14} />}
             </button>
           )}

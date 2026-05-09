@@ -136,23 +136,23 @@ export async function generateMetadata({
   }
 
   if (!post || !creator) {
-    return { title: 'Artículo no encontrado — Sala' }
+    return { title: 'Artículo no encontrado — Nebbuler' }
   }
 
   return {
     title: `${post.title} — ${creator.name}`,
     description: post.excerpt ?? undefined,
     alternates: {
-      canonical: `https://sala.lat/${creator.slug}/${post.slug}`,
+      canonical: `https://nebbuler.com/${creator.slug}/${post.slug}`,
     },
     openGraph: {
       title: `${post.title} — ${creator.name}`,
       description: post.excerpt ?? undefined,
-      url: `https://sala.lat/${creator.slug}/${post.slug}`,
+      url: `https://nebbuler.com/${creator.slug}/${post.slug}`,
       type: 'article',
-      siteName: 'Sala',
+      siteName: 'Nebbuler',
       publishedTime: post.published_at ?? undefined,
-      authors: [`https://sala.lat/${creator.slug}`],
+      authors: [`https://nebbuler.com/${creator.slug}`],
     },
     twitter: {
       card: 'summary_large_image',
@@ -175,7 +175,7 @@ function Nav({ creatorSlug, creatorName }: { creatorSlug: string; creatorName: s
             className="font-serif text-[38px] font-bold tracking-tight text-[#121212] leading-none"
             style={{ letterSpacing: '-0.01em' }}
           >
-            SALA
+            NEBBULER
           </Link>
           <hr className="nyt-rule w-full" />
           <nav className="flex items-center gap-1 text-[12px] font-sans text-[#666666]">
@@ -329,13 +329,13 @@ function Footer() {
     <footer className="border-t border-[#DEDEDE] py-8 px-6 mt-16">
       <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
         <span className="font-sans text-[11px] font-semibold uppercase tracking-widest text-[#666666]">
-          SALA · CHILE · 2025
+          NEBBULER · CHILE · 2026
         </span>
         <a
-          href="mailto:hello@sala.lat"
+          href="mailto:hello@nebbuler.com"
           className="font-sans text-[12px] text-[#666666] hover:text-[#121212] transition-colors duration-150"
         >
-          hello@sala.lat
+          hello@nebbuler.com
         </a>
       </div>
     </footer>
@@ -436,16 +436,16 @@ export default async function PostPage({
     author: {
       '@type': 'Person',
       name: creator.name,
-      url: `https://sala.lat/${creator.slug}`,
+      url: `https://nebbuler.com/${creator.slug}`,
     },
     publisher: {
       '@type': 'Organization',
-      name: 'Sala',
-      url: 'https://sala.lat',
+      name: 'Nebbuler',
+      url: 'https://nebbuler.com',
     },
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': `https://sala.lat/${creator.slug}/${post.slug}`,
+      '@id': `https://nebbuler.com/${creator.slug}/${post.slug}`,
     },
   }
 

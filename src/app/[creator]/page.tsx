@@ -112,25 +112,25 @@ export async function generateMetadata({
   if (!creator && slug === 'rodrigo-fuentes') creator = MOCK_CREATOR
 
   if (!creator) {
-    return { title: 'Sala no encontrada — Sala' }
+    return { title: 'Perfil no encontrado — Nebbuler' }
   }
 
   return {
-    title: `${creator.name} — Sala`,
+    title: `${creator.name} — Nebbuler`,
     description: creator.bio,
     alternates: {
-      canonical: `https://sala.lat/${creator.slug}`,
+      canonical: `https://nebbuler.com/${creator.slug}`,
     },
     openGraph: {
-      title: `${creator.name} — Sala`,
+      title: `${creator.name} — Nebbuler`,
       description: creator.bio,
-      url: `https://sala.lat/${creator.slug}`,
+      url: `https://nebbuler.com/${creator.slug}`,
       type: 'profile',
-      siteName: 'Sala',
+      siteName: 'Nebbuler',
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${creator.name} — Sala`,
+      title: `${creator.name} — Nebbuler`,
       description: creator.bio,
     },
   }
@@ -149,7 +149,7 @@ function SiteNav({ creatorSlug }: { creatorSlug: string }) {
             className="font-serif text-[22px] font-bold text-[#121212] leading-none"
             style={{ letterSpacing: '-0.01em' }}
           >
-            SALA
+            NEBBULER
           </Link>
           <Link
             href="/entrar"
@@ -385,13 +385,13 @@ function CreatorFooter() {
     <footer className="border-t border-[#DEDEDE] py-6 px-6">
       <div className="max-w-4xl mx-auto flex items-center justify-between">
         <span className="font-sans text-[11px] font-semibold uppercase tracking-widest text-[#666666]">
-          SALA · CHILE · 2025
+          NEBBULER · CHILE · 2026
         </span>
         <a
-          href="mailto:hello@sala.lat"
+          href="mailto:hello@nebbuler.com"
           className="font-sans text-[12px] text-[#666666] hover:text-[#121212] transition-colors duration-150"
         >
-          hello@sala.lat
+          hello@nebbuler.com
         </a>
       </div>
     </footer>

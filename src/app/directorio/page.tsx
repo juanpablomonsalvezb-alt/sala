@@ -3,15 +3,15 @@ import Link from 'next/link'
 import DirectorioClient from './directorio-client'
 
 export const metadata: Metadata = {
-  title: 'Directorio de Profesionales — Sala',
+  title: 'Directorio de Profesionales — Nebbuler',
   description: 'Explora análisis de economistas, abogados, médicos y arquitectos verificados en Chile y LATAM.',
   openGraph: {
-    title: 'Directorio de Profesionales — Sala',
+    title: 'Directorio de Profesionales — Nebbuler',
     description: 'El directorio más completo de profesionales verificados publicando conocimiento en español.',
     type: 'website',
   },
   alternates: {
-    canonical: 'https://sala.com/directorio',
+    canonical: 'https://nebbuler.com/directorio',
   },
 }
 
@@ -81,10 +81,10 @@ export default function DirectorioPage() {
           __html: JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'CollectionPage',
-            name: 'Directorio de Profesionales — Sala',
+            name: 'Directorio de Profesionales — Nebbuler',
             description: 'Directorio de profesionales verificados publicando conocimiento en español',
-            url: 'https://sala.com/directorio',
-            publisher: { '@type': 'Organization', name: 'Sala', url: 'https://sala.com' },
+            url: 'https://nebbuler.com/directorio',
+            publisher: { '@type': 'Organization', name: 'Nebbuler', url: 'https://nebbuler.com' },
           }),
         }}
       />
@@ -94,7 +94,7 @@ export default function DirectorioPage() {
         <div className="border-b border-[#DEDEDE]">
           <div className="max-w-6xl mx-auto px-6 py-12">
             <p className="text-[10px] font-sans font-bold tracking-[0.2em] uppercase text-[#999] mb-3">
-              Sala · Directorio público
+              Nebbuler · Directorio público
             </p>
             <h1 className="font-serif text-4xl md:text-5xl font-bold text-[#121212] leading-tight mb-4">
               Profesionales verificados

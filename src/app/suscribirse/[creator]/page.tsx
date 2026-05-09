@@ -50,8 +50,8 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { creator: slug } = await params
   return {
-    title: `Suscribirse — Sala`,
-    description: `Suscríbete a la sala de ${slug} en Sala`,
+    title: `Suscribirse — Nebbuler`,
+    description: `Suscríbete al espacio de ${slug} en Nebbuler`,
   }
 }
 
@@ -68,7 +68,7 @@ function Nav() {
             className="font-serif text-[22px] font-bold text-[#121212] leading-none"
             style={{ letterSpacing: '-0.01em' }}
           >
-            SALA
+            NEBBULER
           </Link>
           <Link
             href="/entrar"
@@ -87,13 +87,13 @@ function Footer() {
     <footer className="border-t border-[#DEDEDE] py-6 px-6">
       <div className="max-w-4xl mx-auto flex items-center justify-between">
         <span className="font-sans text-[11px] font-semibold uppercase tracking-widest text-[#666666]">
-          SALA · CHILE · 2025
+          NEBBULER · CHILE · 2026
         </span>
         <a
-          href="mailto:hello@sala.lat"
+          href="mailto:hello@nebbuler.com"
           className="font-sans text-[12px] text-[#666666] hover:text-[#121212] transition-colors duration-150"
         >
-          hello@sala.lat
+          hello@nebbuler.com
         </a>
       </div>
     </footer>

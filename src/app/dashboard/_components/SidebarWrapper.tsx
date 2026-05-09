@@ -48,7 +48,7 @@ export default function SidebarWrapper({
             className="text-[15px] font-bold tracking-[0.18em] text-[#121212] uppercase hover:text-[#C41C1C] transition-colors"
             style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
           >
-            SALA
+            NEBBULER
           </span>
         </Link>
       </div>

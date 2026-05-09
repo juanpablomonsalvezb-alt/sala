@@ -38,7 +38,7 @@ export function HomeTicker() {
     <div className="bg-[#111] text-white h-8 flex items-center overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 w-full flex items-center justify-between gap-6">
         <div className="hidden sm:flex items-center gap-3 shrink-0">
-          <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-white/40">Sala</span>
+          <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-white/40">Nebbuler</span>
           <span className="text-white/20">·</span>
           <span className="text-[9px] uppercase tracking-[0.12em] text-white/40 capitalize">{dateStr}</span>
         </div>

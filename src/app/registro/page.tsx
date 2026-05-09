@@ -89,7 +89,7 @@ export default function RegistroPage() {
           className="font-serif text-[38px] font-bold tracking-tight text-[#121212] leading-none inline-block"
           style={{ letterSpacing: "-0.01em" }}
         >
-          SALA
+          NEBBULER
         </Link>
         <hr className="mt-5 border-t border-[#121212]" />
       </header>
@@ -103,7 +103,7 @@ export default function RegistroPage() {
               className="font-serif text-[#121212] leading-tight"
               style={{ fontSize: "2rem", fontWeight: 700, letterSpacing: "-0.01em" }}
             >
-              Únete a Sala
+              Únete a Nebbuler
             </h1>
           </div>
 
@@ -149,10 +149,10 @@ export default function RegistroPage() {
                   Soy creador
                 </p>
                 <p className="font-sans text-[13px] text-[#666666] leading-relaxed mb-5">
-                  Abre tu sala y cobra por lo que sabes
+                  Abre tu espacio en Nebbuler y cobra por lo que sabes
                 </p>
                 <span className="font-sans text-[12px] font-medium text-[#C41C1C] group-hover:underline underline-offset-2">
-                  Abrir mi sala →
+                  Empezar en Nebbuler →
                 </span>
               </button>
             </div>
@@ -288,7 +288,7 @@ export default function RegistroPage() {
                   {loading
                     ? "Creando cuenta…"
                     : path === "creator"
-                    ? "Crear mi sala →"
+                    ? "Crear mi cuenta →"
                     : "Crear cuenta →"}
                 </button>
               </form>
@@ -342,7 +342,7 @@ export default function RegistroPage() {
       {/* Footer */}
       <footer className="py-6 text-center border-t border-[#DEDEDE]">
         <p className="font-sans text-[11px] text-[#666666]">
-          Sala · hello@sala.lat
+          Nebbuler · hello@nebbuler.com
         </p>
       </footer>
     </div>

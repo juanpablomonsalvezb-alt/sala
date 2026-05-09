@@ -64,7 +64,7 @@ export async function POST(request: NextRequest) {
     )
   }
 
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://sala.lat'
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://nebbuler.com'
 
   // Crear o recuperar el precio en Stripe (precio en CLP, facturación mensual)
   // Usamos un precio dinámico por ahora — en producción conviene cachear el price_id en la DB
@@ -74,7 +74,7 @@ export async function POST(request: NextRequest) {
       unit_amount: creator.price_clp, // CLP no tiene decimales
       recurring: { interval: 'month' },
       product_data: {
-        name: `Sala — ${creator.name}`,
+        name: `Nebbuler — ${creator.name}`,
         metadata: { creator_id: creator.id, creator_slug: creator.slug },
       },
     },

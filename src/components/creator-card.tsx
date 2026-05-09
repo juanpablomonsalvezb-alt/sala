@@ -62,7 +62,7 @@ export default function CreatorCard({
       {/* Badge verificado */}
       {verified && (
         <p className="text-[9px] font-sans font-bold tracking-[0.1em] uppercase text-[#065F46] border-l-2 border-[#C41C1C] pl-2 mt-2">
-          EXPERTO RECONOCIDO POR SALA
+          EXPERTO RECONOCIDO POR NEBBULER
         </p>
       )}
 

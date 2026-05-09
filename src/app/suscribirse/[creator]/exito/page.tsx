@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'Suscripción confirmada — Sala',
+  title: 'Suscripción confirmada — Nebbuler',
   description: 'Tu suscripción fue procesada exitosamente.',
 }
 
@@ -25,7 +25,7 @@ export default async function ExitoPage({
               className="font-serif text-[22px] font-bold text-[#121212] leading-none"
               style={{ letterSpacing: '-0.01em' }}
             >
-              SALA
+              NEBBULER
             </Link>
           </div>
         </div>
@@ -61,27 +61,27 @@ export default async function ExitoPage({
 
         <p className="font-sans text-[15px] text-[#666666] leading-relaxed max-w-[360px] mb-10">
           Tu suscripción fue confirmada. A partir de ahora tienes acceso completo a todos los
-          artículos de esta sala.
+          artículos de este creador.
         </p>
 
         <Link
           href={`/${slug}`}
           className="font-sans text-[13px] font-medium px-8 py-3 bg-[#121212] text-white hover:bg-[#333] transition-colors duration-150 inline-block mb-5"
         >
-          Leer la sala →
+          Leer publicaciones →
         </Link>
 
         <Link
           href="/explorar"
           className="font-sans text-[12px] text-[#666666] hover:text-[#121212] transition-colors duration-150"
         >
-          Explorar otras salas
+          Explorar otros creadores
         </Link>
       </main>
 
       {/* Footer */}
       <footer className="py-6 text-center border-t border-[#DEDEDE]">
-        <p className="font-sans text-[11px] text-[#666666]">Sala · hello@sala.lat</p>
+        <p className="font-sans text-[11px] text-[#666666]">Nebbuler · hello@nebbuler.com</p>
       </footer>
     </div>
   )

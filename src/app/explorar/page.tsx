@@ -152,7 +152,7 @@ function Nav() {
             className="font-serif text-[38px] font-bold tracking-tight text-[#121212] leading-none"
             style={{ letterSpacing: '-0.01em' }}
           >
-            SALA
+            NEBBULER
           </Link>
           <hr className="nyt-rule w-full" />
           <nav className="flex items-center gap-1 text-[12px] font-sans text-[#666666]">
@@ -187,13 +187,13 @@ function Footer() {
     <footer className="border-t border-[#DEDEDE] py-8 px-6 mt-16">
       <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
         <span className="font-sans text-[11px] font-semibold uppercase tracking-widest text-[#666666]">
-          SALA · CHILE · 2025
+          NEBBULER · CHILE · 2026
         </span>
         <a
-          href="mailto:hello@sala.lat"
+          href="mailto:hello@nebbuler.com"
           className="font-sans text-[12px] text-[#666666] hover:text-[#121212] transition-colors duration-150"
         >
-          hello@sala.lat
+          hello@nebbuler.com
         </a>
       </div>
     </footer>
@@ -357,7 +357,7 @@ export default function ExplorarPage() {
               {featured.length > 0 && (
                 <>
                   <div className="mb-4">
-                    <span className="section-label mb-3 inline-block">SALAS DESTACADAS</span>
+                    <span className="section-label mb-3 inline-block">PERFILES DESTACADOS</span>
                   </div>
                   <div
                     className={`grid gap-0 mb-0 ${
@@ -383,7 +383,7 @@ export default function ExplorarPage() {
                 <div className="mt-8">
                   <div className="mb-4">
                     <span className="section-label mb-3 inline-block">
-                      {activeCategory === 'Todos' ? 'TODAS LAS SALAS' : activeCategory.toUpperCase()}
+                      {activeCategory === 'Todos' ? 'TODOS LOS CREADORES' : activeCategory.toUpperCase()}
                     </span>
                     <hr className="nyt-rule" />
                   </div>

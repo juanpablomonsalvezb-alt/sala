@@ -57,7 +57,7 @@ export default function RecuperarContrasenaPage() {
           className="font-serif text-[38px] font-bold tracking-tight text-[#121212] leading-none inline-block"
           style={{ letterSpacing: "-0.01em" }}
         >
-          SALA
+          NEBBULER
         </Link>
         <hr className="mt-5 border-t border-[#121212]" />
       </header>
@@ -173,7 +173,7 @@ export default function RecuperarContrasenaPage() {
       {/* Footer */}
       <footer className="py-6 text-center border-t border-[#DEDEDE]">
         <p className="font-sans text-[11px] text-[#666666]">
-          Sala · hello@sala.lat
+          Nebbuler · hello@nebbuler.com
         </p>
       </footer>
     </div>

@@ -21,25 +21,25 @@ const libreBaskerville = Libre_Baskerville({
 
 export const metadata: Metadata = {
   title: {
-    default: "Sala — Conocimiento profesional",
-    template: "%s | Sala",
+    default: "Nebbuler — El conocimiento que antes no se vendía.",
+    template: "%s | Nebbuler",
   },
   description:
-    "Economistas, abogados, médicos y consultores publican análisis que no aparecen en los medios. Sus lectores más comprometidos pagan por ello.",
-  metadataBase: new URL("https://sala.lat"),
+    "Nebbuler es la plataforma donde economistas, médicos, abogados y expertos de dominio cobran por saber lo que tú necesitas entender.",
+  metadataBase: new URL("https://nebbuler.com"),
   openGraph: {
-    title: "Sala — Conocimiento profesional",
+    title: "Nebbuler — El conocimiento que antes no se vendía.",
     description:
-      "El lugar donde los profesionales comparten lo que realmente saben.",
-    siteName: "Sala",
+      "La plataforma donde economistas, médicos, abogados y expertos de dominio cobran por saber lo que tú necesitas entender.",
+    siteName: "Nebbuler",
     locale: "es_CL",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Sala — Conocimiento profesional",
+    title: "Nebbuler — El conocimiento que antes no se vendía.",
     description:
-      "El lugar donde los profesionales comparten lo que realmente saben.",
+      "La plataforma donde economistas, médicos, abogados y expertos de dominio cobran por saber lo que tú necesitas entender.",
   },
   robots: { index: true, follow: true },
 };

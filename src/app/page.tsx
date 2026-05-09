@@ -39,7 +39,7 @@ const features = [
 const plans = [
   { name: "Pro",     price: "$39.990", period: "/ mes", note: "0% comisión", cta: "Probar gratis", featured: false, perks: ["Todo del plan Creador", "0% de comisión", "Dominio propio", "API"] },
   { name: "Creador", price: "$15.990", period: "/ mes", note: "5% comisión", cta: "Probar gratis", featured: true,  perks: ["Todo del plan Gratis", "Suscriptores ilimitados", "Analytics", "Soporte"] },
-  { name: "Gratis",  price: "$0",      period: "        ", note: "10% comisión", cta: "Abre gratis",   featured: false, perks: ["Sala personalizada", "Publicaciones ilimitadas", "100 suscriptores", "Stripe"] },
+  { name: "Gratis",  price: "$0",      period: "        ", note: "10% comisión", cta: "Abre gratis",   featured: false, perks: ["Perfil en Nebbuler", "Publicaciones ilimitadas", "100 suscriptores", "Stripe"] },
 ];
 
 const faqs = [
@@ -47,7 +47,7 @@ const faqs = [
   { q: "¿Cómo recibo los pagos?",                           a: "Stripe directo a tu cuenta. Plan Gratis 10% comisión, Plan Pro 0%." },
   { q: "¿Puedo tener contenido gratuito y de pago?",        a: "Sí. Tú decides qué es abierto y qué es exclusivo." },
   { q: "¿Qué pasa si cancelo?",                             a: "Cancelas cuando quieras. Tus datos quedan accesibles." },
-  { q: "¿Sala funciona fuera de Chile?",                    a: "Sí. Disponible en toda Latinoamérica." },
+  { q: "¿Nebbuler funciona fuera de Chile?",                a: "Sí. Disponible en toda Latinoamérica." },
 ];
 
 const liveEvents = [
@@ -74,9 +74,9 @@ export default function Home() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5 border-r border-[#E0E0E0] pr-6 mr-0">
             <div className="w-6 h-6 bg-[#B31C1C] flex items-center justify-center shrink-0">
-              <span className="text-white font-black text-[12px] font-serif">S</span>
+              <span className="text-white font-black text-[12px] font-serif">N</span>
             </div>
-            <span className="text-[17px] font-black uppercase tracking-[0.04em] text-[#111] font-serif">ALA</span>
+            <span className="text-[17px] font-black uppercase tracking-[0.04em] text-[#111] font-serif">EBBULER</span>
           </Link>
 
           {/* Nav links */}
@@ -108,7 +108,7 @@ export default function Home() {
               href="/abrir"
               className="h-full flex items-center px-6 bg-[#B31C1C] text-white text-[12px] font-bold tracking-[0.04em] uppercase hover:bg-[#8E1515] transition-colors"
             >
-              Abre tu sala
+              Abre tu espacio
             </Link>
           </div>
         </div>
@@ -123,7 +123,7 @@ export default function Home() {
             {/* Lado izquierdo: eyebrow + H1 — 100% server, visible en primer paint */}
             <div>
               <p className="text-[9px] font-bold uppercase tracking-[0.28em] text-[#767676] mb-2">
-                Plataforma de conocimiento profesional · Chile y LATAM
+                El conocimiento que antes no se vendía · Chile y LATAM
               </p>
               <h1 className="font-serif font-bold text-[clamp(40px,6vw,80px)] leading-[0.88] tracking-[-0.02em]">
                 Tu conocimiento<br />
@@ -187,12 +187,12 @@ export default function Home() {
             <div className="col-span-2 md:col-span-1">
               <div className="flex items-center gap-2 mb-4">
                 <div className="w-6 h-6 bg-[#B31C1C] flex items-center justify-center">
-                  <span className="text-white font-bold text-[11px] font-serif">S</span>
+                  <span className="text-white font-bold text-[11px] font-serif">N</span>
                 </div>
-                <span className="text-[15px] font-bold uppercase tracking-[0.04em] text-white font-serif">ALA</span>
+                <span className="text-[15px] font-bold uppercase tracking-[0.04em] text-white font-serif">EBBULER</span>
               </div>
               <p className="text-[12px] text-white/35 leading-[1.75] max-w-[160px]">
-                La plataforma que convierte expertos en creadores que cobran.
+                El conocimiento que antes no se vendía.
               </p>
             </div>
             {[
@@ -219,7 +219,7 @@ export default function Home() {
             ))}
           </div>
           <div className="border-t border-white/10 pt-6 flex items-center justify-between">
-            <p className="text-[9px] text-white/20 uppercase tracking-[0.12em]">© 2025 Sala · Nebbuler</p>
+            <p className="text-[9px] text-white/20 uppercase tracking-[0.12em]">© 2026 Nebbuler</p>
             <a
               href="mailto:hello@nebbuler.com"
               className="text-[9px] text-white/20 hover:text-white/55 transition-colors uppercase tracking-[0.12em]"

@@ -58,7 +58,7 @@ export default async function ConfiguracionPage() {
                 className="text-[15px] font-medium text-[#121212]"
                 style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}
               >
-                sala.lat/
+                nebbuler.com/
                 <span className="text-[#C41C1C]">{creator!.slug}</span>
               </p>
             </div>

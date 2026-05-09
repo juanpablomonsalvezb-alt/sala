@@ -17,7 +17,7 @@ const PLANS = [
     commission: "10%",
     commissionLabel: "de comisión",
     highlight: false,
-    cta: "Abrir mi sala gratis",
+    cta: "Empezar gratis en Nebbuler",
     ctaHref: "/abrir",
     features: [
       { label: "Hasta 500 suscriptores", included: true },
@@ -81,7 +81,7 @@ const FAQ_ITEMS = [
   },
   {
     q: "¿Puedo cancelar?",
-    a: "Sí, cuando quieras y sin penalización. Tu sala seguirá activa hasta el fin del período pagado.",
+    a: "Sí, cuando quieras y sin penalización. Tu perfil seguirá activo hasta el fin del período pagado.",
   },
   {
     q: "¿Mis suscriptores me pertenecen?",
@@ -97,7 +97,7 @@ const FAQ_ITEMS = [
   },
   {
     q: "¿Cómo funciona la comisión?",
-    a: "La comisión se descuenta automáticamente de cada cobro. Nunca pagas por adelantado: Sala gana cuando tú ganas.",
+    a: "La comisión se descuenta automáticamente de cada cobro. Nunca pagas por adelantado: Nebbuler gana cuando tú ganas.",
   },
 ];
 
@@ -373,7 +373,7 @@ export default function PreciosPage() {
             Gana desde el primer día.
           </h1>
           <p className="font-sans text-[18px] text-[#555] max-w-lg">
-            Sala solo gana cuando tú ganas. Sin cuotas fijas que te ahoguen cuando empiezas.
+            Nebbuler solo gana cuando tú ganas. Sin cuotas fijas que te ahoguen cuando empiezas.
           </p>
         </div>
       </section>
@@ -386,7 +386,7 @@ export default function PreciosPage() {
       <section className="border-b border-[#DEDEDE] py-16 px-6 text-center bg-[#F7F7F7]">
         <div className="max-w-xl mx-auto">
           <h2 className="font-serif text-[32px] font-bold text-[#121212] italic mb-4 tracking-[-0.01em]">
-            ¿Listo para abrir tu sala?
+            ¿Listo para empezar en Nebbuler?
           </h2>
           <p className="font-sans text-[14px] text-[#666] mb-6">
             Gratis para empezar · Sin tarjeta de crédito · 15 minutos para configurar
@@ -395,7 +395,7 @@ export default function PreciosPage() {
             href="/abrir"
             className="inline-block font-sans text-[13px] font-medium px-10 py-4 bg-[#121212] text-white hover:bg-[#C41C1C] transition-colors duration-150"
           >
-            Abrir mi sala gratis →
+            Empezar gratis en Nebbuler →
           </Link>
         </div>
       </section>
@@ -404,10 +404,10 @@ export default function PreciosPage() {
       <footer className="border-t border-[#DEDEDE] py-6 px-6">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <span className="font-sans text-[11px] uppercase tracking-[0.1em] text-[#888]">
-            SALA · CHILE · 2025
+            NEBBULER · CHILE · 2026
           </span>
-          <a href="mailto:hello@sala.lat" className="font-sans text-[11px] text-[#888] hover:text-[#121212] transition-colors">
-            hello@sala.lat
+          <a href="mailto:hello@nebbuler.com" className="font-sans text-[11px] text-[#888] hover:text-[#121212] transition-colors">
+            hello@nebbuler.com
           </a>
         </div>
       </footer>

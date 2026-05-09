@@ -217,7 +217,7 @@ export function HeroCta() {
               href="/abrir"
               className="bg-[#B31C1C] text-white px-5 py-3 text-[12px] font-bold uppercase tracking-[0.04em] hover:bg-[#8E1515] transition-colors"
             >
-              Abre tu sala gratis →
+              Abre tu espacio gratis →
             </Link>
           </div>
         </div>
@@ -294,7 +294,7 @@ export function LiveActivity({ liveEvents }: LiveActivityProps) {
               vale.
             </h2>
             <p className="text-[15px] leading-[1.8] text-[#555]">
-              Mientras lees esto, profesionales como tú están recibiendo su primer pago en Sala.
+              Mientras lees esto, profesionales como tú están recibiendo su primer pago en Nebbuler.
             </p>
           </BlurFade>
           <BlurFade delay={0.1}>
@@ -397,7 +397,7 @@ export function ParaQuienes() {
                 <span className="text-[#B31C1C]">cobrar.</span>
               </h2>
               <p className="text-[15px] leading-[1.8] text-[#555] mb-8 max-w-md">
-                Sala es para el profesional que ha pasado años construyendo expertise y todavía no cobra por compartirlo.
+                Nebbuler es para el profesional que ha pasado años construyendo expertise y todavía no cobra por compartirlo.
               </p>
               <Link
                 href="/abrir"
@@ -614,7 +614,7 @@ export function CtaFinalAnimated() {
           href="/abrir"
           className="border border-white/20 text-white px-8 py-4 text-[13px] font-semibold hover:bg-white/5 transition-colors"
         >
-          Abre tu sala gratis →
+          Abre tu espacio gratis →
         </Link>
       </div>
       <p className="text-[9px] text-white/20 mt-6 uppercase tracking-[0.15em]">

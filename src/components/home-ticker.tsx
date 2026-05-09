@@ -14,8 +14,16 @@ const tickerItems = [
 export function HomeTicker() {
   const [idx, setIdx] = useState(0);
   const [visible, setVisible] = useState(true);
+  const [dateStr, setDateStr] = useState('');
 
   useEffect(() => {
+    setDateStr(new Date().toLocaleDateString("es-CL", {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    }));
+
     const interval = setInterval(() => {
       setVisible(false);
       setTimeout(() => {
@@ -25,14 +33,6 @@ export function HomeTicker() {
     }, 4000);
     return () => clearInterval(interval);
   }, []);
-
-  const now = new Date();
-  const dateStr = now.toLocaleDateString("es-CL", {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
 
   return (
     <div className="bg-[#111] text-white h-8 flex items-center overflow-hidden">

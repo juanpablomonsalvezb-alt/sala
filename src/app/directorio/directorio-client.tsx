@@ -67,6 +67,9 @@ export default function DirectorioClient({ creators, disciplines }: DirectorioCl
                 />
               </div>
             ))}
+            {filtered.length % 2 !== 0 && (
+              <div className="bg-white" />
+            )}
           </div>
         )}
       </div>

@@ -134,7 +134,7 @@ function inferCategory(specialty: string): string {
   return 'Tecnología'
 }
 
-const CATEGORIES = ['Todos', 'Economía', 'Derecho', 'Salud', 'Arquitectura', 'Tecnología'] as const
+const CATEGORIES = ['Todos', 'Economía', 'Derecho', 'Medicina', 'Finanzas', 'Arquitectura', 'Ingeniería', 'Tecnología', 'Negocios'] as const
 type Category = (typeof CATEGORIES)[number]
 
 type CreatorWithMeta = Creator & { category: string; featured: boolean }

@@ -112,9 +112,17 @@ export async function createCheckoutSession(
   let session: { url: string | null }
 
   if (creator.stripe_account_id) {
-    // Modo Connect: el pago va directo al creador
+    // Modo Connect: el pago va directo al creador con fee del 5%
     session = await stripe.checkout.sessions.create(
-      { ...sessionConfig, payment_intent_data: undefined },
+      {
+        ...sessionConfig,
+        payment_intent_data: {
+          application_fee_amount: Math.round(creator.price_clp * 0.05),
+          transfer_data: {
+            destination: creator.stripe_account_id,
+          },
+        },
+      },
       { stripeAccount: creator.stripe_account_id }
     )
   } else {

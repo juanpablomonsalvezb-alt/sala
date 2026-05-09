@@ -7,6 +7,7 @@ type PaywallGateProps = {
   isAuthenticated: boolean
   isSubscribed: boolean
   postCount?: number
+  postSlug?: string
 }
 
 function formatPrice(clp: number): string {
@@ -28,6 +29,7 @@ export default function PaywallGate({
   isAuthenticated,
   isSubscribed,
   postCount,
+  postSlug,
 }: PaywallGateProps) {
   if (isSubscribed) return null
 
@@ -75,7 +77,7 @@ export default function PaywallGate({
         {/* Link secundario — solo si autenticado */}
         {isAuthenticated && (
           <Link
-            href={`/entrar?next=/suscribirse/${creatorSlug}`}
+            href={postSlug ? `/entrar?next=/${creatorSlug}/${postSlug}` : `/entrar?next=/suscribirse/${creatorSlug}`}
             className="text-xs font-sans text-[#C41C1C] underline mt-3 block text-center"
           >
             ¿Ya eres suscriptor? Entrar →

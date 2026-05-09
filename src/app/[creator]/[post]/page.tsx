@@ -130,8 +130,8 @@ export async function generateMetadata({
     }
   }
 
-  if (!post && postSlug === MOCK_POST.slug) {
-    post = MOCK_POST
+  if (!post && creatorSlug === MOCK_CREATOR.slug) {
+    post = { ...MOCK_POST, slug: postSlug }
     creator = MOCK_CREATOR
   }
 
@@ -318,6 +318,7 @@ function ArticleContent({
           isAuthenticated={isAuthenticated}
           isSubscribed={isSubscribed}
           postCount={undefined}
+          postSlug={post.slug}
         />
       )}
     </div>
@@ -403,18 +404,20 @@ export default async function PostPage({
       }
     } catch {
       // Fallback a mock
-      if (creatorSlug === 'rodrigo-fuentes' && postSlug === MOCK_POST.slug) {
+      if (creatorSlug === MOCK_CREATOR.slug) {
+        const mockPost = { ...MOCK_POST, slug: postSlug }
+        post = mockPost
         creator = MOCK_CREATOR
-        post = MOCK_POST
       } else {
         notFound()
       }
     }
   } else {
     // Sin Supabase → mock
-    if (creatorSlug === 'rodrigo-fuentes' && postSlug === MOCK_POST.slug) {
+    if (creatorSlug === MOCK_CREATOR.slug) {
+      const mockPost = { ...MOCK_POST, slug: postSlug }
+      post = mockPost
       creator = MOCK_CREATOR
-      post = MOCK_POST
     } else {
       notFound()
     }

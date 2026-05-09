@@ -1,6 +1,6 @@
 import Stripe from 'stripe'
 import { headers } from 'next/headers'
-import { createClient } from '@/lib/supabase/server'
+import { createServiceClient } from '@/lib/supabase/server'
 import type { Subscription } from '@/types/database'
 import { stripe } from '@/lib/stripe'
 
@@ -20,7 +20,7 @@ export async function POST(request: Request) {
     return new Response('Webhook error: invalid signature', { status: 400 })
   }
 
-  const supabase = await createClient()
+  const supabase = createServiceClient()
 
   switch (event.type) {
     case 'checkout.session.completed': {

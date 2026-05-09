@@ -5,6 +5,7 @@ import { createClient } from '@/lib/supabase/server'
 import type { Creator, Post } from '@/types/database'
 import { CreatorStickyBar } from '@/components/creator-sticky-bar'
 import { creators as staticCreators } from '@/data/creators'
+import { ProfileShare } from '@/components/profile-share'
 
 // ─── Mapeo de mes español a número ───────────────────────────────────────────
 
@@ -381,16 +382,23 @@ function HeroSection({
           <span className="text-xs font-sans text-[#666]">
             Desde {formatDateLong(creator.created_at)}
           </span>
-          {!isSubscribed && (
-            <div className="ml-auto">
+          <div className="ml-auto flex items-center gap-3">
+            <ProfileShare
+              slug={creator.slug}
+              publicationName={creator.publication_name ?? creator.name}
+              creatorName={creator.name}
+              specialty={creator.specialty}
+              bio={creator.bio}
+            />
+            {!isSubscribed && (
               <Link
                 href={`/suscribirse/${creator.slug}`}
                 className="bg-[#121212] text-white font-sans text-xs font-bold tracking-[0.1em] uppercase px-6 py-2.5 hover:bg-[#C41C1C] transition-colors"
               >
                 Suscribirse · {formatPriceCLP(creator.price_clp)}/mes
               </Link>
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </div>
     </section>

@@ -6,16 +6,11 @@ import { updateCreatorProfile } from '../_actions'
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
-const ESPECIALIDADES = [
-  'Economista',
-  'Abogado',
-  'Médico',
-  'Psicólogo',
-  'Ingeniero',
-  'Periodista',
-  'Financiero',
-  'Consultor',
-  'Otro',
+const ESPECIALIDADES_SUGERIDAS = [
+  'Economista', 'Abogado', 'Médico', 'Arquitecto', 'Psicólogo',
+  'Ingeniero', 'Financiero', 'Periodista', 'Sociólogo', 'Historiador',
+  'Filósofo', 'Nutricionista', 'Veterinario', 'Contador', 'Científico político',
+  'Sommelier', 'Coleccionista', 'Maestro FIDE', 'Fotógrafo', 'Diseñador',
 ]
 
 const FRECUENCIAS = [
@@ -205,11 +200,18 @@ export default function ConfiguracionForm({ creator }: { creator: Creator }) {
 
           <div>
             <FieldLabel>Especialidad *</FieldLabel>
-            <SelectInput
+            <datalist id="especialidades-config-list">
+              {ESPECIALIDADES_SUGERIDAS.map((e) => (
+                <option key={e} value={e} />
+              ))}
+            </datalist>
+            <input
+              type="text"
+              list="especialidades-config-list"
               value={specialty}
-              onChange={setSpecialty}
-              options={ESPECIALIDADES.map((e) => ({ value: e.toLowerCase(), label: e }))}
-              placeholder="Selecciona tu especialidad"
+              onChange={(e) => setSpecialty(e.target.value)}
+              placeholder="Ej: Economista, Sommelier, Coleccionista de vinilos…"
+              className="w-full border border-[#E5E7EB] bg-white px-4 py-3 font-sans text-sm text-[#0A0A0A] outline-none focus:border-[#0066FF] focus:ring-2 focus:ring-[#0066FF]/10"
             />
           </div>
 

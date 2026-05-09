@@ -1,7 +1,7 @@
 'use server'
 
 import { redirect } from 'next/navigation'
-import { createClient } from '@/lib/supabase/server'
+import { createClient, createServiceClient } from '@/lib/supabase/server'
 
 function isSupabaseConfigured(): boolean {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL ?? ''
@@ -87,8 +87,10 @@ export async function createCreatorProfile(
     slug = `${slug}-${Math.random().toString(36).slice(2, 6)}`
   }
 
-  // Insertar en la tabla creators
-  const { error: insertError } = await supabase.from('sala_creators').insert({
+  // Usar service client para el INSERT (bypasa RLS)
+  const service = createServiceClient()
+
+  const { error: insertError } = await service.from('sala_creators').insert({
     user_id: user.id,
     name: nombre,
     slug,
@@ -104,12 +106,12 @@ export async function createCreatorProfile(
   })
 
   if (insertError) {
-    console.error('[createCreatorProfile] insert error:', insertError)
-    return { error: 'Error al crear la sala. Intenta de nuevo.' }
+    console.error('[createCreatorProfile] insert error:', insertError.message)
+    return { error: `No se pudo crear el perfil: ${insertError.message}` }
   }
 
   // Actualizar el perfil marcándolo como creador
-  await supabase.from('sala_profiles').update({ is_creator: true }).eq('id', user.id)
+  await service.from('sala_profiles').update({ is_creator: true }).eq('id', user.id)
 
   redirect('/dashboard')
 }

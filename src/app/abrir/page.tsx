@@ -20,15 +20,11 @@ interface FormData {
 
 /* ─── Constants ──────────────────────────────────────────────────────────── */
 
-const ESPECIALIDADES = [
-  'Economista',
-  'Abogado',
-  'Médico',
-  'Psicólogo',
-  'Ingeniero',
-  'Periodista',
-  'Financiero',
-  'Otro',
+const ESPECIALIDADES_SUGERIDAS = [
+  'Economista', 'Abogado', 'Médico', 'Arquitecto', 'Psicólogo',
+  'Ingeniero', 'Financiero', 'Periodista', 'Sociólogo', 'Historiador',
+  'Filósofo', 'Nutricionista', 'Veterinario', 'Contador', 'Científico político',
+  'Sommelier', 'Coleccionista', 'Maestro FIDE', 'Fotógrafo', 'Diseñador',
 ]
 
 const FRECUENCIAS = [
@@ -234,14 +230,21 @@ function Step1({
 
       <div>
         <Label>Tu especialidad *</Label>
-        <Select
+        <datalist id="especialidades-list">
+          {ESPECIALIDADES_SUGERIDAS.map((e) => (
+            <option key={e} value={e} />
+          ))}
+        </datalist>
+        <input
+          type="text"
+          list="especialidades-list"
           value={data.especialidad}
-          onChange={(v) => setData({ especialidad: v })}
-          options={ESPECIALIDADES.map((e) => ({ value: e.toLowerCase(), label: e }))}
-          placeholder="Selecciona tu especialidad"
+          onChange={(e) => setData({ especialidad: e.target.value })}
+          placeholder="Ej: Economista, Sommelier, Coleccionista de vinilos…"
+          className="w-full border border-[#E5E7EB] bg-white px-4 py-3 font-sans text-sm text-[#0A0A0A] outline-none transition-all duration-150 focus:border-[#0066FF] focus:ring-2 focus:ring-[#0066FF]/10"
         />
         {errors.especialidad && (
-          <p className="mt-1 font-sans text-xs text-red-500">Selecciona una especialidad</p>
+          <p className="mt-1 font-sans text-xs text-red-500">Escribe tu especialidad</p>
         )}
       </div>
 

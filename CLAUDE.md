@@ -26,3 +26,15 @@
 
 ## File inclusion
 - Ignore test fixtures, build outputs, lock files, and generated code unless explicitly needed.
+
+# REGLA DE AUDITORÍA — NO NEGOCIABLE
+
+Toda auditoría QA debe:
+1. Hacer click en CADA botón visible en el sitio
+2. Completar CADA formulario hasta el submit final
+3. Seguir CADA flujo hasta el estado final real (dashboard, confirmación, o error con texto exacto)
+4. "No verificable sin autenticación" no es aceptable — crear cuenta de prueba y verificar
+5. Reportar el texto exacto del error que ve el usuario en pantalla
+
+Un flujo no está auditado hasta que se llega al último paso.
+Una auditoría que no hace click en los botones no es una auditoría.

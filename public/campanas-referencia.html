@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nebbuler — Campañas de Referencia · 6 Agentes de Marketing</title>
+<title>Nebbuler — Campañas de Referencia Visual · 6 Agentes</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
@@ -16,547 +16,589 @@
   }
   body { font-family: Georgia, serif; background: var(--cream); color: var(--ink); }
 
-  /* HEADER */
+  /* ── HEADER ── */
   .site-header {
     background: var(--oxford);
-    padding: 32px 64px;
+    padding: 28px 56px;
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 18px;
     border-bottom: 3px solid var(--crimson);
   }
-  .site-header .logo-bar { width: 5px; height: 48px; background: var(--crimson); flex-shrink: 0; }
-  .site-header h1 { font-size: 28px; font-weight: 700; color: white; letter-spacing: 0.02em; }
-  .site-header p { font-family: Arial, sans-serif; font-size: 12px; color: #8899AA; letter-spacing: 0.15em; text-transform: uppercase; margin-top: 4px; }
+  .logo-bar { width: 4px; height: 44px; background: var(--crimson); flex-shrink: 0; }
+  .site-header h1 { font-size: 24px; font-weight: 700; color: white; }
+  .site-header p { font-family: Arial, sans-serif; font-size: 11px; color: #6B8299; letter-spacing: 0.15em; text-transform: uppercase; margin-top: 3px; }
 
-  /* INTRO */
-  .intro {
-    max-width: 880px;
-    margin: 0 auto;
-    padding: 56px 64px 0;
-  }
-  .intro-meta {
-    font-family: Arial, sans-serif;
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--crimson);
-    margin-bottom: 20px;
-  }
-  .intro-text {
-    font-size: 18px;
-    line-height: 1.7;
-    color: #333;
-    max-width: 720px;
-  }
-  .intro-text strong { color: var(--ink); }
+  /* ── INTRO ── */
+  .intro { max-width: 900px; margin: 0 auto; padding: 52px 56px 0; }
+  .intro-eyebrow { font-family: Arial, sans-serif; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--crimson); margin-bottom: 16px; }
+  .intro-text { font-size: 17px; line-height: 1.75; color: #3A3A3A; }
 
-  /* PODIO */
-  .section { max-width: 1200px; margin: 0 auto; padding: 56px 64px; }
-  .section-title {
-    font-family: Arial, sans-serif;
-    font-size: 10px;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--mid);
-    border-bottom: 1px solid var(--border);
-    padding-bottom: 12px;
-    margin-bottom: 40px;
-  }
-  .section-title span { color: var(--crimson); font-weight: 700; }
-
-  /* CARDS */
-  .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); }
-  .card {
-    background: white;
-    padding: 40px 40px 36px;
-    position: relative;
-  }
-  .card.featured { grid-column: 1 / -1; background: var(--oxford); }
-  .card.featured .card-title { color: white; }
-  .card.featured .card-brand { color: #8899AA; }
-  .card.featured .card-body { color: #CBD5E1; }
-  .card.featured .card-agency { color: #64748B; }
-  .card.featured .adapt-bar-fill { background: var(--crimson); }
-  .card.featured .adapt-label { color: #8899AA; }
-  .card.featured .adapt-score { color: white; }
-  .card.featured .tag { background: var(--crimson); color: white; }
-  .card.featured .card-divider { background: #1E3A5F; }
-  .card.featured .mechanism-title { color: #8899AA; }
-  .card.featured .mechanism-body { color: #CBD5E1; }
-
-  .card-num {
-    font-family: Arial, sans-serif;
-    font-size: 72px;
-    font-weight: 900;
-    color: var(--cream);
-    position: absolute;
-    top: 20px;
-    right: 32px;
-    line-height: 1;
-    user-select: none;
-  }
-  .card.featured .card-num { color: #1A2E4A; }
-
-  .tag {
-    display: inline-block;
+  /* ── SECTION HEADER ── */
+  .section { max-width: 1280px; margin: 0 auto; padding: 52px 56px; }
+  .section-label {
     font-family: Arial, sans-serif;
     font-size: 9px;
-    font-weight: 700;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.25em;
     text-transform: uppercase;
+    color: #999;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 10px;
+    margin-bottom: 40px;
+  }
+  .section-label b { color: var(--crimson); }
+
+  /* ── CAMPAIGN CARDS ── */
+  .campaigns { display: flex; flex-direction: column; gap: 2px; }
+
+  .campaign {
+    display: grid;
+    grid-template-columns: 480px 1fr;
+    background: white;
+    border: 1px solid var(--border);
+    min-height: 320px;
+    overflow: hidden;
+  }
+  .campaign.reverse { grid-template-columns: 1fr 480px; }
+  .campaign.reverse .campaign-image { order: 2; }
+  .campaign.reverse .campaign-text { order: 1; }
+  .campaign.dark { background: var(--oxford); border-color: #1A2E45; }
+
+  /* image side */
+  .campaign-image {
+    background: #1A1A1A;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .campaign-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+  }
+  .campaign-image.multi-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 2px;
+  }
+  .campaign-image.multi-grid img { height: 100%; }
+  .campaign-image.portrait { background: #000; }
+  .campaign-image.portrait img { object-fit: contain; max-height: 400px; margin: auto; }
+
+  /* adaptability badge on image */
+  .score-badge {
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
     background: var(--oxford);
     color: white;
-    padding: 3px 10px;
-    margin-bottom: 20px;
-  }
-  .tag.gold { background: #C4922A; }
-  .tag.latam { background: #0D7A3A; }
-  .tag.newsletter { background: #5B2D8E; }
-
-  .card-brand {
     font-family: Arial, sans-serif;
-    font-size: 11px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--mid);
-    margin-bottom: 8px;
+    font-weight: 900;
+    font-size: 22px;
+    padding: 8px 14px;
+    line-height: 1;
+    z-index: 2;
   }
-  .card-title { font-size: 22px; font-weight: 700; line-height: 1.2; margin-bottom: 6px; }
-  .card-agency {
-    font-family: Arial, sans-serif;
-    font-size: 11px;
-    color: #999;
-    margin-bottom: 20px;
-  }
-  .card-divider { width: 32px; height: 1px; background: var(--border); margin-bottom: 20px; }
-  .card-body { font-size: 15px; line-height: 1.65; color: #444; margin-bottom: 24px; }
+  .score-badge span { font-size: 12px; font-weight: 400; color: #6B8299; }
+  .score-badge.gold-score { background: #C4922A; }
 
-  .mechanism-title {
-    font-family: Arial, sans-serif;
-    font-size: 9px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: #999;
-    margin-bottom: 8px;
-  }
-  .mechanism-body { font-size: 14px; line-height: 1.6; color: #555; font-style: italic; margin-bottom: 24px; }
+  /* text side */
+  .campaign-text { padding: 40px 44px; display: flex; flex-direction: column; justify-content: center; }
+  .campaign.dark .campaign-text { }
 
-  /* ADAPTABILITY BAR */
-  .adapt-bar-bg { width: 100%; height: 3px; background: var(--border); margin-top: 8px; }
-  .adapt-bar-fill { height: 3px; background: var(--oxford); transition: width 0.3s; }
-  .adapt-row { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; }
-  .adapt-label { font-family: Arial, sans-serif; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: #999; }
-  .adapt-score { font-family: Arial, sans-serif; font-size: 20px; font-weight: 900; color: var(--oxford); }
-  .adapt-score .denom { font-size: 12px; font-weight: 400; color: #999; }
-
-  /* QUOTE */
-  .campaign-quote {
-    font-size: 16px;
-    font-style: italic;
-    color: var(--crimson);
-    border-left: 3px solid var(--crimson);
-    padding-left: 16px;
-    margin: 20px 0;
-    line-height: 1.5;
-  }
-  .card.featured .campaign-quote { color: #EFA0A0; border-left-color: var(--crimson); }
-
-  /* PRINCIPLES */
-  .principles {
-    background: var(--oxford);
-    padding: 64px;
-  }
-  .principles-inner { max-width: 1200px; margin: 0 auto; }
-  .principles h2 {
-    font-family: Arial, sans-serif;
-    font-size: 10px;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: #8899AA;
-    border-bottom: 1px solid #1E3A5F;
-    padding-bottom: 12px;
-    margin-bottom: 40px;
-  }
-  .principles-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
-  .principle-card { border-left: 3px solid var(--crimson); padding-left: 24px; }
-  .principle-num {
-    font-family: Arial, sans-serif;
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--crimson);
-    letter-spacing: 0.1em;
-    margin-bottom: 8px;
-  }
-  .principle-title { font-size: 16px; font-weight: 700; color: white; margin-bottom: 10px; }
-  .principle-body { font-family: Arial, sans-serif; font-size: 13px; color: #94A3B8; line-height: 1.6; margin-bottom: 12px; }
-  .principle-example { font-size: 13px; color: #64748B; font-style: italic; }
-
-  /* TABLE */
-  .ranking { max-width: 1200px; margin: 0 auto; padding: 56px 64px; }
-  .ranking table { width: 100%; border-collapse: collapse; font-family: Arial, sans-serif; font-size: 13px; }
-  .ranking th { text-align: left; padding: 8px 16px; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--mid); border-bottom: 2px solid var(--border); }
-  .ranking td { padding: 14px 16px; border-bottom: 1px solid var(--border); vertical-align: top; }
-  .ranking tr:hover td { background: #F0EDE8; }
-  .rank-num { font-weight: 900; font-size: 18px; color: var(--oxford); }
-  .score-cell { font-weight: 900; font-size: 16px; color: var(--oxford); }
-  .score-high { color: var(--crimson); }
-  .score-perfect { color: #C4922A; }
-  .campaign-name-cell { font-weight: 700; font-size: 14px; color: var(--ink); }
-  .campaign-sub { font-size: 11px; color: #999; margin-top: 2px; }
-  .mechanism-pill {
+  .c-tag {
     display: inline-block;
-    background: var(--cream);
-    border: 1px solid var(--border);
-    padding: 2px 8px;
-    font-size: 10px;
-    color: var(--mid);
-    letter-spacing: 0.05em;
-  }
-
-  /* FOOTER */
-  .footer {
-    background: var(--ink);
-    padding: 32px 64px;
     font-family: Arial, sans-serif;
-    font-size: 11px;
-    color: #555;
+    font-size: 8.5px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 3px 9px;
+    margin-bottom: 16px;
+    background: var(--oxford);
+    color: white;
+  }
+  .c-tag.gold { background: #C4922A; color: white; }
+  .c-tag.chile { background: #0D7A3A; color: white; }
+  .c-tag.news { background: #444; color: white; }
+
+  .c-brand { font-family: Arial, sans-serif; font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mid); margin-bottom: 7px; }
+  .campaign.dark .c-brand { color: #6B8299; }
+
+  .c-title { font-size: 21px; font-weight: 700; line-height: 1.25; margin-bottom: 6px; }
+  .campaign.dark .c-title { color: white; }
+
+  .c-awards { font-family: Arial, sans-serif; font-size: 10.5px; color: #AAA; margin-bottom: 18px; line-height: 1.5; }
+
+  .c-divider { width: 28px; height: 1px; background: var(--border); margin-bottom: 18px; }
+  .campaign.dark .c-divider { background: #1E3A5F; }
+
+  .c-body { font-size: 14px; line-height: 1.65; color: #444; margin-bottom: 18px; }
+  .campaign.dark .c-body { color: #94A3B8; }
+
+  .c-insight-label { font-family: Arial, sans-serif; font-size: 8.5px; letter-spacing: 0.15em; text-transform: uppercase; color: #999; margin-bottom: 6px; }
+  .campaign.dark .c-insight-label { color: #4A6075; }
+
+  .c-insight { font-size: 13.5px; font-style: italic; color: var(--crimson); line-height: 1.55; padding-left: 14px; border-left: 2px solid var(--crimson); }
+  .campaign.dark .c-insight { color: #EFA0A0; }
+
+  /* ── ECONOMIST SPECIAL SECTION ── */
+  .economist-gallery {
+    background: white;
+    border: 1px solid var(--border);
+    padding: 0;
+    overflow: hidden;
+  }
+  .economist-header {
+    background: var(--crimson);
+    padding: 24px 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
-  .footer strong { color: #999; }
+  .economist-header h3 { font-size: 18px; font-weight: 700; color: white; }
+  .economist-header p { font-family: Arial, sans-serif; font-size: 10px; color: rgba(255,255,255,0.6); letter-spacing: 0.15em; text-transform: uppercase; margin-top: 3px; }
+  .ec-badge { background: white; color: var(--crimson); font-family: Arial, sans-serif; font-weight: 900; font-size: 20px; padding: 8px 14px; }
+  .economist-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 2px;
+    background: var(--border);
+    padding: 2px;
+  }
+  .economist-grid img {
+    width: 100%;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+    display: block;
+    filter: saturate(1.1);
+    transition: transform 0.2s;
+  }
+  .economist-grid img:hover { transform: scale(1.02); z-index: 1; position: relative; }
+  .economist-caption {
+    padding: 20px 40px 24px;
+    background: white;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    color: #888;
+    border-top: 1px solid var(--border);
+  }
+  .economist-caption b { color: var(--ink); }
+
+  /* ── PRINCIPLES BAR ── */
+  .principles {
+    background: var(--oxford);
+    padding: 56px;
+  }
+  .principles-inner { max-width: 1280px; margin: 0 auto; }
+  .principles h2 {
+    font-family: Arial, sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #4A6075;
+    border-bottom: 1px solid #1A2E45;
+    padding-bottom: 10px;
+    margin-bottom: 36px;
+  }
+  .principles-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+  .p-card { border-left: 2px solid var(--crimson); padding-left: 20px; }
+  .p-num { font-family: Arial, sans-serif; font-size: 10px; font-weight: 700; color: var(--crimson); margin-bottom: 7px; letter-spacing: 0.1em; }
+  .p-title { font-size: 15px; font-weight: 700; color: white; margin-bottom: 8px; line-height: 1.3; }
+  .p-body { font-family: Arial, sans-serif; font-size: 12.5px; color: #6B8299; line-height: 1.6; margin-bottom: 10px; }
+  .p-example { font-size: 12.5px; color: #3A5268; font-style: italic; line-height: 1.5; }
+
+  /* ── RANKING TABLE ── */
+  .ranking { max-width: 1280px; margin: 0 auto; padding: 52px 56px; }
+  table { width: 100%; border-collapse: collapse; font-family: Arial, sans-serif; }
+  th { font-size: 8.5px; letter-spacing: 0.18em; text-transform: uppercase; color: #999; padding: 8px 16px; text-align: left; border-bottom: 2px solid var(--border); }
+  td { padding: 13px 16px; border-bottom: 1px solid var(--border); vertical-align: middle; font-size: 13px; }
+  tr:hover td { background: #F2EFEB; }
+  .rn { font-weight: 900; font-size: 16px; color: var(--oxford); }
+  .rname { font-weight: 700; color: var(--ink); }
+  .rsub { font-size: 11px; color: #999; }
+  .rs { font-family: Georgia, serif; font-weight: 700; font-size: 18px; }
+  .rs-10 { color: #C4922A; }
+  .rs-9  { color: var(--crimson); }
+  .rs-8  { color: var(--oxford); }
+  .rs-7  { color: #666; }
+  .pill { display: inline-block; background: var(--cream); border: 1px solid var(--border); padding: 2px 8px; font-size: 10px; color: #666; }
+
+  /* ── FOOTER ── */
+  .footer {
+    background: #0A0F1A;
+    padding: 28px 56px;
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+    color: #3A5268;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer strong { color: #6B8299; }
 </style>
 </head>
 <body>
 
 <!-- HEADER -->
-<div class="site-header">
+<header class="site-header">
   <div class="logo-bar"></div>
   <div>
-    <h1>Campañas de Referencia — Nebbuler</h1>
-    <p>6 Agentes de Marketing · Investigación en Cannes Lions, D&AD, El Ojo, FIAP · Mayo 2026</p>
+    <h1>Campañas de Referencia Visual — Nebbuler</h1>
+    <p>6 Agentes · 40+ campañas investigadas · Cannes Lions · D&AD · El Ojo · FIAP · Mayo 2026</p>
   </div>
-</div>
+</header>
 
 <!-- INTRO -->
 <div class="intro">
-  <p class="intro-meta">Informe estratégico · Diseño gráfico publicitario</p>
+  <p class="intro-eyebrow">Informe estratégico · Diseño gráfico publicitario</p>
   <p class="intro-text">
-    Seis agentes de marketing investigaron <strong>más de 40 campañas premiadas</strong> en festivales internacionales
-    para identificar cuáles se adaptan mejor al ADN de Nebbuler: plataforma editorial premium para profesionales chilenos,
-    paleta Azul Oxford + Crimson, tipografía serif, posicionamiento análogo al Financial Times latinoamericano.
-    A continuación, los hallazgos ordenados por relevancia estratégica.
+    Seis agentes de marketing investigaron más de 40 campañas premiadas internacionalmente
+    para identificar cuáles se adaptan mejor al ADN de Nebbuler. Aquí están las imágenes reales
+    de cada campaña, ordenadas por relevancia estratégica.
   </p>
 </div>
 
-<!-- ─────────── TOP RECOMENDACIONES ─────────── -->
+<!-- ─────────── ECONOMIST GALLERY ─────────── -->
 <div class="section">
-  <p class="section-title"><span>01</span> &nbsp;Las 10 Campañas Más Relevantes para Nebbuler</p>
+  <p class="section-label"><b>01</b> &nbsp; Modelo Principal · The Economist — La Campaña Más Relevante para Nebbuler</p>
 
-  <div class="cards">
+  <div class="economist-gallery">
+    <div class="economist-header">
+      <div>
+        <h3>"I Never Read The Economist." — Management Trainee, Aged 42</h3>
+        <p>AMV BBDO, Londres · 1988–Presente · D&AD · V&A Museum · #1 OOH de la Historia (The Drum)</p>
+      </div>
+      <div class="ec-badge">10/10</div>
+    </div>
+    <div class="economist-grid">
+      <img src="https://framemark.vam.ac.uk/collections/2006AU2233/full/735,/0/default.jpg"
+           alt="The Economist I Never Read - V&A Museum original 1988"
+           onerror="this.style.background='#B31C1C';this.style.display='block'">
+      <img src="https://cdn.prod.website-files.com/63d2e5c935189c740b46adfe/64652d5f81da7926b81b5532_money%2Btalks.png"
+           alt="The Economist Money Talks"
+           onerror="this.style.background='#8B1515'">
+      <img src="https://cdn.prod.website-files.com/63d2e5c935189c740b46adfe/64652d5f81da7926b81b5538_image-asset.png"
+           alt="The Economist red ad"
+           onerror="this.style.background='#A01818'">
+      <img src="https://cdn.prod.website-files.com/63d2e5c935189c740b46adfe/64652d5f81da7926b81b5528_image-asset.jpeg"
+           alt="The Economist red billboard"
+           onerror="this.style.background='#911212'">
+      <img src="https://cdn.prod.website-files.com/63d2e5c935189c740b46adfe/64652d5f81da7926b81b551d_image-asset.jpeg"
+           alt="The Economist red ad classic"
+           onerror="this.style.background='#C02020'">
+    </div>
+    <div class="economist-caption">
+      <b>Por qué es el modelo exacto para Nebbuler:</b> Paleta ultra restringida (2 colores). Tipografía serif. Sin imágenes. El copy avergüenza suavemente al no-lector.
+      Mecanismo adaptable: cambiar el rojo Pantone por <b>Azul Oxford #0A1628</b> y el texto blanco por serif blanca. Una frase por pieza. Circulación +65% en 14 años activos.
+      La pieza original está en la colección permanente del Victoria & Albert Museum de Londres.
+    </div>
+  </div>
+</div>
 
-    <!-- CARD 1 — FEATURED (The Economist) -->
-    <div class="card featured">
-      <div class="card-num">1</div>
-      <span class="tag gold">Modelo Principal · Adaptabilidad 10/10</span>
-      <p class="card-brand">The Economist · AMV BBDO, Londres · 1988–Presente</p>
-      <h2 class="card-title">"I Never Read The Economist." — Management Trainee, Aged 42</h2>
-      <p class="card-agency">D&AD Pencil · Cannes Lions · Victoria & Albert Museum · #1 Mejor Aviso OOH de Todos los Tiempos (The Drum)</p>
-      <div class="card-divider"></div>
-      <blockquote class="campaign-quote">
-        "I never read The Economist." — Management trainee, aged 42.<br>
-        "Not all mind-expanding substances are illegal."<br>
-        "Great minds think differently."<br>
-        "A gymnasium for the mind."
-      </blockquote>
-      <p class="card-body">
-        El sistema visual más consistente y efectivo en la historia del periodismo de opinión. Fondo rojo Pantone puro,
-        texto blanco, tipografía serif. Sin imágenes, sin ilustraciones. Solo aforismos que hacen al lector sentir que
-        pertenece a un club exclusivo — y al no-lector sentir que se está quedando atrás.
-        Funcionó por <strong>exclusión aspiracional inversa</strong>: no convence, avergüenza sutilmente.
-        El lector de 42 años que nunca la leyó es el que el lector real no quiere ser.
-        En 14 años activa: circulación +65%, suscripciones +95%.
-        La pieza original está en la colección permanente del V&A Museum de Londres.
-      </p>
-      <p class="mechanism-title">Mecanismo a adaptar para Nebbuler</p>
-      <p class="mechanism-body">
-        Fondo Azul Oxford #0A1628 · Texto blanco · Tipografía serif Georgia · Una sola frase por pieza.<br>
-        "El abogado que no publica su conocimiento pronto se vuelve irrelevante." —  Socio junior, 5 años de carrera.<br>
-        "El economista promedio no sabe lo que sabe el economista de Nebbuler."
-      </p>
-      <div class="adapt-row">
-        <div>
-          <p class="adapt-label">Adaptabilidad para Nebbuler</p>
-          <div class="adapt-bar-bg"><div class="adapt-bar-fill" style="width:100%;"></div></div>
-        </div>
-        <div class="adapt-score">10 <span class="denom">/10</span></div>
+<!-- ─────────── CAMPAIGNS ─────────── -->
+<div class="section">
+  <p class="section-label"><b>02</b> &nbsp; Las Campañas · Con Sus Imágenes Reales</p>
+
+  <div class="campaigns">
+
+    <!-- 1. The Economist Lightbulb -->
+    <div class="campaign dark">
+      <div class="campaign-image">
+        <img src="https://digitaltripathi.com/wp-content/uploads/2024/02/the-economist-billboard-v1.webp"
+             alt="The Economist Lightbulb Billboard 2005"
+             onerror="this.parentElement.style.background='#B31C1C'">
+        <div class="score-badge gold-score">8 <span>/10</span></div>
+      </div>
+      <div class="campaign-text">
+        <span class="c-tag gold">Demostración Visual · #1 OOH Historia</span>
+        <p class="c-brand">The Economist · AMV BBDO · 2005</p>
+        <h2 class="c-title">"The Lightbulb Billboard"</h2>
+        <p class="c-awards">Grand Prix múltiples festivales · The One Show · #1 Mejor Aviso OOH de Todos los Tiempos — The Drum</p>
+        <div class="c-divider"></div>
+        <p class="c-body">
+          Valla con fondo rojo y un sensor de movimiento que enciende una bombilla real sobre la
+          cabeza del transeúnte que pasa debajo. Sin texto. Solo el logo.
+          No dice "te hace más inteligente" — lo demuestra en tiempo real.
+        </p>
+        <p class="c-insight-label">Principio para Nebbuler</p>
+        <p class="c-insight">
+          "Banner digital que está oscuro hasta que el cursor pasa — revela un dato que los demás no saben.
+          La revelación progresiva como experiencia del producto."
+        </p>
       </div>
     </div>
 
-    <!-- CARD 2 -->
-    <div class="card">
-      <div class="card-num">2</div>
-      <span class="tag">Editorial Premium</span>
-      <p class="card-brand">New York Times · Droga5 · 2017</p>
-      <h2 class="card-title">"The Truth Is Hard"</h2>
-      <p class="card-agency">One Show · D&AD Pencil · $16.8M media value · 5.12B impresiones · Mayor captación de suscriptores en 24 horas de su historia</p>
-      <div class="card-divider"></div>
-      <p class="card-body">
-        Texto negro sobre blanco. Tipografía NYT. Frases que empiezan con "The truth is..." y acumulan complejidad
-        hasta revelar la dificultad del periodismo real. Deliberadamente austero: la escasez de elementos refuerza
-        la credibilidad. Para una audiencia de alta formación crítica, el diseño mínimo es señal de confianza.
-        Generó más suscriptores en 24 horas que en las 6 semanas previas.
-      </p>
-      <blockquote class="campaign-quote">"The truth is hard. The truth is hidden. The truth must be pursued."</blockquote>
-      <p class="mechanism-title">Mecanismo para Nebbuler</p>
-      <p class="mechanism-body">
-        "El análisis correcto es difícil. El análisis correcto toma años. El análisis correcto vive aquí."
-        Texto blanco sobre Oxford Blue, formato de scroll progresivo.
-      </p>
-      <div class="adapt-row">
-        <div>
-          <p class="adapt-label">Adaptabilidad</p>
-          <div class="adapt-bar-bg"><div class="adapt-bar-fill" style="width:90%;"></div></div>
-        </div>
-        <div class="adapt-score">9 <span class="denom">/10</span></div>
+    <!-- 2. NYT Truth is Hard -->
+    <div class="campaign reverse">
+      <div class="campaign-image">
+        <img src="https://assets.fontsinuse.com/use-media/49196/upto-700xauto/69b51bbf/1/jpeg/new-york-times-truth-1.jpeg"
+             alt="New York Times The Truth Is Hard 2017 Droga5"
+             onerror="this.parentElement.style.background='#111'">
+        <div class="score-badge">9 <span>/10</span></div>
+      </div>
+      <div class="campaign-text">
+        <span class="c-tag news">Editorial · Postura</span>
+        <p class="c-brand">New York Times · Droga5 · 2017</p>
+        <h2 class="c-title">"The Truth Is Hard"</h2>
+        <p class="c-awards">One Show · D&AD Pencil · $16.8M media value · 5.12B impresiones · Mayor captación de suscriptores en 24h de su historia</p>
+        <div class="c-divider"></div>
+        <p class="c-body">
+          Texto negro sobre blanco. Tipografía NYT. Frases que empiezan con "The truth is…"
+          y acumulan complejidad. Deliberadamente austero. La escasez de elementos refuerza la credibilidad.
+          Generó más suscriptores en 24 horas que en las 6 semanas previas.
+        </p>
+        <p class="c-insight-label">Frase adaptable para Nebbuler</p>
+        <p class="c-insight">
+          "El análisis correcto es difícil. El análisis correcto toma años.
+          El análisis correcto vive en Nebbuler."
+        </p>
       </div>
     </div>
 
-    <!-- CARD 3 -->
-    <div class="card">
-      <div class="card-num">3</div>
-      <span class="tag">Demostración Visual</span>
-      <p class="card-brand">The Economist · AMV BBDO · 2005</p>
-      <h2 class="card-title">"The Lightbulb Billboard"</h2>
-      <p class="card-agency">#1 Mejor Aviso Exterior de la Historia (The Drum) · Grand Prix múltiples festivales · One Show</p>
-      <div class="card-divider"></div>
-      <p class="card-body">
-        Valla con fondo rojo. Un sensor de movimiento enciende una bombilla real sobre la cabeza del transeúnte
-        que pasa debajo. Sin texto. Solo el logo. La ecuación "leer Economist = ideas" se demuestra, no se afirma.
-        Cuando alguien pasa, la bombilla se enciende literalmente sobre su cabeza.
-      </p>
-      <p class="mechanism-title">Mecanismo para Nebbuler</p>
-      <p class="mechanism-body">
-        Banner digital que está oscuro hasta que el cursor pasa: revela un insight económico oculto.
-        "Hover para ver lo que los demás no saben." La revelación progresiva como experiencia de la plataforma.
-      </p>
-      <div class="adapt-row">
-        <div>
-          <p class="adapt-label">Adaptabilidad (digital)</p>
-          <div class="adapt-bar-bg"><div class="adapt-bar-fill" style="width:80%;"></div></div>
-        </div>
-        <div class="adapt-score">8 <span class="denom">/10</span></div>
+    <!-- 3. Apple Think Different -->
+    <div class="campaign">
+      <div class="campaign-image portrait">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/1/1c/Apple_%27Think_Different%27_Poster_-_Theodore_Roosevelt.jpg"
+             alt="Apple Think Different Theodore Roosevelt poster 1997"
+             onerror="this.parentElement.style.background='#222'">
+        <div class="score-badge">9 <span>/10</span></div>
+      </div>
+      <div class="campaign-text">
+        <span class="c-tag">Tribu · Identidad</span>
+        <p class="c-brand">Apple · TBWA\Chiat\Day · 1997</p>
+        <h2 class="c-title">"Think Different"</h2>
+        <p class="c-awards">Emmy Award 1998 · Grand Clio · Cannes Lions · Grand Effie 2000 — Campaña más efectiva de América · Caso de estudio #1 en escuelas de publicidad del mundo</p>
+        <div class="c-divider"></div>
+        <p class="c-body">
+          Fotografía B&N de un ícono histórico. Logo Apple esquina inferior derecha.
+          "Think Different" en Garamond serif. Sin headline, sin body copy, sin CTA.
+          El nombre del personaje ni aparece — se asume que el espectador lo reconoce.
+          La marca no vende el producto: vende pertenencia a la tribu de los que cambian el mundo.
+        </p>
+        <p class="c-insight-label">Mecanismo para Nebbuler</p>
+        <p class="c-insight">
+          "Retratos B&N de pensadores chilenos. Sin nombre. Sin logo grande.
+          Solo una frase y el logo Nebbuler. El lector lo reconoce — o quiere reconocerlo."
+        </p>
       </div>
     </div>
 
-    <!-- CARD 4 -->
-    <div class="card">
-      <div class="card-num">4</div>
-      <span class="tag">Objeción como argumento</span>
-      <p class="card-brand">Wall Street Journal · In-house · 2015</p>
-      <h2 class="card-title">"People Who Don't Have Time Make Time to Read The WSJ"</h2>
-      <p class="card-agency">Campaña #MakeTime · Expansión a suscriptores +18% · Referencia en Marketing Science Institute</p>
-      <div class="card-divider"></div>
-      <p class="card-body">
-        Fondo blanco. Tipografía serif pesada (Escrow Display). Blanco y negro de alto contraste.
-        El tagline convierte la principal objeción del target (ejecutivos muy ocupados para leer más)
-        en el argumento de compra: precisamente por eso necesitas leer WSJ.
-        El 78% de los prospects citaban "falta de tiempo" — la campaña lo usó como gancho.
-      </p>
-      <blockquote class="campaign-quote">"People who don't have time, make time to read The Wall Street Journal."</blockquote>
-      <p class="mechanism-title">Mecanismo para Nebbuler</p>
-      <p class="mechanism-body">
-        "Los profesionales que menos tiempo tienen son los que más necesitan saber qué leer."
-        O: "No leas más. Lee mejor. Nebbuler."
-      </p>
-      <div class="adapt-row">
-        <div>
-          <p class="adapt-label">Adaptabilidad</p>
-          <div class="adapt-bar-bg"><div class="adapt-bar-fill" style="width:90%;"></div></div>
-        </div>
-        <div class="adapt-score">9 <span class="denom">/10</span></div>
+    <!-- 4. Nike Kaepernick -->
+    <div class="campaign reverse dark">
+      <div class="campaign-image">
+        <img src="https://i0.wp.com/oohtoday.com/wp-content/uploads/2018/09/nike-kaepernick.jpg?fit=1459%2C710&ssl=1"
+             alt="Nike Believe in Something Kaepernick billboard 2018"
+             onerror="this.parentElement.style.background='#111'">
+        <div class="score-badge gold-score">8.5 <span>/10</span></div>
+      </div>
+      <div class="campaign-text">
+        <span class="c-tag">Postura editorial · Tipografía</span>
+        <p class="c-brand">Nike · Wieden+Kennedy · 2018</p>
+        <h2 class="c-title">"Believe in Something. Even If It Means Sacrificing Everything."</h2>
+        <p class="c-awards">Grand Prix Outdoor Cannes 2019 · Grand Prix Creative Effectiveness · $163M media earned · $6B brand value añadido</p>
+        <div class="c-divider"></div>
+        <p class="c-body">
+          Retrato B&N. Futura Bold blanca. Fondo negro. Un solo headline.
+          Ningún otro elemento. El diseño es deliberadamente austero para no distraer del mensaje.
+          Demuestra que la tipografía sola puede cargar máxima carga emocional.
+        </p>
+        <p class="c-insight-label">Frase para Nebbuler</p>
+        <p class="c-insight">
+          "Un abogado que no publica su conocimiento pronto trabaja
+          para quien sí lo hace."
+        </p>
       </div>
     </div>
 
-    <!-- CARD 5 -->
-    <div class="card">
-      <div class="card-num">5</div>
-      <span class="tag">Think Different</span>
-      <p class="card-brand">Apple · TBWA\Chiat\Day · 1997</p>
-      <h2 class="card-title">"Think Different"</h2>
-      <p class="card-agency">Emmy Award · Grand Clio · Cannes Lions · Grand Effie 2000 — Campaña más efectiva de América</p>
-      <div class="card-divider"></div>
-      <p class="card-body">
-        Fotografía B&N de un ícono histórico (Einstein, Gandhi, Picasso). Logo Apple esquina inferior derecha.
-        "Think Different" en Garamond serif. Sin headline, sin body copy, sin CTA. El nombre del personaje
-        ni aparece — se asume que el espectador lo reconoce. La marca no vende el producto:
-        vende pertenencia a la tribu de los que cambian el mundo.
-      </p>
-      <p class="mechanism-title">Mecanismo para Nebbuler</p>
-      <p class="mechanism-body">
-        Retratos B&N de pensadores latinoamericanos (Neruda, Borges, creadores chilenos relevantes).
-        "El conocimiento que transformó Chile." Sin nombre del profesional. El lector lo reconoce — o quiere reconocerlo.
-      </p>
-      <div class="adapt-row">
-        <div>
-          <p class="adapt-label">Adaptabilidad (con giro local)</p>
-          <div class="adapt-bar-bg"><div class="adapt-bar-fill" style="width:90%;"></div></div>
-        </div>
-        <div class="adapt-score">9 <span class="denom">/10</span></div>
+    <!-- 5. NotMilk Chile -->
+    <div class="campaign">
+      <div class="campaign-image multi-grid">
+        <img src="https://colombo.lat/wp-content/uploads/2024/05/notco-1.jpg"
+             alt="NotMilk Nosotros no escribimos esta campaña Chile Cannes 2023"
+             onerror="this.parentElement.style.background='#F5F5F5'">
+        <img src="https://colombo.lat/wp-content/uploads/2024/05/notco-2.jpg"
+             alt="NotMilk campaña texto legal Chile"
+             onerror="this.parentElement.style.background='#EFEFEF'">
+        <img src="https://colombo.lat/wp-content/uploads/2024/05/notco-3.jpg"
+             alt="NotMilk Cannes Gold Lion Chile"
+             onerror="this.parentElement.style.background='#E8E8E8'">
+        <img src="https://colombo.lat/wp-content/uploads/2024/05/notco-1.jpg"
+             alt="NotMilk legal document ad"
+             onerror="this.parentElement.style.background='#F0F0F0'">
+        <div class="score-badge">9 <span>/10</span></div>
+      </div>
+      <div class="campaign-text">
+        <span class="c-tag chile">Chile 🇨🇱 · Único León de Oro local 2023</span>
+        <p class="c-brand">NotMilk / NotCo · MRM Santiago · Cannes Lions 2023</p>
+        <h2 class="c-title">"Nosotros No Escribimos Esta Campaña"</h2>
+        <p class="c-awards">Gold Lion Print & Publishing Cannes Lions 2023 · Único León de Oro chileno ese año · +5pts market share Q1 · Agencia: MRM Santiago</p>
+        <div class="c-divider"></div>
+        <p class="c-body">
+          Los avisos reproducían literalmente el texto de la demanda legal interpuesta
+          contra NotMilk. El texto jurídico frío era el cuerpo del aviso.
+          Los mismos demandantes describían el producto con tal precisión que se convertía
+          en el mejor argumento de venta. <strong>Hecho en Santiago.</strong>
+        </p>
+        <p class="c-insight-label">Mecanismo para Nebbuler</p>
+        <p class="c-insight">
+          "Usar la descripción que un medio tradicional haría de Nebbuler como argumento de venta.
+          'Otro Substack en español' — Prensa convencional, 2026.
+          Y abajo: Exactamente lo que no somos."
+        </p>
       </div>
     </div>
 
-    <!-- CARD 6 — LATAM -->
-    <div class="card">
-      <div class="card-num">6</div>
-      <span class="tag latam">Chile · Único León de Oro local</span>
-      <p class="card-brand">NotMilk / NotCo · MRM Santiago · 2023</p>
-      <h2 class="card-title">"Nosotros No Escribimos Esta Campaña"</h2>
-      <p class="card-agency">Gold Lion Print & Publishing Cannes Lions 2023 · Único León de Oro chileno ese año · +5pts market share Q1</p>
-      <div class="card-divider"></div>
-      <p class="card-body">
-        Los avisos reproducían literalmente el texto de la demanda legal que la industria láctea interpuso
-        contra NotMilk. El texto jurídico frío y formal era el cuerpo del aviso.
-        Los demandantes describían el producto con tal precisión que se convertía en el mejor argumento de venta.
-        Tipografía monoespaciada, formato de documento, sin imagen. <strong>Hecho en Santiago.</strong>
-        Demostró que el lenguaje institucional subvertido puede ser el activo creativo más poderoso.
-      </p>
-      <p class="mechanism-title">Mecanismo para Nebbuler</p>
-      <p class="mechanism-body">
-        Usar la descripción que un periódico tradicional haría de Nebbuler como argumento de venta.
-        "Otro Substack en español" — Prensa convencional, 2026. / Y abajo: "Exactamente lo que no somos."
-      </p>
-      <div class="adapt-row">
-        <div>
-          <p class="adapt-label">Adaptabilidad (mercado chileno)</p>
-          <div class="adapt-bar-bg"><div class="adapt-bar-fill" style="width:90%;"></div></div>
-        </div>
-        <div class="adapt-score">9 <span class="denom">/10</span></div>
+    <!-- 6. VW Think Small -->
+    <div class="campaign reverse">
+      <div class="campaign-image">
+        <img src="https://upload.wikimedia.org/wikipedia/en/2/2b/Think_Small.jpg"
+             alt="Volkswagen Think Small 1959 DDB anuncio"
+             onerror="this.parentElement.style.background='#FFF'">
+        <div class="score-badge">8 <span>/10</span></div>
+      </div>
+      <div class="campaign-text">
+        <span class="c-tag">Espacio negativo · Confianza</span>
+        <p class="c-brand">Volkswagen · DDB, Nueva York · 1959</p>
+        <h2 class="c-title">"Think Small"</h2>
+        <p class="c-awards">Campaña #1 del siglo XX — Ad Age · Inventó la publicidad moderna · Referencia permanente en todos los festivales</p>
+        <div class="c-divider"></div>
+        <p class="c-body">
+          Fondo blanco ocupando 80% del aviso. El Beetle diminuto, descentrado.
+          En la era del exceso americano, mostrar honestamente que el auto es pequeño
+          convierte la debilidad en virtud. La autenticidad como ventaja competitiva.
+          El espacio negativo como señal de confianza, no de escasez.
+        </p>
+        <p class="c-insight-label">Principio para Nebbuler</p>
+        <p class="c-insight">
+          "El primer instinto es llenar el aviso. El aviso más efectivo tiene 80% de espacio vacío.
+          Una frase. Un logo. Nada más."
+        </p>
       </div>
     </div>
 
-    <!-- CARD 7 — Nike -->
-    <div class="card">
-      <div class="card-num">7</div>
-      <span class="tag">Tipografía como emoción</span>
-      <p class="card-brand">Nike · Wieden+Kennedy · 2018</p>
-      <h2 class="card-title">"Believe in Something. Even If It Means Sacrificing Everything."</h2>
-      <p class="card-agency">Grand Prix Outdoor Lions Cannes 2019 · $163M media earned · $6B brand value añadido · Grand Prix Creative Effectiveness</p>
-      <div class="card-divider"></div>
-      <p class="card-body">
-        Retrato de Colin Kaepernick en B&N. Mirada directa. Futura Bold blanca.
-        Fondo negro. Un solo headline. Ningún otro elemento. El diseño es deliberadamente austero
-        para no distraer del mensaje. Postura editorial clara sobre un tema divisivo.
-        Demuestra que la tipografía sola puede cargar máxima carga emocional.
-      </p>
-      <p class="mechanism-title">Mecanismo para Nebbuler</p>
-      <p class="mechanism-body">
-        Una sola frase con postura sobre el conocimiento profesional en Chile.
-        "Un abogado que no publica su conocimiento pronto trabaja para quien sí lo hace."
-        Fondo Oxford Blue. Tipografía serif blanca. Sin imagen.
-      </p>
-      <div class="adapt-row">
-        <div>
-          <p class="adapt-label">Adaptabilidad</p>
-          <div class="adapt-bar-bg"><div class="adapt-bar-fill" style="width:85%;"></div></div>
-        </div>
-        <div class="adapt-score">8.5 <span class="denom">/10</span></div>
+    <!-- 7. Absolut Perfection -->
+    <div class="campaign">
+      <div class="campaign-image multi-grid">
+        <img src="https://vinepair.com/wp-content/uploads/2023/08/most-iconic-posters-from-the-legendary-absolut-perfection-campaign-perfection-internal.jpg"
+             alt="Absolut Perfection botella con halo TBWA 1981"
+             onerror="this.parentElement.style.background='#F9F9F9'">
+        <img src="https://vinepair.com/wp-content/uploads/2023/08/most-iconic-posters-from-the-legendary-absolut-perfection-campaign-warhol-internal.jpg"
+             alt="Absolut Warhol version 1986"
+             onerror="this.parentElement.style.background='#EFEFEF'">
+        <img src="https://vinepair.com/wp-content/uploads/2023/08/most-iconic-posters-from-the-legendary-absolut-perfection-campaign-la-internal.jpg"
+             alt="Absolut LA version piscinas"
+             onerror="this.parentElement.style.background='#E8E8E8'">
+        <img src="https://vinepair.com/wp-content/uploads/2023/08/most-iconic-posters-from-the-legendary-absolut-perfection-campaign-perfection-internal.jpg"
+             alt="Absolut Perfection"
+             onerror="this.parentElement.style.background='#F0F0F0'">
+        <div class="score-badge">7 <span>/10</span></div>
+      </div>
+      <div class="campaign-text">
+        <span class="c-tag">Sistema · 1500 ejecuciones</span>
+        <p class="c-brand">Absolut Vodka · TBWA Nueva York · 1981–2006</p>
+        <h2 class="c-title">"Absolut Perfection" / "Absolut ___"</h2>
+        <p class="c-awards">AMA Marketing Hall of Fame (solo con Coca-Cola y Nike) · Campaña de print más larga y exitosa de la historia · 1,500 ejecuciones, misma estructura en 25 años</p>
+        <div class="c-divider"></div>
+        <p class="c-body">
+          La botella centrada. Un elemento visual la rodea o modifica.
+          Dos palabras: "ABSOLUT [ALGO]". Sin headline. Sin copy. Sin argumentación.
+          La inteligencia del espectador completa el mensaje.
+          Más de 1,500 ejecuciones manteniendo la misma estructura de dos palabras en 25 años.
+        </p>
+        <p class="c-insight-label">Principio para Nebbuler</p>
+        <p class="c-insight">
+          "Un sistema tan consistente que 1,500 ejecuciones son reconocibles como una sola marca.
+          Nebbuler Oxford Blue + serif + una frase = cualquier formato, cualquier red."
+        </p>
       </div>
     </div>
 
-    <!-- CARD 8 — McKinsey -->
-    <div class="card">
-      <div class="card-num">8</div>
-      <span class="tag">Identidad como campaña</span>
-      <p class="card-brand">McKinsey & Company · Wolff Olins · 2019</p>
-      <h2 class="card-title">"Deep Blue System" — La identidad es la campaña</h2>
-      <p class="card-agency">Referencia IPA Effectiveness · Caso de estudio Brand Finance · Reconocimiento Communication Arts</p>
-      <div class="card-divider"></div>
-      <p class="card-body">
-        McKinsey reemplazó su azul corporativo medio por un azul profundo casi oscuro sobre blanco puro.
-        Tipografía custom McKinsey Sans + McKinsey Serif. Data visualization como expresión de marca.
-        La idea central: <em>"el contraste azul oscuro/blanco puro representa la capacidad de cortar a través
-        de lo complejo y entregar lo que realmente importa."</em>
-        Cada touchpoint de McKinsey ES un aviso sin serlo.
-      </p>
-      <p class="mechanism-title">Mecanismo para Nebbuler</p>
-      <p class="mechanism-body">
-        El Azul Oxford #0A1628 de Nebbuler es más profundo que el McKinsey navy — ventaja diferenciadora.
-        Cada post, cada email, cada tarjeta de creador debe ser tan visualmente consistente que el receptor
-        lo reconozca como Nebbuler sin ver el logo.
-      </p>
-      <div class="adapt-row">
-        <div>
-          <p class="adapt-label">Adaptabilidad (sistema visual)</p>
-          <div class="adapt-bar-bg"><div class="adapt-bar-fill" style="width:90%;"></div></div>
-        </div>
-        <div class="adapt-score">9 <span class="denom">/10</span></div>
+    <!-- 8. Pelican Books -->
+    <div class="campaign reverse">
+      <div class="campaign-image">
+        <img src="https://flashbak.com/wp-content/uploads/2021/11/01_PELICAN_HEMINGWAY_BAKER-1200x1962.jpg"
+             alt="Pelican Books sistema tipográfico azul cian Penguin"
+             style="object-position: center center;"
+             onerror="this.parentElement.style.background='#006B8F'">
+        <div class="score-badge">8 <span>/10</span></div>
       </div>
-    </div>
-
-    <!-- CARD 9 -->
-    <div class="card">
-      <div class="card-num">9</div>
-      <span class="tag newsletter">Newsletter · Growth</span>
-      <p class="card-brand">Morning Brew · In-house Creative Studio · 2018–2020</p>
-      <h2 class="card-title">"Get Smarter in 5 Minutes" — Sistema de Referidos Visual</h2>
-      <p class="card-agency">30% de suscriptores por referidos peer-to-peer · 4M suscriptores · Caso canónico en Growth Marketing de newsletters</p>
-      <div class="card-divider"></div>
-      <p class="card-body">
-        El ad más referenciado del espacio newsletter. Fondo amarillo mostaza saturado, tipografía negra, cero
-        imágenes decorativas, CTA directo. En un feed lleno de imágenes, el bloque de color plano detiene el scroll
-        mejor que cualquier fotografía. El sistema de referidos usó barra de progreso estilo videojuego dentro del newsletter.
-        Paleta ultra restringida como sistema completo: todo es amarillo mostaza + negro, en todos los canales.
-      </p>
-      <p class="mechanism-title">Mecanismo para Nebbuler</p>
-      <p class="mechanism-body">
-        Bloque Oxford Blue sólido como ad en Meta. Sin imagen. Texto serif blanco.
-        Una promesa: "Análisis económico que ningún diario chileno publica. Gratis esta semana."
-      </p>
-      <div class="adapt-row">
-        <div>
-          <p class="adapt-label">Adaptabilidad (ads performance)</p>
-          <div class="adapt-bar-bg"><div class="adapt-bar-fill" style="width:85%;"></div></div>
-        </div>
-        <div class="adapt-score">8.5 <span class="denom">/10</span></div>
-      </div>
-    </div>
-
-    <!-- CARD 10 — An-Nahar -->
-    <div class="card">
-      <div class="card-num">10</div>
-      <span class="tag">Gesto editorial</span>
-      <p class="card-brand">An-Nahar Newspaper · Impact BBDO Dubai · 2018</p>
-      <h2 class="card-title">"The Blank Edition" — El acto editorial como campaña</h2>
-      <p class="card-agency">Grand Prix Print & Publishing Cannes Lions 2019 · Primer Grand Prix de la región MENA · Jurado tomó 5 segundos</p>
-      <div class="card-divider"></div>
-      <p class="card-body">
-        El diario libanés publicó 8 páginas en blanco como protesta contra la inacción política.
-        El texto legal/editorial era la ausencia de texto. El diseño era la ausencia de diseño.
-        La cabecera del diario sola, sobre páginas en blanco. El blanco como argumento, no como vacío.
-        El gesto conceptual fue tan poderoso que el jurado tardó literalmente 5 segundos en otorgar el Grand Prix.
-      </p>
-      <p class="mechanism-title">Mecanismo para Nebbuler</p>
-      <p class="mechanism-body">
-        Una "edición especial" de Nebbuler sobre un tema de alto impacto (reforma tributaria, nueva ley de salud)
-        puede ser en sí misma el acto publicitario. El producto editorial como campaña de awareness.
-      </p>
-      <div class="adapt-row">
-        <div>
-          <p class="adapt-label">Adaptabilidad (activación)</p>
-          <div class="adapt-bar-bg"><div class="adapt-bar-fill" style="width:70%;"></div></div>
-        </div>
-        <div class="adapt-score">7 <span class="denom">/10</span></div>
+      <div class="campaign-text">
+        <span class="c-tag">Color como credencial</span>
+        <p class="c-brand">Pelican Books (Penguin) · Pentagram · 1937 / Relaunch 2014</p>
+        <h2 class="c-title">Sistema Pelican — El Color que Señala "Esto es Serio"</h2>
+        <p class="c-awards">Considerado el sistema de identidad editorial más influyente del siglo XX · "Hefty ideas made accessible"</p>
+        <div class="c-divider"></div>
+        <p class="c-body">
+          Fondo cian sólido. Tipografía ultra-condensada negra para el título. Sin fotografía.
+          Sin ornamentación. La identidad completa descansa en jerarquía tipográfica y color.
+          Un lector educado sabía que el libro azul era el libro serio.
+          El sistema de color funcionó como credencial intelectual instantánea.
+        </p>
+        <p class="c-insight-label">Principio para Nebbuler</p>
+        <p class="c-insight">
+          "El Azul Oxford #0A1628 puede funcionar como el cian de Pelican:
+          un bloque de color que en sí mismo dice 'esto es serio' sin necesidad de palabras."
+        </p>
       </div>
     </div>
 
   </div>
 </div>
 
-<!-- ─────────── RANKING RÁPIDO ─────────── -->
+<!-- ─────────── PRINCIPLES ─────────── -->
+<div class="principles">
+  <div class="principles-inner">
+    <h2>03 · Principios Universales — Lo Que Todas Tienen en Común</h2>
+    <div class="principles-grid">
+      <div class="p-card">
+        <p class="p-num">01</p>
+        <h3 class="p-title">Nunca explican el chiste</h3>
+        <p class="p-body">The Economist no explicó por qué debías leerlo. Apple no explicó por qué Jobs era un genio. Las mejores piezas asumen que el espectador es inteligente. Si tiene que explicarse, la idea falló.</p>
+        <p class="p-example">Para Nebbuler: el aviso que menos explique qué es la plataforma será el más eficaz.</p>
+      </div>
+      <div class="p-card">
+        <p class="p-num">02</p>
+        <h3 class="p-title">Paleta ultra restringida</h3>
+        <p class="p-body">The Economist: rojo + blanco. Pelican: cian + negro. FT: salmón + oscuro. Tres colores máximo, sin excepción en cada touchpoint.</p>
+        <p class="p-example">Para Nebbuler: Oxford #0A1628 + Crimson #B31C1C + Blanco. Ningún color adicional en ads.</p>
+      </div>
+      <div class="p-card">
+        <p class="p-num">03</p>
+        <h3 class="p-title">El copy es el diseño</h3>
+        <p class="p-body">Las campañas más premiadas de 40 años son tipografía sobre color plano. Sin stock photos, sin ilustraciones decorativas. Una frase por pieza.</p>
+        <p class="p-example">Para Nebbuler: texto serif blanco sobre azul Oxford #0A1628 es el sistema completo.</p>
+      </div>
+      <div class="p-card">
+        <p class="p-num">04</p>
+        <h3 class="p-title">Exclusión aspiracional</h3>
+        <p class="p-body">The Economist no invita a todos. Apple no invita a todos a "Think Different". El club exclusivo atrae más que la bienvenida abierta.</p>
+        <p class="p-example">Para Nebbuler: "No es para todos." puede ser el copy más efectivo que existe.</p>
+      </div>
+      <div class="p-card">
+        <p class="p-num">05</p>
+        <h3 class="p-title">Postura editorial clara</h3>
+        <p class="p-body">Nike tomó una postura con Kaepernick. NYT declaró que la verdad es difícil. NotMilk usó el arma del enemigo. Las audiencias intelectuales respetan la postura, no la neutralidad.</p>
+        <p class="p-example">Para Nebbuler: una declaración sobre el periodismo chileno o el conocimiento profesional.</p>
+      </div>
+      <div class="p-card">
+        <p class="p-num">06</p>
+        <h3 class="p-title">Austeridad como lujo</h3>
+        <p class="p-body">An-Nahar ganó el Grand Prix con páginas en blanco. NotMilk ganó con un documento legal. VW ganó con 80% de espacio vacío. La austeridad comunica confianza.</p>
+        <p class="p-example">Para Nebbuler: el primer ad puede ser texto blanco sobre azul Oxford hecho en Canva en 10 minutos.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─────────── RANKING ─────────── -->
 <div class="ranking">
-  <p class="section-title"><span>02</span> &nbsp;Ranking Consolidado — Adaptabilidad a Nebbuler</p>
+  <p class="section-label"><b>04</b> &nbsp; Ranking Final · Adaptabilidad a Nebbuler</p>
   <table>
     <thead>
       <tr>
@@ -564,189 +606,94 @@
         <th>Campaña</th>
         <th>Marca · Año</th>
         <th>Mecanismo clave</th>
-        <th>Adaptabilidad</th>
+        <th>Score</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td><span class="rank-num">1</span></td>
-        <td><span class="campaign-name-cell">"I Never Read The Economist"</span><br><span class="campaign-sub">White Out of Red</span></td>
+        <td><span class="rn">1</span></td>
+        <td><span class="rname">"I Never Read The Economist"</span><br><span class="rsub">White Out of Red · AMV BBDO</span></td>
         <td>The Economist · 1988</td>
-        <td><span class="mechanism-pill">Exclusión aspiracional inversa</span></td>
-        <td><span class="score-cell score-perfect">10/10</span></td>
+        <td><span class="pill">Exclusión aspiracional inversa</span></td>
+        <td><span class="rs rs-10">10</span></td>
       </tr>
       <tr>
-        <td><span class="rank-num">2</span></td>
-        <td><span class="campaign-name-cell">"The Truth Is Hard"</span></td>
+        <td><span class="rn">2</span></td>
+        <td><span class="rname">"The Truth Is Hard"</span><br><span class="rsub">Droga5</span></td>
         <td>New York Times · 2017</td>
-        <td><span class="mechanism-pill">Tipografía + postura editorial</span></td>
-        <td><span class="score-cell score-high">9/10</span></td>
+        <td><span class="pill">Tipografía + postura editorial</span></td>
+        <td><span class="rs rs-9">9</span></td>
       </tr>
       <tr>
-        <td><span class="rank-num">3</span></td>
-        <td><span class="campaign-name-cell">"#MakeTime"</span><br><span class="campaign-sub">People who don't have time...</span></td>
+        <td><span class="rn">3</span></td>
+        <td><span class="rname">"#MakeTime"</span><br><span class="rsub">People who don't have time...</span></td>
         <td>Wall Street Journal · 2015</td>
-        <td><span class="mechanism-pill">Objeción como argumento</span></td>
-        <td><span class="score-cell score-high">9/10</span></td>
+        <td><span class="pill">Objeción como argumento</span></td>
+        <td><span class="rs rs-9">9</span></td>
       </tr>
       <tr>
-        <td><span class="rank-num">4</span></td>
-        <td><span class="campaign-name-cell">"Think Different"</span></td>
+        <td><span class="rn">4</span></td>
+        <td><span class="rname">"Think Different"</span><br><span class="rsub">TBWA\Chiat\Day</span></td>
         <td>Apple · 1997</td>
-        <td><span class="mechanism-pill">Marca como cómplice del lector inteligente</span></td>
-        <td><span class="score-cell score-high">9/10</span></td>
+        <td><span class="pill">Marca como cómplice intelectual</span></td>
+        <td><span class="rs rs-9">9</span></td>
       </tr>
       <tr>
-        <td><span class="rank-num">5</span></td>
-        <td><span class="campaign-name-cell">"Nosotros No Escribimos Esta Campaña"</span></td>
-        <td>NotMilk Chile · 2023 🇨🇱</td>
-        <td><span class="mechanism-pill">Lenguaje institucional subvertido</span></td>
-        <td><span class="score-cell score-high">9/10</span></td>
+        <td><span class="rn">5</span></td>
+        <td><span class="rname">"Nosotros No Escribimos Esta Campaña"</span><br><span class="rsub">MRM Santiago · Único León de Oro CL 2023 🇨🇱</span></td>
+        <td>NotMilk / NotCo · 2023</td>
+        <td><span class="pill">Lenguaje institucional subvertido</span></td>
+        <td><span class="rs rs-9">9</span></td>
       </tr>
       <tr>
-        <td><span class="rank-num">6</span></td>
-        <td><span class="campaign-name-cell">"Deep Blue System"</span><br><span class="campaign-sub">Identidad como campaña permanente</span></td>
+        <td><span class="rn">6</span></td>
+        <td><span class="rname">"Deep Blue System"</span><br><span class="rsub">Identidad como campaña permanente</span></td>
         <td>McKinsey · 2019</td>
-        <td><span class="mechanism-pill">Sistema visual = publicidad continua</span></td>
-        <td><span class="score-cell score-high">9/10</span></td>
+        <td><span class="pill">Cada touchpoint es un aviso</span></td>
+        <td><span class="rs rs-9">9</span></td>
       </tr>
       <tr>
-        <td><span class="rank-num">7</span></td>
-        <td><span class="campaign-name-cell">"Believe in Something"</span><br><span class="campaign-sub">Kaepernick Billboard</span></td>
+        <td><span class="rn">7</span></td>
+        <td><span class="rname">"Believe in Something"</span><br><span class="rsub">Kaepernick Billboard</span></td>
         <td>Nike · 2018</td>
-        <td><span class="mechanism-pill">Postura valiente + tipografía sola</span></td>
-        <td><span class="score-cell score-high">8.5/10</span></td>
+        <td><span class="pill">Postura valiente + tipografía sola</span></td>
+        <td><span class="rs rs-8">8.5</span></td>
       </tr>
       <tr>
-        <td><span class="rank-num">8</span></td>
-        <td><span class="campaign-name-cell">"Get Smarter in 5 Minutes"</span></td>
-        <td>Morning Brew · 2018</td>
-        <td><span class="mechanism-pill">Bloque de color + promesa directa</span></td>
-        <td><span class="score-cell score-high">8.5/10</span></td>
-      </tr>
-      <tr>
-        <td><span class="rank-num">9</span></td>
-        <td><span class="campaign-name-cell">"The Lightbulb Billboard"</span></td>
+        <td><span class="rn">8</span></td>
+        <td><span class="rname">"The Lightbulb Billboard"</span></td>
         <td>The Economist · 2005</td>
-        <td><span class="mechanism-pill">Demostrar en vez de afirmar</span></td>
-        <td><span class="score-cell score-high">8/10</span></td>
+        <td><span class="pill">Demostrar vs. afirmar</span></td>
+        <td><span class="rs rs-8">8</span></td>
       </tr>
       <tr>
-        <td><span class="rank-num">10</span></td>
-        <td><span class="campaign-name-cell">"Pelican Books Revival"</span></td>
-        <td>Penguin/Pelican · 2014</td>
-        <td><span class="mechanism-pill">Color como credencial intelectual</span></td>
-        <td><span class="score-cell score-high">8/10</span></td>
+        <td><span class="rn">9</span></td>
+        <td><span class="rname">Sistema Pelican Books</span><br><span class="rsub">Relaunch Pentagram 2014</span></td>
+        <td>Penguin / Pelican · 2014</td>
+        <td><span class="pill">Color como credencial intelectual</span></td>
+        <td><span class="rs rs-8">8</span></td>
       </tr>
       <tr>
-        <td><span class="rank-num">—</span></td>
-        <td><span class="campaign-name-cell">"Shot on iPhone 6"</span></td>
-        <td>Apple · 2015</td>
-        <td><span class="mechanism-pill">Usuario como protagonista visual</span></td>
-        <td><span class="score-cell">7.5/10</span></td>
-      </tr>
-      <tr>
-        <td><span class="rank-num">—</span></td>
-        <td><span class="campaign-name-cell">"TagWords"</span><br><span class="campaign-sub">Cannes Grand Prix Print 2018</span></td>
-        <td>Budweiser Brasil · 2018</td>
-        <td><span class="mechanism-pill">Economía tipográfica + activación cultural</span></td>
-        <td><span class="score-cell">7/10</span></td>
-      </tr>
-      <tr>
-        <td><span class="rank-num">—</span></td>
-        <td><span class="campaign-name-cell">"The Blank Edition"</span></td>
-        <td>An-Nahar Lebanon · 2018</td>
-        <td><span class="mechanism-pill">Ausencia como argumento editorial</span></td>
-        <td><span class="score-cell">7/10</span></td>
+        <td><span class="rn">10</span></td>
+        <td><span class="rname">"Think Small"</span></td>
+        <td>Volkswagen · 1959</td>
+        <td><span class="pill">Espacio negativo como confianza</span></td>
+        <td><span class="rs rs-8">8</span></td>
       </tr>
     </tbody>
   </table>
 </div>
 
-<!-- ─────────── PRINCIPIOS UNIVERSALES ─────────── -->
-<div class="principles">
-  <div class="principles-inner">
-    <h2>03 &nbsp;· &nbsp; Principios Universales — Lo Que Todas Las Mejores Campañas Tienen en Común</h2>
-    <div class="principles-grid">
-
-      <div class="principle-card">
-        <p class="principle-num">01</p>
-        <h3 class="principle-title">Nunca explican el chiste</h3>
-        <p class="principle-body">
-          The Economist no explicó por qué debías leerlo. Apple no explicó por qué Steve Jobs era un genio.
-          Las mejores piezas asumen que el espectador es inteligente. Si tiene que explicarse, la idea falló.
-        </p>
-        <p class="principle-example">Para Nebbuler: el aviso que menos explique qué es la plataforma será el más eficaz.</p>
-      </div>
-
-      <div class="principle-card">
-        <p class="principle-num">02</p>
-        <h3 class="principle-title">Paleta ultra restringida</h3>
-        <p class="principle-body">
-          The Economist: rojo + blanco. Pelican Books: cian + negro. FT: salmón + oscuro.
-          McKinsey: azul profundo + blanco. Tres colores máximo, aplicados sin excepción en cada touchpoint.
-        </p>
-        <p class="principle-example">Para Nebbuler: Oxford Blue #0A1628 + Crimson #B31C1C + Blanco. Ningún color adicional en ads.</p>
-      </div>
-
-      <div class="principle-card">
-        <p class="principle-num">03</p>
-        <h3 class="principle-title">El copy es el diseño</h3>
-        <p class="principle-body">
-          Las campañas más premiadas de los últimos 40 años son tipografía sobre color plano.
-          Sin fotografía de stock, sin ilustraciones decorativas, sin iconos. Una frase por pieza.
-        </p>
-        <p class="principle-example">Para Nebbuler: el texto serif blanco sobre azul Oxford #0A1628 es el sistema completo.</p>
-      </div>
-
-      <div class="principle-card">
-        <p class="principle-num">04</p>
-        <h3 class="principle-title">Exclusión aspiracional</h3>
-        <p class="principle-body">
-          The Economist no invita a todos a leerlo. Apple no invita a todos a "Think Different".
-          El club exclusivo atrae más que la bienvenida abierta. El profesional de élite quiere sentirse
-          distinto al promedio, no igual.
-        </p>
-        <p class="principle-example">Para Nebbuler: "No es para todos." puede ser el copy más efectivo que existe.</p>
-      </div>
-
-      <div class="principle-card">
-        <p class="principle-num">05</p>
-        <h3 class="principle-title">Postura editorial clara</h3>
-        <p class="principle-body">
-          Nike tomó una postura con Kaepernick. The Guardian declaró independencia. NYT declaró que la
-          verdad es difícil. Ninguna tuvo miedo de dividir. Las audiencias de alta formación intelectual
-          respetan la postura, no la neutralidad calculada.
-        </p>
-        <p class="principle-example">Para Nebbuler: tomar una postura sobre el periodismo chileno o el conocimiento profesional local.</p>
-      </div>
-
-      <div class="principle-card">
-        <p class="principle-num">06</p>
-        <h3 class="principle-title">Austeridad como lujo</h3>
-        <p class="principle-body">
-          Las campañas más caras en términos de efectividad fueron las más baratas en producción.
-          An-Nahar ganó el Grand Prix con páginas en blanco. NotMilk ganó con un documento legal.
-          La austeridad comunica confianza, no escasez de presupuesto.
-        </p>
-        <p class="principle-example">Para Nebbuler: el primer ad puede ser texto blanco sobre fondo azul oscuro hecho en Canva en 10 minutos.</p>
-      </div>
-
-    </div>
-  </div>
-</div>
-
 <!-- FOOTER -->
-<div class="footer">
+<footer class="footer">
   <div>
-    <strong>Nebbuler</strong> · Campañas de Referencia · Investigación de 6 Agentes de Marketing<br>
+    <strong>Nebbuler</strong> · Campañas de Referencia Visual · 6 Agentes de Marketing<br>
     Cannes Lions · D&AD · One Show · El Ojo de Iberoamérica · FIAP · Effie Latam
   </div>
   <div style="text-align:right;">
-    Mayo 2026<br>
-    nebbuler.com
+    Mayo 2026 · nebbuler.com
   </div>
-</div>
+</footer>
 
 </body>
 </html>

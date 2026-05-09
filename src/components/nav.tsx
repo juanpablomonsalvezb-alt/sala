@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Nav() {
   return (
@@ -6,11 +7,17 @@ export default function Nav() {
       <div className="h-[3px] bg-[#C41C1C] w-full" />
       <div className="border-b border-[#DEDEDE]">
         <div className="max-w-6xl mx-auto px-6 py-5 flex flex-col items-center gap-3">
-          <Link
-            href="/"
-            className="font-serif text-[44px] font-bold leading-none tracking-[-0.03em] text-[#121212]"
-          >
-            NEBBULER
+          <Link href="/" className="flex items-center gap-3">
+            <Image
+              src="/nebbuler-logo.svg"
+              alt="Nebbuler"
+              width={52}
+              height={42}
+              priority
+            />
+            <span className="font-serif text-[36px] font-bold leading-none tracking-[-0.03em] text-[#121212]">
+              NEBBULER
+            </span>
           </Link>
           <div className="h-px w-full bg-[#DEDEDE]" />
           <nav className="flex items-center gap-1 text-[12px] font-sans text-[#666666]">

@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nebbuler — Frases · 6 Agentes de Marketing</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --oxford: #0A1628;
+    --crimson: #B31C1C;
+    --cream: #F8F7F5;
+    --ink: #111;
+    --mid: #666;
+    --border: #E0DDD8;
+    --gold: #C4922A;
+  }
+  body { font-family: Georgia, serif; background: var(--cream); color: var(--ink); }
+
+  /* ── HEADER ── */
+  .header {
+    background: var(--oxford);
+    padding: 28px 64px;
+    display: flex; align-items: center; gap: 18px;
+    border-bottom: 3px solid var(--crimson);
+  }
+  .bar { width: 4px; height: 44px; background: var(--crimson); flex-shrink: 0; }
+  .header h1 { font-size: 22px; font-weight: 700; color: white; }
+  .header p { font-family: Arial, sans-serif; font-size: 10px; color: #6B8299; letter-spacing: 0.18em; text-transform: uppercase; margin-top: 3px; }
+
+  /* ── LAYOUT ── */
+  .page { max-width: 1160px; margin: 0 auto; padding: 56px 64px; }
+  .section-label {
+    font-family: Arial, sans-serif; font-size: 9px; letter-spacing: 0.25em;
+    text-transform: uppercase; color: #999;
+    border-bottom: 1px solid var(--border); padding-bottom: 10px; margin-bottom: 36px;
+  }
+  .section-label b { color: var(--crimson); }
+
+  /* ── SLOGANS (podio visual) ── */
+  .slogans-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-bottom: 2px; }
+  .slogan-hero {
+    background: var(--oxford); padding: 48px 52px;
+    display: flex; flex-direction: column; justify-content: flex-end; min-height: 220px;
+  }
+  .slogan-hero .s-label { font-family: Arial, sans-serif; font-size: 8.5px; letter-spacing: 0.2em; text-transform: uppercase; color: #4A6075; margin-bottom: 16px; }
+  .slogan-hero .s-text { font-size: 28px; font-weight: 700; color: white; line-height: 1.2; margin-bottom: 12px; }
+  .slogan-hero .s-concept { font-family: Arial, sans-serif; font-size: 12px; color: #6B8299; line-height: 1.5; }
+  .slogan-hero .s-badge { font-family: Arial, sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--crimson); margin-bottom: 12px; }
+
+  .slogan-card {
+    background: white; border: 1px solid var(--border); padding: 32px 36px;
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .slogan-card .s-num { font-family: Arial, sans-serif; font-size: 48px; font-weight: 900; color: var(--cream); line-height: 1; margin-bottom: 12px; }
+  .slogan-card .s-text { font-size: 20px; font-weight: 700; line-height: 1.25; margin-bottom: 10px; }
+  .slogan-card .s-concept { font-family: Arial, sans-serif; font-size: 12px; color: var(--mid); line-height: 1.5; }
+  .slogan-card.dark { background: var(--oxford); border-color: #1A2E45; }
+  .slogan-card.dark .s-text { color: white; }
+  .slogan-card.dark .s-num { color: #1A2E45; }
+  .slogan-card.dark .s-concept { color: #6B8299; }
+
+  .slogans-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; }
+
+  /* ── FRASES GRID ── */
+  .frases-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+  .frase-card { background: white; border: 1px solid var(--border); padding: 28px 32px; }
+  .frase-card.dark { background: var(--oxford); border-color: #1A2E45; }
+  .frase-card.accent { border-left: 3px solid var(--crimson); }
+  .frase-card.full { grid-column: 1 / -1; }
+
+  .f-tag {
+    display: inline-block; font-family: Arial, sans-serif; font-size: 8px;
+    font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
+    padding: 2px 8px; margin-bottom: 14px;
+    background: var(--oxford); color: white;
+  }
+  .f-tag.red { background: var(--crimson); }
+  .f-tag.gold { background: var(--gold); }
+  .f-tag.green { background: #0D7A3A; }
+
+  .f-text { font-size: 17px; font-weight: 700; line-height: 1.4; margin-bottom: 10px; }
+  .frase-card.dark .f-text { color: white; }
+  .f-meta { font-family: Arial, sans-serif; font-size: 11px; color: #999; line-height: 1.5; }
+  .frase-card.dark .f-meta { color: #4A6075; }
+
+  /* ── SERIES BLOCK ── */
+  .serie-block { background: white; border: 1px solid var(--border); padding: 36px 40px; margin-bottom: 2px; }
+  .serie-block.dark { background: var(--oxford); border-color: #1A2E45; }
+  .serie-title { font-family: Arial, sans-serif; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--crimson); margin-bottom: 20px; }
+  .serie-lines { display: flex; flex-direction: column; gap: 2px; }
+  .serie-line { font-size: 16px; line-height: 1.5; padding: 10px 0; border-bottom: 1px solid var(--border); color: #444; }
+  .serie-block.dark .serie-line { color: #94A3B8; border-bottom-color: #1A2E45; }
+  .serie-line.final { font-weight: 700; font-size: 18px; color: var(--oxford); border-bottom: none; padding-top: 16px; }
+  .serie-block.dark .serie-line.final { color: white; }
+  .series-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; margin-bottom: 2px; }
+
+  /* ── OBJECIONES ── */
+  .obj-block { background: white; border: 1px solid var(--border); padding: 32px 36px; }
+  .obj-question { font-family: Arial, sans-serif; font-size: 10px; letter-spacing: 0.1em; color: var(--mid); font-style: italic; margin-bottom: 16px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
+  .obj-answers { display: flex; flex-direction: column; gap: 10px; }
+  .obj-answer { font-size: 15px; line-height: 1.5; color: var(--ink); padding-left: 14px; border-left: 2px solid var(--border); }
+  .obj-answer.best { border-left-color: var(--crimson); color: var(--ink); font-weight: 600; }
+  .objeciones-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-bottom: 2px; }
+
+  /* ── AD MOCKUPS ── */
+  .mockup-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 0; }
+  .mockup {
+    background: var(--oxford); aspect-ratio: 1;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 36px 32px; text-align: center; position: relative;
+  }
+  .mockup .m-bar { position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--crimson); }
+  .mockup .m-text { font-size: 18px; font-weight: 700; color: white; line-height: 1.35; margin-bottom: 24px; }
+  .mockup .m-logo { font-family: Arial, sans-serif; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: #4A6075; }
+  .mockup.white { background: white; border: 1px solid var(--border); }
+  .mockup.white .m-text { color: var(--oxford); }
+  .mockup.white .m-logo { color: #CCC; }
+  .mockup.white .m-bar { background: var(--oxford); }
+  .mockup.crimson { background: var(--crimson); }
+  .mockup.crimson .m-bar { background: var(--oxford); }
+
+  /* ── CTA STRIP ── */
+  .cta-strip { background: var(--crimson); padding: 40px 64px; display: grid; grid-template-columns: repeat(5, 1fr); gap: 2px; }
+  .cta-item { padding: 16px; border-left: 1px solid rgba(255,255,255,0.15); }
+  .cta-item:first-child { border-left: none; }
+  .cta-num { font-family: Arial, sans-serif; font-size: 9px; font-weight: 700; color: rgba(255,255,255,0.4); letter-spacing: 0.1em; margin-bottom: 8px; }
+  .cta-text { font-size: 14px; font-weight: 700; color: white; line-height: 1.4; }
+
+  /* ── FOOTER ── */
+  .footer { background: #070E1A; padding: 24px 64px; display: flex; justify-content: space-between; align-items: center; font-family: Arial, sans-serif; font-size: 11px; color: #2A3E52; }
+  .footer b { color: #4A6075; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="bar"></div>
+  <div>
+    <h1>Frases Nebbuler — Copy Maestro</h1>
+    <p>6 Agentes · Mecanismos The Economist / NYT / WSJ / Nike / NotMilk · Mayo 2026</p>
+  </div>
+</header>
+
+<!-- ═══════════ SLOGANS ═══════════ -->
+<div class="page">
+  <p class="section-label"><b>01</b> &nbsp; Los 10 Slogans Candidatos para Nebbuler</p>
+
+  <div style="display:flex; flex-direction:column; gap:2px; margin-bottom:2px;">
+
+    <!-- TOP 2 heroes -->
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:2px;">
+      <div class="slogan-hero">
+        <div class="s-badge">★ Recomendado para hero principal</div>
+        <div class="s-label">Slogan #5 · El más aspiracional</div>
+        <div class="s-text">Suscríbete al criterio.</div>
+        <div class="s-concept">"Criterio" es la palabra clave de los profesionales serios en América Latina. Compacto, memorable y aspiracional. Funciona en cualquier formato.</div>
+      </div>
+      <div class="slogan-hero" style="background:#111820;">
+        <div class="s-badge">★ Recomendado para subtítulo de pricing</div>
+        <div class="s-label">Slogan #8 · El más honesto</div>
+        <div class="s-text">Lo que vale saber, vale pagar.</div>
+        <div class="s-concept">Justifica el modelo de pago con una sola línea. Encierra toda la propuesta de valor de los newsletters premium. Sin disculpa.</div>
+      </div>
+    </div>
+
+    <!-- Row 4 -->
+    <div class="slogans-row">
+      <div class="slogan-card">
+        <div class="s-num">10</div>
+        <div class="s-text">Lee al nivel en que quieres operar.</div>
+        <div class="s-concept">El más aspiracional. Conecta el hábito lector con la ambición profesional.</div>
+      </div>
+      <div class="slogan-card dark">
+        <div class="s-num">6</div>
+        <div class="s-text">Donde los expertos escriben para expertos.</div>
+        <div class="s-concept">Calidad par a par — no divulgación, sino conversación de alto nivel entre iguales.</div>
+      </div>
+      <div class="slogan-card">
+        <div class="s-num">4</div>
+        <div class="s-text">El pensamiento que los medios no publican.</div>
+        <div class="s-concept">Posiciona a Nebbuler como alternativa crítica al periodismo convencional capturado por intereses.</div>
+      </div>
+      <div class="slogan-card dark">
+        <div class="s-num">9</div>
+        <div class="s-text">Conocimiento con firma.</div>
+        <div class="s-concept">Detrás de cada análisis hay una persona real con nombre, trayectoria y reputación en juego.</div>
+      </div>
+    </div>
+
+    <!-- Row resto -->
+    <div class="slogans-row">
+      <div class="slogan-card">
+        <div class="s-num">1</div>
+        <div class="s-text">El conocimiento que te da ventaja.</div>
+        <div class="s-concept">Posiciona el saber como herramienta competitiva, no como cultura general.</div>
+      </div>
+      <div class="slogan-card">
+        <div class="s-num">2</div>
+        <div class="s-text">Análisis sin concesiones.</div>
+        <div class="s-concept">Señala independencia editorial total. Evoca que nadie les dobla el brazo.</div>
+      </div>
+      <div class="slogan-card">
+        <div class="s-num">3</div>
+        <div class="s-text">Para los que necesitan entender, no solo saber.</div>
+        <div class="s-concept">Distingue entre información superficial y comprensión real.</div>
+      </div>
+      <div class="slogan-card">
+        <div class="s-num">7</div>
+        <div class="s-text">Tu industria, analizada en profundidad.</div>
+        <div class="s-concept">Ultra relevante. Habla directamente al lector sobre su propio mundo.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════ SERIES ENCADENADAS (NYT) ═══════════ -->
+<div class="page" style="padding-top:0;">
+  <p class="section-label"><b>02</b> &nbsp; Series Encadenadas — Mecanismo "The Truth Is Hard" (NYT)</p>
+
+  <div class="series-grid">
+    <div class="serie-block dark">
+      <div class="serie-title">Serie 1 — El conocimiento que no llega</div>
+      <div class="serie-lines">
+        <div class="serie-line">El análisis es fácil de pedir.</div>
+        <div class="serie-line">La investigación es difícil de hacer.</div>
+        <div class="serie-line">La experiencia de veinte años es imposible de googlear.</div>
+        <div class="serie-line final">Nebbuler es donde vive.</div>
+      </div>
+    </div>
+    <div class="serie-block dark">
+      <div class="serie-title">Serie 2 — El precio del acceso</div>
+      <div class="serie-lines">
+        <div class="serie-line">El consejo es gratis cuando no vale nada.</div>
+        <div class="serie-line">La opinión es barata cuando viene de cualquiera.</div>
+        <div class="serie-line">El criterio real tiene nombre, trayectoria y precio.</div>
+        <div class="serie-line">Siempre lo ha tenido.</div>
+        <div class="serie-line final">Nebbuler lo hace explícito.</div>
+      </div>
+    </div>
+    <div class="serie-block dark">
+      <div class="serie-title">Serie 3 — Lo que Chile no publica</div>
+      <div class="serie-lines">
+        <div class="serie-line">El paper existe. Nadie lo lee.</div>
+        <div class="serie-line">El informe existe. Está detrás de un gobierno.</div>
+        <div class="serie-line">El diagnóstico existe. Se queda en el consultorio.</div>
+        <div class="serie-line">Lo que el profesional sabe de verdad no tiene dónde publicarse.</div>
+        <div class="serie-line">Hasta ahora.</div>
+        <div class="serie-line final">Nebbuler.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ FRASES THE ECONOMIST ═══════════ -->
+<div class="page" style="padding-top:0;">
+  <p class="section-label"><b>03</b> &nbsp; Mecanismo The Economist — Exclusión Aspiracional Inversa</p>
+
+  <div class="frases-grid">
+    <div class="frase-card accent dark">
+      <span class="f-tag red">Frases más potentes</span>
+      <div class="f-text">"Sus colegas más jóvenes ya tienen newsletter. Usted tiene experiencia."</div>
+      <div class="f-meta">Target: creadores · La paradoja edad/relevancia sin atacar. El "usted" arcaico aumenta el aguijón.</div>
+    </div>
+    <div class="frase-card accent dark">
+      <span class="f-tag red">Frases más potentes</span>
+      <div class="f-text">"Cada año que no publicas, alguien con menos experiencia que tú se vuelve la referencia."</div>
+      <div class="f-meta">Target: creadores · Introduce al rival sin nombrarlo. El "alguien con menos" es el aguijón exacto.</div>
+    </div>
+    <div class="frase-card">
+      <span class="f-tag">Creadores</span>
+      <div class="f-text">"El que sabe y no publica, simplemente no existe."</div>
+      <div class="f-meta">Usa la lógica digital que todo profesional teme en silencio.</div>
+    </div>
+    <div class="frase-card">
+      <span class="f-tag">Creadores</span>
+      <div class="f-text">"Si tu conocimiento no tiene precio, alguien ya lo fijó por ti."</div>
+      <div class="f-meta">La pasividad como pérdida económica concreta — el mercado no espera.</div>
+    </div>
+    <div class="frase-card">
+      <span class="f-tag">Creadores</span>
+      <div class="f-text">"Lo aprendiste en veinte años de ejercicio. Cabe en un newsletter. Aún no lo has escrito."</div>
+      <div class="f-meta">Transforma la experiencia acumulada en deuda pendiente consigo mismo.</div>
+    </div>
+    <div class="frase-card">
+      <span class="f-tag">Creadores</span>
+      <div class="f-text">"Tus pares más reconocidos no son más inteligentes. Publican más."</div>
+      <div class="f-meta">Iguala la inteligencia y separa por acción — la diferencia es ejecutable hoy.</div>
+    </div>
+    <div class="frase-card">
+      <span class="f-tag">Lectores</span>
+      <div class="f-text">"El médico que no lee sobre su especialidad sigue operando igual."</div>
+      <div class="f-meta">La imagen es suficiente. No necesita explicación. Incomoda en silencio.</div>
+    </div>
+    <div class="frase-card">
+      <span class="f-tag">Lectores</span>
+      <div class="f-text">"Los abogados que más cobran no son los más ocupados. Son los más leídos."</div>
+      <div class="f-meta">Destruye el mito del billing-hour como única métrica de éxito profesional.</div>
+    </div>
+    <div class="frase-card">
+      <span class="f-tag">Lectores</span>
+      <div class="f-text">"No es que no tengas tiempo de leer. Es que aún no decidiste qué tipo de profesional ser."</div>
+      <div class="f-meta">Traslada la excusa del tiempo a la identidad — el golpe más suave y más profundo.</div>
+    </div>
+    <div class="frase-card">
+      <span class="f-tag">Lectores</span>
+      <div class="f-text">"Cobrar por lo que sabes es ético. Regalarlo es generoso. Callarlo es una lástima."</div>
+      <div class="f-meta">Tres opciones donde la tercera — la más común — es la menos digna.</div>
+    </div>
+    <div class="frase-card">
+      <span class="f-tag">Ambos</span>
+      <div class="f-text">"Hay profesionales que cobran por hora. Hay otros que cobran por saber."</div>
+      <div class="f-meta">La distinción sin nombre propio. El lector elige en cuál categoría está.</div>
+    </div>
+    <div class="frase-card">
+      <span class="f-tag">Creadores</span>
+      <div class="f-text">"Los mejores profesionales de Chile ya tienen lectores. ¿Tienes tú?"</div>
+      <div class="f-meta">La pregunta final: el club está formado — ¿estás adentro o afuera?</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ FRASES POSTURA VALIENTE (NIKE) ═══════════ -->
+<div class="page" style="padding-top:0;">
+  <p class="section-label"><b>04</b> &nbsp; Postura Editorial Valiente — Mecanismo Nike / The Guardian</p>
+
+  <div class="frases-grid">
+    <div class="frase-card accent">
+      <span class="f-tag red">Para ad · fondo Oxford Blue</span>
+      <div class="f-text">"Si no incomoda a nadie, no es periodismo. Es contenido."</div>
+      <div class="f-meta">Lectores · "contenido" en rojo Crimson. El insulto visual.</div>
+    </div>
+    <div class="frase-card accent">
+      <span class="f-tag red">Para ad · fondo Oxford Blue</span>
+      <div class="f-text">"Cada experto que calla es una mentira que circula."</div>
+      <div class="f-meta">Creadores · Sin decoración. El peso está en las palabras.</div>
+    </div>
+    <div class="frase-card dark">
+      <span class="f-tag">Lectores</span>
+      <div class="f-text">"Llevas años leyendo a quienes no te respetan."</div>
+      <div class="f-meta">La frase sola, centrada, como acusación directa sin salida.</div>
+    </div>
+    <div class="frase-card dark">
+      <span class="f-tag">Creadores</span>
+      <div class="f-text">"Escribir sin red es el único lujo que queda."</div>
+      <div class="f-meta">Italic en "sin red". Pausa visual larga después. Para creadores independientes.</div>
+    </div>
+    <div class="frase-card">
+      <span class="f-tag">Lectores</span>
+      <div class="f-text">"Tu criterio no nació de los titulares. No lo alimentes con ellos."</div>
+      <div class="f-meta">La segunda línea más pequeña, como conclusión inevitable.</div>
+    </div>
+    <div class="frase-card">
+      <span class="f-tag">Lectores</span>
+      <div class="f-text">"Información hay de sobra. Inteligencia aplicada, no tanto."</div>
+      <div class="f-meta">Frase partida en dos. Primer tramo neutro, segundo con peso.</div>
+    </div>
+    <div class="frase-card">
+      <span class="f-tag">Ambos</span>
+      <div class="f-text">"Chile tiene profesionales de clase mundial. Lo que no tiene es un lugar donde publicar como tales."</div>
+      <div class="f-meta">Para landing principal. La brecha entre talento y plataforma.</div>
+    </div>
+    <div class="frase-card">
+      <span class="f-tag">Lectores</span>
+      <div class="f-text">"No publicamos lo que vende. Publicamos lo que importa."</div>
+      <div class="f-meta">Paralelo deliberado. "vende" y "importa" con peso igual y significado opuesto.</div>
+    </div>
+    <div class="frase-card">
+      <span class="f-tag">Creadores</span>
+      <div class="f-text">"No somos medios alternativos. Somos el estándar que falta."</div>
+      <div class="f-meta">"alternativos" tachado en rojo Crimson. "estándar" en blanco puro.</div>
+    </div>
+    <div class="frase-card">
+      <span class="f-tag">Lectores</span>
+      <div class="f-text">"El periodismo muere cuando los buenos dejan de escribir."</div>
+      <div class="f-meta">Crimson muy sutil bajo "muere". Blanco puro en el resto. Peso máximo.</div>
+    </div>
+  </div>
+
+  <!-- Formato The Guardian -->
+  <div style="margin-top:2px; background:var(--oxford); padding:32px 36px;">
+    <p style="font-family:Arial,sans-serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--crimson);margin-bottom:20px;">Formato "The Guardian" — El único [X] que [Y] eres tú</p>
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:24px;">
+      <div>
+        <p style="font-size:14px;font-weight:700;color:white;line-height:1.4;">"El único medio que no te está vendiendo algo eres tú eligiendo bien."</p>
+        <p style="font-family:Arial,sans-serif;font-size:10px;color:#4A6075;margin-top:8px;">Lectores</p>
+      </div>
+      <div>
+        <p style="font-size:14px;font-weight:700;color:white;line-height:1.4;">"El único experto que no cobra por callarse eres tú publicando aquí."</p>
+        <p style="font-family:Arial,sans-serif;font-size:10px;color:#4A6075;margin-top:8px;">Creadores</p>
+      </div>
+      <div>
+        <p style="font-size:14px;font-weight:700;color:white;line-height:1.4;">"El único editor que no va a censurar lo que piensas eres tú mismo."</p>
+        <p style="font-family:Arial,sans-serif;font-size:10px;color:#4A6075;margin-top:8px;">Creadores</p>
+      </div>
+      <div>
+        <p style="font-size:14px;font-weight:700;color:white;line-height:1.4;">"El único periodismo que sobrevive sin anunciante lo financias tú."</p>
+        <p style="font-family:Arial,sans-serif;font-size:10px;color:#4A6075;margin-top:8px;">Lectores</p>
+      </div>
+      <div>
+        <p style="font-size:14px;font-weight:700;color:white;line-height:1.4;">"El único suscriptor que importa para que esto exista eres tú."</p>
+        <p style="font-family:Arial,sans-serif;font-size:10px;color:#4A6075;margin-top:8px;">Lectores</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ OBJECIONES INVERTIDAS ═══════════ -->
+<div class="page" style="padding-top:0;">
+  <p class="section-label"><b>05</b> &nbsp; Inversión de Objeciones — Mecanismo WSJ "#MakeTime"</p>
+
+  <div class="objeciones-grid">
+    <div class="obj-block">
+      <div class="obj-question">"No tengo tiempo para leer más"</div>
+      <div class="obj-answers">
+        <div class="obj-answer best">No es que no tengas tiempo. Es que ningún contenido ha merecido el tuyo todavía.</div>
+        <div class="obj-answer">Los que no tienen tiempo para leer más, hacen tiempo para leer Nebbuler.</div>
+        <div class="obj-answer">Tu agenda tiene 15 reuniones. Ninguna te dio lo que una buena lectura en el desayuno puede darte.</div>
+        <div class="obj-answer">No lees menos porque estás ocupado. Estás ocupado porque no lees lo que realmente mueve tu carrera.</div>
+      </div>
+    </div>
+    <div class="obj-block">
+      <div class="obj-question">"Ya leo Twitter / LinkedIn / El Mercurio"</div>
+      <div class="obj-answers">
+        <div class="obj-answer best">Leer noticias es saber qué pasó. Leer a quien lo analiza de verdad es entender por qué importa.</div>
+        <div class="obj-answer">Twitter te informa de lo que ya pasó. Nebbuler te prepara para lo que viene.</div>
+        <div class="obj-answer">LinkedIn es el lugar donde todos dicen lo mismo en voz alta. Nebbuler es donde unos pocos piensan en voz baja.</div>
+        <div class="obj-answer">El Mercurio te da las noticias. Un buen newsletter te da la interpretación que El Mercurio no se atreve a publicar.</div>
+      </div>
+    </div>
+    <div class="obj-block">
+      <div class="obj-question">"No necesito pagar por contenido, hay gratis"</div>
+      <div class="obj-answers">
+        <div class="obj-answer best">Gratis significa que el producto eres tú. Pagar significa que el contenido trabaja para ti.</div>
+        <div class="obj-answer">El contenido gratis está optimizado para que lo leas más. El de pago para que pienses mejor.</div>
+        <div class="obj-answer">Pasaste años formándote en una universidad cara. ¿Por qué aceptarías que tu actualización fuera gratuita y anónima?</div>
+        <div class="obj-answer">Lo gratuito compite por tu atención. Lo que pagas compite por tu respeto.</div>
+      </div>
+    </div>
+    <div class="obj-block">
+      <div class="obj-question">"No tengo nada que publicar"</div>
+      <div class="obj-answers">
+        <div class="obj-answer best">La pregunta que respondiste esta semana en una reunión interna, alguien afuera la está buscando en Google sin encontrarla. Publícala.</div>
+        <div class="obj-answer">Llevas diez años tomando decisiones difíciles en tu industria. Eso no es nada — eso es exactamente lo que alguien necesita leer hoy.</div>
+        <div class="obj-answer">No tienes nada que publicar porque comparas tu borrador con el resultado final de otros. Eso no es escritura — es parálisis.</div>
+        <div class="obj-answer">No necesitas una idea original. Necesitas tu perspectiva sobre algo que ya existe. Nadie más tiene los diez años que tienes tú.</div>
+      </div>
+    </div>
+    <div class="obj-block">
+      <div class="obj-question">"Nadie me va a leer"</div>
+      <div class="obj-answers">
+        <div class="obj-answer best">No necesitas miles. Necesitas cien personas correctas que tomen decisiones donde tú importas.</div>
+        <div class="obj-answer">Un newsletter de 300 suscriptores en tu industria vale más que 30.000 seguidores aleatorios. La atención calificada es el activo más escaso del siglo.</div>
+        <div class="obj-answer">Nadie te va a leer al principio. Igual que nadie te remitió pacientes el primer mes, ni te contrató sin currículum.</div>
+      </div>
+    </div>
+    <div class="obj-block">
+      <div class="obj-question">"Mi conocimiento no vale dinero"</div>
+      <div class="obj-answers">
+        <div class="obj-answer best">Cobraste por ese conocimiento toda tu vida profesional. Hoy solo cambias el formato de entrega.</div>
+        <div class="obj-answer">Si vale lo suficiente para que un cliente te pague una consultoría, vale lo suficiente para que alguien te pague por leerlo.</div>
+        <div class="obj-answer">No es que tu conocimiento no valga. Es que nunca te enseñaron a cobrar por él fuera de tu escritorio.</div>
+        <div class="obj-answer">El mercado no paga por lo que sabes. Paga por cómo organizas lo que sabes de una manera que otros no pueden. Eso ya lo tienes.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ FRASES PARA CREADORES — FOMO / ECONÓMICO ═══════════ -->
+<div class="page" style="padding-top:0;">
+  <p class="section-label"><b>06</b> &nbsp; Para Creadores — Hooks, Valor Económico y Reputación</p>
+
+  <div class="frases-grid">
+    <div class="frase-card accent dark">
+      <span class="f-tag gold">Hook #1 · Stop-scroll</span>
+      <div class="f-text">"Alguien con la mitad de tu experiencia ya está cobrando por lo que tú explicas gratis en reuniones."</div>
+      <div class="f-meta">Combina amenaza de competidor real con pérdida de estatus — dos disparadores en una sola frase.</div>
+    </div>
+    <div class="frase-card accent dark">
+      <span class="f-tag gold">Hook #2 · Número real</span>
+      <div class="f-text">"500 personas pagan $9.990 al mes por leer lo que tú sabes. Todavía no existen — pero podrían ser tuyas."</div>
+      <div class="f-meta">Hace concreto lo abstracto: traduce audiencia potencial en dinero real. El número detiene el scroll.</div>
+    </div>
+    <div class="frase-card">
+      <span class="f-tag">Valor económico</span>
+      <div class="f-text">"500 suscriptores a $9.990 al mes son $4.995.000 CLP que entran mientras duermes, operas o litigas."</div>
+      <div class="f-meta">Número exacto + actividades propias del profesional = credibilidad inmediata sin exageración.</div>
+    </div>
+    <div class="frase-card">
+      <span class="f-tag">Valor económico</span>
+      <div class="f-text">"El sueldo tiene techo. El conocimiento publicado, no."</div>
+      <div class="f-meta">Contraste simple que funciona porque es estructuralmente verdadero.</div>
+    </div>
+    <div class="frase-card">
+      <span class="f-tag">Reputación</span>
+      <div class="f-text">"Tus colegas te consultan en privado. Es hora de que el mercado te consulte en público."</div>
+      <div class="f-meta">Valida el estatus que ya tiene y lo proyecta hacia una audiencia más amplia y rentable.</div>
+    </div>
+    <div class="frase-card">
+      <span class="f-tag">Reputación</span>
+      <div class="f-text">"No publicas para que te conozcan. Publicas para que te elijan."</div>
+      <div class="f-meta">Desplaza el objetivo de la fama hacia la conversión — reputación con propósito económico.</div>
+    </div>
+    <div class="frase-card">
+      <span class="f-tag">Comparativa</span>
+      <div class="f-text">"Tu jefe vende tu criterio con su logo. Nebbuler te deja venderlo con el tuyo."</div>
+      <div class="f-meta">Activa el resentimiento latente con el modelo de empleo sin ser panfletario.</div>
+    </div>
+    <div class="frase-card">
+      <span class="f-tag">Comparativa</span>
+      <div class="f-text">"Los congresos te dan un badge. Los suscriptores te dan $4.995.000 al mes."</div>
+      <div class="f-meta">Contraste irónico entre validación tradicional y valor económico real. Memorable y compartible.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ FRASES PARA LECTORES ═══════════ -->
+<div class="page" style="padding-top:0;">
+  <p class="section-label"><b>07</b> &nbsp; Para Lectores — FOMO, Ventaja Competitiva y Costo de NO Saber</p>
+
+  <div class="frases-grid">
+    <div class="frase-card accent dark">
+      <span class="f-tag red">Más potente</span>
+      <div class="f-text">"Tu competidor leyó el análisis. Tú leíste el titular. Eso explica la diferencia."</div>
+      <div class="f-meta">FOMO profesional en su forma más directa. No hay salida sin doler.</div>
+    </div>
+    <div class="frase-card accent dark">
+      <span class="f-tag red">Más potente</span>
+      <div class="f-text">"Leer la prensa es higiene. Leer Nebbuler es ventaja."</div>
+      <div class="f-meta">Contraste de dos palabras. Rápida, brutal, certera. Funciona en cualquier formato.</div>
+    </div>
+    <div class="frase-card">
+      <span class="f-tag">Ventaja competitiva</span>
+      <div class="f-text">"El que tiene mejor información toma mejores decisiones. Así de simple."</div>
+      <div class="f-meta">La promesa más directa posible. Sin adornos.</div>
+    </div>
+    <div class="frase-card">
+      <span class="f-tag">Ventaja competitiva</span>
+      <div class="f-text">"El abogado que más cobra no sabe más leyes. Sabe más contexto."</div>
+      <div class="f-meta">Destruye el mito del expertise técnico como única ventaja. El contexto es el producto.</div>
+    </div>
+    <div class="frase-card">
+      <span class="f-tag">Costo de no saber</span>
+      <div class="f-text">"Hay decisiones que se pagan durante años. La mayoría se toman con información incompleta."</div>
+      <div class="f-meta">La amenaza sin nombre. El lector completa quién la sufre.</div>
+    </div>
+    <div class="frase-card">
+      <span class="f-tag">Costo de no saber</span>
+      <div class="f-text">"En mercados complejos, la ignorancia no es neutral. Tiene consecuencias concretas."</div>
+      <div class="f-meta">Declaración de postura. El tono es el de un colega que te lo dice directo.</div>
+    </div>
+    <div class="frase-card">
+      <span class="f-tag">Diferenciación</span>
+      <div class="f-text">"Las noticias te dicen qué pasó. Nebbuler te dice por qué importa y qué viene después."</div>
+      <div class="f-meta">La propuesta de valor completa en una sola frase. Para landing y ads.</div>
+    </div>
+    <div class="frase-card">
+      <span class="f-tag">Aspiracional</span>
+      <div class="f-text">"Los que definen el rumbo de su industria no leen más — leen mejor."</div>
+      <div class="f-meta">La identidad a la que aspira el lector objetivo. El verbo "definir" es clave.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ MOCKUPS VISUALES ═══════════ -->
+<div class="page" style="padding-top:0;">
+  <p class="section-label"><b>08</b> &nbsp; Mockups — Cómo Se Ven en Formato Ad (Oxford Blue + Serif Blanco)</p>
+
+  <div class="mockup-grid">
+    <div class="mockup">
+      <div class="m-bar"></div>
+      <div class="m-text">"Sus colegas más jóvenes ya tienen newsletter. Usted tiene experiencia."</div>
+      <div class="m-logo">— Nebbuler</div>
+    </div>
+    <div class="mockup">
+      <div class="m-bar"></div>
+      <div class="m-text">"Leer la prensa es higiene. Leer Nebbuler es ventaja."</div>
+      <div class="m-logo">— Nebbuler</div>
+    </div>
+    <div class="mockup">
+      <div class="m-bar"></div>
+      <div class="m-text">"Gratis significa que el producto eres tú."</div>
+      <div class="m-logo">— Nebbuler</div>
+    </div>
+    <div class="mockup white">
+      <div class="m-bar"></div>
+      <div class="m-text">"Análisis sin concesiones."</div>
+      <div class="m-logo">Nebbuler · nebbuler.com</div>
+    </div>
+    <div class="mockup crimson">
+      <div class="m-bar"></div>
+      <div class="m-text">"El pensamiento que los medios no publican."</div>
+      <div class="m-logo">— Nebbuler</div>
+    </div>
+    <div class="mockup">
+      <div class="m-bar"></div>
+      <div class="m-text">"Suscríbete al criterio."</div>
+      <div class="m-logo">Nebbuler · nebbuler.com</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ CTAs ═══════════ -->
+<div class="cta-strip">
+  <div class="cta-item">
+    <div class="cta-num">CTA 01 · Creadores</div>
+    <div class="cta-text">Publica tu primer número hoy. Los ingresos empiezan cuando tú decides.</div>
+  </div>
+  <div class="cta-item">
+    <div class="cta-num">CTA 02 · Creadores</div>
+    <div class="cta-text">Sin comisión. Sin intermediarios. Solo tú y tus lectores.</div>
+  </div>
+  <div class="cta-item">
+    <div class="cta-num">CTA 03 · Creadores</div>
+    <div class="cta-text">Crea tu newsletter — donde los profesionales serios cobran por pensar.</div>
+  </div>
+  <div class="cta-item">
+    <div class="cta-num">CTA 04 · Lectores</div>
+    <div class="cta-text">Accede al análisis que los medios tradicionales no se atreven a publicar.</div>
+  </div>
+  <div class="cta-item">
+    <div class="cta-num">CTA 05 · Lectores</div>
+    <div class="cta-text">Lee al nivel en que quieres operar.</div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div><b>Nebbuler</b> · Frases y Copy Maestro · 6 Agentes de Marketing · Mayo 2026</div>
+  <div>nebbuler.com</div>
+</footer>
+
+</body>
+</html>

@@ -34,7 +34,7 @@ const MOCK_POSTS: Post[] = [
     id: 'mock-post-1',
     creator_id: 'mock-1',
     title: 'Por qué el tipo de cambio te está mintiendo',
-    excerpt: 'El dólar no sube ni baja por las razones que los medios te dicen.',
+    excerpt: 'El dólar no sube ni baja por las razones que los medios te dicen. Hay fuerzas estructurales que los titulares nunca mencionan y que definen el movimiento real.',
     content: '',
     is_free: true,
     published_at: '2025-05-12T00:00:00Z',
@@ -46,7 +46,7 @@ const MOCK_POSTS: Post[] = [
     id: 'mock-post-2',
     creator_id: 'mock-1',
     title: 'El efecto silencioso de la TPM en tu cartera',
-    excerpt: 'Cuando el Banco Central mueve la tasa, el impacto no es inmediato ni uniforme.',
+    excerpt: 'Cuando el Banco Central mueve la tasa, el impacto no es inmediato ni uniforme. Cada clase de activo absorbe el shock de manera distinta y en tiempos distintos.',
     content: '',
     is_free: true,
     published_at: '2025-05-05T00:00:00Z',
@@ -58,7 +58,7 @@ const MOCK_POSTS: Post[] = [
     id: 'mock-post-3',
     creator_id: 'mock-1',
     title: 'Inflación importada: el canal que nadie ve venir',
-    excerpt: 'Más allá del IPC doméstico, existe un vector de presión inflacionaria que cruza fronteras.',
+    excerpt: 'Más allá del IPC doméstico, existe un vector de presión inflacionaria que cruza fronteras. Entender este mecanismo es clave para anticipar movimientos de política monetaria.',
     content: '',
     is_free: false,
     published_at: '2025-04-28T00:00:00Z',
@@ -66,9 +66,35 @@ const MOCK_POSTS: Post[] = [
     read_time_minutes: 7,
     slug: 'inflacion-importada',
   },
+  {
+    id: 'mock-post-4',
+    creator_id: 'mock-1',
+    title: 'Cómo leer un balance bancario sin ser contador',
+    excerpt: 'Los estados financieros de un banco son crípticos por diseño. En este análisis desgloso los tres indicadores que realmente importan para evaluar solvencia y riesgo de crédito.',
+    content: '',
+    is_free: false,
+    published_at: '2025-04-14T00:00:00Z',
+    created_at: '2025-04-14T00:00:00Z',
+    read_time_minutes: 10,
+    slug: 'leer-balance-bancario',
+  },
 ]
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
+
+function getDisciplineColor(specialty: string): string {
+  const s = specialty.toUpperCase()
+  if (s.includes('ECONOM') || s.includes('FINANC') || s.includes('MACRO')) return '#1A2744'
+  if (s.includes('DERECHO') || s.includes('JURÍDIC') || s.includes('LEGAL')) return '#1A3A2A'
+  if (s.includes('MEDIC') || s.includes('SALUD') || s.includes('CLÍNIC')) return '#3A1A1A'
+  if (s.includes('TECNOL') || s.includes('INGENIE') || s.includes('SOFTW')) return '#1A1A2E'
+  if (s.includes('ARQUIT') || s.includes('URBAN')) return '#2A1A1A'
+  return '#1A1A1A'
+}
+
+function getFirstWords(text: string, count = 6): string {
+  return text.split(/\s+/).slice(0, count).join(' ')
+}
 
 function isSupabaseConfigured(): boolean {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL ?? ''
@@ -200,9 +226,7 @@ function HeroSection({
           />
           <div className="absolute inset-0 bg-black/60" />
         </div>
-      ) : (
-        <div className="h-[8px] bg-[#C41C1C] w-full" />
-      )}
+      ) : null}
 
       <div className="max-w-5xl mx-auto px-6 pt-10 pb-8 border-b border-[#DEDEDE]">
         {/* Specialty */}
@@ -219,13 +243,16 @@ function HeroSection({
         </h1>
 
         {/* Byline */}
-        <p className="font-sans text-sm text-[#666] mb-6">
+        <p className="font-sans text-sm text-[#666] mb-1">
           por <span className="font-bold text-[#121212]">{creator.name}</span>
           {creator.verified && (
             <span className="ml-2 text-[9px] font-bold tracking-[0.1em] uppercase text-[#065F46] border-l border-[#065F46] pl-2">
               EXPERTO RECONOCIDO
             </span>
           )}
+        </p>
+        <p className="text-xs font-sans text-[#999] mb-6">
+          Publicado en Nebbuler · plataforma de conocimiento profesional
         </p>
 
         {/* Bio */}
@@ -288,56 +315,97 @@ function ArticlesSection({
         <span className="text-xs font-sans text-[#999]">{posts.length} artículos</span>
       </div>
 
-      <div className="divide-y divide-[#DEDEDE]">
-        {posts.map((post) => (
-          <article key={post.id} className="py-6 group">
-            <div className="flex items-start justify-between gap-4">
-              <div className="flex-1">
-                {/* Fecha */}
-                {post.published_at && (
-                  <time className="text-[10px] font-sans font-bold tracking-[0.15em] uppercase text-[#999] mb-2 block">
-                    {formatDate(post.published_at)}
-                  </time>
-                )}
+      {/* Grid de artículos — 2 columnas */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-[#DEDEDE]">
+        {posts.map((post) => {
+          const bgColor = getDisciplineColor(creator.specialty)
+          const shortTitle = getFirstWords(post.title)
+          const canRead = post.is_free || isSubscribed
 
-                {/* Título */}
-                {post.is_free || isSubscribed ? (
+          return (
+            <article key={post.id} className="bg-white group">
+              {/* Imagen: 16:9 auto-generada */}
+              <div
+                className="aspect-[16/9] relative overflow-hidden"
+                style={{ backgroundColor: bgColor }}
+              >
+                <div className="absolute inset-0 flex items-center justify-center p-6">
+                  <p
+                    className="font-serif text-white text-center leading-tight"
+                    style={{ fontSize: 'clamp(14px, 2vw, 22px)', fontWeight: 700 }}
+                  >
+                    {shortTitle}
+                  </p>
+                </div>
+                {!post.is_free && !isSubscribed && (
+                  <div className="absolute top-3 right-3 bg-[#C41C1C] text-white text-[9px] font-sans font-bold tracking-[0.1em] uppercase px-2 py-1">
+                    Suscriptores
+                  </div>
+                )}
+              </div>
+
+              {/* Info */}
+              <div className="p-5">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-[9px] font-sans font-bold tracking-[0.15em] uppercase text-[#C41C1C]">
+                    {creator.specialty}
+                  </span>
+                  <time className="text-[10px] font-sans text-[#999]">
+                    {post.published_at
+                      ? new Date(post.published_at).toLocaleDateString('es-CL', {
+                          day: 'numeric',
+                          month: 'short',
+                        })
+                      : ''}
+                  </time>
+                </div>
+
+                {canRead ? (
                   <Link href={`/${creator.slug}/${post.slug}`}>
-                    <h3 className="font-serif text-[20px] font-bold text-[#121212] leading-tight mb-2 group-hover:text-[#C41C1C] transition-colors">
+                    <h3 className="font-serif text-[18px] font-bold text-[#121212] leading-tight mb-2 group-hover:text-[#C41C1C] transition-colors line-clamp-2">
                       {post.title}
                     </h3>
                   </Link>
                 ) : (
-                  <h3 className="font-serif text-[20px] font-bold text-[#121212] leading-tight mb-2">
+                  <h3 className="font-serif text-[18px] font-bold text-[#121212] leading-tight mb-2 line-clamp-2">
                     {post.title}
                   </h3>
                 )}
 
-                {/* Extracto (solo artículos accesibles) */}
-                {post.excerpt && (post.is_free || isSubscribed) && (
+                {post.excerpt && canRead && (
                   <p className="font-sans text-sm text-[#666] leading-relaxed line-clamp-2">
                     {post.excerpt}
                   </p>
                 )}
 
-                {/* Badge solo suscriptores */}
-                {!post.is_free && !isSubscribed && (
-                  <span className="text-[9px] font-sans font-bold tracking-[0.1em] uppercase text-[#C41C1C] border border-[#C41C1C] px-2 py-0.5 mt-2 inline-block">
-                    Solo suscriptores
+                <div className="flex items-center justify-between mt-4 pt-3 border-t border-[#DEDEDE]">
+                  <span className="text-[10px] font-sans text-[#999]">
+                    {post.read_time_minutes} min de lectura
                   </span>
-                )}
+                  {canRead ? (
+                    <Link
+                      href={`/${creator.slug}/${post.slug}`}
+                      className="text-[10px] font-sans font-bold tracking-[0.1em] uppercase text-[#121212] hover:text-[#C41C1C] transition-colors"
+                    >
+                      Leer →
+                    </Link>
+                  ) : (
+                    <Link
+                      href={`/suscribirse/${creator.slug}`}
+                      className="text-[10px] font-sans font-bold tracking-[0.1em] uppercase text-[#C41C1C]"
+                    >
+                      Suscribirse →
+                    </Link>
+                  )}
+                </div>
               </div>
-
-              <span className="text-xs font-sans text-[#999] whitespace-nowrap shrink-0">
-                {post.read_time_minutes} min
-              </span>
-            </div>
-          </article>
-        ))}
+            </article>
+          )
+        })}
       </div>
 
       {!isSubscribed && posts.length > 0 && (
-        <div className="py-10 border-t border-[#DEDEDE] text-center">
+        <div className="py-10 border-t border-[#DEDEDE] text-center mt-px">
           <p className="font-sans text-[13px] text-[#666666] mb-5">
             {creator.subscriber_count.toLocaleString('es-CL')} profesionales ya leen esta sala.
           </p>

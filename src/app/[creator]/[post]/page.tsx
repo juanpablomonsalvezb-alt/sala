@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
 import type { Creator, Post } from '@/types/database'
 import PaywallGate from '@/components/paywall-gate'
+import { ShareBar } from '@/components/share-bar'
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -526,6 +527,18 @@ export default async function PostPage({
                 isAuthenticated={isAuthenticated}
               />
             </div>
+
+            {/* Share bar — visible siempre en artículos libres, solo antes del paywall en los de pago */}
+            {(post.is_free || isSubscribed) && (
+              <div className="max-w-[680px]">
+                <ShareBar
+                  url={`https://nebbuler.com/${creator.slug}/${post.slug}`}
+                  title={post.title}
+                  authorName={creator.name}
+                  excerpt={post.excerpt}
+                />
+              </div>
+            )}
 
             {/* CTA inferior (solo si está bloqueado) */}
             {!post.is_free && !isSubscribed && (

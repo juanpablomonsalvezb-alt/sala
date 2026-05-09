@@ -25,21 +25,21 @@ export function ProfileShare({ slug, publicationName, creatorName, specialty, bi
   const spec = specialty.toLowerCase()
 
   const texts = {
-    // WhatsApp: nombre en negrita nativa, 3 líneas, sin promesas de acceso
-    whatsapp: `*${publicationName}*\n\nEscribo sobre ${spec} para profesionales que necesitan ir más allá del ruido.\n\n${url}`,
+    // WhatsApp: directo, con CTA claro
+    whatsapp: `*${publicationName}* — por ${creatorName}\n\nEscribo análisis de ${spec} para profesionales que necesitan ir más allá del ruido.\n\n👉 Suscríbete acá: ${url}`,
 
-    // Twitter/X: ≤180 chars con URL
-    twitter: `${publicationName} — análisis de ${spec} sin filtros editoriales ni ruido.`,
+    // Twitter/X: ≤200 chars + URL
+    twitter: `Lancé ${publicationName} — análisis de ${spec} sin filtros editoriales.\n\nSuscríbete y sé de los primeros:`,
 
-    // LinkedIn: tono profesional, primera persona
-    linkedin: `Lancé ${publicationName} — un espacio donde escribo sobre ${spec} con la profundidad que los medios tradicionales no se toman.\n\nSi te interesa este campo, está en ${url}`,
+    // LinkedIn: profesional + CTA al final
+    linkedin: `Lancé ${publicationName} — un espacio donde escribo sobre ${spec} con la profundidad que los medios no se toman.\n\nSi tomas decisiones que dependen de entender bien este campo, te invito a suscribirte:\n${url}`,
 
-    // Email: asunto limpio + cuerpo de 3 líneas
-    emailSubject: `${publicationName}, de ${creatorName}`,
-    email: `Escribo ${publicationName}: análisis sobre ${spec} para quienes necesitan pensar en serio.\n\nSin patrocinadores. Sin agenda editorial. Solo criterio propio.\n\n${url}`,
+    // Email
+    emailSubject: `Te invito a ${publicationName}`,
+    email: `Lancé ${publicationName}: análisis de ${spec} para quienes necesitan pensar en serio.\n\nSin patrocinadores. Sin agenda editorial. Solo criterio propio.\n\n→ Suscríbete acá: ${url}`,
 
-    // Resto de plataformas: texto plano corto
-    generic: `${publicationName} — escribo sobre ${spec} para quienes necesitan análisis de fondo, no titulares.\n\n${url}`,
+    // Resto de plataformas
+    generic: `Lancé ${publicationName} — análisis de ${spec} sin ruido ni agenda editorial.\n\nSuscríbete: ${url}`,
   }
 
   const links = {

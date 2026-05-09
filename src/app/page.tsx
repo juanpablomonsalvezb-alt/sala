@@ -18,13 +18,14 @@ import {
   FaqSection,
   CtaFinalAnimated,
 } from "@/components/home-animations";
+import { featuredCreators as featuredCreatorsData } from "@/data/creators";
 
 /* ─── Data estática — permanece en el servidor ──────────────────────────── */
 
 const featuredCreators = [
-  { initial: "RF", name: "RODRIGO FUENTES",  specialty: "ECONOMÍA",          color: "#1a1a2e", earnings: "8.470.000", trend: "+18%", subscribers: 847,  posts: 48, since: "Ene 2025", href: "/rodrigo-fuentes"  },
-  { initial: "IC", name: "ISABEL CONTRERAS", specialty: "DERECHO TRIBUTARIO", color: "#1a2e1a", earnings: "6.240.000", trend: "+24%", subscribers: 523,  posts: 31, since: "Feb 2025", href: "/isabel-contreras" },
-  { initial: "MS", name: "MARCO SALINAS",    specialty: "ARQUITECTURA",       color: "#2e1a1a", earnings: "2.490.000", trend: "+31%", subscribers: 312,  posts: 24, since: "Mar 2025", href: "/marco-salinas"    },
+  { initial: "RF", name: "RODRIGO FUENTES MARÍN",  specialty: "MACROECONOMÍA",          color: "#1a1a2e", earnings: "17.762.434", trend: "+38%", subscribers: 1247, posts: 67, since: "Nov 2025", href: "/rodrigo-fuentes-marin"  },
+  { initial: "CV", name: "CAROLINA VEGA TORO",      specialty: "FINANZAS CORPORATIVAS",  color: "#1a2e1a", earnings: "17.738.033", trend: "+43%", subscribers: 934,  posts: 44, since: "Nov 2025", href: "/carolina-vega-toro" },
+  { initial: "MC", name: "MATÍAS CORNEJO SILVA",    specialty: "DERECHO TRIBUTARIO",     color: "#2e1a1a", earnings: "13.881.916", trend: "+29%", subscribers: 812,  posts: 51, since: "Dic 2025", href: "/matias-cornejo-silva" },
 ];
 
 const features = [
@@ -155,6 +156,37 @@ export default function Home() {
 
       {/* ── LIVE ACTIVITY — AnimatedList, Client Island ─────────────────── */}
       <LiveActivity liveEvents={liveEvents} />
+
+      {/* ── CREADORES DESTACADOS — grid editorial ───────────────────────── */}
+      <section className="border-t border-[#DEDEDE] py-16">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex items-baseline justify-between mb-8">
+            <div>
+              <p className="text-[10px] font-sans font-bold tracking-[0.2em] uppercase text-[#999] mb-1">Nebbuler · Mayo 2026</p>
+              <h2 className="font-serif text-2xl font-bold text-[#121212]">Los creadores más buscados este mes</h2>
+            </div>
+            <Link href="/directorio" className="text-xs font-sans font-bold tracking-[0.1em] uppercase text-[#C41C1C] hover:underline">
+              Ver todos →
+            </Link>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-[#DEDEDE]">
+            {featuredCreatorsData.map((creator) => (
+              <Link key={creator.slug} href={`/${creator.slug}`} className="bg-white p-6 hover:bg-[#F7F7F7] transition-colors group block">
+                <p className="text-[10px] font-sans font-bold tracking-[0.15em] uppercase text-[#C41C1C] mb-2">{creator.specialty}</p>
+                <h3 className="font-serif text-lg font-bold text-[#121212] mb-2 leading-tight group-hover:text-[#C41C1C] transition-colors">{creator.name}</h3>
+                <p className="text-xs font-sans text-[#666] leading-relaxed mb-4 line-clamp-2">{creator.bio}</p>
+                {creator.verified && (
+                  <p className="text-[9px] font-sans font-bold tracking-[0.1em] uppercase text-[#065F46] border-l-2 border-[#C41C1C] pl-2 mb-4">EXPERTO RECONOCIDO POR NEBBULER</p>
+                )}
+                <div className="border-t border-[#DEDEDE] pt-4 flex justify-between items-center">
+                  <span className="text-xs font-sans"><span className="font-bold text-[#121212]">${creator.price_clp.toLocaleString('es-CL')}</span><span className="text-[#999]">/mes</span></span>
+                  <span className="text-xs font-sans text-[#999]"><span className="font-bold text-[#121212]">{creator.subscriber_count.toLocaleString('es-CL')}</span> suscriptores</span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* ── FEATURES ────────────────────────────────────────────────────── */}
       <FeaturesSection features={features} />

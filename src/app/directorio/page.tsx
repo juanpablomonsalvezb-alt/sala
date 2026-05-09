@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import DirectorioClient from './directorio-client'
+import { allCreators } from '@/data/creators'
 
 export const metadata: Metadata = {
   title: 'Directorio de Profesionales — Nebbuler',
@@ -27,50 +28,19 @@ const DISCIPLINES = [
   { id: 'negocios',   name: 'Negocios',    icon: '📊' },
 ]
 
-const MOCK_CREATORS = [
-  {
-    id: '1', slug: 'rodrigo-fuentes', name: 'Rodrigo Fuentes',
-    specialty: 'MACROECONOMÍA', discipline: 'economia',
-    bio: 'Análisis semanal del mercado chileno para entender qué está pasando realmente, sin el filtro del titular.',
-    price_clp: 9990, subscriber_count: 847, verified: true,
-    publish_frequency: 'Semanal', plan: 'pro',
-  },
-  {
-    id: '2', slug: 'isabel-contreras', name: 'Isabel Contreras',
-    specialty: 'DERECHO TRIBUTARIO', discipline: 'derecho',
-    bio: 'Lo que el SII no te explica, pero necesitas saber para no pagar de más.',
-    price_clp: 12990, subscriber_count: 523, verified: true,
-    publish_frequency: 'Semanal', plan: 'creator',
-  },
-  {
-    id: '3', slug: 'marco-salinas', name: 'Marco Salinas',
-    specialty: 'ARQUITECTURA URBANA', discipline: 'arquitectura',
-    bio: 'Ciudad, territorio y política pública. Lo que no aparece en el Plano Regulador.',
-    price_clp: 7990, subscriber_count: 312, verified: true,
-    publish_frequency: 'Quincenal', plan: 'creator',
-  },
-  {
-    id: '4', slug: 'felipe-mora', name: 'Felipe Mora',
-    specialty: 'FINANZAS LATAM', discipline: 'finanzas',
-    bio: 'Mercados emergentes LATAM: lo que los analistas de Wall Street no entienden.',
-    price_clp: 14990, subscriber_count: 421, verified: true,
-    publish_frequency: 'Quincenal', plan: 'pro',
-  },
-  {
-    id: '5', slug: 'carolina-vega', name: 'Carolina Vega',
-    specialty: 'MEDICINA INTERNA', discipline: 'medicina',
-    bio: 'Evidencia científica sin jerga. Lo que necesitas saber para tomar mejores decisiones de salud.',
-    price_clp: 8990, subscriber_count: 289, verified: true,
-    publish_frequency: 'Semanal', plan: 'creator',
-  },
-  {
-    id: '6', slug: 'andres-pizarro', name: 'Andrés Pizarro',
-    specialty: 'DERECHO LABORAL', discipline: 'derecho',
-    bio: 'Tus derechos laborales en lenguaje claro. Contratos, despidos, negociación colectiva.',
-    price_clp: 9990, subscriber_count: 198, verified: false,
-    publish_frequency: 'Semanal', plan: 'creator',
-  },
-]
+const MOCK_CREATORS = allCreators.map((c, i) => ({
+  id: String(i + 1),
+  slug: c.slug,
+  name: c.name,
+  specialty: c.specialty,
+  discipline: c.discipline,
+  bio: c.bio,
+  price_clp: c.price_clp,
+  subscriber_count: c.subscriber_count,
+  verified: c.verified,
+  publish_frequency: 'Semanal',
+  plan: c.plan,
+}))
 
 export default function DirectorioPage() {
   return (

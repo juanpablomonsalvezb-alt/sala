@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nebbuler — Playbook de Publicidad · Mayo 2026</title>
+<style>
+  :root {
+    --oxford: #0A1628;
+    --crimson: #B31C1C;
+    --ink: #111;
+    --muted: #767676;
+    --border: #E0E0E0;
+    --cream: #F8F7F5;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Georgia', serif; background: #fff; color: var(--ink); line-height: 1.6; }
+
+  .masthead { border-bottom: 4px solid var(--ink); padding: 32px 48px 24px; }
+  .masthead-meta { font-family: Arial, sans-serif; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+  h1.title { font-size: clamp(36px, 5vw, 64px); line-height: 0.9; letter-spacing: -0.02em; margin-bottom: 8px; }
+  .masthead-sub { font-family: Arial, sans-serif; font-size: 12px; color: var(--muted); margin-top: 12px; }
+
+  .toc { background: var(--cream); border-bottom: 1px solid var(--border); padding: 12px 48px; display: flex; gap: 20px; flex-wrap: wrap; font-family: Arial, sans-serif; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; }
+  .toc a { color: var(--ink); text-decoration: none; }
+  .toc a:hover { color: var(--crimson); }
+
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 48px; }
+
+  .section { border-top: 3px solid var(--ink); padding: 48px 0; }
+  .section-label { font-family: Arial, sans-serif; font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .section h2 { font-size: clamp(26px, 4vw, 42px); letter-spacing: -0.02em; margin-bottom: 24px; line-height: 1.05; }
+
+  .col-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+  .col-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
+
+  .card { border: 1px solid var(--border); padding: 24px; }
+  .card-dark { background: var(--oxford); color: white; border-color: var(--oxford); }
+  .card-crimson { background: var(--crimson); color: white; border-color: var(--crimson); }
+
+  .hook-line {
+    border-left: 4px solid var(--crimson);
+    padding: 16px 20px;
+    margin-bottom: 16px;
+    background: var(--cream);
+  }
+  .hook-text { font-size: 28px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 8px; }
+  .hook-why { font-family: Arial, sans-serif; font-size: 12px; color: var(--muted); line-height: 1.55; }
+
+  .headline-list { list-style: none; }
+  .headline-list li { padding: 12px 0; border-bottom: 1px solid var(--border); font-size: 17px; font-weight: 700; letter-spacing: -0.01em; }
+  .headline-list li:last-child { border-bottom: none; }
+  .headline-list .num { font-family: Arial, sans-serif; font-size: 10px; color: var(--crimson); font-weight: 700; letter-spacing: 0.1em; margin-right: 10px; }
+
+  .ad-concept { border: 1px solid var(--border); margin-bottom: 24px; overflow: hidden; }
+  .ad-header { background: var(--oxford); color: white; padding: 14px 20px; display: flex; justify-content: space-between; align-items: center; }
+  .ad-header h3 { font-family: Arial, sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+  .ad-tag { font-family: Arial, sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; background: var(--crimson); padding: 3px 8px; }
+  .ad-body { padding: 20px; }
+  .ad-body p { font-family: Arial, sans-serif; font-size: 13px; line-height: 1.65; color: #333; margin-bottom: 12px; }
+  .ad-body p:last-child { margin-bottom: 0; }
+  .ad-field { font-family: Arial, sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+  .ad-value { font-size: 16px; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 16px; }
+
+  .micro-story { border-left: 3px solid var(--ink); padding: 16px 20px; margin-bottom: 20px; background: var(--cream); }
+  .micro-story p { font-family: Arial, sans-serif; font-size: 14px; line-height: 1.75; color: #333; }
+  .micro-story p + p { margin-top: 4px; }
+
+  .platform-card { border: 1px solid var(--border); padding: 20px; }
+  .platform-name { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--crimson); margin-bottom: 8px; }
+
+  .cta-pill { display: inline-block; background: var(--oxford); color: white; font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 6px 14px; margin: 4px 4px 4px 0; }
+  .cta-pill-red { background: var(--crimson); }
+
+  .do-dont { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid var(--border); }
+  .do-col { padding: 20px; border-right: 1px solid var(--border); }
+  .dont-col { padding: 20px; }
+  .do-col h4 { font-family: Arial, sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: #1A5C38; margin-bottom: 12px; }
+  .dont-col h4 { font-family: Arial, sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--crimson); margin-bottom: 12px; }
+  .do-col ul, .dont-col ul { list-style: none; }
+  .do-col li, .dont-col li { font-family: Arial, sans-serif; font-size: 12px; padding: 6px 0; border-bottom: 1px solid var(--border); line-height: 1.5; }
+  .do-col li::before { content: '✓ '; color: #1A5C38; font-weight: 700; }
+  .dont-col li::before { content: '✗ '; color: var(--crimson); font-weight: 700; }
+
+  .timeline { display: flex; gap: 0; border: 1px solid var(--border); overflow: hidden; }
+  .timeline-step { flex: 1; padding: 20px; border-right: 1px solid var(--border); }
+  .timeline-step:last-child { border-right: none; }
+  .timeline-week { font-family: Arial, sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+  .timeline-title { font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+  .timeline-desc { font-family: Arial, sans-serif; font-size: 11px; color: #555; line-height: 1.55; }
+
+  .brand-voice { background: var(--oxford); color: white; padding: 32px; margin-bottom: 32px; }
+  .brand-voice p { font-family: Arial, sans-serif; font-size: 14px; line-height: 1.75; color: rgba(255,255,255,0.85); max-width: 720px; }
+
+  .sep { height: 1px; background: var(--border); margin: 24px 0; }
+
+  table { width: 100%; border-collapse: collapse; font-family: Arial, sans-serif; font-size: 12px; margin: 16px 0; }
+  th { background: var(--ink); color: white; padding: 8px 12px; text-align: left; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; }
+  td { padding: 8px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tr:nth-child(even) td { background: var(--cream); }
+  .green { color: #1A5C38; font-weight: 700; }
+  .red { color: var(--crimson); font-weight: 700; }
+
+  footer { border-top: 3px solid var(--ink); padding: 20px 48px; display: flex; justify-content: space-between; font-family: Arial, sans-serif; font-size: 9px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
+
+  @media (max-width: 768px) {
+    .masthead, .container, footer { padding-left: 24px; padding-right: 24px; }
+    .col-2, .col-3, .do-dont, .timeline { grid-template-columns: 1fr; flex-direction: column; }
+    .timeline { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="masthead-meta">Nebbuler · Playbook de Publicidad · Mayo 2026 · 6 Agentes de Marketing</div>
+  <h1 class="title">Publicidad de<br>imagen estática</h1>
+  <div style="height:3px;background:var(--crimson);width:100%;margin:16px 0;"></div>
+  <p class="masthead-sub">Headlines · Conceptos visuales · Estrategia por plataforma · Copy emocional · Hooks · Ads de comparativa</p>
+</div>
+
+<div class="toc">
+  <a href="#secuencia">I. Secuencia</a>
+  <a href="#headlines">II. Headlines</a>
+  <a href="#hooks">III. Hooks</a>
+  <a href="#conceptos">IV. Conceptos visuales</a>
+  <a href="#emocional">V. Copy emocional</a>
+  <a href="#comparativa">VI. Comparativa</a>
+  <a href="#plataformas">VII. Por plataforma</a>
+  <a href="#errores">VIII. Qué NO hacer</a>
+</div>
+
+<div class="container">
+
+  <!-- SECCIÓN I: SECUENCIA -->
+  <div class="section" id="secuencia">
+    <div class="section-label">Agente III — Estrategia de Growth</div>
+    <h2>Primero creadores.<br>Siempre.</h2>
+    <p style="font-family:Arial,sans-serif;font-size:14px;color:#444;max-width:680px;margin-bottom:24px;line-height:1.7;">Sin creadores publicando, no hay nada que venderle a los lectores. Lanzar ads de lectores antes de tener 20+ creadores activos es quemar dinero en una plataforma vacía.</p>
+    <div class="timeline">
+      <div class="timeline-step" style="background:var(--cream);">
+        <div class="timeline-week">Semana 1-2</div>
+        <div class="timeline-title">Outreach manual</div>
+        <div class="timeline-desc">10 creadores fundadores por DM en LinkedIn. Sin ads todavía. Solo conversaciones.</div>
+      </div>
+      <div class="timeline-step" style="border-left:4px solid var(--crimson);">
+        <div class="timeline-week">Semana 3-6</div>
+        <div class="timeline-title">Fase 1 — Creadores</div>
+        <div class="timeline-desc">Encender LinkedIn + Meta con ads dirigidos a creadores profesionales. Presupuesto concentrado.</div>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-week">Semana 7-8</div>
+        <div class="timeline-title">Análisis y pausa</div>
+        <div class="timeline-desc">Revisar qué creadores activaron, qué publicaron, qué convirtió.</div>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-week">Semana 9+</div>
+        <div class="timeline-title">Fase 2 — Lectores</div>
+        <div class="timeline-desc">Solo si hay 15+ creadores con ≥2 publicaciones. Entonces activar lectores.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECCIÓN II: HEADLINES -->
+  <div class="section" id="headlines">
+    <div class="section-label">Agente I — Copywriting</div>
+    <h2>Headlines · CTAs · Frases de marca</h2>
+    <div class="col-2">
+      <div>
+        <p style="font-family:Arial,sans-serif;font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--crimson);margin-bottom:12px;">Para el Creador</p>
+        <ul class="headline-list">
+          <li><span class="num">H1</span>Tu análisis vale $29.990 al mes. Siempre.</li>
+          <li><span class="num">H2</span>Cobras por consulta. Podrías cobrar por existir.</li>
+          <li><span class="num">H3</span>Tu criterio profesional merece una tarifa fija.</li>
+          <li><span class="num">H4</span>Deja de regalar lo que tardaste años en aprender.</li>
+          <li><span class="num">H5</span>Un newsletter. Cero comisiones. Ingresos recurrentes.</li>
+        </ul>
+        <div class="sep"></div>
+        <p style="font-family:Arial,sans-serif;font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;">CTAs</p>
+        <span class="cta-pill">Empieza a cobrar hoy</span>
+        <span class="cta-pill">Abre tu cuenta</span>
+        <span class="cta-pill cta-pill-red">Publica y cobra</span>
+      </div>
+      <div>
+        <p style="font-family:Arial,sans-serif;font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--oxford);margin-bottom:12px;">Para el Lector</p>
+        <ul class="headline-list">
+          <li><span class="num">H1</span>El análisis que tu industria no publica.</li>
+          <li><span class="num">H2</span>Menos ruido. Más criterio profesional real.</li>
+          <li><span class="num">H3</span>Lo que el mercado no explica, ellos sí.</li>
+          <li><span class="num">H4</span>Accede al experto, no al algoritmo.</li>
+          <li><span class="num">H5</span>Opinión profesional sin conflicto de interés.</li>
+        </ul>
+        <div class="sep"></div>
+        <p style="font-family:Arial,sans-serif;font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;">CTAs</p>
+        <span class="cta-pill">Lee al experto</span>
+        <span class="cta-pill">Accede ahora</span>
+        <span class="cta-pill cta-pill-red">Elige tu analista</span>
+      </div>
+    </div>
+    <div class="sep"></div>
+    <p style="font-family:Arial,sans-serif;font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-bottom:16px;">Frases de posicionamiento de marca (no vendedoras)</p>
+    <div class="col-3">
+      <div class="card" style="background:var(--oxford);color:white;">
+        <p style="font-size:15px;line-height:1.5;font-weight:700;">"El conocimiento profesional tiene un precio justo. Nebbuler es donde se cobra."</p>
+      </div>
+      <div class="card">
+        <p style="font-size:15px;line-height:1.5;font-weight:700;">"Hay una diferencia entre información y criterio. Nebbuler es el segundo."</p>
+      </div>
+      <div class="card" style="background:var(--crimson);color:white;">
+        <p style="font-size:15px;line-height:1.5;font-weight:700;">"Algunas cosas no se aprenden en un podcast. Nebbuler existe para eso."</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECCIÓN III: HOOKS -->
+  <div class="section" id="hooks">
+    <div class="section-label">Agente VI — Paid Media Creative</div>
+    <h2>10 hook lines para imagen estática</h2>
+    <p style="font-family:Arial,sans-serif;font-size:12px;color:#555;margin-bottom:24px;">Tipografía bold 80pt o mayor. 1-2 colores máximo. Sin fondo complejo. La frase va grande. El logo va pequeño.</p>
+    <div class="col-2">
+      <div>
+        <div class="hook-line">
+          <div class="hook-text">"Cobras por hora. Pierdes por mes."</div>
+          <div class="hook-why">Contraste sintáctico. El primero crea identidad, el segundo crea disonancia sin respuesta → obliga al clic.</div>
+        </div>
+        <div class="hook-line">
+          <div class="hook-text">"Tu expertise vale. ¿Cuánto?"</div>
+          <div class="hook-why">Pregunta directa que devuelve la responsabilidad al lector. Parece reflexión, no claim publicitario.</div>
+        </div>
+        <div class="hook-line">
+          <div class="hook-text">"100 suscriptores. $0 de comisión."</div>
+          <div class="hook-why">Dos números yuxtapuestos. 100 es alcanzable (no 10.000). El $0 es el diferencial sin explicación.</div>
+        </div>
+        <div class="hook-line">
+          <div class="hook-text">"Substack se queda con el 10%."</div>
+          <div class="hook-why">Acusación directa a la competencia nombrada. Funciona en retargeting de usuarios de Substack.</div>
+        </div>
+        <div class="hook-line">
+          <div class="hook-text">"Llevas años siendo gratis."</div>
+          <div class="hook-why">Afirmación que incomoda porque es verdad para el 90% del target. Genera vergüenza productiva, no paralizante.</div>
+        </div>
+      </div>
+      <div>
+        <div class="hook-line">
+          <div class="hook-text">"Tu newsletter. Tu precio. Sin socios."</div>
+          <div class="hook-why">"Socios" reencuadra a las plataformas de comisión. Implica que alguien participa de tu éxito sin haber construido nada.</div>
+        </div>
+        <div class="hook-line">
+          <div class="hook-text">"Ellos cobran cuando tú cobras."</div>
+          <div class="hook-why">Ambigüedad deliberada en "ellos". El lector llena el blanco. La injusticia se vuelve audible.</div>
+        </div>
+        <div class="hook-line">
+          <div class="hook-text">"¿Cuánto te costó ese follow?"</div>
+          <div class="hook-why">Reformula el costo de adquisición de audiencia. Hace explícito el costo implícito de años de contenido gratis.</div>
+        </div>
+        <div class="hook-line">
+          <div class="hook-text">"Fijo. Para siempre. $29.990."</div>
+          <div class="hook-why">Abstracto → amplificado → concreto. Genera certeza. El número ancla la promesa.</div>
+        </div>
+        <div class="hook-line">
+          <div class="hook-text">"Deja de pagar por ganar."</div>
+          <div class="hook-why">Oxímoron que describe exactamente el modelo de comisión. Comprimido en 5 palabras. Autoexplicativo.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECCIÓN IV: CONCEPTOS VISUALES -->
+  <div class="section" id="conceptos">
+    <div class="section-label">Agente II — Director Creativo</div>
+    <h2>8 conceptos de ad estático</h2>
+
+    <div class="ad-concept">
+      <div class="ad-header"><h3>L-01 — "Tu análisis tiene precio" · LinkedIn</h3><span class="ad-tag">1200×628</span></div>
+      <div class="ad-body">
+        <div class="col-2">
+          <div>
+            <div class="ad-field">Fondo</div>
+            <div class="ad-value">Oxford Blue #0A1628 sólido</div>
+            <div class="ad-field">Elemento visual</div>
+            <p>Hoja de papel rotada 3° con líneas de texto simulado. Sello circular crimson: "SUSCRIPCIÓN ACTIVA". Sombra suave sobre fondo azul.</p>
+          </div>
+          <div>
+            <div class="ad-field">Headline (izq, blanco, Libre Baskerville Bold 32px)</div>
+            <div class="ad-value">"Tu análisis económico vale más de lo que cobras."</div>
+            <div class="ad-field">CTA</div>
+            <div class="ad-value" style="color:var(--crimson);">Solicita tu perfil →</div>
+            <div class="ad-field">Mood</div>
+            <div class="ad-value">Autoridad</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ad-concept">
+      <div class="ad-header"><h3>L-02 — "El gráfico como firma" · LinkedIn</h3><span class="ad-tag">1200×628</span></div>
+      <div class="ad-body">
+        <div class="col-2">
+          <div>
+            <div class="ad-field">Fondo</div>
+            <div class="ad-value">Blanco + borde interior Oxford Blue 8px</div>
+            <div class="ad-field">Elemento visual</div>
+            <p>Gráfico de línea estilo Bloomberg, Oxford Blue, trazo 2.5px. Punto de inflexión con círculo Crimson relleno. Eje Y abstracto ($0 → $$$). Leyenda: "Ingresos / autor / mes".</p>
+          </div>
+          <div>
+            <div class="ad-field">Headline (Libre Baskerville Italic Bold 28px, Oxford Blue)</div>
+            <div class="ad-value">"El conocimiento legal tiene un mercado. Tú eres la oferta."</div>
+            <div class="ad-field">CTA</div>
+            <div class="ad-value" style="color:var(--crimson);">Publica tu primer análisis</div>
+            <div class="ad-field">Mood</div>
+            <div class="ad-value">Credibilidad</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ad-concept">
+      <div class="ad-header"><h3>I-01 — "La portada de mañana" · Instagram</h3><span class="ad-tag">1080×1350</span></div>
+      <div class="ad-body">
+        <div class="col-2">
+          <div>
+            <div class="ad-field">Fondo</div>
+            <div class="ad-value">Foto B&W de biblioteca muy desfocada + overlay Oxford Blue 80%</div>
+            <div class="ad-field">Elemento visual</div>
+            <p>Portada de revista editorial falsa. Fondo blanco, borde fino Oxford Blue. Cinta diagonal Crimson: "EXCLUSIVO PARA SUSCRIPTORES". Sombra dura.</p>
+          </div>
+          <div>
+            <div class="ad-field">Headline (arriba, centrado, blanco)</div>
+            <div class="ad-value">"Lee lo que los mejores piensan antes que nadie."</div>
+            <div class="ad-field">Subhead</div>
+            <p style="font-family:Arial,sans-serif;font-size:12px;color:#555;">"Análisis de economistas, médicos y abogados top de Chile."</p>
+            <div class="ad-field">Mood</div>
+            <div class="ad-value">Exclusividad</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-2" style="gap:0;">
+      <div class="ad-concept" style="margin-right:12px;">
+        <div class="ad-header"><h3>F-01 — FT de Chile · Facebook</h3><span class="ad-tag">1:1</span></div>
+        <div class="ad-body">
+          <div class="ad-field">Fondo</div>
+          <div class="ad-value">Textura papel crema #F5EDD6</div>
+          <div class="ad-field">Elemento visual</div>
+          <p>Layout doble columna tipo broadsheet. Masthead "NEBBULER" en Oxford Blue bold. Fecha: "Santiago, 9 de mayo de 2026".</p>
+          <div class="ad-field">Mood</div>
+          <div class="ad-value">Familiaridad</div>
+        </div>
+      </div>
+      <div class="ad-concept" style="margin-left:12px;">
+        <div class="ad-header"><h3>F-02 — Byline Card · Facebook</h3><span class="ad-tag">1:1</span></div>
+        <div class="ad-body">
+          <div class="ad-field">Fondo</div>
+          <div class="ad-value">Oxford Blue + trama diagonal 8% blanco</div>
+          <div class="ad-field">Elemento visual</div>
+          <p>Tarjetón blanco con borde crimson izquierdo. Nombre, profesión, ciudad, contador de suscriptores e ingreso mensual.</p>
+          <div class="ad-field">Headline (blanco)</div>
+          <div class="ad-value">"Tu nombre puede ser el próximo en esta tarjeta."</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-2" style="gap:0;">
+      <div class="ad-concept" style="margin-right:12px;">
+        <div class="ad-header"><h3>G-01 — La N · Marca</h3><span class="ad-tag">1:1</span></div>
+        <div class="ad-body">
+          <div class="ad-field">Fondo</div>
+          <div class="ad-value">Blanco puro</div>
+          <div class="ad-field">Elemento visual</div>
+          <p>La N del logo escalada al 85% del canvas, cortada por bordes. Barra horizontal Crimson de 8×200px sobre la N.</p>
+          <div class="ad-field">Headline</div>
+          <div class="ad-value">"Editorial. Premium. Tuyo."</div>
+        </div>
+      </div>
+      <div class="ad-concept" style="margin-left:12px;">
+        <div class="ad-header"><h3>G-02 — La línea que separa · Marca</h3><span class="ad-tag">4:5</span></div>
+        <div class="ad-body">
+          <div class="ad-field">Fondo</div>
+          <div class="ad-value">Mitad Oxford Blue / mitad Blanco divididos por línea Crimson 3px</div>
+          <div class="ad-field">Elemento visual</div>
+          <p>"OPINIÓN" vertical blanca sobre azul. "ANÁLISIS" vertical azul sobre blanco. Texto central cambia de color al cruzar la línea.</p>
+          <div class="ad-field">Mood</div>
+          <div class="ad-value">Contraste</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECCIÓN V: COPY EMOCIONAL -->
+  <div class="section" id="emocional">
+    <div class="section-label">Agente VI — Voz y Tono</div>
+    <h2>La voz de Nebbuler.<br>El copy emocional.</h2>
+
+    <div class="brand-voice">
+      <p>Nebbuler habla como el colega más inteligente de la sala — el que no necesita impresionar porque ya lo hizo hace tiempo. No usa exclamaciones. No usa "revolucionario". No promete libertad financiera ni el estilo de vida del laptop en la playa. El tono es el del Financial Times un jueves en la tarde: sobrio, directo, levemente incómodo porque dice algo verdadero.</p>
+      <br>
+      <p><strong style="color:rgba(255,255,255,0.6);font-family:Arial,sans-serif;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;">Palabras que Nebbuler usa:</strong> criterio · acceso · suscriptores · posición · cobrar por opinar · conocimiento con precio</p>
+      <br>
+      <p><strong style="color:rgba(255,255,255,0.6);font-family:Arial,sans-serif;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;">Palabras que Nebbuler nunca usa:</strong> pasión · emprendedor · monetizar · influencer · audiencia · contenido · comunidad · impacto · transformar</p>
+    </div>
+
+    <p style="font-family:Arial,sans-serif;font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-bottom:20px;">5 Micro-historias (3 líneas máximo · activar reconocimiento inmediato)</p>
+    <div class="col-2">
+      <div>
+        <div class="micro-story">
+          <p><strong>El abogado tributarista</strong></p>
+          <p>Llevas 9 años explicando la reforma tributaria a empresarios que facturan diez veces más que tú.</p>
+          <p>Te llaman "antes de tomar cualquier decisión".</p>
+          <p>Ese acceso a tu criterio debería tener precio mensual.</p>
+        </div>
+        <div class="micro-story">
+          <p><strong>La médica epidemióloga</strong></p>
+          <p>Durante la pandemia, cuatro medios de comunicación tenían tu número guardado.</p>
+          <p>Ninguno te pagó por una sola cita.</p>
+          <p>Eso no vuelve a pasar.</p>
+        </div>
+        <div class="micro-story">
+          <p><strong>El economista del Banco Central</strong></p>
+          <p>Tu análisis de inflación llegó a tres ministros antes de publicarse.</p>
+          <p>Tus ex colegas te escriben cuando hay datos raros.</p>
+          <p>Hay un mercado para ese acceso. Todavía no lo abriste.</p>
+        </div>
+      </div>
+      <div>
+        <div class="micro-story">
+          <p><strong>El director de supply chain</strong></p>
+          <p>Cuando salió la crisis de los puertos, seis proveedores te preguntaron qué hacer.</p>
+          <p>Les respondiste gratis porque "eso se hace".</p>
+          <p>Setenta dólares al mes por esa misma pregunta no es cobrarles. Es honrarles el privilegio.</p>
+        </div>
+        <div class="micro-story">
+          <p><strong>El psicólogo organizacional</strong></p>
+          <p>Llevas una década siendo el que los gerentes llaman en off the record.</p>
+          <p>No para sesiones. Para entender qué está pasando en sus equipos.</p>
+          <p>Ese criterio off the record tiene estructura ahora.</p>
+        </div>
+        <div class="card card-dark" style="margin-top:20px;">
+          <p style="font-family:Arial,sans-serif;font-size:11px;color:rgba(255,255,255,0.6);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:12px;">Principio editorial</p>
+          <p style="font-family:Arial,sans-serif;font-size:13px;color:rgba(255,255,255,0.9);line-height:1.7;">Ningún ad explica qué es Nebbuler en el primer plano. El headline y la imagen trabajan juntos para crear reconocimiento emocional primero. La plataforma entra en el subhead, no antes.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECCIÓN VI: COMPARATIVA -->
+  <div class="section" id="comparativa">
+    <div class="section-label">Agente VI — Paid Media Creative</div>
+    <h2>Ads de comparativa.<br>El argumento matemático.</h2>
+
+    <div style="background:var(--cream);border-left:4px solid var(--crimson);padding:20px 24px;margin-bottom:32px;">
+      <p style="font-family:Arial,sans-serif;font-size:13px;line-height:1.7;"><strong>El argumento killer:</strong> Con 100 suscriptores a $9.990/mes — Substack cobra <span class="red">$99.900/mes en comisión</span>. Nebbuler cobra <span class="green">$29.990/mes fijo</span>. El creador ahorra <strong>$69.910/mes</strong> = $838.920/año.</p>
+    </div>
+
+    <table>
+      <tr><th>Suscriptores</th><th>Comisión Substack (10%)</th><th>Costo Nebbuler</th><th>Ahorro anual</th></tr>
+      <tr><td>50</td><td class="red">$49.950/mes</td><td class="green">$29.990/mes</td><td class="green">$239.520</td></tr>
+      <tr><td>100</td><td class="red">$99.900/mes</td><td class="green">$29.990/mes</td><td class="green">$838.920</td></tr>
+      <tr><td>500</td><td class="red">$499.500/mes</td><td class="green">$29.990/mes</td><td class="green">$5.634.120</td></tr>
+    </table>
+
+    <div class="col-3" style="margin-top:24px;">
+      <div class="ad-concept" style="margin:0;">
+        <div class="ad-header"><h3>Ad Comparativa 1</h3><span class="ad-tag">Meta 1:1</span></div>
+        <div class="ad-body">
+          <div class="ad-value" style="font-size:22px;color:var(--crimson);">"La calculadora que te duele"</div>
+          <p>Dos columnas. Substack en gris (con número en rojo que sube). Nebbuler en verde (número fijo). El cálculo visible en la imagen misma.</p>
+          <div class="ad-field">Por qué funciona</div>
+          <p>El argumento matemático hace el trabajo. La columna roja vs verde activa pérdida aversión — la pérdida de $69.910 pesa más que la ganancia equivalente.</p>
+        </div>
+      </div>
+      <div class="ad-concept" style="margin:0;">
+        <div class="ad-header"><h3>Ad "Momento de quiebre" 1</h3><span class="ad-tag">Meta + Reels</span></div>
+        <div class="ad-body">
+          <div class="ad-value" style="font-size:22px;color:var(--oxford);">"El contador que no para"</div>
+          <p>Fondo negro. Contador regresivo desde $1.500.000 hasta $0. Texto: "Cada mes que no monetizas tu conocimiento, regalas algo que no recuperas."</p>
+          <div class="ad-field">Por qué funciona</div>
+          <p>Activa pérdida por omisión — no lo que pierdes, sino lo que no has acumulado. Vergüenza productiva.</p>
+        </div>
+      </div>
+      <div class="ad-concept" style="margin:0;">
+        <div class="ad-header"><h3>Ad "Momento de quiebre" 2</h3><span class="ad-tag">Instagram 4:5</span></div>
+        <div class="ad-body">
+          <div class="ad-value" style="font-size:22px;color:var(--crimson);">"¿Cuánto vale una hora tuya?"</div>
+          <p>Calculadora física centrada. Texto a mano sobre ella: "Si cobras $80.000 la hora / Al mes → $12.800.000 / ¿Y si pudieras cobrar el 10% de eso mientras duermes?"</p>
+          <div class="ad-field">Headline</div>
+          <div class="ad-value">"Toma la decisión que llevas postergando."</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECCIÓN VII: POR PLATAFORMA -->
+  <div class="section" id="plataformas">
+    <div class="section-label">Agentes III + IV — Estrategia por plataforma</div>
+    <h2>LinkedIn primero.<br>Instagram segundo.</h2>
+    <div class="col-2">
+      <div class="platform-card">
+        <div class="platform-name">LinkedIn — Canal principal</div>
+        <p style="font-family:Arial,sans-serif;font-size:13px;line-height:1.7;color:#333;margin-bottom:12px;">Single Image Ad. Fondo blanco o muy oscuro, tipografía grande, una sola idea. Evitar stock photos.</p>
+        <p style="font-family:Arial,sans-serif;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px;">Segmentación</p>
+        <ul style="font-family:Arial,sans-serif;font-size:12px;color:#555;list-style:none;line-height:1.8;">
+          <li>• Job Title: Economista, Abogado, Médico, Consultor, Analista Senior</li>
+          <li>• Seniority: Senior, Manager, Director, Partner</li>
+          <li>• Industry: Financial Services, Legal, Healthcare, Management Consulting</li>
+          <li>• Geography: Santiago primero. Valparaíso + Concepción en semana 5</li>
+          <li>• Audience size: 15.000-40.000 personas</li>
+        </ul>
+      </div>
+      <div class="platform-card">
+        <div class="platform-name">Instagram — Canal secundario</div>
+        <p style="font-family:Arial,sans-serif;font-size:13px;line-height:1.7;color:#333;margin-bottom:12px;">No es canal de conversión, es canal de calificación. Stories + Feed. Reels solo si hay contenido nativo.</p>
+        <p style="font-family:Arial,sans-serif;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px;">Tipos de imagen que convierten</p>
+        <ul style="font-family:Arial,sans-serif;font-size:12px;color:#555;list-style:none;line-height:1.8;">
+          <li>• Dato estadístico editorial (fondo crema, tipografía serif)</li>
+          <li>• Cita de par profesional (nombre + cargo + ciudad)</li>
+          <li>• Comparativa de tiempo (8h consulta vs ingreso pasivo)</li>
+          <li>• Lo que NO funciona: carruseles de tips, diseños coloridos, estética motivacional</li>
+        </ul>
+      </div>
+    </div>
+    <div class="sep"></div>
+    <p style="font-family:Arial,sans-serif;font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-bottom:16px;">Los 3 ángulos de mensaje que más convierten para creadores</p>
+    <div class="col-3">
+      <div class="card card-dark">
+        <p style="font-family:Arial,sans-serif;font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:12px;">Ángulo 1</p>
+        <p style="font-size:16px;font-weight:700;margin-bottom:10px;">El número concreto</p>
+        <p style="font-family:Arial,sans-serif;font-size:12px;color:rgba(255,255,255,0.75);line-height:1.65;">"Si 50 personas pagan $7.990/mes, son $399.500 mensuales sin consultoría, sin clientes, sin reuniones." El cálculo en el ad mismo convierte 2-3x más que cualquier beneficio abstracto.</p>
+      </div>
+      <div class="card">
+        <p style="font-family:Arial,sans-serif;font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;">Ángulo 2</p>
+        <p style="font-size:16px;font-weight:700;margin-bottom:10px;">La legitimidad del medio</p>
+        <p style="font-family:Arial,sans-serif;font-size:12px;color:#555;line-height:1.65;">"Tus análisis, publicados como columna mensual." El mensaje diferencia Nebbuler de Instagram y TikTok. Palabras que matan: contenido, followers, engagement, viral.</p>
+      </div>
+      <div class="card card-crimson">
+        <p style="font-family:Arial,sans-serif;font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:12px;">Ángulo 3</p>
+        <p style="font-size:16px;font-weight:700;margin-bottom:10px;">Validación por pares</p>
+        <p style="font-family:Arial,sans-serif;font-size:12px;color:rgba(255,255,255,0.85);line-height:1.65;">"El economista [Nombre] generó $1.7M en 90 días." Requiere tener 1-2 creadores reales. Un creador real con número real convierte mejor que cualquier copy creativo.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECCIÓN VIII: QUÉ NO HACER -->
+  <div class="section" id="errores">
+    <div class="section-label">Agente III — 5 errores críticos</div>
+    <h2>Qué no hacer.</h2>
+    <div style="border:1px solid var(--border);">
+      <table style="margin:0;">
+        <tr><th>Error</th><th>Por qué destruye la campaña</th></tr>
+        <tr>
+          <td><strong>Lanzar ambos lados del marketplace al mismo tiempo</strong></td>
+          <td>Presupuesto dividido → ningún lado alcanza masa crítica. Substack lo cometió en mercados secundarios.</td>
+        </tr>
+        <tr>
+          <td><strong>Usar stock photos con personas sonriendo</strong></td>
+          <td>CTR 60% menor que imágenes de UI real, números o tipografía. LinkedIn penaliza el engagement bait visual.</td>
+        </tr>
+        <tr>
+          <td><strong>Enviar tráfico a la homepage</strong></td>
+          <td>El visitante tiene que descubrir solo de qué trata el producto. Se pierde el 70% del gasto. Necesitas landing por ángulo de mensaje.</td>
+        </tr>
+        <tr>
+          <td><strong>Optimizar por clicks en las primeras 2 semanas</strong></td>
+          <td>Meta y LinkedIn necesitan 50 conversiones por conjunto para salir de la fase de aprendizaje. Optimizar por "Landing Page Views" primero.</td>
+        </tr>
+        <tr>
+          <td><strong>Escalar antes de validar el mensaje</strong></td>
+          <td>CTR del 3% sin conversión real es peor que CTR del 0.8% con creadores que publican. La métrica es el creador con su primera publicación live.</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <strong>NEBBULER · PLAYBOOK PUBLICIDAD</strong>
+  <span>6 Agentes · Mayo 2026</span>
+  <span>nebbuler.com</span>
+</footer>
+
+</body>
+</html>

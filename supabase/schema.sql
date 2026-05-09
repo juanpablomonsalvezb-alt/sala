@@ -328,3 +328,24 @@ insert into public.sala_fx_rates (from_currency, to_currency, rate) values
   ('USD', 'ARS', 1050.00),
   ('USD', 'USD', 1.00)
 on conflict (from_currency, to_currency) do nothing;
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Superadmin
+-- ─────────────────────────────────────────────────────────────────────────────
+
+alter table public.sala_profiles
+  add column if not exists is_superadmin boolean not null default false;
+
+-- Asignar superadmin al fundador
+update public.sala_profiles
+  set is_superadmin = true
+  where email = 'juanpablo.monsalvezb@gmail.com';
+
+-- RLS helper: verifica si el usuario actual es superadmin
+create or replace function public.is_superadmin()
+returns boolean language sql security definer stable as $$
+  select coalesce(
+    (select is_superadmin from public.sala_profiles where id = auth.uid()),
+    false
+  )
+$$;

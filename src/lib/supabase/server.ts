@@ -34,3 +34,19 @@ export function createServiceClient() {
     process.env.SUPABASE_SERVICE_ROLE_KEY!
   )
 }
+
+export async function isSuperadmin(): Promise<boolean> {
+  try {
+    const supabase = await createClient()
+    const { data: { user } } = await supabase.auth.getUser()
+    if (!user) return false
+    const { data } = await supabase
+      .from('sala_profiles')
+      .select('is_superadmin')
+      .eq('id', user.id)
+      .single()
+    return data?.is_superadmin ?? false
+  } catch {
+    return false
+  }
+}

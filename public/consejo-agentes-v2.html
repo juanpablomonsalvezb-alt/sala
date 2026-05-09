@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Consejo de Agentes — Nebbuler · Mayo 2026</title>
+<style>
+  :root {
+    --ink: #111111;
+    --crimson: #B31C1C;
+    --muted: #767676;
+    --cream: #F8F7F5;
+    --border: #E0E0E0;
+    --gold: #C4922A;
+    --green: #1A5C38;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    background: #fff;
+    color: var(--ink);
+    line-height: 1.6;
+  }
+
+  /* HEADER */
+  .masthead {
+    border-bottom: 4px solid var(--ink);
+    padding: 32px 48px 24px;
+    background: #fff;
+  }
+  .masthead-top {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  .masthead-title {
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-family: 'Arial', sans-serif;
+  }
+  .masthead-date {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    font-family: 'Arial', sans-serif;
+  }
+  .masthead-rule { height: 1px; background: var(--border); margin: 12px 0; }
+  h1.main-title {
+    font-size: clamp(36px, 5vw, 68px);
+    line-height: 0.92;
+    letter-spacing: -0.025em;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  .masthead-sub {
+    font-size: 14px;
+    color: var(--muted);
+    font-family: 'Arial', sans-serif;
+    letter-spacing: 0.04em;
+  }
+  .red-tag {
+    display: inline-block;
+    background: var(--crimson);
+    color: #fff;
+    font-size: 9px;
+    font-family: 'Arial', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    margin-right: 10px;
+  }
+
+  /* ÍNDICE */
+  .index-bar {
+    background: var(--cream);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 48px;
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    font-family: 'Arial', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .index-bar a { color: var(--ink); text-decoration: none; }
+  .index-bar a:hover { color: var(--crimson); }
+
+  /* LAYOUT */
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 48px; }
+
+  /* VEREDICTO EJECUTIVO */
+  .verdict-banner {
+    border: 2px solid var(--ink);
+    margin: 36px 0;
+    padding: 28px 32px;
+    background: var(--ink);
+    color: #fff;
+  }
+  .verdict-banner h2 {
+    font-size: 11px;
+    font-family: 'Arial', sans-serif;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #ffffff99;
+    margin-bottom: 12px;
+  }
+  .verdict-banner p {
+    font-size: 22px;
+    line-height: 1.35;
+    font-weight: 400;
+    max-width: 820px;
+  }
+  .verdict-banner strong { color: #ffd080; }
+
+  /* GRID CONSEJO */
+  .agents-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    margin: 24px 0;
+  }
+  .agent-card {
+    background: #fff;
+    padding: 20px;
+  }
+  .agent-num {
+    font-size: 9px;
+    font-family: 'Arial', sans-serif;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .agent-name {
+    font-size: 13px;
+    font-weight: 700;
+    font-family: 'Arial', sans-serif;
+    margin-bottom: 4px;
+    color: var(--ink);
+  }
+  .agent-role {
+    font-size: 10px;
+    font-family: 'Arial', sans-serif;
+    color: var(--crimson);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  /* SECCIONES */
+  .section {
+    border-top: 3px solid var(--ink);
+    padding: 40px 0;
+  }
+  .section-label {
+    font-size: 9px;
+    font-family: 'Arial', sans-serif;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .section h2 {
+    font-size: clamp(24px, 3.5vw, 38px);
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+    line-height: 1.05;
+  }
+  .section-agent {
+    font-size: 10px;
+    font-family: 'Arial', sans-serif;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 24px;
+  }
+  .section-agent span { color: var(--crimson); }
+
+  /* COLUMNAS DE CONTENIDO */
+  .col-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+  .col-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
+
+  /* BLOQUES DE TEXTO */
+  .body-text p {
+    font-size: 16px;
+    line-height: 1.72;
+    margin-bottom: 16px;
+    max-width: 680px;
+  }
+  .body-text p:last-child { margin-bottom: 0; }
+  .body-text strong { font-weight: 700; }
+
+  /* PULL QUOTE */
+  .pull-quote {
+    border-left: 4px solid var(--crimson);
+    padding: 12px 0 12px 20px;
+    margin: 28px 0;
+    max-width: 620px;
+  }
+  .pull-quote p {
+    font-size: 20px;
+    line-height: 1.35;
+    font-style: italic;
+    color: var(--ink);
+  }
+
+  /* VEREDICTO FINAL DE SECCIÓN */
+  .verdict-box {
+    background: var(--cream);
+    border-left: 4px solid var(--ink);
+    padding: 20px 24px;
+    margin-top: 28px;
+  }
+  .verdict-box .label {
+    font-size: 9px;
+    font-family: 'Arial', sans-serif;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .verdict-box p {
+    font-size: 15px;
+    line-height: 1.55;
+    font-weight: 700;
+  }
+
+  /* TABLA */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Arial', sans-serif;
+    font-size: 12px;
+    margin: 20px 0;
+  }
+  th {
+    text-align: left;
+    padding: 8px 12px;
+    background: var(--ink);
+    color: #fff;
+    letter-spacing: 0.06em;
+    font-size: 10px;
+    text-transform: uppercase;
+  }
+  td {
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--border);
+    color: var(--ink);
+    vertical-align: top;
+  }
+  tr:nth-child(even) td { background: var(--cream); }
+  .green { color: var(--green); font-weight: 700; }
+  .red { color: var(--crimson); font-weight: 700; }
+
+  /* NÚMERO GRANDE */
+  .big-stat {
+    font-size: 56px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+  .big-stat-label {
+    font-size: 10px;
+    font-family: 'Arial', sans-serif;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* CARDS TÁCTICAS */
+  .tactic-card {
+    border: 1px solid var(--border);
+    padding: 20px;
+  }
+  .tactic-num {
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--crimson);
+    opacity: 0.25;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .tactic-title {
+    font-size: 15px;
+    font-weight: 700;
+    font-family: 'Arial', sans-serif;
+    margin-bottom: 8px;
+  }
+  .tactic-body {
+    font-size: 13px;
+    line-height: 1.6;
+    color: #444;
+    font-family: 'Arial', sans-serif;
+  }
+
+  /* BULLET LIST */
+  .bullet-list {
+    list-style: none;
+    margin: 16px 0;
+  }
+  .bullet-list li {
+    font-size: 14px;
+    line-height: 1.55;
+    padding: 6px 0 6px 20px;
+    border-bottom: 1px solid var(--border);
+    font-family: 'Arial', sans-serif;
+    position: relative;
+  }
+  .bullet-list li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--crimson);
+    font-weight: 700;
+  }
+
+  /* CÓDIGO */
+  code {
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    background: #f0f0f0;
+    padding: 2px 6px;
+    border-radius: 2px;
+  }
+  pre {
+    background: var(--ink);
+    color: #e8e8e8;
+    padding: 20px;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    line-height: 1.6;
+    overflow-x: auto;
+    margin: 16px 0;
+  }
+
+  /* SEPARATOR */
+  .sep { height: 1px; background: var(--border); margin: 24px 0; }
+
+  /* FOOTER */
+  footer {
+    border-top: 3px solid var(--ink);
+    padding: 24px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Arial', sans-serif;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  footer strong { color: var(--ink); }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .masthead, .container, footer { padding-left: 24px; padding-right: 24px; }
+    .index-bar { padding: 12px 24px; }
+    .agents-grid { grid-template-columns: 1fr 1fr; }
+    .col-2, .col-3 { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- MASTHEAD -->
+<div class="masthead">
+  <div class="masthead-top">
+    <span class="masthead-title">Nebbuler · Consejo Estratégico de Agentes</span>
+    <span class="masthead-date">Mayo 9, 2026 — Sesión II</span>
+  </div>
+  <div class="masthead-rule"></div>
+  <h1 class="main-title">El veredicto<br>de los agentes</h1>
+  <div class="masthead-rule"></div>
+  <p class="masthead-sub">
+    <span class="red-tag">11 agentes</span>
+    Producto · Growth · Pricing · Marca · Mercado · UX · Conversión · Verificación · Redes Sociales
+  </p>
+</div>
+
+<!-- ÍNDICE -->
+<div class="index-bar">
+  <a href="#producto">I. Producto</a>
+  <a href="#growth">II. Growth</a>
+  <a href="#pricing">III. Pricing</a>
+  <a href="#marca">IV. Marca</a>
+  <a href="#mercado">V. Mercado</a>
+  <a href="#conversion">VI. Conversión</a>
+  <a href="#verificacion">VII. Verificación</a>
+  <a href="#redes">VIII. Redes Sociales</a>
+  <a href="#tecnico">IX. Implementación Técnica</a>
+  <a href="#linkedin">X. LinkedIn</a>
+  <a href="#accion">XI. Plan de Acción</a>
+</div>
+
+<div class="container">
+
+  <!-- VEREDICTO EJECUTIVO -->
+  <div class="verdict-banner">
+    <h2>Veredicto Ejecutivo — 11 Agentes</h2>
+    <p>Nebbuler tiene el stack correcto, el modelo correcto y la estética correcta. Lo que no tiene todavía es <strong>evidencia de vida</strong>. El único movimiento que importa en los próximos 21 días es conseguir un creador real, publicando contenido real, con al menos un suscriptor real pagando. La ventana competitiva es de <strong>18 a 24 meses</strong> antes de que Substack apueste en LATAM. Hay que usarla ahora.</p>
+  </div>
+
+  <!-- CONSEJO DE AGENTES -->
+  <div class="section-label" style="margin-top:8px;">Los 11 agentes del consejo</div>
+  <div class="agents-grid">
+    <div class="agent-card">
+      <div class="agent-num">Agente I</div>
+      <div class="agent-name">Director de Producto</div>
+      <div class="agent-role">Roadmap & Features</div>
+    </div>
+    <div class="agent-card">
+      <div class="agent-num">Agente II</div>
+      <div class="agent-name">Estratega de Growth</div>
+      <div class="agent-role">Adquisición de Creadores</div>
+    </div>
+    <div class="agent-card">
+      <div class="agent-num">Agente III</div>
+      <div class="agent-name">Analista Financiero</div>
+      <div class="agent-role">Modelo & Proyecciones</div>
+    </div>
+    <div class="agent-card">
+      <div class="agent-num">Agente IV</div>
+      <div class="agent-name">Investigador UX</div>
+      <div class="agent-role">Experiencia & Diseño</div>
+    </div>
+    <div class="agent-card">
+      <div class="agent-num">Agente V</div>
+      <div class="agent-name">Guardián de Marca</div>
+      <div class="agent-role">Posicionamiento & Naming</div>
+    </div>
+    <div class="agent-card">
+      <div class="agent-num">Agente VI</div>
+      <div class="agent-name">Analista de Mercado</div>
+      <div class="agent-role">Competencia & Oportunidad</div>
+    </div>
+    <div class="agent-card">
+      <div class="agent-num">Agente VII</div>
+      <div class="agent-name">Estratega de Ventas</div>
+      <div class="agent-role">Conversión de Lectores</div>
+    </div>
+    <div class="agent-card">
+      <div class="agent-num">Agente VIII</div>
+      <div class="agent-name">Psicólogo Conductual</div>
+      <div class="agent-role">Confianza & Verificación</div>
+    </div>
+    <div class="agent-card">
+      <div class="agent-num">Agente IX</div>
+      <div class="agent-name">Estratega Social</div>
+      <div class="agent-role">Distribución en Redes</div>
+    </div>
+    <div class="agent-card">
+      <div class="agent-num">Agente X</div>
+      <div class="agent-name">Ingeniero Frontend</div>
+      <div class="agent-role">Implementación Técnica Social</div>
+    </div>
+    <div class="agent-card">
+      <div class="agent-num">Agente XI</div>
+      <div class="agent-name">Especialista LinkedIn</div>
+      <div class="agent-role">LinkedIn para Profesionales</div>
+    </div>
+  </div>
+
+  <!-- SECCIÓN I: PRODUCTO -->
+  <div class="section" id="producto">
+    <div class="section-label">Agente I — Director de Producto</div>
+    <h2>El producto vive.<br>Los creadores reales, no.</h2>
+    <div class="section-agent">Veredicto de <span>Roadmap & Features</span></div>
+    <div class="col-2">
+      <div class="body-text">
+        <p>El mayor riesgo de Nebbuler hoy no es técnico. Es la <strong>ausencia de prueba social real</strong> en un mercado donde la credibilidad profesional lo es todo. Once perfiles ficticios son un andamio, no una propuesta de valor. Un economista que llega a la landing no ve colegas reales publicando — ve una vitrina vacía con maniquíes. La confianza colapsa antes de llegar al botón de registro.</p>
+        <p>El segundo riesgo: no existe un camino claro desde "me interesa" hasta "publiqué mi primer artículo y tengo suscriptores pagando." Sin ese camino, el producto no tiene propulsión.</p>
+      </div>
+      <div>
+        <p style="font-size:11px;font-family:Arial,sans-serif;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:12px;">Feature crítico que falta</p>
+        <div class="tactic-card" style="margin-bottom:12px;">
+          <div class="tactic-title">Calculadora de ingresos proyectados</div>
+          <div class="tactic-body">"Si tengo 50 suscriptores a $9.990 CLP, pago $29.990, me quedan $469.510." Esa aritmética debe ser inmediata y visual antes de registrarse.</div>
+        </div>
+        <div class="tactic-card">
+          <div class="tactic-title">Página de pre-lanzamiento del creador</div>
+          <div class="tactic-body">Un perfil activable antes de tener contenido. Botón "Notificarme cuando publique". El creador construye lista de espera antes de pagar.</div>
+        </div>
+      </div>
+    </div>
+    <div class="sep"></div>
+    <p style="font-size:11px;font-family:Arial,sans-serif;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:16px;">Los 3 hitos en orden estricto</p>
+    <div class="col-3">
+      <div class="tactic-card">
+        <div class="tactic-num">01</div>
+        <div class="tactic-title">Activar el primer creador real antes del 31 de mayo</div>
+        <div class="tactic-body">No como usuario beta gratuito. Como creador pagante con perfil público, al menos un artículo publicado y un suscriptor real pagando. Ofrecer primer mes gratis a cambio de 2 artículos + feedback.</div>
+      </div>
+      <div class="tactic-card">
+        <div class="tactic-num">02</div>
+        <div class="tactic-title">Flujo de monetización extremo a extremo</div>
+        <div class="tactic-body">Hoy el creador no puede cobrar suscripciones reales. Stripe en producción es la prioridad absoluta sobre cualquier feature nuevo. Sin esto, todo lo demás es decoración.</div>
+      </div>
+      <div class="tactic-card">
+        <div class="tactic-num">03</div>
+        <div class="tactic-title">Primera campaña de adquisición con datos reales</div>
+        <div class="tactic-body">Una vez que un creador real opera y el flujo cierra, hay un caso de estudio mínimo. Ahí se lanza outreach a 20-30 profesionales con datos concretos: "Este economista genera X pesos al mes."</div>
+      </div>
+    </div>
+    <div class="verdict-box">
+      <div class="label">Veredicto final — Agente I</div>
+      <p>Nebbuler tiene el stack correcto. Lo que no tiene todavía es evidencia de vida. El único movimiento que importa en los próximos 21 días es conseguir un creador real, publicando, con al menos un suscriptor pagando. Todo lo demás es ruido hasta que ese momento ocurra.</p>
+    </div>
+  </div>
+
+  <!-- SECCIÓN II: GROWTH -->
+  <div class="section" id="growth">
+    <div class="section-label">Agente II — Estratega de Growth</div>
+    <h2>Los primeros 5 creadores<br>se consiguen por LinkedIn DM.</h2>
+    <div class="section-agent">Veredicto de <span>Adquisición de Creadores</span></div>
+    <div class="col-2">
+      <div class="body-text">
+        <p>El canal más rápido es <strong>LinkedIn outreach directo</strong>. No comunidades, no colegios profesionales, no ads. Los profesionales chilenos con audiencia ya están ahí publicando gratis. Se puede identificar exactamente quiénes tienen engagement real. El mensaje llega sin intermediarios y el ciclo de decisión es de 48-72 horas.</p>
+        <p>Criterio de selección del target: profesional chileno con 500+ conexiones que haya publicado al menos 3 posts en los últimos 30 días con comentarios sustantivos. Eso es una audiencia ya activada dejando dinero sobre la mesa.</p>
+      </div>
+      <div>
+        <p style="font-size:11px;font-family:Arial,sans-serif;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:12px;">El mensaje que convierte vs. la objeción que frena</p>
+        <div class="pull-quote">
+          <p>"Llevas X meses regalando tu conocimiento. Tienes 800 conexiones que te leen. Yo te muestro cómo cobrar por eso sin comisión."</p>
+        </div>
+        <p style="font-size:13px;font-family:Arial,sans-serif;color:#444;line-height:1.6;"><strong>La única objeción real:</strong> "No sé si tengo suficiente audiencia para que alguien me pague." No se mata con argumentos — se mata mostrando que Substack tiene newsletters exitosos en Chile con 200 suscriptores a $5 USD/mes.</p>
+      </div>
+    </div>
+    <div class="sep"></div>
+    <p style="font-size:11px;font-family:Arial,sans-serif;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:16px;">El argumento de ventas en 2 oraciones</p>
+    <div class="verdict-box" style="border-left-color:var(--crimson)">
+      <div class="label">Argumento central</div>
+      <p style="font-style:italic;font-weight:400;font-size:17px;">"Substack te cobra el 10% de todo lo que ganas para siempre — mientras más exitoso eres, más les pagas. Nebbuler cobra $29.990 fijos al mes y el 100% de tus ingresos son tuyos desde el primer suscriptor."</p>
+    </div>
+    <div class="sep"></div>
+    <p style="font-size:11px;font-family:Arial,sans-serif;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:12px;">DM de LinkedIn que funciona — enviar a mano, sin automatizar</p>
+    <pre>"Vi tu post sobre [tema específico]. Tienes una audiencia real que ya te lee.
+Nebbuler es la plataforma donde profesionales como tú cobran suscripción
+sin comisión — modelo fijo de $29.990/mes y te quedas el 100%.
+Te muestro cómo funciona en 15 minutos si te interesa."</pre>
+    <div class="verdict-box">
+      <div class="label">Veredicto final — Agente II</div>
+      <p>De 20 DMs enviados hoy: 3-4 responden, 1-2 aceptan llamada, 1 paga. Segunda ronda la semana siguiente con el aprendizaje de la primera. Meta: 5 creadores reales en 30 días.</p>
+    </div>
+  </div>
+
+  <!-- SECCIÓN III: PRICING -->
+  <div class="section" id="pricing">
+    <div class="section-label">Agente III — Analista Financiero</div>
+    <h2>Break-even: 53 creadores.<br>La ventana se abre en 22 suscriptores.</h2>
+    <div class="section-agent">Veredicto de <span>Modelo & Proyecciones</span></div>
+    <div class="col-3" style="margin-bottom:24px;">
+      <div>
+        <div class="big-stat">3</div>
+        <div class="big-stat-label">creadores para cubrir infraestructura</div>
+      </div>
+      <div>
+        <div class="big-stat">53</div>
+        <div class="big-stat-label">creadores para sueldo del founder</div>
+      </div>
+      <div>
+        <div class="big-stat">22</div>
+        <div class="big-stat-label">suscriptores donde Nebbuler &gt; Substack</div>
+      </div>
+    </div>
+    <div class="body-text">
+      <p>Con 22 o más suscriptores, Nebbuler ya es más barato para el creador que Substack en términos absolutos. Con 100 suscriptores a $9.990 CLP/mes, Nebbuler le ahorra <strong>$109.910 CLP/mes</strong> comparado con Substack. Ese es el argumento de venta central — un número en una tabla.</p>
+    </div>
+    <div class="sep"></div>
+    <p style="font-size:11px;font-family:Arial,sans-serif;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:12px;">Ahorro del creador vs. Substack (precio promedio suscriptor $13.990 CLP)</p>
+    <table>
+      <tr><th>Suscriptores</th><th>Ingreso bruto</th><th>Costo Substack</th><th>Costo Nebbuler</th><th>Ahorro</th></tr>
+      <tr><td>10</td><td>$139.900</td><td>$13.990</td><td>$29.990</td><td class="red">-$16.000</td></tr>
+      <tr><td>22</td><td>$307.780</td><td>$30.778</td><td>$29.990</td><td>$788 (empate)</td></tr>
+      <tr><td>50</td><td>$699.500</td><td>$69.950</td><td>$29.990</td><td class="green">+$39.960</td></tr>
+      <tr><td>100</td><td>$1.399.000</td><td>$139.900</td><td>$29.990</td><td class="green">+$109.910</td></tr>
+      <tr><td>500</td><td>$6.995.000</td><td>$699.500</td><td>$29.990</td><td class="green">+$669.510</td></tr>
+    </table>
+    <div class="sep"></div>
+    <p style="font-size:11px;font-family:Arial,sans-serif;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:12px;">Proyección 12 meses — tres escenarios</p>
+    <table>
+      <tr><th>Escenario</th><th>Creadores mes 12</th><th>MRR mes 12</th><th>ARR</th><th>Viabilidad</th></tr>
+      <tr><td>Conservador</td><td>20</td><td>$631 USD</td><td>$7.572 USD</td><td class="red">Sobrevive, no escala</td></tr>
+      <tr><td>Moderado</td><td>80</td><td>$2.526 USD</td><td>$27.900 USD</td><td>Founder con sueldo mínimo</td></tr>
+      <tr><td>Optimista</td><td>200</td><td>$6.314 USD</td><td>$72.768 USD</td><td class="green">Empresa real, equipo de 3</td></tr>
+    </table>
+    <div class="verdict-box">
+      <div class="label">Veredicto final — Agente III</div>
+      <p>El modelo flat fee sin comisión es estructuralmente sólido. No cambiarlo. Agregar 30 días gratis sin tarjeta para eliminar la barrera de entrada. El churn mensual —no el MRR— es la métrica de vida o muerte. Si supera 8% en los primeros 6 meses, reevaluar. Si se mantiene bajo 5%, escalar agresivamente.</p>
+    </div>
+  </div>
+
+  <!-- SECCIÓN IV: MARCA -->
+  <div class="section" id="marca">
+    <div class="section-label">Agente V — Guardián de Marca</div>
+    <h2>El nombre funciona.<br>El tagline habla al vendedor, no al comprador.</h2>
+    <div class="section-agent">Veredicto de <span>Posicionamiento & Naming</span></div>
+    <div class="col-2">
+      <div class="body-text">
+        <p>NEBBULER es viable — la buscabilidad es excelente (término único, rankeable), pero requiere trabajo de pronunciación desde el primer punto de contacto. El problema no es recordarlo después de verlo tres veces, sino que la primera vez no deja rastro auditivo natural.</p>
+        <p>El tagline "El conocimiento que antes no se vendía" tiene un insight genuinamente fuerte, pero tiene un problema estructural: <strong>habla al vendedor (el experto), no al comprador (el lector que paga)</strong>. La negación crea una estructura cognitiva que funciona en textos largos, no en 6 palabras.</p>
+      </div>
+      <div>
+        <p style="font-size:11px;font-family:Arial,sans-serif;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:12px;">Tabla de diagnóstico de marca</p>
+        <table>
+          <tr><th>Elemento</th><th>Estado</th></tr>
+          <tr><td>Nombre NEBBULER</td><td>Viable con trabajo</td></tr>
+          <tr><td>Tagline actual</td><td class="red">Cambiar</td></tr>
+          <tr><td>Precio $29.990</td><td>Defendible con ancla</td></tr>
+          <tr><td>Visual editorial</td><td class="green">Mantener</td></tr>
+          <tr><td>Logo N azul</td><td class="green">Mantener</td></tr>
+        </table>
+        <div class="tactic-card" style="margin-top:12px;">
+          <div class="tactic-title">Alternativas al tagline</div>
+          <div class="tactic-body">
+            · "El experto que necesitas, ahora accesible"<br>
+            · "Conocimiento que no está en Google"<br>
+            · "Aprende de quien realmente lo ha vivido"<br>
+            · "El know-how que los libros no tienen"
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="verdict-box">
+      <div class="label">Veredicto final — Agente V</div>
+      <p>El nombre y el posicionamiento visual se mantienen. El tagline se ajusta para hablar desde el beneficio del comprador. El riesgo más urgente no es la marca — es la densidad y verificabilidad del contenido en los primeros 30 autores. Una marca premium con contenido mediocre destruye el posicionamiento más rápido que cualquier error de naming.</p>
+    </div>
+  </div>
+
+  <!-- SECCIÓN V: MERCADO -->
+  <div class="section" id="mercado">
+    <div class="section-label">Agente VI — Analista de Mercado</div>
+    <h2>Ventana de 18-24 meses.<br>El nicho de entrada es economía chilena.</h2>
+    <div class="section-agent">Veredicto de <span>Competencia & Oportunidad</span></div>
+    <div class="col-2">
+      <div class="body-text">
+        <p>El mercado global de conocimiento pagado era <strong>$7.79 mil millones en 2025</strong> y proyecta $99 mil millones para 2035, creciendo al 28.97% anual. El 57% de los usuarios declara que la razón principal de adopción es precisamente el <strong>contenido de expertos verificados</strong> — el diferenciador exacto de Nebbuler.</p>
+        <p>Substack es el competidor más peligroso. En enero 2025 lanzó un fondo de $20 millones para atraer creadores con garantía de ingresos durante la migración. Pero ese fondo <strong>excluye a LATAM por diseño</strong> (solo creadores de EE.UU.). Substack está construyendo para los 50 creadores que ya ganan +$1M/año, no para el economista chileno que quiere lanzar su primer análisis pagado.</p>
+      </div>
+      <div>
+        <p style="font-size:11px;font-family:Arial,sans-serif;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:12px;">Panorama competitivo</p>
+        <table>
+          <tr><th>Competidor</th><th>Amenaza</th><th>Lo que no tiene</th></tr>
+          <tr><td><strong>Substack</strong></td><td class="red">Alta</td><td>Verificación, LATAM local</td></tr>
+          <tr><td>Beehiiv</td><td>Media</td><td>Discovery, comunidad</td></tr>
+          <tr><td>Ghost</td><td>Baja</td><td>Red, verificación</td></tr>
+          <tr><td>LinkedIn</td><td class="red">Latente</td><td>Monetización directa activa</td></tr>
+        </table>
+        <div class="tactic-card" style="margin-top:12px;">
+          <div class="tactic-title">Nicho de entrada correcto</div>
+          <div class="tactic-body">Economía y finanzas chilenas primero. Chile tiene cultura financiera inusualmente activa: AFP, tipo de cambio, reforma previsional. Los economistas con credibilidad tienen audiencia natural sin canal de monetización estructurado.</div>
+        </div>
+      </div>
+    </div>
+    <div class="verdict-box">
+      <div class="label">Veredicto final — Agente VI</div>
+      <p>Lanzar Nebbuler como la plataforma de análisis económico y financiero para Chile, con los primeros 30 economistas verificados como producto editorial, antes de que Substack haga su apuesta hispanohablante. La ventana existe, está abierta, y la está creando involuntariamente el mismo mercado global que aún no encontró el idioma para este modelo.</p>
+    </div>
+  </div>
+
+  <!-- SECCIÓN VI: CONVERSIÓN -->
+  <div class="section" id="conversion">
+    <div class="section-label">Agente VII — Estratega de Ventas</div>
+    <h2>El argumento ganador no es<br>"más contenido" — es acceso a la persona.</h2>
+    <div class="section-agent">Veredicto de <span>Conversión de Lectores</span></div>
+    <div class="col-2">
+      <div class="body-text">
+        <p>El lector que llega por WhatsApp o LinkedIn ya tiene una relación de confianza con el creador. Está ahí porque alguien que respeta le dijo "lee esto." Ese calor relacional es el activo de conversión más valioso — y el producto no lo está explotando.</p>
+        <p>El argumento que cierra: <em>"Pagar es la única forma de tener acceso directo a [nombre]. Todo lo demás es ruido."</em></p>
+        <p>La secuencia emocional correcta: <strong>reconocimiento → credibilidad → urgencia de pertenencia → fricción mínima.</strong></p>
+      </div>
+      <div>
+        <p style="font-size:11px;font-family:Arial,sans-serif;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:12px;">Estructura óptima del grid de artículos</p>
+        <ul class="bullet-list">
+          <li>Artículo gratis / artículo de pago / artículo gratis / artículo de pago...</li>
+          <li>No todos los gratuitos juntos arriba — la alternancia entrena al lector</li>
+          <li><strong>3 artículos gratis</strong> antes del paywall duro (no 1, no 8)</li>
+          <li>Paywall dinámico: mostrar el título exacto del artículo que el lector quiere leer</li>
+          <li>Precio siempre visible sin hacer clic — la ocultación destruye decisiones de impulso</li>
+        </ul>
+        <div class="tactic-card" style="margin-top:16px;">
+          <div class="tactic-title">Precio psicológico óptimo para Chile</div>
+          <div class="tactic-body">$7.990 CLP/mes como precio de entrada. "Cuesta menos que un café en Starbucks dos veces." Para nichos premium (finanzas, inversión, derecho), el techo de $19.990 es justificable si el artículo le ahorra dinero cuantificable.</div>
+        </div>
+      </div>
+    </div>
+    <div class="verdict-box">
+      <div class="label">Los 2 cambios que más aumentarían la conversión</div>
+      <p>1. Activar Stripe antes que cualquier otra cosa — cada semana sin flujo de pago funcional es revenue que no existe. 2. Paywall dinámico que muestre el título exacto del artículo bloqueado más los primeros 3 renglones — convierte intención declarada, no suscripción ciega.</p>
+    </div>
+  </div>
+
+  <!-- SECCIÓN VII: VERIFICACIÓN -->
+  <div class="section" id="verificacion">
+    <div class="section-label">Agente VIII — Psicólogo Conductual</div>
+    <h2>El badge da permiso psicológico<br>para pagar lo que el lector ya quería.</h2>
+    <div class="section-agent">Veredicto de <span>Confianza & Verificación</span></div>
+    <div class="col-2">
+      <div class="body-text">
+        <p>El badge activa el principio de autoridad (Cialdini) pero con una matización crítica: <strong>la autoridad funciona como reductor de costo cognitivo, no como generador de deseo.</strong> El lector no paga porque hay un badge — paga porque el badge le da permiso psicológico para pagar algo que ya quería.</p>
+        <p>El criterio flexible (experto por práctica, no solo por título) es una <strong>fortaleza enorme</strong> si se comunica con un marco narrativo claro. Un maestro FIDE tiene más expertise demostrable en ajedrez que el 99.9% de los doctores en ciencias cognitivas.</p>
+        <p>El nombre "EXPERTO RECONOCIDO POR NEBBULER" centra la autoridad en Nebbuler — una plataforma que el lector nuevo aún no conoce. Suena a que el badge lo entrega quien tiene interés en entregarlo.</p>
+      </div>
+      <div>
+        <p style="font-size:11px;font-family:Arial,sans-serif;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:12px;">Los 5 disparadores de desconfianza</p>
+        <ul class="bullet-list">
+          <li><strong>Incoherencia entre imagen y evidencia</strong> — un experto en finanzas con redacción con errores básicos</li>
+          <li><strong>Afirmaciones no ancladas</strong> — "he ayudado a miles de personas" sin evidencia concreta</li>
+          <li><strong>Ausencia de postura definida</strong> — expertos reales tienen opiniones incómodas, discrepancias</li>
+          <li><strong>El experto universal</strong> — verificado en 3 dominios muy distintos colapsa la credibilidad</li>
+          <li><strong>Opacidad del proceso</strong> — si Nebbuler no puede explicar cómo verifica, el lector asume que no verifica</li>
+        </ul>
+        <div class="tactic-card" style="margin-top:16px;">
+          <div class="tactic-title">Alternativa al badge actual</div>
+          <div class="tactic-body">"Verificado Nebbuler" — sin el adjetivo "experto reconocido" que suena grandilocuente antes de que la marca tenga el peso para sostenerlo. Acompañar con una línea de evidencia: "Verificado por: 15 años de práctica documentada."</div>
+        </div>
+      </div>
+    </div>
+    <div class="verdict-box">
+      <div class="label">Veredicto final — Agente VIII</div>
+      <p>El diferencial real de Nebbuler no es que verifica expertos. Es que tiene un <em>estándar</em> — y ese estándar es defendible, revisable y específico. La verificación debe ser pública, tener criterios claros, y ser revocable. Comunicar que Nebbuler retira la verificación genera más confianza que prometer infalibilidad.</p>
+    </div>
+  </div>
+
+  <!-- SECCIÓN VIII: REDES SOCIALES -->
+  <div class="section" id="redes">
+    <div class="section-label">Agente IX — Estratega Social</div>
+    <h2>Cómo conectar la página del creador<br>con todas las redes sociales.</h2>
+    <div class="section-agent">Veredicto de <span>Distribución en Redes</span></div>
+    <div class="col-2">
+      <div class="body-text">
+        <p>La pregunta central del founder: <em>¿cómo el creador puede vincular su página de Nebbuler con todas las redes sociales para dar a conocer su servicio?</em></p>
+        <p>La respuesta tiene dos dimensiones: <strong>qué hacer el creador</strong> (estrategia de contenido) y <strong>qué debe construir Nebbuler</strong> (funcionalidades técnicas). Ambas son igualmente críticas.</p>
+      </div>
+      <div>
+        <p style="font-size:11px;font-family:Arial,sans-serif;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:12px;">Jerarquía de canales para profesional chileno</p>
+        <table>
+          <tr><th>Red</th><th>Rol</th><th>Prioridad</th></tr>
+          <tr><td><strong>LinkedIn</strong></td><td>Descubrimiento + Conversión</td><td class="green">Tier 1</td></tr>
+          <tr><td><strong>WhatsApp</strong></td><td>Conversión directa (grupos)</td><td class="green">Tier 1</td></tr>
+          <tr><td>Twitter/X</td><td>Descubrimiento (economistas)</td><td>Tier 2</td></tr>
+          <tr><td>YouTube</td><td>Descubrimiento (consultores)</td><td>Tier 2</td></tr>
+          <tr><td>Instagram</td><td>Solo si hay presencia previa</td><td>Tier 3</td></tr>
+          <tr><td>TikTok</td><td>No aplica (profesional)</td><td class="red">Descartar</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="sep"></div>
+    <p style="font-size:11px;font-family:Arial,sans-serif;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:16px;">La estrategia 80/20 que funciona</p>
+    <div class="col-3">
+      <div class="tactic-card">
+        <div class="tactic-title">80% en redes — gratis</div>
+        <div class="tactic-body">El análisis, el contexto, los datos de contexto. LinkedIn post de 4 párrafos explicando el problema real. El lector ya aprendió algo antes de llegar a Nebbuler.</div>
+      </div>
+      <div class="tactic-card">
+        <div class="tactic-title">20% en Nebbuler — exclusivo</div>
+        <div class="tactic-body">La conclusión accionable, los datos duros, el modelo de proyección, el template descargable, la fuente primaria. El lector financiero que quiere el Excel suscribe.</div>
+      </div>
+      <div class="tactic-card">
+        <div class="tactic-title">El formato teaser que convierte</div>
+        <div class="tactic-body">Problema en párrafo 1. Datos + tensión en párrafos 2-3. Corte deliberado en párrafo 4. "El análisis completo con [lo específico que falta] en nebbuler.com/su-nombre."</div>
+      </div>
+    </div>
+    <div class="sep"></div>
+    <p style="font-size:11px;font-family:Arial,sans-serif;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:16px;">Cadencia semanal recomendada</p>
+    <ul class="bullet-list">
+      <li><strong>Lunes:</strong> Post de LinkedIn con teaser del análisis de la semana. CTA al artículo en Nebbuler.</li>
+      <li><strong>Martes:</strong> El artículo completo en Nebbuler (alternar gratis/pago las primeras 8 semanas).</li>
+      <li><strong>Miércoles:</strong> Historia de Instagram o tweet con el dato más sorprendente del artículo. Sin link — solo la stat y "análisis completo en bio."</li>
+      <li><strong>Viernes:</strong> Mensaje a 2-3 grupos de WhatsApp relevantes con contexto personal.</li>
+      <li><strong>Mensual:</strong> Al menos 1 artículo completamente gratuito para adquisición y SEO.</li>
+    </ul>
+    <div class="sep"></div>
+    <p style="font-size:11px;font-family:Arial,sans-serif;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:12px;">Bio de LinkedIn que convierte — estructura exacta</p>
+    <pre>Economista | Analizo coyuntura macro y política fiscal en Chile
+Cada semana publico un análisis que los medios no hacen: concreto, con datos, sin ruido
+→ nebbuler.com/tu-nombre</pre>
+    <div class="verdict-box">
+      <div class="label">Veredicto final — Agente IX</div>
+      <p>El indicador que importa en los primeros 90 días no es el alcance — es la tasa de conversión de visita a suscripción. Si nebbuler.com/su-nombre tiene 500 visitas y 50 suscriptores = 10% de conversión = señal para acelerar volumen. Si tiene 500 visitas y 5 suscriptores, el problema no es la distribución — es la propuesta de valor del contenido.</p>
+    </div>
+  </div>
+
+  <!-- SECCIÓN IX: IMPLEMENTACIÓN TÉCNICA -->
+  <div class="section" id="tecnico">
+    <div class="section-label">Agente X — Ingeniero Frontend</div>
+    <h2>6 implementaciones técnicas para<br>maximizar visibilidad en redes sociales.</h2>
+    <div class="section-agent">Veredicto de <span>Implementación Técnica Social</span></div>
+    <div class="col-3" style="margin-bottom:24px;">
+      <div class="tactic-card">
+        <div class="tactic-num">01</div>
+        <div class="tactic-title">og:image dinámica con next/og</div>
+        <div class="tactic-body">Endpoint en <code>src/app/api/og/creator/route.tsx</code> con runtime edge. Genera imagen 1200×630 con nombre, especialidad y número de suscriptores del creador. Sin esto, el CTR en WhatsApp y LinkedIn cae 60%.</div>
+      </div>
+      <div class="tactic-card">
+        <div class="tactic-num">02</div>
+        <div class="tactic-title">generateMetadata completo</div>
+        <div class="tactic-body">og:type, og:url, og:image, og:locale, twitter:card summary_large_image, alternates canonical. WhatsApp necesita exactamente 1200×630 — no 1200×628. La imagen dinámica se sirve en &lt;200ms desde el edge.</div>
+      </div>
+      <div class="tactic-card">
+        <div class="tactic-num">03</div>
+        <div class="tactic-title">Botones de compartir — ShareButtons</div>
+        <div class="tactic-body">Componente client: LinkedIn Share API + Twitter intent + WhatsApp api.whatsapp.com/send + copiar link con fallback para Safari iOS. Texto prellenado con título del artículo y URL.</div>
+      </div>
+      <div class="tactic-card">
+        <div class="tactic-num">04</div>
+        <div class="tactic-title">Schema.org structured data</div>
+        <div class="tactic-body">JSON-LD inline con <code>@type: Person</code> para perfiles de creador. Incluye name, url, jobTitle, knowsAbout, sameAs con URLs de redes sociales. Script nativo en Server Component.</div>
+      </div>
+      <div class="tactic-card">
+        <div class="tactic-num">05</div>
+        <div class="tactic-title">Campos de redes sociales en DB</div>
+        <div class="tactic-body">Agregar a <code>sala_creators</code>: <code>twitter_url TEXT</code>, <code>instagram_url TEXT</code>, <code>youtube_url TEXT</code>. El campo <code>linkedin_url</code> ya existe. ALTER TABLE simple sin impacto en filas existentes.</div>
+      </div>
+      <div class="tactic-card">
+        <div class="tactic-num">06</div>
+        <div class="tactic-title">URL del artículo legible y editable</div>
+        <div class="tactic-body">nebbuler.com/claudia/contrato-arriendo-clausulas-invalidas convierte más que /post/a7f3b2. El slug del artículo debe ser editable por el creador desde el editor. Impacto en WhatsApp donde el texto es visible antes del clic.</div>
+      </div>
+    </div>
+    <div class="sep"></div>
+    <p style="font-size:11px;font-family:Arial,sans-serif;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:12px;">SQL para agregar campos de redes sociales al perfil del creador</p>
+    <pre>ALTER TABLE sala_creators
+  ADD COLUMN IF NOT EXISTS twitter_url    TEXT,
+  ADD COLUMN IF NOT EXISTS instagram_url  TEXT,
+  ADD COLUMN IF NOT EXISTS youtube_url    TEXT;</pre>
+    <div class="sep"></div>
+    <p style="font-size:11px;font-family:Arial,sans-serif;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:12px;">Tabla de implementación — estado y acción</p>
+    <table>
+      <tr><th>Tarea</th><th>Estado actual</th><th>Acción</th><th>Impacto</th></tr>
+      <tr><td>og:image dinámica por creador</td><td class="red">No existe</td><td>Crear endpoint /api/og/creator</td><td class="green">Alto</td></tr>
+      <tr><td>generateMetadata completo</td><td>Básico</td><td>Reemplazar con versión completa</td><td class="green">Alto</td></tr>
+      <tr><td>Twitter Card</td><td class="red">No existe</td><td>Incluido en generateMetadata</td><td>Medio</td></tr>
+      <tr><td>Botones de compartir</td><td class="red">No existe</td><td>Crear ShareButtons component</td><td class="green">Alto</td></tr>
+      <tr><td>Schema.org JSON-LD</td><td class="red">No existe</td><td>Script inline en page.tsx</td><td>Medio</td></tr>
+      <tr><td>Campos RRSS en DB</td><td class="red">Incompleto</td><td>ALTER TABLE sala_creators</td><td>Medio</td></tr>
+    </table>
+    <div class="verdict-box">
+      <div class="label">Nota crítica — Agente X</div>
+      <p>El endpoint og:image usa <code>runtime = 'edge'</code> — obligatorio para ImageResponse. Para que WhatsApp refresque un preview ya cacheado, se necesita cambiar la URL (agregar ?v=2) o esperar 7 días. Es una limitación de WhatsApp, no del código.</p>
+    </div>
+  </div>
+
+  <!-- SECCIÓN X: LINKEDIN -->
+  <div class="section" id="linkedin">
+    <div class="section-label">Agente XI — Especialista LinkedIn</div>
+    <h2>LinkedIn: de 0 a 25 suscriptores<br>en 30 días. El plan exacto.</h2>
+    <div class="section-agent">Veredicto de <span>LinkedIn para Profesionales Chilenos</span></div>
+
+    <div class="col-2" style="margin-bottom:24px;">
+      <div>
+        <p style="font-size:11px;font-family:Arial,sans-serif;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:12px;">Sección "Acerca de" — estructura exacta que convierte</p>
+        <pre style="font-size:11px;">Línea 1 (lo único visible sin expandir — el hook):
+"El Banco Central va a cometer el mismo error
+que cometió en 2021. Lo estoy documentando."
+
+Párrafo 1 — qué haces y para quién:
+Economista con 15 años siguiendo política monetaria.
+Escribo "Política Monetaria" — análisis semanal para
+CFOs, gerentes de inversión, abogados corporativos.
+
+Párrafo 2 — prueba específica:
+En agosto 2024 anticipé el recorte de septiembre
+3 semanas antes del comunicado oficial.
+
+Párrafo 3 — social proof + CTA:
+340 profesionales pagan $14.990/mes por acceso completo.
+Lee el primer artículo gratis:
+nebbuler.com/rodrigo-fuentes</pre>
+        <p style="font-size:12px;font-family:Arial,sans-serif;color:#666;margin-top:8px;">⚡ La URL va en el párrafo del argumento más fuerte, no al final como firma.</p>
+      </div>
+      <div>
+        <p style="font-size:11px;font-family:Arial,sans-serif;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:12px;">Jerarquía de formatos por conversión</p>
+        <ul class="bullet-list">
+          <li><strong>Nivel 1 — Fragmento de insight con dato específico</strong>: demostración directa de capacidad analítica. El lector piensa: "si esto es lo que da gratis, qué tendrá adentro."</li>
+          <li><strong>Nivel 2 — Opinión contraria a la narrativa dominante</strong>: genera comentarios = genera alcance. Debe tener posición real, no clickbait.</li>
+          <li><strong>Nivel 3 — Narrativa personal con insight integrado</strong>: sobre la situación, no sobre ti. Lo que revela de tu método.</li>
+          <li><strong>No convierte — Post aviso</strong>: "Publiqué un nuevo artículo en Nebbuler." LinkedIn suprime posts con URL en el cuerpo (-60-80% alcance). Siempre el link en comentarios.</li>
+        </ul>
+        <div class="tactic-card" style="margin-top:12px;">
+          <div class="tactic-title">Regla crítica: LinkedIn vs. Nebbuler</div>
+          <div class="tactic-body">Siempre primero Nebbuler, luego LinkedIn. Si publicas el análisis completo en LinkedIn primero, ya no hay razón para suscribirse. LinkedIn es el trailer. Nebbuler es el producto.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sep"></div>
+    <p style="font-size:11px;font-family:Arial,sans-serif;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:16px;">Post ejemplo — Nivel 1: el fragmento de insight que convierte</p>
+    <div style="border:1px solid var(--border);padding:24px;background:var(--cream);font-family:Arial,sans-serif;font-size:14px;line-height:1.65;max-width:680px;">
+      <p style="margin-bottom:12px;"><em>El mercado está leyendo mal la minuta del martes.</em></p>
+      <p style="margin-bottom:12px;">Todos se están fijando en la frase "sesgo expansivo". Nadie está leyendo el párrafo 4, sección III.</p>
+      <p style="margin-bottom:12px;">Ahí el Consejo menciona algo que no dijo en los últimos tres comunicados: "incertidumbre sobre el componente no transable" como factor que podría modificar el ritmo.</p>
+      <p style="margin-bottom:12px;"><strong>Traducido:</strong> están dejándose la puerta abierta para pausar en septiembre aunque el modelo diga que corresponde otro recorte.</p>
+      <p style="margin-bottom:12px;">En el análisis completo de esta semana en Política Monetaria explico por qué esto importa si tienes deuda en UF, si importas desde dólares, o si estás evaluando un crédito hipotecario antes de diciembre.</p>
+      <p style="color:var(--muted);">Link en el primer comentario. #PoliticaMonetaria #BancoCentral #Economia</p>
+    </div>
+
+    <div class="sep"></div>
+    <p style="font-size:11px;font-family:Arial,sans-serif;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:16px;">Plan de 30 días — semana a semana</p>
+    <div class="col-3">
+      <div class="tactic-card" style="border-top:3px solid var(--crimson);">
+        <div class="tactic-title">Semana 0 (antes de publicar)</div>
+        <div class="tactic-body">Reescribir "About" con la estructura de arriba. Agregar Nebbuler en "Sitio web". Agregar artículo representativo en "Featured". Dejar 5 comentarios sustantivos por día en posts de tu audiencia objetivo — sin mencionar Nebbuler todavía.</div>
+      </div>
+      <div class="tactic-card" style="border-top:3px solid var(--ink);">
+        <div class="tactic-title">Semanas 1-2 (establecer voz)</div>
+        <div class="tactic-body">3 posts/semana: lunes (opinión contraria a la narrativa), miércoles (dato sorprendente), viernes (pregunta a la audiencia). Sin CTA a Nebbuler la semana 1. Primera semana 2: fragmento de insight conectado a Nebbuler con URL en comentarios.</div>
+      </div>
+      <div class="tactic-card" style="border-top:3px solid var(--gold);">
+        <div class="tactic-title">Semanas 3-4 (amplificación)</div>
+        <div class="tactic-body">Mismo ritmo L-M-V. Agregar un carousel PDF nativo (7 slides: hook + 5 insights + CTA). Los carousels tienen 3-5x más alcance que texto puro. Post de cierre del mes con métricas reales del mes.</div>
+      </div>
+    </div>
+
+    <div class="sep"></div>
+    <p style="font-size:11px;font-family:Arial,sans-serif;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:12px;">Expectativa realista a 30 días (500-3.000 conexiones)</p>
+    <table>
+      <tr><th>Métrica</th><th>Valor esperado</th></tr>
+      <tr><td>Visitas al perfil</td><td>+150% a +400% sobre baseline</td></tr>
+      <tr><td>Clics a Nebbuler en el mes</td><td>80 a 300</td></tr>
+      <tr><td>Conversión visita → suscriptor pagado</td><td>2% a 8%</td></tr>
+      <tr><td>Suscriptores nuevos el mes 1</td><td class="green">5 a 25</td></tr>
+    </table>
+
+    <div class="verdict-box">
+      <div class="label">Veredicto final — Agente XI</div>
+      <p>El activo que LinkedIn construye para Nebbuler no es el tráfico del mes 1. Es la reputación que hace que el tráfico del mes 6 convierta a tasas completamente distintas. El mes 3 con este ritmo es diferente al mes 1: el algoritmo ya sabe quién es tu audiencia, tienes historial de engagement, y los primeros suscriptores son los mejores vendedores cuando comentan en tus posts.</p>
+    </div>
+  </div>
+
+  <!-- SECCIÓN XI: PLAN DE ACCIÓN -->
+  <div class="section" id="accion">
+    <div class="section-label">Síntesis del Consejo — Plan de Acción</div>
+    <h2>Los próximos 30 días.<br>En orden. Sin excepciones.</h2>
+    <div class="section-agent">Consenso de <span>11 Agentes</span></div>
+    <div class="col-3" style="margin-bottom:32px;">
+      <div class="tactic-card" style="border-top:3px solid var(--crimson);">
+        <div class="tactic-num" style="opacity:1;font-size:24px;color:var(--crimson);">Semana 1</div>
+        <div class="tactic-title">Activar el pago</div>
+        <div class="tactic-body">
+          Stripe en producción. El botón "Suscribirse" debe completar la transacción en pesos chilenos antes de cualquier otra acción. Cada día sin esto es revenue perdido.
+        </div>
+      </div>
+      <div class="tactic-card" style="border-top:3px solid var(--ink);">
+        <div class="tactic-num" style="opacity:1;font-size:24px;color:var(--ink);">Semana 2</div>
+        <div class="tactic-title">Primer creador real</div>
+        <div class="tactic-body">
+          Identificar 20 economistas o abogados chilenos en LinkedIn con posts reales y engagement real. Enviar 20 DMs personalizados a mano. Objetivo: 1 creador pagante con 1 artículo publicado antes del día 14.
+        </div>
+      </div>
+      <div class="tactic-card" style="border-top:3px solid var(--gold);">
+        <div class="tactic-num" style="opacity:1;font-size:24px;color:var(--gold);">Semana 3-4</div>
+        <div class="tactic-title">Open Graph + share buttons</div>
+        <div class="tactic-body">
+          Implementar og:image dinámico por artículo. Agregar botones de compartir con texto prellenado. Agregar campos twitter_url e instagram_url al perfil del creador. Estas 3 implementaciones multiplican la distribución orgánica.
+        </div>
+      </div>
+    </div>
+
+    <div class="sep"></div>
+    <p style="font-size:11px;font-family:Arial,sans-serif;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:16px;">El número que importa — norte del año 1</p>
+    <div style="display:flex;gap:24px;align-items:center;flex-wrap:wrap;margin-bottom:24px;">
+      <div>
+        <div class="big-stat" style="color:var(--crimson);">53</div>
+        <div class="big-stat-label">creadores para que<br>el founder se pague un sueldo</div>
+      </div>
+      <div style="flex:1;max-width:500px;">
+        <p style="font-size:15px;line-height:1.6;font-family:Arial,sans-serif;color:#444;">Todo lo demás — branding, features adicionales, SEO, integraciones — es secundario hasta cruzar ese umbral. Ese es el norte real del año 1. Con 53 creadores el negocio es sostenible con el founder pagado. Antes de eso, es un proyecto con potencial.</p>
+      </div>
+    </div>
+
+    <div class="verdict-box" style="background:var(--ink);border-left-color:var(--crimson);">
+      <div class="label" style="color:#ffffff66;">Veredicto final del consejo — unánime</div>
+      <p style="color:#fff;font-size:18px;line-height:1.45;font-weight:400;">Nebbuler tiene el stack correcto, el modelo correcto, la estética correcta y la ventana de mercado correcta. Lo que falta es un creador real, publicando hoy, con un suscriptor pagando. <strong style="color:#ffd080;">Todo lo demás puede esperar. Eso no puede.</strong></p>
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<footer>
+  <strong>NEBBULER · CONSEJO ESTRATÉGICO</strong>
+  <span>Sesión II · Mayo 9, 2026 · 11 Agentes</span>
+  <span>nebbuler.com</span>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nebbuler — Crítica a las Plataformas · 4 Agentes</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --oxford: #0A1628;
+    --crimson: #B31C1C;
+    --cream: #F8F7F5;
+    --ink: #111;
+    --mid: #666;
+    --border: #E0DDD8;
+    --gold: #C4922A;
+    --yt: #FF0000;
+    --tt: #010101;
+    --ig: #C13584;
+    --sb: #FF6719;
+    --pt: #F96854;
+  }
+  body { font-family: Georgia, serif; background: var(--cream); color: var(--ink); }
+
+  /* HEADER */
+  .header {
+    background: var(--oxford); padding: 28px 64px;
+    display: flex; align-items: center; gap: 18px;
+    border-bottom: 3px solid var(--crimson);
+  }
+  .bar { width: 4px; height: 44px; background: var(--crimson); }
+  .header h1 { font-size: 22px; font-weight: 700; color: white; }
+  .header p { font-family: Arial, sans-serif; font-size: 10px; color: #6B8299; letter-spacing: 0.18em; text-transform: uppercase; margin-top: 3px; }
+
+  /* LAYOUT */
+  .page { max-width: 1160px; margin: 0 auto; padding: 52px 64px; }
+  .section-label {
+    font-family: Arial, sans-serif; font-size: 9px; letter-spacing: 0.25em;
+    text-transform: uppercase; color: #999;
+    border-bottom: 1px solid var(--border); padding-bottom: 10px; margin-bottom: 36px;
+  }
+  .section-label b { color: var(--crimson); }
+
+  /* HERO NUMBERS */
+  .numbers-strip {
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 2px; margin-bottom: 2px;
+  }
+  .num-card {
+    background: var(--oxford); padding: 28px 24px;
+    display: flex; flex-direction: column; align-items: flex-start;
+  }
+  .num-platform {
+    font-family: Arial, sans-serif; font-size: 8.5px; font-weight: 700;
+    letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 12px;
+    padding: 2px 8px;
+  }
+  .num-big { font-size: 32px; font-weight: 900; color: white; line-height: 1; margin-bottom: 8px; }
+  .num-desc { font-family: Arial, sans-serif; font-size: 11px; color: #4A6075; line-height: 1.4; }
+  .num-card.nebbuler { background: var(--crimson); }
+  .num-card.nebbuler .num-desc { color: rgba(255,255,255,0.7); }
+
+  /* FRASE CARDS */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; }
+
+  .fc { background: white; border: 1px solid var(--border); padding: 28px 32px; }
+  .fc.dark { background: var(--oxford); border-color: #1A2E45; }
+  .fc.full { grid-column: 1 / -1; }
+  .fc.accent-left { border-left: 3px solid var(--crimson); }
+  .fc.accent-left.gold { border-left-color: var(--gold); }
+
+  .fc-tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: Arial, sans-serif; font-size: 8px; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    padding: 3px 9px; margin-bottom: 14px;
+  }
+  .fc-tag.yt { background: #1A0000; color: var(--yt); }
+  .fc-tag.tt { background: #0A0A0A; color: #EEE; }
+  .fc-tag.ig { background: #1A0010; color: var(--ig); }
+  .fc-tag.sb { background: #1A0900; color: var(--sb); }
+  .fc-tag.pt { background: #1A0800; color: var(--pt); }
+  .fc-tag.all { background: #1A1A1A; color: #AAA; }
+  .fc-tag.nebbuler { background: var(--crimson); color: white; }
+  .fc-tag.contrast { background: var(--gold); color: #1A0A00; }
+
+  .fc-text { font-size: 16px; font-weight: 700; line-height: 1.45; margin-bottom: 10px; }
+  .fc.dark .fc-text { color: white; }
+  .fc-sub { font-family: Arial, sans-serif; font-size: 11px; color: #999; line-height: 1.4; }
+  .fc.dark .fc-sub { color: #4A6075; }
+
+  /* NIVEL BADGE */
+  .nivel {
+    display: inline-block; font-family: Arial, sans-serif; font-size: 8px;
+    font-weight: 700; letter-spacing: 0.1em; color: var(--gold);
+    text-transform: uppercase; margin-top: 12px;
+  }
+
+  /* AFORISMOS */
+  .aforismo-block {
+    background: var(--oxford); padding: 40px 48px;
+    border-left: 4px solid var(--gold);
+    margin-bottom: 2px;
+  }
+  .aforismo-num { font-family: Arial, sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+  .aforismo-quote { font-size: 20px; font-weight: 700; color: white; line-height: 1.4; margin-bottom: 16px; font-style: italic; }
+  .aforismo-body { font-family: Arial, sans-serif; font-size: 13px; color: #6B8299; line-height: 1.65; }
+
+  /* CONTRASTE TABLE */
+  .contrast-table { background: white; border: 1px solid var(--border); overflow: hidden; margin-bottom: 2px; }
+  .contrast-table table { width: 100%; border-collapse: collapse; }
+  .contrast-table th {
+    font-family: Arial, sans-serif; font-size: 9px; letter-spacing: 0.15em;
+    text-transform: uppercase; padding: 12px 20px; text-align: left;
+    background: #F2EFEB; color: var(--mid); border-bottom: 1px solid var(--border);
+  }
+  .contrast-table td { padding: 14px 20px; border-bottom: 1px solid var(--border); font-family: Arial, sans-serif; font-size: 13px; vertical-align: middle; }
+  .contrast-table tr:last-child td { border-bottom: none; }
+  .contrast-table tr.nebbuler-row td { background: var(--oxford); color: white; font-weight: 700; }
+  .platform-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 8px; }
+  .hard-num { font-weight: 900; font-size: 15px; }
+  .good { color: #0D7A3A; font-weight: 700; }
+  .bad { color: var(--crimson); font-weight: 700; }
+
+  /* AUDIENCIA SECTION */
+  .audiencia-hero {
+    background: var(--ink); padding: 48px 52px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center;
+    margin-bottom: 2px;
+  }
+  .ah-left h2 { font-size: 36px; font-weight: 900; color: white; line-height: 1.15; margin-bottom: 16px; }
+  .ah-left h2 span { color: var(--crimson); }
+  .ah-left p { font-family: Arial, sans-serif; font-size: 13px; color: #6B8299; line-height: 1.6; }
+  .ah-right { display: flex; flex-direction: column; gap: 16px; }
+  .ah-stat { border-left: 2px solid #2A3E52; padding-left: 16px; }
+  .ah-stat-num { font-size: 28px; font-weight: 900; color: white; line-height: 1; }
+  .ah-stat-label { font-family: Arial, sans-serif; font-size: 11px; color: #4A6075; margin-top: 4px; }
+
+  /* FOOTER */
+  .footer { background: #070E1A; padding: 24px 64px; display: flex; justify-content: space-between; font-family: Arial, sans-serif; font-size: 11px; color: #2A3E52; }
+  .footer b { color: #4A6075; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="bar"></div>
+  <div>
+    <h1>Crítica a las Plataformas — Frases para Nebbuler</h1>
+    <p>4 Agentes · Wit sofisticado · Mecanismo The Economist · Mayo 2026</p>
+  </div>
+</header>
+
+<!-- NÚMEROS DUROS -->
+<div class="page">
+  <p class="section-label"><b>01</b> &nbsp; Los Números que Nadie Publica — La Realidad del Modelo de Creador</p>
+
+  <div class="numbers-strip">
+    <div class="num-card">
+      <span class="num-platform" style="background:#1A0000;color:var(--yt);">YouTube</span>
+      <div class="num-big">1M</div>
+      <div class="num-desc">vistas mínimas para ganar $1.000 USD al mes</div>
+    </div>
+    <div class="num-card">
+      <span class="num-platform" style="background:#0A0A0A;color:#EEE;">TikTok</span>
+      <div class="num-big">50M</div>
+      <div class="num-desc">vistas necesarias para ganar $1.000 USD (Creator Fund)</div>
+    </div>
+    <div class="num-card">
+      <span class="num-platform" style="background:#1A0900;color:var(--sb);">Substack</span>
+      <div class="num-big">10%</div>
+      <div class="num-desc">de comisión sobre tus ingresos. Para siempre. Sin excepción.</div>
+    </div>
+    <div class="num-card">
+      <span class="num-platform" style="background:#1A0010;color:var(--ig);">Instagram</span>
+      <div class="num-big">1.5%</div>
+      <div class="num-desc">alcance orgánico promedio en 2024. Era 16% en 2012.</div>
+    </div>
+    <div class="num-card nebbuler">
+      <span class="num-platform" style="background:rgba(0,0,0,0.2);color:white;">Nebbuler</span>
+      <div class="num-big">0%</div>
+      <div class="num-desc">de comisión. El 100% de lo que paga tu suscriptor es tuyo.</div>
+    </div>
+  </div>
+
+  <!-- CONTRAST TABLE -->
+  <div class="contrast-table">
+    <table>
+      <thead>
+        <tr>
+          <th>Plataforma</th>
+          <th>Para ganar $1.000 USD necesitas</th>
+          <th>Comisión permanente</th>
+          <th>Tu audiencia es tuya</th>
+          <th>Reglas cambian sin aviso</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="platform-dot" style="background:var(--yt)"></span>YouTube</td>
+          <td><span class="hard-num bad">500.000 – 1.000.000 vistas</span></td>
+          <td>~45% (a Google)</td>
+          <td class="bad">No</td>
+          <td class="bad">Sí — 7 veces en 5 años</td>
+        </tr>
+        <tr>
+          <td><span class="platform-dot" style="background:#888"></span>TikTok</td>
+          <td><span class="hard-num bad">25.000.000 – 50.000.000 vistas</span></td>
+          <td>Variable / opaco</td>
+          <td class="bad">No</td>
+          <td class="bad">Sí</td>
+        </tr>
+        <tr>
+          <td><span class="platform-dot" style="background:var(--sb)"></span>Substack</td>
+          <td><span class="hard-num" style="color:var(--gold);">~34 suscriptores a $29.990</span></td>
+          <td class="bad">10% para siempre</td>
+          <td class="bad">Condicionalmente</td>
+          <td class="bad">Sí</td>
+        </tr>
+        <tr>
+          <td><span class="platform-dot" style="background:var(--pt)"></span>Patreon</td>
+          <td><span class="hard-num" style="color:var(--gold);">~34–40 suscriptores</span></td>
+          <td class="bad">5% – 12%</td>
+          <td class="bad">Condicionalmente</td>
+          <td class="bad">Sí</td>
+        </tr>
+        <tr class="nebbuler-row">
+          <td><span class="platform-dot" style="background:var(--crimson)"></span>Nebbuler</td>
+          <td><span class="hard-num good">~34 suscriptores a $29.990 CLP</span></td>
+          <td class="good">0% — siempre</td>
+          <td class="good">Sí — exportable siempre</td>
+          <td class="good">No aplica</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- FRASES DE CRÍTICA SOFISTICADA -->
+<div class="page" style="padding-top:0;">
+  <p class="section-label"><b>02</b> &nbsp; Las Frases — Nivel 3: Devastadoramente Elegantes</p>
+
+  <div class="grid-2" style="margin-bottom:2px;">
+    <div class="fc dark accent-left">
+      <span class="fc-tag yt">YouTube</span>
+      <div class="fc-text">"La plataforma de videos te ofrece CPM. Los economistas lo llaman renta de extracción."</div>
+      <div class="fc-sub">Eleva el lenguaje al registro académico. Hace que el oyente sienta que siempre lo supo.</div>
+      <div class="nivel">★★★ Nivel 3 — Devastadoramente elegante</div>
+    </div>
+    <div class="fc dark accent-left">
+      <span class="fc-tag tt">TikTok</span>
+      <div class="fc-text">"El fondo del creador distribuye migajas con la solemnidad de un presupuesto nacional."</div>
+      <div class="fc-sub">El contraste entre el ritual y la miseria es puro The Economist. Irresistible.</div>
+      <div class="nivel">★★★ Nivel 3 — Devastadoramente elegante</div>
+    </div>
+    <div class="fc dark accent-left">
+      <span class="fc-tag all">Todas</span>
+      <div class="fc-text">"Construiste la audiencia. Ellos construyeron el modelo de negocio sobre ella."</div>
+      <div class="fc-sub">Universal y devastador. No necesita nombres. Es la crítica estructural en su forma más pura.</div>
+      <div class="nivel">★★★ Nivel 3</div>
+    </div>
+    <div class="fc dark accent-left">
+      <span class="fc-tag ig">Instagram</span>
+      <div class="fc-text">"Tus 50.000 seguidores son, técnicamente, los clientes de Instagram. Tú eres el proveedor de contenido no remunerado."</div>
+      <div class="fc-sub">Reencuadra la relación en términos contractuales precisos. Sin adjetivos. Solo la estructura.</div>
+      <div class="nivel">★★★ Nivel 3</div>
+    </div>
+  </div>
+
+  <div class="grid-3" style="margin-bottom:2px;">
+    <div class="fc accent-left">
+      <span class="fc-tag yt">YouTube</span>
+      <div class="fc-text">"Produjiste 500.000 vistas. La plataforma produjo $1.000. Tú, la propina."</div>
+      <div class="fc-sub">Invierte la narrativa del "éxito viral" — medio millón de personas te vieron y apenas alcanzaste el sueldo mínimo.</div>
+    </div>
+    <div class="fc accent-left">
+      <span class="fc-tag sb">Substack</span>
+      <div class="fc-text">"Diez por ciento de comisión no es una tarifa. Es un socio que nunca aparece en las reuniones."</div>
+      <div class="fc-sub">Reformula la comisión como una sociedad parasitaria — precisa, elegante, sin insultar.</div>
+    </div>
+    <div class="fc accent-left">
+      <span class="fc-tag tt">TikTok</span>
+      <div class="fc-text">"Para ganar $1.000 en el fondo del creador necesitas 50 millones de vistas. O 100 suscriptores que te lean de verdad."</div>
+      <div class="fc-sub">El contraste numérico hace el trabajo solo. No se necesita adjetivo.</div>
+    </div>
+    <div class="fc accent-left">
+      <span class="fc-tag ig">Instagram</span>
+      <div class="fc-text">"Instagram redujo tu alcance orgánico al 2% para venderte el otro 98% de vuelta. Es el único negocio donde el robo y la solución cuestan lo mismo."</div>
+      <div class="fc-sub">La ironía estructural más precisa del ecosistema social.</div>
+    </div>
+    <div class="fc accent-left">
+      <span class="fc-tag yt">YouTube</span>
+      <div class="fc-text">"YouTube no te paga por tus ideas. Te paga por el tiempo que le robas al sueño de sus anunciantes."</div>
+      <div class="fc-sub">Reencuadra al creador como instrumento de atención del anunciante, no como talento valorado.</div>
+    </div>
+    <div class="fc accent-left">
+      <span class="fc-tag all">Todas</span>
+      <div class="fc-text">"Las plataformas te ofrecen 'alcance'. Es la misma palabra que usa un pescador cuando describe la red, no los peces."</div>
+      <div class="fc-sub">La metáfora del pescado activa la incomodidad correcta sin agresión explícita.</div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-bottom:2px;">
+    <div class="fc dark">
+      <span class="fc-tag sb">Substack</span>
+      <div class="fc-text">"Substack cobra el 10% de tus ingresos para siempre. Los bancos medievales llamaban a eso usura. Substack lo llama partnership."</div>
+      <div class="fc-sub">La referencia histórica es el golpe. Precisa, elegante, indefendible.</div>
+      <div class="nivel">★★★ Nivel 3</div>
+    </div>
+    <div class="fc dark">
+      <span class="fc-tag all">Todas</span>
+      <div class="fc-text">"Las plataformas digitales replicaron el modelo feudal con mejor UX: tú produces, ellos capturan la renta."</div>
+      <div class="fc-sub">Introduce la teoría económica sin explicarla. El lector que la entiende se siente inteligente.</div>
+      <div class="nivel">★★★ Nivel 3</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- MÁS FRASES — POR PLATAFORMA -->
+<div class="page" style="padding-top:0;">
+  <p class="section-label"><b>03</b> &nbsp; Por Plataforma — El Catálogo Completo</p>
+
+  <div class="grid-3" style="margin-bottom:2px;">
+    <div class="fc">
+      <span class="fc-tag yt">YouTube</span>
+      <div class="fc-text">"La plataforma de videos lleva veinte años perfeccionando un sistema en que el creador trabaja y la bolsa cotiza."</div>
+      <div class="fc-sub">Introduce la dimensión bursátil. Hace visible quién es el verdadero beneficiario.</div>
+    </div>
+    <div class="fc">
+      <span class="fc-tag yt">YouTube</span>
+      <div class="fc-text">"El algoritmo de YouTube cambió sus reglas de monetización 7 veces en 5 años. Tu arrendador ni siquiera puede hacer eso."</div>
+      <div class="fc-sub">El paralelo doméstico hace el abuso más legible que cualquier análisis técnico.</div>
+    </div>
+    <div class="fc">
+      <span class="fc-tag yt">YouTube</span>
+      <div class="fc-text">"Necesitas un millón de vistas para pagar el arriendo en Santiago. Con ese millón de personas, habrías ganado elecciones presidenciales en Chile."</div>
+      <div class="fc-sub">La ironía política escala la devastación sin perder elegancia.</div>
+    </div>
+    <div class="fc">
+      <span class="fc-tag tt">TikTok</span>
+      <div class="fc-text">"Cincuenta millones de personas te vieron bailar. Suficiente para pagar un arriendo. En Katmandú."</div>
+      <div class="fc-sub">La precisión geográfica es el remate. Brutal y divertido al mismo tiempo.</div>
+    </div>
+    <div class="fc">
+      <span class="fc-tag tt">TikTok</span>
+      <div class="fc-text">"TikTok pagó $0,02 por cada mil vistas el año pasado. La inflación en Argentina fue más generosa."</div>
+      <div class="fc-sub">La referencia regional añade una ironía inflacionaria que amplifica la devastación.</div>
+    </div>
+    <div class="fc">
+      <span class="fc-tag tt">TikTok</span>
+      <div class="fc-text">"TikTok descubrió que el entretenimiento gratuito es el producto más caro de la historia. Solo que el precio lo pagan los creadores."</div>
+      <div class="fc-sub">Invierte la lógica del "gratis" que tanto usan las plataformas como argumento.</div>
+    </div>
+    <div class="fc">
+      <span class="fc-tag ig">Instagram</span>
+      <div class="fc-text">"Construiste 50.000 seguidores en Instagram. El algoritmo te permite hablarle a 1.000. Felicidades por tu nuevo hobby."</div>
+      <div class="fc-sub">"Hobby" es el insulto exacto. Transforma una carrera en una actividad sin retorno.</div>
+    </div>
+    <div class="fc">
+      <span class="fc-tag ig">Instagram</span>
+      <div class="fc-text">"El creador moderno trabaja para plataformas que no lo conocen, anunciantes que no lo respetan, y algoritmos que no lo leen."</div>
+      <div class="fc-sub">La triada es simétrica y devastadora. Ningún elemento necesita explicación.</div>
+    </div>
+    <div class="fc">
+      <span class="fc-tag sb">Substack</span>
+      <div class="fc-text">"Tu suscriptor pagó $10. La plataforma naranja cobró su parte antes de que abrieras el correo."</div>
+      <div class="fc-sub">"Antes de que abrieras el correo" — la imagen es visceral y precisa sin ser violenta.</div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-bottom:2px;">
+    <div class="fc dark">
+      <span class="fc-tag all">Todas las plataformas</span>
+      <div class="fc-text">"No es que las plataformas paguen poco. Es que redefinieron 'pago' para que la cifra parezca suficiente."</div>
+      <div class="fc-sub">Crítica epistemológica: no ataca el número sino la distorsión semántica que lo legitima.</div>
+      <div class="nivel">★★★ Nivel 3</div>
+    </div>
+    <div class="fc dark">
+      <span class="fc-tag all">Todas las plataformas</span>
+      <div class="fc-text">"Silicon Valley inventó una economía donde el talento produce, la plataforma cobra, y todos celebran como si fuera progreso."</div>
+      <div class="fc-sub">Señala la complicidad cultural en el modelo sin atacar al creador. Sofisticado.</div>
+      <div class="nivel">★★★ Nivel 3</div>
+    </div>
+    <div class="fc dark">
+      <span class="fc-tag all">Todas las plataformas</span>
+      <div class="fc-text">"Hay una palabra para el negocio donde trabajas gratis, entregas el producto terminado, y le pagas al dueño del local por el privilegio de hacerlo. No es 'creador'. Es otra cosa."</div>
+      <div class="fc-sub">La frase incompleta es el golpe — el lector termina la acusación solo, lo que la hace más efectiva.</div>
+      <div class="nivel">★★★ Nivel 3</div>
+    </div>
+    <div class="fc dark">
+      <span class="fc-tag nebbuler">Posicionamiento Nebbuler</span>
+      <div class="fc-text">"Nebbuler no inventó nada. Solo decidió no inventar razones para quedarse con tu dinero."</div>
+      <div class="fc-sub">Cierre de ciclo perfecto. La humildad estratégica como contraste a la extracción sistemática de todos los demás.</div>
+      <div class="nivel">★★★ La mejor frase de cierre</div>
+    </div>
+  </div>
+</div>
+
+<!-- AFORISMOS -->
+<div class="page" style="padding-top:0;">
+  <p class="section-label"><b>04</b> &nbsp; Aforismos — El Nivel de Abstracción Más Alto</p>
+
+  <div class="aforismo-block">
+    <div class="aforismo-num">Aforismo I</div>
+    <div class="aforismo-quote">"Dime cuántos seguidores tienes y te diré cuánto le debes a la empresa que te impide hablarles."</div>
+    <div class="aforismo-body">El siglo XVIII acuñó máximas sobre la frugalidad. El siglo XXI perfeccionó algo más sofisticado: convencerte de que acumular riqueza para otros es una forma de libertad.</div>
+  </div>
+
+  <div class="aforismo-block" style="border-left-color:var(--crimson);">
+    <div class="aforismo-num">Aforismo II</div>
+    <div class="aforismo-quote">"El tiempo libre de un creador es el capital fijo de una plataforma. La diferencia entre ambos: solo uno lo sabe."</div>
+    <div class="aforismo-body">Franklin decía que el tiempo perdido nunca se recupera. Las plataformas lo leyeron como propuesta de negocio, no como advertencia.</div>
+  </div>
+
+  <div class="aforismo-block" style="border-left-color:#4A6075;">
+    <div class="aforismo-num">Aforismo III</div>
+    <div class="aforismo-quote">"No construyas tu casa en terreno ajeno, a menos que el dueño pueda cambiar las reglas, destruir lo construido, y cobrarte por vivir en los escombros. En ese caso: bienvenido a Substack, YouTube, Instagram y TikTok."</div>
+    <div class="aforismo-body">El creador latinoamericano construye sobre servidores de California. El resultado jurídico es, curiosamente, similar al del colono que nunca tuvo título de propiedad.</div>
+  </div>
+</div>
+
+<!-- AUDIENCIA PROPIA VS. PRESTADA -->
+<div class="page" style="padding-top:0;">
+  <p class="section-label"><b>05</b> &nbsp; Audiencia Prestada vs. Audiencia Propia — El Concepto Central</p>
+
+  <div class="audiencia-hero">
+    <div class="ah-left">
+      <h2>Tus seguidores<br>son de <span>ellos.</span><br>Tus suscriptores<br>son de <span style="color:white;">ti.</span></h2>
+      <p>Esta es la diferencia económica más importante en la carrera de un creador profesional. Un seguidor es intención. Un suscriptor que paga es decisión. Solo una de las dos se puede llevar cuando cambias de plataforma.</p>
+    </div>
+    <div class="ah-right">
+      <div class="ah-stat">
+        <div class="ah-stat-num">20–40%</div>
+        <div class="ah-stat-label">tasa de apertura promedio de un email / newsletter</div>
+      </div>
+      <div class="ah-stat">
+        <div class="ah-stat-num">1.5%</div>
+        <div class="ah-stat-label">alcance orgánico promedio de Instagram 2024</div>
+      </div>
+      <div class="ah-stat">
+        <div class="ah-stat-num">2M+</div>
+        <div class="ah-stat-label">canales demonetizados por YouTube en 2023</div>
+      </div>
+      <div class="ah-stat">
+        <div class="ah-stat-num">0%</div>
+        <div class="ah-stat-label">probabilidad de que Nebbuler te quite tu lista. Es tuya. Siempre.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-bottom:2px;">
+    <div class="fc accent-left">
+      <span class="fc-tag all">Audiencia prestada</span>
+      <div class="fc-text">"Tus 200.000 seguidores no son un activo. Son una licencia de uso que la plataforma puede revocar esta tarde."</div>
+      <div class="fc-sub">La precisión legal ("licencia de uso") reencuadra la relación en términos que un profesional entiende.</div>
+    </div>
+    <div class="fc accent-left">
+      <span class="fc-tag all">Audiencia prestada</span>
+      <div class="fc-text">"Construir audiencia en Instagram es como levantar un edificio en terreno arrendado. El contrato se renueva a discreción del dueño."</div>
+      <div class="fc-sub">La metáfora inmobiliaria es la más legible para el profesional latinoamericano.</div>
+    </div>
+    <div class="fc accent-left">
+      <span class="fc-tag nebbuler">Audiencia propia</span>
+      <div class="fc-text">"Un email en tu lista tiene valor de activo. Un seguidor en Instagram tiene valor de vanidad. Los balances distinguen entre los dos."</div>
+      <div class="fc-sub">"Los balances distinguen entre los dos" — el economista implícito hace toda la diferencia.</div>
+    </div>
+    <div class="fc accent-left">
+      <span class="fc-tag nebbuler">Audiencia propia</span>
+      <div class="fc-text">"Si Nebbuler desaparece mañana, el creador exporta su lista y sigue. Si YouTube desaparece mañana, el creador pierde diez años de trabajo. Esa asimetría tiene nombre: riesgo de contraparte."</div>
+      <div class="fc-sub">Introduce el concepto financiero "riesgo de contraparte" — aplana la complejidad en una imagen simple.</div>
+    </div>
+    <div class="fc dark">
+      <span class="fc-tag contrast">El contraste definitivo</span>
+      <div class="fc-text">"Un follower es alguien que podría leerte. Un suscriptor pago es alguien que decidió que vale la pena."</div>
+      <div class="fc-sub">La diferencia entre posibilidad y decisión. Máxima economía de palabras.</div>
+    </div>
+    <div class="fc dark">
+      <span class="fc-tag nebbuler">Soberanía del creador</span>
+      <div class="fc-text">"La soberanía económica del creador empieza cuando su lista de suscriptores vive en sus manos, no en los servidores de otra empresa."</div>
+      <div class="fc-sub">"Soberanía" es la palabra correcta para el profesional latinoamericano. Tiene peso político e histórico.</div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div><b>Nebbuler</b> · Crítica a Plataformas · 4 Agentes de Marketing · Mayo 2026</div>
+  <div>nebbuler.com</div>
+</footer>
+
+</body>
+</html>

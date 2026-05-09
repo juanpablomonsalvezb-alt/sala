@@ -198,3 +198,91 @@
   .animate-delay-200 { animation-delay: 200ms; }
   .animate-delay-300 { animation-delay: 300ms; }
 }
+
+/* ─── Tiptap Editor ─────────────────────────────────────────── */
+.ProseMirror {
+  font-family: 'Libre Baskerville', Georgia, serif;
+  font-size: 21px;
+  line-height: 1.75;
+  color: #121212;
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 48px 24px 120px;
+  min-height: 500px;
+  outline: none;
+}
+.ProseMirror h2 {
+  font-size: 28px;
+  font-weight: 700;
+  margin: 2rem 0 0.75rem;
+  letter-spacing: -0.01em;
+}
+.ProseMirror h3 {
+  font-size: 22px;
+  font-weight: 700;
+  margin: 1.5rem 0 0.5rem;
+}
+.ProseMirror blockquote {
+  border-left: 3px solid #C41C1C;
+  padding-left: 1.25rem;
+  margin: 1.5rem 0;
+  color: #555;
+  font-style: italic;
+}
+.ProseMirror img {
+  max-width: 100%;
+  height: auto;
+  margin: 1.5rem 0;
+  border: 1px solid #DEDEDE;
+}
+.ProseMirror iframe {
+  width: 100%;
+  aspect-ratio: 16/9;
+  border: 1px solid #DEDEDE;
+  margin: 1.5rem 0;
+}
+.ProseMirror p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  color: #BBBBBB;
+  pointer-events: none;
+  float: left;
+  height: 0;
+}
+.ProseMirror hr {
+  border: none;
+  border-top: 1px solid #DEDEDE;
+  margin: 2rem 0;
+}
+.ProseMirror strong { font-weight: 700; }
+.ProseMirror em { font-style: italic; }
+.ProseMirror a { color: #C41C1C; text-decoration: underline; }
+.ProseMirror p { margin: 0 0 1rem; }
+.ProseMirror > * + * { margin-top: 0; }
+
+/* Botón "+" — alinear con el texto */
+.nebbuler-editor-wrap {
+  position: relative;
+}
+.nebbuler-editor-wrap .nebbuler-prose > * {
+  position: relative;
+}
+
+/* YouTube embed responsive */
+.ProseMirror .editor-youtube,
+.ProseMirror div[data-youtube-video] iframe {
+  width: 100%;
+  aspect-ratio: 16/9;
+  border: 1px solid #DEDEDE;
+  margin: 1.5rem 0;
+  display: block;
+}
+
+/* Image caption via figura */
+.ProseMirror figure figcaption {
+  font-family: 'Libre Baskerville', Georgia, serif;
+  font-style: italic;
+  font-size: 14px;
+  color: #666;
+  margin-top: 0.5rem;
+  text-align: center;
+}

@@ -72,7 +72,7 @@ export default function Home() {
 
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 border-r border-[#E0E0E0] pr-6 mr-0">
-            <img src="/nebbuler-logo.svg" alt="Nebbuler" className="h-9 w-auto" />
+            <img src="/nebbuler-logo.png" alt="Nebbuler" className="h-9 w-auto" />
             <span className="text-[17px] font-black uppercase tracking-[0.04em] text-[#111] font-serif">EBBULER</span>
           </Link>
 
@@ -214,7 +214,7 @@ export default function Home() {
           <div className="grid grid-cols-2 md:grid-cols-5 gap-10 mb-12">
             <div className="col-span-2 md:col-span-1">
               <div className="flex items-center gap-2 mb-4">
-                <img src="/nebbuler-logo.svg" alt="Nebbuler" className="h-6 w-auto brightness-0 invert" />
+                <img src="/nebbuler-logo.png" alt="Nebbuler" className="h-6 w-auto brightness-0 invert" />
                 <span className="text-[15px] font-bold uppercase tracking-[0.04em] text-white font-serif">EBBULER</span>
               </div>
               <p className="text-[12px] text-white/35 leading-[1.75] max-w-[160px]">

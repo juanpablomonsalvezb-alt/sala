@@ -9,7 +9,7 @@ export default function Nav() {
         <div className="max-w-6xl mx-auto px-6 py-5 flex flex-col items-center gap-3">
           <Link href="/" className="flex items-center gap-3">
             <Image
-              src="/nebbuler-logo.svg"
+              src="/nebbuler-logo.png"
               alt="Nebbuler"
               width={64}
               height={52}

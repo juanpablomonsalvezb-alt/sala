@@ -170,7 +170,6 @@ export async function generateMetadata({
 function Nav({ creatorSlug, creatorName }: { creatorSlug: string; creatorName: string }) {
   return (
     <header>
-      <div className="h-[3px] bg-[#C41C1C] w-full" />
       <div className="border-b border-[#DEDEDE] py-4 px-6">
         <div className="max-w-5xl mx-auto flex flex-col items-center gap-3">
           <Link

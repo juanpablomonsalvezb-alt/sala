@@ -13,8 +13,8 @@ function getSupabase() {
 }
 
 function verifyMPSignature(request: NextRequest, rawBody: string): boolean {
-  const secret = process.env.MP_WEBHOOK_SECRET
-  if (!secret) return true // En dev sin secret, pasar (advertencia en log)
+  const secret = process.env.MERCADOPAGO_WEBHOOK_SECRET
+  if (!secret) return true // En dev sin secret, pasar
 
   const signature = request.headers.get('x-signature') ?? ''
   const requestId = request.headers.get('x-request-id') ?? ''

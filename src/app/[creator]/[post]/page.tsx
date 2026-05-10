@@ -491,17 +491,19 @@ export default async function PostPage({
         isSubscribed = !!sub
       }
     } catch {
-      // Fallback: primero creators.ts, luego mock original
+      // Fallback cuando Supabase falla — forzar paywall en todos los posts
+      // para evitar que contenido de pago sea accesible por error de infraestructura
       const staticResult = findStaticPost(creatorSlug, postSlug)
       if (staticResult) {
         creator = staticResult.creator
-        post = staticResult.post
+        post = { ...staticResult.post, is_free: false }
       } else if (creatorSlug === MOCK_CREATOR.slug) {
-        post = { ...MOCK_POST, slug: postSlug }
+        post = { ...MOCK_POST, slug: postSlug, is_free: false }
         creator = MOCK_CREATOR
       } else {
         notFound()
       }
+      // isSubscribed queda en false → paywall siempre visible cuando hay error
     }
   } else {
     // Sin Supabase → fallback estático

@@ -32,7 +32,8 @@ function verifyMPSignature(request: NextRequest, rawBody: string): boolean {
   return computedHash === receivedHash
 }
 
-// external_reference = "subscriber_id:creator_id:price_clp"
+// external_reference = "subscriber_id:creator_id:price_clp"  (lector → creador)
+// external_reference = "platform:creator_id:user_id"          (creador → plataforma)
 function parseRef(ref: string): { subscriberId: string; creatorId: string; priceCLP: number } | null {
   const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
   const parts = ref.split(':')
@@ -42,6 +43,28 @@ function parseRef(ref: string): { subscriberId: string; creatorId: string; price
   const priceCLP = parseInt(priceStr, 10)
   if (isNaN(priceCLP)) return null
   return { subscriberId, creatorId, priceCLP }
+}
+
+// external_reference = "platform:creator_id:user_id"
+function parsePlatformRef(ref: string): { creatorId: string; userId: string } | null {
+  const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
+  if (!ref.startsWith('platform:')) return null
+  const parts = ref.split(':')
+  if (parts.length < 3) return null
+  const creatorId = parts[1]
+  const userId = parts[2]
+  if (!UUID.test(creatorId) || !UUID.test(userId)) return null
+  return { creatorId, userId }
+}
+
+async function activateCreatorPlan(creatorId: string, userId: string): Promise<void> {
+  const supabase = getSupabase()
+  const { error } = await supabase
+    .from('sala_creators')
+    .update({ plan: 'creator' })
+    .eq('id', creatorId)
+    .eq('user_id', userId)
+  if (error) throw new Error(`activateCreatorPlan: ${error.message}`)
 }
 
 async function activateSubscription(
@@ -120,7 +143,19 @@ export async function POST(request: NextRequest) {
       if (!res.ok) return NextResponse.json({ error: 'MP API error' }, { status: 502 })
 
       const preapproval = await res.json()
-      const parsed = parseRef(preapproval.external_reference ?? '')
+      const extRef: string = preapproval.external_reference ?? ''
+
+      // ── Tarifa de plataforma: creador → Nebbuler ──
+      const platformParsed = parsePlatformRef(extRef)
+      if (platformParsed) {
+        if (preapproval.status === 'authorized') {
+          await activateCreatorPlan(platformParsed.creatorId, platformParsed.userId)
+        }
+        return NextResponse.json({ received: true })
+      }
+
+      // ── Suscripción lector → creador ──
+      const parsed = parseRef(extRef)
       if (!parsed) return NextResponse.json({ received: true })
 
       if (preapproval.status === 'authorized') {

@@ -169,7 +169,7 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-[#DEDEDE]">
             {featuredCreatorsData.map((creator) => (
-              <Link key={creator.slug} href={`/${creator.slug}`} className="bg-white p-6 hover:bg-[#F7F7F7] transition-colors group block">
+              <div key={creator.slug} className="bg-white p-6">
                 <p className="text-[10px] font-sans font-bold tracking-[0.15em] uppercase text-[#C41C1C] mb-2">{creator.specialty}</p>
                 <h3 className="font-serif text-lg font-bold text-[#121212] mb-2 leading-tight group-hover:text-[#C41C1C] transition-colors">{creator.name}</h3>
                 <p className="text-xs font-sans text-[#666] leading-relaxed mb-4 line-clamp-2">{creator.bio}</p>
@@ -180,7 +180,7 @@ export default function Home() {
                   <span className="text-xs font-sans"><span className="font-bold text-[#121212]">${creator.price_clp.toLocaleString('es-CL')}</span><span className="text-[#999]">/mes</span></span>
                   <span className="text-xs font-sans text-[#999]"><span className="font-bold text-[#121212]">{creator.subscriber_count.toLocaleString('es-CL')}</span> suscriptores</span>
                 </div>
-              </Link>
+              </div>
             ))}
           </div>
         </div>

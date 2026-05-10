@@ -155,12 +155,9 @@ function CreatorCardFeatured({ creator }: { creator: CreatorWithMeta }) {
             {creator.subscriber_count.toLocaleString('es-CL')} suscriptores
           </span>
         </div>
-        <Link
-          href={`/${creator.slug}`}
-          className="font-sans text-[12px] font-medium text-[#121212] hover:text-[#C41C1C] transition-colors duration-150"
-        >
-          Ver sala →
-        </Link>
+        <span className="font-sans text-[12px] font-medium text-[#999]">
+          Próximamente →
+        </span>
       </div>
     </article>
   )
@@ -194,12 +191,9 @@ function CreatorCard({
         <span className="font-sans text-[12px] text-[#666666]">
           {formatPriceCLP(creator.price_clp)} · {creator.subscriber_count.toLocaleString('es-CL')} subs
         </span>
-        <Link
-          href={`/${creator.slug}`}
-          className="font-sans text-[11px] font-medium text-[#121212] hover:text-[#C41C1C] transition-colors duration-150"
-        >
-          Ver sala →
-        </Link>
+        <span className="font-sans text-[11px] font-medium text-[#999]">
+          Próximamente →
+        </span>
       </div>
     </article>
   )

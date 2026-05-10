@@ -221,24 +221,55 @@ export default function Home() {
                 El conocimiento que antes no se vendía.
               </p>
             </div>
-            {[
-              { title: "Plataforma",     links: ["Editor", "Analytics", "Pagos", "Membresías"] },
-              { title: "Para creadores", links: ["Cómo funciona", "Precios", "Casos de uso", "Blog"] },
-              { title: "Explorar",       links: ["Economía", "Derecho", "Medicina", "Arquitectura"] },
-              { title: "Empresa",        links: ["Acerca de", "Contacto", "Términos", "Privacidad"] },
-            ].map(({ title, links }) => (
+            {([
+              { title: "Plataforma", links: [
+                { label: "Editor",      href: "/para-creadores" },
+                { label: "Analytics",   href: "/para-creadores" },
+                { label: "Pagos",       href: "/precios" },
+                { label: "Membresías",  href: "/para-creadores" },
+              ]},
+              { title: "Para creadores", links: [
+                { label: "Cómo funciona", href: "/para-creadores" },
+                { label: "Precios",        href: "/precios" },
+                { label: "Casos de uso",  href: "/para-creadores" },
+                { label: "Abre tu sala",  href: "/abrir" },
+              ]},
+              { title: "Explorar", links: [
+                { label: "Economía",      href: "/directorio" },
+                { label: "Derecho",       href: "/directorio" },
+                { label: "Medicina",      href: "/directorio" },
+                { label: "Arquitectura",  href: "/directorio" },
+              ]},
+              { title: "Empresa", links: [
+                { label: "Acerca de",  href: "/" },
+                { label: "Contacto",   href: "mailto:hello@nebbuler.com" },
+                { label: "Términos",   href: "/terminos" },
+                { label: "Privacidad", href: "/privacidad" },
+              ]},
+            ] as { title: string; links: { label: string; href: string }[] }[]).map(({ title, links }) => (
               <div key={title}>
                 <p className="text-[9px] font-bold uppercase tracking-[0.18em] text-white/35 mb-4">
                   {title}
                 </p>
                 <div className="space-y-2.5">
-                  {links.map((l) => (
-                    <p
-                      key={l}
-                      className="text-[12px] text-white/25 hover:text-white/60 transition-colors cursor-pointer"
-                    >
-                      {l}
-                    </p>
+                  {links.map(({ label, href }) => (
+                    href.startsWith('mailto:') ? (
+                      <a
+                        key={label}
+                        href={href}
+                        className="block text-[12px] text-white/25 hover:text-white/60 transition-colors"
+                      >
+                        {label}
+                      </a>
+                    ) : (
+                      <Link
+                        key={label}
+                        href={href}
+                        className="block text-[12px] text-white/25 hover:text-white/60 transition-colors"
+                      >
+                        {label}
+                      </Link>
+                    )
                   ))}
                 </div>
               </div>

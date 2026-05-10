@@ -36,7 +36,7 @@ export default async function IngresosPage() {
 
       totalSubscriptions = subs?.length ?? 0
       mrr = subs?.reduce((acc, s) => acc + s.price_clp, 0) ?? 0
-      pendingPayout = Math.round(mrr * 0.95)
+      pendingPayout = mrr // 0% comisión
     }
   }
 
@@ -61,7 +61,7 @@ export default async function IngresosPage() {
           {[
             { label: 'MRR (este mes)', value: formatCLP(mrr), sub: 'Ingresos recurrentes mensuales' },
             { label: 'Suscriptores activos', value: String(totalSubscriptions), sub: 'Pagando hoy' },
-            { label: 'Por cobrar', value: formatCLP(pendingPayout), sub: 'Después de comisión 5%' },
+            { label: 'Por cobrar', value: formatCLP(pendingPayout), sub: '0% de comisión — es todo tuyo' },
           ].map(({ label, value, sub }) => (
             <div key={label} className="bg-white p-6">
               <p className="text-[10px] font-sans font-bold tracking-[0.15em] uppercase text-[#999] mb-2">{label}</p>

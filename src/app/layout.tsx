@@ -34,12 +34,17 @@ export const metadata: Metadata = {
     siteName: "Nebbuler",
     locale: "es_CL",
     type: "website",
+    url: "https://nebbuler.com",
+    images: [
+      { url: "/og-default.png", width: 1200, height: 630, alt: "Nebbuler — Lo que se piensa bien, dura." },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Nebbuler — El conocimiento que antes no se vendía.",
     description:
       "La plataforma donde economistas, médicos, abogados y expertos de dominio cobran por saber lo que tú necesitas entender.",
+    images: ["/og-default.png"],
   },
   robots: { index: true, follow: true },
 };

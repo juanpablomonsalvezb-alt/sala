@@ -68,11 +68,11 @@ export default async function PublicacionesPage() {
 
   const { data: creatorRaw } = await db
     .from('sala_creators')
-    .select('id')
+    .select('id, slug')
     .eq('user_id', user.id)
     .maybeSingle()
 
-  const creator = creatorRaw as Pick<Creator, 'id'> | null
+  const creator = creatorRaw as Pick<Creator, 'id' | 'slug'> | null
   if (!creator) redirect('/abrir')
 
   const { data: postsRaw } = await db
@@ -161,7 +161,7 @@ export default async function PublicacionesPage() {
                   {/* Title */}
                   <div className="pr-4">
                     <Link
-                      href={`/${post.slug}`}
+                      href={`/${creator!.slug}/${post.slug}`}
                       className="text-[14px] text-[#121212] font-medium leading-snug line-clamp-2 hover:text-[#C41C1C] transition-colors"
                       style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
                     >

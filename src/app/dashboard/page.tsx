@@ -65,17 +65,6 @@ function MetricCard({
   )
 }
 
-// ─── Activity mock ────────────────────────────────────────────────────────────
-
-const ACTIVITY_MOCK = [
-  { id: '1', text: 'Nueva suscripción activa', time: 'hace 2h', type: 'subscribe' as const },
-  { id: '2', text: 'Publicación leída por 12 personas', time: 'hace 5h', type: 'read' as const },
-  { id: '3', text: 'Suscripción cancelada', time: 'hace 1d', type: 'cancel' as const },
-  { id: '4', text: 'Nueva suscripción activa', time: 'hace 2d', type: 'subscribe' as const },
-  { id: '5', text: 'Publicación leída por 8 personas', time: 'hace 2d', type: 'read' as const },
-  { id: '6', text: 'Nueva suscripción activa', time: 'hace 3d', type: 'subscribe' as const },
-]
-
 // ─── No creator CTA ───────────────────────────────────────────────────────────
 
 function NoCreatorCTA() {
@@ -354,35 +343,14 @@ export default async function DashboardPage() {
                   Actividad reciente
                 </h2>
               </div>
-              <ul className="divide-y divide-[#DEDEDE]">
-                {ACTIVITY_MOCK.map((act) => (
-                  <li key={act.id} className="px-5 py-3.5 flex items-start gap-3">
-                    <span
-                      className={`mt-0.5 w-1.5 h-1.5 rounded-full flex-shrink-0 ${
-                        act.type === 'subscribe'
-                          ? 'bg-[#121212]'
-                          : act.type === 'cancel'
-                          ? 'bg-[#C41C1C]'
-                          : 'bg-[#DEDEDE]'
-                      }`}
-                    />
-                    <div>
-                      <p
-                        className="text-[13px] text-[#121212] leading-snug"
-                        style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}
-                      >
-                        {act.text}
-                      </p>
-                      <p
-                        className="text-[11px] text-[#666666] mt-0.5"
-                        style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}
-                      >
-                        {act.time}
-                      </p>
-                    </div>
-                  </li>
-                ))}
-              </ul>
+              <div className="px-5 py-10 text-center">
+                <p
+                  className="text-[13px] text-[#999]"
+                  style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}
+                >
+                  La actividad de tus suscriptores aparecerá aquí cuando tengas lectores activos.
+                </p>
+              </div>
             </section>
           </div>
 

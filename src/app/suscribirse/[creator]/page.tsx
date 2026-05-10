@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
 import type { Creator } from '@/types/database'
 import { createCheckoutSession } from './actions'
+import { creators as staticCreators } from '@/data/creators'
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -22,26 +23,31 @@ function formatPriceCLP(n: number): string {
   return `$${n.toLocaleString('es-CL')}`
 }
 
-// ─── Mock fallback ────────────────────────────────────────────────────────────
+// ─── Fallback estático desde creators.ts ─────────────────────────────────────
 
-const MOCK_CREATOR: Creator = {
-  id: 'mock-1',
-  user_id: 'mock-user-1',
-  name: 'Rodrigo Fuentes',
-  slug: 'rodrigo-fuentes',
-  specialty: 'ANÁLISIS FINANCIERO',
-  bio: 'Economista con 12 años en banca de inversión. Explico lo que los medios simplifican de más.',
-  bio_long: null,
-  linkedin_url: null,
-  price_clp: 9990,
-  plan: 'pro',
-  publish_frequency: 'Publica cada jueves',
-  created_at: '2024-03-01T00:00:00Z',
-  subscriber_count: 847,
-  stripe_account_id: null,
-  publication_name: 'Análisis Económico',
-  pull_quote: null,
-  cover_image_url: null,
+function findStaticCreatorForCheckout(slug: string): Creator | null {
+  const found = staticCreators.find((c) => c.slug === slug)
+  if (!found) return null
+  return {
+    id: `mock-${slug}`,
+    user_id: `mock-user-${slug}`,
+    name: found.name,
+    slug: found.slug,
+    specialty: found.specialty,
+    bio: found.bio,
+    bio_long: null,
+    linkedin_url: null,
+    price_clp: found.price_clp,
+    plan: found.plan,
+    publish_frequency: found.plan === 'pro' ? 'Publica dos veces por semana' : 'Publica semanalmente',
+    created_at: new Date().toISOString(),
+    subscriber_count: found.subscriber_count,
+    stripe_account_id: null,
+    verified: found.verified,
+    publication_name: found.name,
+    pull_quote: null,
+    cover_image_url: null,
+  }
 }
 
 // ─── Metadata ─────────────────────────────────────────────────────────────────
@@ -179,12 +185,12 @@ function CheckoutForm({
         {/* CTA */}
         <button
           type="submit"
-          className="w-full font-sans text-[14px] font-semibold py-4 bg-[#C41C1C] text-white hover:bg-[#a01515] transition-colors duration-150 mb-3"
+          className="w-full font-sans text-[14px] font-semibold py-4 bg-[#009EE3] text-white hover:bg-[#007AB8] transition-colors duration-150 mb-3"
         >
-          Suscribirse con Stripe · {priceLabel}
+          Suscribirse con MercadoPago · {priceLabel}
         </button>
         <p className="font-sans text-[11px] text-[#666666] text-center">
-          Pago seguro vía Stripe. Cancela en cualquier momento.
+          Pago seguro vía MercadoPago. Cancela en cualquier momento.
         </p>
 
         {/* Volver */}
@@ -221,21 +227,16 @@ export default async function SuscribirsePage({
         .eq('slug', slug)
         .single()
 
-      if (error || !data) notFound()
-      creator = data
-    } catch {
-      if (slug === 'rodrigo-fuentes') {
-        creator = MOCK_CREATOR
+      if (error || !data) {
+        creator = findStaticCreatorForCheckout(slug)
       } else {
-        notFound()
+        creator = data
       }
+    } catch {
+      creator = findStaticCreatorForCheckout(slug)
     }
   } else {
-    if (slug === 'rodrigo-fuentes') {
-      creator = MOCK_CREATOR
-    } else {
-      notFound()
-    }
+    creator = findStaticCreatorForCheckout(slug)
   }
 
   if (!creator) notFound()

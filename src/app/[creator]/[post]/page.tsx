@@ -5,6 +5,7 @@ import { createClient } from '@/lib/supabase/server'
 import type { Creator, Post } from '@/types/database'
 import PaywallGate from '@/components/paywall-gate'
 import { ShareBar } from '@/components/share-bar'
+import { creators as staticCreators } from '@/data/creators'
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -55,6 +56,90 @@ function extractPreview(content: string, wordCount = 300): string {
   const words = cleaned.split(/\s+/)
   if (words.length <= wordCount) return cleaned
   return words.slice(0, wordCount).join(' ') + '…'
+}
+
+// ─── Fallback estático desde creators.ts ─────────────────────────────────────
+
+const MONTH_MAP: Record<string, string> = {
+  enero: '01', febrero: '02', marzo: '03', abril: '04',
+  mayo: '05', junio: '06', julio: '07', agosto: '08',
+  septiembre: '09', octubre: '10', noviembre: '11', diciembre: '12',
+}
+function sinceToISO(since: string): string {
+  const [mes, anio] = since.toLowerCase().split(' ')
+  return `${anio}-${MONTH_MAP[mes] ?? '01'}-01T00:00:00Z`
+}
+const PUBLICATION_NAMES: Record<string, string> = {
+  'rodrigo-fuentes-marin':    'Política Monetaria',
+  'carolina-vega-toro':       'Mercado & Capital',
+  'matias-cornejo-silva':     'Tributario Chile',
+  'andrea-poblete-rios':      'Salud Pública',
+  'ignacio-leal-espinoza':    'Sistema Político',
+  'francisca-araya-medina':   'Ciudad & Territorio',
+  'pablo-herrera-zuniga':     'Laboral al Día',
+  'valentina-soto-burgos':    'Metabolismo & Nutrición',
+  'sebastian-miranda-lagos':  'Infraestructura',
+  'catalina-rojas-henriquez': 'Historia Económica',
+  'alejandro-vasquez-mora':   'IA & Estrategia Tech',
+}
+
+function slugify(text: string): string {
+  return text.toLowerCase()
+    .normalize('NFD').replace(/[̀-ͯ]/g, '')
+    .replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 60)
+}
+
+function findStaticPost(
+  creatorSlug: string,
+  postSlug: string
+): { creator: Creator; post: Post } | null {
+  const found = staticCreators.find((c) => c.slug === creatorSlug)
+  if (!found) return null
+
+  const creator: Creator = {
+    id: `mock-${creatorSlug}`,
+    user_id: `mock-user-${creatorSlug}`,
+    name: found.name,
+    slug: found.slug,
+    specialty: found.specialty,
+    bio: found.bio,
+    bio_long: found.bio,
+    linkedin_url: null,
+    price_clp: found.price_clp,
+    plan: found.plan,
+    publish_frequency: found.plan === 'pro' ? 'Publica dos veces por semana' : 'Publica semanalmente',
+    created_at: sinceToISO(found.since),
+    subscriber_count: found.subscriber_count,
+    stripe_account_id: null,
+    verified: found.verified,
+    publication_name: PUBLICATION_NAMES[found.slug] ?? found.name,
+    pull_quote: null,
+    cover_image_url: null,
+  }
+
+  const baseDate = new Date(sinceToISO(found.since))
+  for (let i = 0; i < found.articles.length; i++) {
+    const title = found.articles[i]
+    const generatedSlug = slugify(title)
+    if (generatedSlug === postSlug || postSlug.startsWith(generatedSlug.slice(0, 30))) {
+      const pub = new Date(baseDate)
+      pub.setDate(pub.getDate() + i * 14 + 7)
+      const post: Post = {
+        id: `mock-${creatorSlug}-${i}`,
+        creator_id: `mock-${creatorSlug}`,
+        title,
+        excerpt: `Análisis en profundidad por ${found.name}.`,
+        content: `## ${title}\n\nEste artículo es parte de la publicación **${PUBLICATION_NAMES[found.slug] ?? found.name}** por ${found.name}.\n\n${found.bio}\n\n---\n\n*Suscríbete para leer el análisis completo y todos los artículos exclusivos.*`,
+        is_free: i === 0,
+        published_at: pub.toISOString(),
+        created_at: pub.toISOString(),
+        read_time_minutes: 6 + i * 2,
+        slug: generatedSlug,
+      }
+      return { creator, post }
+    }
+  }
+  return null
 }
 
 // ─── Mock data (Supabase no configurado) ─────────────────────────────────────
@@ -406,20 +491,26 @@ export default async function PostPage({
         isSubscribed = !!sub
       }
     } catch {
-      // Fallback a mock
-      if (creatorSlug === MOCK_CREATOR.slug) {
-        const mockPost = { ...MOCK_POST, slug: postSlug }
-        post = mockPost
+      // Fallback: primero creators.ts, luego mock original
+      const staticResult = findStaticPost(creatorSlug, postSlug)
+      if (staticResult) {
+        creator = staticResult.creator
+        post = staticResult.post
+      } else if (creatorSlug === MOCK_CREATOR.slug) {
+        post = { ...MOCK_POST, slug: postSlug }
         creator = MOCK_CREATOR
       } else {
         notFound()
       }
     }
   } else {
-    // Sin Supabase → mock
-    if (creatorSlug === MOCK_CREATOR.slug) {
-      const mockPost = { ...MOCK_POST, slug: postSlug }
-      post = mockPost
+    // Sin Supabase → fallback estático
+    const staticResult = findStaticPost(creatorSlug, postSlug)
+    if (staticResult) {
+      creator = staticResult.creator
+      post = staticResult.post
+    } else if (creatorSlug === MOCK_CREATOR.slug) {
+      post = { ...MOCK_POST, slug: postSlug }
       creator = MOCK_CREATOR
     } else {
       notFound()

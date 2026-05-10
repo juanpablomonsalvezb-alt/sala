@@ -2,6 +2,7 @@ import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import type { Creator } from '@/types/database'
 import SidebarWrapper from './_components/SidebarWrapper'
+import { PlanBanner } from './_components/PlanBanner'
 
 export default async function DashboardLayout({
   children,
@@ -34,7 +35,10 @@ export default async function DashboardLayout({
       style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}
     >
       <SidebarWrapper creator={creator} />
-      <div className="flex-1 flex flex-col overflow-hidden">{children}</div>
+      <div className="flex-1 flex flex-col overflow-hidden">
+        {creator && <PlanBanner plan={creator.plan} />}
+        {children}
+      </div>
     </div>
   )
 }

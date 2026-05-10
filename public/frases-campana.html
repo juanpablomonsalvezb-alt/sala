@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Frases de Campaña — Nebbuler</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Georgia', serif;
+      background: #F7F7F5;
+      color: #121212;
+      padding: 60px 24px;
+    }
+
+    header {
+      max-width: 860px;
+      margin: 0 auto 64px;
+      border-top: 3px solid #C41C1C;
+      padding-top: 32px;
+    }
+
+    header p {
+      font-family: 'Inter', Arial, sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #999;
+      margin-bottom: 12px;
+    }
+
+    header h1 {
+      font-size: 36px;
+      font-weight: 700;
+      color: #121212;
+      line-height: 1.15;
+      margin-bottom: 12px;
+    }
+
+    header .sub {
+      font-family: 'Inter', Arial, sans-serif;
+      font-size: 14px;
+      color: #666;
+      font-style: normal;
+    }
+
+    .imagen-block {
+      max-width: 860px;
+      margin: 0 auto 72px;
+      background: #fff;
+      border: 1px solid #DEDEDE;
+    }
+
+    .imagen-header {
+      padding: 28px 36px 20px;
+      border-bottom: 1px solid #DEDEDE;
+    }
+
+    .imagen-header .num {
+      font-family: 'Inter', Arial, sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #C41C1C;
+      margin-bottom: 6px;
+    }
+
+    .imagen-header h2 {
+      font-size: 22px;
+      font-weight: 700;
+      color: #121212;
+    }
+
+    .imagen-header .concepto {
+      font-family: 'Inter', Arial, sans-serif;
+      font-size: 13px;
+      color: #666;
+      margin-top: 6px;
+      font-style: italic;
+    }
+
+    .frases {
+      padding: 0 36px 8px;
+    }
+
+    .frase-row {
+      padding: 24px 0;
+      border-bottom: 1px solid #F0F0F0;
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .frase-row:last-child {
+      border-bottom: none;
+    }
+
+    .frase-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .frase-tipo {
+      font-family: 'Inter', Arial, sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #999;
+    }
+
+    .frase-tipo.obligatoria {
+      color: #C41C1C;
+    }
+
+    .frase-label {
+      font-family: 'Inter', Arial, sans-serif;
+      font-size: 11px;
+      color: #aaa;
+    }
+
+    .frase-texto {
+      font-size: 18px;
+      font-weight: 700;
+      color: #121212;
+      line-height: 1.35;
+    }
+
+    .poder-badge {
+      display: inline-block;
+      font-family: 'Inter', Arial, sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: #121212;
+      color: #fff;
+      padding: 3px 8px;
+      margin-top: 6px;
+    }
+
+    .poder-nota {
+      font-family: 'Inter', Arial, sans-serif;
+      font-size: 12px;
+      color: #666;
+      margin-top: 20px;
+      padding: 16px 20px;
+      background: #F7F7F5;
+      border-left: 3px solid #C41C1C;
+    }
+
+    .poder-nota strong {
+      font-weight: 700;
+      color: #121212;
+    }
+
+    footer {
+      max-width: 860px;
+      margin: 64px auto 0;
+      padding-top: 24px;
+      border-top: 1px solid #DEDEDE;
+      font-family: 'Inter', Arial, sans-serif;
+      font-size: 12px;
+      color: #999;
+      display: flex;
+      justify-content: space-between;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <p>Nebbuler · Campaña publicitaria</p>
+    <h1>Frases por imagen</h1>
+    <span class="sub">4 frases por imagen · 2 obligatorias (crítica a redes + defensa del creador) · Mayo 2026</span>
+  </header>
+
+  <!-- IMAGEN 1 -->
+  <div class="imagen-block">
+    <div class="imagen-header">
+      <div class="num">Imagen 01</div>
+      <h2>El lápiz</h2>
+      <div class="concepto">Un lápiz rojo gigante dibuja un puente sobre un abismo. Una figura humana pequeña lo cruza. El conocimiento construye el camino.</div>
+    </div>
+    <div class="frases">
+
+      <div class="frase-row">
+        <div class="frase-meta">
+          <span class="frase-tipo obligatoria">Obligatoria</span>
+          <span class="frase-label">Crítica a redes sociales</span>
+        </div>
+        <div>
+          <div class="frase-texto">"YouTube te da vistas. Se queda con el 45% de tu ingreso."</div>
+          <div class="poder-badge">La más poderosa</div>
+          <div class="poder-nota">El número concreto golpea más que cualquier metáfora. Hace el trabajo sucio que el resto evita.</div>
+        </div>
+      </div>
+
+      <div class="frase-row">
+        <div class="frase-meta">
+          <span class="frase-tipo obligatoria">Obligatoria</span>
+          <span class="frase-label">Defensa del creador</span>
+        </div>
+        <div>
+          <div class="frase-texto">"Tu análisis vale más que un hilo viral de diez minutos."</div>
+        </div>
+      </div>
+
+      <div class="frase-row">
+        <div class="frase-meta">
+          <span class="frase-tipo">Visual</span>
+          <span class="frase-label">Lenguaje de la imagen</span>
+        </div>
+        <div>
+          <div class="frase-texto">"El conocimiento no flota. Construye. Eso es el puente."</div>
+        </div>
+      </div>
+
+      <div class="frase-row">
+        <div class="frase-meta">
+          <span class="frase-tipo">Tagline</span>
+          <span class="frase-label">Variación del tagline</span>
+        </div>
+        <div>
+          <div class="frase-texto">"Lo que se piensa bien, no desaparece en el feed."</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- IMAGEN 2 -->
+  <div class="imagen-block">
+    <div class="imagen-header">
+      <div class="num">Imagen 02</div>
+      <h2>La bombilla</h2>
+      <div class="concepto">Un hombre con laptop sentado sobre el filamento de una bombilla roja gigante. Trabaja desde el centro de su propia idea. La bombilla la enchufan otros.</div>
+    </div>
+    <div class="frases">
+
+      <div class="frase-row">
+        <div class="frase-meta">
+          <span class="frase-tipo obligatoria">Obligatoria</span>
+          <span class="frase-label">Crítica a redes sociales</span>
+        </div>
+        <div>
+          <div class="frase-texto">"TikTok vende tu atención. A ti no te invitan a la mesa."</div>
+        </div>
+      </div>
+
+      <div class="frase-row">
+        <div class="frase-meta">
+          <span class="frase-tipo obligatoria">Obligatoria</span>
+          <span class="frase-label">Defensa del creador</span>
+        </div>
+        <div>
+          <div class="frase-texto">"Tú eres la idea. La plataforma solo puso el enchufe."</div>
+          <div class="poder-badge">La más poderosa</div>
+          <div class="poder-nota"><strong>"Tú eres la idea"</strong> es una restitución de dignidad en cuatro palabras. Sin adornos.</div>
+        </div>
+      </div>
+
+      <div class="frase-row">
+        <div class="frase-meta">
+          <span class="frase-tipo">Visual</span>
+          <span class="frase-label">Lenguaje de la imagen</span>
+        </div>
+        <div>
+          <div class="frase-texto">"Trabaja desde adentro. Que el valor también quede adentro."</div>
+        </div>
+      </div>
+
+      <div class="frase-row">
+        <div class="frase-meta">
+          <span class="frase-tipo">Tagline</span>
+          <span class="frase-label">Variación del tagline</span>
+        </div>
+        <div>
+          <div class="frase-texto">"Lo que se piensa bien, ilumina. Y eso tiene precio."</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- IMAGEN 3 -->
+  <div class="imagen-block">
+    <div class="imagen-header">
+      <div class="num">Imagen 03</div>
+      <h2>El ojo de cerradura</h2>
+      <div class="concepto">Figura humana pequeña frente a una puerta gigante con ojo de cerradura que deja pasar luz roja intensa. El conocimiento como acceso. El experto tiene la llave.</div>
+    </div>
+    <div class="frases">
+
+      <div class="frase-row">
+        <div class="frase-meta">
+          <span class="frase-tipo obligatoria">Obligatoria</span>
+          <span class="frase-label">Crítica a redes sociales</span>
+        </div>
+        <div>
+          <div class="frase-texto">"Instagram mide tu alcance. No mide lo que sabes."</div>
+        </div>
+      </div>
+
+      <div class="frase-row">
+        <div class="frase-meta">
+          <span class="frase-tipo obligatoria">Obligatoria</span>
+          <span class="frase-label">Defensa del creador</span>
+        </div>
+        <div>
+          <div class="frase-texto">"Años de formación no deberían caber en un carrusel gratuito."</div>
+        </div>
+      </div>
+
+      <div class="frase-row">
+        <div class="frase-meta">
+          <span class="frase-tipo">Visual</span>
+          <span class="frase-label">Lenguaje de la imagen</span>
+        </div>
+        <div>
+          <div class="frase-texto">"Hay un lado donde el conocimiento tiene precio. Esta es la puerta."</div>
+          <div class="poder-badge">La más poderosa</div>
+          <div class="poder-nota">Convierte la imagen en argumento de ventas directo sin sonar a copy de startup.</div>
+        </div>
+      </div>
+
+      <div class="frase-row">
+        <div class="frase-meta">
+          <span class="frase-tipo">Tagline</span>
+          <span class="frase-label">Variación del tagline</span>
+        </div>
+        <div>
+          <div class="frase-texto">"Lo que se piensa bien, abre lo que los demás no ven."</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- IMAGEN 4 -->
+  <div class="imagen-block">
+    <div class="imagen-header">
+      <div class="num">Imagen 04</div>
+      <h2>El empuje</h2>
+      <div class="concepto">Figura humana sola sosteniendo con los brazos alzados una enorme masa roja que presiona hacia abajo. El creador hace el trabajo duro que nadie ve. Las plataformas se quedan con el valor.</div>
+    </div>
+    <div class="frases">
+
+      <div class="frase-row">
+        <div class="frase-meta">
+          <span class="frase-tipo obligatoria">Obligatoria</span>
+          <span class="frase-label">Crítica a redes sociales</span>
+        </div>
+        <div>
+          <div class="frase-texto">"Las plataformas crecen con tu trabajo. Tú cobras en visualizaciones."</div>
+        </div>
+      </div>
+
+      <div class="frase-row">
+        <div class="frase-meta">
+          <span class="frase-tipo obligatoria">Obligatoria</span>
+          <span class="frase-label">Defensa del creador</span>
+        </div>
+        <div>
+          <div class="frase-texto">"Sostener ese peso exige una carrera, no un algoritmo."</div>
+        </div>
+      </div>
+
+      <div class="frase-row">
+        <div class="frase-meta">
+          <span class="frase-tipo">Visual</span>
+          <span class="frase-label">Lenguaje de la imagen</span>
+        </div>
+        <div>
+          <div class="frase-texto">"El creador aguanta. Ya es hora de que el ingreso también aguante."</div>
+        </div>
+      </div>
+
+      <div class="frase-row">
+        <div class="frase-meta">
+          <span class="frase-tipo">Tagline</span>
+          <span class="frase-label">Variación del tagline</span>
+        </div>
+        <div>
+          <div class="frase-texto">"Lo que se piensa bien, no debería sostenerse gratis."</div>
+          <div class="poder-badge">La más poderosa</div>
+          <div class="poder-nota">Invierte el lenguaje de <strong>"comunidad"</strong> y <strong>"ecosistema"</strong> que usan las plataformas mientras el creador absorbe toda la carga.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <span>nebbuler.com · Mayo 2026</span>
+    <span>Tagline maestro: "Lo que se piensa bien, dura."</span>
+  </footer>
+
+</body>
+</html>

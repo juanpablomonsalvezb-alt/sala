@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nebbuler — Auditoría de Lanzamiento · 6 Agentes</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --oxford: #0A1628;
+    --crimson: #B31C1C;
+    --cream: #F8F7F5;
+    --ink: #111;
+    --mid: #666;
+    --border: #E0DDD8;
+    --gold: #C4922A;
+    --green: #0D7A3A;
+    --red: #B31C1C;
+    --warn: #C4922A;
+  }
+  body { font-family: Georgia, serif; background: var(--cream); color: var(--ink); }
+
+  .header { background: var(--oxford); padding: 28px 64px; display: flex; align-items: center; gap: 18px; border-bottom: 3px solid var(--crimson); }
+  .bar { width: 4px; height: 44px; background: var(--crimson); }
+  .header h1 { font-size: 22px; font-weight: 700; color: white; }
+  .header p { font-family: Arial, sans-serif; font-size: 10px; color: #6B8299; letter-spacing: 0.18em; text-transform: uppercase; margin-top: 3px; }
+
+  /* VEREDICTO GLOBAL */
+  .verdict-hero { background: var(--red); padding: 48px 64px; display: flex; align-items: center; justify-content: space-between; }
+  .vh-left h2 { font-size: 36px; font-weight: 900; color: white; line-height: 1.15; margin-bottom: 12px; }
+  .vh-left p { font-family: Arial, sans-serif; font-size: 14px; color: rgba(255,255,255,0.75); line-height: 1.6; max-width: 560px; }
+  .vh-right { text-align: center; flex-shrink: 0; padding-left: 48px; }
+  .vh-big { font-size: 80px; font-weight: 900; color: white; line-height: 1; }
+  .vh-label { font-family: Arial, sans-serif; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-top: 4px; }
+
+  /* SCORE STRIP */
+  .score-strip { display: grid; grid-template-columns: repeat(6, 1fr); gap: 0; border-bottom: 1px solid var(--border); }
+  .sc { padding: 20px 16px; text-align: center; border-right: 1px solid var(--border); }
+  .sc:last-child { border-right: none; }
+  .sc-area { font-family: Arial, sans-serif; font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mid); margin-bottom: 8px; }
+  .sc-score { font-size: 28px; font-weight: 900; line-height: 1; }
+  .sc-score.red { color: var(--red); }
+  .sc-score.warn { color: var(--warn); }
+  .sc-score.green { color: var(--green); }
+  .sc-verdict { font-family: Arial, sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 4px; color: var(--mid); }
+
+  /* LAYOUT */
+  .page { max-width: 1200px; margin: 0 auto; padding: 52px 64px; }
+  .section-label { font-family: Arial, sans-serif; font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase; color: #999; border-bottom: 1px solid var(--border); padding-bottom: 10px; margin-bottom: 32px; }
+  .section-label b { color: var(--crimson); }
+
+  /* BLOQUEADORES */
+  .blockers { display: flex; flex-direction: column; gap: 2px; }
+  .blocker { display: grid; grid-template-columns: 64px 1fr; background: white; border: 1px solid var(--border); overflow: hidden; }
+  .blocker.critical { border-left: 4px solid var(--red); }
+  .blocker.high { border-left: 4px solid var(--warn); }
+  .blocker.medium { border-left: 4px solid #6B8299; }
+
+  .bl-num { background: var(--red); display: flex; align-items: center; justify-content: center; font-family: Arial, sans-serif; font-weight: 900; font-size: 20px; color: white; }
+  .blocker.high .bl-num { background: var(--warn); }
+  .blocker.medium .bl-num { background: #2A3E52; }
+
+  .bl-body { padding: 20px 24px; }
+  .bl-tag { font-family: Arial, sans-serif; font-size: 8px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--red); margin-bottom: 6px; }
+  .blocker.high .bl-tag { color: var(--warn); }
+  .blocker.medium .bl-tag { color: #6B8299; }
+  .bl-title { font-size: 16px; font-weight: 700; margin-bottom: 6px; line-height: 1.3; }
+  .bl-desc { font-family: Arial, sans-serif; font-size: 12.5px; color: #555; line-height: 1.6; }
+  .bl-file { font-family: 'Courier New', monospace; font-size: 11px; color: #999; margin-top: 6px; }
+
+  /* TABLA DE FLUJO */
+  .flow-table { background: white; border: 1px solid var(--border); overflow: hidden; margin-bottom: 2px; }
+  .flow-table table { width: 100%; border-collapse: collapse; }
+  .flow-table th { font-family: Arial, sans-serif; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; padding: 12px 18px; text-align: left; background: var(--oxford); color: #6B8299; }
+  .flow-table td { padding: 14px 18px; border-bottom: 1px solid var(--border); font-family: Arial, sans-serif; font-size: 13px; vertical-align: top; }
+  .flow-table tr:last-child td { border-bottom: none; }
+  .flow-table tr:hover td { background: #F5F2EF; }
+
+  .badge { display: inline-block; font-family: Arial, sans-serif; font-size: 9px; font-weight: 700; padding: 2px 8px; letter-spacing: 0.1em; text-transform: uppercase; }
+  .badge.ok { background: #D1FAE5; color: var(--green); }
+  .badge.broken { background: #FEE2E2; color: var(--red); }
+  .badge.partial { background: #FEF3C7; color: #92400E; }
+  .badge.missing { background: #E0E7FF; color: #3730A3; }
+
+  /* AGENTE CARDS */
+  .agents-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+  .agent-card { background: white; border: 1px solid var(--border); padding: 28px 32px; }
+  .agent-card.dark { background: var(--oxford); border-color: #1A2E45; }
+  .ag-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 16px; }
+  .ag-title { font-family: Arial, sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--mid); margin-bottom: 4px; }
+  .agent-card.dark .ag-title { color: #4A6075; }
+  .ag-name { font-size: 17px; font-weight: 700; }
+  .agent-card.dark .ag-name { color: white; }
+  .ag-score-wrap { text-align: right; }
+  .ag-score { font-size: 32px; font-weight: 900; line-height: 1; }
+  .ag-score.red { color: var(--red); }
+  .ag-score.warn { color: var(--warn); }
+  .ag-score.green { color: var(--green); }
+  .agent-card.dark .ag-score.red { color: #EF9090; }
+  .ag-score-label { font-family: Arial, sans-serif; font-size: 8px; text-transform: uppercase; letter-spacing: 0.1em; color: #999; }
+  .agent-card.dark .ag-score-label { color: #4A6075; }
+  .ag-items { display: flex; flex-direction: column; gap: 8px; }
+  .ag-item { display: flex; gap: 10px; align-items: flex-start; font-family: Arial, sans-serif; font-size: 12.5px; color: #555; line-height: 1.5; }
+  .agent-card.dark .ag-item { color: #6B8299; }
+  .ag-item.blocker-item { color: var(--red); font-weight: 600; }
+  .agent-card.dark .ag-item.blocker-item { color: #EF9090; }
+  .ag-bullet { flex-shrink: 0; margin-top: 2px; }
+
+  /* FIX LIST */
+  .fixes { display: flex; flex-direction: column; gap: 2px; }
+  .fix { display: grid; grid-template-columns: 48px 1fr 140px; background: white; border: 1px solid var(--border); align-items: center; }
+  .fix-num { background: var(--oxford); color: white; font-family: Arial, sans-serif; font-weight: 900; font-size: 18px; display: flex; align-items: center; justify-content: center; align-self: stretch; }
+  .fix-body { padding: 16px 20px; }
+  .fix-title { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+  .fix-desc { font-family: Arial, sans-serif; font-size: 12px; color: #666; line-height: 1.5; }
+  .fix-file { font-family: 'Courier New', monospace; font-size: 10.5px; color: #AAA; margin-top: 4px; }
+  .fix-effort { padding: 16px; text-align: center; border-left: 1px solid var(--border); }
+  .fix-effort-time { font-family: Arial, sans-serif; font-size: 13px; font-weight: 700; color: var(--oxford); }
+  .fix-effort-label { font-family: Arial, sans-serif; font-size: 9px; color: #999; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 2px; }
+  .fix.urgent .fix-num { background: var(--red); }
+  .fix.urgent .fix-title { color: var(--red); }
+  .fix.medium-fix .fix-num { background: var(--warn); }
+  .fix.easy .fix-num { background: var(--green); }
+
+  /* FOOTER */
+  .footer { background: #070E1A; padding: 24px 64px; display: flex; justify-content: space-between; font-family: Arial, sans-serif; font-size: 11px; color: #2A3E52; }
+  .footer b { color: #4A6075; }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="bar"></div>
+  <div>
+    <h1>Auditoría de Lanzamiento — Nebbuler</h1>
+    <p>6 Agentes · Frontend · Backend · Pagos · Dashboard · QA · SEO · Mayo 2026</p>
+  </div>
+</header>
+
+<!-- VEREDICTO -->
+<div class="verdict-hero">
+  <div class="vh-left">
+    <h2>No está listo para<br>el público todavía.</h2>
+    <p>Los 6 agentes identificaron <strong style="color:white;">13 bloqueadores críticos</strong> que impiden que un usuario real complete cualquier flujo end-to-end. El mayor problema: el flujo del lector se rompe en el paso 3 (artículos dan 404), el webhook de MercadoPago apunta a localhost, y no existe validación de firma de pago — cualquier atacante puede activar suscripciones sin pagar. Con los 5 fixes de mayor impacto resueltos, el sitio puede salir.</p>
+  </div>
+  <div class="vh-right">
+    <div class="vh-big">✗</div>
+    <div class="vh-label">No listo para público</div>
+  </div>
+</div>
+
+<!-- SCORE STRIP -->
+<div class="score-strip" style="background:white;">
+  <div class="sc">
+    <div class="sc-area">Frontend / UX</div>
+    <div class="sc-score red">4/10</div>
+    <div class="sc-verdict">Roto</div>
+  </div>
+  <div class="sc">
+    <div class="sc-area">Backend / Seguridad</div>
+    <div class="sc-score red">3/10</div>
+    <div class="sc-verdict">Crítico</div>
+  </div>
+  <div class="sc">
+    <div class="sc-area">Pagos (MP)</div>
+    <div class="sc-score warn">5/10</div>
+    <div class="sc-verdict">Parcial</div>
+  </div>
+  <div class="sc">
+    <div class="sc-area">Dashboard Creador</div>
+    <div class="sc-score warn">5/10</div>
+    <div class="sc-verdict">Parcial</div>
+  </div>
+  <div class="sc">
+    <div class="sc-area">Flujo del Lector</div>
+    <div class="sc-score red">3/10</div>
+    <div class="sc-verdict">Roto</div>
+  </div>
+  <div class="sc">
+    <div class="sc-area">SEO</div>
+    <div class="sc-score warn">6/10</div>
+    <div class="sc-verdict">Incompleto</div>
+  </div>
+</div>
+
+<!-- BLOQUEADORES -->
+<div class="page">
+  <p class="section-label"><b>01</b> &nbsp; Bloqueadores Críticos — No Puede Salir Sin Resolver Esto</p>
+
+  <div class="blockers">
+
+    <div class="blocker critical">
+      <div class="bl-num">1</div>
+      <div class="bl-body">
+        <div class="bl-tag">Seguridad · Backend · Pagos</div>
+        <div class="bl-title">El webhook de MercadoPago acepta cualquier POST — sin validación de firma HMAC</div>
+        <div class="bl-desc">Cualquier atacante puede hacer un POST a <code>/api/mp/webhook</code> con <code>type: "payment"</code> y un payment ID real, y el sistema activa suscripciones sin cobro real. MercadoPago envía una firma <code>x-signature</code> para validar autenticidad — el código actual no la lee ni la verifica. La variable <code>MP_WEBHOOK_SECRET</code> no existe en ningún archivo.</div>
+        <div class="bl-file">src/app/api/mp/webhook/route.ts</div>
+      </div>
+    </div>
+
+    <div class="blocker critical">
+      <div class="bl-num">2</div>
+      <div class="bl-body">
+        <div class="bl-tag">Infraestructura · Variables de Entorno</div>
+        <div class="bl-title">NEXT_PUBLIC_APP_URL=http://localhost:3001 — todos los webhooks y back_urls van a localhost</div>
+        <div class="bl-desc">Esta variable se usa para construir la <code>notification_url</code> de MercadoPago (donde MP envía confirmaciones de pago) y el <code>back_url</code> (a donde redirige al usuario tras pagar). En producción, MP notificará a <code>localhost:3001</code> — ningun webhook llegará al servidor real. El usuario paga y queda varado en una URL inexistente. Debe ser <code>https://nebbuler.com</code> en Vercel.</div>
+        <div class="bl-file">.env.local → Vercel Dashboard → Environment Variables</div>
+      </div>
+    </div>
+
+    <div class="blocker critical">
+      <div class="bl-num">3</div>
+      <div class="bl-body">
+        <div class="bl-tag">Frontend · Flujo del Lector</div>
+        <div class="bl-title">Las páginas de artículo dan 404 para 10 de 11 creadores — el flujo se rompe antes del paywall</div>
+        <div class="bl-desc"><code>[creator]/[post]/page.tsx</code> no tiene fallback para los creadores estáticos de <code>creators.ts</code>. Solo el mock hardcodeado <code>"rodrigo-fuentes"</code> funciona. Los otros 10 creadores del home tienen perfiles que cargan, artículos con links visibles, pero al hacer clic en cualquier artículo: 404. El lector nunca llega al paywall ni al checkout.</div>
+        <div class="bl-file">src/app/[creator]/[post]/page.tsx</div>
+      </div>
+    </div>
+
+    <div class="blocker critical">
+      <div class="bl-num">4</div>
+      <div class="bl-body">
+        <div class="bl-tag">Backend · Seguridad</div>
+        <div class="bl-title">Políticas RLS duplicadas en sala_profiles — emails e is_superadmin son públicamente legibles</div>
+        <div class="bl-desc">Hay dos políticas para <code>sala_profiles SELECT</code>: una restrictiva ("solo el propio usuario") y una permisiva ("visible para todos"). Supabase hace OR lógico — la permisiva gana. Cualquier usuario anónimo puede leer el email, avatar, y el flag <code>is_superadmin</code> de todos los usuarios de la plataforma.</div>
+        <div class="bl-file">supabase/migrations/ → políticas sala_profiles</div>
+      </div>
+    </div>
+
+    <div class="blocker critical">
+      <div class="bl-num">5</div>
+      <div class="bl-body">
+        <div class="bl-tag">Backend · Pagos</div>
+        <div class="bl-title">El webhook devuelve HTTP 200 aunque falle la escritura en BD — MercadoPago no reintenta</div>
+        <div class="bl-desc">Cuando el upsert en <code>sala_subscriptions</code> falla (error de BD, anon key sin permisos), el webhook solo hace <code>console.error</code> y sigue devolviendo <code>{ received: true }</code> con status 200. MercadoPago interpreta el 200 como entrega exitosa y no reintenta. El usuario pagó, el dinero salió, pero la suscripción nunca se activó. Silencioso e irrecuperable.</div>
+        <div class="bl-file">src/app/api/mp/webhook/route.ts — líneas 44-58</div>
+      </div>
+    </div>
+
+    <div class="blocker critical">
+      <div class="bl-num">6</div>
+      <div class="bl-body">
+        <div class="bl-tag">Backend · Variables de Entorno</div>
+        <div class="bl-title">SUPABASE_SERVICE_ROLE_KEY no confirmada en Vercel — webhook cae silenciosamente a anon key</div>
+        <div class="bl-desc">El webhook usa <code>SUPABASE_SERVICE_ROLE_KEY ?? NEXT_PUBLIC_SUPABASE_ANON_KEY</code>. Si la service role key no está en Vercel (solo está en <code>.env.local</code>), el webhook usa la anon key. Con anon key, el upsert en <code>sala_subscriptions</code> falla por RLS sin lanzar excepción. Resultado: el webhook devuelve 200, MP no reintenta, suscripción no se activa.</div>
+        <div class="bl-file">src/app/api/mp/webhook/route.ts — línea 8</div>
+      </div>
+    </div>
+
+    <div class="blocker high">
+      <div class="bl-num">7</div>
+      <div class="bl-body">
+        <div class="bl-tag">Frontend · Pagos</div>
+        <div class="bl-title">El botón dice "Suscribirse con Stripe" pero el backend usa MercadoPago</div>
+        <div class="bl-desc">El checkout page muestra "Suscribirse con Stripe" en el CTA principal. El backend usa MercadoPago completamente (Stripe tiene placeholders). El usuario hace clic esperando ver Stripe y llega a MercadoPago — genera desconfianza activa en el momento de conversión más crítico.</div>
+        <div class="bl-file">src/app/suscribirse/[creator]/page.tsx → línea 184</div>
+      </div>
+    </div>
+
+    <div class="blocker high">
+      <div class="bl-num">8</div>
+      <div class="bl-body">
+        <div class="bl-tag">Frontend · UX</div>
+        <div class="bl-title">El checkout no muestra ningún error al usuario cuando el pago falla</div>
+        <div class="bl-desc"><code>createCheckoutSession</code> retorna <code>{ error: string }</code> cuando falla (MP no configurado, usuario sin cuenta, creador no encontrado). Pero el formulario no captura ni renderiza ese retorno. El usuario hace clic en "Suscribirse" y nada pasa — sin mensaje, sin spinner, sin feedback. Flujo de pago completamente opaco.</div>
+        <div class="bl-file">src/app/suscribirse/[creator]/page.tsx → CheckoutForm</div>
+      </div>
+    </div>
+
+    <div class="blocker high">
+      <div class="bl-num">9</div>
+      <div class="bl-body">
+        <div class="bl-tag">Dashboard · UX</div>
+        <div class="bl-title">La actividad reciente del dashboard es completamente falsa — ACTIVITY_MOCK hardcodeado</div>
+        <div class="bl-desc">Todos los creadores ven exactamente la misma actividad ficticia: "Nueva suscripción activa hace 2h", "Publicación leída por 12 personas hace 5h". Son datos inventados. Si un creador real lo descubre, pierde confianza en toda la plataforma instantáneamente. En un mercado pequeño como Chile, eso se comunica rápido.</div>
+        <div class="bl-file">src/app/dashboard/page.tsx → ACTIVITY_MOCK</div>
+      </div>
+    </div>
+
+    <div class="blocker high">
+      <div class="bl-num">10</div>
+      <div class="bl-body">
+        <div class="bl-tag">Frontend · Contradicción</div>
+        <div class="bl-title">El dashboard muestra "5% de comisión" — la landing dice "0% siempre"</div>
+        <div class="bl-desc">La página de ingresos del dashboard calcula "Por cobrar · Después de comisión 5%". La landing pública, los FAQs, y el plan dicen explícitamente "0% de comisión — siempre." Contradicción directa que puede generar disputas legales y reputacionales desde el primer creador.</div>
+        <div class="bl-file">src/app/dashboard/ingresos/page.tsx → línea 64</div>
+      </div>
+    </div>
+
+    <div class="blocker high">
+      <div class="bl-num">11</div>
+      <div class="bl-body">
+        <div class="bl-tag">SEO · Redes Sociales</div>
+        <div class="bl-title">Sin og:image en ninguna página — todos los links compartidos salen sin preview</div>
+        <div class="bl-desc">No hay <code>og:image</code> en layout.tsx, en páginas de creadores, ni en artículos. Cada link compartido en WhatsApp, LinkedIn, Twitter o iMessage genera un preview vacío. Para una plataforma que depende del boca a boca y la viralidad de artículos, esto destruye el CTR de cada compartido antes del primer artículo indexado.</div>
+        <div class="bl-file">src/app/layout.tsx + generateMetadata en [creator] y [post]</div>
+      </div>
+    </div>
+
+    <div class="blocker high">
+      <div class="bl-num">12</div>
+      <div class="bl-body">
+        <div class="bl-tag">Frontend · Ruta rota</div>
+        <div class="bl-title">/nueva-contrasena no existe — el flujo de recuperación de contraseña está roto</div>
+        <div class="bl-desc">La recuperación de contraseña redirige al usuario a <code>/auth/callback?next=/nueva-contrasena</code>, pero esa ruta no está implementada en ningún archivo. El usuario llega a un 404 o a la home. No puede cambiar su contraseña.</div>
+        <div class="bl-file">Falta: src/app/nueva-contrasena/page.tsx</div>
+      </div>
+    </div>
+
+    <div class="blocker medium">
+      <div class="bl-num">13</div>
+      <div class="bl-body">
+        <div class="bl-tag">Dashboard · Funcionalidad</div>
+        <div class="bl-title">Editar publicación no funciona — el query param ?edit= es ignorado</div>
+        <div class="bl-desc">El botón "Editar" en <code>/dashboard/publicaciones</code> linkea a <code>/dashboard/nueva-publicacion?edit=${post.id}</code>, pero esa página no lee ese parámetro ni carga el contenido existente. El creador abre un editor en blanco — todos sus artículos son ineditables después de publicarse.</div>
+        <div class="bl-file">src/app/dashboard/nueva-publicacion/page.tsx</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- MAPA DE FLUJO -->
+<div class="page" style="padding-top:0;">
+  <p class="section-label"><b>02</b> &nbsp; Mapa del Flujo del Lector — Dónde se Rompe</p>
+
+  <div class="flow-table">
+    <table>
+      <thead>
+        <tr>
+          <th>Paso</th>
+          <th>Acción del usuario</th>
+          <th>Estado</th>
+          <th>Problema</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>1</strong></td>
+          <td>Llega a nebbuler.com</td>
+          <td><span class="badge ok">Funciona</span></td>
+          <td>Home carga, creadores visibles, navegación operativa.</td>
+        </tr>
+        <tr>
+          <td><strong>2</strong></td>
+          <td>Hace clic en un creador → perfil</td>
+          <td><span class="badge ok">Funciona</span></td>
+          <td>Fallback estático de creators.ts activo. Bio, artículos y precio visibles.</td>
+        </tr>
+        <tr style="background:#FFF5F5;">
+          <td><strong>3</strong></td>
+          <td>Hace clic en un artículo de pago</td>
+          <td><span class="badge broken">Roto — 404</span></td>
+          <td><strong>[post]/page.tsx no tiene fallback estático.</strong> 10 de 11 creadores dan 404. El lector nunca ve el paywall.</td>
+        </tr>
+        <tr style="background:#FFF5F5;">
+          <td><strong>4</strong></td>
+          <td>Hace clic en "Suscribirse"</td>
+          <td><span class="badge broken">Roto</span></td>
+          <td>URL de suscripción usa localhost. El botón dice "Stripe". El checkout no muestra errores al usuario.</td>
+        </tr>
+        <tr style="background:#FFF5F5;">
+          <td><strong>5</strong></td>
+          <td>Completa el pago en MercadoPago</td>
+          <td><span class="badge broken">Roto</span></td>
+          <td>notification_url y back_url apuntan a localhost:3001. Webhook nunca llega. Suscripción no se activa.</td>
+        </tr>
+        <tr style="background:#FEF3C7;">
+          <td><strong>6</strong></td>
+          <td>Regresa al sitio tras pagar</td>
+          <td><span class="badge partial">Parcial</span></td>
+          <td>Página /exito no verifica que el webhook llegó. Si no llegó, el usuario paga y sigue sin acceso.</td>
+        </tr>
+        <tr style="background:#FFF5F5;">
+          <td><strong>7</strong></td>
+          <td>Intenta leer el artículo pagado</td>
+          <td><span class="badge broken">Roto</span></td>
+          <td>Si el paso 3 da 404, nunca llega aquí. Si llega, la suscripción no se activó (paso 5 roto).</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- FLUJO DEL CREADOR -->
+  <p class="section-label" style="margin-top:40px;"><b>03</b> &nbsp; Mapa del Flujo del Creador</p>
+  <div class="flow-table">
+    <table>
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th>Estado</th>
+          <th>Detalle</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Publicar un artículo nuevo</td><td><span class="badge ok">Funciona</span></td><td>Editor Tiptap, guardar borrador, publicar. Flujo completo.</td></tr>
+        <tr><td>Editar artículo existente</td><td><span class="badge broken">Roto</span></td><td>Botón "Editar" existe pero el editor ignora el query param ?edit=. Abre en blanco.</td></tr>
+        <tr><td>Configurar perfil (bio, precio, nombre)</td><td><span class="badge ok">Funciona</span></td><td>ConfiguracionForm lee y escribe en sala_creators correctamente.</td></tr>
+        <tr><td>Subir foto de perfil</td><td><span class="badge missing">Falta</span></td><td>No hay campo de avatar en el formulario. El sidebar muestra iniciales hardcodeadas.</td></tr>
+        <tr><td>Ver suscriptores</td><td><span class="badge partial">Parcial</span></td><td>Lee sala_subscriptions. El email puede aparecer "—" si sala_profiles no está sincronizado.</td></tr>
+        <tr><td>Ver ingresos reales</td><td><span class="badge broken">Roto</span></td><td>El MRR es estimación de la BD, no datos de MercadoPago. Ene–Abr hardcodeados en 0. Sin historial de cobros.</td></tr>
+        <tr><td>Actividad reciente</td><td><span class="badge broken">Roto</span></td><td>ACTIVITY_MOCK — datos 100% ficticios para todos los creadores.</td></tr>
+        <tr><td>Insertar imágenes en artículos</td><td><span class="badge partial">Parcial</span></td><td>Solo por URL pública vía window.prompt(). Sin upload real. Bloqueo para usuarios no técnicos.</td></tr>
+        <tr><td>Ver su perfil público</td><td><span class="badge broken">Roto</span></td><td>Link en publicaciones apunta a /${post.slug} en vez de /${creatorSlug}/${post.slug}.</td></tr>
+        <tr><td>Eliminar publicación</td><td><span class="badge ok">Funciona</span></td><td>Server action con verificación de ownership. Sin confirmación previa (UX risk).</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- POR AGENTE -->
+<div class="page" style="padding-top:0;">
+  <p class="section-label"><b>04</b> &nbsp; Resumen por Agente</p>
+
+  <div class="agents-grid">
+    <div class="agent-card">
+      <div class="ag-header">
+        <div>
+          <div class="ag-title">Agente 1 · Frontend / UX</div>
+          <div class="ag-name">Flujos y navegación</div>
+        </div>
+        <div class="ag-score-wrap">
+          <div class="ag-score red">4</div>
+          <div class="ag-score-label">/10</div>
+        </div>
+      </div>
+      <div class="ag-items">
+        <div class="ag-item blocker-item"><span class="ag-bullet">✗</span> /nueva-contrasena no implementada — recuperación rota</div>
+        <div class="ag-item blocker-item"><span class="ag-bullet">✗</span> Dashboard muestra "5% comisión" vs landing "0%"</div>
+        <div class="ag-item blocker-item"><span class="ag-bullet">✗</span> Checkout sin feedback de error al usuario</div>
+        <div class="ag-item"><span class="ag-bullet">—</span> Nav inconsistente entre páginas (no hay nav de sesión para lectores)</div>
+        <div class="ag-item"><span class="ag-bullet">—</span> Link de publicación en dashboard apunta a URL incorrecta</div>
+        <div class="ag-item"><span class="ag-bullet">—</span> Edición de artículo no implementada</div>
+      </div>
+    </div>
+
+    <div class="agent-card dark">
+      <div class="ag-header">
+        <div>
+          <div class="ag-title">Agente 2 · Backend / Seguridad</div>
+          <div class="ag-name">APIs, RLS y autenticación</div>
+        </div>
+        <div class="ag-score-wrap">
+          <div class="ag-score red">3</div>
+          <div class="ag-score-label">/10</div>
+        </div>
+      </div>
+      <div class="ag-items">
+        <div class="ag-item blocker-item"><span class="ag-bullet">✗</span> Webhook MP sin validación HMAC — suscripciones activables gratis</div>
+        <div class="ag-item blocker-item"><span class="ag-bullet">✗</span> Webhook devuelve 200 en errores de BD — pagos se pierden silenciosamente</div>
+        <div class="ag-item blocker-item"><span class="ag-bullet">✗</span> RLS duplicado en sala_profiles — datos de todos los usuarios expuestos</div>
+        <div class="ag-item blocker-item"><span class="ag-bullet">✗</span> Fallback silencioso a anon key en webhook</div>
+        <div class="ag-item"><span class="ag-bullet">—</span> Stripe con placeholders — completamente inoperativo</div>
+        <div class="ag-item"><span class="ag-bullet">—</span> /api/creators expone todos los campos con select('*')</div>
+      </div>
+    </div>
+
+    <div class="agent-card">
+      <div class="ag-header">
+        <div>
+          <div class="ag-title">Agente 3 · Pagos MercadoPago</div>
+          <div class="ag-name">Flujo de cobro end-to-end</div>
+        </div>
+        <div class="ag-score-wrap">
+          <div class="ag-score warn">5</div>
+          <div class="ag-score-label">/10</div>
+        </div>
+      </div>
+      <div class="ag-items">
+        <div class="ag-item blocker-item"><span class="ag-bullet">✗</span> NEXT_PUBLIC_APP_URL=localhost — webhooks y back_url rotos en producción</div>
+        <div class="ag-item blocker-item"><span class="ag-bullet">✗</span> MERCADOPAGO_ACCESS_TOKEN no confirmada en Vercel</div>
+        <div class="ag-item blocker-item"><span class="ag-bullet">✗</span> Sin validación HMAC de firma MP</div>
+        <div class="ag-item"><span class="ag-bullet">—</span> Botón dice "Stripe" — procesador real es MercadoPago</div>
+        <div class="ag-item"><span class="ag-bullet">✓</span> Arquitectura del upsert en sala_subscriptions correcta</div>
+        <div class="ag-item"><span class="ag-bullet">✓</span> Idempotencia básica con onConflict subscriber_id+creator_id</div>
+      </div>
+    </div>
+
+    <div class="agent-card dark">
+      <div class="ag-header">
+        <div>
+          <div class="ag-title">Agente 4 · Dashboard del Creador</div>
+          <div class="ag-name">Funcionalidad real vs. placeholder</div>
+        </div>
+        <div class="ag-score-wrap">
+          <div class="ag-score warn">5</div>
+          <div class="ag-score-label">/10</div>
+        </div>
+      </div>
+      <div class="ag-items">
+        <div class="ag-item blocker-item"><span class="ag-bullet">✗</span> ACTIVITY_MOCK — actividad falsa para todos los creadores</div>
+        <div class="ag-item blocker-item"><span class="ag-bullet">✗</span> Ingresos: MRR estimado de BD, no de MercadoPago real</div>
+        <div class="ag-item blocker-item"><span class="ag-bullet">✗</span> Ene–Abr hardcodeados en $0 aunque haya habido cobros</div>
+        <div class="ag-item"><span class="ag-bullet">—</span> Editar artículo no implementado</div>
+        <div class="ag-item"><span class="ag-bullet">—</span> Sin upload de imágenes (solo URL pública)</div>
+        <div class="ag-item"><span class="ag-bullet">✓</span> Publicar artículo funciona end-to-end</div>
+      </div>
+    </div>
+
+    <div class="agent-card">
+      <div class="ag-header">
+        <div>
+          <div class="ag-title">Agente 5 · QA / Flujo del Lector</div>
+          <div class="ag-name">Experiencia de lectura completa</div>
+        </div>
+        <div class="ag-score-wrap">
+          <div class="ag-score red">3</div>
+          <div class="ag-score-label">/10</div>
+        </div>
+      </div>
+      <div class="ag-items">
+        <div class="ag-item blocker-item"><span class="ag-bullet">✗</span> [post]/page.tsx: 404 para 10/11 creadores — flujo se rompe en paso 3</div>
+        <div class="ag-item blocker-item"><span class="ag-bullet">✗</span> suscribirse/[creator]: también sin fallback para creadores estáticos</div>
+        <div class="ag-item blocker-item"><span class="ag-bullet">✗</span> Página /exito no verifica suscripción activa post-pago</div>
+        <div class="ag-item"><span class="ag-bullet">—</span> Paywall en sí está bien construido — pero nunca se muestra</div>
+        <div class="ag-item"><span class="ag-bullet">✓</span> Home y perfil de creador cargan correctamente</div>
+        <div class="ag-item"><span class="ag-bullet">✓</span> /explorar y /directorio funcionan (datos estáticos)</div>
+      </div>
+    </div>
+
+    <div class="agent-card dark">
+      <div class="ag-header">
+        <div>
+          <div class="ag-title">Agente 6 · SEO</div>
+          <div class="ag-name">Visibilidad y metadatos</div>
+        </div>
+        <div class="ag-score-wrap">
+          <div class="ag-score warn">6</div>
+          <div class="ag-score-label">/10</div>
+        </div>
+      </div>
+      <div class="ag-items">
+        <div class="ag-item blocker-item"><span class="ag-bullet">✗</span> Sin og:image en ninguna página — links sin preview en redes sociales</div>
+        <div class="ag-item"><span class="ag-bullet">—</span> /directorio vs /explorar — inconsistencia en sitemap</div>
+        <div class="ag-item"><span class="ag-bullet">—</span> Sin Person schema en páginas de creadores</div>
+        <div class="ag-item"><span class="ag-bullet">—</span> Sin Organization schema en homepage</div>
+        <div class="ag-item"><span class="ag-bullet">✓</span> Article schema (JSON-LD) implementado en artículos</div>
+        <div class="ag-item"><span class="ag-bullet">✓</span> Canonical tags, robots.txt y sitemap dinámico correctos</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PLAN DE ACCIÓN -->
+<div class="page" style="padding-top:0;">
+  <p class="section-label"><b>05</b> &nbsp; Plan de Acción — Ordenado por Impacto · Esfuerzo Estimado</p>
+
+  <div class="fixes">
+
+    <div class="fix urgent">
+      <div class="fix-num">1</div>
+      <div class="fix-body">
+        <div class="fix-title">Configurar NEXT_PUBLIC_APP_URL=https://nebbuler.com en Vercel</div>
+        <div class="fix-desc">Ir a Vercel Dashboard → Settings → Environment Variables. Cambiar de http://localhost:3001 a https://nebbuler.com. Hacer redeploy. Esto desbloquea que los webhooks y back_urls de MP lleguen al servidor real.</div>
+        <div class="fix-file">Vercel Dashboard → sin cambio de código</div>
+      </div>
+      <div class="fix-effort">
+        <div class="fix-effort-time">5 min</div>
+        <div class="fix-effort-label">Sin código</div>
+      </div>
+    </div>
+
+    <div class="fix urgent">
+      <div class="fix-num">2</div>
+      <div class="fix-body">
+        <div class="fix-title">Confirmar MERCADOPAGO_ACCESS_TOKEN y SUPABASE_SERVICE_ROLE_KEY en Vercel</div>
+        <div class="fix-desc">Verificar que ambas variables existen en Vercel con los valores reales (no placeholders). Sin service role key, el webhook no puede escribir en sala_subscriptions. Sin MP token, isMPConfigured() retorna false y todos los pagos fallan antes de llegar a MP.</div>
+        <div class="fix-file">Vercel Dashboard → sin cambio de código</div>
+      </div>
+      <div class="fix-effort">
+        <div class="fix-effort-time">10 min</div>
+        <div class="fix-effort-label">Sin código</div>
+      </div>
+    </div>
+
+    <div class="fix urgent">
+      <div class="fix-num">3</div>
+      <div class="fix-body">
+        <div class="fix-title">Agregar fallback estático en [post]/page.tsx para los creadores de creators.ts</div>
+        <div class="fix-desc">La función findStaticCreator() ya existe en [creator]/page.tsx y funciona. Importarla en [creator]/[post]/page.tsx y usarla como fallback cuando Supabase no devuelve el creador. Sin esto, 10/11 creadores dan 404 y el flujo del lector se rompe en el paso 3.</div>
+        <div class="fix-file">src/app/[creator]/[post]/page.tsx</div>
+      </div>
+      <div class="fix-effort">
+        <div class="fix-effort-time">30 min</div>
+        <div class="fix-effort-label">Código</div>
+      </div>
+    </div>
+
+    <div class="fix urgent">
+      <div class="fix-num">4</div>
+      <div class="fix-body">
+        <div class="fix-title">Implementar validación HMAC en el webhook de MercadoPago</div>
+        <div class="fix-desc">Agregar MP_WEBHOOK_SECRET en Vercel (obtenido del panel de MP → Webhooks). En el webhook, leer header x-signature, calcular HMAC-SHA256 con el body crudo y el secret, rechazar con 400 si no coincide. Sin esto, cualquier atacante puede activar suscripciones sin pagar.</div>
+        <div class="fix-file">src/app/api/mp/webhook/route.ts</div>
+      </div>
+      <div class="fix-effort">
+        <div class="fix-effort-time">45 min</div>
+        <div class="fix-effort-label">Código + Config</div>
+      </div>
+    </div>
+
+    <div class="fix urgent">
+      <div class="fix-num">5</div>
+      <div class="fix-body">
+        <div class="fix-title">Hacer que el webhook devuelva 500 cuando falla la escritura en BD</div>
+        <div class="fix-desc">Cambiar el manejo de errores en activateSubscription y cancelSubscription para que devuelvan status 500 cuando el upsert falla. Esto fuerza a MercadoPago a reintentar. Actualmente devuelve 200 en todos los casos y los pagos fallidos se pierden permanentemente.</div>
+        <div class="fix-file">src/app/api/mp/webhook/route.ts — líneas 44-58</div>
+      </div>
+      <div class="fix-effort">
+        <div class="fix-effort-time">20 min</div>
+        <div class="fix-effort-label">Código</div>
+      </div>
+    </div>
+
+    <div class="fix medium-fix">
+      <div class="fix-num">6</div>
+      <div class="fix-body">
+        <div class="fix-title">Corregir política RLS duplicada en sala_profiles</div>
+        <div class="fix-desc">Eliminar la política "Perfil propio visible para todos" que anula la restrictiva. Solo debe existir una política SELECT que permita al usuario leer su propio perfil, y otra para datos públicos explícitos (nombre, avatar) sin incluir email ni is_superadmin.</div>
+        <div class="fix-file">supabase/migrations/ → nueva migración</div>
+      </div>
+      <div class="fix-effort">
+        <div class="fix-effort-time">30 min</div>
+        <div class="fix-effort-label">SQL</div>
+      </div>
+    </div>
+
+    <div class="fix medium-fix">
+      <div class="fix-num">7</div>
+      <div class="fix-body">
+        <div class="fix-title">Corregir texto del botón: "MercadoPago" en vez de "Stripe" + mostrar errores del checkout</div>
+        <div class="fix-desc">Cambiar el texto del CTA. Agregar useActionState o manejo de retorno del server action para mostrar el mensaje de error cuando createCheckoutSession falla. Sin esto el usuario hace clic y no pasa nada.</div>
+        <div class="fix-file">src/app/suscribirse/[creator]/page.tsx</div>
+      </div>
+      <div class="fix-effort">
+        <div class="fix-effort-time">30 min</div>
+        <div class="fix-effort-label">Código</div>
+      </div>
+    </div>
+
+    <div class="fix medium-fix">
+      <div class="fix-num">8</div>
+      <div class="fix-body">
+        <div class="fix-title">Eliminar ACTIVITY_MOCK y corregir "5% comisión" → "0%"</div>
+        <div class="fix-desc">Reemplazar el array mock por un estado vacío con mensaje "Aún no hay actividad" hasta que haya datos reales. Cambiar el cálculo de "Por cobrar" de mrr*0.95 a mrr*1.0. Dos cambios de 5 minutos cada uno que evitan crisis de confianza con el primer creador real.</div>
+        <div class="fix-file">src/app/dashboard/page.tsx + src/app/dashboard/ingresos/page.tsx</div>
+      </div>
+      <div class="fix-effort">
+        <div class="fix-effort-time">15 min</div>
+        <div class="fix-effort-label">Código</div>
+      </div>
+    </div>
+
+    <div class="fix easy">
+      <div class="fix-num">9</div>
+      <div class="fix-body">
+        <div class="fix-title">Crear og-default.png y agregarlo en layout.tsx</div>
+        <div class="fix-desc">Crear una imagen 1200x630px con la marca Nebbuler (Oxford Blue, logo, tagline). Agregarla en openGraph.images y twitter.images en layout.tsx. Esto hace que todos los links compartidos en redes tengan preview visual desde el día 1.</div>
+        <div class="fix-file">public/og-default.png + src/app/layout.tsx</div>
+      </div>
+      <div class="fix-effort">
+        <div class="fix-effort-time">30 min</div>
+        <div class="fix-effort-label">Diseño + Código</div>
+      </div>
+    </div>
+
+    <div class="fix easy">
+      <div class="fix-num">10</div>
+      <div class="fix-body">
+        <div class="fix-title">Implementar /nueva-contrasena y corregir link de publicación en dashboard</div>
+        <div class="fix-desc">Crear src/app/nueva-contrasena/page.tsx con el formulario de cambio de contraseña via Supabase updateUser. Corregir el link de "Ver publicación" en el dashboard de /${post.slug} a /${creatorSlug}/${post.slug}.</div>
+        <div class="fix-file">src/app/nueva-contrasena/page.tsx + src/app/dashboard/publicaciones/page.tsx</div>
+      </div>
+      <div class="fix-effort">
+        <div class="fix-effort-time">45 min</div>
+        <div class="fix-effort-label">Código</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- TIEMPO TOTAL -->
+  <div style="background:var(--oxford);padding:28px 32px;margin-top:2px;display:flex;justify-content:space-between;align-items:center;">
+    <div>
+      <p style="font-family:Arial,sans-serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:#4A6075;margin-bottom:6px;">Tiempo estimado total — fixes 1 al 8 (bloqueadores críticos)</p>
+      <p style="font-size:22px;font-weight:700;color:white;">~4 horas de trabajo</p>
+      <p style="font-family:Arial,sans-serif;font-size:12px;color:#6B8299;margin-top:4px;">Los fixes 1 y 2 (variables de entorno en Vercel) se hacen en 15 minutos sin tocar código.</p>
+    </div>
+    <div style="text-align:right;">
+      <p style="font-family:Arial,sans-serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:#4A6075;margin-bottom:6px;">Estado después de los 10 fixes</p>
+      <p style="font-size:22px;font-weight:700;color:#4ADE80;">Listo para primer usuario real</p>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div><b>Nebbuler</b> · Auditoría de Lanzamiento · 6 Agentes · Mayo 2026</div>
+  <div>nebbuler.com</div>
+</footer>
+
+</body>
+</html>

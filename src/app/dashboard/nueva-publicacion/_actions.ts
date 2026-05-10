@@ -1,7 +1,8 @@
 'use server'
 
 import { redirect } from 'next/navigation'
-import { createClient } from '@/lib/supabase/server'
+import { createClient, createServiceClient } from '@/lib/supabase/server'
+import { sendNewPostNotification } from '@/lib/email'
 import type { Creator, Post } from '@/types/database'
 
 interface CreatePostInput {
@@ -33,6 +34,10 @@ function estimateReadTime(content: string): number {
   return Math.max(1, Math.ceil(words / 200))
 }
 
+function stripHtml(html: string): string {
+  return html.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 200)
+}
+
 export async function createPost(input: CreatePostInput): Promise<CreatePostResult> {
   const supabase = await createClient()
 
@@ -45,15 +50,17 @@ export async function createPost(input: CreatePostInput): Promise<CreatePostResu
     return { error: 'No estás autenticado. Por favor, inicia sesión.' }
   }
 
-  // Obtener creator del usuario
-  const { data: creatorRaw, error: creatorError } = await supabase
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const supabaseAny = supabase as any
+
+  // Obtener creator con datos completos para el email
+  const { data: creatorRaw, error: creatorError } = await supabaseAny
     .from('sala_creators')
-    .select('id')
+    .select('id, name, slug, publication_name')
     .eq('user_id', user.id)
     .maybeSingle()
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const creator = creatorRaw as (Pick<Creator, 'id'> | null)
+  const creator = creatorRaw as (Pick<Creator, 'id' | 'name' | 'slug' | 'publication_name'> | null)
 
   if (creatorError || !creator) {
     return { error: 'No tienes un perfil de creador. Configura tu sala primero.' }
@@ -61,10 +68,7 @@ export async function createPost(input: CreatePostInput): Promise<CreatePostResu
 
   const baseSlug = slugify(input.title)
   const uniqueSlug = `${baseSlug}-${Date.now().toString(36)}`
-
-  // Usamos any para evitar el conflicto con never[] del tipo generado
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const supabaseAny = supabase as any
+  const excerpt = stripHtml(input.content)
 
   const { data: postRaw, error: insertError } = await supabaseAny
     .from('sala_posts')
@@ -72,7 +76,7 @@ export async function createPost(input: CreatePostInput): Promise<CreatePostResu
       creator_id: creator.id,
       title: input.title,
       content: input.content,
-      excerpt: input.content.slice(0, 160) || null,
+      excerpt,
       is_free: input.isFree,
       slug: uniqueSlug,
       read_time_minutes: estimateReadTime(input.content),
@@ -86,6 +90,51 @@ export async function createPost(input: CreatePostInput): Promise<CreatePostResu
   if (insertError) {
     console.error('Error inserting post:', insertError)
     return { error: 'Error al guardar la publicación. Inténtalo de nuevo.' }
+  }
+
+  // Enviar emails a suscriptores activos cuando se publica
+  if (input.publish && post) {
+    try {
+      const serviceClient = createServiceClient()
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const serviceAny = serviceClient as any
+
+      // Obtener emails de suscriptores activos
+      const { data: subscriptions } = await serviceAny
+        .from('sala_subscriptions')
+        .select('subscriber_id')
+        .eq('creator_id', creator.id)
+        .eq('status', 'active')
+
+      if (subscriptions && subscriptions.length > 0) {
+        const subscriberIds = subscriptions.map((s: { subscriber_id: string }) => s.subscriber_id)
+
+        const { data: profiles } = await serviceAny
+          .from('sala_profiles')
+          .select('email')
+          .in('id', subscriberIds)
+
+        const emails: string[] = (profiles ?? [])
+          .map((p: { email: string }) => p.email)
+          .filter(Boolean)
+
+        if (emails.length > 0) {
+          await sendNewPostNotification({
+            subscriberEmails: emails,
+            creatorName: creator.name,
+            creatorSlug: creator.slug,
+            publicationName: creator.publication_name ?? creator.name,
+            postTitle: input.title,
+            postExcerpt: excerpt,
+            postSlug: uniqueSlug,
+            isFree: input.isFree,
+          })
+        }
+      }
+    } catch (emailErr) {
+      // El email falla silenciosamente — el post ya fue publicado
+      console.error('[createPost] error enviando emails:', emailErr)
+    }
   }
 
   if (input.publish) {

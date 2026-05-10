@@ -346,58 +346,26 @@ function ArticleContent({
   const showPaywall = !post.is_free && !isSubscribed
   const content = showPaywall ? extractPreview(post.content) : post.content
 
-  // Renderizado sencillo de markdown (párrafos y encabezados)
-  const renderContent = (text: string) =>
-    text.split('\n\n').map((block, i) => {
-      const trimmed = block.trim()
-      if (!trimmed) return null
-      if (trimmed.startsWith('## ')) {
-        return (
-          <h2
-            key={i}
-            className="font-serif text-[24px] font-bold text-[#121212] mt-10 mb-4 leading-[1.15]"
-            style={{ letterSpacing: '-0.01em' }}
-          >
-            {trimmed.replace(/^##\s/, '')}
-          </h2>
-        )
-      }
-      if (trimmed.startsWith('# ')) {
-        return (
-          <h2
-            key={i}
-            className="font-serif text-[28px] font-bold text-[#121212] mt-10 mb-4 leading-[1.1]"
-            style={{ letterSpacing: '-0.01em' }}
-          >
-            {trimmed.replace(/^#\s/, '')}
-          </h2>
-        )
-      }
-      if (trimmed.startsWith('> ')) {
-        return (
-          <blockquote
-            key={i}
-            className="my-8 pl-6 border-l-[3px] border-[#C41C1C]"
-          >
-            <p
-              className="font-serif text-[20px] italic text-[#121212] leading-[1.5]"
-              style={{ fontWeight: 400 }}
-            >
-              &ldquo;{trimmed.replace(/^>\s/, '')}&rdquo;
-            </p>
-          </blockquote>
-        )
-      }
-      return (
-        <p key={i} className="mb-6">
-          {trimmed}
-        </p>
-      )
-    })
-
   return (
-    <div className="font-sans text-[18px] text-[#121212] leading-[1.8]">
-      {renderContent(content)}
+    <div>
+      <div
+        className="prose prose-lg max-w-none
+          prose-headings:font-serif prose-headings:text-[#121212] prose-headings:tracking-tight
+          prose-h2:text-[24px] prose-h2:mt-10 prose-h2:mb-4
+          prose-h3:text-[20px] prose-h3:mt-8 prose-h3:mb-3
+          prose-p:text-[18px] prose-p:leading-[1.8] prose-p:text-[#121212] prose-p:mb-6
+          prose-strong:font-bold prose-strong:text-[#121212]
+          prose-em:italic
+          prose-a:text-[#C41C1C] prose-a:underline hover:prose-a:text-[#a01515]
+          prose-blockquote:border-l-[3px] prose-blockquote:border-[#C41C1C] prose-blockquote:pl-6
+          prose-blockquote:font-serif prose-blockquote:italic prose-blockquote:text-[#121212]
+          prose-ul:list-disc prose-ul:pl-6 prose-ol:list-decimal prose-ol:pl-6
+          prose-li:text-[18px] prose-li:leading-[1.8] prose-li:text-[#121212]
+          prose-img:w-full prose-img:my-8
+          prose-hr:border-[#DEDEDE]"
+        style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}
+        dangerouslySetInnerHTML={{ __html: content }}
+      />
       {showPaywall && (
         <PaywallGate
           creatorName={creator.name}

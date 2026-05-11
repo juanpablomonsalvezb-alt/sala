@@ -1,0 +1,19 @@
+{
+  "name": "nebbuler-kaggle-monitor",
+  "version": "1.0.0",
+  "description": "Monitoreo de datasets Kaggle para creadores de Nebbuler",
+  "scripts": {
+    "run": "npx ts-node kaggle-monitor.ts --run",
+    "preview": "npx ts-node kaggle-monitor.ts --preview",
+    "daemon": "npx ts-node kaggle-monitor.ts --daemon",
+    "brief": "npx ts-node kaggle-monitor.ts --brief"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "ts-node": "^10.9.0",
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.39.0"
+  }
+}

@@ -423,73 +423,61 @@ export default async function PostPage({
     try {
       const supabase = await createClient()
 
-      // Obtener creator
-      const { data: creatorData, error: creatorError } = await supabase
+      // Obtener creator — sin notFound() dentro del try
+      const { data: creatorData } = await supabase
         .from('sala_creators')
         .select('*')
         .eq('slug', creatorSlug)
-        .single()
+        .maybeSingle()
 
-      if (creatorError || !creatorData) notFound()
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      creator = creatorData as any
+      creator = (creatorData as any) ?? null
 
-      // Obtener post
-      const creatorId = (creator as any).id
-      const { data: postData, error: postError } = await supabase
-        .from('sala_posts')
-        .select('*')
-        .eq('creator_id', creatorId)
-        .eq('slug', postSlug)
-        .not('published_at', 'is', null)
-        .single()
-
-      if (postError || !postData) notFound()
-      post = postData
-
-      // Verificar suscripción
-      const {
-        data: { user },
-      } = await supabase.auth.getUser()
-
-      if (user) {
-        isAuthenticated = true
-        const { data: sub } = await supabase
-          .from('sala_subscriptions')
-          .select('id')
-          .eq('subscriber_id', user.id)
-          .eq('creator_id', creator!.id)
-          .eq('status', 'active')
+      if (creator) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const creatorId = (creator as any).id
+        const { data: postData } = await supabase
+          .from('sala_posts')
+          .select('*')
+          .eq('creator_id', creatorId)
+          .eq('slug', postSlug)
+          .not('published_at', 'is', null)
           .maybeSingle()
 
-        isSubscribed = !!sub
+        post = postData ?? null
+
+        if (post) {
+          const { data: { user } } = await supabase.auth.getUser()
+          if (user) {
+            isAuthenticated = true
+            const { data: sub } = await supabase
+              .from('sala_subscriptions')
+              .select('id')
+              .eq('subscriber_id', user.id)
+              .eq('creator_id', creatorId)
+              .eq('status', 'active')
+              .maybeSingle()
+            isSubscribed = !!sub
+          }
+        }
       }
-    } catch {
-      // Fallback cuando Supabase falla — forzar paywall en todos los posts
-      // para evitar que contenido de pago sea accesible por error de infraestructura
-      const staticResult = findStaticPost(creatorSlug, postSlug)
-      if (staticResult) {
-        creator = staticResult.creator
-        post = { ...staticResult.post, is_free: false }
-      } else if (creatorSlug === MOCK_CREATOR.slug) {
-        post = { ...MOCK_POST, slug: postSlug, is_free: false }
-        creator = MOCK_CREATOR
-      } else {
-        notFound()
-      }
-      // isSubscribed queda en false → paywall siempre visible cuando hay error
+    } catch (err) {
+      console.error('[post page] supabase error:', err)
+      // Sigue el fallback abajo
     }
-  } else {
-    // Sin Supabase → fallback estático
+  }
+
+  // Fallback estático — si Supabase no encontró creator o post, intenta con creators.ts
+  if (!creator || !post) {
     const staticResult = findStaticPost(creatorSlug, postSlug)
     if (staticResult) {
       creator = staticResult.creator
-      post = staticResult.post
+      // Si Supabase falló por completo, fuerza paywall (is_free: false)
+      // Si Supabase respondió pero no encontró el post, también
+      post = { ...staticResult.post, is_free: false }
     } else if (creatorSlug === MOCK_CREATOR.slug) {
-      post = { ...MOCK_POST, slug: postSlug }
+      post = { ...MOCK_POST, slug: postSlug, is_free: false }
       creator = MOCK_CREATOR
-    } else {
-      notFound()
     }
   }
 

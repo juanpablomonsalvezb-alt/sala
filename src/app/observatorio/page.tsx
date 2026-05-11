@@ -23,6 +23,13 @@ export const metadata: Metadata = {
 
 const pillars = [
   {
+    href: '/observatorio/datos',
+    title: 'Datos Económicos Chile y LATAM 2026',
+    subtitle: 'Inflación, PIB per cápita, tipo de cambio y desempleo con visualizaciones',
+    description:
+      'Indicadores macroeconómicos curados de fuentes públicas: INE Chile, Banco Central, Banco Mundial y CEPAL. Gráficos interactivos del período 2022–2026 con análisis editorial.',
+  },
+  {
     href: '/observatorio/substack-en-espanol-2026',
     title: 'Substack en Español 2026',
     subtitle: 'Alternativas, plataformas y el auge del newsletter profesional',

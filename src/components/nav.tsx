@@ -23,6 +23,7 @@ export default function Nav() {
           <nav className="flex items-center gap-1 text-[12px] font-sans text-[#666666]">
             {[
               { label: "Explorar", href: "/directorio" },
+              { label: "Observatorio", href: "/observatorio" },
               { label: "Para creadores", href: "/para-creadores" },
               { label: "Precios", href: "/precios" },
               { label: "Entrar", href: "/entrar" },
@@ -37,6 +38,13 @@ export default function Nav() {
                 </Link>
               </span>
             ))}
+            <span className="text-[#DEDEDE] px-1">·</span>
+            <Link
+              href="/glosario"
+              className="hover:text-[#121212] transition-colors duration-150 uppercase tracking-[0.08em] text-[11px] font-sans text-[#666] font-medium"
+            >
+              Glosario
+            </Link>
           </nav>
         </div>
       </div>

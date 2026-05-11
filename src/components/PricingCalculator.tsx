@@ -4,67 +4,105 @@ import { useState } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 
-const TARIFA_NEBBULER = 29990;
+// Configuración por país: símbolo, moneda, precios sugeridos, tarifa mensual Nebbuler
+const PAISES = {
+  CL: { bandera: "🇨🇱", nombre: "Chile",     simbolo: "$",  moneda: "CLP", precios: [4990,  7990,  9990,  14990, 19990], tarifa: 29990 },
+  AR: { bandera: "🇦🇷", nombre: "Argentina", simbolo: "$",  moneda: "ARS", precios: [3000,  5000,  7000,  10000, 15000], tarifa: 30000 },
+  MX: { bandera: "🇲🇽", nombre: "México",    simbolo: "$",  moneda: "MXN", precios: [60,    99,    149,   199,   299],   tarifa: 600   },
+  CO: { bandera: "🇨🇴", nombre: "Colombia",  simbolo: "$",  moneda: "COP", precios: [12000, 20000, 30000, 45000, 59000], tarifa: 120000},
+  PE: { bandera: "🇵🇪", nombre: "Perú",      simbolo: "S/", moneda: "PEN", precios: [12,    20,    30,    45,    59],    tarifa: 115   },
+  UY: { bandera: "🇺🇾", nombre: "Uruguay",   simbolo: "$",  moneda: "UYU", precios: [150,   250,   390,   590,   750],  tarifa: 1200  },
+  BR: { bandera: "🇧🇷", nombre: "Brasil",    simbolo: "R$", moneda: "BRL", precios: [15,    25,    39,    59,    79],   tarifa: 150   },
+} as const;
 
-const PRECIOS_RAPIDOS: number[] = [4990, 7990, 14990, 24990];
+type PaisKey = keyof typeof PAISES;
 
-function formatCLP(n: number): string {
+function fmt(n: number, pais: PaisKey): string {
+  const { moneda } = PAISES[pais];
+  // Monedas de alta denominación sin decimales, resto con separador de miles
   return n.toLocaleString("es-CL");
 }
 
 export function PricingCalculator() {
+  const [pais, setPais] = useState<PaisKey>("CL");
   const [subs, setSubs] = useState<number>(200);
   const [precio, setPrecio] = useState<number>(14990);
 
+  const p = PAISES[pais];
   const ingresoBruto = subs * precio;
-  const ingresoNeto = Math.max(0, ingresoBruto - TARIFA_NEBBULER);
+  const ingresoNeto = Math.max(0, ingresoBruto - p.tarifa);
   const ingresoConComision = Math.round(ingresoBruto * 0.9);
   const diferencia = ingresoNeto - ingresoConComision;
-
   const sliderPct = ((subs - 50) / (2000 - 50)) * 100;
   const maxBar = Math.max(ingresoNeto, ingresoConComision, 1);
 
+  // Al cambiar país: resetear precio al índice 2 (precio medio)
+  function handlePais(key: PaisKey) {
+    setPais(key);
+    setPrecio(PAISES[key].precios[2]);
+  }
+
   return (
     <div className="bg-white border border-[#EEEEEE] p-8 md:p-10">
-      {/* Header */}
-      <p className="font-sans text-[10px] font-bold tracking-[0.25em] uppercase text-[#999] mb-2">
-        Calcula tu ingreso
-      </p>
+      {/* Header + selector de país */}
+      <div className="flex items-center justify-between mb-6">
+        <p className="font-sans text-[10px] font-bold tracking-[0.25em] uppercase text-[#999]">
+          Calcula tu ingreso
+        </p>
+        <div className="flex gap-1 flex-wrap justify-end">
+          {(Object.keys(PAISES) as PaisKey[]).map((key) => (
+            <button
+              key={key}
+              onClick={() => handlePais(key)}
+              title={PAISES[key].nombre}
+              className={`text-[15px] px-1.5 py-0.5 transition-all border ${
+                pais === key
+                  ? "border-[#C41C1C] bg-[#FFF5F5]"
+                  : "border-transparent hover:border-[#DEDEDE]"
+              }`}
+            >
+              {PAISES[key].bandera}
+            </button>
+          ))}
+        </div>
+      </div>
 
       {/* Output principal */}
       <div className="mb-8">
         <AnimatePresence mode="wait">
           <motion.p
-            key={ingresoNeto}
-            initial={{ opacity: 0, y: -10 }}
+            key={`${ingresoNeto}-${pais}`}
+            initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 10 }}
-            transition={{ duration: 0.2 }}
-            className="font-serif text-[48px] md:text-[64px] font-bold text-[#C41C1C] leading-none"
+            exit={{ opacity: 0, y: 8 }}
+            transition={{ duration: 0.18 }}
+            className="font-serif text-[44px] md:text-[60px] font-bold text-[#C41C1C] leading-none"
           >
-            ${formatCLP(ingresoNeto)}
+            {p.simbolo}{fmt(ingresoNeto, pais)}
           </motion.p>
         </AnimatePresence>
-        <p className="font-sans text-[13px] text-[#999] mt-1">
-          neto mensual · {subs} suscriptores
+        <p className="font-sans text-[12px] text-[#999] mt-1">
+          neto mensual · {subs} suscriptores · {p.moneda}
         </p>
       </div>
 
       {/* Selector de precio */}
       <div className="mb-6">
-        <p className="font-sans text-[11px] text-[#666] mb-3">Precio por suscriptor</p>
+        <p className="font-sans text-[11px] text-[#666] mb-3">
+          Precio por suscriptor / mes
+        </p>
         <div className="flex gap-2 flex-wrap">
-          {PRECIOS_RAPIDOS.map((p) => (
+          {p.precios.map((pr) => (
             <button
-              key={p}
-              onClick={() => setPrecio(p)}
-              className={`px-4 py-2 font-sans text-[13px] font-bold border transition-colors ${
-                precio === p
+              key={pr}
+              onClick={() => setPrecio(pr)}
+              className={`px-3 py-2 font-sans text-[12px] font-bold border transition-colors ${
+                precio === pr
                   ? "bg-[#C41C1C] text-white border-[#C41C1C]"
                   : "bg-white text-[#444] border-[#DEDEDE] hover:border-[#C41C1C]"
               }`}
             >
-              ${formatCLP(p)}/mes
+              {p.simbolo}{fmt(pr, pais)}
             </button>
           ))}
         </div>
@@ -95,17 +133,16 @@ export function PricingCalculator() {
       </div>
 
       {/* Comparativa */}
-      <div className="border-t border-[#F0F0F0] pt-6">
+      <div className="border-t border-[#F0F0F0] pt-5">
         <p className="font-sans text-[10px] font-bold tracking-[0.15em] uppercase text-[#999] mb-4">
-          Nebbuler vs plataforma con comisión
+          Nebbuler vs plataforma con comisión (10%)
         </p>
         <div className="space-y-3">
-          {/* Nebbuler */}
           <div>
             <div className="flex justify-between mb-1">
               <span className="font-sans text-[12px] text-[#121212] font-bold">Nebbuler</span>
               <span className="font-sans text-[12px] text-[#C41C1C] font-bold">
-                ${formatCLP(ingresoNeto)}
+                {p.simbolo}{fmt(ingresoNeto, pais)}
               </span>
             </div>
             <div className="h-2 bg-[#F0F0F0] overflow-hidden">
@@ -116,12 +153,11 @@ export function PricingCalculator() {
               />
             </div>
           </div>
-          {/* Con comisión */}
           <div>
             <div className="flex justify-between mb-1">
-              <span className="font-sans text-[12px] text-[#999]">Con 10% comisión</span>
+              <span className="font-sans text-[12px] text-[#999]">Con comisión</span>
               <span className="font-sans text-[12px] text-[#999]">
-                ${formatCLP(ingresoConComision)}
+                {p.simbolo}{fmt(ingresoConComision, pais)}
               </span>
             </div>
             <div className="h-2 bg-[#F0F0F0] overflow-hidden">
@@ -135,16 +171,23 @@ export function PricingCalculator() {
         </div>
         {diferencia > 0 && (
           <p className="font-sans text-[11px] text-[#C41C1C] font-bold mt-3">
-            +${formatCLP(diferencia)} más con Nebbuler
+            +{p.simbolo}{fmt(diferencia, pais)} más con Nebbuler
           </p>
         )}
       </div>
 
-      {/* Anual */}
-      <p className="font-sans text-[12px] text-[#999] mt-4">
-        Ingreso anual estimado:{" "}
-        <span className="font-bold text-[#121212]">${formatCLP(ingresoNeto * 12)}</span>
-      </p>
+      {/* Tarifa y anual */}
+      <div className="mt-4 space-y-1">
+        <p className="font-sans text-[11px] text-[#BBBBBB]">
+          Tarifa Nebbuler: {p.simbolo}{fmt(p.tarifa, pais)} {p.moneda}/mes fija
+        </p>
+        <p className="font-sans text-[12px] text-[#999]">
+          Ingreso anual estimado:{" "}
+          <span className="font-bold text-[#121212]">
+            {p.simbolo}{fmt(ingresoNeto * 12, pais)}
+          </span>
+        </p>
+      </div>
 
       <Link
         href="/abrir"

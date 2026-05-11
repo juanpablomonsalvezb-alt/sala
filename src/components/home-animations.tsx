@@ -449,7 +449,7 @@ export function PricingSection({ plans }: PricingSectionProps) {
                 Precios
               </p>
               <h2 className="font-serif font-bold text-[clamp(24px,3.5vw,44px)] tracking-[-0.02em]">
-                Elige el plan para crecer
+                Un solo plan. Sin sorpresas.
               </h2>
             </div>
             <div className="hidden sm:flex items-center gap-2 pb-1">

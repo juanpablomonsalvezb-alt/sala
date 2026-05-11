@@ -39,7 +39,7 @@ const features = [
 ];
 
 const plans = [
-  { name: "Nebbuler", price: "$29.990", period: "/ mes", note: "0% comisión", cta: "30 días gratis", featured: true, perks: ["Suscriptores ilimitados", "0% de comisión sobre tus ingresos", "Editor premium", "Analytics completo", "Soporte prioritario", "30 días de prueba sin tarjeta"] },
+  { name: "Nebbuler", price: "$29.990", period: "/ mes", note: "0% comisión", cta: "Abrir mi sala →", featured: true, perks: ["Suscriptores ilimitados", "0% de comisión sobre tus ingresos", "Editor premium", "Analytics completo", "Soporte prioritario", "Sin contrato — cancela cuando quieras"] },
 ];
 
 const faqs = [

@@ -7,6 +7,8 @@ import Youtube from '@tiptap/extension-youtube'
 import Placeholder from '@tiptap/extension-placeholder'
 import CharacterCount from '@tiptap/extension-character-count'
 import { useState, useCallback, useEffect, useRef } from 'react'
+import { useUploadThing } from '@/lib/uploadthing'
+import { AudioPlayer, PdfEmbed, FileAttachment } from '@/lib/tiptap-extensions'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -86,6 +88,32 @@ function IconSeparator() {
   return (
     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
       <line x1="3" y1="12" x2="21" y2="12" />
+    </svg>
+  )
+}
+function IconAudio() {
+  return (
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <path d="M9 18V5l12-2v13" />
+      <circle cx="6" cy="18" r="3" />
+      <circle cx="18" cy="16" r="3" />
+    </svg>
+  )
+}
+function IconPdf() {
+  return (
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+      <polyline points="14 2 14 8 20 8" />
+      <line x1="9" y1="15" x2="15" y2="15" />
+    </svg>
+  )
+}
+function IconFile() {
+  return (
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+      <polyline points="14 2 14 8 20 8" />
     </svg>
   )
 }
@@ -225,6 +253,43 @@ const blockItemStyle: React.CSSProperties = {
   transition: 'background 0.1s',
 }
 
+// ─── Hook upload handlers ─────────────────────────────────────────────────────
+
+function useFileUpload(
+  endpoint: 'imageUploader' | 'pdfUploader' | 'audioUploader' | 'documentUploader',
+  onComplete: (url: string, name: string) => void
+) {
+  const [uploading, setUploading] = useState(false)
+
+  const { startUpload } = useUploadThing(endpoint, {
+    onClientUploadComplete: (res) => {
+      setUploading(false)
+      if (res?.[0]) {
+        onComplete(res[0].url, res[0].name)
+      }
+    },
+    onUploadError: () => setUploading(false),
+  })
+
+  const triggerUpload = useCallback(
+    (accept: string) => {
+      const input = document.createElement('input')
+      input.type = 'file'
+      input.accept = accept
+      input.onchange = async (e) => {
+        const file = (e.target as HTMLInputElement).files?.[0]
+        if (!file) return
+        setUploading(true)
+        await startUpload([file])
+      }
+      input.click()
+    },
+    [startUpload]
+  )
+
+  return { uploading, triggerUpload }
+}
+
 // ─── Componente principal ─────────────────────────────────────────────────────
 
 export default function NebbulerEditor({
@@ -245,6 +310,9 @@ export default function NebbulerEditor({
         nocookie: true,
         HTMLAttributes: { class: 'editor-youtube' },
       }),
+      AudioPlayer,
+      PdfEmbed,
+      FileAttachment,
       Placeholder.configure({ placeholder }),
       CharacterCount,
     ],
@@ -264,6 +332,54 @@ export default function NebbulerEditor({
   const bubbleState = useBubbleMenuPosition(editor, wrapRef)
   const plusState = usePlusButtonPosition(editor, wrapRef)
 
+  // Upload handlers
+  const { uploading: uploadingImage, triggerUpload: triggerImageUpload } = useFileUpload(
+    'imageUploader',
+    (url) => {
+      editor?.chain().focus().setImage({ src: url }).run()
+      setBlockMenuOpen(false)
+    }
+  )
+
+  const { uploading: uploadingPdf, triggerUpload: triggerPdfUpload } = useFileUpload(
+    'pdfUploader',
+    (url, name) => {
+      editor
+        ?.chain()
+        .focus()
+        .insertContent({ type: 'pdfEmbed', attrs: { src: url, name } })
+        .run()
+      setBlockMenuOpen(false)
+    }
+  )
+
+  const { uploading: uploadingAudio, triggerUpload: triggerAudioUpload } = useFileUpload(
+    'audioUploader',
+    (url, name) => {
+      editor
+        ?.chain()
+        .focus()
+        .insertContent({ type: 'audioPlayer', attrs: { src: url, title: name } })
+        .run()
+      setBlockMenuOpen(false)
+    }
+  )
+
+  const { uploading: uploadingDoc, triggerUpload: triggerDocUpload } = useFileUpload(
+    'documentUploader',
+    (url, name) => {
+      const ext = name.split('.').pop()?.toLowerCase() ?? 'file'
+      editor
+        ?.chain()
+        .focus()
+        .insertContent({ type: 'fileAttachment', attrs: { src: url, name, type: ext } })
+        .run()
+      setBlockMenuOpen(false)
+    }
+  )
+
+  const isUploading = uploadingImage || uploadingPdf || uploadingAudio || uploadingDoc
+
   // Cerrar bloque-menu al click fuera
   useEffect(() => {
     const handler = (e: MouseEvent) => {
@@ -274,13 +390,6 @@ export default function NebbulerEditor({
     document.addEventListener('mousedown', handler)
     return () => document.removeEventListener('mousedown', handler)
   }, [])
-
-  const insertImage = useCallback(() => {
-    if (!editor) return
-    const url = window.prompt('URL de la imagen:')
-    if (url) editor.chain().focus().setImage({ src: url }).run()
-    setBlockMenuOpen(false)
-  }, [editor])
 
   const insertYoutube = useCallback(() => {
     if (!editor) return
@@ -316,6 +425,29 @@ export default function NebbulerEditor({
   return (
     <div ref={wrapRef} style={{ position: 'relative' }}>
 
+      {/* ── Indicador de carga ── */}
+      {isUploading && (
+        <div
+          style={{
+            position: 'fixed',
+            bottom: '24px',
+            right: '24px',
+            background: '#121212',
+            color: '#fff',
+            padding: '10px 16px',
+            fontSize: '13px',
+            fontFamily: 'var(--font-sans, sans-serif)',
+            zIndex: 9999,
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+          }}
+        >
+          <span style={{ display: 'inline-block', width: '12px', height: '12px', borderRadius: '50%', border: '2px solid #fff', borderTopColor: 'transparent', animation: 'spin 0.7s linear infinite' }} />
+          Subiendo archivo…
+        </div>
+      )}
+
       {/* ── BubbleMenu flotante (sobre selección) ── */}
       {bubbleState.show && (
         <div
@@ -336,7 +468,6 @@ export default function NebbulerEditor({
             boxShadow: '0 4px 16px rgba(0,0,0,0.18)',
           }}
         >
-          {/* Bold */}
           <button
             onMouseDown={(e) => { e.preventDefault(); editor.chain().focus().toggleBold().run() }}
             title="Negrita"
@@ -344,8 +475,6 @@ export default function NebbulerEditor({
           >
             <IconBold />
           </button>
-
-          {/* Italic */}
           <button
             onMouseDown={(e) => { e.preventDefault(); editor.chain().focus().toggleItalic().run() }}
             title="Cursiva"
@@ -353,11 +482,7 @@ export default function NebbulerEditor({
           >
             <IconItalic />
           </button>
-
-          {/* Sep */}
           <div style={{ width: '1px', height: '14px', background: '#333', margin: '0 2px' }} />
-
-          {/* H2 */}
           <button
             onMouseDown={(e) => { e.preventDefault(); editor.chain().focus().toggleHeading({ level: 2 }).run() }}
             title="Subtítulo H2"
@@ -365,8 +490,6 @@ export default function NebbulerEditor({
           >
             <IconH2 />
           </button>
-
-          {/* H3 */}
           <button
             onMouseDown={(e) => { e.preventDefault(); editor.chain().focus().toggleHeading({ level: 3 }).run() }}
             title="Subtítulo H3"
@@ -374,11 +497,7 @@ export default function NebbulerEditor({
           >
             <IconH3 />
           </button>
-
-          {/* Sep */}
           <div style={{ width: '1px', height: '14px', background: '#333', margin: '0 2px' }} />
-
-          {/* Quote */}
           <button
             onMouseDown={(e) => { e.preventDefault(); editor.chain().focus().toggleBlockquote().run() }}
             title="Cita"
@@ -386,8 +505,6 @@ export default function NebbulerEditor({
           >
             <IconQuote />
           </button>
-
-          {/* Link */}
           <button
             onMouseDown={(e) => { e.preventDefault(); setLink() }}
             title="Enlace"
@@ -435,7 +552,6 @@ export default function NebbulerEditor({
             <IconPlus />
           </button>
 
-          {/* Mini menú */}
           {blockMenuOpen && (
             <div
               style={{
@@ -446,17 +562,21 @@ export default function NebbulerEditor({
                 border: '1px solid #DEDEDE',
                 boxShadow: '0 4px 16px rgba(0,0,0,0.08)',
                 zIndex: 50,
-                minWidth: '168px',
+                minWidth: '196px',
               }}
             >
+              {/* Imágenes */}
+              <div style={{ padding: '6px 12px 2px', fontSize: '10px', color: '#999', textTransform: 'uppercase', letterSpacing: '0.1em', fontFamily: 'var(--font-sans)' }}>
+                Multimedia
+              </div>
               <button
-                onMouseDown={(e) => { e.preventDefault(); insertImage() }}
+                onMouseDown={(e) => { e.preventDefault(); triggerImageUpload('image/*') }}
                 style={blockItemStyle}
                 onMouseEnter={(e) => ((e.currentTarget as HTMLButtonElement).style.background = '#F7F7F7')}
                 onMouseLeave={(e) => ((e.currentTarget as HTMLButtonElement).style.background = 'none')}
               >
                 <IconImage />
-                <span>Imagen por URL</span>
+                <span>Subir imagen</span>
               </button>
               <button
                 onMouseDown={(e) => { e.preventDefault(); insertYoutube() }}
@@ -465,9 +585,44 @@ export default function NebbulerEditor({
                 onMouseLeave={(e) => ((e.currentTarget as HTMLButtonElement).style.background = 'none')}
               >
                 <IconYoutube />
-                <span>YouTube</span>
+                <span>YouTube / Vimeo</span>
               </button>
-              <div style={{ height: '1px', background: '#DEDEDE', margin: '2px 0' }} />
+              <button
+                onMouseDown={(e) => { e.preventDefault(); triggerAudioUpload('audio/mp3,audio/wav,audio/aac,audio/mpeg,audio/*') }}
+                style={blockItemStyle}
+                onMouseEnter={(e) => ((e.currentTarget as HTMLButtonElement).style.background = '#F7F7F7')}
+                onMouseLeave={(e) => ((e.currentTarget as HTMLButtonElement).style.background = 'none')}
+              >
+                <IconAudio />
+                <span>Audio / Podcast</span>
+              </button>
+
+              {/* Documentos */}
+              <div style={{ height: '1px', background: '#DEDEDE', margin: '4px 0' }} />
+              <div style={{ padding: '6px 12px 2px', fontSize: '10px', color: '#999', textTransform: 'uppercase', letterSpacing: '0.1em', fontFamily: 'var(--font-sans)' }}>
+                Documentos
+              </div>
+              <button
+                onMouseDown={(e) => { e.preventDefault(); triggerPdfUpload('application/pdf') }}
+                style={blockItemStyle}
+                onMouseEnter={(e) => ((e.currentTarget as HTMLButtonElement).style.background = '#F7F7F7')}
+                onMouseLeave={(e) => ((e.currentTarget as HTMLButtonElement).style.background = 'none')}
+              >
+                <IconPdf />
+                <span>PDF</span>
+              </button>
+              <button
+                onMouseDown={(e) => { e.preventDefault(); triggerDocUpload('.xlsx,.xls,.docx,.doc,.pptx,.ppt,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel') }}
+                style={blockItemStyle}
+                onMouseEnter={(e) => ((e.currentTarget as HTMLButtonElement).style.background = '#F7F7F7')}
+                onMouseLeave={(e) => ((e.currentTarget as HTMLButtonElement).style.background = 'none')}
+              >
+                <IconFile />
+                <span>Excel / Word / PPT</span>
+              </button>
+
+              {/* Formato */}
+              <div style={{ height: '1px', background: '#DEDEDE', margin: '4px 0' }} />
               <button
                 onMouseDown={(e) => { e.preventDefault(); insertHorizontalRule() }}
                 style={blockItemStyle}

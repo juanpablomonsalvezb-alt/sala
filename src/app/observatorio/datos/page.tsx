@@ -3,9 +3,9 @@ import Link from 'next/link'
 import { creators } from '@/data/creators'
 
 export const metadata: Metadata = {
-  title: 'Datos Económicos Chile y LATAM 2026 — Observatorio Nebbuler',
+  title: 'Datos Económicos América Latina 2026 — Observatorio Nebbuler',
   description:
-    'Indicadores macroeconómicos, datos de salud y análisis cuantitativos de Chile y Latinoamérica. Fuentes: Banco Mundial, INE, CEPAL, Kaggle.',
+    'Indicadores macroeconómicos, datos de salud y análisis cuantitativos de América Latina. Fuentes: Banco Mundial, INE, CEPAL, Kaggle.',
   keywords: [
     'inflación chile 2026',
     'pib per cápita latam',
@@ -20,17 +20,17 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: 'https://nebbuler.com/observatorio/datos' },
   openGraph: {
-    title: 'Datos Económicos Chile y LATAM 2026 — Observatorio Nebbuler',
+    title: 'Datos Económicos América Latina 2026 — Observatorio Nebbuler',
     description:
-      'Indicadores macroeconómicos de Chile y Latinoamérica: inflación, PIB per cápita, tipo de cambio y desempleo. Fuentes: Banco Mundial, INE, CEPAL.',
+      'Indicadores macroeconómicos de América Latina: inflación, PIB per cápita, tipo de cambio y desempleo. Fuentes: Banco Mundial, INE, CEPAL.',
     url: 'https://nebbuler.com/observatorio/datos',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Datos Económicos Chile y LATAM 2026 — Observatorio Nebbuler',
+    title: 'Datos Económicos América Latina 2026 — Observatorio Nebbuler',
     description:
-      'Visualizaciones de inflación, PIB, tipo de cambio y desempleo en Chile y LATAM. Datos curados de fuentes públicas.',
+      'Visualizaciones de inflación, PIB, tipo de cambio y desempleo en América Latina. Datos curados de fuentes públicas.',
   },
 }
 
@@ -43,9 +43,9 @@ import MacroChartsLazy from '@/components/charts/MacroChartsLazy'
 const jsonLdDataset = {
   '@context': 'https://schema.org',
   '@type': 'Dataset',
-  name: 'Indicadores Macroeconómicos Chile y LATAM 2022-2026',
+  name: 'Indicadores Macroeconómicos América Latina 2022-2026',
   description:
-    'Datos de inflación mensual (IPC), PIB per cápita comparativo LATAM, tipo de cambio USD/CLP y tasa de desempleo trimestral en Chile. Período 2022-2026.',
+    'Datos de inflación mensual (IPC), PIB per cápita comparativo América Latina, tipo de cambio USD/CLP y tasa de desempleo trimestral en Chile. Período 2022-2026.',
   url: 'https://nebbuler.com/observatorio/datos',
   creator: {
     '@type': 'Organization',
@@ -145,7 +145,7 @@ export default function ObservatorioDatosPage() {
           </div>
 
           <h1 className="font-serif text-[36px] sm:text-[46px] font-bold text-[#121212] leading-tight mb-5">
-            Datos Económicos Chile y LATAM
+            Datos Económicos América Latina
           </h1>
 
           <p className="font-sans text-[15px] text-[#555] leading-relaxed">
@@ -260,7 +260,7 @@ export default function ObservatorioDatosPage() {
             ¿Analizas economía o finanzas y quieres cobrar por ello?
           </p>
           <p className="font-sans text-[14px] text-[#555] mb-4 leading-relaxed">
-            Nebbuler es la plataforma de newsletters de pago para profesionales de Chile y LATAM.
+            Nebbuler es la plataforma de newsletters de pago para profesionales de América Latina.
             Sin algoritmos. Sin comisión. Tú pones el precio.
           </p>
           <Link

@@ -2,12 +2,12 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'Newsletters de Derecho Tributario en Chile y LATAM | Observatorio Nebbuler',
+  title: 'Newsletters de Derecho Tributario en América Latina | Observatorio Nebbuler',
   description:
     'Abogados tributarios con LLM internacional que publican análisis sobre el SII, reforma fiscal, precios de transferencia y tributación internacional para contadores y CFOs. Directorio verificado.',
   alternates: { canonical: 'https://nebbuler.com/observatorio/derecho-tributario-latam' },
   openGraph: {
-    title: 'Newsletters de Derecho Tributario en Chile y LATAM',
+    title: 'Newsletters de Derecho Tributario en América Latina',
     description:
       'Los abogados tributarios chilenos que monetizan su expertise de forma independiente. Análisis del SII, tributación internacional y planificación fiscal.',
     url: 'https://nebbuler.com/observatorio/derecho-tributario-latam',
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Newsletters de Derecho Tributario en Chile y LATAM',
+    title: 'Newsletters de Derecho Tributario en América Latina',
     description:
       'Abogados tributarios que cobran por su análisis. Directorio verificado de newsletters legales en Nebbuler.',
   },
@@ -27,7 +27,7 @@ const jsonLd = {
     {
       '@type': 'Article',
       headline:
-        'Newsletters de Derecho Tributario en Chile y LATAM: Los Profesionales que Debes Seguir',
+        'Newsletters de Derecho Tributario en América Latina: Los Profesionales que Debes Seguir',
       description:
         'El crecimiento del análisis legal independiente y los abogados tributarios que monetizan su expertise fuera de los grandes estudios.',
       url: 'https://nebbuler.com/observatorio/derecho-tributario-latam',
@@ -50,7 +50,7 @@ const jsonLd = {
         {
           '@type': 'ListItem',
           position: 3,
-          name: 'Newsletters de Derecho Tributario en Chile y LATAM',
+          name: 'Newsletters de Derecho Tributario en América Latina',
           item: 'https://nebbuler.com/observatorio/derecho-tributario-latam',
         },
       ],
@@ -84,7 +84,7 @@ export default function DerechoTributarioLatamPage() {
             DIRECTORIO · DERECHO · MAYO 2026
           </p>
           <h1 className="font-serif text-[32px] sm:text-[40px] font-bold text-[#121212] leading-tight mb-5">
-            Newsletters de Derecho Tributario en Chile y LATAM: Los Profesionales que Debes Seguir
+            Newsletters de Derecho Tributario en América Latina: Los Profesionales que Debes Seguir
           </h1>
           <p className="font-sans text-[16px] text-[#555] leading-relaxed">
             El análisis tributario independiente está emergiendo como uno de los segmentos más valiosos del mercado de newsletters profesionales en español. Abogados con LLM internacional que antes solo publicaban en revistas especializadas o de forma interna en grandes estudios ahora cobran directamente a contadores, CFOs y directores financieros.

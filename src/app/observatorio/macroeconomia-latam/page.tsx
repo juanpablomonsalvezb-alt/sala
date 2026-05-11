@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Macroeconomía en Latinoamérica 2026: Dónde Leer Análisis Independientes',
     description:
-      'Radiografía macroeconómica de los cinco principales países de LATAM y el directorio de newsletters independientes que los cubren con mayor profundidad que los medios masivos.',
+      'Radiografía macroeconómica de los cinco principales países de América Latina y el directorio de newsletters independientes que los cubren con mayor profundidad que los medios masivos.',
     url: 'https://nebbuler.com/observatorio/macroeconomia-latam',
     type: 'article',
   },
@@ -28,7 +28,7 @@ const jsonLd = {
       '@type': 'Article',
       headline: 'Macroeconomía en Latinoamérica 2026: Dónde Leer Análisis Independientes',
       description:
-        'Estado macroeconómico de los principales países de LATAM en 2026 y por qué los analistas independientes en newsletters de pago superan a los medios masivos.',
+        'Estado macroeconómico de los principales países de América Latina en 2026 y por qué los analistas independientes en newsletters de pago superan a los medios masivos.',
       url: 'https://nebbuler.com/observatorio/macroeconomia-latam',
       datePublished: '2026-01-01',
       dateModified: '2026-05-01',
@@ -73,7 +73,7 @@ export default function MacroeconomiaLatamPage() {
             <li aria-hidden="true">/</li>
             <li><Link href="/observatorio" className="hover:text-[#121212] transition-colors">Observatorio</Link></li>
             <li aria-hidden="true">/</li>
-            <li className="text-[#121212]">Macroeconomía LATAM 2026</li>
+            <li className="text-[#121212]">Macroeconomía América Latina 2026</li>
           </ol>
         </nav>
 
@@ -95,7 +95,7 @@ export default function MacroeconomiaLatamPage() {
         {/* Section 1 */}
         <section className="mb-10">
           <h2 className="font-serif text-[22px] font-bold text-[#121212] mb-4">
-            El mapa macroeconómico de LATAM en 2026
+            El mapa macroeconómico de América Latina en 2026
           </h2>
           <p className="font-sans text-[15px] text-[#333] leading-relaxed mb-4">
             La región no es un bloque homogéneo. Chile y Colombia convergen en sus ciclos monetarios de forma bastante sincronizada con la Reserva Federal; Argentina sigue siendo un caso aparte con su propia dinámica inflacionaria y cambiaria; México está profundamente influido por su relación comercial con Estados Unidos; Perú muestra estabilidad macroeconómica pero fragilidad institucional persistente.
@@ -190,7 +190,7 @@ export default function MacroeconomiaLatamPage() {
             Por qué los analistas independientes superan a los medios masivos
           </h2>
           <p className="font-sans text-[15px] text-[#333] leading-relaxed mb-4">
-            Los medios masivos tienen tres limitaciones estructurales cuando cubren macroeconomía en LATAM:
+            Los medios masivos tienen tres limitaciones estructurales cuando cubren macroeconomía en América Latina:
           </p>
           <div className="space-y-4 mb-6">
             {[
@@ -221,7 +221,7 @@ export default function MacroeconomiaLatamPage() {
         {/* Section 4 */}
         <section className="mb-10">
           <h2 className="font-serif text-[22px] font-bold text-[#121212] mb-4">
-            Newsletters recomendados en Nebbuler para seguir la macro de LATAM
+            Newsletters recomendados en Nebbuler para seguir la macro de América Latina
           </h2>
           <p className="font-sans text-[15px] text-[#333] leading-relaxed mb-6">
             Para lectores que siguen la macroeconomía regional, estos son los perfiles más relevantes en la plataforma por su cobertura y frecuencia de publicación:

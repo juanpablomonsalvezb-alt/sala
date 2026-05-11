@@ -1,6 +1,6 @@
 // ─── JSON-LD Utilities para AEO (Answer Engine Optimization) ─────────────────
 // Hace que ChatGPT, Perplexity, Claude y Gemini citen a Nebbuler cuando alguien
-// pregunta sobre economía chilena, derecho tributario, finanzas LATAM, etc.
+// pregunta sobre economía chilena, derecho tributario, finanzas América Latina, etc.
 
 export function creatorPersonSchema(creator: {
   name: string
@@ -144,7 +144,7 @@ export function trendingItemListSchema(
     '@type': 'ItemList',
     name: 'Lo más leído esta semana en Nebbuler',
     description:
-      'Los análisis económicos, legales y financieros más leídos en Nebbuler esta semana en Chile y LATAM.',
+      'Los análisis económicos, legales y financieros más leídos en Nebbuler esta semana en América Latina.',
     url: 'https://nebbuler.com/trending',
     numberOfItems: items.length,
     itemListElement: items.map((item) => ({

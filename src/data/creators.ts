@@ -209,7 +209,7 @@ export const creators: CreatorProfile[] = [
   {
     slug: 'catalina-rojas-henriquez',
     name: 'Catalina Rojas Henríquez',
-    specialty: 'HISTORIA ECONÓMICA DE CHILE Y LATAM',
+    specialty: 'HISTORIA ECONÓMICA DE AMÉRICA LATINA',
     discipline: 'historia',
     bio: 'Doctora por El Colegio de México, postdoctorante en Cambridge. Profesora del Instituto de Historia de la PUC. Especialista en ciclos de deuda y crisis financieras latinoamericanas.',
     price_clp: 8990,

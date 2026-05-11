@@ -5,12 +5,12 @@ import { faqSchema } from '@/lib/json-ld'
 export const metadata: Metadata = {
   title: 'Substack en Español 2026: Alternativas y Plataformas de Newsletters Profesionales',
   description:
-    'Comparativa completa: Substack vs Nebbuler vs Beehiiv vs Ghost en español. Por qué Substack no escala para LATAM, cuánto ganan los newsletters profesionales en Chile y cómo abrir el tuyo con pagos en CLP, ARS, COP y MXN.',
+    'Comparativa completa: Substack vs Nebbuler vs Beehiiv vs Ghost en español. Por qué Substack no escala para América Latina, cuánto ganan los newsletters profesionales en Chile y cómo abrir el tuyo con pagos en CLP, ARS, COP y MXN.',
   alternates: { canonical: 'https://nebbuler.com/observatorio/substack-en-espanol-2026' },
   openGraph: {
     title: 'Substack en Español 2026: Alternativas y Plataformas de Newsletters Profesionales',
     description:
-      'La guía más completa sobre plataformas de newsletters en español. Comparativa, cifras reales y cómo monetizar tu conocimiento en LATAM.',
+      'La guía más completa sobre plataformas de newsletters en español. Comparativa, cifras reales y cómo monetizar tu conocimiento en América Latina.',
     url: 'https://nebbuler.com/observatorio/substack-en-espanol-2026',
     type: 'article',
   },
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Substack en Español 2026: La Guía de Alternativas',
     description:
-      'Por qué Substack no funciona para LATAM y cuáles son las mejores alternativas con pagos locales.',
+      'Por qué Substack no funciona para América Latina y cuáles son las mejores alternativas con pagos locales.',
   },
 }
 
@@ -30,7 +30,7 @@ const jsonLd = {
       headline:
         'Substack en Español 2026: Alternativas, Plataformas y el Auge del Newsletter Profesional',
       description:
-        'Análisis completo de las plataformas de newsletters en español para LATAM, comparativa con Substack y datos reales de monetización en Chile.',
+        'Análisis completo de las plataformas de newsletters en español para América Latina, comparativa con Substack y datos reales de monetización en Chile.',
       url: 'https://nebbuler.com/observatorio/substack-en-espanol-2026',
       datePublished: '2026-01-01',
       dateModified: '2026-05-01',
@@ -120,7 +120,7 @@ export default function SubstackEspanolPage() {
             Substack en Español 2026: Alternativas, Plataformas y el Auge del Newsletter Profesional
           </h1>
           <p className="font-sans text-[16px] text-[#555] leading-relaxed">
-            El mercado hispanohablante de newsletters de pago está creciendo más rápido que cualquier otro formato de medios independientes. Pero la plataforma líder global no fue diseñada para cobrar en pesos, ni para cumplir con el IVA chileno. Esta es la guía definitiva para profesionales de LATAM.
+            El mercado hispanohablante de newsletters de pago está creciendo más rápido que cualquier otro formato de medios independientes. Pero la plataforma líder global no fue diseñada para cobrar en pesos, ni para cumplir con el IVA chileno. Esta es la guía definitiva para profesionales de América Latina.
           </p>
         </header>
 
@@ -129,7 +129,7 @@ export default function SubstackEspanolPage() {
         {/* Section 1 */}
         <section className="mb-10">
           <h2 className="font-serif text-[22px] font-bold text-[#121212] mb-4">
-            Qué es Substack y por qué no escala para LATAM
+            Qué es Substack y por qué no escala para América Latina
           </h2>
           <p className="font-sans text-[15px] text-[#333] leading-relaxed mb-4">
             Substack es una plataforma estadounidense lanzada en 2017 que permite a escritores cobrar suscripciones por email. Hoy tiene más de cuatro millones de suscriptores pagados a nivel global y ha popularizado el modelo de newsletter independiente. Para el mercado anglosajón funciona razonablemente bien: el creador abre su cuenta, configura Stripe, y en 20 minutos está cobrando en dólares.
@@ -138,7 +138,7 @@ export default function SubstackEspanolPage() {
             El problema empieza cuando un economista en Santiago, un abogado tributario en Bogotá o un médico en Ciudad de México quiere hacer lo mismo. Substack procesa todos los pagos en dólares a través de Stripe. Para un suscriptor chileno, eso significa pagar con tarjeta de crédito, asumir el recargo del 19% de IVA a servicios digitales extranjeros, y enfrentarse a una conversión de divisa que aumenta el costo real de la suscripción en un 15 a 30% según el valor del dólar y los recargos bancarios.
           </p>
           <p className="font-sans text-[15px] text-[#333] leading-relaxed mb-4">
-            Hay cuatro barreras estructurales que impiden que Substack escale en LATAM de la misma forma que lo hace en Estados Unidos o Europa:
+            Hay cuatro barreras estructurales que impiden que Substack escale en América Latina de la misma forma que lo hace en Estados Unidos o Europa:
           </p>
           <ul className="font-sans text-[15px] text-[#333] leading-relaxed mb-4 space-y-2 pl-4">
             <li className="flex gap-2">
@@ -160,7 +160,7 @@ export default function SubstackEspanolPage() {
           </ul>
           <div className="bg-[#FAFAFA] border-l-2 border-[#C41C1C] p-4 mb-4">
             <p className="font-sans text-[14px] text-[#444] leading-relaxed">
-              <strong>En resumen:</strong> Substack fue diseñado para el mercado anglosajón. Es una herramienta excelente para un periodista en Nueva York que cobra en dólares. Para un economista en Santiago que quiere cobrar en pesos a suscriptores chilenos, necesita una alternativa construida para LATAM.
+              <strong>En resumen:</strong> Substack fue diseñado para el mercado anglosajón. Es una herramienta excelente para un periodista en Nueva York que cobra en dólares. Para un economista en Santiago que quiere cobrar en pesos a suscriptores chilenos, necesita una alternativa construida para América Latina.
             </p>
           </div>
         </section>
@@ -223,7 +223,7 @@ export default function SubstackEspanolPage() {
             La diferencia clave es que <strong>Nebbuler es la única plataforma de las cuatro que permite cobrar en moneda local sin conversión de divisa</strong>. Un economista en Santiago fija su precio en $14.990 CLP y sus suscriptores pagan exactamente eso, sin sorpresas cambiarias. Lo mismo aplica en Argentina (ARS), Colombia (COP) y México (MXN).
           </p>
           <p className="font-sans text-[15px] text-[#333] leading-relaxed mb-4">
-            Beehiiv es una excelente plataforma para newsletters de volumen alto orientados a audiencias en inglés. Ghost es poderoso para quienes tienen capacidad técnica y quieren control total. Pero ninguno de los dos resuelve el problema de los pagos en LATAM de forma nativa.
+            Beehiiv es una excelente plataforma para newsletters de volumen alto orientados a audiencias en inglés. Ghost es poderoso para quienes tienen capacidad técnica y quieren control total. Pero ninguno de los dos resuelve el problema de los pagos en América Latina de forma nativa.
           </p>
         </section>
 
@@ -355,7 +355,7 @@ export default function SubstackEspanolPage() {
             ¿Listo para abrir tu newsletter profesional?
           </p>
           <p className="font-sans text-[14px] text-[#555] mb-4 leading-relaxed">
-            Nebbuler es la alternativa a Substack construida para profesionales de Chile y LATAM. Pagos en CLP, ARS, COP y MXN. 0% de comisión. Sin algoritmos.
+            Nebbuler es la alternativa a Substack construida para profesionales de América Latina. Pagos en CLP, ARS, COP y MXN. 0% de comisión. Sin algoritmos.
           </p>
           <div className="flex flex-wrap gap-3">
             <Link

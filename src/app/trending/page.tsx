@@ -9,12 +9,12 @@ export const revalidate = 3600
 export const metadata: Metadata = {
   title: 'Lo más leído esta semana · Nebbuler',
   description:
-    'Los análisis económicos, legales y financieros más leídos en Nebbuler esta semana en Chile y LATAM.',
+    'Los análisis económicos, legales y financieros más leídos en Nebbuler esta semana en América Latina.',
   alternates: { canonical: 'https://nebbuler.com/trending' },
   openGraph: {
     title: 'Lo más leído esta semana · Nebbuler',
     description:
-      'Los análisis que más están circulando entre profesionales de Chile y LATAM.',
+      'Los análisis que más están circulando entre profesionales de América Latina.',
     url: 'https://nebbuler.com/trending',
     type: 'website',
     siteName: 'Nebbuler',
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Lo más leído esta semana · Nebbuler',
-    description: 'Los análisis profesionales más leídos en Chile y LATAM.',
+    description: 'Los análisis profesionales más leídos en América Latina.',
   },
 }
 
@@ -368,7 +368,7 @@ export default async function TrendingPage() {
           {/* Encabezado de página */}
           <div className="mb-8 pb-6 border-b border-[#E5E5E5]">
             <p className="font-sans text-[11px] font-semibold tracking-[0.15em] uppercase text-[#C41C1C] mb-3">
-              TENDENCIAS · CHILE Y LATAM
+              TENDENCIAS · CHILE YAmérica Latina
             </p>
             <h1
               className="font-serif font-bold text-[#121212] leading-tight mb-3"
@@ -380,7 +380,7 @@ export default async function TrendingPage() {
               Lo más leído esta semana
             </h1>
             <p className="font-sans text-[16px] text-[#555] leading-relaxed mb-4 max-w-2xl">
-              Los análisis que más están circulando entre profesionales de Chile y LATAM.
+              Los análisis que más están circulando entre profesionales de América Latina.
             </p>
             <span className="inline-block font-sans text-[11px] font-semibold text-[#999] bg-[#F7F7F7] px-3 py-1.5">
               Semana del {monday} al {sunday}

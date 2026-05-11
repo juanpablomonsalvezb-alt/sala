@@ -122,7 +122,7 @@ export default function Home() {
             {/* Lado izquierdo: eyebrow + H1 — 100% server, visible en primer paint */}
             <div>
               <p className="text-[9px] font-bold uppercase tracking-[0.28em] text-[#767676] mb-2">
-                El conocimiento que antes no se vendía · Chile y LATAM
+                El conocimiento que antes no se vendía · América Latina
               </p>
               <h1 className="font-serif font-bold text-[clamp(40px,6vw,80px)] leading-[1.056] tracking-[-0.02em]">
                 Tu conocimiento<br />

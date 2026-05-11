@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     default: 'Observatorio · Newsletters profesionales en español | Nebbuler',
   },
   description:
-    'Análisis comparativos del mercado de newsletters profesionales de pago en Chile y Latinoamérica. Substack, alternativas, creadores verificados.',
+    'Análisis comparativos del mercado de newsletters profesionales de pago en América Latina. Substack, alternativas, creadores verificados.',
   alternates: { canonical: 'https://nebbuler.com/observatorio' },
   openGraph: {
     siteName: 'Nebbuler',

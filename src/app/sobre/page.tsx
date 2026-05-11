@@ -4,12 +4,12 @@ import Link from 'next/link'
 export const metadata: Metadata = {
   title: 'Sobre Nebbuler · Plataforma de newsletters profesionales de pago',
   description:
-    'Nebbuler es la plataforma donde los economistas, abogados, médicos y arquitectos más rigurosos de Chile y LATAM publican y cobran directamente por sus análisis. 0% comisión.',
+    'Nebbuler es la plataforma donde los economistas, abogados, médicos y arquitectos más rigurosos de América Latina publican y cobran directamente por sus análisis. 0% comisión.',
   alternates: { canonical: 'https://nebbuler.com/sobre' },
   openGraph: {
     title: 'Sobre Nebbuler · Plataforma de newsletters profesionales de pago',
     description:
-      'Nebbuler existe porque el conocimiento profesional serio merece ser remunerado. Chile y LATAM.',
+      'Nebbuler existe porque el conocimiento profesional serio merece ser remunerado. América Latina.',
     url: 'https://nebbuler.com/sobre',
     type: 'website',
   },
@@ -22,7 +22,7 @@ const ORG_JSONLD = {
   url: 'https://nebbuler.com',
   logo: 'https://nebbuler.com/icon.png',
   description:
-    'Plataforma de newsletters profesionales de pago para Chile y Latinoamérica',
+    'Plataforma de newsletters profesionales de pago para América Latina',
   foundingDate: '2025',
   areaServed: [
     'CL', 'AR', 'CO', 'MX', 'PE', 'UY', 'BO', 'EC', 'PY', 'VE',
@@ -89,7 +89,7 @@ export default function SobrePage() {
             </h2>
             <div className="border-l-2 border-[#C41C1C] pl-6">
               <p className="font-serif text-lg leading-relaxed text-[#121212]">
-                Nebbuler existe porque el conocimiento profesional serio merece ser remunerado. Los economistas, abogados, médicos y arquitectos más rigurosos de Chile y LATAM publican aquí y cobran directamente por sus análisis.
+                Nebbuler existe porque el conocimiento profesional serio merece ser remunerado. Los economistas, abogados, médicos y arquitectos más rigurosos de América Latina publican aquí y cobran directamente por sus análisis.
               </p>
             </div>
           </section>

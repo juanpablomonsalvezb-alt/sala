@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     template: "%s · Nebbuler",
   },
   description:
-    "Nebbuler es la plataforma donde los profesionales cobran por su conocimiento. Suscripciones mensuales directas, 0% de comisión. Chile y LATAM.",
+    "Nebbuler es la plataforma donde los profesionales cobran por su conocimiento. Suscripciones mensuales directas, 0% de comisión. América Latina.",
   metadataBase: new URL("https://nebbuler.com"),
   alternates: { canonical: "https://nebbuler.com" },
   openGraph: {
@@ -62,7 +62,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Nebbuler · Newsletters profesionales de pago",
-    description: "Cobra por tu conocimiento. 0% comisión. Chile y LATAM.",
+    description: "Cobra por tu conocimiento. 0% comisión. América Latina.",
     images: ["/og-default.png"],
   },
   robots: { index: true, follow: true },

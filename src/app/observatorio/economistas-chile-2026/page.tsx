@@ -195,7 +195,7 @@ export default function EconomistaChile2026Page() {
             <div className="bg-[#F7F7F7] px-5 py-3 flex items-center justify-between">
               <div>
                 <p className="font-serif text-[17px] font-bold text-[#121212]">Catalina Rojas Henríquez</p>
-                <p className="font-sans text-[11px] font-semibold tracking-wider text-[#C41C1C] uppercase">HISTORIA ECONÓMICA DE CHILE Y LATAM</p>
+                <p className="font-sans text-[11px] font-semibold tracking-wider text-[#C41C1C] uppercase">HISTORIA ECONÓMICA DE AMÉRICA LATINA</p>
               </div>
               <div className="text-right">
                 <p className="font-serif text-[15px] font-bold text-[#121212]">$8.990 CLP/mes</p>

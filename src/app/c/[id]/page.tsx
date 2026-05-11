@@ -49,7 +49,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   return {
     title: `${title} · Nebbuler`,
-    description: `Cita de ${authorName || 'un profesional'} en Nebbuler, la plataforma de newsletters profesionales de pago para Chile y LATAM.`,
+    description: `Cita de ${authorName || 'un profesional'} en Nebbuler, la plataforma de newsletters profesionales de pago para América Latina.`,
     alternates: { canonical: `https://nebbuler.com/c/${id}` },
     openGraph: {
       title,
@@ -156,7 +156,7 @@ export default async function QuotePage({ params, searchParams }: PageProps) {
         ) : (
           <div className="mb-10">
             <p className="font-sans text-sm text-[#666] mb-4">
-              Esta cita pertenece a un análisis publicado en Nebbuler, la plataforma de newsletters profesionales de pago para Chile y LATAM.
+              Esta cita pertenece a un análisis publicado en Nebbuler, la plataforma de newsletters profesionales de pago para América Latina.
             </p>
             <Link
               href="/directorio"

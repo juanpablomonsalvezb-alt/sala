@@ -4,7 +4,7 @@ import Link from 'next/link'
 export const metadata: Metadata = {
   title: 'Think Tanks Individuales en Chile: El Auge de los Analistas Independientes | Nebbuler',
   description:
-    'Una generación de profesionales con credenciales de primer nivel rompe con las instituciones y construye audiencias directas. Modelo económico de los think tanks individuales en Chile y LATAM.',
+    'Una generación de profesionales con credenciales de primer nivel rompe con las instituciones y construye audiencias directas. Modelo económico de los think tanks individuales en América Latina.',
   alternates: { canonical: 'https://nebbuler.com/observatorio/think-tanks-individuales-chile' },
   openGraph: {
     title: 'Think Tanks Individuales en Chile: El Auge de los Analistas Independientes',

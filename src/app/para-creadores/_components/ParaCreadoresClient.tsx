@@ -173,7 +173,7 @@ export default function ParaCreadoresPage() {
             <em className="not-italic text-[#C41C1C]">Nebbuler te ayuda a cobrarlo.</em>
           </h1>
           <p className="font-sans text-[18px] text-[#555] leading-relaxed max-w-xl mb-10">
-            Miles de profesionales en Chile y LATAM comparten lo que saben gratis.
+            Miles de profesionales en América Latina comparten lo que saben gratis.
             Nebbuler existe para cambiar esa ecuación.
           </p>
           <Link

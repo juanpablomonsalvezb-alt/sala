@@ -19,7 +19,7 @@ const SUGGESTED_QUESTIONS = [
   '¿Qué es la TPM y cómo afecta mi hipoteca?',
   '¿Cómo tributa una SpA en Chile?',
   '¿Cuál es la diferencia entre EBITDA y flujo de caja?',
-  '¿Qué está pasando con la inflación en LATAM?',
+  '¿Qué está pasando con la inflación en América Latina?',
 ]
 
 // Parsear la respuesta para extraer creadores si el modelo los incluyó

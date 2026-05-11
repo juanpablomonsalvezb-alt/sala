@@ -4,12 +4,12 @@ import Link from 'next/link'
 export const metadata: Metadata = {
   title: 'Observatorio · Newsletters profesionales en español | Nebbuler',
   description:
-    'Análisis comparativos del mercado de newsletters profesionales de pago en Chile y Latinoamérica. Substack, alternativas, creadores verificados.',
+    'Análisis comparativos del mercado de newsletters profesionales de pago en América Latina. Substack, alternativas, creadores verificados.',
   alternates: { canonical: 'https://nebbuler.com/observatorio' },
   openGraph: {
     title: 'Observatorio · Newsletters profesionales en español | Nebbuler',
     description:
-      'Análisis comparativos del mercado de newsletters profesionales de pago en Chile y Latinoamérica.',
+      'Análisis comparativos del mercado de newsletters profesionales de pago en América Latina.',
     url: 'https://nebbuler.com/observatorio',
     type: 'website',
   },
@@ -17,14 +17,14 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Observatorio · Nebbuler',
     description:
-      'Análisis del ecosistema de newsletters profesionales en español y LATAM.',
+      'Análisis del ecosistema de newsletters profesionales en español y América Latina.',
   },
 }
 
 const pillars = [
   {
     href: '/observatorio/datos',
-    title: 'Datos Económicos Chile y LATAM 2026',
+    title: 'Datos Económicos América Latina 2026',
     subtitle: 'Inflación, PIB per cápita, tipo de cambio y desempleo con visualizaciones',
     description:
       'Indicadores macroeconómicos curados de fuentes públicas: INE Chile, Banco Central, Banco Mundial y CEPAL. Gráficos interactivos del período 2022–2026 con análisis editorial.',
@@ -34,7 +34,7 @@ const pillars = [
     title: 'Substack en Español 2026',
     subtitle: 'Alternativas, plataformas y el auge del newsletter profesional',
     description:
-      'Qué es Substack, por qué no escala para LATAM y cuáles son las mejores alternativas en español con pagos locales en CLP, ARS, COP y MXN sin conversión de divisa.',
+      'Qué es Substack, por qué no escala para América Latina y cuáles son las mejores alternativas en español con pagos locales en CLP, ARS, COP y MXN sin conversión de divisa.',
   },
   {
     href: '/observatorio/economistas-chile-2026',
@@ -45,7 +45,7 @@ const pillars = [
   },
   {
     href: '/observatorio/derecho-tributario-latam',
-    title: 'Newsletters de Derecho Tributario en Chile y LATAM',
+    title: 'Newsletters de Derecho Tributario en América Latina',
     subtitle: 'Abogados tributarios que monetizan su expertise de forma independiente',
     description:
       'Abogados tributarios con LLM internacional que publican análisis sobre el SII, reforma fiscal y tributación internacional para contadores, CFOs y directores financieros de la región.',
@@ -103,7 +103,7 @@ export default function ObservatorioPage() {
             Observatorio Nebbuler
           </h1>
           <p className="font-sans text-[16px] text-[#555] leading-relaxed max-w-xl">
-            Análisis del ecosistema de newsletters profesionales en español y LATAM. Datos de mercado, comparativas de plataformas y perfiles de creadores verificados.
+            Análisis del ecosistema de newsletters profesionales en español y América Latina. Datos de mercado, comparativas de plataformas y perfiles de creadores verificados.
           </p>
         </div>
 
@@ -150,7 +150,7 @@ export default function ObservatorioPage() {
             ¿Eres profesional con criterio que cobrar?
           </p>
           <p className="font-sans text-[14px] text-[#555] mb-4 leading-relaxed">
-            Nebbuler es la plataforma de newsletters de pago para economistas, abogados, médicos y arquitectos de Chile y LATAM. Sin algoritmos. Sin comisión.
+            Nebbuler es la plataforma de newsletters de pago para economistas, abogados, médicos y arquitectos de América Latina. Sin algoritmos. Sin comisión.
           </p>
           <Link
             href="/para-creadores"

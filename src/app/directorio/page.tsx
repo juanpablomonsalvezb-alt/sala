@@ -5,7 +5,7 @@ import { allCreators } from '@/data/creators'
 
 export const metadata: Metadata = {
   title: 'Directorio de Profesionales — Nebbuler',
-  description: 'Explora análisis de profesionales verificados en Chile y LATAM.',
+  description: 'Explora análisis de profesionales verificados en América Latina.',
   openGraph: {
     title: 'Directorio de Profesionales — Nebbuler',
     description: 'El directorio más completo de profesionales verificados publicando conocimiento en español.',

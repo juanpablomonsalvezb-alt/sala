@@ -103,7 +103,7 @@ const OBSERVATORIO_ARTICLES = [
     slug: '/observatorio/substack-en-espanol-2026',
     tag: 'Plataformas',
     title: 'Substack en Español 2026: Alternativas y el Auge del Newsletter Profesional',
-    excerpt: 'Por qué Substack no escala para LATAM y qué plataformas están ganando terreno en Chile, Colombia y México.',
+    excerpt: 'Por qué Substack no escala para América Latina y qué plataformas están ganando terreno en Chile, Colombia y México.',
   },
   {
     slug: '/observatorio/economistas-chile-2026',
@@ -114,7 +114,7 @@ const OBSERVATORIO_ARTICLES = [
   {
     slug: '/observatorio/derecho-tributario-latam',
     tag: 'Derecho',
-    title: 'Newsletters de Derecho Tributario en Chile y LATAM',
+    title: 'Newsletters de Derecho Tributario en América Latina',
     excerpt: 'Los abogados tributaristas más rigurosos de la región y cómo monetizan su expertise fuera de los estudios.',
   },
 ]
@@ -182,7 +182,7 @@ const SAMPLE_QUESTIONS = [
   '¿Qué es la TPM y cómo afecta mi hipoteca?',
   '¿Cómo tributa una SpA en Chile?',
   '¿Cuál es la diferencia entre EBITDA y flujo de caja?',
-  '¿Qué está pasando con la inflación en LATAM?',
+  '¿Qué está pasando con la inflación en América Latina?',
 ]
 
 export function PreguntaModule() {
@@ -197,7 +197,7 @@ export function PreguntaModule() {
             Pregunta al Observatorio
           </h2>
           <p className="font-sans text-[15px] text-[#666] leading-relaxed mb-8">
-            Economistas, abogados y médicos de Nebbuler responden tus preguntas. Sin jerga innecesaria, con ejemplos de Chile y LATAM.
+            Economistas, abogados y médicos de Nebbuler responden tus preguntas. Sin jerga innecesaria, con ejemplos de América Latina.
           </p>
           <Link
             href="/pregunta"

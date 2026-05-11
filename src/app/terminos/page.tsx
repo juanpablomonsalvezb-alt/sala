@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: 'Términos de Servicio',
-  description: 'Términos y condiciones de uso de Nebbuler. Plataforma de newsletters profesionales de pago en Chile y LATAM.',
+  description: 'Términos y condiciones de uso de Nebbuler. Plataforma de newsletters profesionales de pago en América Latina.',
   alternates: { canonical: 'https://nebbuler.com/terminos' },
 }
 

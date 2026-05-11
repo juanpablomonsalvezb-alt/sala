@@ -54,7 +54,7 @@ export default function NewsletterIndexPage() {
 
           {/* Hero */}
           <p className="font-sans text-[10px] font-bold tracking-[0.2em] uppercase text-[#C41C1C] mb-3">
-            DIRECTORIO · LATAM · 2026
+            DIRECTORIO · AMÉRICA LATINA · 2026
           </p>
           <h1 className="font-serif text-[38px] md:text-[52px] font-bold text-[#121212] leading-tight mb-5">
             Newsletters Profesionales en Español
@@ -109,7 +109,7 @@ export default function NewsletterIndexPage() {
                         title={`Newsletter de ${prof.label} en ${m.label}`}
                       >
                         <span className="font-sans text-[11px] text-[#666] group-hover:text-[#C41C1C] transition-colors text-center leading-tight">
-                          {m.label === 'Latinoamérica' ? 'LATAM' : m.label}
+                          {m.label === 'Latinoamérica' ? 'Latinoamérica' : m.label}
                         </span>
                       </Link>
                     ))}
@@ -123,7 +123,7 @@ export default function NewsletterIndexPage() {
                         className="inline-flex items-center gap-1 border border-[#DEDEDE] px-2 py-1 font-sans text-[11px] text-[#666] hover:border-[#C41C1C] hover:text-[#C41C1C] transition-colors"
                       >
                         <span>{m.flag}</span>
-                        <span>{m.label === 'Latinoamérica' ? 'LATAM' : m.label}</span>
+                        <span>{m.label === 'Latinoamérica' ? 'Latinoamérica' : m.label}</span>
                       </Link>
                     ))}
                   </div>
@@ -156,7 +156,7 @@ export default function NewsletterIndexPage() {
                         href={`/newsletter/${prof.slug}/${m.slug}`}
                         className="inline-flex items-center gap-1 font-sans text-[11px] text-[#666] border border-[#DEDEDE] px-2 py-1 hover:border-[#C41C1C] hover:text-[#C41C1C] transition-colors"
                       >
-                        {m.flag} {m.label === 'Latinoamérica' ? 'LATAM' : m.label}
+                        {m.flag} {m.label === 'Latinoamérica' ? 'Latinoamérica' : m.label}
                       </Link>
                     ))}
                   </div>

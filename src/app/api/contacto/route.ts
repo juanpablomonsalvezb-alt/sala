@@ -27,9 +27,10 @@ const INQUIRY_LABELS: Record<string, string> = {
 
 export async function POST(request: NextRequest) {
   try {
-    // Rate limit: 5 mensajes / hora por IP. Frena bombs de email.
+    // Rate limit: 10 mensajes / hora por IP. Frena bombs de email sin frustrar
+    // a usuarios que reenvían tras error de validación.
     const ip = getClientIp(request.headers)
-    const rl = rateLimit(`contacto:${ip}`, 5, 60 * 60 * 1000)
+    const rl = rateLimit(`contacto:${ip}`, 10, 60 * 60 * 1000)
     if (!rl.allowed) {
       return NextResponse.json(
         { error: 'Demasiadas solicitudes. Intenta más tarde.' },

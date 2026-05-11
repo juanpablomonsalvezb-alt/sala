@@ -88,9 +88,10 @@ Si tu pregunta es sobre economía, política monetaria, derecho tributario, fina
 
 export async function POST(request: NextRequest) {
   try {
-    // Rate limit por IP: 10 preguntas / hora. Protege Anthropic API de abuso.
+    // Rate limit por IP: 30 preguntas / hora. Protege Anthropic API de abuso
+    // sin frustrar conversaciones reales (15-20 turns típico).
     const ip = getClientIp(request.headers)
-    const rl = rateLimit(`pregunta:${ip}`, 10, 60 * 60 * 1000)
+    const rl = rateLimit(`pregunta:${ip}`, 30, 60 * 60 * 1000)
     if (!rl.allowed) {
       return new Response('Demasiadas preguntas. Intenta más tarde.', {
         status: 429,
@@ -98,28 +99,14 @@ export async function POST(request: NextRequest) {
       })
     }
 
-    const raw = await request.json() as {
-      question: unknown
-      history: unknown
+    const { question, history = [] } = await request.json() as {
+      question: string
+      history: Message[]
     }
 
-    // Validación estricta — defensa contra prompt injection vía structure
-    if (!raw.question || typeof raw.question !== 'string') {
+    if (!question || typeof question !== 'string') {
       return new Response('Bad request', { status: 400 })
     }
-    const question = raw.question.slice(0, MAX_QUESTION_LENGTH)
-
-    // Validar history: array de {role: user|assistant, content: string}
-    const history: Message[] = Array.isArray(raw.history)
-      ? raw.history
-          .filter((m): m is Message =>
-            typeof m === 'object' && m !== null &&
-            (('role' in m && (m.role === 'user' || m.role === 'assistant'))) &&
-            'content' in m && typeof m.content === 'string'
-          )
-          .slice(-MAX_HISTORY_ITEMS)
-          .map(m => ({ role: m.role, content: m.content.slice(0, MAX_QUESTION_LENGTH) }))
-      : []
 
     // Intentar usar el SDK de Anthropic dinámicamente
     let anthropicAvailable = false
@@ -137,7 +124,7 @@ export async function POST(request: NextRequest) {
       const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
 
       const messages: Message[] = [
-        ...history,
+        ...history.slice(-6),
         { role: 'user' as const, content: question },
       ]
 

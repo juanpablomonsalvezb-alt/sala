@@ -141,10 +141,12 @@ function IncomesCalculator() {
             </p>
             <hr className="nyt-rule mb-5" />
             <p className="font-sans text-[13px] text-[#555]">
-              Con Plan Pro (0% comisión) → <strong className="text-[#121212]">${formatCLP(result)} CLP</strong> para ti
+              En Nebbuler pagas <strong className="text-[#121212]">$29.990 CLP/mes fijo</strong> y te quedas con el 100%.
+              <br />
+              <span className="text-[#888] text-[12px]">Sin comisiones, sin sorpresas.</span>
             </p>
-            <p className="font-sans text-[13px] text-[#555] mt-1">
-              Con Plan Libre (10% comisión) → <strong className="text-[#121212]">${formatCLP(Math.round(result * 0.9))} CLP</strong> para ti
+            <p className="font-sans text-[13px] text-[#555] mt-3">
+              Con Substack (10% comisión) → recibirías <strong className="text-[#121212]">${formatCLP(Math.round(result * 0.9))} CLP</strong> en lugar de ${formatCLP(result)}.
             </p>
           </div>
         </div>

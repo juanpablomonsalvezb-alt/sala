@@ -5,6 +5,7 @@
 
 import type { CSSProperties } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { HomeTicker } from "@/components/home-ticker";
 import { CategoryMarqueeDynamic } from "@/components/category-marquee-dynamic";
 import {
@@ -71,7 +72,7 @@ export default function Home() {
 
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 border-r border-[#E0E0E0] pr-6 mr-0">
-            <img src="/nebbuler-logo.png" alt="Nebbuler" className="h-9 w-auto" />
+            <Image src="/nebbuler-logo.png" alt="Nebbuler" width={36} height={36} className="h-9 w-auto" priority />
             <span className="text-[17px] font-black uppercase tracking-[0.04em] text-[#111] font-serif">EBBULER</span>
           </Link>
 
@@ -213,7 +214,7 @@ export default function Home() {
           <div className="grid grid-cols-2 md:grid-cols-5 gap-10 mb-12">
             <div className="col-span-2 md:col-span-1">
               <div className="flex items-center gap-2 mb-4">
-                <img src="/nebbuler-logo.png" alt="Nebbuler" className="h-6 w-auto brightness-0 invert" />
+                <Image src="/nebbuler-logo.png" alt="Nebbuler" width={24} height={24} className="h-6 w-auto brightness-0 invert" />
                 <span className="text-[15px] font-bold uppercase tracking-[0.04em] text-white font-serif">EBBULER</span>
               </div>
               <p className="text-[12px] text-white/35 leading-[1.75] max-w-[160px]">

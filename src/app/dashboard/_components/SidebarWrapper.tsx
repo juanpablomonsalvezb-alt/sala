@@ -26,10 +26,12 @@ export default function SidebarWrapper({
     ? creator.name.split(' ').map((w: string) => w[0]).join('').slice(0, 2).toUpperCase()
     : 'SA'
 
+  // Un solo plan: Nebbuler · $29.990 CLP/mes · 0% comisión
+  // 'free' = sin pago activo aún; 'creator'/'pro' = pago activo
   const planLabel =
-    creator?.plan === 'pro' ? 'Plan Pro · 0% comisión' :
-    creator?.plan === 'creator' ? 'Plan Creator · 0% comisión' :
-    'Plan Libre'
+    creator?.plan === 'free'
+      ? 'Plan inactivo · Completa tu pago'
+      : 'Nebbuler · 0% comisión'
 
   return (
     <aside className="w-[220px] flex-shrink-0 bg-white border-r border-[#DEDEDE] flex flex-col h-full">

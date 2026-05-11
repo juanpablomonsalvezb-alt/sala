@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import Image from 'next/image'
 import { createClient } from '@/lib/supabase/server'
 import type { Creator, Post } from '@/types/database'
 import { CreatorStickyBar } from '@/components/creator-sticky-bar'
@@ -276,8 +277,7 @@ function SiteNav() {
       <div className="border-b border-[#DEDEDE] py-3 px-6">
         <div className="max-w-5xl mx-auto flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/nebbuler-logo.png" alt="Nebbuler" className="h-8 w-auto" />
+            <Image src="/nebbuler-logo.png" alt="Nebbuler" width={32} height={32} className="h-8 w-auto" priority />
             <span
               className="font-serif text-[20px] font-bold text-[#121212] leading-none"
               style={{ letterSpacing: '-0.01em' }}

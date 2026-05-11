@@ -1,3 +1,4 @@
+import { safeJsonLd } from "@/lib/rateLimit"
 import type { Metadata, Viewport } from "next"
 import { Libre_Baskerville, Public_Sans, Inter, Playfair_Display } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
@@ -116,11 +117,11 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col bg-white text-[#121212] font-sans antialiased">
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(ORG_JSONLD) }}
+          dangerouslySetInnerHTML={{ __html: safeJsonLd(ORG_JSONLD) }}
         />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(WEBSITE_JSONLD) }}
+          dangerouslySetInnerHTML={{ __html: safeJsonLd(WEBSITE_JSONLD) }}
         />
         {children}
         <Analytics />

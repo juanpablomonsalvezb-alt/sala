@@ -1,3 +1,4 @@
+import { safeJsonLd } from "@/lib/rateLimit"
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import Link from 'next/link'
@@ -503,7 +504,7 @@ export default async function PostPage({
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }}
       />
       <PostViewTracker postId={post.id} />
       <Nav creatorSlug={creator.slug} creatorName={creator.name} />

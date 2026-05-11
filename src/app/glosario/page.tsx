@@ -1,3 +1,4 @@
+import { safeJsonLd } from "@/lib/rateLimit"
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { glossaryTerms, disciplineLabels, disciplineColors } from '@/data/glossary'
@@ -72,7 +73,7 @@ export default function GlosarioPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(JSONLD_DEFINEDTERMSET) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(JSONLD_DEFINEDTERMSET) }}
       />
 
       <div className="min-h-screen bg-white text-[#121212]">

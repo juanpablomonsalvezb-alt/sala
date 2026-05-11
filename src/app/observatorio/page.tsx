@@ -1,3 +1,4 @@
+import { safeJsonLd } from "@/lib/rateLimit"
 import type { Metadata } from 'next'
 import Link from 'next/link'
 
@@ -90,7 +91,7 @@ export default function ObservatorioPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }}
       />
 
       <div className="max-w-3xl mx-auto px-6 py-16">

@@ -1,8 +1,12 @@
 import { NextRequest } from 'next/server'
 import { creators } from '@/data/creators'
+import { rateLimit, getClientIp } from '@/lib/rateLimit'
 
 export const runtime = 'nodejs'
 export const maxDuration = 30
+
+const MAX_QUESTION_LENGTH = 1500
+const MAX_HISTORY_ITEMS = 6
 
 const SYSTEM_PROMPT = `Eres el Observatorio de Nebbuler, un asistente especializado en análisis económico, legal, financiero y de salud pública para América Latina.
 
@@ -84,14 +88,38 @@ Si tu pregunta es sobre economía, política monetaria, derecho tributario, fina
 
 export async function POST(request: NextRequest) {
   try {
-    const { question, history = [] } = await request.json() as {
-      question: string
-      history: Message[]
+    // Rate limit por IP: 10 preguntas / hora. Protege Anthropic API de abuso.
+    const ip = getClientIp(request.headers)
+    const rl = rateLimit(`pregunta:${ip}`, 10, 60 * 60 * 1000)
+    if (!rl.allowed) {
+      return new Response('Demasiadas preguntas. Intenta más tarde.', {
+        status: 429,
+        headers: { 'Retry-After': String(rl.retryAfter) },
+      })
     }
 
-    if (!question || typeof question !== 'string') {
+    const raw = await request.json() as {
+      question: unknown
+      history: unknown
+    }
+
+    // Validación estricta — defensa contra prompt injection vía structure
+    if (!raw.question || typeof raw.question !== 'string') {
       return new Response('Bad request', { status: 400 })
     }
+    const question = raw.question.slice(0, MAX_QUESTION_LENGTH)
+
+    // Validar history: array de {role: user|assistant, content: string}
+    const history: Message[] = Array.isArray(raw.history)
+      ? raw.history
+          .filter((m): m is Message =>
+            typeof m === 'object' && m !== null &&
+            (('role' in m && (m.role === 'user' || m.role === 'assistant'))) &&
+            'content' in m && typeof m.content === 'string'
+          )
+          .slice(-MAX_HISTORY_ITEMS)
+          .map(m => ({ role: m.role, content: m.content.slice(0, MAX_QUESTION_LENGTH) }))
+      : []
 
     // Intentar usar el SDK de Anthropic dinámicamente
     let anthropicAvailable = false
@@ -109,7 +137,7 @@ export async function POST(request: NextRequest) {
       const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
 
       const messages: Message[] = [
-        ...history.slice(-6),
+        ...history,
         { role: 'user' as const, content: question },
       ]
 

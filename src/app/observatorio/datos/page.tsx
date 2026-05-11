@@ -1,3 +1,4 @@
+import { safeJsonLd } from "@/lib/rateLimit"
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { creators } from '@/data/creators'
@@ -106,11 +107,11 @@ export default function ObservatorioDatosPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdDataset) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLdDataset) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdBreadcrumb) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLdBreadcrumb) }}
       />
 
       {/* ─── Header ─────────────────────────────────────────────────────────── */}

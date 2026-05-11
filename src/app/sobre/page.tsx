@@ -1,3 +1,4 @@
+import { safeJsonLd } from "@/lib/rateLimit"
 import type { Metadata } from 'next'
 import Link from 'next/link'
 
@@ -44,7 +45,7 @@ export default function SobrePage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(ORG_JSONLD) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(ORG_JSONLD) }}
       />
 
       <main className="min-h-screen bg-white text-[#121212]">

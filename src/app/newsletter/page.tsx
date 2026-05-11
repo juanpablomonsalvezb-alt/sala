@@ -1,3 +1,4 @@
+import { safeJsonLd } from "@/lib/rateLimit"
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { PROFESSIONS, MARKETS } from '@/data/seo-matrix'
@@ -28,7 +29,7 @@ const jsonLd = {
 export default function NewsletterIndexPage() {
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }} />
 
       <div className="min-h-screen bg-white">
         {/* Banda roja superior */}

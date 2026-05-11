@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
 import { createClient } from '@/lib/supabase/server'
+import { safeJsonLd } from '@/lib/rateLimit'
 import type { Creator, Post } from '@/types/database'
 import { CreatorStickyBar } from '@/components/creator-sticky-bar'
 import { creators as staticCreators } from '@/data/creators'
@@ -734,11 +735,11 @@ export default async function CreatorPage({
     <main className="min-h-screen bg-white pb-16">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(profileJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(profileJsonLd) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbJsonLd) }}
       />
       <SiteNav />
       <HeroSection creator={creator} isSubscribed={isSubscribed} />

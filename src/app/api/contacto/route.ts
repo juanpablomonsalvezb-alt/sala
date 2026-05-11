@@ -1,11 +1,20 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
+import { rateLimit, getClientIp } from '@/lib/rateLimit'
 
 export const runtime = 'nodejs'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
 const RECIPIENT = 'juanpablo.monsalvezb@gmail.com'
+
+// Email injection: validar que no haya CRLF (header injection en SMTP headers)
+function isSafeEmail(email: string): boolean {
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return false
+  // Bloquear caracteres de control que puedan inyectar headers
+  // eslint-disable-next-line no-control-regex
+  return !/[\r\n\x00]/.test(email)
+}
 
 const INQUIRY_LABELS: Record<string, string> = {
   'creador':  'Quiero abrir mi sala como creador',
@@ -16,12 +25,18 @@ const INQUIRY_LABELS: Record<string, string> = {
   'otro':     'Otro',
 }
 
-function isValidEmail(email: string): boolean {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
-}
-
 export async function POST(request: NextRequest) {
   try {
+    // Rate limit: 5 mensajes / hora por IP. Frena bombs de email.
+    const ip = getClientIp(request.headers)
+    const rl = rateLimit(`contacto:${ip}`, 5, 60 * 60 * 1000)
+    if (!rl.allowed) {
+      return NextResponse.json(
+        { error: 'Demasiadas solicitudes. Intenta más tarde.' },
+        { status: 429, headers: { 'Retry-After': String(rl.retryAfter) } }
+      )
+    }
+
     const body = await request.json()
     const { nombre, email, tipo, mensaje } = body as {
       nombre?: string
@@ -34,7 +49,7 @@ export async function POST(request: NextRequest) {
     if (!nombre || nombre.trim().length < 2) {
       return NextResponse.json({ error: 'El nombre es requerido.' }, { status: 400 })
     }
-    if (!email || !isValidEmail(email)) {
+    if (!email || !isSafeEmail(email)) {
       return NextResponse.json({ error: 'Email inválido.' }, { status: 400 })
     }
     if (!mensaje || mensaje.trim().length < 10) {

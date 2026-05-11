@@ -8,7 +8,6 @@ import Link from "next/link";
 import { HomeTicker } from "@/components/home-ticker";
 import { CategoryMarqueeDynamic } from "@/components/category-marquee-dynamic";
 import {
-  HeroSpinningBadge,
   HeroAnimations,
   HeroCta,
   LiveActivity,
@@ -23,9 +22,9 @@ import { featuredCreators as featuredCreatorsData } from "@/data/creators";
 /* ─── Data estática — permanece en el servidor ──────────────────────────── */
 
 const featuredCreators = [
-  { initial: "RF", name: "RODRIGO FUENTES MARÍN",  specialty: "MACROECONOMÍA",          color: "#1a1a2e", earnings: "17.762.434", trend: "+38%", subscribers: 1247, posts: 67, since: "Nov 2025", href: "/rodrigo-fuentes-marin"  },
-  { initial: "CV", name: "CAROLINA VEGA TORO",      specialty: "FINANZAS CORPORATIVAS",  color: "#1a2e1a", earnings: "17.738.033", trend: "+43%", subscribers: 934,  posts: 44, since: "Nov 2025", href: "/carolina-vega-toro" },
-  { initial: "MC", name: "MATÍAS CORNEJO SILVA",    specialty: "DERECHO TRIBUTARIO",     color: "#2e1a1a", earnings: "13.881.916", trend: "+29%", subscribers: 812,  posts: 51, since: "Dic 2025", href: "/matias-cornejo-silva" },
+  { initial: "RF", name: "RODRIGO FUENTES MARÍN",  specialty: "MACROECONOMÍA",          color: "#1a1a2e", earnings: "6.222.530", trend: "+38%", subscribers: 1247, posts: 67, since: "Nov 2025", href: "/rodrigo-fuentes-marin"  },
+  { initial: "CV", name: "CAROLINA VEGA TORO",      specialty: "FINANZAS CORPORATIVAS",  color: "#1a2e1a", earnings: "4.660.660", trend: "+43%", subscribers: 934,  posts: 44, since: "Nov 2025", href: "/carolina-vega-toro" },
+  { initial: "MC", name: "MATÍAS CORNEJO SILVA",    specialty: "DERECHO TRIBUTARIO",     color: "#2e1a1a", earnings: "4.051.880", trend: "+29%", subscribers: 812,  posts: 51, since: "Dic 2025", href: "/matias-cornejo-silva" },
 ];
 
 const features = [
@@ -135,8 +134,7 @@ export default function Home() {
               </h1>
             </div>
 
-            {/* Lado derecho: SpinningText badge — Client Island */}
-            <HeroSpinningBadge />
+            {/* Lado derecho eliminado */}
           </div>
 
           {/* Lista editorial de creadores — Client Island con BlurFade */}

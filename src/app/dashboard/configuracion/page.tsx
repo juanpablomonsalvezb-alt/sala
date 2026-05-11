@@ -88,13 +88,15 @@ export default async function ConfiguracionPage({
             </a>
           </div>
 
-          {/* Cuenta de pagos — MercadoPago Connect */}
-          <MPConnectSection
-            connected={mpConnected}
-            mpUserId={mpUserId}
-            mpConnectedAt={mpConnectedAt}
-            flash={mpFlash}
-          />
+          {/* Cuenta de pagos — solo visible cuando MP_APP_ID está configurado */}
+          {process.env.MP_APP_ID && (
+            <MPConnectSection
+              connected={mpConnected}
+              mpUserId={mpUserId}
+              mpConnectedAt={mpConnectedAt}
+              flash={mpFlash}
+            />
+          )}
 
           <ConfiguracionForm creator={creator} />
         </div>

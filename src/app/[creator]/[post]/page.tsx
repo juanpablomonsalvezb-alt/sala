@@ -7,6 +7,7 @@ import PaywallGate from '@/components/paywall-gate'
 import { PostViewTracker } from '@/components/post-view-tracker'
 import { ShareBar } from '@/components/share-bar'
 import { creators as staticCreators } from '@/data/creators'
+import { sanitizeHtml, stripHtml } from '@/lib/sanitize'
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -40,21 +41,13 @@ function estimateReadTime(content: string): number {
 }
 
 /**
- * Extrae los primeros ~300 palabras del markdown para el preview del paywall.
- * Elimina marcas markdown simples para mostrar texto limpio.
+ * Extrae las primeras ~300 palabras del HTML para el preview del paywall.
+ * Strippea tags HTML completamente para garantizar que no se filtra contenido oculto
+ * ni se renderiza HTML potencialmente malicioso.
  */
 function extractPreview(content: string, wordCount = 300): string {
-  const cleaned = content
-    .replace(/#{1,6}\s/g, '')
-    .replace(/\*\*(.*?)\*\*/g, '$1')
-    .replace(/\*(.*?)\*/g, '$1')
-    .replace(/\[(.+?)\]\(.+?\)/g, '$1')
-    .replace(/`{1,3}[^`]*`{1,3}/g, '')
-    .replace(/>\s/g, '')
-    .replace(/\n{2,}/g, '\n\n')
-    .trim()
-
-  const words = cleaned.split(/\s+/)
+  const cleaned = stripHtml(content)
+  const words = cleaned.split(/\s+/).filter(Boolean)
   if (words.length <= wordCount) return cleaned
   return words.slice(0, wordCount).join(' ') + '…'
 }
@@ -122,7 +115,8 @@ function findStaticPost(
   for (let i = 0; i < found.articles.length; i++) {
     const title = found.articles[i]
     const generatedSlug = slugify(title)
-    if (generatedSlug === postSlug || postSlug.startsWith(generatedSlug.slice(0, 30))) {
+    // Match exacto — sin truncado (cerraba bypass del paywall)
+    if (generatedSlug === postSlug) {
       const pub = new Date(baseDate)
       pub.setDate(pub.getDate() + i * 14 + 7)
       const post: Post = {
@@ -345,7 +339,11 @@ function ArticleContent({
   isAuthenticated: boolean
 }) {
   const showPaywall = !post.is_free && !isSubscribed
-  const content = showPaywall ? extractPreview(post.content) : post.content
+  // Preview de paywall: solo texto plano (stripHtml).
+  // Post completo: HTML sanitizado server-side.
+  const safeHtml = showPaywall
+    ? `<p>${extractPreview(post.content).replace(/</g, '&lt;')}</p>`
+    : sanitizeHtml(post.content)
 
   return (
     <div>
@@ -364,8 +362,8 @@ function ArticleContent({
           prose-li:text-[18px] prose-li:leading-[1.8] prose-li:text-[#121212]
           prose-img:w-full prose-img:my-8
           prose-hr:border-[#DEDEDE]"
-        style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}
-        dangerouslySetInnerHTML={{ __html: content }}
+        style={{ fontFamily: 'var(--font-sans), sans-serif' }}
+        dangerouslySetInnerHTML={{ __html: safeHtml }}
       />
       {showPaywall && (
         <PaywallGate

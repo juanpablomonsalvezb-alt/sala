@@ -5,30 +5,30 @@ import type { Creator } from '@/types/database'
 
 interface CreateCheckoutBody {
   creatorSlug: string
-  userId: string
 }
 
 export async function POST(request: NextRequest) {
   let body: CreateCheckoutBody
-
   try {
     body = await request.json()
   } catch {
     return NextResponse.json({ error: 'Body inválido' }, { status: 400 })
   }
 
-  const { creatorSlug, userId } = body
-
-  if (!creatorSlug || !userId) {
-    return NextResponse.json(
-      { error: 'creatorSlug y userId son requeridos' },
-      { status: 400 }
-    )
+  const { creatorSlug } = body
+  if (!creatorSlug) {
+    return NextResponse.json({ error: 'creatorSlug requerido' }, { status: 400 })
   }
 
   const supabase = await createClient()
 
-  // Obtener el creator con su precio
+  // userId SIEMPRE desde la sesión server-side — nunca aceptarlo del body
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) {
+    return NextResponse.json({ error: 'No autenticado' }, { status: 401 })
+  }
+  const userId = user.id
+
   const { data: creatorRaw, error: creatorError } = await supabase
     .from('sala_creators')
     .select('*')
@@ -48,7 +48,6 @@ export async function POST(request: NextRequest) {
     )
   }
 
-  // Verificar que el usuario no tenga ya una suscripción activa
   const { data: existingSub } = await supabase
     .from('sala_subscriptions')
     .select('id, status')
@@ -66,12 +65,10 @@ export async function POST(request: NextRequest) {
 
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://nebbuler.com'
 
-  // Crear o recuperar el precio en Stripe (precio en CLP, facturación mensual)
-  // Usamos un precio dinámico por ahora — en producción conviene cachear el price_id en la DB
   const price = await stripe.prices.create(
     {
       currency: 'clp',
-      unit_amount: creator.price_clp, // CLP no tiene decimales
+      unit_amount: creator.price_clp,
       recurring: { interval: 'month' },
       product_data: {
         name: `Nebbuler — ${creator.name}`,
@@ -81,7 +78,6 @@ export async function POST(request: NextRequest) {
     { stripeAccount: creator.stripe_account_id }
   )
 
-  // Crear Checkout Session en modo subscription con Connect
   const session = await stripe.checkout.sessions.create(
     {
       mode: 'subscription',

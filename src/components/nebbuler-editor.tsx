@@ -470,10 +470,16 @@ export default function NebbulerEditor({
     if (url === null) return
     if (url === '') {
       editor.chain().focus().unsetMark('link').run()
-    } else {
-      editor.chain().focus().setMark('link', { href: url }).run()
+      return
     }
-  }, [editor])
+    // Bloquear esquemas peligrosos — javascript:, data:, vbscript:
+    const SAFE_URL = /^(https?:\/\/|mailto:|tel:|#|\/)/i
+    if (!SAFE_URL.test(url)) {
+      handleUploadError('URL inválida — solo se permiten http://, https://, mailto: y enlaces internos')
+      return
+    }
+    editor.chain().focus().setMark('link', { href: url }).run()
+  }, [editor, handleUploadError])
 
   const wordCount = editor
     ? (editor.storage.characterCount as { words?: () => number } | undefined)?.words?.() ?? 0

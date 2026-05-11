@@ -25,12 +25,12 @@ export const metadata: Metadata = {
     template: "%s | Nebbuler",
   },
   description:
-    "Nebbuler es la plataforma donde economistas, médicos, abogados y expertos de dominio cobran por saber lo que tú necesitas entender.",
+    "Nebbuler es la plataforma donde los profesionales cobran por saber lo que tú necesitas entender.",
   metadataBase: new URL("https://nebbuler.com"),
   openGraph: {
     title: "Nebbuler — El conocimiento que antes no se vendía.",
     description:
-      "La plataforma donde economistas, médicos, abogados y expertos de dominio cobran por saber lo que tú necesitas entender.",
+      "La plataforma donde los profesionales cobran por saber lo que tú necesitas entender.",
     siteName: "Nebbuler",
     locale: "es_CL",
     type: "website",
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Nebbuler — El conocimiento que antes no se vendía.",
     description:
-      "La plataforma donde economistas, médicos, abogados y expertos de dominio cobran por saber lo que tú necesitas entender.",
+      "La plataforma donde los profesionales cobran por saber lo que tú necesitas entender.",
     images: ["/og-default.png"],
   },
   robots: { index: true, follow: true },

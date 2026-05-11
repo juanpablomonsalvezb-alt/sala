@@ -8,21 +8,19 @@ import Placeholder from '@tiptap/extension-placeholder'
 import CharacterCount from '@tiptap/extension-character-count'
 import { useState, useCallback, useEffect, useRef } from 'react'
 import { useUploadThing } from '@/lib/uploadthing'
-import { AudioPlayer, PdfEmbed, FileAttachment } from '@/lib/tiptap-extensions'
+import { PdfEmbed, FileAttachment } from '@/lib/tiptap-extensions'
 
 // ─── Límites de archivo ───────────────────────────────────────────────────────
 
 const UPLOAD_LIMITS = {
   image:    8  * 1024 * 1024,   // 8 MB
-  pdf:      32 * 1024 * 1024,   // 32 MB
-  audio:    64 * 1024 * 1024,   // 64 MB
+  pdf:       4 * 1024 * 1024,   // 4 MB (~10 páginas)
   document: 16 * 1024 * 1024,   // 16 MB
 } as const
 
 const UPLOAD_HINTS = {
   image:    'hasta 8 MB — aprox. 3 fotos de celular',
-  pdf:      'hasta 32 MB — aprox. 90 páginas',
-  audio:    'hasta 64 MB — aprox. 60 min en MP3',
+  pdf:      'hasta 4 MB — máx. 10 páginas',
   document: 'hasta 16 MB — modelos Excel, Word, PPT',
 } as const
 
@@ -392,7 +390,6 @@ export default function NebbulerEditor({
         nocookie: true,
         HTMLAttributes: { class: 'editor-youtube' },
       }),
-      AudioPlayer,
       PdfEmbed,
       FileAttachment,
       Placeholder.configure({ placeholder }),
@@ -430,15 +427,6 @@ export default function NebbulerEditor({
     handleUploadError,
   )
 
-  const { uploading: uploadingAudio, triggerUpload: triggerAudioUpload } = useFileUpload(
-    'audioUploader', 'audio',
-    (url, name) => {
-      editor?.chain().focus().insertContent({ type: 'audioPlayer', attrs: { src: url, title: name } }).run()
-      setBlockMenuOpen(false)
-    },
-    handleUploadError,
-  )
-
   const { uploading: uploadingDoc, triggerUpload: triggerDocUpload } = useFileUpload(
     'documentUploader', 'document',
     (url, name) => {
@@ -449,7 +437,7 @@ export default function NebbulerEditor({
     handleUploadError,
   )
 
-  const isUploading = uploadingImage || uploadingPdf || uploadingAudio || uploadingDoc
+  const isUploading = uploadingImage || uploadingPdf || uploadingDoc
 
   // Cerrar bloque-menu al click fuera
   useEffect(() => {
@@ -654,7 +642,6 @@ export default function NebbulerEditor({
               </div>
               <BlockMenuItem icon={<IconImage />} label="Imagen" hint={UPLOAD_HINTS.image} onMouseDown={(e) => { e.preventDefault(); triggerImageUpload('image/*') }} />
               <BlockMenuItem icon={<IconYoutube />} label="YouTube / Vimeo" hint="pega la URL del video" onMouseDown={(e) => { e.preventDefault(); insertYoutube() }} />
-              <BlockMenuItem icon={<IconAudio />} label="Audio / Podcast" hint={UPLOAD_HINTS.audio} onMouseDown={(e) => { e.preventDefault(); triggerAudioUpload('audio/mp3,audio/wav,audio/aac,audio/mpeg,audio/*') }} />
 
               {/* Documentos */}
               <div style={{ height: '1px', background: '#DEDEDE', margin: '4px 0' }} />

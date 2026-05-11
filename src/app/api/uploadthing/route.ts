@@ -21,7 +21,7 @@ export const nebbulerFileRouter = {
       return { url: file.url, userId: metadata.userId }
     }),
 
-  pdfUploader: f({ pdf: { maxFileSize: '32MB', maxFileCount: 3 } })
+  pdfUploader: f({ pdf: { maxFileSize: '4MB', maxFileCount: 3 } })
     .middleware(async () => {
       const user = await getAuthenticatedUser()
       if (!user) throw new Error('Unauthorized')

@@ -185,7 +185,7 @@ export function HeroCta() {
         <div className="py-8 flex flex-col sm:flex-row items-start sm:items-center gap-6 border-b-[3px] border-[#111]">
           <div className="flex-1">
             <p className="text-[16px] font-semibold text-[#111] leading-[1.5]">
-              Para economistas, abogados, médicos, arquitectos y consultores{" "}
+              Para profesionales{" "}
               <span className="text-[#767676] font-normal">
                 que tienen clientes esperando su conocimiento.
               </span>
@@ -411,7 +411,7 @@ export function ParaQuienes() {
             {[
               { title: "Creadores independientes", body: "Publica tu expertise y cobra por el acceso. Sin algoritmos ni redes sociales." },
               { title: "Expertos de industria",    body: "Conecta directo con tu audiencia. Convierte experiencia en ingreso recurrente." },
-              { title: "Profesionales de área",    body: "Economistas, abogados, médicos, arquitectos. Tu campo tiene un público que paga." },
+              { title: "Profesionales de área",    body: "Cualquier disciplina. Tu campo tiene un público que paga por entenderlo." },
             ].map(({ title, body }, i) => (
               <BlurFade key={title} delay={i * 0.08}>
                 <div className="flex items-start gap-5 py-6 group">

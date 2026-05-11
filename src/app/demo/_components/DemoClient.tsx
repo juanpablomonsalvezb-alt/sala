@@ -247,7 +247,7 @@ export default function DemoClient() {
           Así funciona Nebbuler
         </h1>
         <p className="font-sans text-[16px] text-[#666] max-w-xl mx-auto leading-relaxed">
-          Un economista escribe su análisis, define que es exclusivo para suscriptores, y publica. Sus lectores reciben el artículo por email y lo leen en su sala personal.
+          Un profesional escribe su análisis, define que es exclusivo para suscriptores, y publica. Sus lectores reciben el artículo por email y lo leen en su sala personal.
         </p>
       </div>
 

@@ -5,7 +5,7 @@ import { allCreators } from '@/data/creators'
 
 export const metadata: Metadata = {
   title: 'Directorio de Profesionales — Nebbuler',
-  description: 'Explora análisis de economistas, abogados, médicos y arquitectos verificados en Chile y LATAM.',
+  description: 'Explora análisis de profesionales verificados en Chile y LATAM.',
   openGraph: {
     title: 'Directorio de Profesionales — Nebbuler',
     description: 'El directorio más completo de profesionales verificados publicando conocimiento en español.',
@@ -70,7 +70,7 @@ export default function DirectorioPage() {
               Profesionales verificados
             </h1>
             <p className="font-sans text-base text-[#666] max-w-xl leading-relaxed">
-              Economistas, abogados, médicos y arquitectos que publican análisis y cobran directamente por su conocimiento.
+              Profesionales verificados que publican análisis y cobran directamente por su conocimiento.
             </p>
           </div>
         </div>

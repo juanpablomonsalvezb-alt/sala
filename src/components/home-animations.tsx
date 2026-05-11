@@ -434,11 +434,11 @@ export function PricingSection({ plans }: PricingSectionProps) {
   return (
     <section className="border-b border-[#E0E0E0] py-24 bg-[#F8F7F5]">
       <div className="max-w-5xl mx-auto px-6">
-        <div className="grid md:grid-cols-3 gap-0 border border-[#E0E0E0]">
+        <div className="flex justify-center">
           {plans.map(({ name, price, period, note, cta, featured, perks }, i) => (
-            <BlurFade key={name} delay={i * 0.06}>
+            <BlurFade key={name} delay={i * 0.06} className="w-full max-w-sm">
               <div
-                className={`relative flex flex-col h-full p-8 border-r border-[#E0E0E0] last:border-r-0 ${
+                className={`relative flex flex-col h-full p-10 border border-[#E0E0E0] ${
                   featured ? "bg-[#B31C1C]" : "bg-white"
                 }`}
               >
@@ -508,17 +508,17 @@ export function PricingSection({ plans }: PricingSectionProps) {
 
         {/* Tabla proyectada */}
         <BlurFade delay={0.2}>
-          <div className="mt-14 border-t border-white/10 pt-10">
-            <p className="text-[9px] font-bold uppercase tracking-[0.25em] text-[#B0B0B0] mb-6 text-center">
+          <div className="mt-14 border-t border-[#E0E0E0] pt-10 max-w-2xl mx-auto">
+            <p className="text-[9px] font-bold uppercase tracking-[0.25em] text-[#999] mb-6 text-center">
               Ingreso mensual estimado · $29.990 tarifa fija · precio promedio $14.990/mes por suscriptor
             </p>
             <div className="overflow-x-auto">
               <table className="w-full text-left border-collapse">
                 <thead>
-                  <tr className="border-b border-white/10">
-                    <th className="pb-3 text-[9px] font-bold uppercase tracking-[0.2em] text-[#888] pr-8">Suscriptores</th>
-                    <th className="pb-3 text-[9px] font-bold uppercase tracking-[0.2em] text-[#888] pr-8">Ingreso bruto</th>
-                    <th className="pb-3 text-[9px] font-bold uppercase tracking-[0.2em] text-[#888] pr-8">Tarifa Nebbuler</th>
+                  <tr className="border-b border-[#E0E0E0]">
+                    <th className="pb-3 text-[9px] font-bold uppercase tracking-[0.2em] text-[#999] pr-8">Suscriptores</th>
+                    <th className="pb-3 text-[9px] font-bold uppercase tracking-[0.2em] text-[#999] pr-8">Ingreso bruto</th>
+                    <th className="pb-3 text-[9px] font-bold uppercase tracking-[0.2em] text-[#999] pr-8">Tarifa Nebbuler</th>
                     <th className="pb-3 text-[9px] font-bold uppercase tracking-[0.2em] text-[#C41C1C]">Ingreso neto</th>
                   </tr>
                 </thead>
@@ -530,14 +530,14 @@ export function PricingSection({ plans }: PricingSectionProps) {
                     { subs: 500,  gross: 7495000,  net: 7465010 },
                     { subs: 1000, gross: 14990000, net: 14960010 },
                   ].map(({ subs, gross, net }) => (
-                    <tr key={subs} className="border-b border-white/5 group">
-                      <td className="py-3 font-serif font-bold text-[16px] text-white pr-8">
+                    <tr key={subs} className="border-b border-[#F0F0F0]">
+                      <td className="py-3 font-serif font-bold text-[16px] text-[#121212] pr-8">
                         {subs.toLocaleString('es-CL')}
                       </td>
                       <td className="py-3 font-sans text-[13px] text-[#888] pr-8">
                         ${gross.toLocaleString('es-CL')}
                       </td>
-                      <td className="py-3 font-sans text-[13px] text-[#666] pr-8">
+                      <td className="py-3 font-sans text-[13px] text-[#888] pr-8">
                         $29.990
                       </td>
                       <td className="py-3 font-serif font-bold text-[16px] text-[#C41C1C]">

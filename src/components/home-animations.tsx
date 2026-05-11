@@ -151,19 +151,11 @@ export function HeroAnimations({ featuredCreators }: HeroAnimationsProps) {
                 {c.specialty} · {c.subscribers.toLocaleString()} suscriptores · {c.posts} pub. · desde {c.since}
               </p>
             </div>
-            <div className="hidden sm:flex items-center gap-1 mr-6 shrink-0">
+            <div className="hidden sm:flex items-center gap-2 shrink-0">
               <IconTrendingUp size={11} className="text-emerald-600" />
               <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.5">
                 {c.trend}
               </span>
-            </div>
-            <div className="text-right shrink-0">
-              <p className="font-serif font-bold text-[clamp(20px,2.5vw,36px)] leading-[1.2] tracking-[-0.02em] text-[#111]">
-                ${c.earnings}
-              </p>
-              <p className="text-[9px] text-[#B0B0B0] font-medium mt-0.5 uppercase tracking-[0.1em]">
-                pesos / mes
-              </p>
             </div>
             <IconArrowRight
               size={14}
@@ -543,6 +535,58 @@ export function PricingSection({ plans }: PricingSectionProps) {
             </BlurFade>
           ))}
         </div>
+
+        {/* Tabla proyectada */}
+        <BlurFade delay={0.2}>
+          <div className="mt-14 border-t border-white/10 pt-10">
+            <p className="text-[9px] font-bold uppercase tracking-[0.25em] text-[#B0B0B0] mb-6 text-center">
+              Ingreso mensual estimado · $29.990 tarifa fija · precio promedio $14.990/mes por suscriptor
+            </p>
+            <div className="overflow-x-auto">
+              <table className="w-full text-left border-collapse">
+                <thead>
+                  <tr className="border-b border-white/10">
+                    <th className="pb-3 text-[9px] font-bold uppercase tracking-[0.2em] text-[#888] pr-8">Suscriptores</th>
+                    <th className="pb-3 text-[9px] font-bold uppercase tracking-[0.2em] text-[#888] pr-8">Ingreso bruto</th>
+                    <th className="pb-3 text-[9px] font-bold uppercase tracking-[0.2em] text-[#888] pr-8">Tarifa Nebbuler</th>
+                    <th className="pb-3 text-[9px] font-bold uppercase tracking-[0.2em] text-[#C41C1C]">Ingreso neto</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {[
+                    { subs: 50,   gross: 749500,   net: 719510 },
+                    { subs: 100,  gross: 1499000,  net: 1469010 },
+                    { subs: 200,  gross: 2998000,  net: 2968010 },
+                    { subs: 500,  gross: 7495000,  net: 7465010 },
+                    { subs: 1000, gross: 14990000, net: 14960010 },
+                  ].map(({ subs, gross, net }) => (
+                    <tr key={subs} className="border-b border-white/5 group">
+                      <td className="py-3 font-serif font-bold text-[16px] text-white pr-8">
+                        {subs.toLocaleString('es-CL')}
+                      </td>
+                      <td className="py-3 font-sans text-[13px] text-[#888] pr-8">
+                        ${gross.toLocaleString('es-CL')}
+                      </td>
+                      <td className="py-3 font-sans text-[13px] text-[#666] pr-8">
+                        $29.990
+                      </td>
+                      <td className="py-3 font-serif font-bold text-[16px] text-[#C41C1C]">
+                        ${net.toLocaleString('es-CL')}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <p className="text-[10px] text-[#666] mt-4 text-center">
+              Estimación basada en precio promedio. Tu ingreso real depende del precio que tú elijas.{' '}
+              <Link href="/para-creadores" className="text-[#C41C1C] underline underline-offset-2">
+                Usa la calculadora →
+              </Link>
+            </p>
+          </div>
+        </BlurFade>
+
       </div>
     </section>
   );

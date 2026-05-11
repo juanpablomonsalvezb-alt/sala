@@ -1,14 +1,17 @@
 import { redirect } from 'next/navigation'
-import { createClient } from '@/lib/supabase/server'
+import { createClient, createServiceClient } from '@/lib/supabase/server'
 import type { Creator } from '@/types/database'
 import ConfiguracionForm from './_components/ConfiguracionForm'
+import MPConnectSection from './_components/MPConnectSection'
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
-export default async function ConfiguracionPage() {
+export default async function ConfiguracionPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ mp_connected?: string; mp_disconnected?: string; mp_error?: string }>
+}) {
   const supabase = await createClient()
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const db = supabase as any
 
   const {
     data: { user },
@@ -16,14 +19,26 @@ export default async function ConfiguracionPage() {
 
   if (!user) redirect('/entrar')
 
-  const { data: creatorRaw } = await db
+  // Leer datos del creador incluyendo estado MP (service role para campos sensibles)
+  const service = createServiceClient()
+  const { data: creatorRaw } = await service
     .from('sala_creators')
-    .select('*')
+    .select('*, mp_user_id, mp_connected_at')
     .eq('user_id', user.id)
     .maybeSingle()
 
   const creator = creatorRaw as Creator | null
   if (!creator) redirect('/abrir')
+
+  const mpConnected = !!creator.mp_user_id
+  const mpUserId    = creator.mp_user_id ?? null
+  const mpConnectedAt = creator.mp_connected_at ?? null
+
+  const params = await searchParams
+  const mpFlash = params.mp_connected     ? 'connected'
+    : params.mp_disconnected ? 'disconnected'
+    : params.mp_error        ? ('error:' + params.mp_error)
+    : null
 
   return (
     <>
@@ -59,11 +74,11 @@ export default async function ConfiguracionPage() {
                 style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}
               >
                 nebbuler.com/
-                <span className="text-[#C41C1C]">{creator!.slug}</span>
+                <span className="text-[#C41C1C]">{creator.slug}</span>
               </p>
             </div>
             <a
-              href={`/${creator!.slug}`}
+              href={`/${creator.slug}`}
               target="_blank"
               rel="noopener noreferrer"
               className="text-[12px] font-medium text-[#C41C1C] hover:underline"
@@ -73,7 +88,15 @@ export default async function ConfiguracionPage() {
             </a>
           </div>
 
-          <ConfiguracionForm creator={creator!} />
+          {/* Cuenta de pagos — MercadoPago Connect */}
+          <MPConnectSection
+            connected={mpConnected}
+            mpUserId={mpUserId}
+            mpConnectedAt={mpConnectedAt}
+            flash={mpFlash}
+          />
+
+          <ConfiguracionForm creator={creator} />
         </div>
       </main>
     </>

@@ -1,12 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { MP_API, getHeaders, isMPConfigured } from '@/lib/mercadopago'
-import { createClient } from '@/lib/supabase/server'
+import { MP_API } from '@/lib/mercadopago'
+import { createClient, createServiceClient } from '@/lib/supabase/server'
+import type { Creator } from '@/types/database'
 
 export async function POST(request: NextRequest) {
-  if (!isMPConfigured()) {
-    return NextResponse.json({ error: 'MercadoPago no está configurado.' }, { status: 503 })
-  }
-
   try {
     const { creator_slug } = await request.json()
 
@@ -22,16 +19,27 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Debes iniciar sesión para suscribirte.' }, { status: 401 })
     }
 
-    // Obtener creador
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { data: creator, error: creatorError } = await (supabase as any)
+    // Obtener creador con token MP (service role para leer campos sensibles)
+    const service = createServiceClient()
+    const { data: creator, error: creatorError } = await service
       .from('sala_creators')
-      .select('id, name, slug, price_clp, bio')
+      .select('id, name, slug, price_clp, bio, mp_access_token')
       .eq('slug', creator_slug)
-      .single() as { data: import('@/types/database').Creator | null; error: unknown }
+      .single() as { data: Pick<Creator, 'id' | 'name' | 'slug' | 'price_clp' | 'bio' | 'mp_access_token'> | null; error: unknown }
 
     if (creatorError || !creator) {
       return NextResponse.json({ error: 'Creador no encontrado.' }, { status: 404 })
+    }
+
+    // Resolver token MP: primero el del creador, luego fallback de plataforma
+    const mpToken = creator.mp_access_token
+      ?? process.env.MERCADOPAGO_ACCESS_TOKEN
+      ?? ''
+
+    if (!mpToken) {
+      return NextResponse.json({
+        error: 'Este creador aún no ha configurado su cuenta de pagos. Contáctalo directamente.',
+      }, { status: 402 })
     }
 
     // Verificar si ya está suscrito
@@ -72,7 +80,10 @@ export async function POST(request: NextRequest) {
 
     const response = await fetch(`${MP_API}/checkout/preferences`, {
       method: 'POST',
-      headers: getHeaders(),
+      headers: {
+        Authorization: `Bearer ${mpToken}`,
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify(body),
     })
 

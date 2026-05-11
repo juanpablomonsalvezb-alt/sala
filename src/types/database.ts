@@ -15,6 +15,11 @@ export type Creator = {
   created_at: string
   subscriber_count: number
   stripe_account_id: string | null
+  // MercadoPago Connect — solo accesibles vía service role (nunca expuestos al cliente)
+  mp_access_token?:  string | null
+  mp_refresh_token?: string | null
+  mp_user_id?:       string | null
+  mp_connected_at?:  string | null
   verified?: boolean
   discipline_name_es?: string
   publication_name: string | null

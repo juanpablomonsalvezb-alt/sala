@@ -1,0 +1,15 @@
+{
+  "name": "nebbuler-social-listener",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "run": "npx ts-node social-listener.ts --run",
+    "daemon": "npx ts-node social-listener.ts --daemon"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "ts-node": "^10.9.0",
+    "typescript": "^5.0.0"
+  }
+}

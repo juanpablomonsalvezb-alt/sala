@@ -1,0 +1,17 @@
+{
+  "name": "nebbuler-gsc-optimizer",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "analyze": "npx ts-node gsc-optimizer.ts --analyze",
+    "optimize": "npx ts-node gsc-optimizer.ts --optimize"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.95.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "ts-node": "^10.9.0",
+    "typescript": "^5.0.0"
+  }
+}

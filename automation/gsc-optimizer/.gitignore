@@ -1,0 +1,4 @@
+credentials.json
+output/
+node_modules/
+dist/

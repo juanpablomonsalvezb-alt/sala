@@ -120,7 +120,11 @@ export async function createCreatorProfile(
 
   if (insertError) {
     console.error('[createCreatorProfile] insert error:', insertError.message)
-    return { error: `No se pudo crear el perfil: ${insertError.message}` }
+    // Sanitizar — nunca exponer error técnico de Postgres al usuario final
+    const friendly = insertError.code === '23505'
+      ? 'Esa URL ya está tomada. Prueba con otro nombre para tu sala.'
+      : 'No se pudo crear el perfil. Inténtalo de nuevo o contáctanos.'
+    return { error: friendly }
   }
 
   // Actualizar el perfil marcándolo como creador

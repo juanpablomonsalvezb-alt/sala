@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
 import type { Creator } from '@/types/database'
-import { createCheckoutSession } from './actions'
+import CheckoutButton from './_components/CheckoutButton'
 import { creators as staticCreators } from '@/data/creators'
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
@@ -109,101 +109,76 @@ function Footer() {
   )
 }
 
-function CheckoutForm({
-  creator,
-}: {
-  creator: Creator
-}) {
+function CheckoutForm({ creator }: { creator: Creator }) {
   const priceLabel = `${formatPriceCLP(creator.price_clp)}/mes`
 
   return (
-    <form
-      action={async () => {
-        'use server'
-        await createCheckoutSession(creator.slug)
-      }}
-    >
-      <div className="max-w-lg mx-auto">
-        {/* Header del creador */}
-        <div className="border-b border-[#DEDEDE] pb-8 mb-8">
-          <div className="flex items-start gap-5">
-            <div
-              className="w-16 h-16 bg-[#F7F7F7] border border-[#DEDEDE] flex items-center justify-center shrink-0"
-              aria-hidden="true"
-            >
-              <span className="font-serif text-[24px] font-bold text-[#121212]">
-                {creator.name.charAt(0)}
-              </span>
-            </div>
-            <div>
-              <span className="section-label mb-1">{creator.specialty}</span>
-              <h1
-                className="font-serif text-[26px] font-bold text-[#121212] leading-tight"
-                style={{ letterSpacing: '-0.01em' }}
-              >
-                {creator.name}
-              </h1>
-              <p className="font-sans text-[13px] text-[#666666] mt-1">
-                {creator.subscriber_count.toLocaleString('es-CL')} suscriptores
-              </p>
-            </div>
-          </div>
-          <p className="font-sans text-[14px] text-[#666666] leading-relaxed mt-5">
-            {creator.bio}
-          </p>
-        </div>
-
-        {/* Resumen de la suscripción */}
-        <div className="border border-[#DEDEDE] p-6 mb-6 bg-[#F7F7F7]">
-          <span className="section-label-dark mb-4 inline-block">RESUMEN</span>
-          <div className="flex items-center justify-between mb-3">
-            <span className="font-sans text-[14px] text-[#121212]">
-              Suscripción mensual a {creator.name}
-            </span>
-            <span className="font-sans text-[14px] font-semibold text-[#121212]">
-              {priceLabel}
-            </span>
-          </div>
-          <hr className="nyt-rule mb-3" />
-          <div className="space-y-2">
-            {[
-              'Acceso inmediato a todos los artículos',
-              'Archivo completo desbloqueado',
-              'Notificaciones de nuevas publicaciones',
-              'Cancela cuando quieras. Sin permanencia.',
-            ].map((benefit) => (
-              <div key={benefit} className="flex items-start gap-2">
-                <span className="font-serif text-[#C41C1C] mt-0.5 leading-none text-[14px]">
-                  —
-                </span>
-                <span className="font-sans text-[13px] text-[#666666]">{benefit}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* CTA */}
-        <button
-          type="submit"
-          className="w-full font-sans text-[14px] font-semibold py-4 bg-[#009EE3] text-white hover:bg-[#007AB8] transition-colors duration-150 mb-3"
-        >
-          Suscribirse con MercadoPago · {priceLabel}
-        </button>
-        <p className="font-sans text-[11px] text-[#666666] text-center">
-          Pago seguro vía MercadoPago. Cancela en cualquier momento.
-        </p>
-
-        {/* Volver */}
-        <div className="text-center mt-6">
-          <Link
-            href={`/${creator.slug}`}
-            className="font-sans text-[12px] text-[#666666] hover:text-[#121212] transition-colors duration-150"
+    <div className="max-w-lg mx-auto">
+      <div className="border-b border-[#DEDEDE] pb-8 mb-8">
+        <div className="flex items-start gap-5">
+          <div
+            className="w-16 h-16 bg-[#F7F7F7] border border-[#DEDEDE] flex items-center justify-center shrink-0"
+            aria-hidden="true"
           >
-            ← Volver a la sala de {creator.name}
-          </Link>
+            <span className="font-serif text-[24px] font-bold text-[#121212]">
+              {creator.name.charAt(0)}
+            </span>
+          </div>
+          <div>
+            <span className="section-label mb-1">{creator.specialty}</span>
+            <h1
+              className="font-serif text-[26px] font-bold text-[#121212] leading-tight"
+              style={{ letterSpacing: '-0.01em' }}
+            >
+              {creator.name}
+            </h1>
+            <p className="font-sans text-[13px] text-[#666666] mt-1">
+              {creator.subscriber_count.toLocaleString('es-CL')} suscriptores
+            </p>
+          </div>
+        </div>
+        <p className="font-sans text-[14px] text-[#666666] leading-relaxed mt-5">
+          {creator.bio}
+        </p>
+      </div>
+
+      <div className="border border-[#DEDEDE] p-6 mb-6 bg-[#F7F7F7]">
+        <span className="section-label-dark mb-4 inline-block">RESUMEN</span>
+        <div className="flex items-center justify-between mb-3">
+          <span className="font-sans text-[14px] text-[#121212]">
+            Suscripción mensual a {creator.name}
+          </span>
+          <span className="font-sans text-[14px] font-semibold text-[#121212]">
+            {priceLabel}
+          </span>
+        </div>
+        <hr className="nyt-rule mb-3" />
+        <div className="space-y-2">
+          {[
+            'Acceso inmediato a todos los artículos',
+            'Archivo completo desbloqueado',
+            'Notificaciones de nuevas publicaciones',
+            'Cancela cuando quieras. Sin permanencia.',
+          ].map((benefit) => (
+            <div key={benefit} className="flex items-start gap-2">
+              <span className="font-serif text-[#C41C1C] mt-0.5 leading-none text-[14px]">—</span>
+              <span className="font-sans text-[13px] text-[#666666]">{benefit}</span>
+            </div>
+          ))}
         </div>
       </div>
-    </form>
+
+      <CheckoutButton creatorSlug={creator.slug} priceLabel={priceLabel} />
+
+      <div className="text-center mt-6">
+        <Link
+          href={`/${creator.slug}`}
+          className="font-sans text-[12px] text-[#666666] hover:text-[#121212] transition-colors duration-150"
+        >
+          ← Volver a la sala de {creator.name}
+        </Link>
+      </div>
+    </div>
   )
 }
 

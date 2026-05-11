@@ -1,11 +1,19 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, Suspense } from 'react'
 import Link from 'next/link'
+import { useSearchParams } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { createClient } from '@/lib/supabase/client'
+
+function safeNext(raw: string | null, fallback: string): string {
+  if (!raw) return fallback
+  if (!raw.startsWith('/')) return fallback
+  if (raw.startsWith('//') || raw.startsWith('/\\')) return fallback
+  return raw
+}
 
 function LinkedInIcon() {
   return (
@@ -34,7 +42,7 @@ const schema = z.object({
 type FormValues = z.infer<typeof schema>
 type Path = 'reader' | 'creator' | null
 
-function EmailFallbackForm({ path, onSuccess }: { path: Path; onSuccess: () => void }) {
+function EmailFallbackForm({ path, nextDest, onSuccess }: { path: Path; nextDest: string; onSuccess: () => void }) {
   const [loading, setLoading] = useState(false)
   const [authError, setAuthError] = useState<string | null>(null)
   const { register, handleSubmit, formState: { errors } } = useForm<FormValues>({ resolver: zodResolver(schema) })
@@ -43,17 +51,16 @@ function EmailFallbackForm({ path, onSuccess }: { path: Path; onSuccess: () => v
     setLoading(true)
     setAuthError(null)
     const supabase = createClient()
-    const redirectTo = path === 'creator'
-      ? `${window.location.origin}/auth/callback?next=/abrir`
-      : `${window.location.origin}/auth/callback?next=/explorar`
+    const redirectTo = `${window.location.origin}/auth/callback?next=${encodeURIComponent(nextDest)}`
     const { error } = await supabase.auth.signUp({
       email: data.email, password: data.password,
       options: { data: { full_name: data.name }, emailRedirectTo: redirectTo },
     })
     if (error) { setAuthError(error.message); setLoading(false); return }
     const { data: { session } } = await supabase.auth.getSession()
-    if (session) { window.location.href = path === 'creator' ? '/abrir' : '/explorar' }
+    if (session) { window.location.href = nextDest }
     else onSuccess()
+    void path // suprimir unused
   }
 
   return (
@@ -79,6 +86,17 @@ function EmailFallbackForm({ path, onSuccess }: { path: Path; onSuccess: () => v
 }
 
 export default function RegistroPage() {
+  return (
+    <Suspense fallback={null}>
+      <RegistroInner />
+    </Suspense>
+  )
+}
+
+function RegistroInner() {
+  const searchParams = useSearchParams()
+  const nextParam = searchParams.get('next')
+
   const [path, setPath] = useState<Path>(null)
   const [authError, setAuthError] = useState<string | null>(null)
   const [linkedinLoading, setLinkedinLoading] = useState(false)
@@ -86,12 +104,16 @@ export default function RegistroPage() {
   const [showEmailFallback, setShowEmailFallback] = useState(false)
   const [success, setSuccess] = useState(false)
 
+  // Destinos por tipo de usuario — respetan el `next` explícito si viene del paywall
+  const creatorDest = safeNext(nextParam, '/abrir')
+  const readerDest = safeNext(nextParam, '/explorar')
+
   async function handleLinkedIn() {
     setLinkedinLoading(true); setAuthError(null)
     const supabase = createClient()
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'linkedin_oidc',
-      options: { redirectTo: `${window.location.origin}/auth/callback?next=/abrir` },
+      options: { redirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(creatorDest)}` },
     })
     if (error) { setAuthError(error.message); setLinkedinLoading(false) }
   }
@@ -101,7 +123,7 @@ export default function RegistroPage() {
     const supabase = createClient()
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
-      options: { redirectTo: `${window.location.origin}/auth/callback?next=/explorar` },
+      options: { redirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(readerDest)}` },
     })
     if (error) { setAuthError(error.message); setGoogleLoading(false) }
   }
@@ -176,7 +198,7 @@ export default function RegistroPage() {
                   ¿Problemas con LinkedIn? Registrarte con email
                 </button>
               )}
-              {showEmailFallback && <EmailFallbackForm path="creator" onSuccess={() => setSuccess(true)} />}
+              {showEmailFallback && <EmailFallbackForm path="creator" nextDest={creatorDest} onSuccess={() => setSuccess(true)} />}
             </div>
           )}
 
@@ -201,7 +223,7 @@ export default function RegistroPage() {
                   ¿Problemas? Registrarte con email
                 </button>
               )}
-              {showEmailFallback && <EmailFallbackForm path="reader" onSuccess={() => setSuccess(true)} />}
+              {showEmailFallback && <EmailFallbackForm path="reader" nextDest={readerDest} onSuccess={() => setSuccess(true)} />}
             </div>
           )}
 
@@ -221,7 +243,10 @@ export default function RegistroPage() {
           {!success && (
             <p className="font-sans text-[12px] text-[#666666] text-center mt-8">
               ¿Ya tienes cuenta?{' '}
-              <Link href="/entrar" className="text-[#121212] font-medium hover:underline underline-offset-2">Entra</Link>
+              <Link
+                href={nextParam ? `/entrar?next=${encodeURIComponent(nextParam)}` : '/entrar'}
+                className="text-[#121212] font-medium hover:underline underline-offset-2"
+              >Entra</Link>
             </p>
           )}
         </div>

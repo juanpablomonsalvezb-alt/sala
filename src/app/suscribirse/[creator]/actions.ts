@@ -1,6 +1,5 @@
 'use server'
 
-import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { MP_API, getHeaders, isMPConfigured } from '@/lib/mercadopago'
 
@@ -15,22 +14,26 @@ function isSupabaseConfigured(): boolean {
   )
 }
 
-export async function createCheckoutSession(
-  creatorSlug: string
-): Promise<{ error: string } | void> {
+type CheckoutResult =
+  | { ok: true; url: string }
+  | { ok: false; needsAuth: true; loginUrl: string }
+  | { ok: false; alreadySubscribed: true; profileUrl: string }
+  | { ok: false; error: string }
+
+export async function createCheckoutSession(creatorSlug: string): Promise<CheckoutResult> {
   if (!isSupabaseConfigured()) {
-    return { error: 'Los pagos aún no están activos en esta demo.' }
+    return { ok: false, error: 'Los pagos aún no están activos en esta demo.' }
   }
 
   const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
 
-  const {
-    data: { user },
-    error: authError,
-  } = await supabase.auth.getUser()
-
-  if (authError || !user) {
-    redirect(`/entrar?redirect=/suscribirse/${creatorSlug}`)
+  if (!user) {
+    return {
+      ok: false,
+      needsAuth: true,
+      loginUrl: `/entrar?next=${encodeURIComponent(`/suscribirse/${creatorSlug}`)}`,
+    }
   }
 
   const { data: creator, error: creatorError } = await supabase
@@ -40,10 +43,9 @@ export async function createCheckoutSession(
     .single()
 
   if (creatorError || !creator) {
-    return { error: 'Creador no encontrado.' }
+    return { ok: false, error: 'Creador no encontrado.' }
   }
 
-  // Verificar suscripción activa existente
   const { data: existingSub } = await supabase
     .from('sala_subscriptions')
     .select('id')
@@ -53,16 +55,15 @@ export async function createCheckoutSession(
     .maybeSingle()
 
   if (existingSub) {
-    redirect(`/${creatorSlug}`)
+    return { ok: false, alreadySubscribed: true, profileUrl: `/${creatorSlug}` }
   }
 
   if (!isMPConfigured()) {
-    return { error: 'Los pagos aún no están activos. Vuelve pronto.' }
+    return { ok: false, error: 'Los pagos aún no están activos. Vuelve pronto.' }
   }
 
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://nebbuler.com'
 
-  // Suscripción recurrente mensual con MercadoPago preapproval
   const body = {
     reason: `Nebbuler — ${creator.publication_name ?? creator.name}`,
     auto_recurring: {
@@ -87,14 +88,13 @@ export async function createCheckoutSession(
   if (!response.ok) {
     const errData = await response.json().catch(() => ({}))
     console.error('[MP checkout] error:', response.status, errData)
-    return { error: 'Error iniciando el pago. Intenta de nuevo.' }
+    return { ok: false, error: 'Error iniciando el pago. Intenta de nuevo.' }
   }
 
   const data = await response.json()
-
   if (!data.init_point) {
-    return { error: 'No se pudo obtener el link de pago.' }
+    return { ok: false, error: 'No se pudo obtener el link de pago.' }
   }
 
-  redirect(data.init_point)
+  return { ok: true, url: data.init_point }
 }

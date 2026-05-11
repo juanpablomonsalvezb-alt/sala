@@ -1,11 +1,19 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, Suspense } from 'react'
 import Link from 'next/link'
+import { useSearchParams } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { createClient } from '@/lib/supabase/client'
+
+function safeNext(raw: string | null, fallback: string): string {
+  if (!raw) return fallback
+  if (!raw.startsWith('/')) return fallback
+  if (raw.startsWith('//') || raw.startsWith('/\\')) return fallback
+  return raw
+}
 
 function LinkedInIcon() {
   return (
@@ -33,6 +41,18 @@ const schema = z.object({
 type FormValues = z.infer<typeof schema>
 
 export default function EntrarPage() {
+  return (
+    <Suspense fallback={null}>
+      <EntrarInner />
+    </Suspense>
+  )
+}
+
+function EntrarInner() {
+  const searchParams = useSearchParams()
+  // Soporta tanto ?next= como ?redirect= (legacy de algunos links)
+  const nextParam = searchParams.get('next') ?? searchParams.get('redirect')
+
   const [authError, setAuthError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
   const [linkedinLoading, setLinkedinLoading] = useState(false)
@@ -48,15 +68,16 @@ export default function EntrarPage() {
       setAuthError(error.message === 'Invalid login credentials' ? 'Email o contraseña incorrectos.' : error.message)
       setLoading(false); return
     }
-    window.location.href = '/dashboard'
+    window.location.href = safeNext(nextParam, '/dashboard')
   }
 
   async function handleLinkedIn() {
     setLinkedinLoading(true); setAuthError(null)
     const supabase = createClient()
+    const next = safeNext(nextParam, '/dashboard')
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'linkedin_oidc',
-      options: { redirectTo: `${window.location.origin}/auth/callback?next=/dashboard` },
+      options: { redirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(next)}` },
     })
     if (error) { setAuthError(error.message); setLinkedinLoading(false) }
   }
@@ -64,9 +85,10 @@ export default function EntrarPage() {
   async function handleGoogle() {
     setGoogleLoading(true); setAuthError(null)
     const supabase = createClient()
+    const next = safeNext(nextParam, '/explorar')
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
-      options: { redirectTo: `${window.location.origin}/auth/callback?next=/explorar` },
+      options: { redirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(next)}` },
     })
     if (error) { setAuthError(error.message); setGoogleLoading(false) }
   }
@@ -149,7 +171,10 @@ export default function EntrarPage() {
 
           <p className="font-sans text-[12px] text-[#666666] text-center mt-7">
             ¿No tienes cuenta?{' '}
-            <Link href="/registro" className="text-[#121212] font-medium hover:underline underline-offset-2">Regístrate</Link>
+            <Link
+              href={nextParam ? `/registro?next=${encodeURIComponent(nextParam)}` : '/registro'}
+              className="text-[#121212] font-medium hover:underline underline-offset-2"
+            >Regístrate</Link>
           </p>
         </div>
       </main>

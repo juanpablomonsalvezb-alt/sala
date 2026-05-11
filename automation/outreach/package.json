@@ -1,0 +1,15 @@
+{
+  "name": "nebbuler-outreach",
+  "version": "1.0.0",
+  "description": "Cold email outreach para reclutamiento de creadores Nebbuler",
+  "scripts": {
+    "preview": "ts-node cold-email.ts --preview --limit 5",
+    "send:warmup": "ts-node cold-email.ts --send --limit 10",
+    "send:normal": "ts-node cold-email.ts --send --limit 30"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "ts-node": "^10.9.0",
+    "typescript": "^5.0.0"
+  }
+}

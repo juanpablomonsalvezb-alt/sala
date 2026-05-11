@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nebbuler — Documento Maestro</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: Georgia, 'Times New Roman', serif;
+      background: #F7F7F5;
+      color: #121212;
+      line-height: 1.6;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 60px 40px;
+    }
+
+    /* ── Header ── */
+    .masthead {
+      border-top: 4px solid #C41C1C;
+      padding-top: 32px;
+      margin-bottom: 56px;
+    }
+
+    .masthead-eyebrow {
+      font-family: Inter, Arial, sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #C41C1C;
+      margin-bottom: 12px;
+    }
+
+    .masthead h1 {
+      font-size: 56px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+
+    .masthead-tagline {
+      font-size: 22px;
+      color: #444;
+      font-style: italic;
+      margin-bottom: 24px;
+    }
+
+    .masthead-meta {
+      font-family: Inter, Arial, sans-serif;
+      font-size: 12px;
+      color: #999;
+      border-top: 1px solid #DEDEDE;
+      padding-top: 16px;
+      display: flex;
+      gap: 32px;
+    }
+
+    /* ── Sections ── */
+    .section {
+      margin-bottom: 56px;
+    }
+
+    .section-label {
+      font-family: Inter, Arial, sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #C41C1C;
+      margin-bottom: 8px;
+    }
+
+    .section h2 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      letter-spacing: -0.01em;
+    }
+
+    .section p {
+      font-family: Inter, Arial, sans-serif;
+      font-size: 15px;
+      color: #333;
+      line-height: 1.75;
+      margin-bottom: 12px;
+    }
+
+    /* ── Tables ── */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: Inter, Arial, sans-serif;
+      font-size: 13px;
+      margin-bottom: 16px;
+    }
+
+    th {
+      background: #121212;
+      color: #fff;
+      text-align: left;
+      padding: 10px 14px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    td {
+      padding: 10px 14px;
+      border-bottom: 1px solid #DEDEDE;
+      color: #333;
+      vertical-align: top;
+    }
+
+    tr:nth-child(even) td { background: #F7F7F5; }
+
+    td strong { color: #121212; }
+
+    /* ── Highlight boxes ── */
+    .highlight {
+      border-left: 3px solid #C41C1C;
+      padding: 16px 20px;
+      background: #fff;
+      margin: 20px 0;
+    }
+
+    .highlight p {
+      font-size: 18px !important;
+      font-family: Georgia, serif !important;
+      font-style: italic;
+      color: #121212 !important;
+    }
+
+    /* ── Stat grid ── */
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: #DEDEDE;
+      border: 1px solid #DEDEDE;
+      margin: 20px 0;
+    }
+
+    .stat-card {
+      background: #fff;
+      padding: 20px;
+    }
+
+    .stat-card .label {
+      font-family: Inter, Arial, sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #999;
+      margin-bottom: 6px;
+    }
+
+    .stat-card .value {
+      font-size: 28px;
+      font-weight: 700;
+      color: #121212;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .stat-card .sub {
+      font-family: Inter, Arial, sans-serif;
+      font-size: 12px;
+      color: #666;
+    }
+
+    .stat-card.accent { background: #121212; }
+    .stat-card.accent .label { color: #666; }
+    .stat-card.accent .value { color: #fff; }
+    .stat-card.accent .sub { color: #666; }
+
+    /* ── Badge ── */
+    .badge {
+      display: inline-block;
+      font-family: Inter, Arial, sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      margin-right: 6px;
+      margin-bottom: 4px;
+    }
+
+    .badge-red { background: #C41C1C; color: #fff; }
+    .badge-dark { background: #121212; color: #fff; }
+    .badge-gray { background: #DEDEDE; color: #666; }
+    .badge-green { background: #065F46; color: #fff; }
+
+    /* ── Divider ── */
+    hr {
+      border: none;
+      border-top: 1px solid #DEDEDE;
+      margin: 40px 0;
+    }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid #DEDEDE;
+      padding-top: 24px;
+      margin-top: 64px;
+      font-family: Inter, Arial, sans-serif;
+      font-size: 11px;
+      color: #999;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    ul {
+      font-family: Inter, Arial, sans-serif;
+      font-size: 14px;
+      color: #333;
+      padding-left: 20px;
+      margin-bottom: 12px;
+    }
+
+    ul li { margin-bottom: 6px; line-height: 1.6; }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+
+    @media (max-width: 600px) {
+      .stat-grid { grid-template-columns: 1fr; }
+      .two-col { grid-template-columns: 1fr; }
+      .masthead h1 { font-size: 36px; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- MASTHEAD -->
+  <div class="masthead">
+    <p class="masthead-eyebrow">Documento Maestro · Confidencial</p>
+    <h1>NEBBULER</h1>
+    <p class="masthead-tagline">"Lo que se piensa bien, dura."</p>
+    <div class="masthead-meta">
+      <span>nebbuler.com</span>
+      <span>Fundado: mayo 2026</span>
+      <span>Mercado: Chile y LATAM</span>
+      <span>Actualizado: mayo 2026</span>
+    </div>
+  </div>
+
+  <!-- 1. QUÉ ES -->
+  <div class="section">
+    <p class="section-label">01 — El producto</p>
+    <h2>Qué es Nebbuler</h2>
+    <p>Nebbuler es la plataforma de newsletters de pago para profesionales chilenos y latinoamericanos. Economistas, abogados, médicos y arquitectos publican su análisis experto y cobran suscripciones mensuales directamente de sus lectores, sin pasar por YouTube, TikTok ni ningún algoritmo.</p>
+    <p>Los lectores pagan por acceder al conocimiento de expertos verificados. Los creadores cobran en pesos chilenos, sin comisión de plataforma sobre sus ingresos, con identidad profesional verificada vía LinkedIn.</p>
+
+    <div class="highlight">
+      <p>"No necesitas un millón de seguidores. Necesitas 200 personas que paguen por lo que sabes."</p>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat-card accent">
+        <div class="label">Comisión plataforma</div>
+        <div class="value">0%</div>
+        <div class="sub">Sobre ingresos del creador</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Tarifa al creador</div>
+        <div class="value">$29.990</div>
+        <div class="sub">CLP / mes</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Rango de precios lector</div>
+        <div class="value">$4.990–</div>
+        <div class="sub">CLP / mes (libre)</div>
+      </div>
+    </div>
+  </div>
+
+  <hr />
+
+  <!-- 2. EL PROBLEMA -->
+  <div class="section">
+    <p class="section-label">02 — El problema que resuelve</p>
+    <h2>Por qué existe Nebbuler</h2>
+
+    <div class="two-col">
+      <div>
+        <p><strong>Para el creador:</strong></p>
+        <ul>
+          <li>Lleva años publicando gratis en LinkedIn y YouTube</li>
+          <li>Miles de vistas. Cero ingresos</li>
+          <li>Substack no acepta pagos en CLP — Chile no está en Stripe</li>
+          <li>Beehiiv y Ghost tienen el mismo problema</li>
+          <li>No hay plataforma latinoamericana para newsletters de pago</li>
+        </ul>
+      </div>
+      <div>
+        <p><strong>Para el lector:</strong></p>
+        <ul>
+          <li>El conocimiento experto está fragmentado en redes gratuitas</li>
+          <li>No hay señal de calidad — cualquiera publica</li>
+          <li>Pagar en USD genera fricción bancaria y volatilidad</li>
+          <li>No existe un directorio curado de expertos chilenos</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="highlight">
+      <p>"Deja de enseñar gratis."</p>
+    </div>
+  </div>
+
+  <hr />
+
+  <!-- 3. COMPETENCIA -->
+  <div class="section">
+    <p class="section-label">03 — Posicionamiento competitivo</p>
+    <h2>Nebbuler vs. la competencia</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Plataforma</th>
+          <th>Comisión</th>
+          <th>¿Funciona en Chile?</th>
+          <th>Idioma</th>
+          <th>Pagos CLP</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Nebbuler</strong></td>
+          <td><strong>0%</strong></td>
+          <td><span class="badge badge-green">✅ Sí</span></td>
+          <td>Español completo</td>
+          <td><span class="badge badge-green">✅ MercadoPago</span></td>
+        </tr>
+        <tr>
+          <td>Substack</td>
+          <td>10% + ~3% Stripe</td>
+          <td><span class="badge badge-red">❌ No</span></td>
+          <td>Inglés</td>
+          <td><span class="badge badge-red">❌ USD</span></td>
+        </tr>
+        <tr>
+          <td>Beehiiv</td>
+          <td>0% + $49/mes</td>
+          <td><span class="badge badge-red">❌ No</span></td>
+          <td>Inglés</td>
+          <td><span class="badge badge-red">❌ USD</span></td>
+        </tr>
+        <tr>
+          <td>Ghost</td>
+          <td>0% + $29/mes</td>
+          <td><span class="badge badge-red">❌ No</span></td>
+          <td>Inglés</td>
+          <td><span class="badge badge-red">❌ USD</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p><strong>La ventaja estructural:</strong> Stripe no opera en Chile para creadores. Todos los competidores globales dependen de Stripe. Mientras eso no cambie, Nebbuler es la única opción funcional para un profesional chileno que quiere cobrar suscripciones.</p>
+
+    <p><strong>El riesgo principal:</strong> Si Stripe habilita Chile (ya entró a Brasil, México y Argentina), Substack y Beehiiv se vuelven viables de un día para otro. Ventana estimada: 12–18 meses.</p>
+  </div>
+
+  <hr />
+
+  <!-- 4. MODELO DE NEGOCIO -->
+  <div class="section">
+    <p class="section-label">04 — Modelo de negocio</p>
+    <h2>Cómo gana dinero Nebbuler</h2>
+
+    <table>
+      <thead>
+        <tr><th>Flujo</th><th>Monto</th><th>Frecuencia</th><th>Estado</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Creador → Nebbuler (tarifa de plataforma)</td>
+          <td><strong>$29.990 CLP</strong></td>
+          <td>Mensual</td>
+          <td><span class="badge badge-green">✅ Implementado</span></td>
+        </tr>
+        <tr>
+          <td>Lector → Creador (suscripción)</td>
+          <td><strong>$4.990–$19.990 CLP</strong></td>
+          <td>Mensual</td>
+          <td><span class="badge badge-green">✅ Implementado</span></td>
+        </tr>
+        <tr>
+          <td>Comisión sobre suscripciones</td>
+          <td><strong>0%</strong></td>
+          <td>—</td>
+          <td><span class="badge badge-dark">Diferenciador</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p><strong>Ejemplo con 200 suscritos a $5.000 CLP/mes:</strong></p>
+    <div class="stat-grid">
+      <div class="stat-card accent">
+        <div class="label">Ingreso del creador</div>
+        <div class="value">$1.000.000</div>
+        <div class="sub">CLP / mes</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Equivalente en YouTube</div>
+        <div class="value">909.000</div>
+        <div class="sub">vistas / mes requeridas</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Ingreso plataforma (10 creadores)</div>
+        <div class="value">$299.900</div>
+        <div class="sub">CLP / mes</div>
+      </div>
+    </div>
+  </div>
+
+  <hr />
+
+  <!-- 5. STACK TÉCNICO -->
+  <div class="section">
+    <p class="section-label">05 — Stack técnico</p>
+    <h2>Cómo está construido</h2>
+
+    <table>
+      <thead>
+        <tr><th>Capa</th><th>Tecnología</th><th>Por qué</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Frontend</td><td><strong>Next.js 14 App Router + TypeScript</strong></td><td>SSR, SEO, performance</td></tr>
+        <tr><td>Estilos</td><td><strong>Tailwind CSS + Playfair Display + Inter</strong></td><td>Editorial premium</td></tr>
+        <tr><td>Base de datos</td><td><strong>Supabase (PostgreSQL + Auth + RLS)</strong></td><td>Auth nativa, seguridad row-level</td></tr>
+        <tr><td>Pagos lectores</td><td><strong>MercadoPago preapproval</strong></td><td>Único procesador que funciona en Chile CLP</td></tr>
+        <tr><td>Pagos creadores</td><td><strong>MercadoPago preapproval</strong></td><td>Mismo procesador, coherencia</td></tr>
+        <tr><td>Email</td><td><strong>Resend</strong></td><td>Envío automático al publicar newsletter</td></tr>
+        <tr><td>Auth creadores</td><td><strong>LinkedIn OIDC</strong></td><td>Verificación de identidad profesional</td></tr>
+        <tr><td>Auth lectores</td><td><strong>Google OAuth</strong></td><td>Menor fricción, máxima adopción</td></tr>
+        <tr><td>Deploy</td><td><strong>Vercel</strong></td><td>CI/CD, edge, dominio nebbuler.com</td></tr>
+        <tr><td>Editor</td><td><strong>Tiptap</strong></td><td>Rich text con HTML semántico</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr />
+
+  <!-- 6. FLUJOS OPERATIVOS -->
+  <div class="section">
+    <p class="section-label">06 — Flujos operativos</p>
+    <h2>Cómo funciona el producto</h2>
+
+    <div class="two-col">
+      <div>
+        <p><strong>El creador:</strong></p>
+        <ul>
+          <li>Se registra con LinkedIn (identidad verificada)</li>
+          <li>Configura su sala: nombre, especialidad, precio, bio</li>
+          <li>Paga $29.990 CLP/mes vía MercadoPago preapproval</li>
+          <li>Publica artículos con editor rich text</li>
+          <li>Cada publicación dispara email automático a suscriptores</li>
+          <li>Ve MRR, suscriptores y publicaciones en su dashboard</li>
+        </ul>
+      </div>
+      <div>
+        <p><strong>El lector:</strong></p>
+        <ul>
+          <li>Se registra con Google (un clic)</li>
+          <li>Explora el directorio de creadores verificados</li>
+          <li>Lee el artículo gratuito de cada creador</li>
+          <li>Se suscribe con MercadoPago en CLP (recurrente)</li>
+          <li>Recibe email cada vez que el creador publica</li>
+          <li>Accede al contenido exclusivo detrás del paywall</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <hr />
+
+  <!-- 7. IDENTIDAD DE MARCA -->
+  <div class="section">
+    <p class="section-label">07 — Identidad de marca</p>
+    <h2>Cómo se ve y cómo suena</h2>
+
+    <div class="two-col">
+      <div>
+        <p><strong>Paleta de colores:</strong></p>
+        <ul>
+          <li>Rojo crimson: <code>#C41C1C</code></li>
+          <li>Negro editorial: <code>#121212</code></li>
+          <li>Blanco puro: <code>#FFFFFF</code></li>
+          <li>Gris texto: <code>#666666</code></li>
+          <li>Gris borde: <code>#DEDEDE</code></li>
+          <li>Fondo alt: <code>#F7F7F5</code></li>
+        </ul>
+        <br/>
+        <p><strong>Tipografías:</strong></p>
+        <ul>
+          <li>Serif: Playfair Display (títulos, marca)</li>
+          <li>Sans: Inter (cuerpo, UI)</li>
+        </ul>
+      </div>
+      <div>
+        <p><strong>Tono de voz:</strong></p>
+        <ul>
+          <li>Intelectual sin ser arrogante</li>
+          <li>Directo, sin rodeos</li>
+          <li>Editorial tipo The Economist / NYT</li>
+          <li>Sin exclamaciones ni emojis</li>
+          <li>Siempre en español latinoamericano</li>
+        </ul>
+        <br/>
+        <p><strong>Referentes visuales:</strong></p>
+        <ul>
+          <li>The Economist (serif + rojo + blanco)</li>
+          <li>New York Times (tipografía editorial)</li>
+          <li>Monocle (premium de nicho)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <hr />
+
+  <!-- 8. SLOGANS -->
+  <div class="section">
+    <p class="section-label">08 — Mensajes de marca</p>
+    <h2>Slogans y frases de campaña</h2>
+
+    <p><strong>Tagline maestro:</strong></p>
+    <div class="highlight"><p>"Lo que se piensa bien, dura."</p></div>
+
+    <p><strong>Slogans de campaña (los más fuertes):</strong></p>
+    <table>
+      <thead><tr><th>Frase</th><th>Uso</th></tr></thead>
+      <tbody>
+        <tr><td>"Los que pagan, entienden."</td><td>Hero de landing, perfil LinkedIn</td></tr>
+        <tr><td>"Deja de enseñar gratis."</td><td>Publicidad pagada, carrusel Instagram</td></tr>
+        <tr><td>"Años de gratis, terminaron."</td><td>Publicidad pagada</td></tr>
+        <tr><td>"Sin algoritmo entre tú y ellos."</td><td>Redes sociales</td></tr>
+        <tr><td>"No para todos. Para los tuyos."</td><td>Awareness general</td></tr>
+        <tr><td>"200 suscritos en Nebbuler valen casi 1 millón de vistas en YouTube."</td><td>LinkedIn, argumento de venta</td></tr>
+      </tbody>
+    </table>
+
+    <p><strong>Frases por imagen de campaña:</strong></p>
+    <table>
+      <thead><tr><th>Imagen</th><th>Crítica a redes</th><th>Defensa del creador</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>El lápiz (puente)</td>
+          <td>"YouTube te da vistas. Se queda con el 45% de tu ingreso."</td>
+          <td>"Tu análisis vale más que un hilo viral de diez minutos."</td>
+        </tr>
+        <tr>
+          <td>La bombilla</td>
+          <td>"TikTok vende tu atención. A ti no te invitan a la mesa."</td>
+          <td>"Tú eres la idea. La plataforma solo puso el enchufe."</td>
+        </tr>
+        <tr>
+          <td>El ojo de cerradura</td>
+          <td>"Instagram mide tu alcance. No mide lo que sabes."</td>
+          <td>"Años de formación no deberían caber en un carrusel gratuito."</td>
+        </tr>
+        <tr>
+          <td>El empuje</td>
+          <td>"Las plataformas crecen con tu trabajo. Tú cobras en visualizaciones."</td>
+          <td>"Sostener ese peso exige una carrera, no un algoritmo."</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr />
+
+  <!-- 9. ESTRATEGIA DE LANZAMIENTO -->
+  <div class="section">
+    <p class="section-label">09 — Estrategia de lanzamiento</p>
+    <h2>Cómo llegar al primer creador pagante</h2>
+
+    <p><strong>Fase 1 — Activar (semana 1):</strong></p>
+    <ul>
+      <li>Completar perfil del founder en /dashboard/configuracion</li>
+      <li>Publicar primer artículo real</li>
+      <li>Reclutar 5–10 creadores del círculo cercano con contenido real</li>
+      <li>Post de LinkedIn del founder contando la historia real del proyecto</li>
+      <li>Crear perfil en Crunchbase (fecha fundación: enero 2026)</li>
+    </ul>
+
+    <p><strong>Fase 2 — Publicidad (semana 2–4):</strong></p>
+    <ul>
+      <li>Carrusel de 5 slides en LinkedIn ($900 USD / 30 días)</li>
+      <li>Carrusel de 6 slides en Instagram ($400 USD / 30 días)</li>
+      <li>Reel sin voz semana 3 ($200 USD)</li>
+      <li>Total presupuesto inicial: $1.500 USD</li>
+    </ul>
+
+    <p><strong>Formato ganador: Carrusel estático.</strong> CTR 0.49% vs 0.20% del video en LinkedIn. Engagement hasta 10% en Instagram. Costo de producción: cero (assets ya existen).</p>
+  </div>
+
+  <hr />
+
+  <!-- 10. ESTADO ACTUAL -->
+  <div class="section">
+    <p class="section-label">10 — Estado actual del producto</p>
+    <h2>Qué está listo hoy</h2>
+
+    <table>
+      <thead><tr><th>Feature</th><th>Estado</th></tr></thead>
+      <tbody>
+        <tr><td>Landing page editorial</td><td><span class="badge badge-green">✅ Listo</span></td></tr>
+        <tr><td>Registro creadores vía LinkedIn OAuth</td><td><span class="badge badge-green">✅ Listo</span></td></tr>
+        <tr><td>Registro lectores vía Google OAuth</td><td><span class="badge badge-green">✅ Listo</span></td></tr>
+        <tr><td>Editor de publicaciones (Tiptap rich text)</td><td><span class="badge badge-green">✅ Listo</span></td></tr>
+        <tr><td>Paywall server-side</td><td><span class="badge badge-green">✅ Listo</span></td></tr>
+        <tr><td>Checkout lector → MercadoPago</td><td><span class="badge badge-green">✅ Listo</span></td></tr>
+        <tr><td>Webhook MP con validación HMAC</td><td><span class="badge badge-green">✅ Listo</span></td></tr>
+        <tr><td>Cobro plataforma → creador ($29.990/mes)</td><td><span class="badge badge-green">✅ Listo</span></td></tr>
+        <tr><td>Email automático al publicar (Resend)</td><td><span class="badge badge-green">✅ Listo</span></td></tr>
+        <tr><td>Dashboard del creador (MRR, suscriptores, posts)</td><td><span class="badge badge-green">✅ Listo</span></td></tr>
+        <tr><td>Panel superadmin (métricas globales)</td><td><span class="badge badge-green">✅ Listo</span></td></tr>
+        <tr><td>Directorio /explorar con filtros</td><td><span class="badge badge-green">✅ Listo</span></td></tr>
+        <tr><td>SEO (OG tags, JSON-LD, sitemap)</td><td><span class="badge badge-green">✅ Listo</span></td></tr>
+        <tr><td>Páginas legales (Términos + Privacidad)</td><td><span class="badge badge-green">✅ Listo</span></td></tr>
+        <tr><td>Notificaciones push / app móvil</td><td><span class="badge badge-gray">Fase 2</span></td></tr>
+        <tr><td>Payout automático al creador</td><td><span class="badge badge-gray">Fase 2</span></td></tr>
+        <tr><td>Analíticas avanzadas (apertura, clicks)</td><td><span class="badge badge-gray">Fase 2</span></td></tr>
+        <tr><td>Programa de referidos</td><td><span class="badge badge-gray">Fase 2</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr />
+
+  <!-- 11. DATOS CLAVE -->
+  <div class="section">
+    <p class="section-label">11 — Datos clave</p>
+    <h2>Números para recordar</h2>
+
+    <div class="stat-grid">
+      <div class="stat-card accent">
+        <div class="label">Ventaja vs Substack</div>
+        <div class="value">~13%</div>
+        <div class="sub">Substack cobra 10% + ~3% Stripe</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Mejora en conversión OAuth</div>
+        <div class="value">+28%</div>
+        <div class="sub">vs email/password (dato real 523M eventos)</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">CTR carrusel LinkedIn</div>
+        <div class="value">0.49%</div>
+        <div class="sub">vs 0.20% video</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Penetración LinkedIn Chile</div>
+        <div class="value">~100%</div>
+        <div class="sub">Mercado laboral formal</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">200 suscritos = vistas YouTube</div>
+        <div class="value">909.000</div>
+        <div class="sub">Para mismo ingreso mensual</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Ventana competitiva Stripe</div>
+        <div class="value">12–18</div>
+        <div class="sub">Meses estimados antes de Chile</div>
+      </div>
+    </div>
+  </div>
+
+  <hr />
+
+  <!-- 12. CONTACTO -->
+  <div class="section">
+    <p class="section-label">12 — Contacto</p>
+    <h2>Equipo y contacto</h2>
+    <table>
+      <tbody>
+        <tr><td><strong>Sitio web</strong></td><td>nebbuler.com</td></tr>
+        <tr><td><strong>Email</strong></td><td>hello@nebbuler.com</td></tr>
+        <tr><td><strong>Notificaciones</strong></td><td>notificaciones@nebbuler.com</td></tr>
+        <tr><td><strong>Founder</strong></td><td>Juan Pablo Monsalvez</td></tr>
+        <tr><td><strong>Repositorio</strong></td><td>github.com/juanpablomonsalvezb-alt/sala</td></tr>
+        <tr><td><strong>Deploy</strong></td><td>Vercel · builder-orbbi</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <footer>
+    <span>nebbuler.com · Documento Maestro · Mayo 2026</span>
+    <span>"Lo que se piensa bien, dura."</span>
+  </footer>
+
+</div>
+</body>
+</html>

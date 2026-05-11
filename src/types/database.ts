@@ -66,6 +66,15 @@ export type Discipline = {
   created_at: string
 }
 
+export type UnsubscribeToken = {
+  id: string
+  token: string
+  subscriber_id: string
+  creator_id: string
+  created_at: string
+  expires_at: string
+}
+
 // ─── Database type para @supabase/ssr ────────────────────────────────────────
 
 type TableDef<Row, Insert = Partial<Row>, Update = Partial<Row>> = {
@@ -103,8 +112,25 @@ export type Database = {
         Omit<Discipline, 'created_at'> & { created_at?: string },
         Partial<Omit<Discipline, 'id'>>
       >
+      sala_unsubscribe_tokens: TableDef<
+        UnsubscribeToken,
+        Omit<UnsubscribeToken, 'id' | 'created_at'> & { id?: string; created_at?: string },
+        Partial<Omit<UnsubscribeToken, 'id'>>
+      >
     }
-    Views: Record<string, never>
+    Views: {
+      sala_subscriber_emails: {
+        Row: {
+          subscription_id: string
+          subscriber_id: string
+          creator_id: string
+          status: string
+          price_clp: number
+          email: string
+          full_name: string | null
+        }
+      }
+    }
     Functions: Record<string, never>
     Enums: {
       sala_creator_plan: 'free' | 'creator' | 'pro'

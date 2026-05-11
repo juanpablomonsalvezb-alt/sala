@@ -44,11 +44,11 @@ async function getCreatorForUser(userId: string) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { data, error } = await (supabase as any)
     .from('sala_creators')
-    .select('id, name, slug, publication_name')
+    .select('id, name, slug, publication_name, price_clp')
     .eq('user_id', userId)
     .maybeSingle()
   if (error) return null
-  return data as Pick<Creator, 'id' | 'name' | 'slug' | 'publication_name'> | null
+  return data as Pick<Creator, 'id' | 'name' | 'slug' | 'publication_name' | 'price_clp'> | null
 }
 
 export async function createPost(input: CreatePostInput): Promise<PostResult> {
@@ -103,7 +103,19 @@ export async function createPost(input: CreatePostInput): Promise<PostResult> {
       postExcerpt: excerpt,
       postSlug: uniqueSlug,
       isFree: input.isFree,
+      price_clp: creator.price_clp ?? 14990,
     })
+
+    // Notificar IndexNow (indexación instantánea en Bing/Google) — fire and forget
+    const postUrl = `https://nebbuler.com/${creator.slug}/${uniqueSlug}`
+    fetch(`${process.env.NEXT_PUBLIC_APP_URL ?? 'https://nebbuler.com'}/api/indexnow`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${process.env.SUPABASE_SERVICE_ROLE_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ urls: [postUrl, `https://nebbuler.com/${creator.slug}`] }),
+    }).catch(() => {})
   }
 
   if (input.publish) redirect('/dashboard')
@@ -176,7 +188,19 @@ export async function updatePost(input: UpdatePostInput): Promise<PostResult> {
       postExcerpt: excerpt,
       postSlug: existing.slug,
       isFree: input.isFree,
+      price_clp: creator.price_clp ?? 14990,
     })
+
+    // Notificar IndexNow — fire and forget
+    const postUrl = `https://nebbuler.com/${creator.slug}/${existing.slug}`
+    fetch(`${process.env.NEXT_PUBLIC_APP_URL ?? 'https://nebbuler.com'}/api/indexnow`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${process.env.SUPABASE_SERVICE_ROLE_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ urls: [postUrl, `https://nebbuler.com/${creator.slug}`] }),
+    }).catch(() => {})
   }
 
   if (willPublish) redirect('/dashboard')
@@ -248,6 +272,7 @@ async function notifySubscribers(args: {
   postExcerpt: string
   postSlug: string
   isFree: boolean
+  price_clp: number
 }) {
   try {
     const serviceClient = createServiceClient()
@@ -283,6 +308,9 @@ async function notifySubscribers(args: {
       postExcerpt: args.postExcerpt,
       postSlug: args.postSlug,
       isFree: args.isFree,
+      // Campos extendidos para unsubscribe tokens y precios
+      creatorId: args.creatorId,
+      price_clp: args.price_clp,
     })
   } catch (err) {
     console.error('[notifySubscribers] error:', err)

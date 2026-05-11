@@ -1,0 +1,24 @@
+{
+  "name": "nebbuler-forums",
+  "version": "1.0.0",
+  "description": "Forum monitoring and content generation for Nebbuler — community engagement tools",
+  "private": true,
+  "scripts": {
+    "reddit:preview": "ts-node reddit-monitor.ts --preview",
+    "reddit:run": "ts-node reddit-monitor.ts --run",
+    "reddit:daemon": "ts-node reddit-monitor.ts --daemon",
+    "quora:list": "ts-node quora-engine.ts --list-questions",
+    "quora:batch": "ts-node quora-engine.ts --generate-batch",
+    "quora:generate": "ts-node quora-engine.ts --generate",
+    "kit:list": "ts-node content-kit.ts --list",
+    "kit:all": "ts-node content-kit.ts --all"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.95.0"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.0",
+    "typescript": "^5.0.0",
+    "@types/node": "^20.0.0"
+  }
+}

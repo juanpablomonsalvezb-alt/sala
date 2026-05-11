@@ -211,7 +211,7 @@ export default async function DashboardPage() {
         <div className="px-8 py-7 space-y-8">
           {/* ── Metrics row ── */}
           <section>
-            <div className="grid grid-cols-4 gap-px bg-[#DEDEDE] border border-[#DEDEDE]">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-[#DEDEDE] border border-[#DEDEDE]">
               <MetricCard
                 label="Suscriptores activos"
                 value={subscriberCount.toLocaleString('es-CL')}
@@ -237,7 +237,7 @@ export default async function DashboardPage() {
           </section>
 
           {/* ── Two-column lower section ── */}
-          <div className="grid grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Publicaciones recientes */}
             <section className="col-span-2 bg-white border border-[#DEDEDE]">
               <div className="px-6 py-4 border-b border-[#DEDEDE] flex items-center justify-between">

@@ -57,7 +57,7 @@ export default async function IngresosPage() {
         </div>
 
         {/* KPIs */}
-        <div className="grid grid-cols-3 gap-px bg-[#DEDEDE] mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-px bg-[#DEDEDE] mb-8">
           {[
             { label: 'MRR (este mes)', value: formatCLP(mrr), sub: 'Ingresos recurrentes mensuales' },
             { label: 'Suscriptores activos', value: String(totalSubscriptions), sub: 'Pagando hoy' },

@@ -274,7 +274,7 @@ export default function ConfiguracionForm({ creator }: { creator: Creator }) {
           Precio mensual en CLP que cobrarás a tus suscriptores.
         </p>
 
-        <div className="grid grid-cols-3 gap-2.5">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-2.5">
           {PRECIOS.map((p) => (
             <button
               key={p}

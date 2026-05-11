@@ -67,7 +67,7 @@ export default function AnalyticsDashboard({ posts, monthlyData, activeSubs, mrr
       {/* ── KPIs ── */}
       <section>
         <p className="text-[11px] uppercase tracking-[0.15em] text-[#999] font-sans font-bold mb-4">Resumen</p>
-        <div className="grid grid-cols-4 gap-px bg-[#DEDEDE] border border-[#DEDEDE]">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-[#DEDEDE] border border-[#DEDEDE]">
           <StatCard accent label="MRR" value={`$${formatCLP(mrr)}`} sub="CLP este mes" />
           <StatCard label="ARR proyectado" value={`$${formatCLP(arr)}`} sub="Si mantiene suscriptores" />
           <StatCard label="Vistas totales" value={totalViews.toLocaleString('es-CL')} sub={`Promedio ${avgViews} por post`} />

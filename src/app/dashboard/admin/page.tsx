@@ -82,7 +82,7 @@ export default async function AdminPage() {
         {/* ── KPIs principales ── */}
         <section>
           <p className="text-[11px] uppercase tracking-[0.15em] text-[#999] font-sans font-bold mb-4">Plataforma</p>
-          <div className="grid grid-cols-4 gap-px bg-[#DEDEDE] border border-[#DEDEDE]">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-[#DEDEDE] border border-[#DEDEDE]">
             <StatCard label="MRR global" value={`$${formatCLP(globalMRR)}`} sub="CLP · suscripciones activas" accent />
             <StatCard label="Ingresos plataforma" value={`$${formatCLP(platformRevenue)}`} sub={`${activeCreators ?? 0} creadores activos × $29.990`} />
             <StatCard label="Suscripciones activas" value={(totalSubs ?? 0).toLocaleString('es-CL')} sub="Lectores pagando" />
@@ -92,7 +92,7 @@ export default async function AdminPage() {
 
         <section>
           <p className="text-[11px] uppercase tracking-[0.15em] text-[#999] font-sans font-bold mb-4">Usuarios</p>
-          <div className="grid grid-cols-4 gap-px bg-[#DEDEDE] border border-[#DEDEDE]">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-[#DEDEDE] border border-[#DEDEDE]">
             <StatCard label="Creadores totales" value={(totalCreators ?? 0).toLocaleString('es-CL')} sub={`${activeCreators ?? 0} con plan activo`} />
             <StatCard label="Creadores activos" value={(activeCreators ?? 0).toLocaleString('es-CL')} sub="Plan creator o pro" />
             <StatCard label="Lectores registrados" value={(totalReaders ?? 0).toLocaleString('es-CL')} sub="Cuentas de lectores" />

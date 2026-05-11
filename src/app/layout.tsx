@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next"
-import { Libre_Baskerville, Public_Sans } from "next/font/google"
+import { Libre_Baskerville, Public_Sans, Inter, Playfair_Display } from "next/font/google"
 import "./globals.css"
 
 const publicSans = Public_Sans({
@@ -17,6 +17,22 @@ const libreBaskerville = Libre_Baskerville({
   style: ["normal", "italic"],
   display: "swap",
   preload: true,
+})
+
+// Inter y Playfair Display se usan en el dashboard vía style={{fontFamily:'var(--font-inter)...'}}
+// Antes no se cargaban → fallback silencioso a Georgia/sans-serif. Ahora sí cargan.
+const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+})
+
+const playfair = Playfair_Display({
+  variable: "--font-playfair",
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  display: "swap",
 })
 
 export const metadata: Metadata = {
@@ -93,7 +109,7 @@ export default function RootLayout({
   return (
     <html
       lang="es"
-      className={`${publicSans.variable} ${libreBaskerville.variable} h-full`}
+      className={`${publicSans.variable} ${libreBaskerville.variable} ${inter.variable} ${playfair.variable} h-full`}
     >
       <body className="min-h-full flex flex-col bg-white text-[#121212] font-sans antialiased">
         <script

@@ -287,7 +287,7 @@ function SiteNav() {
               className="font-serif text-[20px] font-bold text-[#121212] leading-none"
               style={{ letterSpacing: '-0.01em' }}
             >
-              EBBULER
+              NEBBULER
             </span>
           </Link>
           <Link

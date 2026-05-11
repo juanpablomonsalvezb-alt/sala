@@ -106,7 +106,7 @@ function RegistroInner() {
 
   // Destinos por tipo de usuario — respetan el `next` explícito si viene del paywall
   const creatorDest = safeNext(nextParam, '/abrir')
-  const readerDest = safeNext(nextParam, '/explorar')
+  const readerDest = safeNext(nextParam, '/directorio')
 
   async function handleLinkedIn() {
     setLinkedinLoading(true); setAuthError(null)

@@ -7,12 +7,16 @@ const PROTECTED_PREFIXES = ['/dashboard']
 // Rutas completamente públicas (exactas o con prefijo dinámico)
 const PUBLIC_EXACT = new Set([
   '/',
-  '/explorar',
+  '/directorio',
+  '/explorar', // mantiene para emitir el 308 redirect
   '/entrar',
   '/registro',
   '/precios',
   '/para-creadores',
+  '/demo',
   '/abrir',
+  '/terminos',
+  '/privacidad',
 ])
 
 function isPublicRoute(pathname: string): boolean {

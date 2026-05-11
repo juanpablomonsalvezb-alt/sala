@@ -263,7 +263,7 @@ function Nav({ creatorSlug, creatorName }: { creatorSlug: string; creatorName: s
           <hr className="nyt-rule w-full" />
           <nav className="flex items-center gap-1 text-[12px] font-sans text-[#666666]">
             {[
-              { label: 'Explorar', href: '/explorar' },
+              { label: 'Explorar', href: '/directorio' },
               { label: creatorName, href: `/${creatorSlug}` },
               { label: 'Precios', href: '/precios' },
               { label: 'Entrar', href: '/entrar' },

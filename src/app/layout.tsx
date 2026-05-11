@@ -1,6 +1,6 @@
-import type { Metadata, Viewport } from "next";
-import { Libre_Baskerville, Public_Sans } from "next/font/google";
-import "./globals.css";
+import type { Metadata, Viewport } from "next"
+import { Libre_Baskerville, Public_Sans } from "next/font/google"
+import "./globals.css"
 
 const publicSans = Public_Sans({
   variable: "--font-sans",
@@ -8,7 +8,7 @@ const publicSans = Public_Sans({
   weight: ["300", "400", "500", "600", "700", "800", "900"],
   display: "swap",
   preload: true,
-});
+})
 
 const libreBaskerville = Libre_Baskerville({
   variable: "--font-serif",
@@ -17,20 +17,22 @@ const libreBaskerville = Libre_Baskerville({
   style: ["normal", "italic"],
   display: "swap",
   preload: true,
-});
+})
 
 export const metadata: Metadata = {
   title: {
-    default: "Nebbuler — El conocimiento que antes no se vendía.",
-    template: "%s | Nebbuler",
+    // Title con keywords reales + slogan editorial
+    default: "Nebbuler · Plataforma de newsletters profesionales de pago",
+    template: "%s · Nebbuler",
   },
   description:
-    "Nebbuler es la plataforma donde los profesionales cobran por saber lo que tú necesitas entender.",
+    "Nebbuler es la plataforma donde los profesionales cobran por su conocimiento. Suscripciones mensuales directas, 0% de comisión. Chile y LATAM.",
   metadataBase: new URL("https://nebbuler.com"),
+  alternates: { canonical: "https://nebbuler.com" },
   openGraph: {
-    title: "Nebbuler — El conocimiento que antes no se vendía.",
+    title: "Nebbuler · Plataforma de newsletters profesionales de pago",
     description:
-      "La plataforma donde los profesionales cobran por saber lo que tú necesitas entender.",
+      "Cobra por tu conocimiento. Newsletters profesionales con suscripción mensual directa, 0% comisión.",
     siteName: "Nebbuler",
     locale: "es_CL",
     type: "website",
@@ -41,20 +43,49 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Nebbuler — El conocimiento que antes no se vendía.",
-    description:
-      "La plataforma donde los profesionales cobran por saber lo que tú necesitas entender.",
+    title: "Nebbuler · Newsletters profesionales de pago",
+    description: "Cobra por tu conocimiento. 0% comisión. Chile y LATAM.",
     images: ["/og-default.png"],
   },
   robots: { index: true, follow: true },
-};
+}
 
 export const viewport: Viewport = {
   themeColor: "#FFFFFF",
   colorScheme: "light",
   width: "device-width",
   initialScale: 1,
-};
+}
+
+const ORG_JSONLD = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Nebbuler",
+  url: "https://nebbuler.com",
+  logo: "https://nebbuler.com/nebbuler-logo.png",
+  description: "Plataforma de newsletters profesionales de pago. Suscripciones mensuales directas, 0% comisión.",
+  foundingDate: "2026",
+  areaServed: ["CL", "AR", "BR", "MX", "CO", "PE", "UY"],
+  contactPoint: {
+    "@type": "ContactPoint",
+    contactType: "customer support",
+    email: "hello@nebbuler.com",
+    availableLanguage: ["Spanish"],
+  },
+}
+
+const WEBSITE_JSONLD = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "Nebbuler",
+  url: "https://nebbuler.com",
+  inLanguage: "es",
+  potentialAction: {
+    "@type": "SearchAction",
+    target: "https://nebbuler.com/directorio?q={search_term_string}",
+    "query-input": "required name=search_term_string",
+  },
+}
 
 export default function RootLayout({
   children,
@@ -63,11 +94,18 @@ export default function RootLayout({
     <html
       lang="es"
       className={`${publicSans.variable} ${libreBaskerville.variable} h-full`}
-      suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col bg-white text-[#121212] font-sans antialiased">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(ORG_JSONLD) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(WEBSITE_JSONLD) }}
+        />
         {children}
       </body>
     </html>
-  );
+  )
 }

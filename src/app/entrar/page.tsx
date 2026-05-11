@@ -85,7 +85,7 @@ function EntrarInner() {
   async function handleGoogle() {
     setGoogleLoading(true); setAuthError(null)
     const supabase = createClient()
-    const next = safeNext(nextParam, '/explorar')
+    const next = safeNext(nextParam, '/directorio')
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: { redirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(next)}` },

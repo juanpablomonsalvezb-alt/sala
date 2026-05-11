@@ -50,7 +50,7 @@ export default function NotFound() {
           </Link>
           <span className="text-[#DEDEDE]">·</span>
           <Link
-            href="/explorar"
+            href="/directorio"
             className="hover:underline underline-offset-2 transition-colors duration-150"
           >
             Explorar otras salas →

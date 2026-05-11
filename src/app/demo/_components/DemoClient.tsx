@@ -305,7 +305,7 @@ export default function DemoClient() {
             <p className="font-sans text-[14px] text-[#666]">Configura tu perfil en 15 minutos. Sin código.</p>
           </div>
           <div className="flex items-center gap-3 flex-shrink-0">
-            <Link href="/explorar" className="font-sans text-[13px] font-medium text-[#666] hover:text-[#121212] transition-colors">
+            <Link href="/directorio" className="font-sans text-[13px] font-medium text-[#666] hover:text-[#121212] transition-colors">
               Ver creadores →
             </Link>
             <Link href="/registro" className="bg-[#C41C1C] text-white font-sans text-[13px] font-semibold px-6 py-3 hover:bg-[#a01515] transition-colors">

@@ -72,7 +72,7 @@ export default async function ExitoPage({
         </Link>
 
         <Link
-          href="/explorar"
+          href="/directorio"
           className="font-sans text-[12px] text-[#666666] hover:text-[#121212] transition-colors duration-150"
         >
           Explorar otros creadores

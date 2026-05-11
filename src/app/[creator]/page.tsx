@@ -247,10 +247,15 @@ export async function generateMetadata({
   }
 
   const publicationTitle = creator.publication_name ?? creator.name
+  // Nombre del autor primero — mejor para búsquedas nominales en Google
+  // Description con keyword + diferencial + verbo de acción
+  const seoDescription = creator.bio
+    ? `${creator.specialty} — ${creator.bio.slice(0, 130)}… Suscríbete por $${creator.price_clp.toLocaleString('es-CL')}/mes en Nebbuler.`
+    : `Suscríbete a ${publicationTitle} por $${creator.price_clp.toLocaleString('es-CL')} CLP/mes en Nebbuler.`
 
   return {
-    title: `${publicationTitle} — ${creator.name}`,
-    description: creator.bio,
+    title: `${creator.name} — ${publicationTitle}`,
+    description: seoDescription,
     alternates: {
       canonical: `https://nebbuler.com/${creator.slug}`,
     },
@@ -698,8 +703,33 @@ export default async function CreatorPage({
   // Perfiles sin plan activo no son públicos
   if (creator.plan === 'free') notFound()
 
+  const profileJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'ProfilePage',
+    mainEntity: {
+      '@type': 'Person',
+      name: creator.name,
+      url: `https://nebbuler.com/${creator.slug}`,
+      jobTitle: creator.specialty,
+      description: creator.bio,
+      ...(creator.linkedin_url ? { sameAs: [creator.linkedin_url] } : {}),
+    },
+    breadcrumb: {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Nebbuler', item: 'https://nebbuler.com' },
+        { '@type': 'ListItem', position: 2, name: 'Directorio', item: 'https://nebbuler.com/directorio' },
+        { '@type': 'ListItem', position: 3, name: creator.name, item: `https://nebbuler.com/${creator.slug}` },
+      ],
+    },
+  }
+
   return (
     <main className="min-h-screen bg-white pb-16">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(profileJsonLd) }}
+      />
       <SiteNav />
       <HeroSection creator={creator} isSubscribed={isSubscribed} />
       <ArticlesSection posts={posts} creator={creator} isSubscribed={isSubscribed} />

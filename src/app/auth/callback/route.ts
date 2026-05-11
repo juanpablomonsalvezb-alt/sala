@@ -42,7 +42,7 @@ export async function GET(request: Request) {
       }
 
       // Google / email → lector
-      return NextResponse.redirect(new URL('/explorar', origin))
+      return NextResponse.redirect(new URL('/directorio', origin))
     }
   }
 

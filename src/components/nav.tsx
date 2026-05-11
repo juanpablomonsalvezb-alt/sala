@@ -22,7 +22,7 @@ export default function Nav() {
           <div className="h-px w-full bg-[#DEDEDE]" />
           <nav className="flex items-center gap-1 text-[12px] font-sans text-[#666666]">
             {[
-              { label: "Explorar", href: "/explorar" },
+              { label: "Explorar", href: "/directorio" },
               { label: "Para creadores", href: "/para-creadores" },
               { label: "Precios", href: "/precios" },
               { label: "Entrar", href: "/entrar" },

@@ -79,7 +79,7 @@ export default function Home() {
           {/* Nav links */}
           <nav className="hidden md:flex items-center gap-0 flex-1 pl-0">
             {[
-              { label: "Explorar",        href: "/explorar" },
+              { label: "Explorar",        href: "/directorio" },
               { label: "Demo",            href: "/demo" },
               { label: "Para creadores",  href: "/para-creadores" },
               { label: "Precios",         href: "/precios" },

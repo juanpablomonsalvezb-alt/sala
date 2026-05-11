@@ -214,13 +214,20 @@ export async function generateMetadata({
     }
   }
 
-  if (!post && creatorSlug === MOCK_CREATOR.slug) {
-    post = { ...MOCK_POST, slug: postSlug }
-    creator = MOCK_CREATOR
+  // Fallback estático — usa creators.ts para generar metadata cuando Supabase no encuentra el post
+  if (!post) {
+    const staticResult = findStaticPost(creatorSlug, postSlug)
+    if (staticResult) {
+      post = staticResult.post
+      creator = staticResult.creator
+    } else if (creatorSlug === MOCK_CREATOR.slug) {
+      post = { ...MOCK_POST, slug: postSlug }
+      creator = MOCK_CREATOR
+    }
   }
 
   if (!post || !creator) {
-    return { title: 'Artículo no encontrado — Nebbuler' }
+    return { title: 'Artículo no encontrado' }
   }
 
   return {

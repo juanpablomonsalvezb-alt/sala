@@ -1,18 +1,60 @@
 import type { MetadataRoute } from 'next'
 import { createClient } from '@/lib/supabase/server'
+import { creators as staticCreators } from '@/data/creators'
 
-export const revalidate = 3600 // refresca cada hora
+export const revalidate = 3600
 
 const BASE = 'https://nebbuler.com'
 
+const MONTH_MAP: Record<string, string> = {
+  enero: '01', febrero: '02', marzo: '03', abril: '04',
+  mayo: '05', junio: '06', julio: '07', agosto: '08',
+  septiembre: '09', octubre: '10', noviembre: '11', diciembre: '12',
+}
+
+function slugify(text: string): string {
+  return text
+    .toLowerCase()
+    .normalize('NFD').replace(/[̀-ͯ]/g, '')
+    .replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 60)
+}
+
+// Fallback: usa los static creators de creators.ts cuando Supabase no devuelve perfiles
+function getStaticSitemapEntries(): MetadataRoute.Sitemap {
+  const entries: MetadataRoute.Sitemap = []
+
+  for (const c of staticCreators) {
+    const [mes, anio] = c.since.toLowerCase().split(' ')
+    const baseDate = new Date(`${anio}-${MONTH_MAP[mes] ?? '01'}-01T00:00:00Z`)
+
+    entries.push({
+      url: `${BASE}/${c.slug}`,
+      lastModified: baseDate,
+      changeFrequency: 'weekly' as const,
+      priority: 0.8,
+    })
+
+    c.articles.forEach((title, i) => {
+      const pub = new Date(baseDate)
+      pub.setDate(pub.getDate() + i * 14 + 7)
+      entries.push({
+        url: `${BASE}/${c.slug}/${slugify(title)}`,
+        lastModified: pub,
+        changeFrequency: 'monthly' as const,
+        priority: 0.7,
+      })
+    })
+  }
+
+  return entries
+}
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  let creatorUrls: MetadataRoute.Sitemap = []
-  let postUrls: MetadataRoute.Sitemap = []
+  let dbEntries: MetadataRoute.Sitemap = []
 
   try {
     const supabase = await createClient()
 
-    // Una sola query con join — antes eran 3
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const { data: posts } = await (supabase as any)
       .from('sala_posts')
@@ -25,14 +67,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       .select('slug, created_at')
       .in('plan', ['creator', 'pro'])
 
-    creatorUrls = (creators ?? []).map((c: { slug: string; created_at: string }) => ({
+    dbEntries = (creators ?? []).map((c: { slug: string; created_at: string }) => ({
       url: `${BASE}/${c.slug}`,
       lastModified: new Date(c.created_at),
       changeFrequency: 'weekly' as const,
       priority: 0.8,
     }))
 
-    postUrls = (posts ?? [])
+    const dbPosts = (posts ?? [])
       .filter((p: { slug: string; sala_creators: { plan: string } }) =>
         p.slug && ['creator', 'pro'].includes(p.sala_creators?.plan)
       )
@@ -42,9 +84,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         changeFrequency: 'monthly' as const,
         priority: 0.7,
       }))
+
+    dbEntries = [...dbEntries, ...dbPosts]
   } catch {
-    // Supabase no configurado en dev — sitemap solo con rutas estáticas
+    // Supabase no responde — usaremos solo static
   }
+
+  // Si Supabase no devolvió perfiles, usamos los static (creators.ts)
+  // De lo contrario priorizamos DB sobre static, pero unimos para que ambos aparezcan
+  const sitemapUrls = new Set(dbEntries.map((e) => e.url))
+  const staticEntries = getStaticSitemapEntries().filter((e) => !sitemapUrls.has(e.url))
 
   return [
     { url: BASE, lastModified: new Date(), changeFrequency: 'daily', priority: 1 },
@@ -54,7 +103,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${BASE}/demo`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.5 },
     { url: `${BASE}/terminos`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.2 },
     { url: `${BASE}/privacidad`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.2 },
-    ...creatorUrls,
-    ...postUrls,
+    ...dbEntries,
+    ...staticEntries,
   ]
 }

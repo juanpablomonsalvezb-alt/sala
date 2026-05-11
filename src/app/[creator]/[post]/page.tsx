@@ -131,7 +131,7 @@ function findStaticPost(
         title,
         excerpt: `Análisis en profundidad por ${found.name}.`,
         content: `## ${title}\n\nEste artículo es parte de la publicación **${PUBLICATION_NAMES[found.slug] ?? found.name}** por ${found.name}.\n\n${found.bio}\n\n---\n\n*Suscríbete para leer el análisis completo y todos los artículos exclusivos.*`,
-        is_free: i === 0,
+        is_free: false,
         published_at: pub.toISOString(),
         created_at: pub.toISOString(),
         read_time_minutes: 6 + i * 2,

@@ -16,6 +16,7 @@ interface FormData {
   pitch: string
   frecuencia: string
   precio: number
+  pais: string
 }
 
 /* ─── Constants ──────────────────────────────────────────────────────────── */
@@ -35,8 +36,29 @@ const FRECUENCIAS = [
   { value: 'mensual', label: 'Mensual' },
 ]
 
-const PRECIOS = [4990, 7990, 9990, 14990, 19990]
+const PAISES: Record<string, {
+  nombre: string
+  bandera: string
+  moneda: string
+  simbolo: string
+  precios: number[]
+}> = {
+  CL: { nombre: 'Chile',     bandera: '🇨🇱', moneda: 'CLP', simbolo: '$',  precios: [4990, 7990, 9990, 14990, 19990] },
+  AR: { nombre: 'Argentina', bandera: '🇦🇷', moneda: 'ARS', simbolo: '$',  precios: [3000, 5000, 7000, 10000, 15000] },
+  BR: { nombre: 'Brasil',    bandera: '🇧🇷', moneda: 'BRL', simbolo: 'R$', precios: [15, 25, 39, 59, 79] },
+  MX: { nombre: 'México',    bandera: '🇲🇽', moneda: 'MXN', simbolo: '$',  precios: [60, 99, 149, 199, 299] },
+  CO: { nombre: 'Colombia',  bandera: '🇨🇴', moneda: 'COP', simbolo: '$',  precios: [12000, 20000, 30000, 45000, 59000] },
+  PE: { nombre: 'Perú',      bandera: '🇵🇪', moneda: 'PEN', simbolo: 'S/', precios: [12, 20, 30, 45, 59] },
+  UY: { nombre: 'Uruguay',   bandera: '🇺🇾', moneda: 'UYU', simbolo: '$',  precios: [150, 250, 390, 590, 750] },
+}
 
+function formatPrecio(n: number, pais: string) {
+  const p = PAISES[pais]
+  if (!p) return n.toLocaleString('es-CL')
+  return n.toLocaleString('es-CL')
+}
+
+// Legacy — mantener para compatibilidad interna
 function formatCLP(n: number) {
   return n.toLocaleString('es-CL')
 }
@@ -348,43 +370,76 @@ function Step3({
   data: FormData
   setData: (d: Partial<FormData>) => void
 }) {
+  const paisActual = PAISES[data.pais] ?? PAISES.CL
+
+  function handlePaisChange(codigo: string) {
+    const nuevoPais = PAISES[codigo]
+    if (!nuevoPais) return
+    setData({ pais: codigo, precio: nuevoPais.precios[2] })
+  }
+
   return (
     <div className="flex flex-col gap-6">
-      <p className="font-sans text-sm text-[#6B7280]">
-        Elige el precio mensual que cobrarás a tus suscriptores. Siempre puedes cambiarlo
-        después.
-      </p>
 
-      <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3">
-        {PRECIOS.map((p) => (
-          <button
-            key={p}
-            type="button"
-            onClick={() => setData({ precio: p })}
-            className={`flex flex-col items-center justify-center rounded-lg border px-4 py-4 transition-all duration-150 ${
-              data.precio === p
-                ? 'border-[#0066FF] bg-[#EEF4FF]'
-                : 'border-[#E5E7EB] bg-white hover:border-[#0066FF]/40'
-            }`}
-          >
-            <span
-              className={`font-sans text-xl font-bold ${
-                data.precio === p ? 'text-[#0066FF]' : 'text-[#0A0A0A]'
+      {/* Selector de país */}
+      <div className="flex flex-col gap-2">
+        <label className="font-sans text-xs font-semibold uppercase tracking-wider text-[#6B7280]">
+          ¿Desde qué país publicas?
+        </label>
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+          {Object.entries(PAISES).map(([codigo, info]) => (
+            <button
+              key={codigo}
+              type="button"
+              onClick={() => handlePaisChange(codigo)}
+              className={`flex items-center gap-2 border px-3 py-2.5 text-left transition-all duration-150 ${
+                data.pais === codigo
+                  ? 'border-[#C41C1C] bg-[#FFF0F0]'
+                  : 'border-[#E5E7EB] bg-white hover:border-[#C41C1C]/40'
               }`}
             >
-              ${formatCLP(p)}
-            </span>
-            <span className="mt-0.5 font-sans text-xs text-[#6B7280]">CLP/mes</span>
-          </button>
-        ))}
+              <span className="text-lg">{info.bandera}</span>
+              <span className={`font-sans text-[13px] font-medium ${data.pais === codigo ? 'text-[#C41C1C]' : 'text-[#0A0A0A]'}`}>
+                {info.nombre}
+              </span>
+            </button>
+          ))}
+        </div>
       </div>
 
+      {/* Precios por país */}
+      <div className="flex flex-col gap-2">
+        <p className="font-sans text-sm text-[#6B7280]">
+          Elige el precio mensual en <strong>{paisActual.moneda}</strong>. Siempre puedes cambiarlo después.
+        </p>
+        <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3">
+          {paisActual.precios.map((p) => (
+            <button
+              key={p}
+              type="button"
+              onClick={() => setData({ precio: p })}
+              className={`flex flex-col items-center justify-center border px-4 py-4 transition-all duration-150 ${
+                data.precio === p
+                  ? 'border-[#C41C1C] bg-[#FFF0F0]'
+                  : 'border-[#E5E7EB] bg-white hover:border-[#C41C1C]/40'
+              }`}
+            >
+              <span className={`font-sans text-xl font-bold ${data.precio === p ? 'text-[#C41C1C]' : 'text-[#0A0A0A]'}`}>
+                {paisActual.simbolo}{formatPrecio(p, data.pais)}
+              </span>
+              <span className="mt-0.5 font-sans text-xs text-[#6B7280]">{paisActual.moneda}/mes</span>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Proyección de ingresos */}
       {data.precio > 0 && (
         <motion.div
           initial={{ opacity: 0, y: 6 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.25 }}
-          className="rounded-lg border border-[#E5E7EB] bg-[#F8F8F8] p-5"
+          className="border border-[#E5E7EB] bg-[#F8F8F8] p-5"
         >
           <p className="mb-3 font-sans text-xs font-semibold uppercase tracking-wider text-[#6B7280]">
             Tu ingreso proyectado
@@ -392,27 +447,23 @@ function Step3({
           <div className="flex flex-col gap-2">
             {[50, 100, 200, 500].map((subs) => (
               <div key={subs} className="flex items-center justify-between">
-                <span className="font-sans text-sm text-[#6B7280]">
-                  Con {subs} suscriptores
-                </span>
+                <span className="font-sans text-sm text-[#6B7280]">Con {subs} suscriptores</span>
                 <span className="font-sans text-sm font-semibold text-[#0A0A0A]">
-                  ${formatCLP(data.precio * subs)} CLP/mes
+                  {paisActual.simbolo}{formatCLP(data.precio * subs)} {paisActual.moneda}/mes
                 </span>
               </div>
             ))}
           </div>
           <div className="mt-3 border-t border-[#E5E7EB] pt-3">
-            <p className="font-sans text-xs text-[#6B7280]/60">
-              * Estimado con Plan Pro (0% comisión).
-            </p>
+            <p className="font-sans text-xs text-[#6B7280]/60">0% de comisión — el ingreso es tuyo.</p>
           </div>
         </motion.div>
       )}
 
-      <div className="rounded-lg border border-[#0066FF]/20 bg-[#EEF4FF] p-4">
-        <p className="font-sans text-sm text-[#0066FF]">
-          Con 100 suscriptores a ${formatCLP(data.precio)}/mes →{' '}
-          <strong>${formatCLP(data.precio * 100)} CLP</strong> para ti.
+      <div className="border border-[#C41C1C]/20 bg-[#FFF0F0] p-4">
+        <p className="font-sans text-sm text-[#C41C1C]">
+          Con 100 suscriptores a {paisActual.simbolo}{formatCLP(data.precio)}/mes →{' '}
+          <strong>{paisActual.simbolo}{formatCLP(data.precio * 100)} {paisActual.moneda}</strong> para ti.
         </p>
       </div>
     </div>
@@ -430,6 +481,7 @@ const INITIAL: FormData = {
   pitch: '',
   frecuencia: '',
   precio: 9990,
+  pais: 'CL',
 }
 
 const slideVariants = {
@@ -503,6 +555,7 @@ export default function AbrirPage() {
       formData.append('pitch', form.pitch)
       formData.append('frecuencia', form.frecuencia)
       formData.append('precio', String(form.precio))
+      formData.append('pais', form.pais)
 
       const result = await createCreatorProfile(formData)
 

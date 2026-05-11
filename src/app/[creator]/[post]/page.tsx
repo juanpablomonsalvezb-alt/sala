@@ -462,26 +462,28 @@ export default async function PostPage({
         }
       }
     } catch (err) {
-      console.error('[post page] supabase error:', err)
-      // Sigue el fallback abajo
+      console.error('[post page] supabase error:', err instanceof Error ? err.message : err)
     }
   }
 
-  // Fallback estático — si Supabase no encontró creator o post, intenta con creators.ts
+  // Fallback estático
   if (!creator || !post) {
+    console.log(`[post page] fallback static — creatorSlug=${creatorSlug} postSlug=${postSlug} hasCreator=${!!creator} hasPost=${!!post}`)
     const staticResult = findStaticPost(creatorSlug, postSlug)
     if (staticResult) {
       creator = staticResult.creator
-      // Si Supabase falló por completo, fuerza paywall (is_free: false)
-      // Si Supabase respondió pero no encontró el post, también
       post = { ...staticResult.post, is_free: false }
+      console.log(`[post page] static found — post.id=${post.id}`)
     } else if (creatorSlug === MOCK_CREATOR.slug) {
       post = { ...MOCK_POST, slug: postSlug, is_free: false }
       creator = MOCK_CREATOR
     }
   }
 
-  if (!creator || !post) notFound()
+  if (!creator || !post) {
+    console.log(`[post page] notFound — creator=${!!creator} post=${!!post}`)
+    notFound()
+  }
 
   const readTime = post.read_time_minutes > 0
     ? post.read_time_minutes

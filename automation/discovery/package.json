@@ -1,0 +1,21 @@
+{
+  "name": "nebbuler-discovery",
+  "version": "1.0.0",
+  "description": "Creator Discovery Pipeline para Nebbuler — encuentra profesionales chilenos y latinoamericanos en páginas públicas institucionales.",
+  "scripts": {
+    "discover:all": "ts-node discover-creators.ts --all --export both",
+    "discover:economia": "ts-node discover-creators.ts --source uc-economia --export csv",
+    "discover:cep": "ts-node discover-creators.ts --source cep --export csv",
+    "discover:libertad": "ts-node discover-creators.ts --source libertad-desarrollo --export csv",
+    "discover:clapes": "ts-node discover-creators.ts --source clapes-uc --export csv"
+  },
+  "dependencies": {
+    "playwright": "^1.40.0",
+    "@supabase/supabase-js": "^2.0.0"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.0",
+    "typescript": "^5.0.0",
+    "@types/node": "^20.0.0"
+  }
+}

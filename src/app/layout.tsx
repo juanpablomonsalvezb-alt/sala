@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next"
 import { Libre_Baskerville, Public_Sans, Inter, Playfair_Display } from "next/font/google"
+import { Analytics } from "@vercel/analytics/next"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import "./globals.css"
 
 const publicSans = Public_Sans({
@@ -121,6 +123,8 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(WEBSITE_JSONLD) }}
         />
         {children}
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   )

@@ -6,7 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 
 const TARIFA_NEBBULER = 29990;
 
-const PRECIOS_RAPIDOS: number[] = [7990, 14990, 24990];
+const PRECIOS_RAPIDOS: number[] = [4990, 7990, 14990, 24990];
 
 function formatCLP(n: number): string {
   return n.toLocaleString("es-CL");

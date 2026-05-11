@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
 import type { Creator, Post } from '@/types/database'
 import PaywallGate from '@/components/paywall-gate'
+import { PostViewTracker } from '@/components/post-view-tracker'
 import { ShareBar } from '@/components/share-bar'
 import { creators as staticCreators } from '@/data/creators'
 
@@ -522,6 +523,7 @@ export default async function PostPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+      <PostViewTracker postId={post.id} />
       <Nav creatorSlug={creator.slug} creatorName={creator.name} />
 
       <main className="px-6 py-10">

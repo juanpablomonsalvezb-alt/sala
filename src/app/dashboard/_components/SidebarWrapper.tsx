@@ -5,10 +5,11 @@ import { usePathname } from 'next/navigation'
 import type { Creator } from '@/types/database'
 
 const NAV_ITEMS = [
-  { icon: '◆', label: 'Inicio', href: '/dashboard' },
+  { icon: '◆', label: 'Inicio',        href: '/dashboard' },
   { icon: '✦', label: 'Publicaciones', href: '/dashboard/publicaciones' },
-  { icon: '◉', label: 'Suscriptores', href: '/dashboard/suscriptores' },
-  { icon: '$', label: 'Ingresos', href: '/dashboard/ingresos' },
+  { icon: '◉', label: 'Suscriptores',  href: '/dashboard/suscriptores' },
+  { icon: '$', label: 'Ingresos',      href: '/dashboard/ingresos' },
+  { icon: '▲', label: 'Analíticas',    href: '/dashboard/analiticas' },
   { icon: '⚙', label: 'Configuración', href: '/dashboard/configuracion' },
 ]
 

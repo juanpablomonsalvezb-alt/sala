@@ -10,6 +10,26 @@ import { useState, useCallback, useEffect, useRef } from 'react'
 import { useUploadThing } from '@/lib/uploadthing'
 import { AudioPlayer, PdfEmbed, FileAttachment } from '@/lib/tiptap-extensions'
 
+// ─── Límites de archivo ───────────────────────────────────────────────────────
+
+const UPLOAD_LIMITS = {
+  image:    8  * 1024 * 1024,   // 8 MB
+  pdf:      32 * 1024 * 1024,   // 32 MB
+  audio:    64 * 1024 * 1024,   // 64 MB
+  document: 16 * 1024 * 1024,   // 16 MB
+} as const
+
+const UPLOAD_HINTS = {
+  image:    'hasta 8 MB — aprox. 3 fotos de celular',
+  pdf:      'hasta 32 MB — aprox. 90 páginas',
+  audio:    'hasta 64 MB — aprox. 60 min en MP3',
+  document: 'hasta 16 MB — modelos Excel, Word, PPT',
+} as const
+
+function formatMB(bytes: number) {
+  return `${(bytes / 1024 / 1024).toFixed(1)} MB`
+}
+
 // ─── Types ────────────────────────────────────────────────────────────────────
 
 type NebbulerEditorProps = {
@@ -253,11 +273,54 @@ const blockItemStyle: React.CSSProperties = {
   transition: 'background 0.1s',
 }
 
+// ─── BlockMenuItem con hint contextual ───────────────────────────────────────
+
+function BlockMenuItem({
+  icon,
+  label,
+  hint,
+  onMouseDown,
+}: {
+  icon: React.ReactNode
+  label: string
+  hint: string
+  onMouseDown: (e: React.MouseEvent<HTMLButtonElement>) => void
+}) {
+  return (
+    <button
+      onMouseDown={onMouseDown}
+      style={{
+        display: 'flex',
+        alignItems: 'flex-start',
+        gap: '8px',
+        padding: '7px 12px',
+        background: 'none',
+        border: 'none',
+        cursor: 'pointer',
+        width: '100%',
+        textAlign: 'left',
+        fontFamily: 'var(--font-sans, sans-serif)',
+        transition: 'background 0.1s',
+      }}
+      onMouseEnter={(e) => ((e.currentTarget as HTMLButtonElement).style.background = '#F7F7F7')}
+      onMouseLeave={(e) => ((e.currentTarget as HTMLButtonElement).style.background = 'none')}
+    >
+      <span style={{ marginTop: '2px', flexShrink: 0, color: '#444' }}>{icon}</span>
+      <span style={{ display: 'flex', flexDirection: 'column', gap: '1px' }}>
+        <span style={{ fontSize: '13px', color: '#121212', fontWeight: 500 }}>{label}</span>
+        <span style={{ fontSize: '10px', color: '#999', lineHeight: 1.3 }}>{hint}</span>
+      </span>
+    </button>
+  )
+}
+
 // ─── Hook upload handlers ─────────────────────────────────────────────────────
 
 function useFileUpload(
   endpoint: 'imageUploader' | 'pdfUploader' | 'audioUploader' | 'documentUploader',
-  onComplete: (url: string, name: string) => void
+  limitKey: keyof typeof UPLOAD_LIMITS,
+  onComplete: (url: string, name: string) => void,
+  onError: (msg: string) => void,
 ) {
   const [uploading, setUploading] = useState(false)
 
@@ -268,7 +331,10 @@ function useFileUpload(
         onComplete(res[0].url, res[0].name)
       }
     },
-    onUploadError: () => setUploading(false),
+    onUploadError: (err) => {
+      setUploading(false)
+      onError(`Error al subir: ${err.message}`)
+    },
   })
 
   const triggerUpload = useCallback(
@@ -279,12 +345,21 @@ function useFileUpload(
       input.onchange = async (e) => {
         const file = (e.target as HTMLInputElement).files?.[0]
         if (!file) return
+
+        const limit = UPLOAD_LIMITS[limitKey]
+        if (file.size > limit) {
+          onError(
+            `"${file.name}" pesa ${formatMB(file.size)} — el límite es ${formatMB(limit)}. Reduce el tamaño e intenta de nuevo.`
+          )
+          return
+        }
+
         setUploading(true)
         await startUpload([file])
       }
       input.click()
     },
-    [startUpload]
+    [startUpload, limitKey, onError]
   )
 
   return { uploading, triggerUpload }
@@ -300,6 +375,13 @@ export default function NebbulerEditor({
   const wrapRef = useRef<HTMLDivElement>(null)
   const blockMenuRef = useRef<HTMLDivElement>(null)
   const [blockMenuOpen, setBlockMenuOpen] = useState(false)
+  const [uploadError, setUploadError] = useState('')
+
+  const handleUploadError = useCallback((msg: string) => {
+    setUploadError(msg)
+    setBlockMenuOpen(false)
+    setTimeout(() => setUploadError(''), 6000)
+  }, [])
 
   const editor = useEditor({
     extensions: [
@@ -334,48 +416,37 @@ export default function NebbulerEditor({
 
   // Upload handlers
   const { uploading: uploadingImage, triggerUpload: triggerImageUpload } = useFileUpload(
-    'imageUploader',
-    (url) => {
-      editor?.chain().focus().setImage({ src: url }).run()
-      setBlockMenuOpen(false)
-    }
+    'imageUploader', 'image',
+    (url) => { editor?.chain().focus().setImage({ src: url }).run(); setBlockMenuOpen(false) },
+    handleUploadError,
   )
 
   const { uploading: uploadingPdf, triggerUpload: triggerPdfUpload } = useFileUpload(
-    'pdfUploader',
+    'pdfUploader', 'pdf',
     (url, name) => {
-      editor
-        ?.chain()
-        .focus()
-        .insertContent({ type: 'pdfEmbed', attrs: { src: url, name } })
-        .run()
+      editor?.chain().focus().insertContent({ type: 'pdfEmbed', attrs: { src: url, name } }).run()
       setBlockMenuOpen(false)
-    }
+    },
+    handleUploadError,
   )
 
   const { uploading: uploadingAudio, triggerUpload: triggerAudioUpload } = useFileUpload(
-    'audioUploader',
+    'audioUploader', 'audio',
     (url, name) => {
-      editor
-        ?.chain()
-        .focus()
-        .insertContent({ type: 'audioPlayer', attrs: { src: url, title: name } })
-        .run()
+      editor?.chain().focus().insertContent({ type: 'audioPlayer', attrs: { src: url, title: name } }).run()
       setBlockMenuOpen(false)
-    }
+    },
+    handleUploadError,
   )
 
   const { uploading: uploadingDoc, triggerUpload: triggerDocUpload } = useFileUpload(
-    'documentUploader',
+    'documentUploader', 'document',
     (url, name) => {
       const ext = name.split('.').pop()?.toLowerCase() ?? 'file'
-      editor
-        ?.chain()
-        .focus()
-        .insertContent({ type: 'fileAttachment', attrs: { src: url, name, type: ext } })
-        .run()
+      editor?.chain().focus().insertContent({ type: 'fileAttachment', attrs: { src: url, name, type: ext } }).run()
       setBlockMenuOpen(false)
-    }
+    },
+    handleUploadError,
   )
 
   const isUploading = uploadingImage || uploadingPdf || uploadingAudio || uploadingDoc
@@ -425,14 +496,14 @@ export default function NebbulerEditor({
   return (
     <div ref={wrapRef} style={{ position: 'relative' }}>
 
-      {/* ── Indicador de carga ── */}
-      {isUploading && (
+      {/* ── Indicador de carga / error ── */}
+      {(isUploading || uploadError) && (
         <div
           style={{
             position: 'fixed',
             bottom: '24px',
             right: '24px',
-            background: '#121212',
+            background: uploadError ? '#C41C1C' : '#121212',
             color: '#fff',
             padding: '10px 16px',
             fontSize: '13px',
@@ -441,10 +512,22 @@ export default function NebbulerEditor({
             display: 'flex',
             alignItems: 'center',
             gap: '8px',
+            maxWidth: '360px',
+            lineHeight: 1.4,
           }}
         >
-          <span style={{ display: 'inline-block', width: '12px', height: '12px', borderRadius: '50%', border: '2px solid #fff', borderTopColor: 'transparent', animation: 'spin 0.7s linear infinite' }} />
-          Subiendo archivo…
+          {isUploading && (
+            <span style={{ display: 'inline-block', width: '12px', height: '12px', flexShrink: 0, borderRadius: '50%', border: '2px solid #fff', borderTopColor: 'transparent', animation: 'spin 0.7s linear infinite' }} />
+          )}
+          {uploadError ? uploadError : 'Subiendo archivo…'}
+          {uploadError && (
+            <button
+              onClick={() => setUploadError('')}
+              style={{ background: 'none', border: 'none', color: '#fff', cursor: 'pointer', fontSize: '16px', lineHeight: 1, marginLeft: '4px', flexShrink: 0 }}
+            >
+              ×
+            </button>
+          )}
         </div>
       )}
 
@@ -562,76 +645,28 @@ export default function NebbulerEditor({
                 border: '1px solid #DEDEDE',
                 boxShadow: '0 4px 16px rgba(0,0,0,0.08)',
                 zIndex: 50,
-                minWidth: '196px',
+                minWidth: '240px',
               }}
             >
-              {/* Imágenes */}
+              {/* Multimedia */}
               <div style={{ padding: '6px 12px 2px', fontSize: '10px', color: '#999', textTransform: 'uppercase', letterSpacing: '0.1em', fontFamily: 'var(--font-sans)' }}>
                 Multimedia
               </div>
-              <button
-                onMouseDown={(e) => { e.preventDefault(); triggerImageUpload('image/*') }}
-                style={blockItemStyle}
-                onMouseEnter={(e) => ((e.currentTarget as HTMLButtonElement).style.background = '#F7F7F7')}
-                onMouseLeave={(e) => ((e.currentTarget as HTMLButtonElement).style.background = 'none')}
-              >
-                <IconImage />
-                <span>Subir imagen</span>
-              </button>
-              <button
-                onMouseDown={(e) => { e.preventDefault(); insertYoutube() }}
-                style={blockItemStyle}
-                onMouseEnter={(e) => ((e.currentTarget as HTMLButtonElement).style.background = '#F7F7F7')}
-                onMouseLeave={(e) => ((e.currentTarget as HTMLButtonElement).style.background = 'none')}
-              >
-                <IconYoutube />
-                <span>YouTube / Vimeo</span>
-              </button>
-              <button
-                onMouseDown={(e) => { e.preventDefault(); triggerAudioUpload('audio/mp3,audio/wav,audio/aac,audio/mpeg,audio/*') }}
-                style={blockItemStyle}
-                onMouseEnter={(e) => ((e.currentTarget as HTMLButtonElement).style.background = '#F7F7F7')}
-                onMouseLeave={(e) => ((e.currentTarget as HTMLButtonElement).style.background = 'none')}
-              >
-                <IconAudio />
-                <span>Audio / Podcast</span>
-              </button>
+              <BlockMenuItem icon={<IconImage />} label="Imagen" hint={UPLOAD_HINTS.image} onMouseDown={(e) => { e.preventDefault(); triggerImageUpload('image/*') }} />
+              <BlockMenuItem icon={<IconYoutube />} label="YouTube / Vimeo" hint="pega la URL del video" onMouseDown={(e) => { e.preventDefault(); insertYoutube() }} />
+              <BlockMenuItem icon={<IconAudio />} label="Audio / Podcast" hint={UPLOAD_HINTS.audio} onMouseDown={(e) => { e.preventDefault(); triggerAudioUpload('audio/mp3,audio/wav,audio/aac,audio/mpeg,audio/*') }} />
 
               {/* Documentos */}
               <div style={{ height: '1px', background: '#DEDEDE', margin: '4px 0' }} />
               <div style={{ padding: '6px 12px 2px', fontSize: '10px', color: '#999', textTransform: 'uppercase', letterSpacing: '0.1em', fontFamily: 'var(--font-sans)' }}>
                 Documentos
               </div>
-              <button
-                onMouseDown={(e) => { e.preventDefault(); triggerPdfUpload('application/pdf') }}
-                style={blockItemStyle}
-                onMouseEnter={(e) => ((e.currentTarget as HTMLButtonElement).style.background = '#F7F7F7')}
-                onMouseLeave={(e) => ((e.currentTarget as HTMLButtonElement).style.background = 'none')}
-              >
-                <IconPdf />
-                <span>PDF</span>
-              </button>
-              <button
-                onMouseDown={(e) => { e.preventDefault(); triggerDocUpload('.xlsx,.xls,.docx,.doc,.pptx,.ppt,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel') }}
-                style={blockItemStyle}
-                onMouseEnter={(e) => ((e.currentTarget as HTMLButtonElement).style.background = '#F7F7F7')}
-                onMouseLeave={(e) => ((e.currentTarget as HTMLButtonElement).style.background = 'none')}
-              >
-                <IconFile />
-                <span>Excel / Word / PPT</span>
-              </button>
+              <BlockMenuItem icon={<IconPdf />} label="PDF" hint={UPLOAD_HINTS.pdf} onMouseDown={(e) => { e.preventDefault(); triggerPdfUpload('application/pdf') }} />
+              <BlockMenuItem icon={<IconFile />} label="Excel / Word / PPT" hint={UPLOAD_HINTS.document} onMouseDown={(e) => { e.preventDefault(); triggerDocUpload('.xlsx,.xls,.docx,.doc,.pptx,.ppt,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel') }} />
 
               {/* Formato */}
               <div style={{ height: '1px', background: '#DEDEDE', margin: '4px 0' }} />
-              <button
-                onMouseDown={(e) => { e.preventDefault(); insertHorizontalRule() }}
-                style={blockItemStyle}
-                onMouseEnter={(e) => ((e.currentTarget as HTMLButtonElement).style.background = '#F7F7F7')}
-                onMouseLeave={(e) => ((e.currentTarget as HTMLButtonElement).style.background = 'none')}
-              >
-                <IconSeparator />
-                <span>Separador</span>
-              </button>
+              <BlockMenuItem icon={<IconSeparator />} label="Separador" hint="línea divisoria" onMouseDown={(e) => { e.preventDefault(); insertHorizontalRule() }} />
             </div>
           )}
         </div>

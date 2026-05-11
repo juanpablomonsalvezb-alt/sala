@@ -77,11 +77,19 @@ export type UnsubscribeToken = {
 
 // ─── Database type para @supabase/ssr ────────────────────────────────────────
 
+type Relationship = {
+  foreignKeyName: string
+  columns: string[]
+  isOneToOne: boolean
+  referencedRelation: string
+  referencedColumns: string[]
+}
+
 type TableDef<Row, Insert = Partial<Row>, Update = Partial<Row>> = {
   Row: Row
   Insert: Insert
   Update: Update
-  Relationships: []
+  Relationships: Relationship[]
 }
 
 export type Database = {

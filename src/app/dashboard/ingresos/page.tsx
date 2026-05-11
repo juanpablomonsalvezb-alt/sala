@@ -21,18 +21,20 @@ export default async function IngresosPage() {
     const { data: { user } } = await supabase.auth.getUser()
     if (!user) redirect('/entrar?next=/dashboard/ingresos')
 
-    const { data: creator } = await supabase
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { data: creator } = await (supabase as any)
       .from('sala_creators')
       .select('id, price_clp, subscriber_count')
       .eq('user_id', user.id)
-      .maybeSingle()
+      .maybeSingle() as { data: import('@/types/database').Creator | null }
 
     if (creator) {
-      const { data: subs } = await supabase
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const { data: subs } = await (supabase as any)
         .from('sala_subscriptions')
         .select('price_clp')
         .eq('creator_id', creator.id)
-        .eq('status', 'active')
+        .eq('status', 'active') as { data: Array<{ price_clp: number }> | null }
 
       totalSubscriptions = subs?.length ?? 0
       mrr = subs?.reduce((acc, s) => acc + s.price_clp, 0) ?? 0

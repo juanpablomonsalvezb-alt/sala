@@ -62,7 +62,8 @@ export async function createCreatorProfile(
   }
 
   // Garantizar que existe el sala_profile (el trigger puede no haber corrido)
-  await supabase.from('sala_profiles').upsert(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  await (supabase.from('sala_profiles') as any).upsert(
     {
       id: user.id,
       email: user.email!,
@@ -100,7 +101,8 @@ export async function createCreatorProfile(
     slug = `${slug}-${Math.random().toString(36).slice(2, 6)}`
   }
 
-  const { error: insertError } = await supabase.from('sala_creators').insert({
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { error: insertError } = await (supabase.from('sala_creators') as any).insert({
     user_id: user.id,
     name: nombre,
     slug,
@@ -128,7 +130,8 @@ export async function createCreatorProfile(
   }
 
   // Actualizar el perfil marcándolo como creador
-  await supabase.from('sala_profiles').update({ is_creator: true }).eq('id', user.id)
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  await (supabase.from('sala_profiles') as any).update({ is_creator: true }).eq('id', user.id)
 
   redirect('/dashboard')
 }

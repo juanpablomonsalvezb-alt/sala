@@ -645,7 +645,7 @@ export default async function CreatorPage({
         notFound()
       }
 
-      creator = creatorData
+      creator = creatorData as Creator
 
       const {
         data: { user },
@@ -656,7 +656,7 @@ export default async function CreatorPage({
           .from('sala_subscriptions')
           .select('id')
           .eq('subscriber_id', user.id)
-          .eq('creator_id', creator!.id)
+          .eq('creator_id', (creator as Creator).id)
           .eq('status', 'active')
           .maybeSingle()
 

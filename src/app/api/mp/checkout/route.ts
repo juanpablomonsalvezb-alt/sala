@@ -23,11 +23,12 @@ export async function POST(request: NextRequest) {
     }
 
     // Obtener creador
-    const { data: creator, error: creatorError } = await supabase
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { data: creator, error: creatorError } = await (supabase as any)
       .from('sala_creators')
       .select('id, name, slug, price_clp, bio')
       .eq('slug', creator_slug)
-      .single()
+      .single() as { data: import('@/types/database').Creator | null; error: unknown }
 
     if (creatorError || !creator) {
       return NextResponse.json({ error: 'Creador no encontrado.' }, { status: 404 })

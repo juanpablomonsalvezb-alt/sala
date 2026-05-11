@@ -695,6 +695,9 @@ export default async function CreatorPage({
 
   if (!creator) notFound()
 
+  // Perfiles sin plan activo no son públicos
+  if (creator.plan === 'free') notFound()
+
   return (
     <main className="min-h-screen bg-white pb-16">
       <SiteNav />

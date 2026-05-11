@@ -108,19 +108,37 @@ export async function POST(request: NextRequest) {
       return new Response('Bad request', { status: 400 })
     }
 
-    // Intentar usar el SDK de Anthropic dinámicamente
-    let anthropicAvailable = false
-    try {
-      // eslint-disable-next-line @typescript-eslint/no-require-imports
-      const Anthropic = require('@anthropic-ai/sdk').default
-      anthropicAvailable = !!Anthropic && !!process.env.ANTHROPIC_API_KEY
-    } catch {
-      anthropicAvailable = false
+    // Headers comunes para respuestas streaming
+    const streamHeaders = {
+      'Content-Type':     'text/plain; charset=utf-8',
+      'Cache-Control':    'no-cache',
+      'X-Accel-Buffering': 'no',
     }
 
-    if (anthropicAvailable) {
-      // eslint-disable-next-line @typescript-eslint/no-require-imports
-      const Anthropic = require('@anthropic-ai/sdk').default
+    // Fallback simulado — siempre disponible
+    const respondSimulated = () => {
+      const responseText = getSimulatedResponse(question)
+      const encoder = new TextEncoder()
+      const readable = new ReadableStream({
+        async start(controller) {
+          for (const word of responseText.split(' ')) {
+            controller.enqueue(encoder.encode(word + ' '))
+            await new Promise((r) => setTimeout(r, 25))
+          }
+          controller.close()
+        },
+      })
+      return new Response(readable, { headers: streamHeaders })
+    }
+
+    // Intentar Anthropic. Si falla por cualquier razón, caer al fallback.
+    if (!process.env.ANTHROPIC_API_KEY) {
+      return respondSimulated()
+    }
+
+    let stream
+    try {
+      const { default: Anthropic } = await import('@anthropic-ai/sdk')
       const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
 
       const messages: Message[] = [
@@ -128,60 +146,51 @@ export async function POST(request: NextRequest) {
         { role: 'user' as const, content: question },
       ]
 
-      const stream = await client.messages.stream({
-        model: 'claude-haiku-4-5-20251001',
+      stream = await client.messages.stream({
+        model:      'claude-haiku-4-5-20251001',
         max_tokens: 500,
-        system: SYSTEM_PROMPT,
+        system:     SYSTEM_PROMPT,
         messages,
       })
+    } catch (sdkErr) {
+      console.error('[pregunta] SDK init/call error:', sdkErr instanceof Error ? sdkErr.message : sdkErr)
+      return respondSimulated()
+    }
 
-      const encoder = new TextEncoder()
-      const readable = new ReadableStream({
-        async start(controller) {
-          for await (const chunk of stream) {
+    const encoder = new TextEncoder()
+    const readable = new ReadableStream({
+      async start(controller) {
+        let receivedAny = false
+        try {
+          for await (const chunk of stream!) {
             if (
               chunk.type === 'content_block_delta' &&
               chunk.delta.type === 'text_delta'
             ) {
+              receivedAny = true
               controller.enqueue(encoder.encode(chunk.delta.text))
             }
           }
-          controller.close()
-        },
-      })
-
-      return new Response(readable, {
-        headers: {
-          'Content-Type': 'text/plain; charset=utf-8',
-          'Cache-Control': 'no-cache',
-          'X-Accel-Buffering': 'no',
-        },
-      })
-    } else {
-      // Fallback simulado
-      const responseText = getSimulatedResponse(question)
-
-      const encoder = new TextEncoder()
-      const readable = new ReadableStream({
-        async start(controller) {
-          // Simular streaming palabra por palabra
-          const words = responseText.split(' ')
-          for (const word of words) {
-            controller.enqueue(encoder.encode(word + ' '))
-            await new Promise((r) => setTimeout(r, 25))
+        } catch (streamErr) {
+          console.error('[pregunta] stream error:', streamErr instanceof Error ? streamErr.message : streamErr)
+          // Si Anthropic falla y no recibimos nada útil, hacemos fallback al
+          // simulated response. El usuario ve una respuesta útil en vez de un error.
+          if (!receivedAny) {
+            const fallback = getSimulatedResponse(question)
+            for (const word of fallback.split(' ')) {
+              controller.enqueue(encoder.encode(word + ' '))
+              await new Promise((r) => setTimeout(r, 15))
+            }
+          } else {
+            controller.enqueue(encoder.encode('\n\n…'))
           }
+        } finally {
           controller.close()
-        },
-      })
+        }
+      },
+    })
 
-      return new Response(readable, {
-        headers: {
-          'Content-Type': 'text/plain; charset=utf-8',
-          'Cache-Control': 'no-cache',
-          'X-Accel-Buffering': 'no',
-        },
-      })
-    }
+    return new Response(readable, { headers: streamHeaders })
   } catch (err) {
     console.error('[pregunta] error:', err)
     return new Response('Error interno', { status: 500 })

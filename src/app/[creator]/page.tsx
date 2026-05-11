@@ -7,6 +7,8 @@ import type { Creator, Post } from '@/types/database'
 import { CreatorStickyBar } from '@/components/creator-sticky-bar'
 import { creators as staticCreators } from '@/data/creators'
 import { ProfileShare } from '@/components/profile-share'
+import { creatorProfilePageSchema } from '@/lib/json-ld'
+import { AlsoReading } from '@/components/also-reading'
 
 // ─── Mapeo de mes español a número ───────────────────────────────────────────
 
@@ -703,25 +705,36 @@ export default async function CreatorPage({
   // Perfiles sin plan activo no son públicos
   if (creator.plan === 'free') notFound()
 
-  const profileJsonLd = {
+  // Fecha de inicio del creador (desde posts o created_at)
+  const creatorSince = creator.created_at
+
+  // Artículos para el schema
+  const articleSchemas = posts.slice(0, 6).map((p) => ({
+    title: p.title,
+    slug: p.slug,
+    publishedAt: p.published_at ?? p.created_at,
+  }))
+
+  const profileJsonLd = creatorProfilePageSchema({
+    name: creator.name,
+    slug: creator.slug,
+    specialty: creator.specialty,
+    bio: creator.bio,
+    since: creatorSince,
+    subscriberCount: creator.subscriber_count,
+    priceClp: creator.price_clp,
+    publicationName: creator.publication_name ?? creator.name,
+    articles: articleSchemas,
+  })
+
+  const breadcrumbJsonLd = {
     '@context': 'https://schema.org',
-    '@type': 'ProfilePage',
-    mainEntity: {
-      '@type': 'Person',
-      name: creator.name,
-      url: `https://nebbuler.com/${creator.slug}`,
-      jobTitle: creator.specialty,
-      description: creator.bio,
-      ...(creator.linkedin_url ? { sameAs: [creator.linkedin_url] } : {}),
-    },
-    breadcrumb: {
-      '@type': 'BreadcrumbList',
-      itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Nebbuler', item: 'https://nebbuler.com' },
-        { '@type': 'ListItem', position: 2, name: 'Directorio', item: 'https://nebbuler.com/directorio' },
-        { '@type': 'ListItem', position: 3, name: creator.name, item: `https://nebbuler.com/${creator.slug}` },
-      ],
-    },
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Nebbuler', item: 'https://nebbuler.com' },
+      { '@type': 'ListItem', position: 2, name: 'Directorio', item: 'https://nebbuler.com/directorio' },
+      { '@type': 'ListItem', position: 3, name: creator.name, item: `https://nebbuler.com/${creator.slug}` },
+    ],
   }
 
   return (
@@ -730,9 +743,16 @@ export default async function CreatorPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(profileJsonLd) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <SiteNav />
       <HeroSection creator={creator} isSubscribed={isSubscribed} />
       <ArticlesSection posts={posts} creator={creator} isSubscribed={isSubscribed} />
+      <div className="max-w-5xl mx-auto px-6">
+        <AlsoReading currentSlug={creator.slug} />
+      </div>
       <AboutSection creator={creator} />
       <CreatorFooter />
       {!isSubscribed && (

@@ -183,6 +183,62 @@ export async function updatePost(input: UpdatePostInput): Promise<PostResult> {
   return { postId: existing.id }
 }
 
+export async function extractViralQuotes(
+  postId: string,
+  content: string,
+  creatorName: string
+): Promise<{ quotes: string[] }> {
+  // Verificar que hay sesión activa
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return { quotes: [] }
+
+  // Extraer texto plano del HTML — seguro para la IA
+  const plainText = content
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .slice(0, 3000)
+
+  if (plainText.length < 100) return { quotes: [] }
+
+  // Intentar con Anthropic SDK si está disponible
+  try {
+    const Anthropic = (await import('@anthropic-ai/sdk')).default
+    const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
+
+    const response = await client.messages.create({
+      model: 'claude-haiku-4-5-20251001',
+      max_tokens: 300,
+      messages: [{
+        role: 'user',
+        content: `Eres un experto en marketing de contenido. Del siguiente análisis profesional, extrae las 3 frases más citables: las más contundentes, sorprendentes o que generen más curiosidad. Cada frase debe tener entre 60 y 200 caracteres y ser una idea completa por sí sola.
+
+Devuelve SOLO las 3 frases, una por línea, sin numeración, sin comillas, sin explicaciones.
+
+Texto:
+${plainText}`,
+      }],
+    })
+
+    const text = response.content[0].type === 'text' ? response.content[0].text : ''
+    const quotes = text
+      .split('\n')
+      .map(q => q.trim())
+      .filter(q => q.length > 20)
+      .slice(0, 3)
+    return { quotes }
+  } catch {
+    // Fallback: extraer oraciones largas manualmente
+    const sentences = plainText
+      .split(/[.!?]/)
+      .map(s => s.trim())
+      .filter(s => s.length >= 60 && s.length <= 200)
+      .slice(0, 3)
+    return { quotes: sentences }
+  }
+}
+
 async function notifySubscribers(args: {
   creatorId: string
   creatorName: string

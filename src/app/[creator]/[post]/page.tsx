@@ -8,6 +8,9 @@ import { PostViewTracker } from '@/components/post-view-tracker'
 import { ShareBar } from '@/components/share-bar'
 import { creators as staticCreators } from '@/data/creators'
 import { sanitizeHtml, stripHtml } from '@/lib/sanitize'
+import { AlsoReading } from '@/components/also-reading'
+import { QuoteHighlighter } from '@/components/quote-highlighter'
+import { postArticleSchema } from '@/lib/json-ld'
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -489,28 +492,18 @@ export default async function PostPage({
     ? post.read_time_minutes
     : estimateReadTime(post.content)
 
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'Article',
-    headline: post.title,
-    description: post.excerpt ?? undefined,
-    datePublished: post.published_at ?? undefined,
-    dateModified: post.published_at ?? post.created_at,
-    author: {
-      '@type': 'Person',
-      name: creator.name,
-      url: `https://nebbuler.com/${creator.slug}`,
-    },
-    publisher: {
-      '@type': 'Organization',
-      name: 'Nebbuler',
-      url: 'https://nebbuler.com',
-    },
-    mainEntityOfPage: {
-      '@type': 'WebPage',
-      '@id': `https://nebbuler.com/${creator.slug}/${post.slug}`,
-    },
-  }
+  // JSON-LD enriquecido para AEO (citación por IA)
+  const jsonLd = postArticleSchema({
+    title: post.title,
+    slug: post.slug,
+    creatorSlug: creator.slug,
+    creatorName: creator.name,
+    createdAt: post.published_at ?? post.created_at,
+    description: post.excerpt ?? `Análisis de ${creator.specialty.toLowerCase()} por ${creator.name} en Nebbuler.`,
+    keywords: creator.specialty.split(/[,·&]/).map((s) => s.trim()).filter(Boolean),
+  })
+
+  const showQuoteHighlighter = post.is_free || isSubscribed
 
   return (
     <>
@@ -613,12 +606,22 @@ export default async function PostPage({
                 </p>
               </div>
             )}
+
+            {/* Recomendaciones "También leen" */}
+            <div className="max-w-[680px]">
+              <AlsoReading currentSlug={creator.slug} />
+            </div>
           </div>
 
           {/* Sidebar */}
           <CreatorSidebar creator={creator} />
         </div>
       </main>
+
+      {/* Quote Highlighter — island client, solo en posts accesibles */}
+      {showQuoteHighlighter && (
+        <QuoteHighlighter authorName={creator.name} />
+      )}
 
       <Footer />
     </>

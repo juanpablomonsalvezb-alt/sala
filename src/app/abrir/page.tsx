@@ -580,7 +580,7 @@ export default function AbrirPage() {
 
       const result = await createCreatorProfile(formData)
 
-      if (result?.error) {
+      if (result && 'error' in result) {
         setServerError(result.error)
         return
       }
@@ -589,7 +589,9 @@ export default function AbrirPage() {
       setSubmitted(true)
       try {
         const payRes = await fetch('/api/mp/platform-checkout', { method: 'POST' })
-        const payData = await payRes.json()
+        const payData = await payRes.json().catch(() => ({}))
+        // Si MP no responde con URL (no configurado, error 503, etc.), caer al dashboard
+        // donde el PlanBanner permitirá reintentar.
         window.location.href = payData.url ?? '/dashboard'
       } catch {
         window.location.href = '/dashboard'

@@ -28,7 +28,7 @@ function generateSlug(name: string): string {
 
 export async function createCreatorProfile(
   formData: FormData
-): Promise<{ error: string } | void> {
+): Promise<{ error: string } | { ok: true } | void> {
   const nombre = (formData.get('nombre') as string | null)?.trim() ?? ''
   const especialidad = (formData.get('especialidad') as string | null)?.trim() ?? ''
   const bio = (formData.get('bio') as string | null)?.trim() ?? ''
@@ -133,5 +133,6 @@ export async function createCreatorProfile(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   await (supabase.from('sala_profiles') as any).update({ is_creator: true }).eq('id', user.id)
 
-  redirect('/dashboard')
+  // No hacer redirect — el cliente necesita continuar al checkout de plataforma
+  return { ok: true }
 }

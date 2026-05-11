@@ -133,7 +133,7 @@ function IncomesCalculator() {
             <p className="font-sans text-[10px] font-semibold uppercase tracking-[0.12em] text-[#C41C1C] mb-3">
               Tu ingreso mensual estimado
             </p>
-            <p className="font-serif text-[56px] font-bold text-[#121212] leading-none tracking-[-0.02em] mb-1">
+            <p className="font-serif text-[56px] font-bold text-[#121212] leading-[1.2] tracking-[-0.02em] mb-1">
               ${formatCLP(result)}
             </p>
             <p className="font-sans text-[12px] text-[#888] mb-5">
@@ -239,7 +239,7 @@ export default function ParaCreadoresPage() {
                 key={step.roman}
                 className={`py-6 md:py-0 ${i > 0 ? "md:pl-10" : ""} ${i < HOW_IT_WORKS.length - 1 ? "md:pr-10" : ""}`}
               >
-                <p className="font-serif text-[40px] font-bold text-[#DEDEDE] leading-none mb-4">
+                <p className="font-serif text-[40px] font-bold text-[#DEDEDE] leading-[1.2] mb-4">
                   {step.roman}
                 </p>
                 <h3 className="font-serif text-[20px] font-bold text-[#121212] mb-3">
@@ -292,7 +292,7 @@ export default function ParaCreadoresPage() {
       {/* CTA Final */}
       <section className="border-t border-[#DEDEDE] py-24 px-6 text-center bg-[#F7F7F7]">
         <div className="max-w-xl mx-auto">
-          <h2 className="font-serif text-[40px] font-bold italic text-[#121212] leading-tight tracking-[-0.01em] mb-3">
+          <h2 className="font-serif text-[40px] font-bold italic text-[#121212] leading-[1.5] tracking-[-0.01em] mb-3">
             Durante años regalaste
             <br />
             tu conocimiento.

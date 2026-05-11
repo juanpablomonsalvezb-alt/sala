@@ -24,9 +24,9 @@ import { featuredCreators as featuredCreatorsData } from "@/data/creators";
 /* ─── Data estática — permanece en el servidor ──────────────────────────── */
 
 const featuredCreators = [
-  { initial: "RF", name: "RODRIGO FUENTES MARÍN",  specialty: "MACROECONOMÍA",          color: "#1a1a2e", earnings: "4.356.270", trend: "+38%", subscribers: 873, posts: 67, since: "Nov 2025", href: "/rodrigo-fuentes-marin"  },
-  { initial: "CV", name: "CAROLINA VEGA TORO",      specialty: "FINANZAS CORPORATIVAS",  color: "#1a2e1a", earnings: "3.263.460", trend: "+43%", subscribers: 654, posts: 44, since: "Nov 2025", href: "/carolina-vega-toro" },
-  { initial: "MC", name: "MATÍAS CORNEJO SILVA",    specialty: "DERECHO TRIBUTARIO",     color: "#2e1a1a", earnings: "2.835.320", trend: "+29%", subscribers: 568, posts: 51, since: "Dic 2025", href: "/matias-cornejo-silva" },
+  { initial: "RF", name: "RODRIGO FUENTES MARÍN",  specialty: "MACROECONOMÍA",          color: "#1a1a2e", earnings: "2.613.762", trend: "+38%", subscribers: 524, posts: 67, since: "Nov 2025", href: "/rodrigo-fuentes-marin"  },
+  { initial: "CV", name: "CAROLINA VEGA TORO",      specialty: "FINANZAS CORPORATIVAS",  color: "#1a2e1a", earnings: "1.958.076", trend: "+43%", subscribers: 392, posts: 44, since: "Nov 2025", href: "/carolina-vega-toro" },
+  { initial: "MC", name: "MATÍAS CORNEJO SILVA",    specialty: "DERECHO TRIBUTARIO",     color: "#2e1a1a", earnings: "1.701.192", trend: "+29%", subscribers: 341, posts: 51, since: "Dic 2025", href: "/matias-cornejo-silva" },
 ];
 
 const features = [
@@ -124,7 +124,7 @@ export default function Home() {
               <p className="text-[9px] font-bold uppercase tracking-[0.28em] text-[#767676] mb-2">
                 El conocimiento que antes no se vendía · Chile y LATAM
               </p>
-              <h1 className="font-serif font-bold text-[clamp(40px,6vw,80px)] leading-[0.88] tracking-[-0.02em]">
+              <h1 className="font-serif font-bold text-[clamp(40px,6vw,80px)] leading-[1.056] tracking-[-0.02em]">
                 Tu conocimiento<br />
                 ya tiene{" "}
                 {/*

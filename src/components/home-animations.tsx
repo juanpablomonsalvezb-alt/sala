@@ -158,7 +158,7 @@ export function HeroAnimations({ featuredCreators }: HeroAnimationsProps) {
               </span>
             </div>
             <div className="text-right shrink-0">
-              <p className="font-serif font-bold text-[clamp(20px,2.5vw,36px)] leading-none tracking-[-0.02em] text-[#111]">
+              <p className="font-serif font-bold text-[clamp(20px,2.5vw,36px)] leading-[1.2] tracking-[-0.02em] text-[#111]">
                 ${c.earnings}
               </p>
               <p className="text-[9px] text-[#B0B0B0] font-medium mt-0.5 uppercase tracking-[0.1em]">
@@ -233,7 +233,7 @@ export function HeroCta() {
             { value: 95,   pre: "",  suf: "%", label: "Retención mensual" },
           ].map(({ value, pre, suf, label }) => (
             <div key={label} className="px-5 first:pl-0 last:pr-0 text-center">
-              <p className="font-serif font-bold text-[clamp(18px,2.5vw,32px)] leading-none tracking-[-0.02em] flex items-baseline justify-center gap-0.5">
+              <p className="font-serif font-bold text-[clamp(18px,2.5vw,32px)] leading-[1.2] tracking-[-0.02em] flex items-baseline justify-center gap-0.5">
                 {pre && <span className="text-[#B31C1C] font-serif">{pre}</span>}
                 <NumberTicker value={value} className="text-[#111]" />
                 {suf && <span className="text-[#B31C1C] font-serif">{suf}</span>}
@@ -287,7 +287,7 @@ export function LiveActivity({ liveEvents }: LiveActivityProps) {
             <p className="text-[9px] font-bold uppercase tracking-[0.25em] text-[#B31C1C] mb-4">
               En este momento
             </p>
-            <h2 className="font-serif font-bold text-[clamp(28px,4vw,52px)] leading-[0.93] tracking-[-0.02em] mb-5">
+            <h2 className="font-serif font-bold text-[clamp(28px,4vw,52px)] leading-[1.12] tracking-[-0.02em] mb-5">
               Cada minuto,<br />
               alguien descubre<br />
               <span className="text-[#B31C1C]">que su conocimiento</span><br />
@@ -391,7 +391,7 @@ export function ParaQuienes() {
               <p className="text-[9px] font-bold uppercase tracking-[0.25em] text-[#B31C1C] mb-6">
                 Para quienes tienen algo real
               </p>
-              <h2 className="font-serif font-bold text-[clamp(28px,4vw,52px)] leading-[0.93] tracking-[-0.02em] mb-6">
+              <h2 className="font-serif font-bold text-[clamp(28px,4vw,52px)] leading-[1.12] tracking-[-0.02em] mb-6">
                 Para quienes tienen<br />
                 algo real que<br />
                 <span className="text-[#B31C1C]">cobrar.</span>
@@ -495,7 +495,7 @@ export function PricingSection({ plans }: PricingSectionProps) {
                   </p>
                   <div className="flex items-baseline gap-1 mb-1">
                     <span
-                      className={`font-serif font-bold text-[30px] leading-none tracking-[-0.02em] ${
+                      className={`font-serif font-bold text-[30px] leading-[1.2] tracking-[-0.02em] ${
                         featured ? "text-white" : "text-[#111]"
                       }`}
                     >
@@ -564,7 +564,7 @@ export function FaqSection({ faqs }: FaqSectionProps) {
               <p className="text-[9px] font-bold uppercase tracking-[0.25em] text-[#B31C1C] mb-4">
                 Preguntas
               </p>
-              <h2 className="font-serif font-bold text-[clamp(28px,4vw,44px)] leading-[0.93] tracking-[-0.02em]">
+              <h2 className="font-serif font-bold text-[clamp(28px,4vw,44px)] leading-[1.12] tracking-[-0.02em]">
                 ¿Tienes<br />preguntas?<br />
                 <span className="text-[#B31C1C]">Tenemos<br />respuestas.</span>
               </h2>
@@ -591,7 +591,7 @@ export function CtaFinalAnimated() {
       <p className="text-[9px] font-bold uppercase tracking-[0.28em] text-[#B31C1C] mb-8">
         Empieza hoy
       </p>
-      <h2 className="font-serif font-bold text-[clamp(36px,6vw,76px)] leading-[0.92] tracking-[-0.03em] text-white mb-6">
+      <h2 className="font-serif font-bold text-[clamp(36px,6vw,76px)] leading-[1.32] tracking-[-0.03em] text-white mb-6">
         ¿Listo para cobrar<br />lo que sabes?
       </h2>
       <p className="text-[16px] text-white/45 max-w-md mx-auto mb-10 leading-[1.8]">

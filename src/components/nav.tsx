@@ -45,6 +45,13 @@ export default function Nav() {
             >
               Glosario
             </Link>
+            <span className="text-[#DEDEDE] px-1">·</span>
+            <Link
+              href="/contacto"
+              className="hover:text-[#121212] transition-colors duration-150 uppercase tracking-[0.08em] text-[11px] font-sans text-[#666] font-medium"
+            >
+              Contacto
+            </Link>
           </nav>
         </div>
       </div>

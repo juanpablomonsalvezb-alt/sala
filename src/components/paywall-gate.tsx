@@ -76,6 +76,10 @@ export default function PaywallGate({
         >
           ¿Ya eres suscriptor? Entrar →
         </Link>
+
+        <p className="text-[11px] font-sans text-[#999] mt-4 text-center leading-relaxed">
+          Pago directo a {creatorName} vía MercadoPago. Nebbuler no cobra comisión sobre tu suscripción.
+        </p>
       </div>
     </>
   )

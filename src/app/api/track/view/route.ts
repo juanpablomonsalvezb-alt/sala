@@ -24,9 +24,14 @@ export async function POST(request: NextRequest) {
   try {
     const { postId } = await request.json()
 
-    // Validar UUID
-    if (typeof postId !== 'string' || !UUID_RE.test(postId)) {
-      return NextResponse.json({ ok: false, error: 'invalid postId' }, { status: 400 })
+    if (typeof postId !== 'string') {
+      return NextResponse.json({ ok: false }, { status: 400 })
+    }
+
+    // IDs mock (posts del fallback estático en creators.ts) — no se trackean
+    // pero respondemos OK para no llenar la consola del cliente de errores
+    if (!UUID_RE.test(postId)) {
+      return NextResponse.json({ ok: true, skipped: 'mock-post' })
     }
 
     // Rate-limit por IP + postId

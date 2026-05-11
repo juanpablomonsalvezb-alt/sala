@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import dynamic from 'next/dynamic'
 import { creators } from '@/data/creators'
 
 export const metadata: Metadata = {
@@ -35,31 +34,9 @@ export const metadata: Metadata = {
   },
 }
 
-// ─── Dynamic imports (Recharts es client-only) ────────────────────────────────
+// ─── Charts (Client Component con dynamic import interno) ────────────────────
 
-function ChartSkeleton() {
-  return <div className="h-[280px] bg-[#F7F7F7] animate-pulse rounded-sm" />
-}
-
-const InflacionChart = dynamic(
-  () => import('@/components/charts/MacroCharts').then((m) => m.InflacionChart),
-  { ssr: false, loading: ChartSkeleton }
-)
-
-const PibLatamChart = dynamic(
-  () => import('@/components/charts/MacroCharts').then((m) => m.PibLatamChart),
-  { ssr: false, loading: ChartSkeleton }
-)
-
-const TipoCambioChart = dynamic(
-  () => import('@/components/charts/MacroCharts').then((m) => m.TipoCambioChart),
-  { ssr: false, loading: ChartSkeleton }
-)
-
-const DesempleoChart = dynamic(
-  () => import('@/components/charts/MacroCharts').then((m) => m.DesempleoChart),
-  { ssr: false, loading: ChartSkeleton }
-)
+import MacroChartsLazy from '@/components/charts/MacroChartsLazy'
 
 // ─── JSON-LD Dataset schema ───────────────────────────────────────────────────
 
@@ -192,44 +169,20 @@ export default function ObservatorioDatosPage() {
         <div className="h-px bg-[#E5E5E5] mb-12" />
 
         {/* ─── Grid de gráficos ───────────────────────────────────────────────── */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-          {/* Inflación */}
-          <div className="border border-[#E8E8E8] p-6">
-            <InflacionChart />
-            <p className="font-sans text-[12px] text-[#888] mt-4 leading-relaxed">
-              Chile alcanzó su pico inflacionario en septiembre de 2022 (13,7%), el más alto desde
-              1994, impulsado por el retiro de fondos de pensiones y el shock global de precios
-              post-pandemia. La convergencia hacia la meta del 3% tomó 30 meses.
+        <div className="mb-16">
+          <MacroChartsLazy />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-4">
+            <p className="font-sans text-[12px] text-[#888] leading-relaxed">
+              Chile alcanzó su pico inflacionario en septiembre 2022 (13,7%). La convergencia hacia la meta del 3% tomó 30 meses.
             </p>
-          </div>
-
-          {/* PIB LATAM */}
-          <div className="border border-[#E8E8E8] p-6">
-            <PibLatamChart />
-            <p className="font-sans text-[12px] text-[#888] mt-4 leading-relaxed">
-              Chile se ubica en el segundo lugar de la región con un PIB per cápita de USD 17.564
-              (2024), detrás de Uruguay. La brecha con México y Brasil refleja diferencias
-              estructurales en productividad y apertura comercial.
+            <p className="font-sans text-[12px] text-[#888] leading-relaxed">
+              Chile se ubica segundo en la región con USD 17.564 PIB per cápita (2024), detrás de Uruguay.
             </p>
-          </div>
-
-          {/* Tipo de cambio */}
-          <div className="border border-[#E8E8E8] p-6">
-            <TipoCambioChart />
-            <p className="font-sans text-[12px] text-[#888] mt-4 leading-relaxed">
-              El tipo de cambio USD/CLP mostró una depreciación sostenida durante 2023-2024,
-              alcanzando máximos de $967 en marzo de 2024. La apreciación posterior se explica por
-              la normalización de la política monetaria y el alza del cobre.
+            <p className="font-sans text-[12px] text-[#888] leading-relaxed">
+              El USD/CLP alcanzó máximos de $967 en marzo 2024. La apreciación posterior se explica por la normalización monetaria y el alza del cobre.
             </p>
-          </div>
-
-          {/* Desempleo */}
-          <div className="border border-[#E8E8E8] p-6">
-            <DesempleoChart />
-            <p className="font-sans text-[12px] text-[#888] mt-4 leading-relaxed">
-              La tasa de desempleo chilena se mantuvo persistentemente por encima del 8% desde el
-              primer trimestre de 2023, reflejando una destrucción neta de empleo formal y la
-              ralentización de la economía tras el boom del consumo.
+            <p className="font-sans text-[12px] text-[#888] leading-relaxed">
+              La tasa de desempleo se mantuvo sobre 8% desde Q1 2023, reflejando ralentización post-boom del consumo.
             </p>
           </div>
         </div>

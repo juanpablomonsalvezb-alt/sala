@@ -6,6 +6,7 @@
 import type { CSSProperties } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { TrendingModule, ObservatorioModule, PreguntaModule, GlosarioModule } from "@/components/home-discovery";
 import { HomeTicker } from "@/components/home-ticker";
 import { CategoryMarqueeDynamic } from "@/components/category-marquee-dynamic";
 import {
@@ -198,6 +199,12 @@ export default function Home() {
       {/* ── FAQ ─────────────────────────────────────────────────────────── */}
       <FaqSection faqs={faqs} />
 
+      {/* ── DESCUBRIMIENTO — secciones clave del sitio ───────────────────── */}
+      <TrendingModule />
+      <ObservatorioModule />
+      <PreguntaModule />
+      <GlosarioModule />
+
       {/* ── CTA FINAL ───────────────────────────────────────────────────── */}
       <section className="bg-[#111] py-36 relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
@@ -235,16 +242,17 @@ export default function Home() {
                 { label: "Abre tu sala",  href: "/abrir" },
               ]},
               { title: "Explorar", links: [
-                { label: "Economía",      href: "/directorio" },
-                { label: "Derecho",       href: "/directorio" },
-                { label: "Medicina",      href: "/directorio" },
-                { label: "Arquitectura",  href: "/directorio" },
+                { label: "Directorio",    href: "/directorio" },
+                { label: "Observatorio",  href: "/observatorio" },
+                { label: "Glosario",      href: "/glosario" },
+                { label: "Trending",      href: "/trending" },
+                { label: "Pregunta",      href: "/pregunta" },
               ]},
               { title: "Empresa", links: [
-                { label: "Acerca de",  href: "/" },
-                { label: "Contacto",   href: "mailto:hello@nebbuler.com" },
-                { label: "Términos",   href: "/terminos" },
-                { label: "Privacidad", href: "/privacidad" },
+                { label: "Sobre Nebbuler", href: "/sobre" },
+                { label: "Contacto",       href: "/contacto" },
+                { label: "Términos",       href: "/terminos" },
+                { label: "Privacidad",     href: "/privacidad" },
               ]},
             ] as { title: string; links: { label: string; href: string }[] }[]).map(({ title, links }) => (
               <div key={title}>

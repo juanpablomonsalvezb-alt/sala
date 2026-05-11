@@ -434,36 +434,6 @@ export function PricingSection({ plans }: PricingSectionProps) {
   return (
     <section className="border-b border-[#E0E0E0] py-24 bg-[#F8F7F5]">
       <div className="max-w-5xl mx-auto px-6">
-        <BlurFade delay={0}>
-          <div className="pb-5 border-b-[3px] border-[#111] mb-14 flex items-end justify-between">
-            <div>
-              <p className="text-[9px] font-bold uppercase tracking-[0.25em] text-[#B31C1C] mb-2">
-                Precios
-              </p>
-              <h2 className="font-serif font-bold text-[clamp(24px,3.5vw,44px)] tracking-[-0.02em]">
-                Un solo plan. Sin sorpresas.
-              </h2>
-            </div>
-            <div className="hidden sm:flex items-center gap-2 pb-1">
-              <span className="text-[9px] text-[#A0A0A0] uppercase tracking-[0.12em] font-medium">
-                Pagos via
-              </span>
-              {[
-                { bg: "#635BFF", t: "Stripe" },
-                { bg: "#E5001E", t: "Webpay" },
-                { bg: "#00B1EA", t: "MP" },
-              ].map(({ bg, t }) => (
-                <span
-                  key={t}
-                  className="inline-flex items-center px-2 py-0.5 text-[9px] font-bold text-white"
-                  style={{ backgroundColor: bg }}
-                >
-                  {t}
-                </span>
-              ))}
-            </div>
-          </div>
-        </BlurFade>
         <div className="grid md:grid-cols-3 gap-0 border border-[#E0E0E0]">
           {plans.map(({ name, price, period, note, cta, featured, perks }, i) => (
             <BlurFade key={name} delay={i * 0.06}>

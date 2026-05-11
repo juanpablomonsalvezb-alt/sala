@@ -83,7 +83,6 @@ export default function Home() {
               { label: "Explorar",        href: "/directorio" },
               { label: "Demo",            href: "/demo" },
               { label: "Para creadores",  href: "/para-creadores" },
-              { label: "Precios",         href: "/precios" },
             ].map(({ label, href }) => (
               <Link
                 key={label}

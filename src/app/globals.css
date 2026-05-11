@@ -431,4 +431,25 @@ div[data-file-attachment] {
 /* Spinning loader keyframe */
 @keyframes spin {
   to { transform: rotate(360deg); }
+
+/* ─── Pricing Calculator Slider ─────────────────────────────────────────── */
+input[type='range'].pricing-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #C41C1C;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 3px solid white;
+  box-shadow: 0 0 0 1px #C41C1C;
+}
+input[type='range'].pricing-slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: #C41C1C;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 3px solid white;
+  box-shadow: 0 0 0 1px #C41C1C;
+}
 }

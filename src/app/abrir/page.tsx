@@ -431,6 +431,27 @@ function Step3({
             </button>
           ))}
         </div>
+
+        {/* Campo de precio personalizado */}
+        <div className="mt-3">
+          <p className="font-sans text-[11px] text-[#666] mb-2">O ingresa tu propio precio:</p>
+          <div className="flex items-center gap-2">
+            <span className="font-sans text-[15px] font-bold text-[#444]">{paisActual.simbolo}</span>
+            <input
+              type="number"
+              min={1000}
+              max={999999}
+              placeholder="ej: 12500"
+              value={data.precio || ''}
+              onChange={(e) => {
+                const val = parseInt(e.target.value)
+                if (!isNaN(val) && val > 0) setData({ precio: val })
+              }}
+              className="flex-1 border border-[#E5E7EB] px-3 py-2 font-sans text-[15px] focus:outline-none focus:border-[#C41C1C] transition-colors"
+            />
+            <span className="font-sans text-[11px] text-[#888] whitespace-nowrap">{paisActual.moneda}/mes</span>
+          </div>
+        </div>
       </div>
 
       {/* Proyección de ingresos */}

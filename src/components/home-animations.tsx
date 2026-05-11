@@ -8,6 +8,7 @@ import { Marquee } from "@/components/ui/marquee";
 import { AnimatedList } from "@/components/ui/animated-list";
 import { LineShadowText } from "@/components/ui/line-shadow-text";
 import { SpinningText } from "@/components/ui/spinning-text";
+import { PricingCalculator } from "@/components/PricingCalculator";
 import {
   IconArrowRight,
   IconTrendingUp,
@@ -431,132 +432,64 @@ export interface PricingSectionProps {
 }
 
 export function PricingSection({ plans }: PricingSectionProps) {
+  /* Tomar solo el plan featured para la columna izquierda */
+  const featuredPlan = plans.find((p) => p.featured) ?? plans[0];
+
   return (
     <section className="border-b border-[#E0E0E0] py-24 bg-[#F8F7F5]">
       <div className="max-w-5xl mx-auto px-6">
-        <div className="flex justify-center">
-          {plans.map(({ name, price, period, note, cta, featured, perks }, i) => (
-            <BlurFade key={name} delay={i * 0.06} className="w-full max-w-sm">
-              <div
-                className={`relative flex flex-col h-full p-10 border border-[#E0E0E0] ${
-                  featured ? "bg-[#B31C1C]" : "bg-white"
-                }`}
-              >
-                {featured && (
-                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#111] text-white text-[8px] font-black uppercase tracking-[0.15em] px-3 py-1">
-                    Recomendado
-                  </span>
-                )}
+        {/* Label de sección */}
+        <BlurFade delay={0}>
+          <p className="text-[9px] font-bold uppercase tracking-[0.25em] text-[#999] mb-10 text-center">
+            Precio · 0% comisión · tarifa fija mensual
+          </p>
+        </BlurFade>
+
+        <div className="grid md:grid-cols-2 gap-10 items-start">
+          {/* Columna izquierda: card del plan */}
+          {featuredPlan && (
+            <BlurFade delay={0.04}>
+              <div className="relative flex flex-col h-full p-10 border border-[#E0E0E0] bg-[#B31C1C]">
+                <span className="absolute -top-3 left-8 bg-[#111] text-white text-[8px] font-black uppercase tracking-[0.15em] px-3 py-1">
+                  Recomendado
+                </span>
                 <div className="mb-6">
-                  <p
-                    className={`text-[9px] font-bold uppercase tracking-[0.18em] mb-3 ${
-                      featured ? "text-white/70" : "text-[#A0A0A0]"
-                    }`}
-                  >
-                    {name}
+                  <p className="text-[9px] font-bold uppercase tracking-[0.18em] mb-3 text-white/70">
+                    {featuredPlan.name}
                   </p>
                   <div className="flex items-baseline gap-1 mb-1">
-                    <span
-                      className={`font-serif font-bold text-[30px] leading-[1.2] tracking-[-0.02em] ${
-                        featured ? "text-white" : "text-[#111]"
-                      }`}
-                    >
-                      {price}
+                    <span className="font-serif font-bold text-[36px] leading-[1.2] tracking-[-0.02em] text-white">
+                      {featuredPlan.price}
                     </span>
-                    <span
-                      className={`text-[11px] ${featured ? "text-white/60" : "text-[#A0A0A0]"}`}
-                    >
-                      {period}
-                    </span>
+                    <span className="text-[11px] text-white/60">{featuredPlan.period}</span>
                   </div>
-                  <p
-                    className={`text-[10px] font-bold uppercase tracking-[0.1em] mt-1 ${
-                      featured ? "text-white/80" : "text-[#B31C1C]"
-                    }`}
-                  >
-                    {note}
+                  <p className="text-[10px] font-bold uppercase tracking-[0.1em] mt-1 text-white/80">
+                    {featuredPlan.note}
                   </p>
                 </div>
                 <div className="space-y-2.5 mb-7 flex-1">
-                  {perks.map((p) => (
+                  {featuredPlan.perks.map((p) => (
                     <div key={p} className="flex items-center gap-2.5">
-                      <div
-                        className={`w-1 h-1 shrink-0 ${featured ? "bg-white" : "bg-[#B31C1C]"}`}
-                      />
-                      <span
-                        className={`text-[12px] ${featured ? "text-white/80" : "text-[#555]"}`}
-                      >
-                        {p}
-                      </span>
+                      <div className="w-1 h-1 shrink-0 bg-white" />
+                      <span className="text-[12px] text-white/80">{p}</span>
                     </div>
                   ))}
                 </div>
                 <Link
                   href="/abrir"
-                  className={`block text-center py-3 text-[11px] font-bold uppercase tracking-[0.12em] transition-colors ${
-                    featured
-                      ? "bg-white text-[#B31C1C] hover:bg-white/90"
-                      : "border border-[#DEDEDE] text-[#111] hover:border-[#B31C1C] hover:text-[#B31C1C]"
-                  }`}
+                  className="block text-center py-3 text-[11px] font-bold uppercase tracking-[0.12em] transition-colors bg-white text-[#B31C1C] hover:bg-white/90"
                 >
-                  {cta}
+                  {featuredPlan.cta}
                 </Link>
               </div>
             </BlurFade>
-          ))}
+          )}
+
+          {/* Columna derecha: calculadora interactiva */}
+          <BlurFade delay={0.1}>
+            <PricingCalculator />
+          </BlurFade>
         </div>
-
-        {/* Tabla proyectada */}
-        <BlurFade delay={0.2}>
-          <div className="mt-14 border-t border-[#E0E0E0] pt-10 max-w-2xl mx-auto">
-            <p className="text-[9px] font-bold uppercase tracking-[0.25em] text-[#999] mb-6 text-center">
-              Ingreso mensual estimado · $29.990 tarifa fija · precio promedio $14.990/mes por suscriptor
-            </p>
-            <div className="overflow-x-auto">
-              <table className="w-full text-left border-collapse">
-                <thead>
-                  <tr className="border-b border-[#E0E0E0]">
-                    <th className="pb-3 text-[9px] font-bold uppercase tracking-[0.2em] text-[#999] pr-8">Suscriptores</th>
-                    <th className="pb-3 text-[9px] font-bold uppercase tracking-[0.2em] text-[#999] pr-8">Ingreso bruto</th>
-                    <th className="pb-3 text-[9px] font-bold uppercase tracking-[0.2em] text-[#999] pr-8">Tarifa Nebbuler</th>
-                    <th className="pb-3 text-[9px] font-bold uppercase tracking-[0.2em] text-[#C41C1C]">Ingreso neto</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {[
-                    { subs: 50,   gross: 749500,   net: 719510 },
-                    { subs: 100,  gross: 1499000,  net: 1469010 },
-                    { subs: 200,  gross: 2998000,  net: 2968010 },
-                    { subs: 500,  gross: 7495000,  net: 7465010 },
-                    { subs: 1000, gross: 14990000, net: 14960010 },
-                  ].map(({ subs, gross, net }) => (
-                    <tr key={subs} className="border-b border-[#F0F0F0]">
-                      <td className="py-3 font-serif font-bold text-[16px] text-[#121212] pr-8">
-                        {subs.toLocaleString('es-CL')}
-                      </td>
-                      <td className="py-3 font-sans text-[13px] text-[#888] pr-8">
-                        ${gross.toLocaleString('es-CL')}
-                      </td>
-                      <td className="py-3 font-sans text-[13px] text-[#888] pr-8">
-                        $29.990
-                      </td>
-                      <td className="py-3 font-serif font-bold text-[16px] text-[#C41C1C]">
-                        ${net.toLocaleString('es-CL')}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-            <p className="text-[10px] text-[#666] mt-4 text-center">
-              Estimación basada en precio promedio. Tu ingreso real depende del precio que tú elijas.{' '}
-              <Link href="/para-creadores" className="text-[#C41C1C] underline underline-offset-2">
-                Usa la calculadora →
-              </Link>
-            </p>
-          </div>
-        </BlurFade>
-
       </div>
     </section>
   );

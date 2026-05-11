@@ -22,9 +22,9 @@ import { featuredCreators as featuredCreatorsData } from "@/data/creators";
 /* ─── Data estática — permanece en el servidor ──────────────────────────── */
 
 const featuredCreators = [
-  { initial: "RF", name: "RODRIGO FUENTES MARÍN",  specialty: "MACROECONOMÍA",          color: "#1a1a2e", earnings: "6.222.530", trend: "+38%", subscribers: 1247, posts: 67, since: "Nov 2025", href: "/rodrigo-fuentes-marin"  },
-  { initial: "CV", name: "CAROLINA VEGA TORO",      specialty: "FINANZAS CORPORATIVAS",  color: "#1a2e1a", earnings: "4.660.660", trend: "+43%", subscribers: 934,  posts: 44, since: "Nov 2025", href: "/carolina-vega-toro" },
-  { initial: "MC", name: "MATÍAS CORNEJO SILVA",    specialty: "DERECHO TRIBUTARIO",     color: "#2e1a1a", earnings: "4.051.880", trend: "+29%", subscribers: 812,  posts: 51, since: "Dic 2025", href: "/matias-cornejo-silva" },
+  { initial: "RF", name: "RODRIGO FUENTES MARÍN",  specialty: "MACROECONOMÍA",          color: "#1a1a2e", earnings: "4.356.270", trend: "+38%", subscribers: 873, posts: 67, since: "Nov 2025", href: "/rodrigo-fuentes-marin"  },
+  { initial: "CV", name: "CAROLINA VEGA TORO",      specialty: "FINANZAS CORPORATIVAS",  color: "#1a2e1a", earnings: "3.263.460", trend: "+43%", subscribers: 654, posts: 44, since: "Nov 2025", href: "/carolina-vega-toro" },
+  { initial: "MC", name: "MATÍAS CORNEJO SILVA",    specialty: "DERECHO TRIBUTARIO",     color: "#2e1a1a", earnings: "2.835.320", trend: "+29%", subscribers: 568, posts: 51, since: "Dic 2025", href: "/matias-cornejo-silva" },
 ];
 
 const features = [
@@ -128,9 +128,9 @@ export default function Home() {
                   LineShadowTextServer emite HTML estático con las mismas clases
                   CSS de animación que el componente original — texto visible sin JS.
                 */}
-                <LineShadowTextServer shadowColor="#B31C1C">
+                <span style={{ backgroundColor: '#C41C1C', color: '#fff', padding: '0 6px 2px', display: 'inline' }}>
                   precio.
-                </LineShadowTextServer>
+                </span>
               </h1>
             </div>
 

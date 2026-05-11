@@ -582,20 +582,24 @@ export default function AbrirPage() {
 
       if (result?.error) {
         setServerError(result.error)
-      } else {
-        setSubmitted(true)
+        return
+      }
+
+      // Perfil creado — iniciar pago de plataforma ($29.990/mes)
+      setSubmitted(true)
+      try {
+        const payRes = await fetch('/api/mp/platform-checkout', { method: 'POST' })
+        const payData = await payRes.json()
+        window.location.href = payData.url ?? '/dashboard'
+      } catch {
+        window.location.href = '/dashboard'
       }
     })
   }
 
-  /* ─── Success state ─────────────────────────────────────────────────── */
+  /* ─── Redirecting state ─────────────────────────────────────────────── */
 
   if (submitted) {
-    const slug = form.nombreSala
-      .toLowerCase()
-      .replace(/\s+/g, '-')
-      .replace(/[^a-z0-9-]/g, '')
-
     return (
       <main className="flex min-h-screen items-center justify-center bg-[#F8F8F8] px-6">
         <motion.div
@@ -604,25 +608,15 @@ export default function AbrirPage() {
           transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
           className="max-w-md text-center"
         >
-          <div className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-full bg-[#0066FF]">
+          <div className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-full bg-[#C41C1C]">
             <Check size={24} className="text-white" />
           </div>
-          <h1 className="mb-2 font-sans text-2xl font-extrabold tracking-tight text-[#0A0A0A]">
-            ¡Tu espacio está listo!
+          <h1 className="mb-2 font-serif text-2xl font-bold tracking-tight text-[#121212]">
+            Redirigiendo al pago…
           </h1>
-          <p className="mb-1 font-sans text-sm text-[#6B7280]">
-            Hemos creado{' '}
-            <span className="font-semibold text-[#0066FF]">nebbuler.com/{slug}</span>
-          </p>
           <p className="font-sans text-sm text-[#6B7280]">
-            Ya puedes empezar a publicar desde tu dashboard.
+            Tu sala está lista. En un momento serás redirigido a MercadoPago para activar tu suscripción mensual.
           </p>
-          <a
-            href="/dashboard"
-            className="mt-8 inline-block rounded-lg bg-[#0066FF] px-6 py-3 font-sans text-sm font-semibold text-white transition-all hover:bg-[#0052CC]"
-          >
-            Ir al dashboard →
-          </a>
         </motion.div>
       </main>
     )

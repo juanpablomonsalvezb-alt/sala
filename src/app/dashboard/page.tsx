@@ -97,7 +97,11 @@ function NoCreatorCTA() {
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
-export default async function DashboardPage() {
+export default async function DashboardPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ activado?: string }>
+}) {
   const supabase = await createClient()
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const db = supabase as any
@@ -107,6 +111,9 @@ export default async function DashboardPage() {
   } = await supabase.auth.getUser()
 
   if (!user) redirect('/entrar')
+
+  const params = await searchParams
+  const justActivated = params.activado === '1'
 
   // Cargar creator profile
   const { data: creatorRaw } = await db
@@ -209,6 +216,33 @@ export default async function DashboardPage() {
 
       <main className="flex-1 overflow-y-auto">
         <div className="px-8 py-7 space-y-8">
+          {/* ── Banner activación exitosa ── */}
+          {justActivated && (
+            <section className="bg-[#121212] text-white px-6 py-4 flex items-center justify-between">
+              <div>
+                <p
+                  className="text-[13px] font-semibold"
+                  style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}
+                >
+                  ¡Bienvenido a Nebbuler! Tu sala ya está activa.
+                </p>
+                <p
+                  className="text-[12px] text-[#AAAAAA] mt-0.5"
+                  style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}
+                >
+                  Ya puedes publicar y recibir suscriptores. Configura tu perfil público en Configuración.
+                </p>
+              </div>
+              <Link
+                href="/dashboard/configuracion"
+                className="ml-6 flex-shrink-0 text-[12px] font-medium text-white border border-white px-3 py-1.5 hover:bg-white hover:text-[#121212] transition-colors"
+                style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}
+              >
+                Configurar →
+              </Link>
+            </section>
+          )}
+
           {/* ── Metrics row ── */}
           <section>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-[#DEDEDE] border border-[#DEDEDE]">

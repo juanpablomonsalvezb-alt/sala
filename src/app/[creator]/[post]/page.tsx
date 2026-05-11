@@ -453,14 +453,8 @@ export default async function PostPage({
           const { data: { user } } = await supabase.auth.getUser()
           if (user) {
             isAuthenticated = true
-            const { data: sub } = await supabase
-              .from('sala_subscriptions')
-              .select('id')
-              .eq('subscriber_id', user.id)
-              .eq('creator_id', creatorId)
-              .eq('status', 'active')
-              .maybeSingle()
-            isSubscribed = !!sub
+            const { isReaderSubscribed } = await import('@/lib/subscription')
+            isSubscribed = await isReaderSubscribed(supabase, user.id, creatorId)
           }
         }
       }

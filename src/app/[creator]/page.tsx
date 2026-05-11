@@ -652,15 +652,8 @@ export default async function CreatorPage({
       } = await supabase.auth.getUser()
 
       if (user) {
-        const { data: sub } = await supabase
-          .from('sala_subscriptions')
-          .select('id')
-          .eq('subscriber_id', user.id)
-          .eq('creator_id', (creator as Creator).id)
-          .eq('status', 'active')
-          .maybeSingle()
-
-        isSubscribed = !!sub
+        const { isReaderSubscribed } = await import('@/lib/subscription')
+        isSubscribed = await isReaderSubscribed(supabase, user.id, (creator as Creator).id)
       }
 
       const { data: postsData } = await supabase

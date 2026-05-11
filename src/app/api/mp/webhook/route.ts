@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient as createServiceSupabase } from '@supabase/supabase-js'
-import { MP_API, getHeaders } from '@/lib/mercadopago'
+import { MP_API } from '@/lib/mercadopago'
 import crypto from 'crypto'
 
 export const runtime = 'nodejs'
@@ -15,9 +15,45 @@ function getSupabase() {
   return createServiceSupabase(process.env.NEXT_PUBLIC_SUPABASE_URL!, serviceKey)
 }
 
+const PLATFORM_TOKEN = process.env.MERCADOPAGO_ACCESS_TOKEN ?? ''
+
+function mpHeaders(token: string) {
+  return { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' }
+}
+
+// Resuelve qué token usar para consultar MP API:
+// - Si MP envía ?user_id=<seller> (preapproval de lector→creador via Connect), usar token del creador
+// - Si no hay seller (tarifa Nebbuler), usar token de plataforma
+async function resolveMPToken(request: NextRequest): Promise<string> {
+  const sellerId = new URL(request.url).searchParams.get('user_id')
+  if (!sellerId) return PLATFORM_TOKEN
+
+  try {
+    const supabase = getSupabase()
+    const { data } = await supabase
+      .from('sala_creators')
+      .select('mp_access_token')
+      .eq('mp_user_id', sellerId)
+      .maybeSingle()
+    const token = (data as { mp_access_token: string | null } | null)?.mp_access_token
+    if (token) return token
+  } catch (err) {
+    console.error('[MP webhook] resolveMPToken lookup error:', err)
+  }
+  return PLATFORM_TOKEN
+}
+
+// Consulta a MP API con fallback de token. MP Connect a veces permite a la plataforma
+// consultar transacciones de sus sellers — usamos esto como red de seguridad.
+async function fetchMPWithFallback(url: string, primaryToken: string): Promise<Response> {
+  const primary = await fetch(url, { headers: mpHeaders(primaryToken) })
+  if (primary.ok) return primary
+  if (primaryToken === PLATFORM_TOKEN) return primary
+  return fetch(url, { headers: mpHeaders(PLATFORM_TOKEN) })
+}
+
 function verifyMPSignature(request: NextRequest): boolean {
   const secret = process.env.MERCADOPAGO_WEBHOOK_SECRET
-  // Sin secret → rechazar SIEMPRE. Antes el código retornaba `true` (bypass total).
   if (!secret) {
     console.error('[MP webhook] MERCADOPAGO_WEBHOOK_SECRET no configurada — rechazando')
     return false
@@ -34,7 +70,7 @@ function verifyMPSignature(request: NextRequest): boolean {
   const ts = tsMatch[1]
   const receivedHash = v1Match[1]
 
-  // Validar ventana temporal — ±5 min para prevenir replay attacks
+  // Anti-replay: ventana ±5 min
   const nowSec = Math.floor(Date.now() / 1000)
   const tsSec = parseInt(ts, 10)
   if (isNaN(tsSec) || Math.abs(nowSec - tsSec) > 300) {
@@ -47,14 +83,13 @@ function verifyMPSignature(request: NextRequest): boolean {
   return crypto.timingSafeEqual(Buffer.from(computedHash), Buffer.from(receivedHash))
 }
 
-// external_reference = "subscriber_id:creator_id:price_clp"  (lector → creador)
+// external_reference = "subscriber_id:creator_id:price_clp"
 function parseRef(ref: string): { subscriberId: string; creatorId: string; priceCLP: number } | null {
   const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
   const parts = ref.split(':')
   if (parts.length < 3) return null
   const [subscriberId, creatorId, priceStr] = parts
   if (!UUID.test(subscriberId) || !UUID.test(creatorId)) return null
-  // Defensa: un creador no puede ser su propio suscriptor (inflar métricas)
   if (subscriberId === creatorId) return null
   const priceCLP = parseInt(priceStr, 10)
   if (isNaN(priceCLP) || priceCLP <= 0) return null
@@ -67,27 +102,23 @@ function parsePlatformRef(ref: string): { creatorId: string; userId: string } | 
   if (!ref.startsWith('platform:')) return null
   const parts = ref.split(':')
   if (parts.length < 3) return null
-  const creatorId = parts[1]
-  const userId = parts[2]
+  const [, creatorId, userId] = parts
   if (!UUID.test(creatorId) || !UUID.test(userId)) return null
   return { creatorId, userId }
 }
 
-// Idempotencia — registrar evento procesado y devolver false si ya existe
 async function markEventProcessed(eventId: string): Promise<boolean> {
   const supabase = getSupabase()
   const { error } = await supabase
     .from('sala_webhook_events')
     .insert({ provider: 'mercadopago', event_id: eventId })
   if (error) {
-    // 23505 = unique_violation → ya procesado
     if (error.code === '23505') return false
     throw new Error(`markEventProcessed: ${error.message}`)
   }
   return true
 }
 
-// Validar que el monto pagado coincide con el precio actual del creador
 async function validateAmount(creatorId: string, amountPaid: number, tolerance = 0.01): Promise<boolean> {
   const supabase = getSupabase()
   const { data: creator } = await supabase
@@ -100,7 +131,6 @@ async function validateAmount(creatorId: string, amountPaid: number, tolerance =
   return Math.abs(amountPaid - expected) <= expected * tolerance
 }
 
-// Validar que el monto del plan de plataforma es $29.990 CLP (con tolerancia para FX)
 function validatePlatformAmount(amountPaid: number): boolean {
   return amountPaid >= 28000 && amountPaid <= 32000
 }
@@ -115,6 +145,10 @@ async function activateCreatorPlan(creatorId: string, userId: string): Promise<v
   if (error) throw new Error(`activateCreatorPlan: ${error.message}`)
 }
 
+// Activa o renueva la suscripción.
+// IMPORTANTE: piso `created_at` con NOW() en cada cobro/renovación.
+// El frontend usa `created_at` como "fecha del último ciclo de pago" para
+// bloquear acceso si > 35 días (regla "día 30/31 sin renovación → bloqueo").
 async function activateSubscription(
   subscriberId: string,
   creatorId: string,
@@ -124,12 +158,13 @@ async function activateSubscription(
   const supabase = getSupabase()
   const { error } = await supabase.from('sala_subscriptions').upsert(
     {
-      subscriber_id: subscriberId,
-      creator_id: creatorId,
-      status: 'active' as const,
+      subscriber_id:          subscriberId,
+      creator_id:             creatorId,
+      status:                 'active' as const,
       stripe_subscription_id: mpRef,
-      price_clp: priceCLP,
-      cancelled_at: null,
+      price_clp:              priceCLP,
+      cancelled_at:           null,
+      created_at:             new Date().toISOString(),
     },
     { onConflict: 'subscriber_id,creator_id', ignoreDuplicates: false }
   )
@@ -147,6 +182,52 @@ async function cancelSubscription(subscriberId: string, creatorId: string): Prom
   if (error) throw new Error(`cancelSubscription: ${error.message}`)
 }
 
+// Procesa un preapproval ya consultado (status + external_reference) sin importar
+// con qué token se obtuvo.
+async function processPreapproval(preapproval: {
+  status: string
+  external_reference?: string
+  auto_recurring?: { transaction_amount?: number }
+}, preapprovalId: string): Promise<NextResponse> {
+  const extRef: string = preapproval.external_reference ?? ''
+  const transactionAmount = Number(preapproval.auto_recurring?.transaction_amount ?? 0)
+
+  // Tarifa de plataforma — creador → Nebbuler
+  const platformParsed = parsePlatformRef(extRef)
+  if (platformParsed) {
+    if (preapproval.status === 'authorized') {
+      if (!validatePlatformAmount(transactionAmount)) {
+        console.error(`[MP webhook] platform amount mismatch: ${transactionAmount}`)
+        return NextResponse.json({ error: 'Platform amount mismatch' }, { status: 400 })
+      }
+      await activateCreatorPlan(platformParsed.creatorId, platformParsed.userId)
+    }
+    return NextResponse.json({ received: true })
+  }
+
+  // Suscripción lector → creador (Connect, 100% al creador)
+  const parsed = parseRef(extRef)
+  if (!parsed) return NextResponse.json({ received: true })
+
+  if (preapproval.status === 'authorized') {
+    const amountOK = await validateAmount(parsed.creatorId, transactionAmount)
+    if (!amountOK) {
+      console.error(`[MP webhook] sub amount mismatch: ${transactionAmount} creator=${parsed.creatorId}`)
+      return NextResponse.json({ error: 'Amount mismatch' }, { status: 400 })
+    }
+    await activateSubscription(
+      parsed.subscriberId,
+      parsed.creatorId,
+      transactionAmount,
+      `mp_sub:${preapprovalId}`
+    )
+  } else if (['cancelled', 'paused', 'finished'].includes(preapproval.status)) {
+    await cancelSubscription(parsed.subscriberId, parsed.creatorId)
+  }
+
+  return NextResponse.json({ received: true })
+}
+
 export async function POST(request: NextRequest) {
   try {
     const rawBody = await request.text()
@@ -160,26 +241,29 @@ export async function POST(request: NextRequest) {
     const { type, data, id: bodyEventId } = body
     const eventId = `${type}:${data?.id ?? bodyEventId ?? 'unknown'}`
 
-    // Idempotencia
     const fresh = await markEventProcessed(eventId)
     if (!fresh) {
       return NextResponse.json({ received: true, duplicate: true })
     }
+
+    const mpToken = await resolveMPToken(request)
 
     // ── Pago único ───────────────────────────────────────────────────────────
     if (type === 'payment') {
       const paymentId = data?.id
       if (!paymentId) return NextResponse.json({ received: true })
 
-      const res = await fetch(`${MP_API}/v1/payments/${paymentId}`, { headers: getHeaders() })
-      if (!res.ok) return NextResponse.json({ error: 'MP API error' }, { status: 502 })
+      const res = await fetchMPWithFallback(`${MP_API}/v1/payments/${paymentId}`, mpToken)
+      if (!res.ok) {
+        console.error('[MP webhook] payment lookup failed:', res.status)
+        return NextResponse.json({ error: 'MP API error' }, { status: 502 })
+      }
 
       const payment = await res.json()
       const parsed = parseRef(payment.external_reference ?? '')
       if (!parsed) return NextResponse.json({ received: true })
 
       if (payment.status === 'approved') {
-        // Validar amount real cobrado vs precio del creador
         const amountPaid = Number(payment.transaction_amount ?? 0)
         const amountOK = await validateAmount(parsed.creatorId, amountPaid)
         if (!amountOK) {
@@ -202,45 +286,14 @@ export async function POST(request: NextRequest) {
       const preapprovalId = data?.id
       if (!preapprovalId) return NextResponse.json({ received: true })
 
-      const res = await fetch(`${MP_API}/preapproval/${preapprovalId}`, { headers: getHeaders() })
-      if (!res.ok) return NextResponse.json({ error: 'MP API error' }, { status: 502 })
+      const res = await fetchMPWithFallback(`${MP_API}/preapproval/${preapprovalId}`, mpToken)
+      if (!res.ok) {
+        console.error('[MP webhook] preapproval lookup failed:', res.status)
+        return NextResponse.json({ error: 'MP API error' }, { status: 502 })
+      }
 
       const preapproval = await res.json()
-      const extRef: string = preapproval.external_reference ?? ''
-      const transactionAmount = Number(preapproval.auto_recurring?.transaction_amount ?? 0)
-
-      // ── Tarifa de plataforma: creador → Nebbuler ──
-      const platformParsed = parsePlatformRef(extRef)
-      if (platformParsed) {
-        if (preapproval.status === 'authorized') {
-          if (!validatePlatformAmount(transactionAmount)) {
-            console.error(`[MP webhook] platform amount mismatch: ${transactionAmount}`)
-            return NextResponse.json({ error: 'Platform amount mismatch' }, { status: 400 })
-          }
-          await activateCreatorPlan(platformParsed.creatorId, platformParsed.userId)
-        }
-        return NextResponse.json({ received: true })
-      }
-
-      // ── Suscripción lector → creador ──
-      const parsed = parseRef(extRef)
-      if (!parsed) return NextResponse.json({ received: true })
-
-      if (preapproval.status === 'authorized') {
-        const amountOK = await validateAmount(parsed.creatorId, transactionAmount)
-        if (!amountOK) {
-          console.error(`[MP webhook] sub amount mismatch: ${transactionAmount} creator=${parsed.creatorId}`)
-          return NextResponse.json({ error: 'Amount mismatch' }, { status: 400 })
-        }
-        await activateSubscription(
-          parsed.subscriberId,
-          parsed.creatorId,
-          transactionAmount,
-          `mp_sub:${preapprovalId}`
-        )
-      } else if (['cancelled', 'paused', 'finished'].includes(preapproval.status)) {
-        await cancelSubscription(parsed.subscriberId, parsed.creatorId)
-      }
+      return await processPreapproval(preapproval, preapprovalId)
     }
 
     return NextResponse.json({ received: true })

@@ -1,7 +1,7 @@
 'use server'
 
-import { createClient } from '@/lib/supabase/server'
-import { MP_API, getHeaders, isMPConfigured } from '@/lib/mercadopago'
+import { createClient, createServiceClient } from '@/lib/supabase/server'
+import { MP_API } from '@/lib/mercadopago'
 
 function isSupabaseConfigured(): boolean {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL ?? ''
@@ -36,16 +36,37 @@ export async function createCheckoutSession(creatorSlug: string): Promise<Checko
     }
   }
 
-  const { data: creator, error: creatorError } = await supabase
+  // Service client para leer mp_access_token (campo sensible, no expuesto a anon)
+  const service = createServiceClient()
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { data: creatorRaw, error: creatorError } = await (service as any)
     .from('sala_creators')
-    .select('*')
+    .select('id, name, publication_name, price_clp, mp_access_token')
     .eq('slug', creatorSlug)
     .single()
 
-  if (creatorError || !creator) {
+  if (creatorError || !creatorRaw) {
     return { ok: false, error: 'Creador no encontrado.' }
   }
 
+  const creator = creatorRaw as {
+    id: string
+    name: string
+    publication_name: string | null
+    price_clp: number
+    mp_access_token: string | null
+  }
+
+  // Modelo: 100% del pago del lector va al creador.
+  // Sin cuenta MP conectada, el creador no puede recibir pagos.
+  if (!creator.mp_access_token) {
+    return {
+      ok: false,
+      error: 'Este creador aún no ha conectado su cuenta para recibir pagos. Vuelve pronto.',
+    }
+  }
+
+  // Bloquear duplicados — anon client puede leer subs propias por RLS
   const { data: existingSub } = await supabase
     .from('sala_subscriptions')
     .select('id')
@@ -58,30 +79,31 @@ export async function createCheckoutSession(creatorSlug: string): Promise<Checko
     return { ok: false, alreadySubscribed: true, profileUrl: `/${creatorSlug}` }
   }
 
-  if (!isMPConfigured()) {
-    return { ok: false, error: 'Los pagos aún no están activos. Vuelve pronto.' }
-  }
-
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://nebbuler.com'
 
   const body = {
     reason: `Nebbuler — ${creator.publication_name ?? creator.name}`,
     auto_recurring: {
-      frequency: 1,
-      frequency_type: 'months',
+      frequency:          1,
+      frequency_type:     'months',
       transaction_amount: creator.price_clp,
-      currency_id: 'CLP',
+      currency_id:        'CLP',
     },
-    payer_email: user.email,
-    back_url: `${baseUrl}/suscribirse/${creatorSlug}/exito`,
-    status: 'pending',
+    payer_email:        user.email,
+    back_url:           `${baseUrl}/suscribirse/${creatorSlug}/exito`,
+    status:             'pending',
     external_reference: `${user.id}:${creator.id}:${creator.price_clp}`,
-    notification_url: `${baseUrl}/api/mp/webhook`,
+    notification_url:   `${baseUrl}/api/mp/webhook`,
   }
 
+  // CRÍTICO: usamos el access_token del CREADOR (MP Connect),
+  // así el 100% del cobro entra directamente a su cuenta MP.
   const response = await fetch(`${MP_API}/preapproval`, {
     method: 'POST',
-    headers: getHeaders(),
+    headers: {
+      Authorization:  `Bearer ${creator.mp_access_token}`,
+      'Content-Type': 'application/json',
+    },
     body: JSON.stringify(body),
   })
 

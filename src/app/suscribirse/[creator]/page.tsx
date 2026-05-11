@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { createClient } from '@/lib/supabase/server'
+import { createClient, createServiceClient } from '@/lib/supabase/server'
 import type { Creator } from '@/types/database'
 import CheckoutButton from './_components/CheckoutButton'
 import { creators as staticCreators } from '@/data/creators'
@@ -109,6 +109,32 @@ function Footer() {
   )
 }
 
+function NotAcceptingPayments({ creator }: { creator: Creator }) {
+  return (
+    <div className="max-w-lg mx-auto text-center">
+      <div className="inline-flex items-center justify-center w-14 h-14 bg-[#FFF8F0] border border-[#F5DEB3] mb-5">
+        <span className="text-2xl">⏳</span>
+      </div>
+      <h1
+        className="font-serif text-[28px] font-bold text-[#121212] leading-tight mb-3"
+        style={{ letterSpacing: '-0.01em' }}
+      >
+        {creator.name} aún no acepta pagos
+      </h1>
+      <p className="font-sans text-[14px] text-[#666666] leading-relaxed mb-8 max-w-md mx-auto">
+        Este creador está terminando de configurar su cuenta para recibir suscripciones.
+        Vuelve pronto — te avisaremos cuando esté listo.
+      </p>
+      <Link
+        href={`/${creator.slug}`}
+        className="inline-flex items-center font-sans text-[12px] font-semibold tracking-[0.12em] uppercase text-[#121212] border border-[#121212] px-6 py-3 hover:bg-[#121212] hover:text-white transition-colors"
+      >
+        Volver a su sala
+      </Link>
+    </div>
+  )
+}
+
 function CheckoutForm({ creator }: { creator: Creator }) {
   const priceLabel = `${formatPriceCLP(creator.price_clp)}/mes`
 
@@ -192,6 +218,7 @@ export default async function SuscribirsePage({
   const { creator: slug } = await params
 
   let creator: Creator | null = null
+  let acceptsPayments = false
 
   if (isSupabaseConfigured()) {
     try {
@@ -207,11 +234,25 @@ export default async function SuscribirsePage({
       } else {
         creator = data
       }
+
+      // Verificar si tiene MP Connect activo (service client porque el token
+      // es campo sensible no expuesto a anon).
+      if (creator && !creator.id.startsWith('mock-')) {
+        const service = createServiceClient()
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const { data: mpData } = await (service as any)
+          .from('sala_creators')
+          .select('mp_access_token')
+          .eq('id', creator.id)
+          .maybeSingle()
+        acceptsPayments = !!(mpData?.mp_access_token)
+      }
     } catch {
       creator = findStaticCreatorForCheckout(slug)
     }
   } else {
     creator = findStaticCreatorForCheckout(slug)
+    acceptsPayments = true // demo mode
   }
 
   if (!creator) notFound()
@@ -220,7 +261,11 @@ export default async function SuscribirsePage({
     <div className="min-h-screen bg-white flex flex-col">
       <Nav />
       <main className="flex-1 py-16 px-6">
-        <CheckoutForm creator={creator} />
+        {acceptsPayments ? (
+          <CheckoutForm creator={creator} />
+        ) : (
+          <NotAcceptingPayments creator={creator} />
+        )}
       </main>
       <Footer />
     </div>

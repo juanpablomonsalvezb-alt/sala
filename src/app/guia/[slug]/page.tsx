@@ -4,22 +4,24 @@ import Link from 'next/link'
 import { GUIDES } from '@/data/seo-guides'
 import { safeJsonLd } from '@/lib/rateLimit'
 
-// Importar contenido generado por IA
-const generatedGuides: Record<string, { slug: string; title: string; content: string; generatedAt: string }> = {
-  'como-monetizar-conocimiento-economista': require('@/data/generated-content/guides.json')['como-monetizar-conocimiento-economista'],
-  'como-monetizar-conocimiento-abogado': require('@/data/generated-content/guides.json')['como-monetizar-conocimiento-abogado'],
-  'como-monetizar-conocimiento-medico': require('@/data/generated-content/guides.json')['como-monetizar-conocimiento-medico'],
-  'como-monetizar-conocimiento-contador': require('@/data/generated-content/guides.json')['como-monetizar-conocimiento-contador'],
-  'como-monetizar-conocimiento-analista-financiero': require('@/data/generated-content/guides.json')['como-monetizar-conocimiento-analista-financiero'],
-  'como-crear-newsletter-profesional': require('@/data/generated-content/guides.json')['como-crear-newsletter-profesional'],
-  'nebbuler-vs-substack': require('@/data/generated-content/guides.json')['nebbuler-vs-substack'],
-  'nebbuler-vs-beehiiv': require('@/data/generated-content/guides.json')['nebbuler-vs-beehiiv'],
+// Importar contenido generado por IA (ambos archivos: original y expandido)
+let generatedGuides: Record<string, { slug: string; title: string; content: string; generatedAt: string }> = {}
+
+try {
+  const guidesData = require('@/data/generated-content/guides.json')
+  const guidesExpandedData = require('@/data/generated-content/guides-expanded.json')
+  generatedGuides = { ...guidesData, ...guidesExpandedData }
+} catch (e) {
+  // Fallback if JSON not available
+  generatedGuides = {}
 }
 
 export const revalidate = false
 
 export async function generateStaticParams() {
-  return GUIDES.map(g => ({ slug: g.slug }))
+  // Incluir todas las guías del GUIDES array + las expandidas
+  const allSlugs = GUIDES.map(g => ({ slug: g.slug }))
+  return allSlugs
 }
 
 export async function generateMetadata({

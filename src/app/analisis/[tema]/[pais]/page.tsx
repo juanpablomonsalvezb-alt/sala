@@ -6,10 +6,12 @@ import { MARKETS } from '@/data/seo-matrix'
 import { creators } from '@/data/creators'
 import { safeJsonLd } from '@/lib/rateLimit'
 
-// Importar análisis generados
+// Importar análisis generados (ambos archivos: original y expandido)
 let generatedAnalysis: Record<string, { slug: string; title: string; content: string; generatedAt: string }> = {}
 try {
-  generatedAnalysis = require('@/data/generated-content/analysis.json')
+  const analysisData = require('@/data/generated-content/analysis.json')
+  const analysisExpandedData = require('@/data/generated-content/analysis-expanded.json')
+  generatedAnalysis = { ...analysisData, ...analysisExpandedData }
 } catch {
   // Si el archivo no existe, usamos objeto vacío
 }

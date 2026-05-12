@@ -153,6 +153,29 @@ export default async function AnalisisPaisPage({
             </article>
           )}
 
+          {/* Link to pillar page */}
+          <section className="mb-16 pb-16 border-b border-[#DEDEDE]">
+            <div className="bg-[#F7F7F7] border border-[#E0E0E0] p-6 flex items-start justify-between gap-6">
+              <div>
+                <p className="font-sans text-[11px] font-bold tracking-[0.2em] uppercase text-[#999] mb-2">
+                  Profundiza más
+                </p>
+                <h3 className="font-serif text-[18px] font-bold text-[#121212] mb-2">
+                  Guía completa sobre {topic.label.toLowerCase()}
+                </h3>
+                <p className="font-sans text-[13px] text-[#666]">
+                  Análisis integral que consolida el conocimiento más profundo sobre este tema, disponible en 18 mercados latinoamericanos.
+                </p>
+              </div>
+              <Link
+                href={`/pillar/${tema}`}
+                className="flex-shrink-0 inline-flex font-sans text-[12px] font-bold tracking-[0.1em] uppercase px-5 py-3 bg-[#C41C1C] text-white hover:bg-[#a01515] transition-colors whitespace-nowrap h-fit"
+              >
+                Leer pillar →
+              </Link>
+            </div>
+          </section>
+
           {/* FAQ */}
           {!generatedContent && (
             <section className="mb-16 pb-16 border-b border-[#DEDEDE]">

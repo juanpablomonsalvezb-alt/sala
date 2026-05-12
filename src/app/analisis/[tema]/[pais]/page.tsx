@@ -3,8 +3,10 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { TOPICS } from '@/data/seo-topics'
 import { MARKETS } from '@/data/seo-matrix'
+import { GUIDES } from '@/data/seo-guides'
 import { creators } from '@/data/creators'
 import { safeJsonLd } from '@/lib/rateLimit'
+import { generateBreadcrumb } from '@/lib/internal-linking'
 
 // Importar análisis generados (ambos archivos: original y expandido)
 let generatedAnalysis: Record<string, { slug: string; title: string; content: string; generatedAt: string }> = {}
@@ -196,6 +198,30 @@ export default async function AnalisisPaisPage({
                     </p>
                   </Link>
                 ))}
+              </div>
+            </section>
+          )}
+
+          {/* Related guides */}
+          {GUIDES.slice(0, 4).length > 0 && (
+            <section className="mb-16 pb-16 border-b border-[#DEDEDE]">
+              <h2 className="font-sans text-[11px] font-bold tracking-[0.2em] uppercase text-[#999] mb-6">
+                Guías prácticas
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {GUIDES.slice(0, 4)
+                  .map(guide => (
+                    <Link
+                      key={guide.slug}
+                      href={`/guia/${guide.slug}`}
+                      className="border border-[#DEDEDE] p-4 hover:border-[#C41C1C] hover:bg-[#FAFAFA] transition-colors group"
+                    >
+                      <p className="font-serif text-[16px] font-bold text-[#121212] group-hover:text-[#C41C1C] transition-colors mb-2">
+                        {guide.title}
+                      </p>
+                      <p className="font-sans text-[13px] text-[#666]">{guide.description}</p>
+                    </Link>
+                  ))}
               </div>
             </section>
           )}

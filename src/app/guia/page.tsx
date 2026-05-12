@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { GUIDES } from '@/data/seo-guides'
+import { TOPICS } from '@/data/seo-topics'
+import { MARKETS } from '@/data/seo-matrix'
 
 export const metadata: Metadata = {
   title: 'Guías para creadores — Nebbuler',
@@ -89,6 +91,26 @@ export default function GuiasIndexPage() {
             </div>
           </section>
         )}
+
+        {/* Relacionado: Análisis */}
+        <section className="mt-12 pt-8 border-t border-[#DEDEDE] mb-12">
+          <h2 className="font-sans text-[11px] font-bold tracking-[0.2em] uppercase text-[#999] mb-6">
+            Profundiza con análisis
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {TOPICS.slice(0, 3).map(topic => (
+              <Link
+                key={topic.slug}
+                href={`/analisis/${topic.slug}/${MARKETS[0]?.slug || 'chile'}`}
+                className="border border-[#DEDEDE] p-5 hover:border-[#C41C1C] hover:bg-[#FAFAFA] transition-colors group"
+              >
+                <p className="font-serif text-[16px] font-bold text-[#121212] group-hover:text-[#C41C1C] transition-colors">
+                  {topic.label}
+                </p>
+              </Link>
+            ))}
+          </div>
+        </section>
 
         <div className="bg-[#F7F7F7] border border-[#DEDEDE] p-8">
           <h2 className="font-serif text-[1.5rem] font-bold text-[#121212] mb-3">

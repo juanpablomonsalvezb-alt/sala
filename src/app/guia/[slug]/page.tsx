@@ -2,7 +2,10 @@ import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { GUIDES } from '@/data/seo-guides'
+import { TOPICS } from '@/data/seo-topics'
+import { MARKETS } from '@/data/seo-matrix'
 import { safeJsonLd } from '@/lib/rateLimit'
+import { generateBreadcrumb, getRelatedAnalyses } from '@/lib/internal-linking'
 
 // Importar contenido generado por IA (ambos archivos: original y expandido)
 let generatedGuides: Record<string, { slug: string; title: string; content: string; generatedAt: string }> = {}
@@ -58,6 +61,11 @@ export default async function GuiaPage({
   // Usar contenido generado si está disponible, si no usar contenido fallback
   const generatedContent = generatedGuides[slug]?.content || guide.content
 
+  // Obtener análisis relacionados
+  const relatedAnalyses = TOPICS.length > 0 && MARKETS.length > 0
+    ? getRelatedAnalyses(TOPICS[0]?.slug, MARKETS[0]?.slug, 3)
+    : []
+
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'HowTo',
@@ -65,9 +73,10 @@ export default async function GuiaPage({
     description: guide.description,
     publisher: { '@type': 'Organization', name: 'Nebbuler', url: 'https://nebbuler.com' },
     url: `https://nebbuler.com/guia/${slug}`,
+    breadcrumb: generateBreadcrumb(`/guia/${slug}`),
   }
 
-  const relatedGuides = GUIDES.filter(g => g.slug !== slug).slice(0, 3)
+  const relatedGuides = GUIDES.filter(g => g.slug !== slug && g.profession === guide.profession).slice(0, 3)
 
   return (
     <>
@@ -143,6 +152,29 @@ export default async function GuiaPage({
               Crear cuenta →
             </Link>
           </div>
+
+          {/* Related analyses */}
+          {relatedAnalyses.length > 0 && (
+            <section className="border-t border-[#DEDEDE] pt-12 mb-12">
+              <h3 className="font-sans text-[11px] font-bold tracking-[0.2em] uppercase text-[#999] mb-6">
+                Análisis relacionados
+              </h3>
+              <div className="grid gap-4">
+                {relatedAnalyses.map(analysis => (
+                  <Link
+                    key={analysis.slug}
+                    href={`/analisis/${analysis.slug}`}
+                    className="border border-[#DEDEDE] p-4 hover:border-[#C41C1C] hover:bg-[#FAFAFA] transition-colors group"
+                  >
+                    <p className="font-sans text-[11px] text-[#999] mb-1">{analysis.topic} · {analysis.market}</p>
+                    <p className="font-serif text-[16px] font-bold text-[#121212] group-hover:text-[#C41C1C] transition-colors">
+                      {analysis.topic} en {analysis.market}
+                    </p>
+                  </Link>
+                ))}
+              </div>
+            </section>
+          )}
 
           {/* Related guides */}
           {relatedGuides.length > 0 && (

@@ -1,7 +1,11 @@
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { GUIDES } from '@/data/seo-guides'
+import { TOPICS } from '@/data/seo-topics'
+import { MARKETS } from '@/data/seo-matrix'
 import { safeJsonLd } from '@/lib/rateLimit'
+import { generateBreadcrumb } from '@/lib/internal-linking'
 
 let caseStudies: Record<string, { slug: string; title: string; country: string; content: string; generatedAt: string }> = {}
 
@@ -51,6 +55,10 @@ export default async function CaseStudyPage({
   const study = caseStudies[slug]
   if (!study) notFound()
 
+  // Obtener contenido relacionado
+  const relatedGuides = GUIDES.slice(0, 3)
+  const relatedTopics = TOPICS.slice(0, 2)
+
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Article',
@@ -58,6 +66,7 @@ export default async function CaseStudyPage({
     description: study.title,
     publisher: { '@type': 'Organization', name: 'Nebbuler', url: 'https://nebbuler.com' },
     url: `https://nebbuler.com/caso-estudio/${slug}`,
+    breadcrumb: generateBreadcrumb(`/caso-estudio/${slug}`),
   }
 
   return (
@@ -125,6 +134,51 @@ export default async function CaseStudyPage({
               Crear cuenta →
             </Link>
           </div>
+
+          {/* Related guides */}
+          {relatedGuides.length > 0 && (
+            <section className="border-t border-[#DEDEDE] pt-12 mb-12">
+              <h3 className="font-sans text-[11px] font-bold tracking-[0.2em] uppercase text-[#999] mb-6">
+                Guías relacionadas
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {relatedGuides.map(guide => (
+                  <Link
+                    key={guide.slug}
+                    href={`/guia/${guide.slug}`}
+                    className="border border-[#DEDEDE] p-4 hover:border-[#C41C1C] hover:bg-[#FAFAFA] transition-colors group"
+                  >
+                    <p className="font-serif text-[16px] font-bold text-[#121212] group-hover:text-[#C41C1C] transition-colors mb-2">
+                      {guide.title}
+                    </p>
+                    <p className="font-sans text-[13px] text-[#666]">{guide.description}</p>
+                  </Link>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* Related analyses */}
+          {relatedTopics.length > 0 && (
+            <section>
+              <h3 className="font-sans text-[11px] font-bold tracking-[0.2em] uppercase text-[#999] mb-6">
+                Análisis del mercado
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {relatedTopics.map(topic => (
+                  <Link
+                    key={topic.slug}
+                    href={`/analisis/${topic.slug}/${MARKETS[0]?.slug || 'chile'}`}
+                    className="border border-[#DEDEDE] p-4 hover:border-[#C41C1C] hover:bg-[#FAFAFA] transition-colors group"
+                  >
+                    <p className="font-serif text-[16px] font-bold text-[#121212] group-hover:text-[#C41C1C] transition-colors">
+                      {topic.label}
+                    </p>
+                  </Link>
+                ))}
+              </div>
+            </section>
+          )}
         </main>
       </div>
     </>

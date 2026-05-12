@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { TOPICS } from '@/data/seo-topics'
+import { MARKETS } from '@/data/seo-matrix'
 
 let faqs: Record<string, { slug: string; title: string; content: string; category?: string; generatedAt: string }> = {}
 
@@ -85,6 +87,26 @@ export default function FAQIndexPage() {
             </div>
           </section>
         ))}
+
+        {/* Featured analyses */}
+        <section className="mt-12 pt-12 border-t border-[#DEDEDE] mb-12">
+          <h2 className="font-sans text-[11px] font-bold tracking-[0.2em] uppercase text-[#999] mb-6">
+            Análisis recomendados
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {TOPICS.slice(0, 3).map(topic => (
+              <Link
+                key={topic.slug}
+                href={`/analisis/${topic.slug}/${MARKETS[0]?.slug || 'chile'}`}
+                className="border border-[#DEDEDE] p-4 hover:border-[#C41C1C] hover:bg-[#FAFAFA] transition-colors group"
+              >
+                <p className="font-serif text-[16px] font-bold text-[#121212] group-hover:text-[#C41C1C] transition-colors">
+                  {topic.label}
+                </p>
+              </Link>
+            ))}
+          </div>
+        </section>
 
         {/* Cross-links to related content */}
         <section className="mt-12 pt-12 border-t border-[#DEDEDE]">

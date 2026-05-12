@@ -6,6 +6,14 @@ import { MARKETS } from '@/data/seo-matrix'
 import { creators } from '@/data/creators'
 import { safeJsonLd } from '@/lib/rateLimit'
 
+// Importar análisis generados
+let generatedAnalysis: Record<string, { slug: string; title: string; content: string; generatedAt: string }> = {}
+try {
+  generatedAnalysis = require('@/data/generated-content/analysis.json')
+} catch {
+  // Si el archivo no existe, usamos objeto vacío
+}
+
 export const revalidate = false
 
 export async function generateStaticParams() {
@@ -50,6 +58,10 @@ export default async function AnalisisPaisPage({
 
   // Creadores relacionados con esta disciplina
   const related = creators.filter(c => c.discipline === topic.discipline).slice(0, 4)
+
+  // Usar contenido generado si está disponible
+  const contentKey = `${tema}--${pais}`
+  const generatedContent = generatedAnalysis[contentKey]?.content
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -119,30 +131,38 @@ export default async function AnalisisPaisPage({
             <p className="font-sans text-[11px] font-bold tracking-[0.2em] uppercase text-[#C41C1C] mb-3">
               {topic.discipline} · {market.flag} {market.label}
             </p>
-            <h1 className="font-serif text-[2.8rem] font-bold text-[#121212] leading-[1.1] mb-5">
-              {topic.label} en {market.label}
+            <h1 className="font-serif text-[2.5rem] font-bold text-[#121212] leading-[1.15] mb-4">
+              {topic.label}
             </h1>
-            <p className="font-sans text-[17px] text-[#555] leading-relaxed max-w-2xl">
-              Análisis independiente y riguroso sobre {topic.description.toLowerCase()} en {market.label}.
-              Publicado por profesionales verificados en Nebbuler.
+            <p className="font-sans text-[17px] text-[#555] leading-relaxed">
+              {topic.description}
             </p>
           </div>
 
-          {/* Preguntas frecuentes */}
-          {topic.questions.length > 0 && (
-            <section className="mb-12">
-              <h2 className="font-sans text-[11px] font-bold tracking-[0.2em] uppercase text-[#999] mb-6">
-                Lo que los profesionales de {market.label} necesitan entender
+          {/* Main content */}
+          {generatedContent && (
+            <article className="mb-16">
+              <div
+                className="font-sans text-[16px] leading-[1.7] text-[#333] prose prose-sm max-w-none"
+                dangerouslySetInnerHTML={{ __html: generatedContent }}
+              />
+            </article>
+          )}
+
+          {/* FAQ */}
+          {!generatedContent && (
+            <section className="mb-16 pb-16 border-b border-[#DEDEDE]">
+              <h2 className="font-serif text-[24px] font-bold text-[#121212] mb-8">
+                Preguntas frecuentes
               </h2>
-              <div className="space-y-3">
+              <div className="space-y-6">
                 {topic.questions.map((q, i) => (
-                  <div
-                    key={i}
-                    className="flex items-start gap-4 p-4 border border-[#DEDEDE] hover:border-[#C41C1C] transition-colors group"
-                  >
-                    <span className="font-serif text-[#C41C1C] text-lg leading-none mt-0.5 flex-shrink-0">?</span>
-                    <p className="font-sans text-[15px] text-[#333] group-hover:text-[#121212] transition-colors">
-                      {q}
+                  <div key={i}>
+                    <h3 className="font-sans text-[15px] font-bold text-[#121212] mb-3">
+                      {i + 1}. {q}
+                    </h3>
+                    <p className="font-sans text-[14px] text-[#666] leading-relaxed">
+                      Esta pregunta se responde en profundidad en los análisis de expertos verificados en Nebbuler.
                     </p>
                   </div>
                 ))}
@@ -150,88 +170,53 @@ export default async function AnalisisPaisPage({
             </section>
           )}
 
-          {/* Expertos */}
+          {/* Creadores relacionados */}
           {related.length > 0 && (
-            <section className="mb-12">
+            <section className="mb-16 pb-16 border-b border-[#DEDEDE]">
               <h2 className="font-sans text-[11px] font-bold tracking-[0.2em] uppercase text-[#999] mb-6">
-                Expertos en {topic.label} en Nebbuler
+                Expertos en {topic.label.toLowerCase()}
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {related.map(c => (
+                {related.map(creator => (
                   <Link
-                    key={c.slug}
-                    href={`/${c.slug}`}
+                    key={creator.slug}
+                    href={`/${creator.slug}`}
                     className="border border-[#DEDEDE] p-5 hover:border-[#C41C1C] transition-colors group"
                   >
-                    <p className="font-sans text-[10px] font-bold tracking-[0.15em] uppercase text-[#999] mb-1">
-                      {c.specialty}
+                    <p className="font-serif text-[16px] font-bold text-[#121212] group-hover:text-[#C41C1C] transition-colors mb-2">
+                      {creator.name}
                     </p>
-                    <p className="font-serif text-[18px] font-bold text-[#121212] group-hover:text-[#C41C1C] transition-colors mb-2">
-                      {c.name}
+                    <p className="font-sans text-[12px] text-[#999] mb-3">
+                      {creator.specialty}
                     </p>
-                    <p className="font-sans text-[13px] text-[#666] leading-snug line-clamp-2">{c.bio}</p>
-                    <p className="font-sans text-[12px] text-[#C41C1C] font-semibold mt-3">Leer análisis →</p>
+                    <p className="font-sans text-[13px] text-[#666] line-clamp-2">
+                      {creator.bio}
+                    </p>
                   </Link>
                 ))}
               </div>
             </section>
           )}
 
-          {/* Otros mercados */}
-          <section className="mb-12">
-            <h2 className="font-sans text-[11px] font-bold tracking-[0.2em] uppercase text-[#999] mb-4">
-              {topic.label} en otros países
+          {/* Related topics */}
+          <section>
+            <h2 className="font-sans text-[11px] font-bold tracking-[0.2em] uppercase text-[#999] mb-6">
+              Otros temas en {market.label}
             </h2>
             <div className="flex flex-wrap gap-2">
-              {MARKETS.filter(m => m.slug !== pais).map(m => (
-                <Link
-                  key={m.slug}
-                  href={`/analisis/${tema}/${m.slug}`}
-                  className="font-sans text-[12px] px-3 py-1.5 border border-[#DEDEDE] text-[#666] hover:border-[#C41C1C] hover:text-[#C41C1C] transition-colors"
-                >
-                  {m.flag} {m.label}
-                </Link>
-              ))}
+              {TOPICS.filter(t => t.slug !== tema)
+                .slice(0, 5)
+                .map(t => (
+                  <Link
+                    key={t.slug}
+                    href={`/analisis/${t.slug}/${pais}`}
+                    className="font-sans text-[12px] px-3 py-1.5 border border-[#DEDEDE] text-[#666] hover:border-[#C41C1C] hover:text-[#C41C1C] transition-colors"
+                  >
+                    {t.label}
+                  </Link>
+                ))}
             </div>
           </section>
-
-          {/* Otros temas */}
-          <section className="mb-12 pt-8 border-t border-[#DEDEDE]">
-            <h2 className="font-sans text-[11px] font-bold tracking-[0.2em] uppercase text-[#999] mb-4">
-              Más análisis para {market.label}
-            </h2>
-            <div className="flex flex-wrap gap-2">
-              {TOPICS.filter(t => t.slug !== tema).map(t => (
-                <Link
-                  key={t.slug}
-                  href={`/analisis/${t.slug}/${pais}`}
-                  className="font-sans text-[12px] px-3 py-1.5 border border-[#DEDEDE] text-[#666] hover:border-[#C41C1C] hover:text-[#C41C1C] transition-colors"
-                >
-                  {t.label}
-                </Link>
-              ))}
-            </div>
-          </section>
-
-          {/* CTA */}
-          <div className="bg-[#121212] text-white p-8">
-            <p className="font-sans text-[11px] font-bold tracking-[0.2em] uppercase text-[#C41C1C] mb-3">
-              Nebbuler
-            </p>
-            <h2 className="font-serif text-[1.8rem] font-bold mb-3">
-              ¿Eres experto en {topic.label}?
-            </h2>
-            <p className="font-sans text-[15px] text-[#CCC] mb-6 leading-relaxed">
-              Publica tu análisis en Nebbuler y cobra directamente de tus suscriptores. Sin comisión.
-              Tarifa fija mensual.
-            </p>
-            <Link
-              href="/abrir"
-              className="inline-flex items-center font-sans text-[13px] font-semibold bg-[#C41C1C] text-white px-6 py-3 hover:bg-[#a01515] transition-colors"
-            >
-              Abrir mi sala →
-            </Link>
-          </div>
         </main>
       </div>
     </>

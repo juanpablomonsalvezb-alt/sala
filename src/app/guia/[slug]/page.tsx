@@ -4,6 +4,18 @@ import Link from 'next/link'
 import { GUIDES } from '@/data/seo-guides'
 import { safeJsonLd } from '@/lib/rateLimit'
 
+// Importar contenido generado por IA
+const generatedGuides: Record<string, { slug: string; title: string; content: string; generatedAt: string }> = {
+  'como-monetizar-conocimiento-economista': require('@/data/generated-content/guides.json')['como-monetizar-conocimiento-economista'],
+  'como-monetizar-conocimiento-abogado': require('@/data/generated-content/guides.json')['como-monetizar-conocimiento-abogado'],
+  'como-monetizar-conocimiento-medico': require('@/data/generated-content/guides.json')['como-monetizar-conocimiento-medico'],
+  'como-monetizar-conocimiento-contador': require('@/data/generated-content/guides.json')['como-monetizar-conocimiento-contador'],
+  'como-monetizar-conocimiento-analista-financiero': require('@/data/generated-content/guides.json')['como-monetizar-conocimiento-analista-financiero'],
+  'como-crear-newsletter-profesional': require('@/data/generated-content/guides.json')['como-crear-newsletter-profesional'],
+  'nebbuler-vs-substack': require('@/data/generated-content/guides.json')['nebbuler-vs-substack'],
+  'nebbuler-vs-beehiiv': require('@/data/generated-content/guides.json')['nebbuler-vs-beehiiv'],
+}
+
 export const revalidate = false
 
 export async function generateStaticParams() {
@@ -40,6 +52,9 @@ export default async function GuiaPage({
   const { slug } = await params
   const guide = GUIDES.find(g => g.slug === slug)
   if (!guide) notFound()
+
+  // Usar contenido generado si está disponible, si no usar contenido fallback
+  const generatedContent = generatedGuides[slug]?.content || guide.content
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -101,47 +116,53 @@ export default async function GuiaPage({
           </div>
 
           {/* Content */}
-          <article
-            className="prose prose-lg max-w-none font-sans text-[#333] [&_h2]:font-serif [&_h2]:text-[1.5rem] [&_h2]:font-bold [&_h2]:text-[#121212] [&_h2]:mt-8 [&_h2]:mb-4 [&_p]:leading-relaxed [&_p]:mb-4 [&_strong]:font-semibold [&_strong]:text-[#121212]"
-            dangerouslySetInnerHTML={{ __html: guide.content }}
-          />
+          <article className="prose prose-sm max-w-none mb-16">
+            <div
+              className="font-sans text-[16px] leading-[1.7] text-[#333]"
+              dangerouslySetInnerHTML={{ __html: generatedContent }}
+            />
+          </article>
 
           {/* CTA */}
-          <div className="mt-12 bg-[#F7F7F7] border border-[#DEDEDE] p-8">
-            <h2 className="font-serif text-[1.5rem] font-bold text-[#121212] mb-3">
-              Empieza a publicar en Nebbuler
+          <div className="bg-[#F7F7F7] border border-[#E0E0E0] p-8 mb-16 text-center">
+            <p className="font-sans text-[11px] font-bold tracking-[0.2em] uppercase text-[#999] mb-4">
+              Listo para empezar
+            </p>
+            <h2 className="font-serif text-[28px] font-bold text-[#121212] mb-4">
+              Abre tu sala en Nebbuler
             </h2>
             <p className="font-sans text-[15px] text-[#555] mb-6 leading-relaxed">
-              Tarifa fija mensual. 0% de comisión sobre tus suscripciones. Tu conocimiento, tu ingreso.
+              Sin comisión. Tarifa fija de $29.990 CLP/mes. 100% de tus suscripciones es tuyo.
             </p>
             <Link
               href="/abrir"
-              className="inline-flex items-center font-sans text-[13px] font-semibold bg-[#121212] text-white px-6 py-3 hover:bg-[#C41C1C] transition-colors"
+              className="inline-block font-sans text-[12px] font-bold tracking-[0.1em] uppercase px-8 py-3 bg-[#C41C1C] text-white hover:bg-[#a01515] transition-colors"
             >
-              Abrir mi sala en Nebbuler →
+              Crear cuenta →
             </Link>
           </div>
 
           {/* Related guides */}
           {relatedGuides.length > 0 && (
-            <div className="mt-12 pt-8 border-t border-[#DEDEDE]">
+            <section className="border-t border-[#DEDEDE] pt-12">
               <h3 className="font-sans text-[11px] font-bold tracking-[0.2em] uppercase text-[#999] mb-6">
-                Más guías para creadores
+                Guías relacionadas
               </h3>
-              <div className="space-y-4">
-                {relatedGuides.map(g => (
-                  <Link key={g.slug} href={`/guia/${g.slug}`} className="flex items-start gap-4 group">
-                    <span className="font-serif text-[#C41C1C] text-[20px] leading-none mt-0.5">—</span>
-                    <div>
-                      <p className="font-serif text-[16px] font-bold text-[#121212] group-hover:text-[#C41C1C] transition-colors">
-                        {g.title}
-                      </p>
-                      <p className="font-sans text-[13px] text-[#666] mt-0.5">{g.description}</p>
-                    </div>
+              <div className="grid gap-4">
+                {relatedGuides.map(rg => (
+                  <Link
+                    key={rg.slug}
+                    href={`/guia/${rg.slug}`}
+                    className="border border-[#DEDEDE] p-4 hover:border-[#C41C1C] hover:bg-[#FAFAFA] transition-colors group"
+                  >
+                    <p className="font-serif text-[16px] font-bold text-[#121212] group-hover:text-[#C41C1C] transition-colors mb-2">
+                      {rg.title}
+                    </p>
+                    <p className="font-sans text-[13px] text-[#666]">{rg.description}</p>
                   </Link>
                 ))}
               </div>
-            </div>
+            </section>
           )}
         </main>
       </div>

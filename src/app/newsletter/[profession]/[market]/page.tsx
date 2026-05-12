@@ -28,7 +28,8 @@ export async function generateMetadata({
   if (!prof || !market) return {}
 
   const title = `Newsletter de ${prof.label} en ${market.label} 2026 — Nebbuler`
-  const description = `Los mejores newsletters de ${prof.label.toLowerCase()} en ${market.label}. Análisis de ${prof.specialty.toLowerCase()}, publicados por profesionales verificados que cobran suscripción directa. Sin algoritmos, sin intermediarios.`
+  const profSpecialtyMeta = prof.specialty ?? prof.description
+  const description = `Los mejores newsletters de ${prof.label.toLowerCase()} en ${market.label}. Análisis de ${profSpecialtyMeta.toLowerCase()}, publicados por profesionales verificados que cobran suscripción directa. Sin algoritmos, sin intermediarios.`
 
   return {
     title,
@@ -61,6 +62,8 @@ export default async function NewsletterProfessionMarketPage({
   const relatedProfessions = PROFESSIONS.filter(p => p.slug !== prof.slug).slice(0, 4)
   const relatedMarkets = MARKETS.filter(m => m.slug !== market.slug).slice(0, 4)
 
+  const profSpecialty = prof.specialty ?? prof.description
+
   const priceRange =
     market.currency === 'CLP'
       ? '$9.990 a $24.990 CLP'
@@ -80,7 +83,7 @@ export default async function NewsletterProfessionMarketPage({
     url: `https://nebbuler.com/newsletter/${profession}/${marketSlug}`,
     publisher: { '@type': 'Organization', name: 'Nebbuler', url: 'https://nebbuler.com' },
     about: [
-      { '@type': 'Thing', name: prof.specialty },
+      { '@type': 'Thing', name: profSpecialty },
       { '@type': 'Place', name: market.label },
     ],
   }
@@ -117,13 +120,13 @@ export default async function NewsletterProfessionMarketPage({
 
           {/* H1 */}
           <p className="font-sans text-[10px] font-bold tracking-[0.2em] uppercase text-[#999] mb-3">
-            {market.flag} {market.label} · {prof.discipline}
+            {market.flag ?? ''} {market.label} · {prof.discipline}
           </p>
           <h1 className="font-serif text-[36px] md:text-[44px] font-bold text-[#121212] leading-tight mb-4">
             Newsletter de {prof.label} en {market.label}
           </h1>
           <p className="font-sans text-[16px] text-[#666] leading-relaxed mb-12 max-w-2xl">
-            Análisis de {prof.specialty.toLowerCase()} publicados por profesionales verificados en {market.label}.
+            Análisis de {profSpecialty.toLowerCase()} publicados por profesionales verificados en {market.label}.
             Suscripción directa en {market.currency}. Sin algoritmos, sin intermediarios.
           </p>
 
@@ -134,7 +137,7 @@ export default async function NewsletterProfessionMarketPage({
             </h2>
             <p className="font-sans text-[14px] text-[#444] leading-relaxed mb-3">
               Un newsletter de {prof.label.toLowerCase()} es una publicación de pago donde un profesional experto en{' '}
-              {prof.specialty.toLowerCase()} comparte análisis, opiniones y conocimiento directamente con sus
+              {profSpecialty.toLowerCase()} comparte análisis, opiniones y conocimiento directamente con sus
               suscriptores, sin pasar por medios masivos ni instituciones.
             </p>
             <p className="font-sans text-[14px] text-[#444] leading-relaxed">
@@ -151,7 +154,7 @@ export default async function NewsletterProfessionMarketPage({
                 {prof.label}s en Nebbuler
               </h2>
               <p className="font-sans text-[13px] text-[#666] mb-8">
-                Profesionales verificados publicando newsletters de {prof.specialty.toLowerCase()}.
+                Profesionales verificados publicando newsletters de {profSpecialty.toLowerCase()}.
               </p>
               <div className="grid md:grid-cols-2 gap-4">
                 {relevantCreators.map(c => (
@@ -281,7 +284,7 @@ export default async function NewsletterProfessionMarketPage({
                   href={`/newsletter/${prof.slug}/${m.slug}`}
                   className="font-sans text-[12px] text-[#666] border border-[#DEDEDE] px-3 py-1 hover:border-[#C41C1C] hover:text-[#C41C1C] transition-colors"
                 >
-                  {m.flag} {prof.label} en {m.label}
+                  {m.flag ?? ''} {prof.label} en {m.label}
                 </Link>
               ))}
             </div>

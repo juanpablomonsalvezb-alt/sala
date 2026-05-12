@@ -1,6 +1,9 @@
 import type { MetadataRoute } from 'next'
 import { createClient } from '@/lib/supabase/server'
 import { creators as staticCreators } from '@/data/creators'
+import { PROFESSIONS, MARKETS } from '@/data/seo-matrix'
+import { TOPICS } from '@/data/seo-topics'
+import { GUIDES } from '@/data/seo-guides'
 
 export const revalidate = 3600
 
@@ -95,14 +98,56 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const sitemapUrls = new Set(dbEntries.map((e) => e.url))
   const staticEntries = getStaticSitemapEntries().filter((e) => !sitemapUrls.has(e.url))
 
+  // Rutas SSG de newsletter (20 profesiones × 15 mercados = 300)
+  const newsletterRoutes: MetadataRoute.Sitemap = PROFESSIONS.flatMap(prof =>
+    MARKETS.map(market => ({
+      url: `${BASE}/newsletter/${prof.slug}/${market.slug}`,
+      lastModified: new Date('2026-01-01'),
+      changeFrequency: 'monthly' as const,
+      priority: 0.6,
+    }))
+  )
+
+  // Rutas SSG de análisis por tema/país (15 × 15 = 225)
+  const analisisRoutes: MetadataRoute.Sitemap = TOPICS.flatMap(topic =>
+    MARKETS.map(market => ({
+      url: `${BASE}/analisis/${topic.slug}/${market.slug}`,
+      lastModified: new Date('2026-01-01'),
+      changeFrequency: 'monthly' as const,
+      priority: 0.6,
+    }))
+  )
+
+  // Hubs por tema de análisis (15 rutas)
+  const analisisHubRoutes: MetadataRoute.Sitemap = TOPICS.map(topic => ({
+    url: `${BASE}/analisis/${topic.slug}`,
+    lastModified: new Date('2026-01-01'),
+    changeFrequency: 'weekly' as const,
+    priority: 0.7,
+  }))
+
+  // Rutas de guías (8)
+  const guiaRoutes: MetadataRoute.Sitemap = GUIDES.map(g => ({
+    url: `${BASE}/guia/${g.slug}`,
+    lastModified: new Date('2026-01-01'),
+    changeFrequency: 'monthly' as const,
+    priority: 0.65,
+  }))
+
   return [
     { url: BASE, lastModified: new Date(), changeFrequency: 'daily', priority: 1 },
     { url: `${BASE}/directorio`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.9 },
+    { url: `${BASE}/analisis`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
+    { url: `${BASE}/guia`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.75 },
     { url: `${BASE}/para-creadores`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
     { url: `${BASE}/precios`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
     { url: `${BASE}/demo`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.5 },
     { url: `${BASE}/terminos`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.2 },
     { url: `${BASE}/privacidad`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.2 },
+    ...newsletterRoutes,
+    ...analisisHubRoutes,
+    ...analisisRoutes,
+    ...guiaRoutes,
     ...dbEntries,
     ...staticEntries,
   ]

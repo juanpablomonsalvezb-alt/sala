@@ -16,28 +16,168 @@ export const metadata: Metadata = {
   },
 }
 
+const FOUNDER_JSONLD = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Juan Pablo Monsalvez',
+  url: 'https://nebbuler.com/sobre',
+  jobTitle: 'Fundador',
+  description:
+    'Fundador de Nebbuler. Construyendo la plataforma de newsletters profesionales para América Latina.',
+  knowsAbout: [
+    'Plataformas digitales',
+    'Monetización de contenido',
+    'Newsletters profesionales',
+    'Educación profesional',
+  ],
+  sameAs: [
+    'https://linkedin.com/in/juanpablomonsalvez',
+  ],
+}
+
 const ORG_JSONLD = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
   name: 'Nebbuler',
+  alternateName: 'Nebbuler - Plataforma de Newsletters Profesionales',
   url: 'https://nebbuler.com',
   logo: 'https://nebbuler.com/icon.png',
+  image: 'https://nebbuler.com/icon.png',
   description:
-    'Plataforma de newsletters profesionales de pago para América Latina',
-  foundingDate: '2025',
+    'Plataforma de newsletters profesionales de pago donde economistas, abogados, médicos y arquitectos de América Latina publican y cobran directamente por sus análisis.',
+  foundingDate: '2025-01-01',
+  foundingLocation: 'Santiago, Chile',
+  founder: {
+    '@type': 'Person',
+    name: 'Juan Pablo Monsalvez',
+    url: 'https://nebbuler.com/sobre',
+  },
   areaServed: [
-    'CL', 'AR', 'CO', 'MX', 'PE', 'UY', 'BO', 'EC', 'PY', 'VE',
-    'GT', 'CR', 'PA', 'HN', 'SV', 'NI', 'DO', 'CU', 'PR',
+    {
+      '@type': 'Country',
+      name: 'Chile',
+    },
+    {
+      '@type': 'Country',
+      name: 'Argentina',
+    },
+    {
+      '@type': 'Country',
+      name: 'Colombia',
+    },
+    {
+      '@type': 'Country',
+      name: 'México',
+    },
+    {
+      '@type': 'Country',
+      name: 'Perú',
+    },
+    {
+      '@type': 'Country',
+      name: 'Uruguay',
+    },
+    {
+      '@type': 'Country',
+      name: 'Bolivia',
+    },
+    {
+      '@type': 'Country',
+      name: 'Ecuador',
+    },
+    {
+      '@type': 'Country',
+      name: 'Paraguay',
+    },
+    {
+      '@type': 'Country',
+      name: 'Venezuela',
+    },
+    {
+      '@type': 'Country',
+      name: 'Guatemala',
+    },
+    {
+      '@type': 'Country',
+      name: 'Costa Rica',
+    },
+    {
+      '@type': 'Country',
+      name: 'Panamá',
+    },
+    {
+      '@type': 'Country',
+      name: 'Honduras',
+    },
+    {
+      '@type': 'Country',
+      name: 'El Salvador',
+    },
+    {
+      '@type': 'Country',
+      name: 'Nicaragua',
+    },
+    {
+      '@type': 'Country',
+      name: 'República Dominicana',
+    },
+    {
+      '@type': 'Country',
+      name: 'Cuba',
+    },
+    {
+      '@type': 'Country',
+      name: 'Puerto Rico',
+    },
   ],
-  contactPoint: {
-    '@type': 'ContactPoint',
-    email: 'hello@nebbuler.com',
-    contactType: 'customer service',
+  slogan: 'Lo que se piensa bien, dura.',
+  contactPoint: [
+    {
+      '@type': 'ContactPoint',
+      email: 'hello@nebbuler.com',
+      contactType: 'customer service',
+      availableLanguage: ['es'],
+    },
+    {
+      '@type': 'ContactPoint',
+      email: 'hello@nebbuler.com',
+      contactType: 'creator support',
+      availableLanguage: ['es'],
+    },
+  ],
+  knowsAbout: [
+    'Educación profesional',
+    'Monetización de contenido',
+    'Newsletters de pago',
+    'Finanzas',
+    'Derecho',
+    'Medicina',
+    'Arquitectura',
+  ],
+  isBasedIn: {
+    '@type': 'City',
+    name: 'Santiago',
+    containedInPlace: {
+      '@type': 'Country',
+      name: 'Chile',
+    },
   },
   sameAs: [
     'https://linkedin.com/company/nebbuler',
     'https://instagram.com/nebbuler',
   ],
+  offers: {
+    '@type': 'AggregateOffer',
+    priceCurrency: 'CLP',
+    price: '29990',
+    description: 'Suscripción mensual a newsletters profesionales',
+    priceValidUntil: '2026-12-31',
+  },
+  mainEntity: {
+    '@type': 'WebSite',
+    name: 'Nebbuler',
+    url: 'https://nebbuler.com',
+  },
 }
 
 export default function SobrePage() {
@@ -46,6 +186,10 @@ export default function SobrePage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: safeJsonLd(ORG_JSONLD) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(FOUNDER_JSONLD) }}
       />
 
       <main className="min-h-screen bg-white text-[#121212]">

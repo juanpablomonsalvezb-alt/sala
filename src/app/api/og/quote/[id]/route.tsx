@@ -1,177 +1,117 @@
-import { ImageResponse } from 'next/og'
-import { NextRequest } from 'next/server'
+import { ImageResponse } from '@vercel/og'
+import { createServiceClient } from '@/lib/supabase/server'
 
-export const runtime = 'edge'
-
-interface QuotePayload {
-  q?: string
-  a?: string
-}
-
-function decodeId(id: string): { quoteText: string; authorName: string } {
-  // Intentar decodificar como base64url (citas inline sin DB)
-  try {
-    const base64 = id.replace(/-/g, '+').replace(/_/g, '/')
-    const padding = base64.length % 4 === 0 ? '' : '='.repeat(4 - (base64.length % 4))
-    const decoded = atob(base64 + padding)
-    const parsed: QuotePayload = JSON.parse(decoded)
-    return {
-      quoteText: parsed.q ?? decoded,
-      authorName: parsed.a ?? '',
-    }
-  } catch {
-    // Fallback: tratar el id como texto URL-encoded
-    try {
-      return {
-        quoteText: decodeURIComponent(id),
-        authorName: '',
-      }
-    } catch {
-      return {
-        quoteText: 'El conocimiento tiene precio.',
-        authorName: '',
-      }
-    }
-  }
-}
+export const runtime = 'nodejs'
 
 export async function GET(
-  _request: NextRequest,
+  request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
   const { id } = await params
-  const { quoteText, authorName } = decodeId(id)
 
-  const finalQuote = quoteText.length > 200 ? quoteText.slice(0, 197) + '…' : quoteText
-  const finalAuthor = authorName.length > 80 ? authorName.slice(0, 77) + '…' : authorName
+  try {
+    const supabase = createServiceClient()
 
-  return new ImageResponse(
-    (
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          width: '100%',
-          height: '100%',
-          backgroundColor: '#FFFFFF',
-          padding: '60px 80px 60px 96px',
-          fontFamily: 'Georgia, "Times New Roman", serif',
-          position: 'relative',
-        }}
-      >
-        {/* Barra roja izquierda */}
-        <div
-          style={{
-            position: 'absolute',
-            left: 0,
-            top: 0,
-            bottom: 0,
-            width: 8,
-            backgroundColor: '#C41C1C',
-          }}
-        />
+    const { data: quote } = await supabase
+      .from('sala_post_quotes')
+      .select('text, post_id')
+      .eq('id', id)
+      .single()
 
-        {/* Comillas decorativas */}
-        <div
-          style={{
-            position: 'absolute',
-            top: 48,
-            left: 80,
-            fontSize: 120,
-            color: '#F0F0F0',
-            lineHeight: 1,
-            fontFamily: 'Georgia, serif',
-          }}
-        >
-          &ldquo;
-        </div>
-
-        {/* Cita principal */}
-        <div
-          style={{
-            flex: 1,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: '40px 0',
-          }}
-        >
-          <p
-            style={{
-              fontSize: finalQuote.length > 120 ? 32 : 40,
-              color: '#121212',
-              lineHeight: 1.5,
-              textAlign: 'center',
-              maxWidth: 900,
-              margin: 0,
-              fontStyle: 'italic',
-            }}
-          >
-            {finalQuote}
-          </p>
-        </div>
-
-        {/* Separador */}
-        <div
-          style={{
-            width: 48,
-            height: 2,
-            backgroundColor: '#C41C1C',
-            marginBottom: 24,
-            alignSelf: 'center',
-          }}
-        />
-
-        {/* Footer */}
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'flex-end',
-          }}
-        >
-          <span
-            style={{
-              fontSize: 20,
-              fontWeight: 700,
-              color: '#121212',
-              letterSpacing: 4,
-              fontFamily: 'Georgia, serif',
-            }}
-          >
-            NEBBULER
-          </span>
-
-          {finalAuthor ? (
-            <span
-              style={{
-                fontSize: 16,
-                color: '#444444',
-                fontFamily: 'Arial, Helvetica, sans-serif',
-                fontStyle: 'normal',
-              }}
-            >
-              — {finalAuthor}
-            </span>
-          ) : (
-            <span style={{ fontSize: 16, color: 'transparent' }}>·</span>
-          )}
-
-          <span
-            style={{
-              fontSize: 12,
-              color: '#999999',
-              fontFamily: 'Arial, Helvetica, sans-serif',
-            }}
-          >
-            nebbuler.com
-          </span>
-        </div>
-      </div>
-    ),
-    {
-      width: 1200,
-      height: 630,
+    if (!quote) {
+      return new Response('Quote not found', { status: 404 })
     }
-  )
+
+    const { data: post } = await supabase
+      .from('sala_posts')
+      .select('creator_id')
+      .eq('id', quote.post_id)
+      .single()
+
+    if (!post) {
+      return new Response('Post not found', { status: 404 })
+    }
+
+    const { data: creator } = await supabase
+      .from('sala_creators')
+      .select('name, specialty')
+      .eq('id', post.creator_id)
+      .single()
+
+    if (!creator) {
+      return new Response('Creator not found', { status: 404 })
+    }
+
+    const quoteText = quote.text.length > 280 ? quote.text.substring(0, 277) + '...' : quote.text
+
+    const containerStyle = {
+      display: 'flex',
+      width: '100%',
+      height: '100%',
+      background: 'linear-gradient(135deg, #121212 0%, #1a1a1a 100%)',
+      padding: '60px',
+      justifyContent: 'space-between',
+      flexDirection: 'column' as const,
+      fontFamily: 'system-ui, -apple-system, sans-serif',
+    }
+
+    const centerStyle = {
+      display: 'flex',
+      flexDirection: 'column' as const,
+      flex: 1,
+      justifyContent: 'center',
+    }
+
+    const quoteStyle = {
+      fontSize: 56,
+      fontWeight: 'bold' as const,
+      color: '#ffffff',
+      lineHeight: 1.3,
+      marginBottom: 40,
+      fontStyle: 'italic' as const,
+    }
+
+    const nameStyle = {
+      fontSize: 24,
+      color: '#C41C1C',
+      fontWeight: 600,
+    }
+
+    const specialtyStyle = {
+      fontSize: 18,
+      color: '#999999',
+      marginTop: 8,
+    }
+
+    const footerStyle = {
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      fontSize: 18,
+      color: '#666666',
+      borderTop: '1px solid #333333',
+      paddingTop: 30,
+    }
+
+    return new ImageResponse(
+      <div style={containerStyle}>
+        <div style={centerStyle}>
+          <div style={quoteStyle}>"{quoteText}"</div>
+          <div style={nameStyle}>— {creator.name}</div>
+          <div style={specialtyStyle}>{creator.specialty}</div>
+        </div>
+        <div style={footerStyle}>
+          <div style={{ fontWeight: 600, color: '#C41C1C' }}>Nebbuler</div>
+          <div>nebbuler.com</div>
+        </div>
+      </div>,
+      {
+        width: 1200,
+        height: 630,
+      }
+    )
+  } catch (error) {
+    console.error('OG image generation error:', error)
+    return new Response('Internal error', { status: 500 })
+  }
 }

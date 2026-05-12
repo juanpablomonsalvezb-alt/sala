@@ -142,6 +142,17 @@ create policy "sala_creators: insert own"    on public.sala_creators for insert 
 create policy "sala_creators: update own"    on public.sala_creators for update using (auth.uid() = user_id) with check (auth.uid() = user_id);
 create policy "sala_creators: delete own"    on public.sala_creators for delete using (auth.uid() = user_id);
 
+-- sala_post_quotes (Citas extraídas para OG sharing)
+create table if not exists public.sala_post_quotes (
+  id                uuid primary key default uuid_generate_v4(),
+  post_id           uuid not null references public.sala_posts (id) on delete cascade,
+  text              text not null,
+  position          integer not null,
+  og_image_url      text,
+  created_at        timestamptz not null default now()
+);
+create index if not exists sala_post_quotes_post_id_idx on public.sala_post_quotes (post_id);
+
 -- Policies: sala_posts
 drop policy if exists "sala_posts: select free"               on public.sala_posts;
 drop policy if exists "sala_posts: select subscribed or owner" on public.sala_posts;

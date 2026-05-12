@@ -80,17 +80,49 @@ const ORG_JSONLD = {
   "@context": "https://schema.org",
   "@type": "Organization",
   name: "Nebbuler",
+  alternateName: "Nebbuler.com",
   url: "https://nebbuler.com",
   logo: "https://nebbuler.com/nebbuler-logo.png",
-  description: "Plataforma de newsletters profesionales de pago. Suscripciones mensuales directas, 0% comisión.",
+  description: "Plataforma de suscripción directa para profesionales verificados. 0% comisión. Monetización de expertise en 18 países latinoamericanos.",
   foundingDate: "2026",
-  areaServed: ["CL", "AR", "BR", "MX", "CO", "PE", "UY"],
-  contactPoint: {
-    "@type": "ContactPoint",
-    contactType: "customer support",
-    email: "hello@nebbuler.com",
-    availableLanguage: ["Spanish"],
-  },
+  areaServed: [
+    { "@type": "Country", name: "Chile" },
+    { "@type": "Country", name: "Colombia" },
+    { "@type": "Country", name: "México" },
+    { "@type": "Country", name: "Argentina" },
+    { "@type": "Country", name: "Perú" },
+    { "@type": "Country", name: "Ecuador" },
+    { "@type": "Country", name: "Venezuela" },
+    { "@type": "Country", name: "Costa Rica" },
+    { "@type": "Country", name: "Panamá" },
+    { "@type": "Country", name: "Guatemala" },
+    { "@type": "Country", name: "Honduras" },
+    { "@type": "Country", name: "El Salvador" },
+    { "@type": "Country", name: "Nicaragua" },
+    { "@type": "Country", name: "República Dominicana" },
+    { "@type": "Country", name: "Bolivia" },
+    { "@type": "Country", name: "Uruguay" },
+    { "@type": "Country", name: "Paraguay" },
+    { "@type": "Country", name: "Belice" },
+  ],
+  contactPoint: [
+    {
+      "@type": "ContactPoint",
+      contactType: "customer support",
+      email: "hola@nebbuler.com",
+      availableLanguage: ["Spanish"],
+    },
+    {
+      "@type": "ContactPoint",
+      contactType: "press",
+      email: "prensa@nebbuler.com",
+      availableLanguage: ["Spanish"],
+    },
+  ],
+  sameAs: [
+    "https://twitter.com/nebbuler",
+    "https://linkedin.com/company/nebbuler",
+  ],
 }
 
 const WEBSITE_JSONLD = {
@@ -103,6 +135,26 @@ const WEBSITE_JSONLD = {
     "@type": "SearchAction",
     target: "https://nebbuler.com/directorio?q={search_term_string}",
     "query-input": "required name=search_term_string",
+  },
+}
+
+const PLATFORM_JSONLD = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "Nebbuler",
+  description: "Plataforma de suscripción directa para profesionales. Monetiza tu expertise sin comisión.",
+  url: "https://nebbuler.com",
+  applicationCategory: "BusinessApplication",
+  operatingSystem: "Web",
+  offers: {
+    "@type": "Offer",
+    price: "29990",
+    priceCurrency: "CLP",
+    description: "Tarifa fija mensual",
+  },
+  author: {
+    "@type": "Organization",
+    name: "Nebbuler",
   },
 }
 
@@ -122,6 +174,10 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: safeJsonLd(WEBSITE_JSONLD) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: safeJsonLd(PLATFORM_JSONLD) }}
         />
         {children}
         <Analytics />

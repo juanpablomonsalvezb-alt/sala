@@ -5,6 +5,22 @@ import { PROFESSIONS, MARKETS } from '@/data/seo-matrix'
 import { TOPICS } from '@/data/seo-topics'
 import { GUIDES } from '@/data/seo-guides'
 
+// Import generated content metadata
+let generatedFaqs: Record<string, unknown> = {}
+let generatedCaseStudies: Record<string, unknown> = {}
+try {
+  const faqsData = require('@/data/generated-content/faqs.json')
+  generatedFaqs = faqsData
+} catch {
+  // Fallback
+}
+try {
+  const casesData = require('@/data/generated-content/case-studies.json')
+  generatedCaseStudies = casesData
+} catch {
+  // Fallback
+}
+
 export const revalidate = 3600
 
 const BASE = 'https://nebbuler.com'
@@ -126,7 +142,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }))
 
-  // Rutas de guías (8)
+  // Rutas de guías (20)
   const guiaRoutes: MetadataRoute.Sitemap = GUIDES.map(g => ({
     url: `${BASE}/guia/${g.slug}`,
     lastModified: new Date('2026-01-01'),
@@ -134,11 +150,30 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.65,
   }))
 
+  // Rutas de FAQ (50)
+  const faqSlugs = Object.keys(generatedFaqs)
+  const faqRoutes: MetadataRoute.Sitemap = faqSlugs.map(slug => ({
+    url: `${BASE}/faq/${slug}`,
+    lastModified: new Date('2026-01-01'),
+    changeFrequency: 'monthly' as const,
+    priority: 0.6,
+  }))
+
+  // Rutas de casos de estudio (50)
+  const caseStudySlugs = Object.keys(generatedCaseStudies)
+  const caseStudyRoutes: MetadataRoute.Sitemap = caseStudySlugs.map(slug => ({
+    url: `${BASE}/caso-estudio/${slug}`,
+    lastModified: new Date('2026-01-01'),
+    changeFrequency: 'monthly' as const,
+    priority: 0.6,
+  }))
+
   return [
     { url: BASE, lastModified: new Date(), changeFrequency: 'daily', priority: 1 },
     { url: `${BASE}/directorio`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.9 },
     { url: `${BASE}/analisis`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
     { url: `${BASE}/guia`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.75 },
+    { url: `${BASE}/prensa`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.75 },
     { url: `${BASE}/para-creadores`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
     { url: `${BASE}/precios`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
     { url: `${BASE}/demo`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.5 },
@@ -148,6 +183,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...analisisHubRoutes,
     ...analisisRoutes,
     ...guiaRoutes,
+    ...faqRoutes,
+    ...caseStudyRoutes,
     ...dbEntries,
     ...staticEntries,
   ]

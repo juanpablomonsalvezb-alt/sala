@@ -62,11 +62,31 @@ export default async function CaseStudyPage({
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Article',
-    name: study.title,
+    headline: study.title,
     description: study.title,
-    publisher: { '@type': 'Organization', name: 'Nebbuler', url: 'https://nebbuler.com' },
+    author: {
+      '@type': 'Organization',
+      name: 'Nebbuler',
+      url: 'https://nebbuler.com',
+      logo: 'https://nebbuler.com/logo.png'
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Nebbuler',
+      url: 'https://nebbuler.com',
+      logo: { '@type': 'ImageObject', url: 'https://nebbuler.com/logo.png', width: 200, height: 60 }
+    },
     url: `https://nebbuler.com/caso-estudio/${slug}`,
-    breadcrumb: generateBreadcrumb(`/caso-estudio/${slug}`),
+    datePublished: new Date().toISOString(),
+    dateModified: new Date().toISOString(),
+    breadcrumb: {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Nebbuler', item: 'https://nebbuler.com' },
+        { '@type': 'ListItem', position: 2, name: 'Casos de Estudio', item: 'https://nebbuler.com/caso-estudio' },
+        { '@type': 'ListItem', position: 3, name: study.title, item: `https://nebbuler.com/caso-estudio/${slug}` },
+      ],
+    },
   }
 
   return (

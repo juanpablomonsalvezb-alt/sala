@@ -68,10 +68,26 @@ export default async function FAQPage({
       name: faq.title,
       acceptedAnswer: {
         '@type': 'Answer',
-        text: faq.content || faq.title,
+        text: (faq.content || faq.title).substring(0, 5000),
       },
     },
-    breadcrumb: generateBreadcrumb(`/faq/${slug}`),
+    publisher: {
+      '@type': 'Organization',
+      name: 'Nebbuler',
+      url: 'https://nebbuler.com',
+      logo: { '@type': 'ImageObject', url: 'https://nebbuler.com/logo.png', width: 200, height: 60 }
+    },
+    url: `https://nebbuler.com/faq/${slug}`,
+    datePublished: new Date().toISOString(),
+    dateModified: new Date().toISOString(),
+    breadcrumb: {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Nebbuler', item: 'https://nebbuler.com' },
+        { '@type': 'ListItem', position: 2, name: 'FAQ', item: 'https://nebbuler.com/faq' },
+        { '@type': 'ListItem', position: 3, name: faq.title, item: `https://nebbuler.com/faq/${slug}` },
+      ],
+    },
   }
 
   return (

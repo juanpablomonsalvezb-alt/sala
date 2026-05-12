@@ -68,12 +68,33 @@ export default async function GuiaPage({
 
   const jsonLd = {
     '@context': 'https://schema.org',
-    '@type': 'HowTo',
-    name: guide.title,
+    '@type': 'Article',
+    headline: guide.title,
     description: guide.description,
-    publisher: { '@type': 'Organization', name: 'Nebbuler', url: 'https://nebbuler.com' },
+    author: {
+      '@type': 'Organization',
+      name: 'Nebbuler',
+      url: 'https://nebbuler.com',
+      logo: 'https://nebbuler.com/logo.png'
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Nebbuler',
+      url: 'https://nebbuler.com',
+      logo: { '@type': 'ImageObject', url: 'https://nebbuler.com/logo.png', width: 200, height: 60 }
+    },
     url: `https://nebbuler.com/guia/${slug}`,
-    breadcrumb: generateBreadcrumb(`/guia/${slug}`),
+    datePublished: new Date().toISOString(),
+    dateModified: new Date().toISOString(),
+    keywords: guide.keywords.join(', '),
+    breadcrumb: {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Nebbuler', item: 'https://nebbuler.com' },
+        { '@type': 'ListItem', position: 2, name: 'Guías', item: 'https://nebbuler.com/guia' },
+        { '@type': 'ListItem', position: 3, name: guide.title, item: `https://nebbuler.com/guia/${slug}` },
+      ],
+    },
   }
 
   const relatedGuides = GUIDES.filter(g => g.slug !== slug && g.profession === guide.profession).slice(0, 3)

@@ -459,3 +459,25 @@ create policy "Admin views all nominations" on public.sala_creator_nominations f
 create policy "Nominator sees own" on public.sala_creator_nominations for select using (
   nominator_id = auth.uid() or nominator_email = (select email from public.sala_profiles where id = auth.uid())
 );
+
+-- sala_newsletter_subscriptions (Suscripciones al newsletter del fundador)
+create table if not exists public.sala_newsletter_subscriptions (
+  id                uuid primary key default uuid_generate_v4(),
+  email             text not null unique,
+  name              text,
+  newsletter_type   text not null default 'construyendo' check (newsletter_type in ('construyendo')),
+  subscribed        boolean not null default true,
+  unsubscribed_at   timestamptz,
+  created_at        timestamptz not null default now(),
+  updated_at        timestamptz not null default now()
+);
+create index if not exists sala_newsletter_subscriptions_email_idx on public.sala_newsletter_subscriptions (email);
+create index if not exists sala_newsletter_subscriptions_type_idx on public.sala_newsletter_subscriptions (newsletter_type);
+create index if not exists sala_newsletter_subscriptions_subscribed_idx on public.sala_newsletter_subscriptions (subscribed);
+
+-- RLS para newsletter subscriptions
+alter table public.sala_newsletter_subscriptions enable row level security;
+create policy "Anyone can subscribe to newsletter" on public.sala_newsletter_subscriptions for insert with check (true);
+create policy "Subscribers see only their own" on public.sala_newsletter_subscriptions for select using (
+  auth.jwt() ->> 'email' = email
+);

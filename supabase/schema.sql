@@ -429,3 +429,33 @@ alter table public.sala_creators
   add column if not exists publication_name text,
   add column if not exists pull_quote text,
   add column if not exists cover_image_url text;
+
+-- sala_creator_nominations (Nominaciones de nuevos creadores por usuarios)
+create table if not exists public.sala_creator_nominations (
+  id                uuid primary key default uuid_generate_v4(),
+  nominator_id      uuid,
+  nominator_email   text not null,
+  creator_name      text not null,
+  creator_specialty text not null,
+  creator_bio       text,
+  creator_linkedin  text,
+  why_nominate      text not null,
+  discipline_id     text references public.sala_disciplines(id),
+  status            text not null default 'pending' check (status in ('pending', 'approved', 'rejected')),
+  notes             text,
+  created_at        timestamptz not null default now(),
+  updated_at        timestamptz not null default now()
+);
+create index if not exists sala_creator_nominations_status_idx on public.sala_creator_nominations (status);
+create index if not exists sala_creator_nominations_discipline_idx on public.sala_creator_nominations (discipline_id);
+create index if not exists sala_creator_nominations_created_idx on public.sala_creator_nominations (created_at desc);
+
+-- RLS para nominations
+alter table public.sala_creator_nominations enable row level security;
+create policy "Anyone can create a nomination" on public.sala_creator_nominations for insert with check (true);
+create policy "Admin views all nominations" on public.sala_creator_nominations for select using (
+  exists(select 1 from public.sala_profiles where id = auth.uid() and is_superadmin = true)
+);
+create policy "Nominator sees own" on public.sala_creator_nominations for select using (
+  nominator_id = auth.uid() or nominator_email = (select email from public.sala_profiles where id = auth.uid())
+);

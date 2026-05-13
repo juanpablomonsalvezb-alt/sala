@@ -44,6 +44,8 @@ const nextConfig: NextConfig = {
   productionBrowserSourceMaps: false,
   compress: true,
 
+  turbopack: {},
+
   images: {
     formats: ['image/avif', 'image/webp'],
     remotePatterns: [

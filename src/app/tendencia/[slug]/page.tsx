@@ -20,6 +20,8 @@ interface Creator {
   specialty: string
   slug: string
   bio?: string
+  subscriber_count?: number
+  price_clp?: number
 }
 
 interface Params {
@@ -112,8 +114,10 @@ export default async function TrendingArticlePage({ params }: { params: Params }
 
   const { data: creators = [] } = await supabase
     .from('sala_creators')
-    .select('id, name, specialty, slug, bio')
+    .select('id, name, specialty, slug, bio, subscriber_count, price_clp')
     .ilike('specialty', `%${matchedSpecialty}%`)
+    .gt('subscriber_count', 0)
+    .order('subscriber_count', { ascending: false })
     .limit(4)
 
   const typedCreators = creators as Creator[]
@@ -157,58 +161,115 @@ export default async function TrendingArticlePage({ params }: { params: Params }
         />
       </div>
 
-      {/* Related Creators */}
+      {/* Creator Success Stories */}
       {typedCreators.length > 0 && (
-        <div className="bg-white border-t border-[#e0e0e0] py-12 px-6 mt-12">
+        <div className="bg-gradient-to-b from-white to-[#f5f5f5] border-t border-[#e0e0e0] py-12 px-6 mt-12">
           <div className="max-w-3xl mx-auto">
-            <p className="text-[10px] font-sans font-bold tracking-[0.2em] uppercase text-[#999] mb-6">
-              Creadores relevantes
+            <p className="text-[10px] font-sans font-bold tracking-[0.2em] uppercase text-[#C41C1C] mb-4">
+              Historias de éxito
             </p>
-            <h2 className="font-serif text-2xl font-bold text-[#121212] mb-8">
-              Profesionales que escriben sobre {matchedSpecialty.toLowerCase()}
+            <h2 className="font-serif text-3xl font-bold text-[#121212] mb-3">
+              Creadores ganando con {matchedSpecialty.toLowerCase()}
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {typedCreators.map(creator => (
-                <Link
-                  key={creator.id}
-                  href={`/${creator.slug}`}
-                  className="block p-6 border border-[#e0e0e0] hover:border-[#121212] hover:shadow-sm transition-all group"
-                >
-                  <div className="mb-4">
-                    <h3 className="font-sans font-semibold text-[#121212] group-hover:text-[#333] mb-1">
-                      {creator.name}
-                    </h3>
-                    <p className="text-xs text-[#999] font-sans capitalize">
-                      {creator.specialty}
+            <p className="font-sans text-base text-[#666] mb-8 max-w-xl">
+              Mira cómo estos profesionales generan ingresos mensuales con sus newsletters especializadas.
+            </p>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {typedCreators.map(creator => {
+                const monthlyIncome = (creator.subscriber_count || 0) * (creator.price_clp || 0)
+                const isHighEarner = monthlyIncome > 1000000
+
+                return (
+                  <Link
+                    key={creator.id}
+                    href={`/${creator.slug}`}
+                    className={`block p-6 border transition-all group ${
+                      isHighEarner
+                        ? 'border-[#C41C1C] bg-white shadow-md hover:shadow-lg'
+                        : 'border-[#e0e0e0] bg-white hover:border-[#121212] hover:shadow-sm'
+                    }`}
+                  >
+                    <div className="flex justify-between items-start mb-4">
+                      <div className="flex-1">
+                        <h3 className="font-sans font-semibold text-[#121212] group-hover:text-[#C41C1C] mb-1 text-lg">
+                          {creator.name}
+                        </h3>
+                        <p className="text-xs text-[#999] font-sans capitalize">
+                          {creator.specialty}
+                        </p>
+                      </div>
+                      {isHighEarner && (
+                        <span className="text-xs font-sans font-bold text-[#C41C1C] bg-[#FFF5F5] px-2 py-1">
+                          TOP
+                        </span>
+                      )}
+                    </div>
+
+                    {creator.bio && (
+                      <p className="font-sans text-sm text-[#666] mb-4 line-clamp-2">
+                        {creator.bio}
+                      </p>
+                    )}
+
+                    <div className="space-y-2 pt-4 border-t border-[#e0e0e0]">
+                      <div className="flex justify-between items-center">
+                        <span className="font-sans text-xs text-[#999]">Suscriptores</span>
+                        <span className="font-sans font-semibold text-[#121212]">
+                          {(creator.subscriber_count || 0).toLocaleString('es-CL')}
+                        </span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="font-sans text-xs text-[#999]">Ingreso mensual</span>
+                        <span className="font-sans font-bold text-[#C41C1C] text-sm">
+                          ${monthlyIncome.toLocaleString('es-CL')}
+                        </span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="font-sans text-xs text-[#999]">Precio/mes</span>
+                        <span className="font-sans text-sm text-[#333]">
+                          ${(creator.price_clp || 0).toLocaleString('es-CL')}
+                        </span>
+                      </div>
+                    </div>
+
+                    <p className="font-sans text-[11px] text-[#999] mt-4 pt-4 border-t border-[#e0e0e0]">
+                      Ver newsletter →
                     </p>
-                  </div>
-                  {creator.bio && (
-                    <p className="font-sans text-sm text-[#666] line-clamp-2">
-                      {creator.bio}
-                    </p>
-                  )}
-                </Link>
-              ))}
+                  </Link>
+                )
+              })}
             </div>
           </div>
         </div>
       )}
 
-      {/* CTA */}
-      <div className="bg-[#f5f5f5] border-t border-[#e0e0e0] py-12 px-6 mt-12">
+      {/* CTA - Become Creator */}
+      <div className="bg-[#121212] border-t border-[#e0e0e0] py-12 px-6 mt-12">
         <div className="max-w-3xl mx-auto text-center">
-          <h2 className="font-serif text-2xl font-bold text-[#121212] mb-4">
-            ¿Quieres mantenerte al día con tendencias como esta?
-          </h2>
-          <p className="font-sans text-base text-[#666] mb-6 max-w-xl mx-auto">
-            Suscríbete a una newsletter profesional y recibe artículos personalizados según tu especialidad.
+          <p className="text-[10px] font-sans font-bold tracking-[0.2em] uppercase text-[#C41C1C] mb-4">
+            Oportunidad para ti
           </p>
-          <a
-            href="/"
-            className="inline-block font-sans text-sm font-semibold text-white bg-[#121212] px-8 py-3 hover:bg-[#333] transition-colors"
-          >
-            Explorar plataforma
-          </a>
+          <h2 className="font-serif text-3xl font-bold text-white mb-4">
+            Crea tu newsletter y empieza a ganar
+          </h2>
+          <p className="font-sans text-base text-[#ccc] mb-8 max-w-xl mx-auto leading-relaxed">
+            Hay demanda real por contenido en {matchedSpecialty.toLowerCase()}. Los mejores creadores ganan hasta $2,000,000/mes. Tú puedes ser el próximo.
+          </p>
+          <div className="flex gap-4 justify-center flex-wrap">
+            <a
+              href="/registro?type=creator"
+              className="inline-block font-sans text-sm font-semibold text-[#121212] bg-white px-8 py-3 hover:bg-[#f0f0f0] transition-colors"
+            >
+              Crear newsletter gratis
+            </a>
+            <a
+              href="/"
+              className="inline-block font-sans text-sm font-semibold text-white border border-white px-8 py-3 hover:bg-white hover:text-[#121212] transition-colors"
+            >
+              Ver más creadores
+            </a>
+          </div>
         </div>
       </div>
     </article>

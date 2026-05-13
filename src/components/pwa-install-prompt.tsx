@@ -15,15 +15,23 @@ export function PWAInstallPrompt() {
   const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
-    // Check if previously dismissed
-    const dismissed = localStorage.getItem('nebbuler-pwa-dismissed')
-    if (dismissed) {
-      return
-    }
-
     // Detectar si es móvil
     const mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
     setIsMobile(mobile)
+
+    // Check if previously dismissed (solo aplica en móvil)
+    const dismissed = localStorage.getItem('nebbuler-pwa-dismissed')
+
+    // En desktop: SIEMPRE mostrar el QR (sin importar localStorage)
+    // En móvil: respetar localStorage
+    if (!mobile) {
+      setShowPrompt(true)
+      return
+    }
+
+    if (dismissed && mobile) {
+      return
+    }
 
     const handleBeforeInstallPrompt = (e: Event) => {
       e.preventDefault()
@@ -33,15 +41,6 @@ export function PWAInstallPrompt() {
     }
 
     window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt)
-
-    // Mostrar el QR en desktop, el botón en móviles
-    if (!mobile) {
-      // En desktop/computadora: mostrar QR para escanear
-      setShowPrompt(true)
-    } else if (mobile) {
-      // En móvil: mostrar solo si se dispara el evento beforeinstallprompt
-      // (el evento se dispara cuando el navegador detecta que se puede instalar la PWA)
-    }
 
     return () => {
       window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt)

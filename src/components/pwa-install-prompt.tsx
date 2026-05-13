@@ -1,49 +1,44 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { QRCodeSVG } from 'qrcode.react'
 
 export function PWAInstallPrompt() {
-  const bannerRef = useRef<HTMLDivElement>(null)
+  const [visible, setVisible] = useState(true)
 
   useEffect(() => {
-    const banner = bannerRef.current
-    if (!banner) return
-    const dismissed = localStorage.getItem('nebbuler-pwa-dismissed')
-    if (dismissed) {
-      banner.style.display = 'none'
-    }
+    if (localStorage.getItem('pwa-closed')) setVisible(false)
   }, [])
 
-  function handleDismiss() {
-    localStorage.setItem('nebbuler-pwa-dismissed', 'true')
-    if (bannerRef.current) bannerRef.current.style.display = 'none'
-  }
+  if (!visible) return null
 
   return (
-    <div
-      ref={bannerRef}
-      className="fixed bottom-0 left-0 right-0 z-[9999] bg-gray-900 text-white border-t border-gray-700 shadow-2xl"
-    >
-      <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between gap-6">
-        <div className="flex-1 min-w-0">
-          <p className="font-bold text-sm">Descarga la app de Nebbuler</p>
-          <p className="text-xs text-gray-400 mt-0.5">
-            <span className="hidden sm:inline">Escanea el código QR con tu móvil para instalar</span>
-            <span className="sm:hidden">Instala la app en tu celular</span>
-          </p>
-        </div>
-        <div className="hidden sm:block bg-white p-2 rounded-lg flex-shrink-0">
-          <QRCodeSVG value="https://nebbuler.com" size={88} level="H" fgColor="#111827" bgColor="#ffffff" />
-        </div>
-        <button
-          onClick={handleDismiss}
-          className="flex-shrink-0 text-gray-400 hover:text-white text-2xl font-bold px-2 leading-none"
-          aria-label="Cerrar"
-        >
-          ×
-        </button>
+    <div style={{
+      position: 'fixed',
+      bottom: 0,
+      left: 0,
+      right: 0,
+      zIndex: 9999,
+      background: '#111827',
+      color: 'white',
+      padding: '16px 24px',
+      display: 'flex',
+      alignItems: 'center',
+      gap: '24px',
+      justifyContent: 'space-between',
+      borderTop: '1px solid #374151'
+    }}>
+      <div>
+        <div style={{ fontWeight: 700, fontSize: 14 }}>Descarga la app de Nebbuler</div>
+        <div style={{ fontSize: 12, color: '#9CA3AF', marginTop: 2 }}>Escanea el QR con tu móvil</div>
       </div>
+      <div style={{ background: 'white', padding: 8, borderRadius: 8 }}>
+        <QRCodeSVG value="https://nebbuler.com" size={80} fgColor="#111827" bgColor="#ffffff" />
+      </div>
+      <button
+        onClick={() => { localStorage.setItem('pwa-closed', '1'); setVisible(false) }}
+        style={{ background: 'none', border: 'none', color: '#9CA3AF', fontSize: 24, cursor: 'pointer', padding: '0 8px', lineHeight: 1 }}
+      >×</button>
     </div>
   )
 }

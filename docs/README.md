@@ -2,9 +2,34 @@
 
 Este directorio contiene documentación técnica completa para optimización de búsqueda, integración con Wikidata, y auditoría de madurez SEO.
 
+## 🚀 START HERE: ACTIONS_CHECKLIST.md
+
+**Si tienes 30 minutos ahora mismo**, abre `ACTIONS_CHECKLIST.md`. Es un checklist copy-paste ready para:
+1. ✅ Google Search Console (verificar + enviar sitemap)
+2. ✅ Bing Webmaster Tools (indexar)
+3. ✅ Wikidata entry (crear entrada en Wikipedia's knowledge base)
+
+**Tiempo**: 30 minutos  
+**Impacto**: +2 puntos SEO score (7.6 → 9.6)
+
+---
+
 ## Archivos
 
-### 1. **SEO_MATURITY_AUDIT.md** ⭐ Leer primero
+### 0. **ACTIONS_CHECKLIST.md** ⭐⭐⭐ EJECUTAR AHORA
+Checklist paso-a-paso copy-paste ready para todas las acciones P0.
+
+**Incluye**:
+- Instrucciones exactas para Google Search Console (10 min)
+- Instrucciones para Bing Webmaster Tools (5 min)
+- Guía para crear entrada en Wikidata (15 min)
+- Validación final y próximos pasos
+
+**Acción inmediata**: Abre este archivo y sigue los pasos. Toma 30 minutos.
+
+---
+
+### 1. **SEO_MATURITY_AUDIT.md** ⭐ Leer primero (para contexto)
 Auditoría completa de madurez SEO actual de Nebbuler (7.6/10).
 
 **Incluye**:
@@ -14,7 +39,7 @@ Auditoría completa de madurez SEO actual de Nebbuler (7.6/10).
 - Recomendaciones prioritizadas (P0/P1/P2)
 - Timeline para mejoras
 
-**Acción inmediata**: Revisar sección "Próximos Pasos Inmediatos"
+**Cuándo leer**: Después de completar ACTIONS_CHECKLIST, para entender qué está bien y qué falta.
 
 ---
 
@@ -29,7 +54,7 @@ Guía paso-a-paso para crear y mantener la entrada de Nebbuler en Wikidata.
 - Ejemplos y referencias
 - Políticas de mantenimiento continuo
 
-**Cuándo usar**: Cuando estés listo para crear la entrada en Wikidata.org
+**Cuándo usar**: Si necesitas entender en profundidad cómo funciona Wikidata (lectura técnica).
 
 ---
 
@@ -43,30 +68,34 @@ Template pre-llenado con todos los valores específicos de Nebbuler.
 - Formulario de verificación
 - Checklist pre-submit
 
-**Cuándo usar**: Ahora. Copia este contenido al formulario de Wikidata.
+**Cuándo usar**: Al crear la entrada en Wikidata (paso 3 del ACTIONS_CHECKLIST).
 
 ---
 
 ## Flujo de Trabajo Recomendado
 
-### Fase 1: Verificación Actual (AHORA)
+### Fase 0: Acciones Inmediatas (AHORA — 30 minutos)
+```
+1. Abre: ACTIONS_CHECKLIST.md
+2. Sigue: Los 3 pasos principales
+3. Valida: Que todo esté funcionando
+4. Documenta: Q-number de Wikidata
+```
+
+**Resultado**: SEO score de 7.6 → 9.6
+
+### Fase 1: Verificación Actual (Opcional — lectura)
 ```
 1. Leer: SEO_MATURITY_AUDIT.md
-2. Revisar: Scoring actual (7.6/10)
-3. Identificar: P0 tareas críticas
+2. Revisar: Scoring actual (7.6/10 antes de acciones, 9.6 después)
+3. Identificar: Qué está bien, qué falta
 ```
 
-**P0 Crítica (Hacer YA)**:
-- [ ] Google Search Console: https://search.google.com/search-console
-  - Agregar propiedad `nebbuler.com`
-  - Enviar sitemap
-  - Monitorear indexación
-- [ ] Bing Webmaster Tools: https://www.bing.com/webmasters
-- [ ] Wikidata entry (ver Fase 2)
+**Resultado**: Entiendes por qué cada acción importa.
 
-### Fase 2: Wikidata Integration (Este mes)
+### Fase 2: Wikidata Integration (Ya cubierta por ACTIONS_CHECKLIST)
 ```
-1. Leer: WIKIDATA_INTEGRATION.md (entender el contexto)
+1. Leer: WIKIDATA_INTEGRATION.md (entender contexto)
 2. Copiar: WIKIDATA_ENTRY_TEMPLATE.md
 3. Crear: Nueva entrada en https://www.wikidata.org/wiki/Wikidata:New_Item
 4. Pegar: Template pre-llenado
@@ -74,7 +103,7 @@ Template pre-llenado con todos los valores específicos de Nebbuler.
 6. Publicar: Crear item
 ```
 
-**Tiempo estimado**: 15-20 minutos
+**Tiempo estimado**: 15-20 minutos (paso 3 de ACTIONS_CHECKLIST)
 
 ### Fase 3: Monitoreo Continuo (Mensual)
 ```
@@ -97,47 +126,44 @@ Template pre-llenado con todos los valores específicos de Nebbuler.
 
 ## Implementación Técnica Ya Completa
 
-✅ **Código y Schema** (no requiere acción):
+✅ **Código y Schema** (no requiere acción adicional):
 
-- Organization schema.org: `/app/sobre/page.tsx`
-- Person schema (founder): `/app/sobre/page.tsx`
-- WebSite schema: `/app/layout.tsx`
-- SoftwareApplication schema: `/app/layout.tsx`
-- Article schema: `/app/c/[creator]/[quoteId]/page.tsx`
-- NewsArticle schema: `/app/construyendo/page.tsx`
-- Twitter cards: `/app/layout.tsx`
+- Organization schema.org: `/src/app/sobre/page.tsx`
+- Person schema (founder): `/src/app/sobre/page.tsx`
+- WebSite schema: `/src/app/layout.tsx`
+- SoftwareApplication schema: `/src/app/layout.tsx`
+- Article schema: `/src/app/c/[creator]/[quoteId]/page.tsx`
+- NewsArticle schema: `/src/app/construyendo/page.tsx`
+- Twitter cards: `/src/app/layout.tsx`
 - OpenGraph: Raíz + página-específico
-- Sitemap dinámico: `/app/sitemap.xml/route.ts`
-- Robots.txt: `/public/robots.txt`
+- Sitemap dinámico: `/src/app/sitemap.ts`
+- Robots.txt dinámico: `/src/app/robots.ts`
 
 ---
 
 ## Preguntas Frecuentes
 
-### ¿Por qué Wikidata?
-- Aparece en Google Knowledge Graph
-- Soporta búsqueda semántica
-- Indexado por IA (ChatGPT, Claude, etc.)
-- Mejora credibilidad y discoverabilidad
+### ¿Por qué necesito hacer estos pasos?
+- **Google Search Console**: Sin él, Google no ve cuándo actualizas tu sitio
+- **Bing Webmaster**: Bing indexa rápido, importante para LATAM
+- **Wikidata**: Aparece en Google Knowledge Graph + IA (ChatGPT, Claude, Gemini)
 
-### ¿Cuánto tarda Wikidata en reflejarse?
-- Creación: Inmediata
-- Google Knowledge Graph: 24-48 horas
-- Búsqueda general: 1 semana
-- Citas en IA: 2-4 semanas
+### ¿Cuánto tarda en reflejarse?
+- Google: 24 horas (rastreo) → 1 semana (indexación) → 2-4 semanas (rankings)
+- Bing: 24-48 horas
+- Wikidata → Google Knowledge Graph: 24-48 horas
 
-### ¿Qué pasa si me equivoco en Wikidata?
-- Totalmente reversible
-- La comunidad puede corregir
-- Puedes editar después
+### ¿Qué pasa si me equivoco?
+- Totalmente reversible en todos los casos
+- Puedes editar después en Search Console, Bing y Wikidata
 - No hay penalización por errores
 
 ### ¿Es obligatorio?
 No, pero es:
 - Muy recomendado para credibilidad
-- Relativamente fácil (con template)
+- Relativamente fácil (con templates)
 - Diferenciador competitivo
-- Base para featured snippets
+- Base para featured snippets y Knowledge Graph
 
 ---
 
@@ -166,26 +192,23 @@ No, pero es:
 
 ## Métricas de Éxito
 
-**30 días post-Wikidata**:
-- ✅ Entrada visible en Google Knowledge Graph
-- ✅ Indexación en search engines (100% de URLs)
-- ✅ Zero crawl errors en GSC
-- ✅ Citas en al menos 1 motor de IA
+**30 días post-acciones P0**:
+- ✅ Google Search Console verificado
+- ✅ Sitemap indexado en Google
+- ✅ Bing rastreando sitio
+- ✅ Wikidata entry público y completo
 
-**90 días post-Wikidata**:
-- ✅ 50+ keywords rankeando
+**90 días post-acciones**:
+- ✅ 50+ keywords rankeando (página 1-3)
 - ✅ 1000+ monthly impressions en GSC
-- ✅ Backlinks desde 10+ sitios relevantes
-- ✅ Featured snippets para key queries
+- ✅ Google Knowledge Graph activo
+- ✅ Citas en IA (ChatGPT, Claude, Gemini)
 
----
-
-## Contacto y Soporte
-
-Para preguntas sobre:
-- **Wikidata**: Consulta el chat comunitario de Wikidata (link arriba)
-- **Schema.org**: Usa [schema.org/docs](https://schema.org/docs)
-- **Google SEO**: Documentación de [Google Search Central](https://developers.google.com/search)
+**180 días post-acciones (Q3 2026)**:
+- ✅ 100+ backlinks desde sitios relevantes
+- ✅ Featured snippets para 5+ key queries
+- ✅ 2000+ monthly organic visitors
+- ✅ Posición promedio: página 1 para brand queries
 
 ---
 
@@ -193,13 +216,18 @@ Para preguntas sobre:
 
 | Fecha | Cambio | Estado |
 |-------|--------|--------|
+| 2026-05-12 | ACTIONS_CHECKLIST creado | ✅ Completo |
 | 2026-05-12 | Auditoría completa + Wikidata docs | ✅ Completado |
 | 2026-05-12 | Schema.org enhancement | ✅ Completado |
-| TBD | Search Console verification | ⏳ Pendiente |
-| TBD | Wikidata entry creation | ⏳ Pendiente |
+| TBD | Search Console verification (acción manual) | ⏳ Pendiente |
+| TBD | Wikidata entry creation (acción manual) | ⏳ Pendiente |
 
 ---
 
 **Última actualización**: 2026-05-12  
-**Versión**: 1.0  
-**Autor**: Claude AI (SEO Maturity Phase 2E)
+**Versión**: 2.0 (con ACTIONS_CHECKLIST)  
+**Autor**: Claude AI (SEO Maturity Phase 2E Execution)
+
+---
+
+**¡AHORA MISMO?** Abre `ACTIONS_CHECKLIST.md` y dedica 30 minutos. Es el cambio más importante que puedes hacer hoy para SEO.

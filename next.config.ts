@@ -1,4 +1,43 @@
 import type { NextConfig } from "next"
+import withPWAInit from "@ducanh2912/next-pwa"
+
+const withPWA = withPWAInit({
+  dest: "public",
+  disable: process.env.NODE_ENV === "development",
+  register: true,
+  fallbacks: {
+    document: "/offline",
+  },
+  workboxOptions: {
+    skipWaiting: true,
+    runtimeCaching: [
+      {
+        urlPattern: /^https:\/\/nebbuler\.com\/.*/i,
+        handler: "NetworkFirst",
+        options: {
+          cacheName: "nebbuler-pages",
+          expiration: { maxEntries: 64, maxAgeSeconds: 24 * 60 * 60 },
+        },
+      },
+      {
+        urlPattern: /^https:\/\/fonts\.(googleapis|gstatic)\.com\/.*/i,
+        handler: "CacheFirst",
+        options: {
+          cacheName: "google-fonts",
+          expiration: { maxEntries: 10, maxAgeSeconds: 365 * 24 * 60 * 60 },
+        },
+      },
+      {
+        urlPattern: /\.(?:png|jpg|jpeg|svg|gif|webp|avif|ico)$/i,
+        handler: "CacheFirst",
+        options: {
+          cacheName: "static-images",
+          expiration: { maxEntries: 64, maxAgeSeconds: 30 * 24 * 60 * 60 },
+        },
+      },
+    ],
+  },
+})
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
@@ -34,6 +73,7 @@ const nextConfig: NextConfig = {
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
       "img-src 'self' data: blob: https:",
       "font-src 'self' data: https://fonts.gstatic.com",
+      "worker-src 'self'",
       "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://api.mercadopago.com https://*.vercel-analytics.com https://*.vercel-insights.com",
       "frame-src https://www.youtube.com https://www.youtube-nocookie.com https://player.vimeo.com https://www.mercadopago.cl https://auth.mercadopago.cl",
       "frame-ancestors 'self'",
@@ -62,4 +102,4 @@ const nextConfig: NextConfig = {
   },
 }
 
-export default nextConfig
+export default withPWA(nextConfig)

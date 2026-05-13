@@ -12,6 +12,7 @@ interface BeforeInstallPromptEvent extends Event {
 export function PWAInstallPrompt() {
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null)
   const [showPrompt, setShowPrompt] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
     // Check if previously dismissed
@@ -19,6 +20,10 @@ export function PWAInstallPrompt() {
     if (dismissed) {
       return
     }
+
+    // Detectar si es móvil
+    const mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+    setIsMobile(mobile)
 
     const handleBeforeInstallPrompt = (e: Event) => {
       e.preventDefault()
@@ -29,10 +34,13 @@ export function PWAInstallPrompt() {
 
     window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt)
 
-    // Mostrar siempre el prompt en dispositivos móviles
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
-    if (isMobile) {
+    // Mostrar el QR en desktop, el botón en móviles
+    if (!mobile) {
+      // En desktop/computadora: mostrar QR para escanear
       setShowPrompt(true)
+    } else if (mobile) {
+      // En móvil: mostrar solo si se dispara el evento beforeinstallprompt
+      // (el evento se dispara cuando el navegador detecta que se puede instalar la PWA)
     }
 
     return () => {
@@ -69,42 +77,66 @@ export function PWAInstallPrompt() {
     <div className="fixed bottom-0 left-0 right-0 z-50 animate-slide-up">
       <div className="bg-[#121212] text-white px-6 py-4 shadow-lg">
         <div className="container mx-auto max-w-4xl flex items-center justify-between gap-6">
-          <div className="flex items-center gap-4 flex-1">
-            <div className="flex items-center gap-3">
-              <Download className="w-5 h-5 flex-shrink-0" />
-              <div>
-                <p className="font-semibold text-sm">Instala Nebbuler</p>
-                <p className="text-xs text-gray-300">Accede desde tu home screen</p>
+          {!isMobile ? (
+            <>
+              {/* DESKTOP: Mostrar QR para escanear */}
+              <div className="flex items-center gap-4 flex-1">
+                <div className="flex items-center gap-3">
+                  <QrCode className="w-5 h-5 flex-shrink-0" />
+                  <div>
+                    <p className="font-semibold text-sm">Descarga Nebbuler</p>
+                    <p className="text-xs text-gray-300">Escanea el código con tu móvil</p>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
 
-          <div className="bg-white p-2 rounded">
-            <QRCodeSVG
-              value="https://nebbuler.com"
-              size={80}
-              level="H"
-              includeMargin={false}
-              fgColor="#121212"
-              bgColor="#ffffff"
-            />
-          </div>
+              <div className="bg-white p-3 rounded flex-shrink-0">
+                <QRCodeSVG
+                  value="https://nebbuler.com"
+                  size={100}
+                  level="H"
+                  includeMargin={false}
+                  fgColor="#121212"
+                  bgColor="#ffffff"
+                />
+              </div>
 
-          <div className="flex items-center gap-3 flex-shrink-0">
-            <button
-              onClick={handleInstall}
-              className="px-4 py-2 bg-white text-[#121212] font-semibold text-sm rounded hover:bg-gray-100 transition-colors whitespace-nowrap"
-            >
-              Instalar
-            </button>
-            <button
-              onClick={handleDismiss}
-              className="p-2 hover:bg-gray-800 rounded transition-colors"
-              aria-label="Cerrar"
-            >
-              <X className="w-4 h-4" />
-            </button>
-          </div>
+              <button
+                onClick={handleDismiss}
+                className="p-2 hover:bg-gray-800 rounded transition-colors flex-shrink-0"
+                aria-label="Cerrar"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </>
+          ) : (
+            <>
+              {/* MÓVIL: Mostrar botón de instalar */}
+              <div className="flex items-center gap-3 flex-1">
+                <Download className="w-5 h-5 flex-shrink-0" />
+                <div>
+                  <p className="font-semibold text-sm">Instala Nebbuler</p>
+                  <p className="text-xs text-gray-300">Accede desde tu home screen</p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3 flex-shrink-0">
+                <button
+                  onClick={handleInstall}
+                  className="px-4 py-2 bg-white text-[#121212] font-semibold text-sm rounded hover:bg-gray-100 transition-colors whitespace-nowrap"
+                >
+                  Instalar
+                </button>
+                <button
+                  onClick={handleDismiss}
+                  className="p-2 hover:bg-gray-800 rounded transition-colors"
+                  aria-label="Cerrar"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+            </>
+          )}
         </div>
       </div>
     </div>

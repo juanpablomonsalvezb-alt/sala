@@ -453,3 +453,19 @@ input[type='range'].pricing-slider::-moz-range-thumb {
   box-shadow: 0 0 0 1px #C41C1C;
 }
 }
+
+/* PWA Install Prompt Animation */
+@keyframes slide-up {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-up {
+  animation: slide-up 0.3s ease-out forwards;
+}

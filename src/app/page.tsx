@@ -217,6 +217,61 @@ export default function Home() {
         <GlosarioModule />
       </div>
 
+      {/* ── INSTALAR COMO APP ───────────────────────────────────────────── */}
+      <section className="border-t border-[#E0E0E0] py-16 bg-[#F8F7F5]">
+        <div className="max-w-4xl mx-auto px-6">
+          <div className="flex flex-col sm:flex-row items-center gap-10">
+
+            {/* QR */}
+            <div className="flex-shrink-0 flex flex-col items-center gap-3">
+              <div className="bg-white border border-[#E0E0E0] p-4 shadow-sm">
+                <Image src="/nebbuler-qr.svg" alt="QR para instalar Nebbuler" width={120} height={120} />
+              </div>
+              <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#999]">Apunta tu cámara aquí</p>
+            </div>
+
+            {/* Texto + instrucciones */}
+            <div className="flex-1 text-center sm:text-left">
+              <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#B31C1C] mb-3">Acceso instantáneo</p>
+              <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#111] mb-4">
+                Nebbuler en tu pantalla de inicio
+              </h2>
+              <p className="text-sm text-[#555] mb-6 leading-relaxed">
+                Sin ir al App Store. Escanea el código con tu cámara y agrégala directamente desde el navegador.
+              </p>
+
+              <div className="flex flex-col sm:flex-row gap-4">
+                {/* iOS */}
+                <div className="flex-1 bg-white border border-[#E0E0E0] p-4">
+                  <p className="text-[9px] font-bold uppercase tracking-[0.15em] text-[#999] mb-3">iPhone / iPad</p>
+                  <ol className="space-y-2">
+                    {["Abre nebbuler.com en Safari", "Toca el ícono compartir ⎙", "Selecciona «Agregar a inicio»", "Toca «Agregar»"].map((step, i) => (
+                      <li key={i} className="flex items-start gap-2 text-[11px] text-[#444]">
+                        <span className="font-bold text-[#B31C1C] shrink-0">{i + 1}.</span>
+                        {step}
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+
+                {/* Android */}
+                <div className="flex-1 bg-white border border-[#E0E0E0] p-4">
+                  <p className="text-[9px] font-bold uppercase tracking-[0.15em] text-[#999] mb-3">Android</p>
+                  <ol className="space-y-2">
+                    {["Abre nebbuler.com en Chrome", "Toca el menú ⋮ arriba a la derecha", "Selecciona «Agregar a pantalla»", "Confirma tocando «Instalar»"].map((step, i) => (
+                      <li key={i} className="flex items-start gap-2 text-[11px] text-[#444]">
+                        <span className="font-bold text-[#B31C1C] shrink-0">{i + 1}.</span>
+                        {step}
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ── CTA FINAL ───────────────────────────────────────────────────── */}
       <section className="bg-[#111] py-36 relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">

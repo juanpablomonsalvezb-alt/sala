@@ -69,12 +69,13 @@ export default function Home() {
 
       {/* ── NAV — estático, se sirve desde el servidor ──────────────────── */}
       <header className="sticky top-0 z-50 bg-white/98 backdrop-blur-sm border-b border-[#111]">
-        <div className="max-w-7xl mx-auto px-6 py-0 flex items-stretch justify-between h-14">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 py-0 flex items-stretch justify-between h-14">
 
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 border-r border-[#E0E0E0] pr-6 mr-0">
-            <Image src="/nebbuler-logo.png" alt="Nebbuler" width={36} height={36} className="h-9 w-auto" priority />
-            <span className="text-[17px] font-black uppercase tracking-[0.04em] text-[#111] font-serif">NEBBULER</span>
+          {/* Logo — texto oculto en móvil muy pequeño para dar espacio al login */}
+          <Link href="/" className="flex items-center gap-1.5 sm:gap-2 border-r border-[#E0E0E0] pr-3 sm:pr-6 mr-0 shrink-0">
+            <Image src="/nebbuler-logo.png" alt="Nebbuler" width={36} height={36} className="h-8 sm:h-9 w-auto" priority />
+            <span className="hidden xs:inline text-[14px] sm:text-[17px] font-black uppercase tracking-[0.04em] text-[#111] font-serif">NEBBULER</span>
+            <span className="xs:hidden text-[13px] font-black uppercase tracking-[0.03em] text-[#111] font-serif">NB</span>
           </Link>
 
           {/* Nav links */}
@@ -94,19 +95,21 @@ export default function Home() {
             ))}
           </nav>
 
-          {/* CTA */}
+          {/* CTA — siempre visible, compacto en móvil */}
           <div className="flex items-center gap-0">
             <Link
               href="/entrar"
-              className="h-full flex items-center px-5 text-[12px] font-medium text-[#555] hover:text-[#111] border-l border-[#E0E0E0] transition-colors"
+              className="h-full flex items-center px-3 sm:px-5 text-[11px] sm:text-[12px] font-medium text-[#555] hover:text-[#111] border-l border-[#E0E0E0] transition-colors whitespace-nowrap"
             >
-              Iniciar sesión
+              <span className="hidden sm:inline">Iniciar sesión</span>
+              <span className="sm:hidden">Entrar</span>
             </Link>
             <Link
               href="/abrir"
-              className="h-full flex items-center px-6 bg-[#B31C1C] text-white text-[12px] font-bold tracking-[0.04em] uppercase hover:bg-[#8E1515] transition-colors"
+              className="h-full flex items-center px-3 sm:px-6 bg-[#B31C1C] text-white text-[11px] sm:text-[12px] font-bold tracking-[0.04em] uppercase hover:bg-[#8E1515] transition-colors whitespace-nowrap"
             >
-              Abre tu espacio
+              <span className="hidden sm:inline">Abre tu espacio</span>
+              <span className="sm:hidden">Abrir</span>
             </Link>
           </div>
         </div>
@@ -149,11 +152,15 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── TICKER NEGRO — Marquee cargado sin SSR vía Client wrapper ───── */}
-      <CategoryMarqueeDynamic />
+      {/* ── TICKER NEGRO — oculto en móvil (marquee pesado) ────────────── */}
+      <div className="hidden sm:block">
+        <CategoryMarqueeDynamic />
+      </div>
 
-      {/* ── LIVE ACTIVITY — AnimatedList, Client Island ─────────────────── */}
-      <LiveActivity liveEvents={liveEvents} />
+      {/* ── LIVE ACTIVITY — oculto en móvil ─────────────────────────────── */}
+      <div className="hidden sm:block">
+        <LiveActivity liveEvents={liveEvents} />
+      </div>
 
       {/* ── CREADORES DESTACADOS — grid editorial ───────────────────────── */}
       <section className="border-t border-[#DEDEDE] py-16">
@@ -186,11 +193,15 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── FEATURES ────────────────────────────────────────────────────── */}
-      <FeaturesSection features={features} />
+      {/* ── FEATURES ─────────────────── oculto en móvil ───────────────── */}
+      <div className="hidden sm:block">
+        <FeaturesSection features={features} />
+      </div>
 
-      {/* ── PARA QUIENES ────────────────────────────────────────────────── */}
-      <ParaQuienes />
+      {/* ── PARA QUIENES ─────────────── oculto en móvil ───────────────── */}
+      <div className="hidden sm:block">
+        <ParaQuienes />
+      </div>
 
       {/* ── PRICING ─────────────────────────────────────────────────────── */}
       <PricingSection plans={plans} />
@@ -198,11 +209,13 @@ export default function Home() {
       {/* ── FAQ ─────────────────────────────────────────────────────────── */}
       <FaqSection faqs={faqs} />
 
-      {/* ── DESCUBRIMIENTO — secciones clave del sitio ───────────────────── */}
-      <TrendingModule />
-      <ObservatorioModule />
-      <PreguntaModule />
-      <GlosarioModule />
+      {/* ── DESCUBRIMIENTO — oculto en móvil ────────────────────────────── */}
+      <div className="hidden sm:block">
+        <TrendingModule />
+        <ObservatorioModule />
+        <PreguntaModule />
+        <GlosarioModule />
+      </div>
 
       {/* ── CTA FINAL ───────────────────────────────────────────────────── */}
       <section className="bg-[#111] py-36 relative overflow-hidden">

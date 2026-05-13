@@ -1,7 +1,8 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { X, Download } from 'lucide-react'
+import { X, Download, QrCode } from 'lucide-react'
+import QRCode from 'qrcode.react'
 
 interface BeforeInstallPromptEvent extends Event {
   prompt: () => Promise<void>
@@ -65,18 +66,32 @@ export function PWAInstallPrompt() {
   return (
     <div className="fixed bottom-0 left-0 right-0 z-50 animate-slide-up">
       <div className="bg-[#121212] text-white px-6 py-4 shadow-lg">
-        <div className="container mx-auto max-w-4xl flex items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <Download className="w-5 h-5 flex-shrink-0" />
-            <div>
-              <p className="font-semibold text-sm">Instala Nebbuler</p>
-              <p className="text-xs text-gray-300">Accede desde tu home screen</p>
+        <div className="container mx-auto max-w-4xl flex items-center justify-between gap-6">
+          <div className="flex items-center gap-4 flex-1">
+            <div className="flex items-center gap-3">
+              <Download className="w-5 h-5 flex-shrink-0" />
+              <div>
+                <p className="font-semibold text-sm">Instala Nebbuler</p>
+                <p className="text-xs text-gray-300">Accede desde tu home screen</p>
+              </div>
             </div>
           </div>
+
+          <div className="bg-white p-2 rounded">
+            <QRCode
+              value="https://nebbuler.com"
+              size={80}
+              level="H"
+              includeMargin={false}
+              fgColor="#121212"
+              bgColor="#ffffff"
+            />
+          </div>
+
           <div className="flex items-center gap-3 flex-shrink-0">
             <button
               onClick={handleInstall}
-              className="px-4 py-2 bg-white text-[#121212] font-semibold text-sm rounded hover:bg-gray-100 transition-colors"
+              className="px-4 py-2 bg-white text-[#121212] font-semibold text-sm rounded hover:bg-gray-100 transition-colors whitespace-nowrap"
             >
               Instalar
             </button>

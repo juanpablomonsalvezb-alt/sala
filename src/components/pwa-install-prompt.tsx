@@ -11,8 +11,16 @@ interface BeforeInstallPromptEvent extends Event {
 export function PWAInstallPrompt() {
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null)
   const [showPrompt, setShowPrompt] = useState(false)
+  const [isDismissed, setIsDismissed] = useState(false)
 
   useEffect(() => {
+    // Check if previously dismissed
+    const dismissed = localStorage.getItem('nebbuler-pwa-dismissed')
+    if (dismissed) {
+      setIsDismissed(true)
+      return
+    }
+
     const handleBeforeInstallPrompt = (e: Event) => {
       e.preventDefault()
       const promptEvent = e as BeforeInstallPromptEvent
@@ -22,27 +30,35 @@ export function PWAInstallPrompt() {
 
     window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt)
 
+    // Mostrar siempre el prompt en dispositivos móviles si no fue dismissido
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+    if (isMobile && !dismissed) {
+      setShowPrompt(true)
+    }
+
     return () => {
       window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt)
     }
   }, [])
 
   const handleInstall = async () => {
-    if (!deferredPrompt) return
-
-    deferredPrompt.prompt()
-    const { outcome } = await deferredPrompt.userChoice
-    if (outcome === 'accepted') {
-      setShowPrompt(false)
-      setDeferredPrompt(null)
+    if (deferredPrompt) {
+      deferredPrompt.prompt()
+      const { outcome } = await deferredPrompt.userChoice
+      if (outcome === 'accepted') {
+        setShowPrompt(false)
+        setDeferredPrompt(null)
+        localStorage.setItem('nebbuler-pwa-dismissed', 'true')
+      }
     }
   }
 
   const handleDismiss = () => {
     setShowPrompt(false)
+    localStorage.setItem('nebbuler-pwa-dismissed', 'true')
   }
 
-  if (!showPrompt || !deferredPrompt) {
+  if (!showPrompt || isDismissed) {
     return null
   }
 

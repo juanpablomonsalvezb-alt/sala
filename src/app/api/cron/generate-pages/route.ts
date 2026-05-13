@@ -16,10 +16,10 @@ export async function GET(request: Request) {
     // Get keywords without generated pages
     const { data: keywords, error: fetchError } = await supabase
       .from('trending_keywords')
-      .select('id, keyword, search_volume, country_code')
+      .select('id, keyword, search_volume, country_code, monthly_growth')
       .eq('status', 'detected')
-      .order('search_volume', { ascending: false })
-      .limit(5)
+      .order('monthly_growth', { ascending: false })
+      .limit(3)
 
     if (fetchError) throw fetchError
 
@@ -27,34 +27,39 @@ export async function GET(request: Request) {
     const generated = []
 
     for (const kw of keywords || []) {
-      // Generate content using Claude
+      // Generate SEO-optimized content using Haiku
       const message = await client.messages.create({
-        model: 'claude-opus-4-7',
-        max_tokens: 2000,
+        model: 'claude-haiku-4-5-20251001',
+        max_tokens: 1000,
         messages: [
           {
             role: 'user',
-            content: `Escribe un artículo profesional sobre "${kw.keyword}" de 800-1000 palabras.
-              Incluye:
-              - Título SEO optimizado
-              - Introducción con pregunta de featured snippet
-              - 3 secciones principales
-              - Conclusión con CTA
-              Formato: HTML limpio, sin estilos inline.`,
+            content: `Escribe un artículo profesional corto sobre "${kw.keyword}" (500-600 palabras).
+
+Estructura:
+- Título SEO fuerte: "¿Qué es ${kw.keyword}? Guía 2026"
+- Párrafo de intro con pregunta (para featured snippet)
+- 2-3 secciones clave
+- Conclusión corta
+- Una frase final de CTA
+
+Formato: HTML limpio. Solo etiquetas: <h2>, <h3>, <p>, <strong>, <em>, <ul>, <li>.
+Sin <div>, <span>, <style>, atributos inline.`,
           },
         ],
       })
 
       const content = message.content[0].type === 'text' ? message.content[0].text : ''
+      const seoScore = Math.min(90, 65 + Math.floor((kw.search_volume / 100) * 2) + Math.floor(kw.monthly_growth))
 
       // Save to database
       const { error: insertError } = await supabase.from('generated_pages').insert({
         keyword: kw.keyword,
-        specialty: 'General',
+        specialty: 'Profesional',
         country_code: kw.country_code || 'CL',
         content_html: content,
         content_markdown: content,
-        seo_score: 75,
+        seo_score: seoScore,
         status: 'draft',
         trending_keyword_id: kw.id,
       })

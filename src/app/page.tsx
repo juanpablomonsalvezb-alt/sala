@@ -295,8 +295,18 @@ export default function Home() {
               </div>
             ))}
           </div>
-          <div className="border-t border-white/10 pt-6 flex items-center justify-between">
+          <div className="border-t border-white/10 pt-6 flex items-center justify-between flex-wrap gap-4">
             <p className="text-[9px] text-white/20 uppercase tracking-[0.12em]">© 2026 Nebbuler</p>
+
+            {/* QR para instalar como app — imagen estática, sin JS */}
+            <div className="hidden sm:flex items-center gap-3">
+              <div>
+                <p className="text-[9px] text-white/40 uppercase tracking-[0.14em] mb-0.5">Instala la app</p>
+                <p className="text-[8px] text-white/20">Escanea con tu móvil</p>
+              </div>
+              <Image src="/nebbuler-qr.svg" alt="Instala Nebbuler como app" width={52} height={52} className="opacity-70 hover:opacity-100 transition-opacity" />
+            </div>
+
             <a
               href="mailto:hello@nebbuler.com"
               className="text-[9px] text-white/20 hover:text-white/55 transition-colors uppercase tracking-[0.12em]"

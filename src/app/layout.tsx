@@ -3,7 +3,6 @@ import type { Metadata, Viewport } from "next"
 import { Libre_Baskerville, Public_Sans, Inter, Playfair_Display } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
-import { PWAInstallPrompt } from "@/components/pwa-install-prompt"
 import "./globals.css"
 
 const publicSans = Public_Sans({
@@ -196,7 +195,6 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: safeJsonLd(PLATFORM_JSONLD) }}
         />
         {children}
-        <PWAInstallPrompt />
         <Analytics />
         <SpeedInsights />
       </body>

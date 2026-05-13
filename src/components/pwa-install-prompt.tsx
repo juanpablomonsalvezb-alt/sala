@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { X, Download, QrCode } from 'lucide-react'
-import QRCode from 'qrcode.react'
+import { QRCodeSVG } from 'qrcode.react'
 
 interface BeforeInstallPromptEvent extends Event {
   prompt: () => Promise<void>
@@ -78,7 +78,7 @@ export function PWAInstallPrompt() {
           </div>
 
           <div className="bg-white p-2 rounded">
-            <QRCode
+            <QRCodeSVG
               value="https://nebbuler.com"
               size={80}
               level="H"

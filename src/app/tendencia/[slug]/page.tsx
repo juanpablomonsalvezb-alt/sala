@@ -18,10 +18,8 @@ interface Creator {
   id: string
   name: string
   specialty: string
-  avatar_url?: string
+  slug: string
   bio?: string
-  followers?: number
-  username: string
 }
 
 interface Params {
@@ -113,10 +111,9 @@ export default async function TrendingArticlePage({ params }: { params: Params }
   }
 
   const { data: creators = [] } = await supabase
-    .from('creators')
-    .select('id, name, specialty, avatar_url, bio, followers, username')
-    .or(`specialty.ilike.%${matchedSpecialty}%,specialty.ilike.%${matchedSpecialty === 'General' ? 'professional' : matchedSpecialty}%`)
-    .eq('country_code', typedPage.country_code)
+    .from('sala_creators')
+    .select('id, name, specialty, slug, bio')
+    .ilike('specialty', `%${matchedSpecialty}%`)
     .limit(4)
 
   const typedCreators = creators as Creator[]
@@ -174,34 +171,20 @@ export default async function TrendingArticlePage({ params }: { params: Params }
               {typedCreators.map(creator => (
                 <Link
                   key={creator.id}
-                  href={`/${creator.username}`}
+                  href={`/${creator.slug}`}
                   className="block p-6 border border-[#e0e0e0] hover:border-[#121212] hover:shadow-sm transition-all group"
                 >
-                  <div className="flex gap-4 mb-4">
-                    {creator.avatar_url && (
-                      <img
-                        src={creator.avatar_url}
-                        alt={creator.name}
-                        className="w-12 h-12 rounded-full object-cover"
-                      />
-                    )}
-                    <div className="flex-1">
-                      <h3 className="font-sans font-semibold text-[#121212] group-hover:text-[#333]">
-                        {creator.name}
-                      </h3>
-                      <p className="text-xs text-[#999] font-sans">
-                        {creator.specialty}
-                      </p>
-                    </div>
+                  <div className="mb-4">
+                    <h3 className="font-sans font-semibold text-[#121212] group-hover:text-[#333] mb-1">
+                      {creator.name}
+                    </h3>
+                    <p className="text-xs text-[#999] font-sans capitalize">
+                      {creator.specialty}
+                    </p>
                   </div>
                   {creator.bio && (
-                    <p className="font-sans text-sm text-[#666] mb-3 line-clamp-2">
+                    <p className="font-sans text-sm text-[#666] line-clamp-2">
                       {creator.bio}
-                    </p>
-                  )}
-                  {creator.followers && (
-                    <p className="text-xs text-[#999] font-sans">
-                      👥 {creator.followers.toLocaleString()} suscriptores
                     </p>
                   )}
                 </Link>

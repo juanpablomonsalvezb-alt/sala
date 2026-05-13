@@ -3,8 +3,6 @@
 // Los islands interactivos (animaciones, ticker, FAQ) se cargan como Client Components
 // importados con next/dynamic donde aplica ssr: false para los más pesados.
 
-export const revalidate = 0 // No cachear — servir siempre fresh
-
 import type { CSSProperties } from "react";
 import Link from "next/link";
 import Image from "next/image";

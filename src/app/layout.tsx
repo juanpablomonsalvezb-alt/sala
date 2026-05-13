@@ -196,7 +196,6 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: safeJsonLd(PLATFORM_JSONLD) }}
         />
         {children}
-        <div id="pwa-test-marker">TEST-PWA-MARKER-VISIBLE</div>
         <PWAInstallPrompt />
         <Analytics />
         <SpeedInsights />

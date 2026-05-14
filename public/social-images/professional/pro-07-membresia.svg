@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675">
+  
+  <rect width="1200" height="675" fill="#1F2937"/>
+  <line x1="80" y1="0" x2="80" y2="675" stroke="#FCD34D22" stroke-width="1"/><line x1="200" y1="0" x2="200" y2="675" stroke="#FCD34D22" stroke-width="1"/><line x1="320" y1="0" x2="320" y2="675" stroke="#FCD34D22" stroke-width="1"/><line x1="440" y1="0" x2="440" y2="675" stroke="#FCD34D22" stroke-width="1"/><line x1="560" y1="0" x2="560" y2="675" stroke="#FCD34D22" stroke-width="1"/><line x1="680" y1="0" x2="680" y2="675" stroke="#FCD34D22" stroke-width="1"/><line x1="800" y1="0" x2="800" y2="675" stroke="#FCD34D22" stroke-width="1"/><line x1="920" y1="0" x2="920" y2="675" stroke="#FCD34D22" stroke-width="1"/><line x1="1040" y1="0" x2="1040" y2="675" stroke="#FCD34D22" stroke-width="1"/><line x1="1160" y1="0" x2="1160" y2="675" stroke="#FCD34D22" stroke-width="1"/><line x1="0" y1="60" x2="1200" y2="60" stroke="#FCD34D22" stroke-width="1"/><line x1="0" y1="150" x2="1200" y2="150" stroke="#FCD34D22" stroke-width="1"/><line x1="0" y1="240" x2="1200" y2="240" stroke="#FCD34D22" stroke-width="1"/><line x1="0" y1="330" x2="1200" y2="330" stroke="#FCD34D22" stroke-width="1"/><line x1="0" y1="420" x2="1200" y2="420" stroke="#FCD34D22" stroke-width="1"/><line x1="0" y1="510" x2="1200" y2="510" stroke="#FCD34D22" stroke-width="1"/><line x1="0" y1="600" x2="1200" y2="600" stroke="#FCD34D22" stroke-width="1"/>
+  <!-- Accent bar -->
+  <rect x="80" y="240" width="60" height="6" rx="3" fill="#FCD34D"/>
+  <!-- Main text -->
+  <text x="80" y="310" font-family="Georgia, serif" font-size="72" font-weight="700" fill="#FFFFFF" letter-spacing="-1">Tu audiencia</text>
+  <text x="80" y="390" font-family="Georgia, serif" font-size="72" font-weight="700" fill="#FFFFFF" letter-spacing="-1">merece suscribirse.</text>
+  <!-- Sub text -->
+  <text x="80" y="470" font-family="Arial, sans-serif" font-size="28" fill="#FCD34D99" letter-spacing="3">NEBBULER.COM</text>
+  <!-- Corner logo mark -->
+  <rect x="1090" y="590" width="80" height="40" rx="6" fill="#FCD34D" opacity="0.9"/>
+  <text x="1130" y="617" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#1F2937" text-anchor="middle">N</text>
+</svg>

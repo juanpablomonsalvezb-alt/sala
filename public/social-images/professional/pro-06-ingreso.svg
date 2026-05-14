@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675">
+  
+  <rect width="1200" height="675" fill="#0C1A2E"/>
+  <circle cx="80" cy="50" r="4" fill="#38BDF822"/><circle cx="210" cy="50" r="6" fill="#38BDF822"/><circle cx="340" cy="50" r="3" fill="#38BDF822"/><circle cx="470" cy="50" r="5" fill="#38BDF822"/><circle cx="600" cy="50" r="4" fill="#38BDF822"/><circle cx="730" cy="50" r="7" fill="#38BDF822"/><circle cx="80" cy="140" r="4" fill="#38BDF822"/><circle cx="210" cy="140" r="6" fill="#38BDF822"/><circle cx="340" cy="140" r="3" fill="#38BDF822"/><circle cx="470" cy="140" r="5" fill="#38BDF822"/><circle cx="600" cy="140" r="4" fill="#38BDF822"/><circle cx="730" cy="140" r="7" fill="#38BDF822"/><circle cx="80" cy="230" r="4" fill="#38BDF822"/><circle cx="210" cy="230" r="6" fill="#38BDF822"/><circle cx="340" cy="230" r="3" fill="#38BDF822"/><circle cx="470" cy="230" r="5" fill="#38BDF822"/><circle cx="600" cy="230" r="4" fill="#38BDF822"/><circle cx="730" cy="230" r="7" fill="#38BDF822"/><circle cx="80" cy="320" r="4" fill="#38BDF822"/><circle cx="210" cy="320" r="6" fill="#38BDF822"/><circle cx="340" cy="320" r="3" fill="#38BDF822"/><circle cx="470" cy="320" r="5" fill="#38BDF822"/><circle cx="600" cy="320" r="4" fill="#38BDF822"/><circle cx="730" cy="320" r="7" fill="#38BDF822"/><circle cx="80" cy="410" r="4" fill="#38BDF822"/><circle cx="210" cy="410" r="6" fill="#38BDF822"/><circle cx="340" cy="410" r="3" fill="#38BDF822"/><circle cx="470" cy="410" r="5" fill="#38BDF822"/><circle cx="600" cy="410" r="4" fill="#38BDF822"/><circle cx="730" cy="410" r="7" fill="#38BDF822"/>
+  <!-- Accent bar -->
+  <rect x="80" y="240" width="60" height="6" rx="3" fill="#38BDF8"/>
+  <!-- Main text -->
+  <text x="80" y="310" font-family="Georgia, serif" font-size="72" font-weight="700" fill="#FFFFFF" letter-spacing="-1">Ingresos recurrentes</text>
+  <text x="80" y="390" font-family="Georgia, serif" font-size="72" font-weight="700" fill="#FFFFFF" letter-spacing="-1">de tu conocimiento.</text>
+  <!-- Sub text -->
+  <text x="80" y="470" font-family="Arial, sans-serif" font-size="28" fill="#38BDF899" letter-spacing="3">NEBBULER.COM</text>
+  <!-- Corner logo mark -->
+  <rect x="1090" y="590" width="80" height="40" rx="6" fill="#38BDF8" opacity="0.9"/>
+  <text x="1130" y="617" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#0C1A2E" text-anchor="middle">N</text>
+</svg>

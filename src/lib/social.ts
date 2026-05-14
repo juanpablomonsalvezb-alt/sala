@@ -1,10 +1,9 @@
 import { createClient as createSupabaseAdmin } from '@supabase/supabase-js'
 
 function adminClient() {
-  return createSupabaseAdmin(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!
-  )
+  // Prefer new sb_secret_ key; fall back to legacy JWT for local dev
+  const key = process.env.SUPABASE_SECRET_KEY ?? process.env.SUPABASE_SERVICE_ROLE_KEY!
+  return createSupabaseAdmin(process.env.NEXT_PUBLIC_SUPABASE_URL!, key)
 }
 
 // Límites diarios
@@ -82,17 +81,19 @@ export async function getNextTemplate(platform: Platform, tone: 'professional' |
 
 export async function markImageUsed(id: string) {
   const supabase = adminClient()
+  const { data } = await supabase.from('social_images').select('times_used').eq('id', id).single()
   await supabase
     .from('social_images')
-    .update({ last_used_at: new Date().toISOString(), times_used: supabase.rpc('increment', { x: 1 }) })
+    .update({ last_used_at: new Date().toISOString(), times_used: (data?.times_used ?? 0) + 1 })
     .eq('id', id)
 }
 
 export async function markTemplateUsed(id: string) {
   const supabase = adminClient()
+  const { data } = await supabase.from('social_comment_templates').select('times_used').eq('id', id).single()
   await supabase
     .from('social_comment_templates')
-    .update({ last_used_at: new Date().toISOString(), times_used: supabase.rpc('increment', { x: 1 }) })
+    .update({ last_used_at: new Date().toISOString(), times_used: (data?.times_used ?? 0) + 1 })
     .eq('id', id)
 }
 

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675">
+  
+  <rect width="1200" height="675" fill="#F8F5F0"/>
+  <line x1="0" y1="80" x2="1200" y2="80" stroke="#1A1A2E18" stroke-width="2"/><line x1="0" y1="160" x2="1200" y2="160" stroke="#1A1A2E18" stroke-width="1"/><line x1="0" y1="240" x2="1200" y2="240" stroke="#1A1A2E18" stroke-width="1"/><line x1="0" y1="320" x2="1200" y2="320" stroke="#1A1A2E18" stroke-width="2"/><line x1="0" y1="400" x2="1200" y2="400" stroke="#1A1A2E18" stroke-width="1"/><line x1="0" y1="480" x2="1200" y2="480" stroke="#1A1A2E18" stroke-width="1"/><line x1="0" y1="560" x2="1200" y2="560" stroke="#1A1A2E18" stroke-width="2"/><line x1="0" y1="640" x2="1200" y2="640" stroke="#1A1A2E18" stroke-width="1"/>
+  <!-- Accent bar -->
+  <rect x="80" y="240" width="60" height="6" rx="3" fill="#1A1A2E"/>
+  <!-- Main text -->
+  <text x="80" y="310" font-family="Georgia, serif" font-size="72" font-weight="700" fill="#1A1A2E" letter-spacing="-1">Crea tu portal</text>
+  <text x="80" y="390" font-family="Georgia, serif" font-size="72" font-weight="700" fill="#1A1A2E" letter-spacing="-1">de conocimiento.</text>
+  <!-- Sub text -->
+  <text x="80" y="470" font-family="Arial, sans-serif" font-size="28" fill="#1A1A2E99" letter-spacing="3">NEBBULER.COM</text>
+  <!-- Corner logo mark -->
+  <rect x="1090" y="590" width="80" height="40" rx="6" fill="#1A1A2E" opacity="0.9"/>
+  <text x="1130" y="617" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#F8F5F0" text-anchor="middle">N</text>
+</svg>

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675">
+  
+  <rect width="1200" height="675" fill="#F5F0E8"/>
+  <circle cx="300" cy="200" r="180" fill="none" stroke="#7C3AED18" stroke-width="1.5"/><circle cx="500" cy="500" r="120" fill="none" stroke="#7C3AED18" stroke-width="1.5"/><circle cx="800" cy="150" r="200" fill="none" stroke="#7C3AED18" stroke-width="1.5"/><circle cx="1000" cy="400" r="90" fill="none" stroke="#7C3AED18" stroke-width="1.5"/>
+  <!-- Accent bar -->
+  <rect x="80" y="240" width="60" height="6" rx="3" fill="#7C3AED"/>
+  <!-- Main text -->
+  <text x="80" y="310" font-family="Georgia, serif" font-size="72" font-weight="700" fill="#7C3AED" letter-spacing="-1">Eres el experto.</text>
+  <text x="80" y="390" font-family="Georgia, serif" font-size="72" font-weight="700" fill="#7C3AED" letter-spacing="-1">Actúa como tal.</text>
+  <!-- Sub text -->
+  <text x="80" y="470" font-family="Arial, sans-serif" font-size="28" fill="#7C3AED99" letter-spacing="3">NEBBULER.COM</text>
+  <!-- Corner logo mark -->
+  <rect x="1090" y="590" width="80" height="40" rx="6" fill="#7C3AED" opacity="0.9"/>
+  <text x="1130" y="617" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#F5F0E8" text-anchor="middle">N</text>
+</svg>

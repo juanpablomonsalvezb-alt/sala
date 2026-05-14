@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675">
+  
+  <rect width="1200" height="675" fill="#091B29"/>
+  <path d="M0 400 Q200 300 400 400 T800 400 T1200 400" fill="none" stroke="#34D39922" stroke-width="2"/>
+    <path d="M0 450 Q300 350 600 450 T1200 450" fill="none" stroke="#34D39922" stroke-width="1.5"/>
+    <path d="M0 350 Q150 250 300 350 T600 350 T900 350 T1200 350" fill="none" stroke="#34D39922" stroke-width="1"/>
+  <!-- Accent bar -->
+  <rect x="80" y="240" width="60" height="6" rx="3" fill="#34D399"/>
+  <!-- Main text -->
+  <text x="80" y="310" font-family="Georgia, serif" font-size="72" font-weight="700" fill="#FFFFFF" letter-spacing="-1">El mercado LATAM</text>
+  <text x="80" y="390" font-family="Georgia, serif" font-size="72" font-weight="700" fill="#FFFFFF" letter-spacing="-1">espera tu expertise.</text>
+  <!-- Sub text -->
+  <text x="80" y="470" font-family="Arial, sans-serif" font-size="28" fill="#34D39999" letter-spacing="3">NEBBULER.COM</text>
+  <!-- Corner logo mark -->
+  <rect x="1090" y="590" width="80" height="40" rx="6" fill="#34D399" opacity="0.9"/>
+  <text x="1130" y="617" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#091B29" text-anchor="middle">N</text>
+</svg>

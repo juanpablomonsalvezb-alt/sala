@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675">
+  <defs><linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#F97316;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#EAB308;stop-opacity:1"/>
+    </linearGradient></defs>
+  <rect width="1200" height="675" fill="url(#bg)"/>
+  <line x1="1150" y1="-50" x2="1550" y2="-50" stroke="rgba(255,255,255,0.12)" stroke-width="3"/><line x1="1150" y1="-50" x2="1496.4101615137756" y2="149.99999999999997" stroke="rgba(255,255,255,0.12)" stroke-width="1"/><line x1="1150" y1="-50" x2="1350" y2="296.41016151377545" stroke="rgba(255,255,255,0.12)" stroke-width="1"/><line x1="1150" y1="-50" x2="1150" y2="350" stroke="rgba(255,255,255,0.12)" stroke-width="3"/><line x1="1150" y1="-50" x2="950.0000000000001" y2="296.4101615137755" stroke="rgba(255,255,255,0.12)" stroke-width="1"/><line x1="1150" y1="-50" x2="803.5898384862245" y2="149.99999999999997" stroke="rgba(255,255,255,0.12)" stroke-width="1"/><line x1="1150" y1="-50" x2="750" y2="-49.99999999999995" stroke="rgba(255,255,255,0.12)" stroke-width="3"/><line x1="1150" y1="-50" x2="803.5898384862246" y2="-250.00000000000006" stroke="rgba(255,255,255,0.12)" stroke-width="1"/><line x1="1150" y1="-50" x2="949.9999999999998" y2="-396.4101615137754" stroke="rgba(255,255,255,0.12)" stroke-width="1"/><line x1="1150" y1="-50" x2="1150" y2="-450" stroke="rgba(255,255,255,0.12)" stroke-width="3"/><line x1="1150" y1="-50" x2="1350" y2="-396.41016151377545" stroke="rgba(255,255,255,0.12)" stroke-width="1"/><line x1="1150" y1="-50" x2="1496.4101615137754" y2="-250.00000000000017" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+  <!-- Accent bar -->
+  <rect x="80" y="240" width="60" height="6" rx="3" fill="#0F172A"/>
+  <!-- Main text -->
+  <text x="80" y="310" font-family="Georgia, serif" font-size="72" font-weight="700" fill="#FFFFFF" letter-spacing="-1">Tu audiencia</text>
+  <text x="80" y="390" font-family="Georgia, serif" font-size="72" font-weight="700" fill="#FFFFFF" letter-spacing="-1">ya existe.</text>
+  <!-- Sub text -->
+  <text x="80" y="470" font-family="Arial, sans-serif" font-size="28" fill="rgba(255,255,255,0.7)" letter-spacing="3">NEBBULER.COM</text>
+  <!-- Corner logo mark -->
+  <rect x="1090" y="590" width="80" height="40" rx="6" fill="#0F172A" opacity="0.9"/>
+  <text x="1130" y="617" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#0F172A" text-anchor="middle">N</text>
+</svg>

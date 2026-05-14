@@ -31,12 +31,11 @@ export async function generateStaticParams(): Promise<
       .limit(100)
 
     if (!posts) return []
-    return posts.map(
-      (p: { slug: string; sala_creators: { slug: string } }) => ({
-        creator: p.sala_creators.slug,
-        post: p.slug,
-      })
-    )
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return (posts as any[]).map((p: any) => ({
+      creator: p.sala_creators.slug,
+      post: p.slug,
+    }))
   } catch {
     const params: Array<{ creator: string; post: string }> = []
     for (const creator of staticCreators.slice(0, 10)) {

@@ -32,6 +32,5 @@ export default function robots(): MetadataRoute.Robots {
     sitemap: [
       'https://nebbuler.com/sitemap.xml',
     ],
-    crawlDelay: 1, // 1 segundo entre requests
   }
 }

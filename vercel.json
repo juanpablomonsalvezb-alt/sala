@@ -7,6 +7,14 @@
     {
       "path": "/api/cron/generate-pages",
       "schedule": "0 3 * * *"
+    },
+    {
+      "path": "/api/cron/detect-opportunities",
+      "schedule": "0 8,10,12,14,16,18,20,22 * * *"
+    },
+    {
+      "path": "/api/cron/refresh-social-accounts",
+      "schedule": "0 4 * * 1"
     }
   ]
 }

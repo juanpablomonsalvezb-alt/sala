@@ -56,6 +56,8 @@ const nextConfig: NextConfig = {
     ],
   },
 
+  serverExternalPackages: ['agent-twitter-client', '@roamhq/wrtc', '@roamhq/wrtc-darwin-x64'],
+
   experimental: {
     optimizePackageImports: [
       '@tabler/icons-react',

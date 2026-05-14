@@ -11,6 +11,27 @@ import { ProfileShare } from '@/components/profile-share'
 import { creatorProfilePageSchema } from '@/lib/json-ld'
 import { AlsoReading } from '@/components/also-reading'
 
+// ISR: revalidate each creator profile every 24 hours
+export const revalidate = 86400
+
+// Pre-build top creators at build time; remaining creators built on-demand
+export async function generateStaticParams(): Promise<Array<{ creator: string }>> {
+  try {
+    const supabase = await createClient()
+    const { data: creators } = await supabase
+      .from('sala_creators')
+      .select('slug')
+      .eq('plan', 'pro')
+      .order('subscriber_count', { ascending: false })
+      .limit(50)
+
+    if (!creators) return []
+    return creators.map((c: { slug: string }) => ({ creator: c.slug }))
+  } catch {
+    return staticCreators.slice(0, 20).map((c) => ({ creator: c.slug }))
+  }
+}
+
 // ─── Mapeo de mes español a número ───────────────────────────────────────────
 
 const MONTH_MAP: Record<string, string> = {

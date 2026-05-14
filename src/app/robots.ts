@@ -17,9 +17,21 @@ export default function robots(): MetadataRoute.Robots {
           '/nueva-contrasena',
           '/auth/',
           '/suscribirse/',
+          '/widget/',
+          '/embed/',
+          '/*.json$',
+          '/*.csv$',
         ],
       },
+      // Googlebot específicamente — acceso completo
+      {
+        userAgent: 'Googlebot',
+        allow: '/',
+      },
     ],
-    sitemap: 'https://nebbuler.com/sitemap.xml',
+    sitemap: [
+      'https://nebbuler.com/sitemap.xml',
+    ],
+    crawlDelay: 1, // 1 segundo entre requests
   }
 }

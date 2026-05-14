@@ -86,6 +86,46 @@ const nextConfig: NextConfig = {
     ].join('; ')
 
     return [
+      // ISR cache headers: creator profiles (24h revalidation)
+      {
+        source: '/([^/]+)$',
+        headers: [
+          { key: 'Cache-Control', value: 'public, s-maxage=86400, stale-while-revalidate=604800' },
+          { key: 'X-Frame-Options',           value: 'SAMEORIGIN' },
+          { key: 'X-Content-Type-Options',    value: 'nosniff' },
+          { key: 'Referrer-Policy',           value: 'strict-origin-when-cross-origin' },
+          { key: 'Permissions-Policy',        value: 'camera=(), microphone=(), geolocation=()' },
+          { key: 'Strict-Transport-Security',      value: 'max-age=63072000; includeSubDomains; preload' },
+          { key: 'Content-Security-Policy-Report-Only', value: csp },
+        ],
+      },
+      // ISR cache headers: articles (1h revalidation)
+      {
+        source: '/([^/]+)/([^/]+)$',
+        headers: [
+          { key: 'Cache-Control', value: 'public, s-maxage=3600, stale-while-revalidate=86400' },
+          { key: 'X-Frame-Options',           value: 'SAMEORIGIN' },
+          { key: 'X-Content-Type-Options',    value: 'nosniff' },
+          { key: 'Referrer-Policy',           value: 'strict-origin-when-cross-origin' },
+          { key: 'Permissions-Policy',        value: 'camera=(), microphone=(), geolocation=()' },
+          { key: 'Strict-Transport-Security',      value: 'max-age=63072000; includeSubDomains; preload' },
+          { key: 'Content-Security-Policy-Report-Only', value: csp },
+        ],
+      },
+      // Trending articles (1h revalidation)
+      {
+        source: '/tendencia/:slug',
+        headers: [
+          { key: 'Cache-Control', value: 'public, s-maxage=3600, stale-while-revalidate=86400' },
+          { key: 'X-Frame-Options',           value: 'SAMEORIGIN' },
+          { key: 'X-Content-Type-Options',    value: 'nosniff' },
+          { key: 'Referrer-Policy',           value: 'strict-origin-when-cross-origin' },
+          { key: 'Permissions-Policy',        value: 'camera=(), microphone=(), geolocation=()' },
+          { key: 'Strict-Transport-Security',      value: 'max-age=63072000; includeSubDomains; preload' },
+          { key: 'Content-Security-Policy-Report-Only', value: csp },
+        ],
+      },
+      // Default headers for all other routes
       {
         source: '/(.*)',
         headers: [

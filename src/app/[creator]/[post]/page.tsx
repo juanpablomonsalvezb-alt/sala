@@ -13,6 +13,48 @@ import { AlsoReading } from '@/components/also-reading'
 import { QuoteHighlighter } from '@/components/quote-highlighter'
 import { postArticleSchema } from '@/lib/json-ld'
 
+// ISR: revalidate each article every 1 hour
+export const revalidate = 3600
+
+// Pre-build top articles at build time to reduce 404s in GSC
+export async function generateStaticParams(): Promise<
+  Array<{ creator: string; post: string }>
+> {
+  try {
+    const supabase = await createClient()
+    const { data: posts } = await supabase
+      .from('sala_posts')
+      .select('slug, sala_creators!inner(slug)')
+      .not('published_at', 'is', null)
+      .in('sala_creators.plan', ['pro', 'creator'])
+      .order('published_at', { ascending: false })
+      .limit(100)
+
+    if (!posts) return []
+    return posts.map(
+      (p: { slug: string; sala_creators: { slug: string } }) => ({
+        creator: p.sala_creators.slug,
+        post: p.slug,
+      })
+    )
+  } catch {
+    const params: Array<{ creator: string; post: string }> = []
+    for (const creator of staticCreators.slice(0, 10)) {
+      for (const article of creator.articles.slice(0, 3)) {
+        const slug = article
+          .toLowerCase()
+          .normalize('NFD')
+          .replace(/[̀-ͯ]/g, '')
+          .replace(/[^a-z0-9]+/g, '-')
+          .replace(/^-|-$/g, '')
+          .slice(0, 60)
+        params.push({ creator: creator.slug, post: slug })
+      }
+    }
+    return params
+  }
+}
+
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
 function isSupabaseConfigured(): boolean {

@@ -70,10 +70,10 @@ function getStaticSitemapEntries(): MetadataRoute.Sitemap {
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   let dbEntries: MetadataRoute.Sitemap = []
+  let trendingRoutes: MetadataRoute.Sitemap = []
+  const supabase = await createClient()
 
   try {
-    const supabase = await createClient()
-
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const { data: posts } = await (supabase as any)
       .from('sala_posts')
@@ -105,6 +105,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       }))
 
     dbEntries = [...dbEntries, ...dbPosts]
+
+    // Trending pages
+    const { data: trendingPages } = await supabase
+      .from('generated_pages')
+      .select('keyword, created_at, status')
+      .eq('status', 'draft')
+      .order('created_at', { ascending: false })
+
+    trendingRoutes = (trendingPages ?? []).map((page: { keyword: string; created_at: string }) => ({
+      url: `${BASE}/tendencia/${encodeURIComponent(page.keyword.toLowerCase().replace(/\s+/g, '-'))}`,
+      lastModified: new Date(page.created_at),
+      changeFrequency: 'weekly' as const,
+      priority: 0.85,
+    }))
   } catch {
     // Supabase no responde — usaremos solo static
   }
@@ -170,6 +184,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   return [
     { url: BASE, lastModified: new Date(), changeFrequency: 'daily', priority: 1 },
+    { url: `${BASE}/tendencia`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.9 },
     { url: `${BASE}/directorio`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.9 },
     { url: `${BASE}/analisis`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
     { url: `${BASE}/guia`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.75 },
@@ -185,6 +200,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...guiaRoutes,
     ...faqRoutes,
     ...caseStudyRoutes,
+    ...trendingRoutes,
     ...dbEntries,
     ...staticEntries,
   ]

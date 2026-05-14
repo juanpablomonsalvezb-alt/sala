@@ -10,11 +10,11 @@
     },
     {
       "path": "/api/cron/detect-opportunities",
-      "schedule": "0 8,10,12,14,16,18,20,22 * * *"
+      "schedule": "0 10 * * *"
     },
     {
       "path": "/api/cron/refresh-social-accounts",
-      "schedule": "0 4 * * 1"
+      "schedule": "0 4 * * 0"
     }
   ]
 }

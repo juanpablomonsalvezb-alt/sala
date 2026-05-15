@@ -43,7 +43,10 @@ export async function getLinkedInFeed(): Promise<LinkedInPost[]> {
 }
 
 export async function publishLinkedInPost(text: string, imageUrl?: string): Promise<void> {
-  const personUrn = process.env.LINKEDIN_PERSON_URN!
+  // Usa la página de empresa si existe, sino el perfil personal
+  const personUrn = process.env.LINKEDIN_ORGANIZATION_URN
+    ? process.env.LINKEDIN_ORGANIZATION_URN
+    : process.env.LINKEDIN_PERSON_URN!
   const body: Record<string, unknown> = {
     author: personUrn,
     lifecycleState: 'PUBLISHED',

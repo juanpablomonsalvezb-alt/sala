@@ -17,11 +17,15 @@ echo "${GREEN}✅ Build OK${NC}"
 
 # 2. Deploy a preview
 echo "\n☁️  Paso 2/4: Desplegando a preview..."
-PREVIEW_URL=$(npx vercel --yes 2>&1 | grep "https://" | tail -1)
+VERCEL_OUTPUT=$(npx vercel --yes 2>&1)
+PREVIEW_URL=$(echo "$VERCEL_OUTPUT" | grep -oE 'https://builder-orbbi-[a-z0-9]+-jps-projects-[a-z0-9]+\.vercel\.app' | tail -1)
+if [ -z "$PREVIEW_URL" ]; then
+  PREVIEW_URL=$(echo "$VERCEL_OUTPUT" | grep "https://" | grep "vercel.app" | tail -1 | tr -d ' ')
+fi
 echo "Preview: $PREVIEW_URL"
 
-# Esperar 10 segundos para que el deploy esté listo
-sleep 10
+# Esperar 15 segundos para que el deploy esté listo
+sleep 15
 
 # 3. Health check en preview
 echo "\n🏥 Paso 3/4: Verificando sistema en preview..."

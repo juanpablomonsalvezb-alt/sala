@@ -42,22 +42,39 @@ export async function GET(req: Request) {
   // 3. Obtener template del día
   const template = getTodayTemplate()
 
-  // 4. Obtener imagen SVG desde Supabase y convertir a PNG
+  // 4. Obtener imagen — primero busca en /public/social-images/posters/, luego SVG automáticos
   let pngBuffer: Buffer | undefined
   let imageUrl: string | undefined
 
   try {
-    const imageRecord = await getNextImage(template.imageTone)
-    if (imageRecord?.storage_url) {
-      imageUrl = imageRecord.storage_url
-      const svgBuffer = await fetch(imageRecord.storage_url)
-        .then(r => r.arrayBuffer())
-        .then(b => Buffer.from(b))
-      pngBuffer = await sharp(svgBuffer).resize(1200, 675).png().toBuffer()
-      await markImageUsed(imageRecord.id)
+    const { readdir, readFile } = await import('fs/promises')
+    const { join } = await import('path')
+    const postersDir = join(process.cwd(), 'public/social-images/posters')
+    const posterFiles = (await readdir(postersDir).catch(() => []))
+      .filter(f => /\.(png|jpg|jpeg|webp)$/i.test(f))
+      .sort()
+
+    if (posterFiles.length > 0) {
+      // Rota por día del año
+      const dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 0).getTime()) / 86400000)
+      const file = posterFiles[dayOfYear % posterFiles.length]
+      const filePath = join(postersDir, file)
+      const rawBuffer = await readFile(filePath)
+      pngBuffer = await sharp(rawBuffer).resize(1200, 675).png().toBuffer()
+      imageUrl = `/social-images/posters/${file}`
+    } else {
+      // Fallback: SVG automáticos de Supabase
+      const imageRecord = await getNextImage(template.imageTone)
+      if (imageRecord?.storage_url) {
+        imageUrl = imageRecord.storage_url
+        const svgBuffer = await fetch(imageRecord.storage_url)
+          .then(r => r.arrayBuffer())
+          .then(b => Buffer.from(b))
+        pngBuffer = await sharp(svgBuffer).resize(1200, 675).png().toBuffer()
+        await markImageUsed(imageRecord.id)
+      }
     }
   } catch (imgErr) {
-    // Si falla la imagen, publicamos igualmente el texto
     console.error('[post-content] Error procesando imagen:', imgErr)
   }
 

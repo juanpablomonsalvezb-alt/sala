@@ -19,7 +19,7 @@ export function AlsoReading({ currentSlug }: AlsoReadingProps) {
         Profesionales relacionados
       </p>
       <p className="font-sans text-[13px] text-[#666] mb-5">
-        Quienes siguen este newsletter también leen:
+        Quienes siguen este Boletín Profesional también leen:
       </p>
       <div className="space-y-2">
         {recs.map(c => (

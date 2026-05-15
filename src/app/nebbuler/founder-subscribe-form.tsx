@@ -58,7 +58,7 @@ export function FounderSubscribeForm() {
         disabled={status === 'loading' || !email}
         className="px-5 py-2.5 bg-[#C41C1C] text-white rounded font-sans text-[12px] font-semibold uppercase tracking-[0.06em] hover:bg-[#a01717] transition-colors duration-150 disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
       >
-        {status === 'loading' ? 'Enviando...' : 'Suscribirse gratis'}
+        {status === 'loading' ? 'Enviando...' : 'Recibir Boletín Profesional'}
       </button>
       {status === 'error' && (
         <p className="w-full font-sans text-[12px] text-[#C41C1C] mt-1">{errorMsg}</p>

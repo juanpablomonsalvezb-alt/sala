@@ -5,7 +5,7 @@ import Link from "next/link"
 export const metadata: Metadata = {
   title: "Nebbuler vs Substack vs Patreon — Comparación para profesionales LATAM",
   description:
-    "Compara las mejores plataformas para monetizar tu conocimiento en América Latina. Nebbuler cobra 0% de comisión y acepta MercadoPago.",
+    "Compara las mejores plataformas para monetizar tu conocimiento en América Latina. Nebbuler cobra 0% de comisión y acepta pagos en moneda local en toda LATAM.",
   keywords: [
     "alternativas substack español",
     "substack vs patreon latam",
@@ -41,7 +41,7 @@ const FAQ_JSONLD = {
       name: "¿Nebbuler cobra comisión por suscriptor?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "No. Nebbuler cobra una tarifa fija de $29.990 CLP al mes y el 100% de las suscripciones que cobres es tuyo, menos los cargos propios del procesador de pagos (MercadoPago). No hay comisión variable sobre tus ingresos.",
+        text: "No. Nebbuler cobra una tarifa fija de $29.990 CLP al mes y el 100% de las suscripciones que cobres es tuyo, menos los cargos propios del procesador de pagos. No hay comisión variable sobre tus ingresos.",
       },
     },
     {
@@ -49,7 +49,7 @@ const FAQ_JSONLD = {
       name: "¿Puedo recibir pagos en pesos chilenos, argentinos o mexicanos?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Sí. Nebbuler integra MercadoPago, lo que permite recibir pagos en CLP, ARS y MXN directamente. Substack, Patreon, Gumroad y Beehiiv solo operan en dólares, lo que añade fricciones para audiencias latinoamericanas.",
+        text: "Sí. Nebbuler permite recibir pagos en CLP, ARS, MXN y otras monedas locales directamente. Substack, Patreon, Gumroad y Beehiiv solo operan en dólares, lo que añade fricciones para audiencias latinoamericanas.",
       },
     },
     {
@@ -142,7 +142,7 @@ const rows: { label: string; cells: CellValue[] }[] = [
     cells: [{ yes: true }, { yes: true }, { yes: false }, { yes: false }, { yes: true }],
   },
   {
-    label: "MercadoPago",
+    label: "Pagos locales",
     cells: [{ yes: true }, { yes: false }, { yes: false }, { yes: false }, { yes: false }],
   },
 ]
@@ -412,7 +412,7 @@ export default function CompararPage() {
                 No entienden LATAM
               </h3>
               <p className="font-sans text-sm text-[#666] leading-relaxed">
-                Sin MercadoPago, sin pesos, sin soporte en español. Sus equipos están en Nueva York o San Francisco. Las realidades de cobro en Argentina, Chile o México no están en su roadmap.
+                Sin pagos locales, sin pesos, sin soporte en español. Sus equipos están en Nueva York o San Francisco. Las realidades de cobro en Argentina, Chile o México no están en su roadmap.
               </p>
             </div>
           </div>
@@ -546,11 +546,11 @@ export default function CompararPage() {
             {[
               {
                 q: "¿Nebbuler cobra comisión por suscriptor?",
-                a: "No. Nebbuler cobra una tarifa fija de $29.990 CLP al mes y el 100% de las suscripciones que cobres es tuyo, menos los cargos propios del procesador de pagos (MercadoPago). No hay comisión variable sobre tus ingresos.",
+                a: "No. Nebbuler cobra una tarifa fija de $29.990 CLP al mes y el 100% de las suscripciones que cobres es tuyo, menos los cargos propios del procesador de pagos. No hay comisión variable sobre tus ingresos.",
               },
               {
                 q: "¿Puedo recibir pagos en pesos chilenos, argentinos o mexicanos?",
-                a: "Sí. Nebbuler integra MercadoPago, lo que permite recibir pagos en CLP, ARS y MXN directamente. Substack, Patreon, Gumroad y Beehiiv solo operan en dólares, lo que añade fricciones para audiencias latinoamericanas.",
+                a: "Sí. Nebbuler permite recibir pagos en CLP, ARS, MXN y otras monedas locales directamente. Substack, Patreon, Gumroad y Beehiiv solo operan en dólares, lo que añade fricciones para audiencias latinoamericanas.",
               },
               {
                 q: "¿Puedo migrar desde Substack a Nebbuler?",

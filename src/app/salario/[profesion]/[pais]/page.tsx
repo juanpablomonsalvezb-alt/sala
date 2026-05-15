@@ -264,7 +264,7 @@ export default async function SalarioPage({
                 </h3>
                 <p className="font-sans text-[13px] text-[#AAA] leading-relaxed mb-4">
                   Publica newsletters de pago con tu expertise. Suscripciones directas,
-                  0% de comisión, con MercadoPago.
+                  0% de comisión, con pagos en tu moneda local.
                 </p>
                 <Link
                   href="/registro"
@@ -335,7 +335,7 @@ export default async function SalarioPage({
                 </h3>
                 <p className="font-sans text-[14px] text-[#555] leading-relaxed">
                   Plataformas como Nebbuler permiten a los {profesion.nombre}s en {pais.nombre}
-                  crear salas de suscripción mensual con MercadoPago, sin comisión, publicando
+                  crear salas de suscripción mensual con pagos en tu moneda local, sin comisión, publicando
                   análisis y guías de valor para sus suscriptores.
                 </p>
               </div>
@@ -351,7 +351,7 @@ export default async function SalarioPage({
               ¿Eres {profesion.nombre}? Monetiza tu conocimiento.
             </h2>
             <p className="font-sans text-[15px] text-[#555] mb-6 leading-relaxed max-w-lg mx-auto">
-              Publica newsletters de pago en Nebbuler con MercadoPago — sin comisión.
+              Publica contenido de pago en Nebbuler en tu moneda local — sin comisión.
               Tarifa fija mensual. 100% de tus suscripciones es tuyo.
             </p>
             <Link

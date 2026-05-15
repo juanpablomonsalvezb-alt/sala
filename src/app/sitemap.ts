@@ -4,6 +4,7 @@ import { creators as staticCreators } from '@/data/creators'
 import { PROFESSIONS, MARKETS } from '@/data/seo-matrix'
 import { TOPICS } from '@/data/seo-topics'
 import { GUIDES } from '@/data/seo-guides'
+import { PROFESIONES, PAISES } from '@/data/salarios'
 
 // Import generated content metadata
 let generatedFaqs: Record<string, unknown> = {}
@@ -182,6 +183,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.6,
   }))
 
+  // Rutas SSG de salarios (20 profesiones × 10 países = 200)
+  const salariosRoutes: MetadataRoute.Sitemap = PROFESIONES.flatMap(prof =>
+    PAISES.map(pais => ({
+      url: `${BASE}/salario/${prof.slug}/${pais.slug}`,
+      lastModified: new Date('2026-01-01'),
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+    }))
+  )
+
   return [
     { url: BASE, lastModified: new Date(), changeFrequency: 'daily', priority: 1 },
     { url: `${BASE}/tendencia`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.9 },
@@ -195,6 +206,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${BASE}/demo`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.5 },
     { url: `${BASE}/terminos`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.2 },
     { url: `${BASE}/privacidad`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.2 },
+    ...salariosRoutes,
     ...newsletterRoutes,
     ...analisisHubRoutes,
     ...analisisRoutes,

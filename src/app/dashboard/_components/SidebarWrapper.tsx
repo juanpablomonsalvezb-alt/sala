@@ -148,6 +148,28 @@ export default function SidebarWrapper({
                 <span className="ml-auto w-1 h-4 bg-[#C41C1C] rounded-full" />
               )}
             </Link>
+            <Link
+              href="/dashboard/salud"
+              onClick={() => setMobileOpen(false)}
+              className={`w-full flex items-center gap-3 px-5 py-2.5 transition-colors ${
+                pathname.startsWith('/dashboard/salud')
+                  ? 'bg-[#FFF0F0] text-[#C41C1C]'
+                  : 'text-[#C41C1C] hover:bg-[#FFF0F0]'
+              }`}
+            >
+              <span className="text-[11px] w-3.5 flex-shrink-0 text-center leading-none">◎</span>
+              <span
+                className={`text-[13px] ${
+                  pathname.startsWith('/dashboard/salud') ? 'font-semibold' : 'font-normal'
+                }`}
+                style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}
+              >
+                Estado del sistema
+              </span>
+              {pathname.startsWith('/dashboard/salud') && (
+                <span className="ml-auto w-1 h-4 bg-[#C41C1C] rounded-full" />
+              )}
+            </Link>
           </>
         )}
       </nav>

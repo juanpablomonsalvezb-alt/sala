@@ -38,3 +38,13 @@ Toda auditoría QA debe:
 
 Un flujo no está auditado hasta que se llega al último paso.
 Una auditoría que no hace click en los botones no es una auditoría.
+
+## Deploy (OBLIGATORIO usar este proceso)
+
+NUNCA usar `npx vercel --prod` directamente. SIEMPRE usar:
+
+```bash
+cd /Users/juanpablomonsalvez/Downloads/sala && ./deploy.sh
+```
+
+Este script: construye → despliega a preview → valida health check → solo si todo está verde publica en nebbuler.com.

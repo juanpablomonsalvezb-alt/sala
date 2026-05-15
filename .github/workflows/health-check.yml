@@ -1,0 +1,16 @@
+name: Health Check
+on:
+  schedule:
+    - cron: '0 * * * *'
+  workflow_dispatch:
+
+jobs:
+  health:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check nebbuler.com health
+        run: |
+          HEALTH=$(curl -s https://nebbuler.com/api/health)
+          ALL_OK=$(echo $HEALTH | python3 -c "import sys,json; d=json.load(sys.stdin); print('true' if d.get('ok') else 'false')")
+          echo $HEALTH | python3 -m json.tool
+          [ "$ALL_OK" = "true" ] || exit 1

@@ -26,6 +26,7 @@ export default function Nav() {
               { label: "Observatorio", href: "/observatorio" },
               { label: "Para creadores", href: "/para-creadores" },
               { label: "Precios", href: "/precios" },
+              { label: "Comparar", href: "/comparar" },
               { label: "Entrar", href: "/entrar" },
             ].map((item, i) => (
               <span key={item.label} className="flex items-center gap-1">

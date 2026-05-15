@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 import sharp from 'sharp'
 import { postOriginalTweet } from '@/lib/x-client'
+import { publishLinkedInPost } from '@/lib/linkedin-client'
 import { canPublish, incrementRateLimit, getNextImage, markImageUsed } from '@/lib/social'
 import { getTodayTemplate } from '@/lib/content-posts'
 
@@ -17,21 +18,15 @@ export async function GET(req: Request) {
   }
 
   const supabase = adminClient()
-
-  // 1. Verificar rate limit diario en X
-  const { ok, reason } = await canPublish('x')
-  if (!ok) {
-    return NextResponse.json({ skipped: true, reason }, { status: 200 })
-  }
-
-  // 2. Verificar que no se haya posteado contenido propio hoy
   const today = new Date().toISOString().split('T')[0]
+
+  // Verificar que no se haya posteado contenido propio hoy (en cualquier plataforma)
   const { data: existingPost } = await supabase
     .from('social_posted_content')
     .select('id')
-    .eq('platform', 'x')
     .gte('posted_at', `${today}T00:00:00Z`)
     .lt('posted_at', `${today}T23:59:59Z`)
+    .eq('success', true)
     .limit(1)
     .single()
 
@@ -39,10 +34,10 @@ export async function GET(req: Request) {
     return NextResponse.json({ skipped: true, reason: 'Ya se publicó contenido hoy' }, { status: 200 })
   }
 
-  // 3. Obtener template del día
+  // Obtener template del día
   const template = getTodayTemplate()
 
-  // 4. Obtener imagen — primero busca en /public/social-images/posters/, luego SVG automáticos
+  // Obtener imagen
   let pngBuffer: Buffer | undefined
   let imageUrl: string | undefined
 
@@ -55,7 +50,6 @@ export async function GET(req: Request) {
       .sort()
 
     if (posterFiles.length > 0) {
-      // Rota por día del año
       const dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 0).getTime()) / 86400000)
       const file = posterFiles[dayOfYear % posterFiles.length]
       const filePath = join(postersDir, file)
@@ -63,7 +57,6 @@ export async function GET(req: Request) {
       pngBuffer = await sharp(rawBuffer).resize(1200, 675).png().toBuffer()
       imageUrl = `/social-images/posters/${file}`
     } else {
-      // Fallback: SVG automáticos de Supabase
       const imageRecord = await getNextImage(template.imageTone)
       if (imageRecord?.storage_url) {
         imageUrl = imageRecord.storage_url
@@ -78,45 +71,53 @@ export async function GET(req: Request) {
     console.error('[post-content] Error procesando imagen:', imgErr)
   }
 
-  // 5. Publicar en X
-  let success = false
-  let errorMessage: string | undefined
+  const results: { platform: string; ok: boolean; error?: string }[] = []
 
-  try {
-    await postOriginalTweet(template.text, pngBuffer)
-    success = true
-    await incrementRateLimit('x')
-  } catch (err) {
-    errorMessage = err instanceof Error ? err.message : String(err)
-    console.error('[post-content] Error publicando tweet:', err)
+  // Intentar publicar en X (puede fallar si cuenta nueva — no bloquea)
+  const xLimit = await canPublish('x')
+  if (xLimit.ok) {
+    try {
+      await postOriginalTweet(template.text, pngBuffer)
+      await incrementRateLimit('x')
+      await supabase.from('social_posted_content').insert({
+        platform: 'x', text: template.text, image_url: imageUrl ?? null,
+        posted_at: new Date().toISOString(), success: true,
+      })
+      results.push({ platform: 'x', ok: true })
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : String(err)
+      await supabase.from('social_posted_content').insert({
+        platform: 'x', text: template.text, image_url: imageUrl ?? null,
+        posted_at: new Date().toISOString(), success: false, error_message: msg,
+      })
+      results.push({ platform: 'x', ok: false, error: msg })
+    }
   }
 
-  // 6. Registrar en tabla social_posted_content
-  const { error: insertError } = await supabase.from('social_posted_content').insert({
-    platform: 'x',
-    text: template.text,
-    image_url: imageUrl ?? null,
-    posted_at: new Date().toISOString(),
-    success,
-    error_message: errorMessage ?? null,
-  })
-
-  if (insertError) {
-    console.error('[post-content] Error insertando registro:', insertError)
+  // Publicar en LinkedIn (independiente de X)
+  const liLimit = await canPublish('linkedin')
+  if (liLimit.ok) {
+    try {
+      await publishLinkedInPost(template.text, imageUrl?.startsWith('http') ? imageUrl : undefined)
+      await incrementRateLimit('linkedin')
+      await supabase.from('social_posted_content').insert({
+        platform: 'linkedin', text: template.text, image_url: imageUrl ?? null,
+        posted_at: new Date().toISOString(), success: true,
+      })
+      results.push({ platform: 'linkedin', ok: true })
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : String(err)
+      results.push({ platform: 'linkedin', ok: false, error: msg })
+    }
   }
 
-  if (!success) {
-    return NextResponse.json(
-      { ok: false, error: errorMessage },
-      { status: 500 }
-    )
-  }
+  const anyOk = results.some(r => r.ok)
 
   return NextResponse.json({
-    ok: true,
+    ok: anyOk,
     text: template.text,
-    imageTone: template.imageTone,
     imageUrl: imageUrl ?? null,
+    results,
     postedAt: new Date().toISOString(),
-  })
+  }, { status: anyOk ? 200 : 500 })
 }

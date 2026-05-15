@@ -18,7 +18,7 @@ const PLANS = [
     commissionLabel: "de comisión",
     highlight: true,
     cta: "30 días gratis — sin tarjeta",
-    ctaHref: "/abrir",
+    ctaHref: "/registro",
     features: [
       { label: "Suscriptores ilimitados", included: true },
       { label: "Contenido ilimitado", included: true },
@@ -351,7 +351,7 @@ export default function PreciosPage() {
             Gratis para empezar · Sin tarjeta de crédito · 15 minutos para configurar
           </p>
           <Link
-            href="/abrir"
+            href="/registro"
             className="inline-block font-sans text-[13px] font-medium px-10 py-4 bg-[#121212] text-white hover:bg-[#C41C1C] transition-colors duration-150"
           >
             Empezar gratis en Nebbuler →

@@ -42,11 +42,54 @@ export default async function IngresosPage() {
     }
   }
 
-  const months = [
-    { mes: 'Ene', ingreso: 0 }, { mes: 'Feb', ingreso: 0 },
-    { mes: 'Mar', ingreso: 0 }, { mes: 'Abr', ingreso: 0 },
-    { mes: 'May', ingreso: mrr },
-  ]
+  // Últimos 6 meses calculados dinámicamente
+  const monthLabels = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic']
+  const now = new Date()
+  const months: { mes: string; ingreso: number }[] = []
+
+  if (isSupabaseConfigured()) {
+    const supabase = await createClient()
+    const { data: { user } } = await supabase.auth.getUser()
+    if (user) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const { data: creatorForChart } = await (supabase as any)
+        .from('sala_creators')
+        .select('id')
+        .eq('user_id', user.id)
+        .maybeSingle() as { data: { id: string } | null }
+
+      if (creatorForChart) {
+        const sixMonthsAgo = new Date(now.getFullYear(), now.getMonth() - 5, 1).toISOString()
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const { data: allSubs } = await (supabase as any)
+          .from('sala_subscriptions')
+          .select('price_clp, created_at')
+          .eq('creator_id', creatorForChart.id)
+          .in('status', ['active', 'cancelled', 'past_due'])
+          .gte('created_at', sixMonthsAgo) as { data: Array<{ price_clp: number; created_at: string }> | null }
+
+        for (let i = 5; i >= 0; i--) {
+          const d = new Date(now.getFullYear(), now.getMonth() - i, 1)
+          const yr = d.getFullYear()
+          const mo = d.getMonth()
+          const ingreso = allSubs
+            ?.filter(s => {
+              const sd = new Date(s.created_at)
+              return sd.getFullYear() === yr && sd.getMonth() === mo
+            })
+            .reduce((acc, s) => acc + s.price_clp, 0) ?? 0
+          months.push({ mes: monthLabels[mo], ingreso })
+        }
+      }
+    }
+  }
+
+  if (months.length === 0) {
+    for (let i = 5; i >= 0; i--) {
+      const d = new Date(now.getFullYear(), now.getMonth() - i, 1)
+      months.push({ mes: monthLabels[d.getMonth()], ingreso: 0 })
+    }
+  }
   const maxVal = Math.max(...months.map(m => m.ingreso), 1)
 
   return (

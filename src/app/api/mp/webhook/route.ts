@@ -221,7 +221,43 @@ async function processPreapproval(preapproval: {
       transactionAmount,
       `mp_sub:${preapprovalId}`
     )
-  } else if (['cancelled', 'paused', 'finished'].includes(preapproval.status)) {
+    // Email de bienvenida solo en la primera activación (idempotente: si falla, no interrumpe)
+    try {
+      const supabase = getSupabase()
+      const [{ data: subscriber }, { data: creator }] = await Promise.all([
+        supabase.from('sala_profiles').select('email, full_name').eq('id', parsed.subscriberId).maybeSingle(),
+        supabase.from('sala_creators').select('username, display_name').eq('id', parsed.creatorId).maybeSingle(),
+      ])
+      const subscriberEmail = (subscriber as { email: string | null; full_name: string | null } | null)?.email
+      const creatorName = (creator as { username: string | null; display_name: string | null } | null)?.display_name ?? 'el creador'
+      const creatorUsername = (creator as { username: string | null; display_name: string | null } | null)?.username ?? ''
+      if (subscriberEmail && process.env.RESEND_API_KEY) {
+        await fetch('https://api.resend.com/emails', {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            from: 'Nebbuler <hola@nebbuler.com>',
+            to: subscriberEmail,
+            subject: `Ya eres parte de ${creatorName} en Nebbuler`,
+            html: `<p>¡Bienvenido/a!</p><p>Tu suscripción a <strong>${creatorName}</strong> está activa. Puedes acceder al contenido en <a href="https://nebbuler.com/${creatorUsername}">nebbuler.com/${creatorUsername}</a>.</p><p>Si deseas cancelar tu suscripción, hazlo desde tu perfil en <a href="https://nebbuler.com/dashboard">nebbuler.com/dashboard</a>.</p>`,
+          }),
+        })
+      }
+    } catch (emailErr) {
+      console.error('[MP webhook] welcome email failed:', emailErr)
+    }
+  } else if (preapproval.status === 'paused') {
+    const supabase = getSupabase()
+    await supabase
+      .from('sala_subscriptions')
+      .update({ status: 'past_due' as const })
+      .eq('subscriber_id', parsed.subscriberId)
+      .eq('creator_id', parsed.creatorId)
+      .in('status', ['active'])
+  } else if (['cancelled', 'finished'].includes(preapproval.status)) {
     await cancelSubscription(parsed.subscriberId, parsed.creatorId)
   }
 

@@ -1,16 +1,27 @@
 import { Scraper, SearchMode, type Tweet } from 'agent-twitter-client'
 
-let _scraper: Scraper | null = null
+// Scraper autenticado — solo para postear (cuenta @nebbuler)
+let _authScraper: Scraper | null = null
+// Scraper anónimo — para buscar (sin límites de cuenta nueva)
+let _guestScraper: Scraper | null = null
 
 async function getScraper(): Promise<Scraper> {
-  if (_scraper) return _scraper
+  if (_authScraper) return _authScraper
   const scraper = new Scraper()
   await scraper.login(
     process.env.X_USERNAME!,
     process.env.X_PASSWORD!,
     process.env.X_EMAIL!
   )
-  _scraper = scraper
+  _authScraper = scraper
+  return scraper
+}
+
+async function getGuestScraper(): Promise<Scraper> {
+  if (_guestScraper) return _guestScraper
+  const scraper = new Scraper()
+  // Sin login — usa guest token para búsquedas sin restricciones de cuenta nueva
+  _guestScraper = scraper
   return scraper
 }
 
@@ -89,7 +100,7 @@ function tweetToPost(tweet: Tweet): XPost {
 }
 
 export async function searchProfessionalOpportunities(limit = 15): Promise<XPost[]> {
-  const scraper = await getScraper()
+  const scraper = await getGuestScraper()
   const results: XPost[] = []
   const seen = new Set<string>()
 
@@ -115,7 +126,7 @@ export async function searchProfessionalOpportunities(limit = 15): Promise<XPost
 }
 
 export async function searchViralOpportunities(limit = 15): Promise<XPost[]> {
-  const scraper = await getScraper()
+  const scraper = await getGuestScraper()
   const results: XPost[] = []
   const seen = new Set<string>()
 
@@ -156,7 +167,7 @@ export async function postOriginalTweet(text: string, mediaBuffer?: Buffer): Pro
 
 export async function getAccountFollowers(handle: string): Promise<number> {
   try {
-    const scraper = await getScraper()
+    const scraper = await getGuestScraper()
     const profile = await scraper.getProfile(handle)
     return profile.followersCount ?? 0
   } catch {

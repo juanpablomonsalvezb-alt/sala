@@ -30,19 +30,34 @@ interface RateLimit {
   last_published_at: string | null
 }
 
+interface PostedContent {
+  id: string
+  platform: string
+  text: string
+  image_url: string | null
+  posted_at: string
+  success: boolean
+  error_message: string | null
+}
+
 const LIMITS = { x: 10, linkedin: 20 }
 
 export default function SocialMonitorPage() {
   const [opportunities, setOpportunities] = useState<Opportunity[]>([])
   const [rateLimits, setRateLimits] = useState<Record<string, RateLimit>>({})
+  const [postedContent, setPostedContent] = useState<PostedContent[]>([])
   const [editingId, setEditingId] = useState<string | null>(null)
   const [editText, setEditText] = useState('')
   const [loading, setLoading] = useState<string | null>(null)
+  const [publishingNow, setPublishingNow] = useState(false)
+  const [publishNowMsg, setPublishNowMsg] = useState<{ text: string; ok: boolean } | null>(null)
   const [msg, setMsg] = useState<{ id: string; text: string; ok: boolean } | null>(null)
 
   const load = useCallback(async () => {
     const today = new Date().toISOString().split('T')[0]
-    const [{ data: opps }, { data: limits }] = await Promise.all([
+    const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString()
+
+    const [{ data: opps }, { data: limits }, { data: posted }] = await Promise.all([
       supabase
         .from('social_opportunities')
         .select('*, suggested_image:social_images(storage_url,filename), suggested_template:social_comment_templates(text)')
@@ -53,11 +68,19 @@ export default function SocialMonitorPage() {
         .from('social_rate_limits')
         .select('*')
         .eq('date', today),
+      supabase
+        .from('social_posted_content')
+        .select('*')
+        .eq('platform', 'x')
+        .gte('posted_at', sevenDaysAgo)
+        .order('posted_at', { ascending: false })
+        .limit(7),
     ])
     setOpportunities((opps as Opportunity[]) ?? [])
     const map: Record<string, RateLimit> = {}
     for (const l of limits ?? []) map[l.platform] = l
     setRateLimits(map)
+    setPostedContent((posted as PostedContent[]) ?? [])
   }, [])
 
   useEffect(() => { load() }, [load])
@@ -91,6 +114,31 @@ export default function SocialMonitorPage() {
     })
     setOpportunities(prev => prev.filter(o => o.id !== opp.id))
     setLoading(null)
+  }
+
+  async function handlePublishNow() {
+    setPublishingNow(true)
+    setPublishNowMsg(null)
+    const secret = process.env.NEXT_PUBLIC_CRON_SECRET
+    const url = secret
+      ? `/api/cron/post-content?secret=${secret}`
+      : '/api/cron/post-content'
+    try {
+      const res = await fetch(url)
+      const data = await res.json()
+      if (res.ok && data.ok) {
+        setPublishNowMsg({ text: '✅ Publicado correctamente', ok: true })
+        load()
+      } else if (data.skipped) {
+        setPublishNowMsg({ text: `⏭ ${data.reason}`, ok: false })
+      } else {
+        setPublishNowMsg({ text: `❌ ${data.error ?? 'Error desconocido'}`, ok: false })
+      }
+    } catch {
+      setPublishNowMsg({ text: '❌ Error de red', ok: false })
+    }
+    setPublishingNow(false)
+    setTimeout(() => setPublishNowMsg(null), 6000)
   }
 
   const xLimit = rateLimits['x']
@@ -135,6 +183,41 @@ export default function SocialMonitorPage() {
           max={LIMITS.linkedin}
           cooldown={minuntilLI()}
         />
+      </div>
+
+      {/* ─── Contenido propio ─── */}
+      <div className="space-y-4">
+        <div className="flex items-center justify-between">
+          <h2 className="text-sm font-medium text-neutral-500 uppercase tracking-wider">
+            Contenido propio — @Nebbuler
+          </h2>
+          <div className="flex items-center gap-3">
+            {publishNowMsg && (
+              <p className={`text-xs font-medium ${publishNowMsg.ok ? 'text-emerald-600' : 'text-amber-600'}`}>
+                {publishNowMsg.text}
+              </p>
+            )}
+            <button
+              onClick={handlePublishNow}
+              disabled={publishingNow}
+              className="text-xs px-3 py-1.5 rounded-lg bg-neutral-900 text-white hover:bg-neutral-700 disabled:opacity-40 disabled:cursor-not-allowed"
+            >
+              {publishingNow ? 'Publicando…' : 'Publicar ahora'}
+            </button>
+          </div>
+        </div>
+
+        {postedContent.length === 0 ? (
+          <div className="border border-neutral-200 rounded-xl p-6 text-center text-sm text-neutral-400">
+            Sin publicaciones propias en los últimos 7 días. El cron publica cada día a las 14:00 UTC.
+          </div>
+        ) : (
+          <div className="space-y-3">
+            {postedContent.map(post => (
+              <PostedCard key={post.id} post={post} />
+            ))}
+          </div>
+        )}
       </div>
 
       {opportunities.length === 0 && (
@@ -186,6 +269,30 @@ export default function SocialMonitorPage() {
             />
           ))}
         </Section>
+      )}
+    </div>
+  )
+}
+
+function PostedCard({ post }: { post: PostedContent }) {
+  const date = new Date(post.posted_at)
+  const label = date.toLocaleString('es-CL', {
+    day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit',
+  })
+  return (
+    <div className={`border rounded-xl p-4 space-y-2 bg-white ${post.success ? 'border-neutral-200' : 'border-red-200 bg-red-50'}`}>
+      <div className="flex items-center justify-between gap-3">
+        <p className="text-xs text-neutral-400">{label}</p>
+        <span className={`text-xs rounded-full px-2 py-0.5 border ${post.success ? 'text-emerald-700 bg-emerald-50 border-emerald-200' : 'text-red-700 bg-red-50 border-red-200'}`}>
+          {post.success ? 'Publicado' : 'Error'}
+        </span>
+      </div>
+      <p className="text-sm text-neutral-800">{post.text}</p>
+      {post.image_url && (
+        <img src={post.image_url} alt="imagen post" className="w-24 h-14 object-cover rounded-lg border border-neutral-200" />
+      )}
+      {post.error_message && (
+        <p className="text-xs text-red-500">{post.error_message}</p>
       )}
     </div>
   )

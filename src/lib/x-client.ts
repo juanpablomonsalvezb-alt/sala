@@ -145,6 +145,15 @@ export async function replyToTweet(tweetId: string, text: string): Promise<void>
   await scraper.sendTweet(text, tweetId)
 }
 
+export async function postOriginalTweet(text: string, mediaBuffer?: Buffer): Promise<void> {
+  const scraper = await getScraper()
+  if (mediaBuffer) {
+    await scraper.sendTweet(text, undefined, [{ data: mediaBuffer, mediaType: 'image/png' }])
+  } else {
+    await scraper.sendTweet(text)
+  }
+}
+
 export async function getAccountFollowers(handle: string): Promise<number> {
   try {
     const scraper = await getScraper()

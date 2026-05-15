@@ -45,7 +45,7 @@ async function checkDatabase(): Promise<CheckResult> {
     ]) as { data?: unknown; error?: unknown }
 
     const latency_ms = Date.now() - start
-    if (error) return { ok: false, latency_ms, error: String(error) }
+    if (error) return { ok: false, latency_ms, error: (error as { message?: string })?.message ?? JSON.stringify(error) }
     return { ok: true, latency_ms }
   } catch (e) {
     return { ok: false, error: String(e) }
@@ -159,7 +159,7 @@ async function checkPagesCount(): Promise<CheckResult> {
       .from('generated_pages' as never)
       .select('id', { count: 'exact', head: true })
 
-    if (error) return { ok: false, error: String(error) }
+    if (error) return { ok: false, error: (error as { message?: string })?.message ?? JSON.stringify(error) }
     const total = count ?? 0
     return { ok: true, count: total }
   } catch (e) {
@@ -183,8 +183,8 @@ export async function GET() {
   ])
 
   const resend_email = checkResend()
-  const mp_webhook_secret = checkEnvVar('MP_WEBHOOK_SECRET')
-  const mp_access_token = checkEnvVar('MP_ACCESS_TOKEN')
+  const mp_webhook_secret = checkEnvVar('MERCADOPAGO_WEBHOOK_SECRET')
+  const mp_access_token = checkEnvVar('MERCADOPAGO_ACCESS_TOKEN')
   const mp_app_credentials = checkMpAppCredentials()
   const cron_secret = checkEnvVar('CRON_SECRET')
   const precios_cta = checkPrecios()

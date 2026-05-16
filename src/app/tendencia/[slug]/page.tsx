@@ -28,15 +28,41 @@ interface Params {
   slug: string
 }
 
-export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
-  const supabase = await createClient()
-  const keyword = decodeURIComponent(params.slug).replace(/-/g, ' ')
+function normalizeSlug(s: string): string {
+  return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
+}
 
-  const { data: page } = await supabase
+async function findPage(supabase: Awaited<ReturnType<typeof createClient>>, slug: string) {
+  const keywordFromSlug = decodeURIComponent(slug).replace(/-/g, ' ')
+  const { data: pages } = await supabase
     .from('generated_pages')
     .select('*')
-    .ilike('keyword', keyword)
-    .single()
+    .ilike('keyword', keywordFromSlug)
+    .order('created_at', { ascending: false })
+    .limit(1)
+
+  if (pages && pages.length > 0) return pages[0]
+
+  // Fallback: normalized slug match (handles accented keywords like tributación → tributacion)
+  const { data: all } = await supabase
+    .from('generated_pages')
+    .select('id, keyword, country_code')
+    .limit(200)
+
+  const match = (all || []).find(p => normalizeSlug(p.keyword) === slug)
+  if (!match) return null
+
+  const { data: full } = await supabase
+    .from('generated_pages')
+    .select('*')
+    .eq('id', match.id)
+    .limit(1)
+  return full?.[0] ?? null
+}
+
+export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
+  const supabase = await createClient()
+  const page = await findPage(supabase, params.slug)
 
   if (!page) {
     return {
@@ -80,13 +106,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
 
 export default async function TrendingArticlePage({ params }: { params: Params }) {
   const supabase = await createClient()
-  const keyword = decodeURIComponent(params.slug).replace(/-/g, ' ')
-
-  const { data: page } = await supabase
-    .from('generated_pages')
-    .select('*')
-    .ilike('keyword', keyword)
-    .single()
+  const page = await findPage(supabase, params.slug)
 
   if (!page) {
     notFound()
@@ -106,7 +126,7 @@ export default async function TrendingArticlePage({ params }: { params: Params }
 
   let matchedSpecialty = 'General'
   for (const [specialty, keywords] of Object.entries(specialtyKeywords)) {
-    if (keywords.some(kw => keyword.toLowerCase().includes(kw))) {
+    if (keywords.some(kw => typedPage.keyword.toLowerCase().includes(kw))) {
       matchedSpecialty = specialty
       break
     }

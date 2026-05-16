@@ -25,7 +25,7 @@ interface Creator {
 }
 
 interface Params {
-  slug: string
+  params: Promise<{ slug: string }>
 }
 
 function normalizeSlug(s: string): string {
@@ -60,9 +60,10 @@ async function findPage(supabase: ReturnType<typeof createServiceClient>, slug: 
   return full?.[0] ?? null
 }
 
-export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
+export async function generateMetadata({ params }: Params): Promise<Metadata> {
+  const { slug } = await params
   const supabase = createServiceClient()
-  const page = await findPage(supabase, params.slug)
+  const page = await findPage(supabase, slug)
 
   if (!page) {
     return {
@@ -82,7 +83,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
       title: `${typedPage.keyword} · Tendencia Profesional`,
       description,
       type: 'article',
-      url: `https://nebbuler.com/tendencia/${params.slug}`,
+      url: `https://nebbuler.com/tendencia/${slug}`,
       siteName: 'Nebbuler',
       publishedTime: new Date(typedPage.created_at).toISOString(),
       authors: ['Nebbuler'],
@@ -104,9 +105,10 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   }
 }
 
-export default async function TrendingArticlePage({ params }: { params: Params }) {
+export default async function TrendingArticlePage({ params }: Params) {
+  const { slug } = await params
   const supabase = createServiceClient()
-  const page = await findPage(supabase, params.slug)
+  const page = await findPage(supabase, slug)
 
   if (!page) {
     notFound()

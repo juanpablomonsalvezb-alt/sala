@@ -4,17 +4,20 @@
  * Uso: node scripts/regen-pages.mjs
  */
 
-const SUPABASE_URL = 'https://pnezuntljreblaefalpl.supabase.co'
-const SUPABASE_KEY = '***REMOVED***'
+import { config } from 'dotenv'
+config({ path: '.env.local' })
+
+const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL
+const SUPABASE_KEY = process.env.SUPABASE_SECRET_KEY ?? process.env.SUPABASE_SERVICE_ROLE_KEY
 const GEMINI_KEYS = [
-  '***REMOVED***',
-  '***REMOVED***',
-  '***REMOVED***',
-  '***REMOVED***',
-  '***REMOVED***',
-  '***REMOVED***',
-  '***REMOVED***',
-]
+  process.env.GEMINI_API_KEY,
+  process.env.GEMINI_API_KEY_2,
+  process.env.GEMINI_API_KEY_3,
+  process.env.GEMINI_API_KEY_4,
+  process.env.GEMINI_API_KEY_5,
+  process.env.GEMINI_API_KEY_6,
+  process.env.GEMINI_API_KEY_7,
+].filter(Boolean)
 const GEMINI_MODEL = 'gemini-2.5-flash'
 
 const headers = {

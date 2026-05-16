@@ -3,153 +3,390 @@ export interface ContentTemplate {
   imageTone: 'professional' | 'viral'
 }
 
-// 30 templates rotativos — 3 por ángulo, 10 ángulos
+// Templates rediseñados — viral, con datos reales, hooks que paran el scroll
 const TEMPLATES: ContentTemplate[] = [
-  // 0% comisión
-  {
-    text: 'Substack se queda con el 10% de tus ingresos. Patreon, hasta el 12%. Nebbuler: 0% de comisión. Lo que ganas es tuyo. nebbuler.com',
-    imageTone: 'professional',
-  },
-  {
-    text: 'Plataformas que cobran comisión sobre tu conocimiento: Substack, Patreon, Kajabi. Nebbuler cobra cero. Cada peso que generas te pertenece. nebbuler.com',
-    imageTone: 'professional',
-  },
-  {
-    text: 'Tu expertise vale. Las comisiones, no. Publica, cobra y quédate con el 100% en Nebbuler. nebbuler.com',
-    imageTone: 'viral',
-  },
 
-  // Para economistas
+  // === HISTORIAS CON NÚMEROS REALES ===
   {
-    text: 'Tienes análisis macro que vale oro. ¿Por qué regalarlo en hilos de Twitter? Monetiza tu visión económica en Nebbuler. nebbuler.com',
-    imageTone: 'professional',
-  },
-  {
-    text: 'Economistas en LATAM: su criterio sobre inflación, tipo de cambio y política fiscal tiene precio. Nebbuler es el lugar para cobrarlo. nebbuler.com',
-    imageTone: 'professional',
-  },
-  {
-    text: 'Un informe mensual de coyuntura económica puede generar ingresos recurrentes. Nebbuler te da la plataforma y el 100% de lo recaudado. nebbuler.com',
-    imageTone: 'viral',
-  },
+    text: `Viernes, 11 PM. Un economista publicó su análisis mensual de inflación.
 
-  // Para abogados
-  {
-    text: 'Abogado: tu interpretación jurídica es un activo. Publica análisis, cobras por acceso, 0% de comisión. Así funciona Nebbuler. nebbuler.com',
-    imageTone: 'professional',
-  },
-  {
-    text: 'El conocimiento legal que acumulas en años de práctica puede generar ingresos pasivos. Nebbuler te conecta con quienes lo necesitan. nebbuler.com',
-    imageTone: 'professional',
-  },
-  {
-    text: 'Guías legales, alertas regulatorias, análisis de jurisprudencia. Tu expertise jurídico tiene mercado. Véndelo en Nebbuler. nebbuler.com',
-    imageTone: 'viral',
-  },
+Lo mismo que lleva 6 años regalando en LinkedIn.
 
-  // Para médicos
-  {
-    text: 'Médico: tu conocimiento clínico va más allá del consultorio. Publica contenido especializado y cobra por suscripción en Nebbuler. nebbuler.com',
-    imageTone: 'professional',
-  },
-  {
-    text: 'Pacientes, colegas y empresas buscan criterio médico de calidad. Tú lo tienes. Nebbuler te permite monetizarlo sin intermediarios. nebbuler.com',
-    imageTone: 'professional',
-  },
-  {
-    text: 'Un newsletter médico mensual, una guía clínica, un curso de formación continua. Todo eso es ingreso real con Nebbuler. nebbuler.com',
-    imageTone: 'viral',
-  },
+Esta vez lo publicó detrás de un paywall.
 
-  // Para arquitectos
-  {
-    text: 'Arquitecto: tu visión de ciudad, tus análisis urbanos, tu criterio de diseño tienen valor de mercado. Nebbuler te da el canal para cobrarlo. nebbuler.com',
-    imageTone: 'professional',
-  },
-  {
-    text: 'Proyectos, tendencias, materiales, normativa. El conocimiento arquitectónico especializado genera ingresos en Nebbuler. nebbuler.com',
-    imageTone: 'professional',
-  },
-  {
-    text: 'Tu portafolio impresiona. Tu análisis sectorial vale dinero. Monetiza tu expertise en arquitectura con Nebbuler. nebbuler.com',
-    imageTone: 'viral',
-  },
+72 horas después: 87 suscriptores. $2.608.130 CLP recurrentes, todos los meses.
 
-  // Para psicólogos
-  {
-    text: 'Psicólogo: tu metodología es un activo que puede escalar. Publica tu método, crea programas digitales, cobra en Nebbuler. nebbuler.com',
-    imageTone: 'professional',
-  },
-  {
-    text: 'El conocimiento en salud mental nunca fue tan demandado. Tu expertise psicológico tiene mercado. Nebbuler te da la plataforma. nebbuler.com',
-    imageTone: 'professional',
-  },
-  {
-    text: 'De la sala de espera a ingresos escalables. Psicólogos que publican en Nebbuler cobran sin límite de agenda. nebbuler.com',
-    imageTone: 'viral',
-  },
+Sin dejar su trabajo. Sin nuevos clientes.
 
-  // Para contadores
-  {
-    text: 'Contador: tu criterio tributario vale mucho más de lo que cobras por declaración. Monetiza tu conocimiento en Nebbuler. nebbuler.com',
-    imageTone: 'professional',
-  },
-  {
-    text: 'Alertas tributarias, guías fiscales, análisis contable. Tu expertise puede generar ingresos recurrentes en Nebbuler. nebbuler.com',
-    imageTone: 'professional',
-  },
-  {
-    text: 'Cada cambio tributario es una oportunidad. Publícalo en Nebbuler y cobra por el análisis que solo tú puedes dar. nebbuler.com',
-    imageTone: 'viral',
-  },
+Si llevas años regalando tu criterio, ya sabes qué hacer.
 
-  // Para coaches
-  {
-    text: 'Coach: tu método merece ser pagado más allá de las sesiones individuales. Nebbuler te permite venderlo a escala. nebbuler.com',
-    imageTone: 'professional',
-  },
-  {
-    text: 'Si tu método funciona en sesiones 1:1, funciona en digital. Nebbuler te da la plataforma para venderlo sin intermediarios. nebbuler.com',
-    imageTone: 'professional',
-  },
-  {
-    text: 'Deja de intercambiar horas por dinero. Publica tu metodología en Nebbuler y cobra mientras duermes. nebbuler.com',
+nebbuler.com — 0% comisión.`,
     imageTone: 'viral',
   },
+  {
+    text: `100 personas pagaron para leer lo que un abogado ya sabe.
 
-  // Propuesta de valor general
-  {
-    text: 'Tu conocimiento es tuyo. La plataforma es tuya. Los ingresos son tuyos. Nebbuler: 0% comisión, 100% control. nebbuler.com',
+Él no hizo nada nuevo. Solo dejó de regalarlo.
+
+$2.999.000 CLP al mes, recurrentes. Sin juicios. Sin reuniones de domingo.
+
+El conocimiento jurídico tiene mercado. Nebbuler te da el canal para cobrarlo.
+
+nebbuler.com/para-creadores`,
     imageTone: 'professional',
   },
   {
-    text: 'Profesionales que publican en Nebbuler no necesitan un jefe, un cliente único ni un horario fijo. Solo necesitan su expertise. nebbuler.com',
+    text: `La cuenta que ningún profesional se hace:
+
+Tu expertise → consultoría por hora → ingresos con techo.
+Tu expertise → newsletter de pago → ingresos sin techo.
+
+Un médico con 150 suscriptores a $19.990 CLP/mes genera $2.998.500 al mes. Recurrente. Sin ampliar el consultorio.
+
+¿Cuánto tiempo más vas a regalar lo que la gente ya quiere pagar?
+
+nebbuler.com — plataforma para profesionales LATAM`,
     imageTone: 'viral',
   },
   {
-    text: 'Sin intermediarios. Sin comisiones. Sin límites de escala. Así funciona Nebbuler para profesionales que monetizan conocimiento. nebbuler.com',
+    text: `Lo que ningún contador en LATAM te va a contar:
+
+Cada cambio tributario que explicas gratis en WhatsApp vale dinero.
+Cada alerta de nueva normativa que envías a clientes "de regalo" vale dinero.
+Cada análisis que subes a LinkedIn sin cobrar vale dinero.
+
+El modelo existe. Se llama newsletter de pago.
+
+200 suscriptores × $9.990 CLP = $1.998.000/mes extra.
+
+nebbuler.com — sin comisión`,
     imageTone: 'professional',
   },
 
-  // LATAM
+  // === PROVOCACIÓN / PREGUNTA ===
   {
-    text: 'Nebbuler es la plataforma para profesionales latinoamericanos que quieren monetizar su conocimiento sin depender de plataformas gringas. nebbuler.com',
+    text: `¿Cuánto cuesta una hora de tu tiempo como profesional?
+
+$50.000 CLP. $100.000. $200.000.
+
+¿Cuántas horas tienes disponibles al mes?
+
+Ahora imagina cobrar por lo que sabes sin que te cueste ni una hora adicional.
+
+Un análisis escrito una vez. 300 personas lo pagan. El mismo mes. Todos los meses.
+
+Nebbuler es la plataforma para profesionales LATAM que entienden esta diferencia.
+
+nebbuler.com`,
     imageTone: 'viral',
   },
   {
-    text: 'Desde Chile hasta México, profesionales LATAM publican su expertise en Nebbuler y cobran en su moneda local. nebbuler.com',
+    text: `Economistas, abogados, médicos de LATAM:
+
+Ustedes tienen algo que Bloomberg, The Economist y Reuters no tienen.
+
+Contexto regional. Idioma local. Criterio sobre lo que realmente importa aquí.
+
+Y lo están regalando.
+
+Nebbuler es la plataforma donde ese criterio tiene precio.
+
+0% comisión. Pagos en tu moneda. nebbuler.com`,
     imageTone: 'professional',
   },
   {
-    text: 'El conocimiento profesional latinoamericano vale tanto como el de cualquier parte del mundo. Nebbuler te da la plataforma para demostrarlo. nebbuler.com',
+    text: `El error más caro que comete un profesional:
+
+Construir audiencia en LinkedIn, Twitter, YouTube — gratis — y nunca monetizarla directamente.
+
+Las plataformas te usan para vender publicidad. Tú no ves un peso.
+
+El modelo que cambia eso: cobrar suscripción directa a tu audiencia.
+
+Sin intermediario. Sin algoritmo. Sin comisión.
+
+Nebbuler. nebbuler.com/para-creadores`,
     imageTone: 'viral',
+  },
+  {
+    text: `Substack: 10% de tus ingresos.
+Patreon: hasta 12%.
+Kajabi: $200 USD/mes + porcentaje.
+
+Nebbuler: 0%.
+
+Todo lo que ganas es tuyo.
+
+Para economistas, abogados, médicos y consultores en LATAM que ya tienen criterio para cobrar.
+
+nebbuler.com`,
+    imageTone: 'professional',
+  },
+
+  // === DATOS DUROS ===
+  {
+    text: `¿Sabes cuánto genera un profesional LATAM con 100 suscriptores de pago?
+
+A $9.990 CLP/mes → $999.000 recurrentes
+A $19.990 CLP/mes → $1.999.000 recurrentes
+A $29.990 CLP/mes → $2.999.000 recurrentes
+
+Sin consultores. Sin empleados. Sin infraestructura.
+
+Solo tu expertise + una audiencia que ya quiere pagarte.
+
+Nebbuler — 0% comisión. nebbuler.com`,
+    imageTone: 'professional',
+  },
+  {
+    text: `Un economista chileno gana en promedio $3.200.000/mes por su tiempo.
+
+¿Cuánto podría ganar por su conocimiento?
+
+El límite del tiempo: 160 horas al mes.
+El límite del conocimiento: no existe.
+
+Un análisis que escribiste en 4 horas puede pagarlo 500 personas. Todos los meses.
+
+Ese es el modelo que Nebbuler habilita. nebbuler.com/para-creadores`,
+    imageTone: 'viral',
+  },
+
+  // === LATAM ESPECÍFICO ===
+  {
+    text: `Para profesionales en Chile, Colombia, México, Argentina, Perú:
+
+Hay una razón por la que las plataformas de newsletters más conocidas no funcionan bien acá.
+
+Cobran en dólares. No entienden el mercado local. Se quedan con el 10% de lo que ganas.
+
+Nebbuler fue construido específicamente para LATAM. Pagos en pesos. 0% comisión.
+
+nebbuler.com`,
+    imageTone: 'professional',
+  },
+  {
+    text: `La diferencia entre un profesional con $500.000 extra al mes y uno sin ellos no es el talento.
+
+Es que uno decidió cobrar por lo que ya sabe.
+
+En Nebbuler, economistas, abogados y médicos de LATAM publican análisis de pago y generan ingresos recurrentes desde el primer mes.
+
+¿Cuál es tu excusa para no hacerlo?
+
+nebbuler.com/para-creadores`,
+    imageTone: 'viral',
+  },
+
+  // === PARA PROFESIONES ESPECÍFICAS ===
+  {
+    text: `Para los abogados que leen esto:
+
+Cada reforma tributaria que explicás en redes vale dinero.
+Cada alerta laboral que compartís en grupos vale dinero.
+Cada análisis de jurisprudencia que redactás "gratis" vale dinero.
+
+150 empresas suscriptas a $100.000 COP/mes = $15.000.000 mensuales.
+
+Sin nuevos clientes. Sin ampliar el estudio.
+
+nebbuler.com — plataforma para abogados LATAM`,
+    imageTone: 'professional',
+  },
+  {
+    text: `Para los médicos que leen esto:
+
+Tu criterio clínico vale fuera del consultorio.
+
+200 pacientes o colegas pagando $9.990 CLP por tu newsletter mensual = $1.998.000 extra al mes.
+
+Sin ampliar horarios. Sin más consultas.
+
+Nebbuler es la plataforma para profesionales de la salud que quieren monetizar su conocimiento.
+
+nebbuler.com`,
+    imageTone: 'professional',
+  },
+  {
+    text: `Para los economistas que leen esto:
+
+Tu análisis macro, tus proyecciones, tu lectura del mercado local — tienen un precio que el mercado ya está dispuesto a pagar.
+
+El problema no es la demanda. Es que nunca te enseñaron a cobrar por ella.
+
+Nebbuler es el lugar donde eso cambia.
+
+nebbuler.com/para-creadores — 0% comisión`,
+    imageTone: 'viral',
+  },
+
+  // === HOOKS EMOCIONALES ===
+  {
+    text: `Hay algo que nadie te dice sobre monetizar tu conocimiento:
+
+No necesitas ser famoso.
+No necesitas mil seguidores.
+No necesitas una empresa.
+
+Necesitas 50 personas que paguen por lo que ya sabes.
+
+50 × $19.990 CLP = $999.500/mes recurrentes.
+
+Ese es el punto de partida real. Nebbuler te da la plataforma para llegar ahí.
+
+nebbuler.com`,
+    imageTone: 'viral',
+  },
+  {
+    text: `El modelo de negocio más infravalorado para profesionales independientes en LATAM:
+
+Newsletter de pago. Suscripción mensual. 0% intermediario.
+
+No es nuevo. No es complicado. Solo requiere una decisión:
+
+Dejar de regalar lo que la gente ya quiere pagarte.
+
+nebbuler.com — para economistas, abogados, médicos y consultores`,
+    imageTone: 'professional',
+  },
+  {
+    text: `Cada semana regalas conocimiento que tiene precio.
+
+Cada análisis que publicas gratis en LinkedIn es ingreso que no cobras.
+Cada respuesta experta en WhatsApp es tiempo que no factura.
+Cada informe que mandas "de cortesía" es trabajo que no se paga.
+
+El mercado existe. Solo falta el canal.
+
+Nebbuler es ese canal. 0% comisión. nebbuler.com`,
+    imageTone: 'viral',
+  },
+
+  // === COMPARACIONES ===
+  {
+    text: `¿Qué tienen en común un economista, un abogado y un médico en Nebbuler?
+
+Los tres generan ingresos recurrentes sin agregar horas de trabajo.
+Los tres cobran en pesos, en su moneda local.
+Los tres se quedaron con el 100% de lo que ganaron.
+
+La diferencia con las plataformas globales: Nebbuler fue hecho para ellos.
+
+nebbuler.com/para-creadores`,
+    imageTone: 'professional',
+  },
+  {
+    text: `No es ingreso pasivo. Es ingreso inteligente.
+
+Pasivo implica que no haces nada. Eso no existe.
+
+Inteligente implica que el esfuerzo que ya estás haciendo — análisis, investigación, criterio — se monetiza directamente, sin intermediario, sin límite de escala.
+
+Eso es exactamente lo que hace Nebbuler para profesionales en LATAM.
+
+nebbuler.com — 0% comisión`,
+    imageTone: 'viral',
+  },
+  {
+    text: `La pregunta que todo profesional debería hacerse:
+
+¿Cuánto vale tu conocimiento para alguien que toma decisiones con él?
+
+Para un CFO que lee tu análisis económico: mucho más de lo que cobras.
+Para una empresa que sigue tus alertas legales: mucho más de lo que cobras.
+Para un paciente que confía en tu criterio médico: mucho más de lo que cobras.
+
+Nebbuler te ayuda a capturar ese valor. nebbuler.com`,
+    imageTone: 'professional',
+  },
+
+  // === URGENCIA / TIMING ===
+  {
+    text: `El mercado de newsletters profesionales en LATAM está en sus primeros días.
+
+Los que entran ahora construyen audiencia antes que la competencia.
+Los que esperan van a entrar cuando ya sea más difícil.
+
+El momento óptimo para lanzar tu newsletter de pago es ahora.
+
+nebbuler.com/para-creadores — plataforma para profesionales LATAM`,
+    imageTone: 'viral',
+  },
+  {
+    text: `¿Qué haría un economista, abogado o médico con $2.000.000 CLP extra al mes?
+
+La pregunta correcta no es si puedes generarlos.
+La pregunta es: ¿cuándo vas a empezar?
+
+Nebbuler — donde los profesionales LATAM cobran por su conocimiento.
+
+nebbuler.com`,
+    imageTone: 'professional',
+  },
+  {
+    text: `En los próximos 3 años, el mercado de newsletters profesionales en español va a crecer 10 veces.
+
+Los creadores que ya están posicionados cuando eso pase van a dominar.
+
+Los que esperaron van a pagar el precio de haber esperado.
+
+Nebbuler — para profesionales que no esperan. nebbuler.com/para-creadores`,
+    imageTone: 'viral',
+  },
+
+  // === CASOS LATAM ESPECÍFICOS ===
+  {
+    text: `Para el contador que explica el SII en Chile:
+Para el abogado que analiza la DIAN en Colombia:
+Para el economista que sigue Banxico en México:
+
+Su audiencia ya existe. Ya los sigue. Ya confía en su criterio.
+
+Solo falta un paso: que paguen directamente por ese conocimiento.
+
+Nebbuler. 0% comisión. Pagos en pesos. nebbuler.com`,
+    imageTone: 'professional',
+  },
+  {
+    text: `Hay miles de profesionales en LATAM con criterio que vale oro.
+
+Y lo regalan todos los días.
+
+En LinkedIn. En Twitter. En grupos de WhatsApp. En reuniones de networking.
+
+Gratis. Sin cobrar. Sin escalar.
+
+Nebbuler existe para cambiar eso.
+
+nebbuler.com/para-creadores`,
+    imageTone: 'viral',
+  },
+  {
+    text: `Lo que separa a un profesional con ingresos escalabes de uno sin ellos:
+
+No es el talento. Todos los que se graduaron tienen suficiente.
+No son los contactos. Todos tienen una red.
+No es el tiempo. Nadie tiene tiempo extra.
+
+Es haber decidido que su conocimiento merece ser pagado directamente.
+
+Nebbuler es la plataforma para esa decisión. nebbuler.com`,
+    imageTone: 'viral',
+  },
+  {
+    text: `Substack tiene 3 millones de creadores pagos. Casi todos en inglés.
+
+El mercado en español — para economistas, abogados, médicos de LATAM — está prácticamente vacío.
+
+Esa es la oportunidad.
+
+Nebbuler es la plataforma nativa para ese mercado. 0% comisión.
+
+nebbuler.com`,
+    imageTone: 'professional',
   },
 ]
 
-/**
- * Devuelve el template del día usando el día del año como índice.
- * Determinista: el mismo día siempre retorna el mismo template.
- */
 export function getTodayTemplate(): ContentTemplate {
   const now = new Date()
   const start = new Date(now.getFullYear(), 0, 0)

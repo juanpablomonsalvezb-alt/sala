@@ -3,7 +3,11 @@ import type { Metadata, Viewport } from "next"
 import { Libre_Baskerville, Public_Sans, Inter, Playfair_Display } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import { GrowthStackProvider } from "@/components/providers/GrowthStackProvider"
 import "./globals.css"
+
+const UMAMI_WEBSITE_ID = process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID
+const UMAMI_ENABLED = process.env.NEXT_PUBLIC_SOCIAL_PROOF_ENABLED === 'true' && !!UMAMI_WEBSITE_ID
 
 const publicSans = Public_Sans({
   variable: "--font-sans",
@@ -182,6 +186,13 @@ export default function RootLayout({
       className={`${publicSans.variable} ${libreBaskerville.variable} ${inter.variable} ${playfair.variable} h-full`}
     >
       <body className="min-h-full flex flex-col bg-white text-[#121212] font-sans antialiased">
+        {UMAMI_ENABLED && (
+          <script
+            defer
+            src="https://cloud.umami.is/script.js"
+            data-website-id={UMAMI_WEBSITE_ID}
+          />
+        )}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: safeJsonLd(ORG_JSONLD) }}
@@ -194,7 +205,9 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: safeJsonLd(PLATFORM_JSONLD) }}
         />
-        {children}
+        <GrowthStackProvider>
+          {children}
+        </GrowthStackProvider>
         <Analytics />
         <SpeedInsights />
       </body>

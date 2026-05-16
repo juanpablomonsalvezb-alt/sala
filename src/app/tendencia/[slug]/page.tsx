@@ -1,4 +1,4 @@
-import { createClient } from '@/lib/supabase/server'
+import { createServiceClient } from '@/lib/supabase/server'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import Link from 'next/link'
@@ -32,7 +32,7 @@ function normalizeSlug(s: string): string {
   return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
 }
 
-async function findPage(supabase: Awaited<ReturnType<typeof createClient>>, slug: string) {
+async function findPage(supabase: ReturnType<typeof createServiceClient>, slug: string) {
   const keywordFromSlug = decodeURIComponent(slug).replace(/-/g, ' ')
   const { data: pages } = await supabase
     .from('generated_pages')
@@ -61,7 +61,7 @@ async function findPage(supabase: Awaited<ReturnType<typeof createClient>>, slug
 }
 
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
-  const supabase = await createClient()
+  const supabase = createServiceClient()
   const page = await findPage(supabase, params.slug)
 
   if (!page) {
@@ -105,7 +105,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
 }
 
 export default async function TrendingArticlePage({ params }: { params: Params }) {
-  const supabase = await createClient()
+  const supabase = createServiceClient()
   const page = await findPage(supabase, params.slug)
 
   if (!page) {

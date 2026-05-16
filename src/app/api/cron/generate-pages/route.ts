@@ -1,6 +1,43 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
-import { Anthropic } from '@anthropic-ai/sdk'
+
+// Rotación de 7 keys para evitar rate limits de Gemini
+const GEMINI_KEYS = [
+  process.env.GEMINI_API_KEY,
+  process.env.GEMINI_API_KEY_2,
+  process.env.GEMINI_API_KEY_3,
+  process.env.GEMINI_API_KEY_4,
+  process.env.GEMINI_API_KEY_5,
+  process.env.GEMINI_API_KEY_6,
+  process.env.GEMINI_API_KEY_7,
+].filter(Boolean) as string[]
+
+const GEMINI_MODEL = process.env.GEMINI_MODEL ?? 'gemini-2.5-flash'
+
+async function generateWithGemini(prompt: string, keyIndex = 0): Promise<string> {
+  const key = GEMINI_KEYS[keyIndex % GEMINI_KEYS.length]
+  const res = await fetch(
+    `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${key}`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contents: [{ parts: [{ text: prompt }] }],
+        generationConfig: { maxOutputTokens: 1200, temperature: 0.7 },
+      }),
+    }
+  )
+  if (!res.ok) {
+    const err = await res.text()
+    // Si rate limit, rotar a la siguiente key
+    if (res.status === 429 && keyIndex < GEMINI_KEYS.length - 1) {
+      return generateWithGemini(prompt, keyIndex + 1)
+    }
+    throw new Error(`Gemini ${res.status}: ${err.slice(0, 200)}`)
+  }
+  const data = await res.json() as { candidates?: Array<{ content?: { parts?: Array<{ text?: string }> } }> }
+  return data.candidates?.[0]?.content?.parts?.[0]?.text ?? ''
+}
 
 export async function GET(request: Request) {
   const authHeader = request.headers.get('authorization')
@@ -23,18 +60,10 @@ export async function GET(request: Request) {
 
     if (fetchError) throw fetchError
 
-    const client = new Anthropic()
     const generated = []
 
     for (const kw of keywords || []) {
-      // Generate SEO-optimized content using Haiku
-      const message = await client.messages.create({
-        model: 'claude-haiku-4-5-20251001',
-        max_tokens: 1000,
-        messages: [
-          {
-            role: 'user',
-            content: `Escribe un artículo profesional corto sobre "${kw.keyword}" (500-600 palabras).
+      const prompt = `Escribe un artículo profesional corto sobre "${kw.keyword}" (500-600 palabras).
 
 Estructura:
 - Título SEO fuerte: "¿Qué es ${kw.keyword}? Guía 2026"
@@ -44,12 +73,9 @@ Estructura:
 - Una frase final de CTA
 
 Formato: HTML limpio. Solo etiquetas: <h2>, <h3>, <p>, <strong>, <em>, <ul>, <li>.
-Sin <div>, <span>, <style>, atributos inline.`,
-          },
-        ],
-      })
+Sin <div>, <span>, <style>, atributos inline.`
 
-      const content = message.content[0].type === 'text' ? message.content[0].text : ''
+      const content = await generateWithGemini(prompt)
       const seoScore = Math.min(90, 65 + Math.floor((kw.search_volume / 100) * 2) + Math.floor(kw.monthly_growth))
 
       // Save to database

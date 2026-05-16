@@ -12,6 +12,7 @@ import { sanitizeHtml, stripHtml } from '@/lib/sanitize'
 import { AlsoReading } from '@/components/also-reading'
 import { QuoteHighlighter } from '@/components/quote-highlighter'
 import { postArticleSchema } from '@/lib/json-ld'
+import SubscribeWidget from '@/components/newsletter/SubscribeWidget'
 
 // ISR: revalidate each article every 1 hour on-demand
 // Note: generateStaticParams removed because route uses cookies() for subscription checks
@@ -610,6 +611,15 @@ export default async function PostPage({
             {/* Recomendaciones "También leen" */}
             <div className="max-w-[680px]">
               <AlsoReading currentSlug={creator.slug} />
+            </div>
+
+            {/* Newsletter — captura después de leer */}
+            <div className="max-w-[680px] mt-12">
+              <SubscribeWidget
+                title={`¿Te gustó este análisis?`}
+                description="Recibe los mejores artículos de nuestros creadores cada semana. Gratis."
+                ctaLabel="Suscribirme al boletín"
+              />
             </div>
           </div>
 

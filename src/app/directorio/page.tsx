@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import DirectorioClient from './directorio-client'
 import { allCreators } from '@/data/creators'
+import SubscribeWidget from '@/components/newsletter/SubscribeWidget'
 
 export const metadata: Metadata = {
   title: 'Directorio de Profesionales — Nebbuler',
@@ -98,6 +99,17 @@ export default function DirectorioPage() {
             icon: d.icon,
           }))}
         />
+
+        {/* Newsletter */}
+        <div className="py-16 bg-gray-50 border-t border-gray-100">
+          <div className="max-w-xl mx-auto px-6">
+            <SubscribeWidget
+              title="Recibe lo mejor del directorio cada semana"
+              description="Los análisis más leídos de nuestros creadores. Gratis, todos los lunes."
+              ctaLabel="Suscribirme"
+            />
+          </div>
+        </div>
 
         {/* CTA creador */}
         <div className="border-t-4 border-[#121212] bg-[#121212] py-16">

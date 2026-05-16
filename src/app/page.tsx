@@ -19,7 +19,8 @@ import {
   FaqSection,
   CtaFinalAnimated,
 } from "@/components/home-animations";
-import { featuredCreators as featuredCreatorsData } from "@/data/creators";
+import { featuredCreators as featuredCreatorsData } from "@/data/creators"
+import SubscribeWidget from "@/components/newsletter/SubscribeWidget"
 
 /* ─── Data estática — permanece en el servidor ──────────────────────────── */
 
@@ -269,6 +270,17 @@ export default function Home() {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* ── NEWSLETTER ──────────────────────────────────────────────────── */}
+      <section className="bg-white py-16 border-t border-gray-100">
+        <div className="max-w-xl mx-auto px-6">
+          <SubscribeWidget
+            title="Análisis profesional cada semana"
+            description="Economistas, abogados y médicos explicando LATAM. Sin spam. Baja cuando quieras."
+            ctaLabel="Suscribirme gratis"
+          />
         </div>
       </section>
 

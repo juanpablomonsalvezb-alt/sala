@@ -75,7 +75,27 @@ Estructura:
 Formato: HTML limpio. Solo etiquetas: <h2>, <h3>, <p>, <strong>, <em>, <ul>, <li>.
 Sin <div>, <span>, <style>, atributos inline.`
 
+      // Verificar que no exista ya una página para este keyword+país
+      const { data: existing } = await supabase
+        .from('generated_pages')
+        .select('id')
+        .eq('keyword', kw.keyword)
+        .eq('country_code', kw.country_code || 'CL')
+        .maybeSingle()
+
+      if (existing) {
+        await supabase.from('trending_keywords').update({ status: 'generated' }).eq('id', kw.id)
+        continue
+      }
+
       const content = await generateWithGemini(prompt)
+      if (!content) continue
+
+      const slug = kw.keyword.toLowerCase()
+        .normalize('NFD').replace(/[̀-ͯ]/g, '')
+        .replace(/[^a-z0-9\s-]/g, '')
+        .trim().replace(/\s+/g, '-')
+
       const seoScore = Math.min(90, 65 + Math.floor((kw.search_volume / 100) * 2) + Math.floor(kw.monthly_growth))
 
       // Save to database
@@ -86,8 +106,9 @@ Sin <div>, <span>, <style>, atributos inline.`
         content_html: content,
         content_markdown: content,
         seo_score: seoScore,
-        status: 'draft',
+        status: 'published',
         trending_keyword_id: kw.id,
+        slug,
       })
 
       if (!insertError) {

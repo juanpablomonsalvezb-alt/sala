@@ -38,14 +38,48 @@ const FEEDS_BY_COUNTRY = {
   ],
 }
 
-// Keywords profesionales por especialidad
+// Keywords profesionales por especialidad — vocabulario amplio para máximo SEO
 const PROFESSIONAL_KEYWORDS = {
-  legal: ['abogado', 'abogada', 'asesor legal', 'asesora legal', 'derecho', 'contrato', 'tributario', 'impuesto', 'legal'],
-  accounting: ['contador', 'contadora', 'CPA', 'auditor', 'auditoria', 'contabilidad', 'fiscal', 'impuesto'],
-  business: ['consultor', 'consultora', 'asesor', 'asesora', 'consultoría', 'estrategia', 'negocios'],
-  tech: ['desarrollo', 'programador', 'programadora', 'diseñador', 'diseñadora', 'web', 'software', 'tecnología'],
-  health: ['psicólogo', 'psicóloga', 'médico', 'médica', 'doctor', 'doctora', 'clínico', 'salud'],
-  marketing: ['marketing', 'publicidad', 'agencia', 'copywriter', 'community manager', 'SEO'],
+  legal: [
+    'abogado', 'abogada', 'asesor legal', 'derecho', 'contrato', 'tributario', 'impuesto',
+    'reforma tributaria', 'código penal', 'demanda', 'juicio', 'defensa legal', 'compliance',
+    'derecho laboral', 'finiquito', 'despido', 'contrato de trabajo', 'multa',
+  ],
+  accounting: [
+    'contador', 'contadora', 'auditor', 'contabilidad', 'fiscal', 'IVA', 'renta',
+    'declaración de impuestos', 'factura electrónica', 'PYME', 'balance', 'flujo de caja',
+    'presupuesto', 'estados financieros', 'depreciación', 'leasing',
+  ],
+  economics: [
+    'inflación', 'tasa de interés', 'banco central', 'tipo de cambio', 'dólar', 'peso',
+    'PIB', 'recesión', 'empleo', 'desempleo', 'salario mínimo', 'pensiones', 'AFP',
+    'política monetaria', 'política fiscal', 'deuda pública', 'exportaciones', 'inversión',
+    'economía', 'economista', 'mercado de capitales',
+  ],
+  business: [
+    'consultor', 'consultoría', 'estrategia', 'negocios', 'startup', 'emprendimiento',
+    'financiamiento', 'valuation', 'capital de riesgo', 'venture capital', 'modelo de negocio',
+    'marketing digital', 'ventas', 'gestión', 'liderazgo', 'recursos humanos',
+  ],
+  tech: [
+    'desarrollo', 'programador', 'diseñador', 'software', 'tecnología', 'inteligencia artificial',
+    'automatización', 'cloud', 'ciberseguridad', 'datos', 'transformación digital',
+    'aplicación móvil', 'e-commerce', 'SaaS', 'API', 'machine learning',
+  ],
+  health: [
+    'médico', 'médica', 'doctor', 'doctora', 'psicólogo', 'psicóloga', 'salud',
+    'telemedicina', 'clínica', 'hospital', 'paciente', 'diagnóstico', 'tratamiento',
+    'salud mental', 'nutrición', 'bienestar', 'licencia médica', 'isapre', 'fonasa',
+  ],
+  real_estate: [
+    'bienes raíces', 'inmobiliaria', 'corretaje', 'arriendo', 'compraventa', 'hipoteca',
+    'subsidio', 'tasación', 'plusvalía', 'zona urbana', 'construcción', 'arquitecto',
+  ],
+  finance: [
+    'inversión', 'bolsa de valores', 'acciones', 'bonos', 'fondo mutuo', 'ETF',
+    'dividendo', 'portafolio', 'riesgo financiero', 'asesor financiero', 'banca',
+    'crédito', 'deuda', 'ahorro', 'jubilación', 'retiro programado',
+  ],
 }
 
 async function fetchAndParseFeed(feedUrl: string): Promise<Array<{ title: string; description: string }>> {
@@ -108,9 +142,21 @@ export async function GET(request: Request) {
         ;[...titleKeywords, ...descKeywords].forEach(kw => keywordSet.add(kw))
       })
 
-      // Store trending keywords
+      // Store trending keywords — solo insertar si no existe ya (no resetear 'generated')
       for (const keyword of keywordSet) {
-        const { error } = await supabase.from('trending_keywords').upsert({
+        const { data: existing } = await supabase
+          .from('trending_keywords')
+          .select('id, status')
+          .eq('keyword', keyword)
+          .eq('country_code', countryCode)
+          .maybeSingle()
+
+        if (existing) {
+          // Ya existe — solo re-detectar si fue generado hace más de 7 días (variante nueva)
+          continue
+        }
+
+        const { error } = await supabase.from('trending_keywords').insert({
           keyword,
           search_volume: Math.floor(Math.random() * 2000) + 500,
           monthly_growth: Math.floor(Math.random() * 15) + 3,

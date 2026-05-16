@@ -91,14 +91,9 @@ Sin <div>, <span>, <style>, atributos inline.`
       const content = await generateWithGemini(prompt)
       if (!content) continue
 
-      const slug = kw.keyword.toLowerCase()
-        .normalize('NFD').replace(/[̀-ͯ]/g, '')
-        .replace(/[^a-z0-9\s-]/g, '')
-        .trim().replace(/\s+/g, '-')
-
       const seoScore = Math.min(90, 65 + Math.floor((kw.search_volume / 100) * 2) + Math.floor(kw.monthly_growth))
 
-      // Save to database
+      // Save to database — slug se genera en runtime desde el keyword (ruta /tendencia/[slug])
       const { error: insertError } = await supabase.from('generated_pages').insert({
         keyword: kw.keyword,
         specialty: 'Profesional',
@@ -106,9 +101,8 @@ Sin <div>, <span>, <style>, atributos inline.`
         content_html: content,
         content_markdown: content,
         seo_score: seoScore,
-        status: 'published',
+        status: 'draft',
         trending_keyword_id: kw.id,
-        slug,
       })
 
       if (!insertError) {

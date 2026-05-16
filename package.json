@@ -13,6 +13,8 @@
     "@anthropic-ai/sdk": "^0.95.1",
     "@base-ui/react": "^1.4.1",
     "@ducanh2912/next-pwa": "^10.2.9",
+    "@formbricks/js": "^4.4.0",
+    "@growthbook/growthbook-react": "^1.6.5",
     "@hookform/resolvers": "^5.2.2",
     "@supabase/ssr": "^0.10.3",
     "@supabase/supabase-js": "^2.105.3",
@@ -35,7 +37,9 @@
     "clsx": "^2.1.1",
     "framer-motion": "^12.38.0",
     "lucide-react": "^1.14.0",
+    "meilisearch": "^0.58.0",
     "next": "16.2.6",
+    "posthog-js": "^1.373.5",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "react-hook-form": "^7.75.0",
@@ -55,6 +59,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@types/sanitize-html": "^2.16.1",
+    "playwright": "^1.60.0",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

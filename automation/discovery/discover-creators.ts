@@ -258,7 +258,7 @@ function exportToCsv(creators: PotentialCreator[], outputPath: string): void {
 
   const rows = creators.map(c =>
     headers.map(h => {
-      const val = (c as Record<string, unknown>)[h] ?? ''
+      const val = (c as unknown as Record<string, unknown>)[h] ?? ''
       return typeof val === 'string' && val.includes(',') ? `"${val}"` : val
     }).join(',')
   )

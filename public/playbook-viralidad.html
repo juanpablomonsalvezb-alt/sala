@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nebbuler · Solo lo Automático</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Satoshi:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f7f4ef;
+  --ink:#1a1915;
+  --muted:#7a7669;
+  --border:#ddd9cf;
+  --surface:#ffffff;
+  --red:#c0392b;
+  --green:#1a6b3a;
+  --gold:#8a6d00;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:'Satoshi',sans-serif;font-size:15px;line-height:1.7}
+
+/* HERO */
+.hero{
+  background:var(--ink);color:#f7f4ef;
+  padding:72px 64px 56px;
+  border-bottom:4px solid var(--red);
+}
+.hero-label{
+  font-family:'JetBrains Mono',monospace;font-size:11px;
+  color:rgba(247,244,239,.4);letter-spacing:.14em;text-transform:uppercase;
+  margin-bottom:28px;
+}
+.hero h1{
+  font-family:'Instrument Serif',serif;font-size:clamp(44px,5vw,68px);
+  font-weight:400;font-style:italic;line-height:1;margin-bottom:16px;
+}
+.hero h1 em{color:#e8c547;font-style:normal}
+.hero-rule{
+  background:rgba(247,244,239,.08);border:1px solid rgba(247,244,239,.15);
+  border-radius:8px;padding:16px 20px;max-width:580px;margin-top:28px;
+}
+.hero-rule strong{color:#e8c547}
+.hero-rule p{font-size:14px;color:rgba(247,244,239,.65);line-height:1.65}
+
+/* SECCIÓN REGLA MÁXIMA */
+.maxrule{
+  background:var(--red);color:#fff;
+  padding:32px 64px;
+  display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:center;
+}
+.maxrule-icon{font-size:36px;line-height:1}
+.maxrule-text{font-size:15px;line-height:1.7}
+.maxrule-text strong{font-size:17px;display:block;margin-bottom:4px;font-weight:700}
+
+/* BODY */
+.body{padding:56px 64px;max-width:900px}
+
+/* BLOQUE */
+.bloque{margin-bottom:56px}
+.bloque-header{
+  display:flex;align-items:baseline;gap:16px;
+  border-bottom:1.5px solid var(--ink);padding-bottom:10px;margin-bottom:24px;
+}
+.bloque-num{
+  font-family:'JetBrains Mono',monospace;font-size:11px;
+  color:var(--muted);letter-spacing:.1em;
+}
+.bloque-title{
+  font-family:'Instrument Serif',serif;font-size:28px;
+  font-weight:400;font-style:italic;flex:1;line-height:1.1;
+}
+.bloque-freq{
+  font-family:'JetBrains Mono',monospace;font-size:10px;
+  padding:3px 10px;border-radius:20px;border:1px solid var(--border);
+  color:var(--muted);flex-shrink:0;
+}
+
+/* ACCION */
+.accion{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:10px;padding:20px 22px;margin-bottom:10px;
+  display:grid;grid-template-columns:1fr auto;gap:16px;align-items:start;
+}
+.accion-body{}
+.accion-title{font-size:15px;font-weight:600;margin-bottom:4px;color:var(--ink)}
+.accion-desc{font-size:13px;color:var(--muted);line-height:1.65}
+.accion-prompt{
+  background:var(--bg);border:1px solid var(--border);border-radius:6px;
+  padding:10px 12px;margin-top:10px;
+  font-family:'JetBrains Mono',monospace;font-size:11px;color:#3a6b3a;
+  line-height:1.6;
+}
+.accion-prompt::before{content:'→ Claude: ';color:var(--muted);font-weight:500}
+.accion-meta{
+  display:flex;flex-direction:column;gap:5px;align-items:flex-end;flex-shrink:0;
+}
+.auto-badge{
+  font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;
+  padding:3px 10px;border-radius:20px;text-transform:uppercase;letter-spacing:.08em;
+  white-space:nowrap;
+}
+.auto-badge.verde{background:#e8f5ed;color:var(--green);border:1px solid #b8dfc6}
+.auto-badge.gold{background:#fdf6dc;color:var(--gold);border:1px solid #e8d87a}
+.time-tag{
+  font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);
+  text-align:right;
+}
+
+/* SEPARADOR */
+.sep{
+  border:none;border-top:1px solid var(--border);margin:0 0 40px;
+}
+
+/* NO-CODE SECTION */
+.nocode-box{
+  background:var(--green);color:#fff;
+  border-radius:10px;padding:20px 22px;margin-bottom:28px;
+}
+.nocode-box strong{font-size:16px;display:block;margin-bottom:6px}
+.nocode-box p{font-size:13px;color:rgba(255,255,255,.75);line-height:1.65}
+
+/* SEMANA */
+.semana{padding:48px 64px;background:var(--ink);color:#f7f4ef}
+.semana h2{font-family:'Instrument Serif',serif;font-size:32px;font-style:italic;margin-bottom:6px;font-weight:400}
+.semana-sub{font-size:13px;color:rgba(247,244,239,.45);margin-bottom:28px;font-family:'JetBrains Mono',monospace}
+.dias{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px}
+.dia{background:rgba(247,244,239,.04);border:1px solid rgba(247,244,239,.09);border-radius:8px;padding:16px 14px}
+.dia-label{font-family:'JetBrains Mono',monospace;font-size:9px;color:rgba(247,244,239,.35);letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px}
+.dia-title{font-size:13px;font-weight:600;color:#f7f4ef;margin-bottom:10px;line-height:1.3}
+.dia-items{display:flex;flex-direction:column;gap:5px}
+.dia-item{font-size:11px;color:rgba(247,244,239,.5);line-height:1.5;padding-left:12px;position:relative}
+.dia-item::before{content:'·';position:absolute;left:2px;color:var(--red)}
+
+/* FOOTER */
+.footer{padding:24px 64px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.footer-brand{font-family:'Instrument Serif',serif;font-size:18px;font-style:italic}
+.footer-note{font-size:11px;color:var(--muted);font-family:'JetBrains Mono',monospace}
+
+@media(max-width:640px){
+  .hero,.maxrule,.body,.semana,.footer{padding-left:22px;padding-right:22px}
+  .accion{grid-template-columns:1fr}
+  .accion-meta{flex-direction:row;align-items:center}
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-label">Nebbuler · Viralización · Versión limpia</div>
+  <h1>Solo lo que pasa<br><em>solo.</em></h1>
+  <div class="hero-rule">
+    <p><strong>Regla de este documento:</strong> Cada acción aquí listada se ejecuta sin tocar el código de Nebbuler, sin configurar APIs, sin Vercel, sin tokens. Claude hace el trabajo. Tú revisas y publicas.</p>
+  </div>
+</div>
+
+<!-- REGLA MÁXIMA -->
+<div class="maxrule">
+  <div class="maxrule-icon">🔒</div>
+  <div class="maxrule-text">
+    <strong>Lo que ya está, no se toca. Jamás.</strong>
+    El código de Nebbuler que tardó meses en ponerse en verde es intocable. Este playbook opera 100% fuera del código. Son acciones de contenido, distribución y comunidad — no de desarrollo. Claude Code ya hizo su parte. Ahora trabaja la estrategia.
+  </div>
+</div>
+
+<div class="body">
+
+  <!-- BLOQUE 1 -->
+  <div class="bloque">
+    <div class="bloque-header">
+      <span class="bloque-num">01</span>
+      <span class="bloque-title">Contenido que atrae</span>
+      <span class="bloque-freq">Rutina diaria</span>
+    </div>
+
+    <div class="nocode-box">
+      <strong>Cómo funciona</strong>
+      <p>Le describes a Claude el nicho de Nebbuler. Él investiga qué preguntas hace tu audiencia, qué está en trending, y escribe el contenido completo. Tú lo copias y lo publicas en Nebbuler. Sin código. Sin configuración.</p>
+    </div>
+
+    <div class="accion">
+      <div class="accion-body">
+        <div class="accion-title">El recurso definitivo del nicho</div>
+        <div class="accion-desc">Una sola pieza exhaustiva sobre el tema central de Nebbuler puede traer tráfico orgánico durante meses. Con Claude se escribe en una tarde lo que antes tomaba semanas. Es la pieza que todos enlazan y que posiciona a Nebbuler como referencia.</div>
+        <div class="accion-prompt">"Investiga las preguntas más frecuentes que hace la audiencia de [nicho de Nebbuler] y que no tienen buenas respuestas en Google. Escribe el artículo definitivo de 1.500 palabras sobre [la mejor oportunidad]. Optimiza el título para SEO y para ser compartido."</div>
+      </div>
+      <div class="accion-meta">
+        <span class="auto-badge verde">Automático con Claude</span>
+        <span class="time-tag">2h · Impacto permanente</span>
+      </div>
+    </div>
+
+    <div class="accion">
+      <div class="accion-body">
+        <div class="accion-title">Trending topic hijacking diario</div>
+        <div class="accion-desc">Cada mañana: un tema está en trending en el nicho. Claude lo transforma en un artículo de calidad para Nebbuler en menos de 30 minutos. La ventana de oportunidad es de 24–72h. Con IA la capturas siempre.</div>
+        <div class="accion-prompt">"Hoy está en trending [tema] en [nicho de Nebbuler]. Escribe un análisis de 800 palabras con un ángulo único que nadie haya cubierto todavía. Título que genere curiosidad sin clickbait."</div>
+      </div>
+      <div class="accion-meta">
+        <span class="auto-badge verde">Automático con Claude</span>
+        <span class="time-tag">30min/día</span>
+      </div>
+    </div>
+
+    <div class="accion">
+      <div class="accion-body">
+        <div class="accion-title">Build in public · La historia de Nebbuler</div>
+        <div class="accion-desc">Compartir el journey real de construir Nebbuler — números honestos, aprendizajes, errores — genera una audiencia que invierte emocionalmente en el éxito de la plataforma y la comparte activamente. Es el contenido más viral para un fundador.</div>
+        <div class="accion-prompt">"Nebbuler tiene [N] usuarios, [N] contenidos publicados y aprendí esto esta semana: [aprendizaje]. Escribe un hilo de 8 tweets en tono honesto y personal sobre este journey. El último tweet termina con una invitación a unirse a Nebbuler."</div>
+      </div>
+      <div class="accion-meta">
+        <span class="auto-badge verde">Automático con Claude</span>
+        <span class="time-tag">1h/semana</span>
+      </div>
+    </div>
+
+    <div class="accion">
+      <div class="accion-body">
+        <div class="accion-title">Simular el impacto antes de publicar</div>
+        <div class="accion-desc">Antes de publicar cualquier pieza importante, Claude actúa como 5 personas distintas y predice cómo van a reaccionar. Detectas los puntos débiles y ajustas antes de lanzar. Es el MiroFish de bolsillo.</div>
+        <div class="accion-prompt">"Eres 5 lectores distintos de [nicho]: un experto escéptico, un principiante curioso, un competidor, un entusiasta y alguien que lo ve por primera vez. Lee este contenido y dime: ¿lo compartirías? ¿Qué cambiarías del título? ¿Qué frase te generó más impacto?"</div>
+      </div>
+      <div class="accion-meta">
+        <span class="auto-badge verde">Automático con Claude</span>
+        <span class="time-tag">15min/contenido</span>
+      </div>
+    </div>
+  </div>
+
+  <hr class="sep">
+
+  <!-- BLOQUE 2 -->
+  <div class="bloque">
+    <div class="bloque-header">
+      <span class="bloque-num">02</span>
+      <span class="bloque-title">Distribución automática</span>
+      <span class="bloque-freq">Por cada publicación</span>
+    </div>
+
+    <div class="nocode-box">
+      <strong>Cómo funciona</strong>
+      <p>Claude transforma cada contenido publicado en Nebbuler al formato correcto de cada plataforma. Tú lo programas en Postiz (ya instalado) o lo copias directamente. Un contenido → diez canales → cero trabajo extra.</p>
+    </div>
+
+    <div class="accion">
+      <div class="accion-body">
+        <div class="accion-title">Un post → diez formatos automáticos</div>
+        <div class="accion-desc">Cada contenido de Nebbuler se convierte en: hilo de X, post de LinkedIn, respuesta de Reddit, extracto de newsletter, y resumen para Discord — cada uno con el tono correcto de la plataforma. Claude hace todo el trabajo de adaptación.</div>
+        <div class="accion-prompt">"Tengo este contenido publicado en Nebbuler: [pega el contenido]. Genera: (1) Hilo de 8 tweets con hook fuerte, (2) Post de LinkedIn de 200 palabras tono profesional, (3) Comentario de Reddit de 3 párrafos sin sonar a spam, (4) Párrafo de newsletter casual de 100 palabras. Incluye el link a Nebbuler en cada uno."</div>
+      </div>
+      <div class="accion-meta">
+        <span class="auto-badge verde">Automático con Claude</span>
+        <span class="time-tag">10min/contenido</span>
+      </div>
+    </div>
+
+    <div class="accion">
+      <div class="accion-body">
+        <div class="accion-title">Lanzamiento Product Hunt</div>
+        <div class="accion-desc">Product Hunt es el canal gratuito con mayor densidad de early adopters del mundo. Un buen lanzamiento puede traer 500–5.000 usuarios en 24 horas. Claude escribe todo el copy. Tú solo lo subes al formulario.</div>
+        <div class="accion-prompt">"Nebbuler es una plataforma de contenido y comunidad para [nicho]. Escribe el copy completo para el lanzamiento en Product Hunt: tagline de 60 caracteres, descripción de 260 caracteres, y el comentario del founder de 300 palabras — honesto, personal, con la historia real de por qué construí esto. Sin hype. Sin adjetivos vacíos."</div>
+      </div>
+      <div class="accion-meta">
+        <span class="auto-badge gold">Disparo único</span>
+        <span class="time-tag">Martes 7am PT</span>
+      </div>
+    </div>
+
+    <div class="accion">
+      <div class="accion-body">
+        <div class="accion-title">Show HN · Hacker News</div>
+        <div class="accion-desc">Hacker News puede generar 10.000 visitas en un día con el post correcto. La comunidad detecta y penaliza el marketing obvio — pero premia la honestidad técnica y los proyectos reales. Claude conoce exactamente el tono que funciona.</div>
+        <div class="accion-prompt">"Escribe un post de Show HN para Nebbuler. El tono debe ser técnico y honesto, sin marketing. Incluye: qué problema resuelve, por qué lo construí, qué stack usa, qué aprendí en la primera semana. Máximo 4 párrafos. Empieza con 'Show HN: Nebbuler –'"</div>
+      </div>
+      <div class="accion-meta">
+        <span class="auto-badge gold">Disparo único</span>
+        <span class="time-tag">Miércoles 9am PT</span>
+      </div>
+    </div>
+
+    <div class="accion">
+      <div class="accion-body">
+        <div class="accion-title">Infiltración de comunidades relevantes</div>
+        <div class="accion-desc">Tu audiencia ya existe en Reddit, Discord y LinkedIn. Cuando alguien hace una pregunta que Nebbuler puede responder, Claude genera una respuesta genuina y útil que menciona Nebbuler de forma natural — sin spam, con valor real.</div>
+        <div class="accion-prompt">"Esta persona en Reddit pregunta: [pega la pregunta]. Escribe una respuesta de 4 párrafos genuinamente útil que resuelva su problema. Al final, menciona de forma natural que en Nebbuler encontrarás más contenido sobre esto, con el link."</div>
+      </div>
+      <div class="accion-meta">
+        <span class="auto-badge verde">Automático con Claude</span>
+        <span class="time-tag">15min/día</span>
+      </div>
+    </div>
+  </div>
+
+  <hr class="sep">
+
+  <!-- BLOQUE 3 -->
+  <div class="bloque">
+    <div class="bloque-header">
+      <span class="bloque-num">03</span>
+      <span class="bloque-title">Red y primeros creadores</span>
+      <span class="bloque-freq">Semana 1 · Prioritario</span>
+    </div>
+
+    <div class="nocode-box">
+      <strong>Cómo funciona</strong>
+      <p>Los primeros 50 creadores de Nebbuler son el activo más valioso. Claude identifica quiénes son y escribe el mensaje de invitación personalizado para cada uno. Tú lo envías. Sin automatización, sin APIs. Solo mensajes que parecen humanos porque son humanos — asistidos por IA.</p>
+    </div>
+
+    <div class="accion">
+      <div class="accion-body">
+        <div class="accion-title">Identificar los 50 creadores correctos</div>
+        <div class="accion-desc">No necesitas llegar a millones. Necesitas llegar a las 50 personas que cada una tiene acceso a miles en tu nicho. Claude te dice exactamente dónde buscarlos y qué criterios usar para evaluarlos.</div>
+        <div class="accion-prompt">"Dame una estrategia paso a paso para encontrar a los 50 creadores más influyentes en [nicho de Nebbuler] en X y LinkedIn. ¿Qué busco en sus perfiles? ¿Qué nivel de engagement indica que son realmente influyentes y no inflados? ¿Cómo los clasifico por prioridad?"</div>
+      </div>
+      <div class="accion-meta">
+        <span class="auto-badge verde">Automático con Claude</span>
+        <span class="time-tag">2h investigación</span>
+      </div>
+    </div>
+
+    <div class="accion">
+      <div class="accion-body">
+        <div class="accion-title">Outreach personalizado · 5 por día</div>
+        <div class="accion-desc">El outreach genérico no funciona. Claude lee el perfil y los últimos posts de cada influencer y genera un mensaje que menciona algo específico de su trabajo. Tasa de respuesta objetivo: 20%. El mensaje nunca pide que compartan — pide que prueben.</div>
+        <div class="accion-prompt">"Esta persona publica sobre [tema] en X: [pega sus últimos 3 posts]. Escribe un DM de 3 párrafos que: mencione algo específico de su trabajo reciente, explique por qué Nebbuler es relevante para su audiencia, y les pida que lo prueben como Early Creator con acceso especial. Tono humano, no corporativo."</div>
+      </div>
+      <div class="accion-meta">
+        <span class="auto-badge verde">Automático con Claude</span>
+        <span class="time-tag">30min/día · 5 mensajes</span>
+      </div>
+    </div>
+
+    <div class="accion">
+      <div class="accion-body">
+        <div class="accion-title">Programa Founders Circle · Los primeros 50</div>
+        <div class="accion-desc">Badge exclusivo permanente. Nombre en la página "Sobre Nebbuler". Canal privado de Discord/Telegram. Una llamada de 20 minutos. No cuesta dinero — cuesta tiempo y atención. Los que se sienten parte de algo lo defienden y lo comparten.</div>
+        <div class="accion-prompt">"Escribe el email de bienvenida al programa 'Nebbuler Founders Circle' para los primeros 50 creadores. Debe comunicar: qué beneficios exclusivos obtienen, por qué su participación importa, y qué se espera de ellos. Tono cálido, exclusivo, honesto. Que sientan que entraron a algo especial."</div>
+      </div>
+      <div class="accion-meta">
+        <span class="auto-badge verde">Automático con Claude</span>
+        <span class="time-tag">Alto impacto · 1 vez</span>
+      </div>
+    </div>
+  </div>
+
+  <hr class="sep">
+
+  <!-- BLOQUE 4 -->
+  <div class="bloque">
+    <div class="bloque-header">
+      <span class="bloque-num">04</span>
+      <span class="bloque-title">Inteligencia semanal</span>
+      <span class="bloque-freq">Cada domingo</span>
+    </div>
+
+    <div class="accion">
+      <div class="accion-body">
+        <div class="accion-title">Informe semanal con Claude · El CMO que no tienes</div>
+        <div class="accion-desc">Cada domingo le das a Claude los números de la semana — usuarios nuevos, de dónde vienen, qué contenido funcionó — y él devuelve: 3 insights accionables, 1 hipótesis del problema principal, y el plan de 3 acciones para la semana siguiente. El lunes ya tienes el plan.</div>
+        <div class="accion-prompt">"Eres el CMO de Nebbuler. Esta semana tuvimos: [N] usuarios nuevos, los canales principales fueron [X, Y, Z], el contenido más visto fue [título], la tasa de retención a 7 días es [N%]. Analiza estos datos y dame: 3 insights accionables, cuál es el mayor problema ahora mismo y cómo lo atacarías, y las 3 acciones prioritarias para la semana que viene."</div>
+      </div>
+      <div class="accion-meta">
+        <span class="auto-badge verde">Automático con Claude</span>
+        <span class="time-tag">20min/semana</span>
+      </div>
+    </div>
+
+    <div class="accion">
+      <div class="accion-body">
+        <div class="accion-title">Análisis de competidores · Lo que puedes copiar</div>
+        <div class="accion-desc">Claude analiza qué están haciendo las plataformas similares que están creciendo, identifica sus estrategias de contenido y distribución, y te dice qué puedes aplicar en Nebbuler esta semana.</div>
+        <div class="accion-prompt">"Analiza las estrategias de crecimiento de [plataforma A] y [plataforma B] en el espacio de [nicho]. ¿Qué están haciendo en contenido, distribución y comunidad que les está funcionando? ¿Qué de eso puede adaptar Nebbuler esta semana sin presupuesto publicitario?"</div>
+      </div>
+      <div class="accion-meta">
+        <span class="auto-badge verde">Automático con Claude</span>
+        <span class="time-tag">30min/semana</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- SEMANA -->
+<div class="semana">
+  <h2>Plan semana 1</h2>
+  <div class="semana-sub">Sin tocar código · Sin configurar APIs · Solo estrategia y contenido</div>
+  <div class="dias">
+    <div class="dia">
+      <div class="dia-label">Lunes</div>
+      <div class="dia-title">Investigación y contenido base</div>
+      <div class="dia-items">
+        <div class="dia-item">Claude analiza el nicho y encuentra el content gap principal</div>
+        <div class="dia-item">Escribe el recurso definitivo del nicho</div>
+        <div class="dia-item">Publica en Nebbuler</div>
+      </div>
+    </div>
+    <div class="dia">
+      <div class="dia-label">Martes</div>
+      <div class="dia-title">Distribución del recurso definitivo</div>
+      <div class="dia-items">
+        <div class="dia-item">Claude genera los 10 formatos del contenido</div>
+        <div class="dia-item">Programar en Postiz para toda la semana</div>
+        <div class="dia-item">Publicar en 3 comunidades de Reddit relevantes</div>
+      </div>
+    </div>
+    <div class="dia">
+      <div class="dia-label">Miércoles</div>
+      <div class="dia-title">Lanzamiento PH + HN</div>
+      <div class="dia-items">
+        <div class="dia-item">Claude escribe el copy completo de Product Hunt</div>
+        <div class="dia-item">Lanzar PH a las 7am PT</div>
+        <div class="dia-item">Show HN a las 9am PT</div>
+      </div>
+    </div>
+    <div class="dia">
+      <div class="dia-label">Jueves</div>
+      <div class="dia-title">Activar superspreaders</div>
+      <div class="dia-items">
+        <div class="dia-item">Claude mapea los 50 influencers del nicho</div>
+        <div class="dia-item">5 DMs personalizados escritos por Claude</div>
+        <div class="dia-item">Abrir Founders Circle oficialmente</div>
+      </div>
+    </div>
+    <div class="dia">
+      <div class="dia-label">Viernes</div>
+      <div class="dia-title">Build in public</div>
+      <div class="dia-items">
+        <div class="dia-item">Claude escribe el hilo de semana 1 con métricas reales</div>
+        <div class="dia-item">Publicar en X y LinkedIn</div>
+        <div class="dia-item">Transformarlo en post largo en Nebbuler</div>
+      </div>
+    </div>
+    <div class="dia">
+      <div class="dia-label">Sábado</div>
+      <div class="dia-title">Comunidades y engagement</div>
+      <div class="dia-items">
+        <div class="dia-item">Monitorear respuestas del lanzamiento y contestar todo</div>
+        <div class="dia-item">5 DMs más a influencers</div>
+        <div class="dia-item">Infiltrar 2 comunidades con respuestas de valor</div>
+      </div>
+    </div>
+    <div class="dia">
+      <div class="dia-label">Domingo</div>
+      <div class="dia-title">Análisis y plan semana 2</div>
+      <div class="dia-items">
+        <div class="dia-item">Recopilar métricas de la semana</div>
+        <div class="dia-item">Informe semanal con Claude</div>
+        <div class="dia-item">Claude diseña el plan de la semana 2</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <div class="footer-brand">Nebbuler</div>
+  <div class="footer-note">Solo lo automático · Sin código · Sin tokens · Sin Vercel</div>
+</div>
+
+</body>
+</html>

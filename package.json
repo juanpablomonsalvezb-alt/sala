@@ -48,6 +48,7 @@
     "rss-parser": "^3.13.0",
     "sanitize-html": "^2.17.3",
     "satori": "^0.26.0",
+    "snoowrap": "^1.23.0",
     "stripe": "^22.1.1",
     "tailwind-merge": "^3.5.0",
     "uploadthing": "^7.7.4",

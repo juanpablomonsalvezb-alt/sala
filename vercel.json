@@ -35,6 +35,14 @@
     {
       "path": "/api/cron/health-check",
       "schedule": "0 6 * * *"
+    },
+    {
+      "path": "/api/cron/post-reddit",
+      "schedule": "0 14 */2 * *"
+    },
+    {
+      "path": "/api/cron/index-new-pages",
+      "schedule": "0 4 * * *"
     }
   ]
 }

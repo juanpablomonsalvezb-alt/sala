@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { createClient } from '@/lib/supabase/server'
+import { createServiceClient } from '@/lib/supabase/server'
 
 // Rotación de 7 keys para evitar rate limits de Gemini
 const GEMINI_KEYS = [
@@ -48,7 +48,7 @@ export async function GET(request: Request) {
   }
 
   try {
-    const supabase = await createClient()
+    const supabase = createServiceClient()
 
     // Get keywords without generated pages
     const { data: keywords, error: fetchError } = await supabase

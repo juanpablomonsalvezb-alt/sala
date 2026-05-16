@@ -3,6 +3,7 @@ import Link from 'next/link'
 import DirectorioClient from './directorio-client'
 import { allCreators } from '@/data/creators'
 import SubscribeWidget from '@/components/newsletter/SubscribeWidget'
+import SearchWidget from '@/components/search/SearchWidget'
 
 export const metadata: Metadata = {
   title: 'Directorio de Profesionales — Nebbuler',
@@ -73,6 +74,9 @@ export default function DirectorioPage() {
             <p className="font-sans text-base text-[#666] max-w-xl leading-relaxed">
               Profesionales verificados que publican análisis y cobran directamente por su conocimiento.
             </p>
+            <div className="mt-6 max-w-lg">
+              <SearchWidget placeholder="Buscar economistas, abogados, temas..." />
+            </div>
           </div>
         </div>
 

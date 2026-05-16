@@ -23,7 +23,7 @@ async function generateWithGemini(prompt: string, keyIndex = 0): Promise<string>
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         contents: [{ parts: [{ text: prompt }] }],
-        generationConfig: { maxOutputTokens: 1200, temperature: 0.7 },
+        generationConfig: { maxOutputTokens: 4000, temperature: 0.65, thinkingConfig: { thinkingBudget: 0 } },
       }),
     }
   )
@@ -36,7 +36,9 @@ async function generateWithGemini(prompt: string, keyIndex = 0): Promise<string>
     throw new Error(`Gemini ${res.status}: ${err.slice(0, 200)}`)
   }
   const data = await res.json() as { candidates?: Array<{ content?: { parts?: Array<{ text?: string }> } }> }
-  return data.candidates?.[0]?.content?.parts?.[0]?.text ?? ''
+  const raw = data.candidates?.[0]?.content?.parts?.[0]?.text ?? ''
+  // Gemini a veces envuelve el HTML en ```html ... ``` — lo removemos
+  return raw.replace(/^```html\s*/i, '').replace(/^```\s*/i, '').replace(/```\s*$/,'').trim()
 }
 
 export async function GET(request: Request) {
@@ -56,24 +58,42 @@ export async function GET(request: Request) {
       .select('id, keyword, search_volume, country_code, monthly_growth')
       .eq('status', 'detected')
       .order('monthly_growth', { ascending: false })
-      .limit(3)
+      .limit(5)
 
     if (fetchError) throw fetchError
 
     const generated = []
 
     for (const kw of keywords || []) {
-      const prompt = `Escribe un artículo profesional corto sobre "${kw.keyword}" (500-600 palabras).
+      const prompt = `Escribe un artículo profesional completo sobre "${kw.keyword}" para un sitio web de profesionales en América Latina.
 
-Estructura:
-- Título SEO fuerte: "¿Qué es ${kw.keyword}? Guía 2026"
-- Párrafo de intro con pregunta (para featured snippet)
-- 2-3 secciones clave
-- Conclusión corta
-- Una frase final de CTA
+REQUISITOS OBLIGATORIOS:
+- Mínimo 500 palabras, máximo 650 palabras. NO menos de 500 palabras.
+- Idioma: español latinoamericano
+- Tono: experto, útil, confiable
 
-Formato: HTML limpio. Solo etiquetas: <h2>, <h3>, <p>, <strong>, <em>, <ul>, <li>.
-Sin <div>, <span>, <style>, atributos inline.`
+ESTRUCTURA EXACTA (usa estas etiquetas):
+<h2>¿Qué es ${kw.keyword}? Guía Completa 2026</h2>
+<p>[Intro de 60-80 palabras con la pregunta principal respondida directamente para Google Featured Snippet]</p>
+
+<h3>[Subtítulo relevante 1]</h3>
+<p>[2-3 párrafos de 80-100 palabras cada uno explicando el tema]</p>
+<ul><li>[punto 1]</li><li>[punto 2]</li><li>[punto 3]</li></ul>
+
+<h3>[Subtítulo relevante 2]</h3>
+<p>[2 párrafos de 80-100 palabras sobre aplicaciones prácticas en LATAM]</p>
+
+<h3>[Subtítulo relevante 3]</h3>
+<p>[2 párrafos de 80-100 palabras con datos actuales y tendencias]</p>
+
+<h3>Conclusión</h3>
+<p>[Párrafo final de 60 palabras con CTA para consultar con un profesional en Nebbuler]</p>
+
+REGLAS DE FORMATO:
+- Solo etiquetas: <h2>, <h3>, <p>, <strong>, <em>, <ul>, <li>
+- Sin <div>, <span>, <style>, sin atributos inline
+- Sin markdown, sin backticks, sin comillas de código
+- Responde SOLO con el HTML, nada más antes ni después`
 
       // Verificar que no exista ya una página para este keyword+país
       const { data: existing } = await supabase

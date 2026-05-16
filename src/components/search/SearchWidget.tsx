@@ -28,6 +28,9 @@ export default function SearchWidget({ placeholder = 'Buscar contenido y creador
   const [open, setOpen] = useState(false)
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
+  const MEILI_HOST = process.env.NEXT_PUBLIC_MEILISEARCH_HOST ?? 'https://ms-ee7516776aeb-47999.sao.meilisearch.io'
+  const MEILI_KEY  = process.env.NEXT_PUBLIC_MEILISEARCH_SEARCH_KEY ?? ''
+
   const search = useCallback((q: string) => {
     if (debounceRef.current) clearTimeout(debounceRef.current)
     if (!q.trim()) { setResults([]); setOpen(false); return }
@@ -35,19 +38,39 @@ export default function SearchWidget({ placeholder = 'Buscar contenido y creador
     debounceRef.current = setTimeout(async () => {
       setLoading(true)
       try {
-        const res = await fetch(`/api/search?q=${encodeURIComponent(q)}&limit=8`)
-        if (res.ok) {
-          const data = await res.json() as SearchResponse
-          setResults(data.results)
-          setOpen(data.results.length > 0)
-        }
+        // Llama Meilisearch directamente — evita conflicto de rutas con /api/search
+        const [posts, creators] = await Promise.all([
+          fetch(`${MEILI_HOST}/indexes/posts/search`, {
+            method: 'POST',
+            headers: { 'Authorization': `Bearer ${MEILI_KEY}`, 'Content-Type': 'application/json' },
+            body: JSON.stringify({ q, limit: 5 }),
+          }).then(r => r.json()),
+          fetch(`${MEILI_HOST}/indexes/creators/search`, {
+            method: 'POST',
+            headers: { 'Authorization': `Bearer ${MEILI_KEY}`, 'Content-Type': 'application/json' },
+            body: JSON.stringify({ q, limit: 3 }),
+          }).then(r => r.json()),
+        ])
+
+        const mapped: SearchResult[] = [
+          ...(creators.hits ?? []).map((h: Record<string, string>) => ({
+            id: h.id, type: 'creator' as const, name: h.name, specialty: h.specialty,
+            url: `/${h.slug}`,
+          })),
+          ...(posts.hits ?? []).map((h: Record<string, string>) => ({
+            id: h.id, type: 'post' as const, title: h.title, creatorName: h.creator_name,
+            specialty: h.specialty, url: `/${h.creator_slug}/${h.slug}`,
+          })),
+        ]
+        setResults(mapped)
+        setOpen(mapped.length > 0)
       } catch {
         // Graceful failure
       } finally {
         setLoading(false)
       }
     }, 250)
-  }, [])
+  }, [MEILI_HOST, MEILI_KEY])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value

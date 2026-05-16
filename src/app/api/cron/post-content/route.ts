@@ -20,20 +20,6 @@ export async function GET(req: Request) {
   const supabase = adminClient()
   const today = new Date().toISOString().split('T')[0]
 
-  // Verificar que no se haya posteado contenido propio hoy (en cualquier plataforma)
-  const { data: existingPost } = await supabase
-    .from('social_posted_content')
-    .select('id')
-    .gte('posted_at', `${today}T00:00:00Z`)
-    .lt('posted_at', `${today}T23:59:59Z`)
-    .eq('success', true)
-    .limit(1)
-    .single()
-
-  if (existingPost) {
-    return NextResponse.json({ skipped: true, reason: 'Ya se publicó contenido hoy' }, { status: 200 })
-  }
-
   // Obtener template del día
   const template = getTodayTemplate()
 

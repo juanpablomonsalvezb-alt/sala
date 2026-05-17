@@ -49,16 +49,38 @@ async function submitIndexNow(urls: string[]) {
   )
 }
 
-// Submit URLs a Wayback Machine para crear snapshots indexables
-// Genera backlinks naturales desde archive.org (alta autoridad)
+// Submit URLs a Wayback Machine — fire-and-forget con timeout corto.
+// El objetivo es activar la captura; no esperamos la confirmación completa.
 async function submitToWayback(urls: string[]) {
+  // Rotar diariamente cuáles 3 URLs van a Wayback (de las prioritarias)
+  const dayOfYear = Math.floor(
+    (Date.now() - new Date(new Date().getFullYear(), 0, 0).getTime()) / 86400000
+  )
+  const startIdx = (dayOfYear * 3) % urls.length
+  const todayUrls = [
+    urls[startIdx % urls.length],
+    urls[(startIdx + 1) % urls.length],
+    urls[(startIdx + 2) % urls.length],
+  ]
+
   const results = await Promise.allSettled(
-    urls.slice(0, 10).map((url) =>
-      fetch(`https://web.archive.org/save/${url}`, {
+    todayUrls.map((url) => {
+      const controller = new AbortController()
+      const timeout = setTimeout(() => controller.abort(), 6000)
+      return fetch(`https://web.archive.org/save/${url}`, {
         method: 'GET',
         headers: { 'User-Agent': 'NebbulerBot/1.0 (+https://nebbuler.com)' },
-      }).then((r) => ({ url, status: r.status }))
-    )
+        signal: controller.signal,
+      })
+        .then((r) => {
+          clearTimeout(timeout)
+          return { url, status: r.status }
+        })
+        .catch((err) => {
+          clearTimeout(timeout)
+          return { url, status: 0, error: String(err).slice(0, 60) }
+        })
+    })
   )
   return results.map((r) =>
     r.status === 'fulfilled' ? r.value : { url: 'unknown', status: 0, error: String(r.reason) }

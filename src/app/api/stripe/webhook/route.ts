@@ -4,6 +4,62 @@ import { createServiceClient } from '@/lib/supabase/server'
 import type { Subscription } from '@/types/database'
 import { stripe } from '@/lib/stripe'
 
+// Reserva el event.id de Stripe atómicamente. Devuelve:
+//   'fresh'    → primera vez, proceder
+//   'duplicate'→ ya completado, ignorar
+//   'retry'    → reserva previa expirada (>5min), reprocesar
+//
+// Misma estrategia que el webhook de MP. Stripe reintenta hasta 72h con backoff.
+// Sin esto, cada retry crea suscripciones duplicadas en BD.
+async function reserveStripeEvent(eventId: string): Promise<'fresh' | 'duplicate' | 'retry'> {
+  const supabase = createServiceClient()
+  const TTL_MS = 5 * 60 * 1000
+
+  const { error: insertErr } = await supabase
+    .from('sala_webhook_events')
+    .insert({
+      provider:     'stripe',
+      event_id:     eventId,
+      status:       'processing',
+      attempted_at: new Date().toISOString(),
+    })
+
+  if (!insertErr) return 'fresh'
+  if (insertErr.code !== '23505') {
+    throw new Error(`reserveStripeEvent insert: ${insertErr.message}`)
+  }
+
+  const { data: existing } = await supabase
+    .from('sala_webhook_events')
+    .select('status, attempted_at')
+    .eq('provider', 'stripe')
+    .eq('event_id', eventId)
+    .maybeSingle()
+
+  const row = existing as { status?: string; attempted_at?: string } | null
+  if (row?.status === 'done') return 'duplicate'
+
+  const attemptedAt = row?.attempted_at ? new Date(row.attempted_at).getTime() : 0
+  if (Date.now() - attemptedAt > TTL_MS) {
+    await supabase
+      .from('sala_webhook_events')
+      .update({ attempted_at: new Date().toISOString() })
+      .eq('provider', 'stripe')
+      .eq('event_id', eventId)
+    return 'retry'
+  }
+  return 'duplicate'
+}
+
+async function commitStripeEvent(eventId: string): Promise<void> {
+  const supabase = createServiceClient()
+  await supabase
+    .from('sala_webhook_events')
+    .update({ status: 'done', processed_at: new Date().toISOString() })
+    .eq('provider', 'stripe')
+    .eq('event_id', eventId)
+}
+
 export async function POST(request: Request) {
   const body = await request.text()
   const signature = (await headers()).get('stripe-signature')!
@@ -18,6 +74,12 @@ export async function POST(request: Request) {
     )
   } catch {
     return new Response('Webhook error: invalid signature', { status: 400 })
+  }
+
+  // Idempotencia: reservar event.id antes de procesar
+  const reservation = await reserveStripeEvent(event.id)
+  if (reservation === 'duplicate') {
+    return new Response('OK (duplicate)', { status: 200 })
   }
 
   const supabase = createServiceClient()
@@ -59,11 +121,18 @@ export async function POST(request: Request) {
         price_clp: priceClp,
       }
 
+      // UPSERT en lugar de INSERT: si la suscripción ya existe (re-activación
+      // tras cancelación, o retry), actualizamos en vez de fallar por unique.
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const { error } = await (supabase as any).from('sala_subscriptions').insert(newSub)
+      const { error } = await (supabase as any)
+        .from('sala_subscriptions')
+        .upsert(
+          { ...newSub, cancelled_at: null, created_at: new Date().toISOString() },
+          { onConflict: 'subscriber_id,creator_id', ignoreDuplicates: false }
+        )
 
       if (error) {
-        console.error('Error insertando subscription:', error)
+        console.error('Error upsert subscription:', error)
         return new Response('Error guardando subscription', { status: 500 })
       }
 
@@ -120,5 +189,8 @@ export async function POST(request: Request) {
       break
   }
 
+  // Commit: marca el evento como 'done'. Si arriba lanzamos antes, queda
+  // 'processing' y expirará en 5min para que Stripe pueda reintentar.
+  await commitStripeEvent(event.id)
   return new Response('OK', { status: 200 })
 }

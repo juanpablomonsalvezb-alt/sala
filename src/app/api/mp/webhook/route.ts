@@ -2,6 +2,13 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createClient as createServiceSupabase } from '@supabase/supabase-js'
 import { MP_API } from '@/lib/mercadopago'
 import crypto from 'crypto'
+import {
+  PLATFORM_FEE_CLP,
+  buildEventId,
+  validatePlatformAmount,
+  parseRef,
+  parsePlatformRef,
+} from '@/lib/payments/mp-helpers'
 
 export const runtime = 'nodejs'
 export const maxDuration = 30
@@ -83,40 +90,66 @@ function verifyMPSignature(request: NextRequest): boolean {
   return crypto.timingSafeEqual(Buffer.from(computedHash), Buffer.from(receivedHash))
 }
 
-// external_reference = "subscriber_id:creator_id:price_clp"
-function parseRef(ref: string): { subscriberId: string; creatorId: string; priceCLP: number } | null {
-  const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
-  const parts = ref.split(':')
-  if (parts.length < 3) return null
-  const [subscriberId, creatorId, priceStr] = parts
-  if (!UUID.test(subscriberId) || !UUID.test(creatorId)) return null
-  if (subscriberId === creatorId) return null
-  const priceCLP = parseInt(priceStr, 10)
-  if (isNaN(priceCLP) || priceCLP <= 0) return null
-  return { subscriberId, creatorId, priceCLP }
-}
+// parseRef / parsePlatformRef: importados desde @/lib/payments/mp-helpers
 
-// external_reference = "platform:creator_id:user_id"
-function parsePlatformRef(ref: string): { creatorId: string; userId: string } | null {
-  const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
-  if (!ref.startsWith('platform:')) return null
-  const parts = ref.split(':')
-  if (parts.length < 3) return null
-  const [, creatorId, userId] = parts
-  if (!UUID.test(creatorId) || !UUID.test(userId)) return null
-  return { creatorId, userId }
-}
-
-async function markEventProcessed(eventId: string): Promise<boolean> {
+// Reserva un event_id atómicamente para evitar reentrada concurrente.
+// El COMMIT real (status='done') se hace solo si el procesamiento llega al final
+// sin lanzar. Si lanza, el registro queda como 'processing' y el siguiente
+// reintento de MP lo puede recuperar tras el TTL.
+async function reserveEvent(eventId: string): Promise<'fresh' | 'duplicate' | 'retry'> {
   const supabase = getSupabase()
-  const { error } = await supabase
+  const TTL_MS = 5 * 60 * 1000 // 5 min — MP reintenta varias veces en este rango
+
+  // Intento 1: insertar como 'processing'
+  const { error: insertErr } = await supabase
     .from('sala_webhook_events')
-    .insert({ provider: 'mercadopago', event_id: eventId })
-  if (error) {
-    if (error.code === '23505') return false
-    throw new Error(`markEventProcessed: ${error.message}`)
+    .insert({
+      provider:    'mercadopago',
+      event_id:    eventId,
+      status:      'processing',
+      attempted_at: new Date().toISOString(),
+    })
+
+  if (!insertErr) return 'fresh'
+  if (insertErr.code !== '23505') {
+    throw new Error(`reserveEvent insert: ${insertErr.message}`)
   }
-  return true
+
+  // Ya existe: chequear si está terminado o si es retry tras crash
+  const { data: existing } = await supabase
+    .from('sala_webhook_events')
+    .select('status, attempted_at')
+    .eq('provider', 'mercadopago')
+    .eq('event_id', eventId)
+    .maybeSingle()
+
+  const row = existing as { status?: string; attempted_at?: string } | null
+  if (row?.status === 'done') return 'duplicate'
+
+  // Sigue 'processing' — si han pasado más del TTL, asumimos que el intento
+  // anterior crasheó y dejamos que este reintento lo procese.
+  const attemptedAt = row?.attempted_at ? new Date(row.attempted_at).getTime() : 0
+  if (Date.now() - attemptedAt > TTL_MS) {
+    await supabase
+      .from('sala_webhook_events')
+      .update({ attempted_at: new Date().toISOString() })
+      .eq('provider', 'mercadopago')
+      .eq('event_id', eventId)
+    return 'retry'
+  }
+
+  // Otro intento concurrente está procesando ahora — devolver duplicate para
+  // que MP reintente más tarde si era distinto.
+  return 'duplicate'
+}
+
+async function commitEvent(eventId: string): Promise<void> {
+  const supabase = getSupabase()
+  await supabase
+    .from('sala_webhook_events')
+    .update({ status: 'done', processed_at: new Date().toISOString() })
+    .eq('provider', 'mercadopago')
+    .eq('event_id', eventId)
 }
 
 async function validateAmount(creatorId: string, amountPaid: number, tolerance = 0.01): Promise<boolean> {
@@ -131,9 +164,7 @@ async function validateAmount(creatorId: string, amountPaid: number, tolerance =
   return Math.abs(amountPaid - expected) <= expected * tolerance
 }
 
-function validatePlatformAmount(amountPaid: number): boolean {
-  return amountPaid >= 28000 && amountPaid <= 32000
-}
+// PLATFORM_FEE_CLP / validatePlatformAmount: importados desde @/lib/payments/mp-helpers
 
 async function activateCreatorPlan(creatorId: string, userId: string): Promise<void> {
   const supabase = getSupabase()
@@ -264,7 +295,13 @@ async function processPreapproval(preapproval: {
   return NextResponse.json({ received: true })
 }
 
+// buildEventId: importado desde @/lib/payments/mp-helpers
+// Construye un eventId único por webhook usando x-request-id (no solo data.id),
+// para que webhooks distintos del MISMO recurso (created→approved) no se traten
+// como duplicados.
+
 export async function POST(request: NextRequest) {
+  let eventId: string | null = null
   try {
     const rawBody = await request.text()
 
@@ -275,10 +312,11 @@ export async function POST(request: NextRequest) {
 
     const body = JSON.parse(rawBody)
     const { type, data, id: bodyEventId } = body
-    const eventId = `${type}:${data?.id ?? bodyEventId ?? 'unknown'}`
+    const requestId = request.headers.get('x-request-id') ?? ''
+    eventId = buildEventId(type, data?.id, bodyEventId, requestId)
 
-    const fresh = await markEventProcessed(eventId)
-    if (!fresh) {
+    const reservation = await reserveEvent(eventId)
+    if (reservation === 'duplicate') {
       return NextResponse.json({ received: true, duplicate: true })
     }
 
@@ -287,23 +325,34 @@ export async function POST(request: NextRequest) {
     // ── Pago único ───────────────────────────────────────────────────────────
     if (type === 'payment') {
       const paymentId = data?.id
-      if (!paymentId) return NextResponse.json({ received: true })
+      if (!paymentId) {
+        await commitEvent(eventId)
+        return NextResponse.json({ received: true })
+      }
 
       const res = await fetchMPWithFallback(`${MP_API}/v1/payments/${paymentId}`, mpToken)
       if (!res.ok) {
+        // NO commiteamos — el reintento de MP lo verá como 'processing' expirado y reprocesará
         console.error('[MP webhook] payment lookup failed:', res.status)
         return NextResponse.json({ error: 'MP API error' }, { status: 502 })
       }
 
       const payment = await res.json()
       const parsed = parseRef(payment.external_reference ?? '')
-      if (!parsed) return NextResponse.json({ received: true })
+      if (!parsed) {
+        await commitEvent(eventId)
+        return NextResponse.json({ received: true })
+      }
 
       if (payment.status === 'approved') {
         const amountPaid = Number(payment.transaction_amount ?? 0)
-        const amountOK = await validateAmount(parsed.creatorId, amountPaid)
-        if (!amountOK) {
-          console.error(`[MP webhook] amount mismatch: paid=${amountPaid} creator=${parsed.creatorId}`)
+        // Validación contra el precio del ref (no del creador actual) — evita race
+        // condition si el creador cambió el precio entre checkout y cobro.
+        const refPriceOK = Math.abs(amountPaid - parsed.priceCLP) <= parsed.priceCLP * 0.01
+        const creatorPriceOK = await validateAmount(parsed.creatorId, amountPaid)
+        if (!refPriceOK && !creatorPriceOK) {
+          console.error(`[MP webhook] amount mismatch: paid=${amountPaid} ref=${parsed.priceCLP} creator=${parsed.creatorId}`)
+          await commitEvent(eventId) // monto inválido es un estado final, no reintenta
           return NextResponse.json({ error: 'Amount mismatch' }, { status: 400 })
         }
         await activateSubscription(
@@ -320,21 +369,30 @@ export async function POST(request: NextRequest) {
     // ── Suscripción recurrente ────────────────────────────────────────────────
     if (type === 'subscription_preapproval') {
       const preapprovalId = data?.id
-      if (!preapprovalId) return NextResponse.json({ received: true })
+      if (!preapprovalId) {
+        await commitEvent(eventId)
+        return NextResponse.json({ received: true })
+      }
 
       const res = await fetchMPWithFallback(`${MP_API}/preapproval/${preapprovalId}`, mpToken)
       if (!res.ok) {
+        // NO commiteamos — reintento de MP reprocesará
         console.error('[MP webhook] preapproval lookup failed:', res.status)
         return NextResponse.json({ error: 'MP API error' }, { status: 502 })
       }
 
       const preapproval = await res.json()
-      return await processPreapproval(preapproval, preapprovalId)
+      const result = await processPreapproval(preapproval, preapprovalId)
+      // processPreapproval ya valida y persiste; podemos commitear
+      await commitEvent(eventId)
+      return result
     }
 
+    await commitEvent(eventId)
     return NextResponse.json({ received: true })
   } catch (err) {
     console.error('[MP webhook] error:', err)
+    // No commit → la reserva queda 'processing' y expira en 5 min para reintento
     return NextResponse.json({ error: 'Webhook processing error' }, { status: 500 })
   }
 }

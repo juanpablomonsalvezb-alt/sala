@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createServiceClient } from '@/lib/supabase/server'
+import { createClient, createServiceClient } from '@/lib/supabase/server'
 
 export const runtime = 'nodejs'
 
@@ -31,16 +31,37 @@ export async function GET(request: NextRequest) {
     return NextResponse.redirect(`${configUrl}?mp_error=access_denied`)
   }
 
-  // Validar state anti-CSRF
+  // Validar state anti-CSRF (comparación constant-time vía Buffer)
   const cookieState = request.cookies.get('mp_oauth_state')?.value
-  if (!cookieState || cookieState !== state) {
+  if (!cookieState || !state || cookieState.length !== state.length) {
+    return NextResponse.redirect(`${configUrl}?mp_error=invalid_state`)
+  }
+  // Comparación segura para evitar timing attacks
+  let stateMismatch = 0
+  for (let i = 0; i < cookieState.length; i++) {
+    stateMismatch |= cookieState.charCodeAt(i) ^ state.charCodeAt(i)
+  }
+  if (stateMismatch !== 0) {
     return NextResponse.redirect(`${configUrl}?mp_error=invalid_state`)
   }
 
-  // Extraer user_id del state
-  const userId = state.split(':')[0]
-  if (!userId) {
-    return NextResponse.redirect(`${configUrl}?mp_error=invalid_state`)
+  // userId SIEMPRE desde la sesión actual — nunca confiar en el state.
+  // El state solo sirve para CSRF; si lo usáramos como source of truth para
+  // user_id, un atacante con el state robado podría asociar su cuenta MP
+  // a la cuenta Nebbuler de la víctima (hijacking de cobros).
+  const sessionClient = await createClient()
+  const { data: { user: sessionUser } } = await sessionClient.auth.getUser()
+  if (!sessionUser) {
+    return NextResponse.redirect(`${configUrl}?mp_error=session_expired`)
+  }
+  const userId = sessionUser.id
+
+  // Defensa adicional: el user_id codificado en el state debe coincidir con la
+  // sesión actual. Si difiere → state robado/reutilizado.
+  const stateUserId = state.split(':')[0]
+  if (stateUserId !== userId) {
+    console.error('[mp/connect/callback] state user mismatch:', { stateUserId, sessionUserId: userId })
+    return NextResponse.redirect(`${configUrl}?mp_error=state_user_mismatch`)
   }
 
   const APP_ID        = process.env.MP_APP_ID

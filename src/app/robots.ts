@@ -58,7 +58,10 @@ export default function robots(): MetadataRoute.Robots {
         disallow: DISALLOWED_PATHS,
       })),
     ],
-    sitemap: ['https://nebbuler.com/sitemap.xml'],
+    sitemap: [
+      'https://nebbuler.com/sitemap.xml',
+      'https://nebbuler.com/sitemap-news.xml',
+    ],
     host: 'https://nebbuler.com',
   }
 }

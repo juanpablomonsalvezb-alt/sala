@@ -37,15 +37,47 @@ export async function generateMetadata({
   const title = `¿Cuánto gana un ${profesion.nombre} en ${pais.nombre}? [${AÑO}]`
   const description = `Salario promedio de un ${profesion.nombre} en ${pais.nombre}${salario ? `: ${promedioStr}` : ''}. Rango completo, factores que influyen y cómo aumentar tus ingresos como ${profesion.nombre}.`
 
+  // Hreflang: cada país de LATAM ve la versión "suya" en su Google local
+  const languages: Record<string, string> = {}
+  for (const p of PAISES) {
+    const localeMap: Record<string, string> = {
+      argentina: 'es-AR', chile: 'es-CL', colombia: 'es-CO', mexico: 'es-MX',
+      peru: 'es-PE', uruguay: 'es-UY', ecuador: 'es-EC', venezuela: 'es-VE',
+      bolivia: 'es-BO', paraguay: 'es-PY',
+    }
+    const locale = localeMap[p.slug]
+    if (locale) {
+      languages[locale] = `https://nebbuler.com/salario/${profesionSlug}/${p.slug}`
+    }
+  }
+
   return {
     title,
     description,
-    alternates: { canonical: `https://nebbuler.com/salario/${profesionSlug}/${paisSlug}` },
+    alternates: {
+      canonical: `https://nebbuler.com/salario/${profesionSlug}/${paisSlug}`,
+      languages,
+    },
     openGraph: {
       title,
       description,
       type: 'article',
+      locale: `es_${pais.slug.toUpperCase().slice(0, 2)}`,
       url: `https://nebbuler.com/salario/${profesionSlug}/${paisSlug}`,
+      images: [
+        {
+          url: `/api/og/salario?profesion=${profesionSlug}&pais=${paisSlug}`,
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [`/api/og/salario?profesion=${profesionSlug}&pais=${paisSlug}`],
     },
   }
 }
@@ -70,7 +102,9 @@ export default async function SalarioPage({
   // 5 países de comparación (excluir el actual)
   const paisesComparacion = PAISES.filter(p => p.slug !== paisSlug).slice(0, 5)
 
-  const jsonLd = {
+  const canonical = `https://nebbuler.com/salario/${profesionSlug}/${paisSlug}`
+
+  const faqJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
     mainEntity: [
@@ -101,12 +135,85 @@ export default async function SalarioPage({
     ],
   }
 
+  // Dataset schema — aparece en Google Dataset Search, citado por journalists/researchers
+  const datasetJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Dataset',
+    name: `Salario de ${profesion.nombreMayus} en ${pais.nombre} ${AÑO}`,
+    description: `Dataset con rangos salariales (mínimo, promedio, máximo) de ${profesion.nombre} en ${pais.nombre} para el año ${AÑO}. Fuente: ${salario.fuente}.`,
+    url: canonical,
+    keywords: [
+      `salario ${profesion.nombre} ${pais.nombre}`,
+      `cuánto gana ${profesion.nombre}`,
+      `sueldo ${profesion.nombre} ${pais.nombre}`,
+      pais.nombre,
+      profesion.nombre,
+    ],
+    creator: { '@type': 'Organization', name: 'Nebbuler', url: 'https://nebbuler.com' },
+    publisher: { '@type': 'Organization', name: 'Nebbuler', url: 'https://nebbuler.com' },
+    license: 'https://creativecommons.org/licenses/by/4.0/',
+    isAccessibleForFree: true,
+    inLanguage: 'es',
+    spatialCoverage: { '@type': 'Place', name: pais.nombre },
+    temporalCoverage: `${AÑO}`,
+    variableMeasured: [
+      { '@type': 'PropertyValue', name: 'Salario mínimo', value: salario.min, unitText: pais.moneda },
+      { '@type': 'PropertyValue', name: 'Salario promedio', value: salario.promedio, unitText: pais.moneda },
+      { '@type': 'PropertyValue', name: 'Salario máximo', value: salario.max, unitText: pais.moneda },
+    ],
+    distribution: [
+      {
+        '@type': 'DataDownload',
+        encodingFormat: 'text/html',
+        contentUrl: canonical,
+      },
+    ],
+  }
+
+  // Article schema con Speakable — Google Assistant / Alexa pueden leer en voz alta
+  const articleJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: `¿Cuánto gana un ${profesion.nombre} en ${pais.nombre}? [${AÑO}]`,
+    description: `Salario promedio: ${fmt(salario.promedio)} ${pais.moneda}/mes. Rango: ${fmt(salario.min)} a ${fmt(salario.max)}.`,
+    author: { '@type': 'Organization', name: 'Nebbuler' },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Nebbuler',
+      logo: { '@type': 'ImageObject', url: 'https://nebbuler.com/nebbuler-logo.png' },
+    },
+    datePublished: `${AÑO}-01-01`,
+    dateModified: new Date().toISOString().split('T')[0],
+    inLanguage: 'es',
+    mainEntityOfPage: canonical,
+    speakable: {
+      '@type': 'SpeakableSpecification',
+      cssSelector: ['h1', '.salario-destacado', '.salario-respuesta'],
+    },
+  }
+
+  // BreadcrumbList separado
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Inicio', item: 'https://nebbuler.com' },
+      { '@type': 'ListItem', position: 2, name: 'Salarios', item: 'https://nebbuler.com/salario' },
+      { '@type': 'ListItem', position: 3, name: `${profesion.nombreMayus} en ${pais.nombre}`, item: canonical },
+    ],
+  }
+
+  const jsonLd = [faqJsonLd, datasetJsonLd, articleJsonLd, breadcrumbJsonLd]
+
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }}
-      />
+      {jsonLd.map((schema, i) => (
+        <script
+          key={i}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: safeJsonLd(schema) }}
+        />
+      ))}
       <div className="min-h-screen bg-white">
         {/* Nav */}
         <header>

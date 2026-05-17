@@ -13,8 +13,11 @@ const INDEXNOW_KEY = 'nebbuler-indexnow-2026'
 const PRIORITY_URLS: string[] = [
   BASE,
   `${BASE}/monetizar`,
+  `${BASE}/calculadora`,
   `${BASE}/comparar`,
   `${BASE}/llms.txt`,
+  `${BASE}/rss.xml`,
+  `${BASE}/sitemap-news.xml`,
   `${BASE}/faq`,
   ...COMPETITORS.map((c) => `${BASE}/vs/${c.slug}`),
   ...GUIDES.map((g) => `${BASE}/guia/${g.slug}`),

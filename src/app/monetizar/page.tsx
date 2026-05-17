@@ -26,6 +26,18 @@ export const metadata: Metadata = {
       'Guía exhaustiva para profesionales LATAM que quieren cobrar por su conocimiento con membresías directas en moneda local.',
     url: 'https://nebbuler.com/monetizar',
     type: 'article',
+    images: [
+      {
+        url: '/api/og/page?title=' + encodeURIComponent('Cómo monetizar tu conocimiento en LATAM') + '&kicker=' + encodeURIComponent('Guía completa 2026') + '&accent=' + encodeURIComponent('5 pasos · Sin comisión variable · Moneda local'),
+        width: 1200,
+        height: 630,
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Cómo monetizar tu conocimiento en LATAM',
+    description: 'Guía completa 2026 con HowTo paso a paso.',
   },
 }
 
@@ -83,6 +95,47 @@ const HOW_TO_JSONLD = {
   ],
 }
 
+// Speakable schema — Google Assistant, Siri y Alexa pueden leer en voz alta
+const SPEAKABLE_JSONLD = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: 'Cómo monetizar tu conocimiento en LATAM',
+  url: 'https://nebbuler.com/monetizar',
+  inLanguage: 'es',
+  speakable: {
+    '@type': 'SpeakableSpecification',
+    cssSelector: ['h1', 'h2'],
+  },
+}
+
+// Course schema — aparece en Google for Education y resultados de cursos
+const COURSE_JSONLD = {
+  '@context': 'https://schema.org',
+  '@type': 'Course',
+  name: 'Cómo monetizar tu conocimiento en LATAM',
+  description:
+    'Programa práctico en 5 pasos para que profesionales latinoamericanos cobren por su expertise con membresías directas en moneda local.',
+  provider: {
+    '@type': 'Organization',
+    name: 'Nebbuler',
+    url: 'https://nebbuler.com',
+    sameAs: ['https://linkedin.com/company/nebbuler', 'https://twitter.com/nebbuler'],
+  },
+  inLanguage: 'es',
+  isAccessibleForFree: true,
+  educationalLevel: 'Profesional',
+  about: ['Creator economy', 'Membresías digitales', 'Monetización de contenido', 'América Latina'],
+  hasCourseInstance: [
+    {
+      '@type': 'CourseInstance',
+      courseMode: 'online',
+      courseWorkload: 'PT30M',
+      inLanguage: 'es',
+    },
+  ],
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+}
+
 const FAQ_JSONLD = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
@@ -132,6 +185,14 @@ export default function MonetizarPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: safeJsonLd(FAQ_JSONLD) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(SPEAKABLE_JSONLD) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(COURSE_JSONLD) }}
       />
 
       <div className="min-h-screen bg-white">

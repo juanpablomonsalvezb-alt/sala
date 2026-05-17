@@ -71,6 +71,10 @@ export const metadata: Metadata = {
   },
   robots: { index: true, follow: true },
   manifest: "/manifest.json",
+  other: {
+    // RSS feed discoverable
+    'application/rss+xml': '/rss.xml',
+  },
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
@@ -257,6 +261,21 @@ export default function RootLayout({
       lang="es"
       className={`${publicSans.variable} ${libreBaskerville.variable} ${inter.variable} ${playfair.variable} h-full`}
     >
+      <head>
+        <link rel="alternate" type="application/rss+xml" title="Nebbuler RSS" href="/rss.xml" />
+        <link rel="alternate" type="application/atom+xml" title="Nebbuler Atom" href="/rss.xml" />
+        {/* Hreflang para LATAM hispanohablante */}
+        <link rel="alternate" hrefLang="es" href="https://nebbuler.com" />
+        <link rel="alternate" hrefLang="es-419" href="https://nebbuler.com" />
+        <link rel="alternate" hrefLang="es-AR" href="https://nebbuler.com" />
+        <link rel="alternate" hrefLang="es-CL" href="https://nebbuler.com" />
+        <link rel="alternate" hrefLang="es-CO" href="https://nebbuler.com" />
+        <link rel="alternate" hrefLang="es-MX" href="https://nebbuler.com" />
+        <link rel="alternate" hrefLang="es-PE" href="https://nebbuler.com" />
+        <link rel="alternate" hrefLang="es-UY" href="https://nebbuler.com" />
+        <link rel="alternate" hrefLang="es-EC" href="https://nebbuler.com" />
+        <link rel="alternate" hrefLang="x-default" href="https://nebbuler.com" />
+      </head>
       <body className="min-h-full flex flex-col bg-white text-[#121212] font-sans antialiased">
         {UMAMI_ENABLED && (
           <script

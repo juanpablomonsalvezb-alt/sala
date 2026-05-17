@@ -28,11 +28,19 @@ export async function generateMetadata({
       description: `Compara Nebbuler y ${c.name} en pricing, monedas locales, comisiones y experiencia para creadores hispanohablantes.`,
       url: `https://nebbuler.com/vs/${slug}`,
       type: 'article',
+      images: [
+        {
+          url: `/api/og/page?title=${encodeURIComponent(`Nebbuler vs ${c.name}`)}&kicker=${encodeURIComponent('Comparativa LATAM')}&accent=${encodeURIComponent(`0% comisión variable vs ${c.commission}`)}`,
+          width: 1200,
+          height: 630,
+        },
+      ],
     },
     twitter: {
       card: 'summary_large_image',
       title: `Nebbuler vs ${c.name}`,
       description: c.migrationReason.slice(0, 180),
+      images: [`/api/og/page?title=${encodeURIComponent(`Nebbuler vs ${c.name}`)}&kicker=${encodeURIComponent('Comparativa LATAM')}`],
     },
   }
 }

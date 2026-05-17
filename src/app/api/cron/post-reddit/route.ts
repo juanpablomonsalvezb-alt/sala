@@ -20,7 +20,7 @@ const TEMPLATES: Record<string, { title: string; text: string; subreddit: string
   },
   mexico: {
     subreddit: 'mexico',
-    title: 'Los consultores mexicanos regalan su expertise en redes — ¿alguien más nota esto?',
+    title: 'Los consultores mexicanos regalamos nuestro expertise en redes — ¿alguien más nota esto?',
     text: `Soy consultor financiero. El mes pasado publiqué análisis que ayudó a ~3,000 personas a tomar decisiones. Cobré $0 por ese contenido. Vi el caso de alguien en CDMX con newsletter de finanzas personales, 180 suscriptores a $550 MXN/mes — son $99,000 pesos mensuales recurrentes. La plataforma que usa es nebbuler.com (0% comisión, pagos en pesos). ¿Alguien ha intentado algo similar? ¿Hay mercado real en México para esto?`,
   },
   argentina: {
@@ -35,42 +35,109 @@ const TEMPLATES: Record<string, { title: string; text: string; subreddit: string
   },
 }
 
-// Orden de rotación por día de la semana (0=domingo … 6=sábado)
 const ROTATION: string[] = ['chile', 'colombia', 'mexico', 'argentina', 'Entrepreneur', 'chile', 'colombia']
-
 const COOLDOWN_HOURS = 48
 
 // ---------------------------------------------------------------------------
-// Helper admin Supabase (mismo patrón que post-content)
+// Reddit API interna (sin app registration — usa la misma API del sitio web)
+// ---------------------------------------------------------------------------
+async function redditLogin(username: string, password: string): Promise<{ cookie: string; modhash: string } | null> {
+  const res = await fetch('https://www.reddit.com/api/login', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+      'Origin': 'https://www.reddit.com',
+      'Referer': 'https://www.reddit.com/login',
+    },
+    body: new URLSearchParams({
+      user: username,
+      passwd: password,
+      api_type: 'json',
+    }).toString(),
+  })
+
+  if (!res.ok) return null
+
+  const data = await res.json() as { json?: { errors?: string[][]; data?: { modhash?: string } } }
+  const errors = data?.json?.errors ?? []
+  if (errors.length > 0) {
+    console.error('[post-reddit] Login error:', errors)
+    return null
+  }
+
+  const modhash = data?.json?.data?.modhash ?? ''
+  const setCookie = res.headers.get('set-cookie') ?? ''
+  // Extraer reddit_session cookie
+  const cookie = setCookie
+    .split(',')
+    .map((c: string) => c.trim().split(';')[0])
+    .filter((c: string) => c.startsWith('reddit_session') || c.startsWith('token_v2'))
+    .join('; ')
+
+  if (!cookie && !modhash) return null
+  return { cookie, modhash }
+}
+
+async function redditSubmit(opts: {
+  cookie: string
+  modhash: string
+  subreddit: string
+  title: string
+  text: string
+}): Promise<{ ok: boolean; postId?: string; error?: string }> {
+  const res = await fetch('https://www.reddit.com/api/submit', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+      'Origin': 'https://www.reddit.com',
+      'Referer': `https://www.reddit.com/r/${opts.subreddit}/submit`,
+      'Cookie': opts.cookie,
+      'X-Modhash': opts.modhash,
+    },
+    body: new URLSearchParams({
+      api_type: 'json',
+      kind: 'self',
+      sr: opts.subreddit,
+      title: opts.title,
+      text: opts.text,
+      resubmit: 'true',
+      sendreplies: 'true',
+      uh: opts.modhash,
+    }).toString(),
+  })
+
+  const data = await res.json() as { json?: { errors?: string[][]; data?: { id?: string; url?: string } } }
+  const errors = data?.json?.errors ?? []
+  if (errors.length > 0) {
+    return { ok: false, error: errors.map((e: string[]) => e.join(': ')).join(' | ') }
+  }
+
+  const postId = data?.json?.data?.id ?? 'unknown'
+  return { ok: true, postId }
+}
+
+// ---------------------------------------------------------------------------
+// Helpers Supabase
 // ---------------------------------------------------------------------------
 function adminClient() {
   return createServiceClient()
 }
 
-// ---------------------------------------------------------------------------
-// Verificar si ya se posteó en ese subreddit en las últimas 48 h
-// ---------------------------------------------------------------------------
 async function wasPostedRecently(subreddit: string): Promise<boolean> {
   const supabase = adminClient()
   const cutoff = new Date(Date.now() - COOLDOWN_HOURS * 60 * 60 * 1000).toISOString()
-  const { data, error } = await supabase
+  const { data } = await supabase
     .from('social_posted_content')
     .select('id')
     .eq('platform', 'reddit')
-    .ilike('text', `%${subreddit}%`) // guardamos el subreddit en el campo text como prefijo
+    .ilike('text', `%${subreddit}%`)
     .gte('posted_at', cutoff)
     .limit(1)
-
-  if (error) {
-    console.error('[post-reddit] Error consultando historial:', error)
-    return false
-  }
   return (data?.length ?? 0) > 0
 }
 
-// ---------------------------------------------------------------------------
-// Guardar resultado en Supabase
-// ---------------------------------------------------------------------------
 async function saveResult(subreddit: string, title: string, success: boolean, errorMsg?: string) {
   const supabase = adminClient()
   await supabase.from('social_posted_content').insert({
@@ -87,79 +154,63 @@ async function saveResult(subreddit: string, title: string, success: boolean, er
 // Route handler
 // ---------------------------------------------------------------------------
 export async function GET(req: Request) {
-  // Auth: Vercel Cron envía el header Authorization automáticamente
   const authHeader = req.headers.get('Authorization')
   if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
     return NextResponse.json({ error: 'unauthorized' }, { status: 401 })
   }
 
-  // Early return si no hay credenciales de Reddit
-  if (
-    !process.env.REDDIT_CLIENT_ID ||
-    !process.env.REDDIT_CLIENT_SECRET ||
-    !process.env.REDDIT_USERNAME ||
-    !process.env.REDDIT_PASSWORD
-  ) {
+  if (!process.env.REDDIT_USERNAME || !process.env.REDDIT_PASSWORD) {
     return NextResponse.json({
       ok: false,
       skipped: true,
-      reason: 'Reddit credentials not configured. Set REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET, REDDIT_USERNAME and REDDIT_PASSWORD in Vercel env vars.',
+      reason: 'Reddit credentials not configured. Set REDDIT_USERNAME and REDDIT_PASSWORD in Vercel env vars.',
     })
   }
 
-  // Seleccionar subreddit por día de la semana
-  const dayOfWeek = new Date().getDay() // 0-6
+  const dayOfWeek = new Date().getDay()
   const subredditKey = ROTATION[dayOfWeek]
   const template = TEMPLATES[subredditKey]
 
-  // Verificar cooldown de 48h
   const alreadyPosted = await wasPostedRecently(subredditKey)
   if (alreadyPosted) {
     return NextResponse.json({
       ok: true,
       skipped: true,
-      reason: `Ya se posteó en r/${subredditKey} en las últimas ${COOLDOWN_HOURS}h. Cooldown activo.`,
+      reason: `Ya se posteó en r/${subredditKey} en las últimas ${COOLDOWN_HOURS}h.`,
       subreddit: subredditKey,
     })
   }
 
-  // Publicar en Reddit usando snoowrap (import dinámico para compatibilidad ESM/CJS)
   try {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    const Snoowrap = require('snoowrap')
-    const r = new Snoowrap({
-      userAgent: 'nebbuler-bot/1.0 by nebbuler',
-      clientId: process.env.REDDIT_CLIENT_ID,
-      clientSecret: process.env.REDDIT_CLIENT_SECRET,
-      username: process.env.REDDIT_USERNAME,
-      password: process.env.REDDIT_PASSWORD,
-    })
+    const session = await redditLogin(process.env.REDDIT_USERNAME, process.env.REDDIT_PASSWORD)
+    if (!session) {
+      const msg = 'Login fallido — credenciales incorrectas o cuenta bloqueada'
+      await saveResult(subredditKey, template.title, false, msg)
+      return NextResponse.json({ ok: false, error: msg }, { status: 500 })
+    }
 
-    // Publicar post de texto (selfpost)
-    const submission = await r.getSubreddit(template.subreddit).submitSelfpost({
+    const result = await redditSubmit({
+      cookie: session.cookie,
+      modhash: session.modhash,
+      subreddit: template.subreddit,
       title: template.title,
       text: template.text,
     })
 
-    const postId = (submission as unknown as { id: string }).id ?? 'unknown'
-
-    await saveResult(subredditKey, template.title, true)
+    await saveResult(subredditKey, template.title, result.ok, result.error)
 
     return NextResponse.json({
-      ok: true,
+      ok: result.ok,
       subreddit: template.subreddit,
-      postId,
-      title: template.title,
+      postId: result.postId,
+      error: result.error,
       postedAt: new Date().toISOString(),
-    })
+    }, { status: result.ok ? 200 : 500 })
+
   } catch (err) {
     const msg = err instanceof Error ? err.message : String(err)
-    console.error('[post-reddit] Error al publicar:', msg)
+    console.error('[post-reddit] Error:', msg)
     await saveResult(subredditKey, template.title, false, msg)
-
-    return NextResponse.json(
-      { ok: false, subreddit: subredditKey, error: msg },
-      { status: 500 }
-    )
+    return NextResponse.json({ ok: false, error: msg }, { status: 500 })
   }
 }

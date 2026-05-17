@@ -184,6 +184,95 @@ export async function POST(request: Request) {
       break
     }
 
+    // FIX I8: handle invoice.paid → marcar last_paid_at en renovaciones exitosas
+    case 'invoice.paid': {
+      const invoice = event.data.object as Stripe.Invoice
+      const parent = invoice.parent as Stripe.Invoice.Parent | null
+      const subscriptionId: string | null =
+        parent?.type === 'subscription_details' && parent.subscription_details?.subscription
+          ? typeof parent.subscription_details.subscription === 'string'
+            ? parent.subscription_details.subscription
+            : (parent.subscription_details.subscription as Stripe.Subscription).id
+          : null
+
+      if (!subscriptionId) break
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      await (supabase as any)
+        .from('sala_subscriptions')
+        .update({ status: 'active', last_paid_at: new Date().toISOString() })
+        .eq('stripe_subscription_id', subscriptionId)
+      break
+    }
+
+    // FIX I8: handle customer.subscription.updated → propagar pause/resume/cancel
+    case 'customer.subscription.updated': {
+      const sub = event.data.object as Stripe.Subscription
+      const map: Record<string, 'active' | 'past_due' | 'cancelled'> = {
+        active:                'active',
+        trialing:              'active',
+        past_due:              'past_due',
+        unpaid:                'past_due',
+        incomplete:            'past_due',
+        incomplete_expired:    'cancelled',
+        canceled:              'cancelled',
+        paused:                'past_due',
+      }
+      const newStatus = map[sub.status] ?? 'past_due'
+      const patch: Record<string, unknown> = { status: newStatus }
+      if (newStatus === 'cancelled') patch.cancelled_at = new Date().toISOString()
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      await (supabase as any)
+        .from('sala_subscriptions')
+        .update(patch)
+        .eq('stripe_subscription_id', sub.id)
+      break
+    }
+
+    // FIX I8: handle charge.dispute.created → cancelar suscripción asociada.
+    // Camino: dispute → payment_intent → (api dahlia) buscar invoices del PI.
+    case 'charge.dispute.created': {
+      const dispute = event.data.object as Stripe.Dispute
+      const paymentIntentId =
+        typeof dispute.payment_intent === 'string'
+          ? dispute.payment_intent
+          : dispute.payment_intent?.id ?? null
+
+      if (!paymentIntentId) break
+
+      try {
+        // En dahlia: buscar invoices por payment_intent
+        const invoices = await stripe.invoices.list({
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          payment_intent: paymentIntentId,
+          limit: 1,
+        } as any)
+
+        const invoice = invoices.data[0] as Stripe.Invoice | undefined
+        const parent = invoice?.parent as Stripe.Invoice.Parent | undefined
+        const subscriptionId =
+          parent?.type === 'subscription_details' && parent.subscription_details?.subscription
+            ? typeof parent.subscription_details.subscription === 'string'
+              ? parent.subscription_details.subscription
+              : (parent.subscription_details.subscription as Stripe.Subscription).id
+            : null
+
+        if (subscriptionId) {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          await (supabase as any)
+            .from('sala_subscriptions')
+            .update({ status: 'cancelled', cancelled_at: new Date().toISOString() })
+            .eq('stripe_subscription_id', subscriptionId)
+        } else {
+          console.warn('[stripe webhook] dispute sin subscription asociada:', dispute.id)
+        }
+      } catch (err) {
+        console.error('Error procesando dispute:', err)
+      }
+      break
+    }
+
     default:
       // Evento no manejado — se ignora de forma segura
       break

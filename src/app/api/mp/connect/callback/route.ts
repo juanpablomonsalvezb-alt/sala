@@ -98,13 +98,17 @@ export async function GET(request: NextRequest) {
     // Guardar tokens con service role (los tokens no deben ser accesibles por anon key)
     const supabase = createServiceClient()
 
+    // FIX I5: guardar expires_at para que el cron de refresh sepa cuándo renovar
+    const expiresAt = new Date(Date.now() + tokenData.expires_in * 1000).toISOString()
+
     const { error: updateError } = await supabase
       .from('sala_creators')
       .update({
-        mp_access_token:  tokenData.access_token,
-        mp_refresh_token: tokenData.refresh_token,
-        mp_user_id:       String(tokenData.user_id),
-        mp_connected_at:  new Date().toISOString(),
+        mp_access_token:     tokenData.access_token,
+        mp_refresh_token:    tokenData.refresh_token,
+        mp_user_id:          String(tokenData.user_id),
+        mp_connected_at:     new Date().toISOString(),
+        mp_token_expires_at: expiresAt,
       })
       .eq('user_id', userId)
 

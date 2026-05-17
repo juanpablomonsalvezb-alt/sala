@@ -65,23 +65,42 @@ export async function POST(request: NextRequest) {
 
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://nebbuler.com'
 
-  const price = await stripe.prices.create(
-    {
-      currency: 'clp',
-      unit_amount: creator.price_clp,
-      recurring: { interval: 'month' },
-      product_data: {
-        name: `Nebbuler — ${creator.name}`,
-        metadata: { creator_id: creator.id, creator_slug: creator.slug },
+  // FIX I9: cachear stripe_price_id por (creator, price_clp).
+  // Antes se creaba un Price nuevo en Stripe en cada checkout → catálogo
+  // contaminado con miles de prices duplicados. Ahora reusamos si el precio
+  // no cambió.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const c = creator as any
+  let priceId: string | null = c.stripe_price_id ?? null
+  const cachedPriceClp: number | null = c.stripe_price_clp ?? null
+
+  if (!priceId || cachedPriceClp !== creator.price_clp) {
+    const newPrice = await stripe.prices.create(
+      {
+        currency: 'clp',
+        unit_amount: creator.price_clp,
+        recurring: { interval: 'month' },
+        product_data: {
+          name: `Nebbuler — ${creator.name}`,
+          metadata: { creator_id: creator.id, creator_slug: creator.slug },
+        },
       },
-    },
-    { stripeAccount: creator.stripe_account_id }
-  )
+      { stripeAccount: creator.stripe_account_id }
+    )
+    priceId = newPrice.id
+
+    // Guardar para reusar la próxima vez (best-effort)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    await (supabase as any)
+      .from('sala_creators')
+      .update({ stripe_price_id: newPrice.id, stripe_price_clp: creator.price_clp })
+      .eq('id', creator.id)
+  }
 
   const session = await stripe.checkout.sessions.create(
     {
       mode: 'subscription',
-      line_items: [{ price: price.id, quantity: 1 }],
+      line_items: [{ price: priceId, quantity: 1 }],
       success_url: `${baseUrl}/${creator.slug}?suscrito=1`,
       cancel_url: `${baseUrl}/${creator.slug}`,
       metadata: {

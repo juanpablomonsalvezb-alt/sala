@@ -52,3 +52,46 @@ export function safeStringEq(a: string, b: string): boolean {
   }
   return diff === 0
 }
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Validación de firma MP — exportada para tests del fix C7
+// ─────────────────────────────────────────────────────────────────────────────
+import crypto from 'crypto'
+
+export type MPSignatureInput = {
+  signatureHeader: string  // valor del header x-signature: "ts=...,v1=..."
+  requestId: string        // valor del header x-request-id
+  dataId: string           // valor del query param data.id
+  secret: string           // MERCADOPAGO_WEBHOOK_SECRET
+  nowSec?: number          // para tests deterministas
+}
+
+export function verifyMPSignaturePure(input: MPSignatureInput): boolean {
+  const { signatureHeader, requestId, dataId, secret } = input
+
+  const tsMatch = signatureHeader.match(/ts=(\d+)/)
+  const v1Match = signatureHeader.match(/v1=([a-f0-9]+)/)
+  if (!tsMatch || !v1Match) return false
+
+  const ts = tsMatch[1]
+  const receivedHash = v1Match[1]
+
+  // FIX C7: validar longitud ANTES de timingSafeEqual (que lanza
+  // RangeError si los buffers son de distinta longitud).
+  if (receivedHash.length !== 64) return false
+
+  const nowSec = input.nowSec ?? Math.floor(Date.now() / 1000)
+  const tsSec = parseInt(ts, 10)
+  if (isNaN(tsSec) || Math.abs(nowSec - tsSec) > 300) return false
+
+  const manifest = `id:${dataId};request-id:${requestId};ts:${ts};`
+  const computedHash = crypto.createHmac('sha256', secret).update(manifest).digest('hex')
+
+  try {
+    return crypto.timingSafeEqual(Buffer.from(computedHash), Buffer.from(receivedHash))
+  } catch {
+    // Defensa en profundidad: si por alguna razón llega acá con buffers
+    // distintos (no debería tras el check de length), retornar false.
+    return false
+  }
+}

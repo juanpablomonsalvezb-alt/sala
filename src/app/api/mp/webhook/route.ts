@@ -81,6 +81,11 @@ function verifyMPSignature(request: NextRequest): boolean {
   const ts = tsMatch[1]
   const receivedHash = v1Match[1]
 
+  // FIX C7: timingSafeEqual lanza RangeError si los buffers son de distinta
+  // longitud. Una firma malformada (hash != 64 hex chars) provocaba 500 en
+  // lugar de 400. Validamos longitud primero.
+  if (receivedHash.length !== 64) return false
+
   // Anti-replay: ventana ±5 min
   const nowSec = Math.floor(Date.now() / 1000)
   const tsSec = parseInt(ts, 10)
@@ -180,17 +185,32 @@ async function activateCreatorPlan(creatorId: string, userId: string): Promise<v
   if (error) throw new Error(`activateCreatorPlan: ${error.message}`)
 }
 
-// Activa o renueva la suscripción.
-// IMPORTANTE: piso `created_at` con NOW() en cada cobro/renovación.
-// El frontend usa `created_at` como "fecha del último ciclo de pago" para
-// bloquear acceso si > 35 días (regla "día 30/31 sin renovación → bloqueo").
+// Activa o renueva la suscripción + retorna si era nueva (para enviar welcome
+// email solo en la primera activación, fix I2).
+//
+// FIX I1: ya NO pisamos created_at en renovaciones. Mantenemos last_paid_at
+// separado. created_at = primera suscripción; last_paid_at = último cobro.
+// El bloqueo a los 35 días debe leer last_paid_at, no created_at.
 async function activateSubscription(
   subscriberId: string,
   creatorId: string,
   priceCLP: number,
   mpRef: string
-): Promise<void> {
+): Promise<{ isNewSubscription: boolean }> {
   const supabase = getSupabase()
+  const now = new Date().toISOString()
+
+  // Detectar si ya existía una activa (para no re-enviar welcome email)
+  const { data: existing } = await supabase
+    .from('sala_subscriptions')
+    .select('id, status')
+    .eq('subscriber_id', subscriberId)
+    .eq('creator_id', creatorId)
+    .maybeSingle()
+
+  const row = existing as { id?: string; status?: string } | null
+  const wasActiveBefore = row?.status === 'active'
+
   const { error } = await supabase.from('sala_subscriptions').upsert(
     {
       subscriber_id:          subscriberId,
@@ -199,11 +219,14 @@ async function activateSubscription(
       stripe_subscription_id: mpRef,
       price_clp:              priceCLP,
       cancelled_at:           null,
-      created_at:             new Date().toISOString(),
+      last_paid_at:           now,
+      // NO pisamos created_at — Postgres lo respeta en UPDATE (solo se setea al INSERT)
     },
     { onConflict: 'subscriber_id,creator_id', ignoreDuplicates: false }
   )
   if (error) throw new Error(`activateSubscription: ${error.message}`)
+
+  return { isNewSubscription: !wasActiveBefore }
 }
 
 async function cancelSubscription(subscriberId: string, creatorId: string): Promise<void> {
@@ -250,39 +273,45 @@ async function processPreapproval(preapproval: {
       console.error(`[MP webhook] sub amount mismatch: ${transactionAmount} creator=${parsed.creatorId}`)
       return NextResponse.json({ error: 'Amount mismatch' }, { status: 400 })
     }
-    await activateSubscription(
+    const { isNewSubscription } = await activateSubscription(
       parsed.subscriberId,
       parsed.creatorId,
       transactionAmount,
       `mp_sub:${preapprovalId}`
     )
-    // Email de bienvenida solo en la primera activación (idempotente: si falla, no interrumpe)
-    try {
-      const supabase = getSupabase()
-      const [{ data: subscriber }, { data: creator }] = await Promise.all([
-        supabase.from('sala_profiles').select('email, full_name').eq('id', parsed.subscriberId).maybeSingle(),
-        supabase.from('sala_creators').select('username, display_name').eq('id', parsed.creatorId).maybeSingle(),
-      ])
-      const subscriberEmail = (subscriber as { email: string | null; full_name: string | null } | null)?.email
-      const creatorName = (creator as { username: string | null; display_name: string | null } | null)?.display_name ?? 'el creador'
-      const creatorUsername = (creator as { username: string | null; display_name: string | null } | null)?.username ?? ''
-      if (subscriberEmail && process.env.RESEND_API_KEY) {
-        await fetch('https://api.resend.com/emails', {
-          method: 'POST',
-          headers: {
-            Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            from: 'Nebbuler <hola@nebbuler.com>',
-            to: subscriberEmail,
-            subject: `Ya eres parte de ${creatorName} en Nebbuler`,
-            html: `<p>¡Bienvenido/a!</p><p>Tu suscripción a <strong>${creatorName}</strong> está activa. Puedes acceder al contenido en <a href="https://nebbuler.com/${creatorUsername}">nebbuler.com/${creatorUsername}</a>.</p><p>Si deseas cancelar tu suscripción, hazlo desde tu perfil en <a href="https://nebbuler.com/dashboard">nebbuler.com/dashboard</a>.</p>`,
-          }),
-        })
+    // FIX I2: welcome email SOLO en la primera activación. En renovaciones
+    // (isNewSubscription=false) o reactivaciones tras cancelación no se
+    // re-envía. Antes este código se ejecutaba en cada webhook authorized.
+    if (isNewSubscription) {
+      try {
+        const supabase = getSupabase()
+        const [{ data: subscriber }, { data: creator }] = await Promise.all([
+          supabase.from('sala_profiles').select('email, full_name').eq('id', parsed.subscriberId).maybeSingle(),
+          supabase.from('sala_creators').select('username, display_name, name, slug').eq('id', parsed.creatorId).maybeSingle(),
+        ])
+        const subscriberEmail = (subscriber as { email: string | null; full_name: string | null } | null)?.email
+        const creatorRow = creator as { username: string | null; display_name: string | null; name: string | null; slug: string | null } | null
+        // Fallback display_name → name → 'el creador'  (si columnas no existen aún en BD)
+        const creatorName = creatorRow?.display_name ?? creatorRow?.name ?? 'el creador'
+        const creatorUsername = creatorRow?.username ?? creatorRow?.slug ?? ''
+        if (subscriberEmail && process.env.RESEND_API_KEY) {
+          await fetch('https://api.resend.com/emails', {
+            method: 'POST',
+            headers: {
+              Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              from: 'Nebbuler <hola@nebbuler.com>',
+              to: subscriberEmail,
+              subject: `Ya eres parte de ${creatorName} en Nebbuler`,
+              html: `<p>¡Bienvenido/a!</p><p>Tu suscripción a <strong>${creatorName}</strong> está activa. Puedes acceder al contenido en <a href="https://nebbuler.com/${creatorUsername}">nebbuler.com/${creatorUsername}</a>.</p><p>Si deseas cancelar tu suscripción, hazlo desde tu perfil en <a href="https://nebbuler.com/dashboard">nebbuler.com/dashboard</a>.</p>`,
+            }),
+          })
+        }
+      } catch (emailErr) {
+        console.error('[MP webhook] welcome email failed:', emailErr)
       }
-    } catch (emailErr) {
-      console.error('[MP webhook] welcome email failed:', emailErr)
     }
   } else if (preapproval.status === 'paused') {
     const supabase = getSupabase()

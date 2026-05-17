@@ -152,10 +152,69 @@ sanidad contra prod" para próximas auditorías.
 - Los IMPORTANTES (I1–I10) NO fueron arreglados en esta ronda.
 - El scope NO cubierto sigue siendo NO auditado.
 
+### 2026-05-17 ronda 2 — Auditoría profunda + remediación masiva
+
+**Trigger:** "arregla todo hasta dejar impecable, sobre todo pagos y cobros".
+
+#### Scope nuevo CUBIERTO
+
+| Archivo / objeto | Hallazgos |
+|---|---|
+| `src/lib/mercadopago.ts` | Trivial, OK |
+| `src/lib/stripe.ts` | Trivial, OK |
+| `src/lib/supabase/server.ts` | OK (ya tenía SECRET_KEY fallback) |
+| Schema real de `sala_creators` en PROD | 🔴 6 columnas faltantes |
+| Schema real de `sala_subscriptions` en PROD | 🟡 faltan 3 columnas para fixes I1/reconciliación |
+| RLS de `sala_creators` | 🔴 anon podría leer mp_access_token si la migración del codebase se hubiera aplicado |
+| Constraint UNIQUE en `sala_webhook_events` | ✅ existe |
+| Constraint UNIQUE en `sala_subscriptions(subscriber_id, creator_id)` | ⚠️ no pude verificar (FK bloqueó test) — creo en migración por las dudas |
+
+#### Hallazgos críticos nuevos (descubiertos al verificar contra prod real)
+
+| # | Problema | Estado |
+|---|---|---|
+| C7 | `verifyMPSignature` lanza `RangeError` con hash de length ≠ 64 → 500 en vez de 400 | ✅ FIXEADO |
+| C8 | Migración `20260511000002_mp_connect.sql` **NUNCA aplicada en prod** → `mp_*` columns no existen → Connect mode roto + `/suscribirse/[creator]` cae al fallback → `acceptsPayments` siempre `false` | ✅ migración SQL creada (necesita aplicación manual en dashboard) |
+| C9 | Columnas `display_name`, `username` no existen en `sala_creators` → `select('username, display_name')` del welcome email falla silenciosamente | ✅ migración SQL creada + fallback a `name`/`slug` en código |
+
+#### Fixes IMPORTANTES aplicados en esta ronda
+
+| # | Fix |
+|---|---|
+| I1 | `last_paid_at` separado de `created_at`. Renovaciones ya no pisan `created_at`. (requiere migración SQL aplicada) |
+| I2 | Welcome email SOLO en `isNewSubscription=true`. Antes se reenviaba en cada renovación / reactivación. |
+| I3 | `parseRef.priceCLP` usado como source of truth para validación de monto (además del creator price), evita race condition por cambio de precio. |
+| I5 | Nuevo cron `/api/cron/refresh-mp-tokens` (diario 3am UTC) refresca tokens MP a < 14 días de expirar. `mp_token_expires_at` se guarda en callback OAuth. |
+| I6 | `mp/disconnect` ahora llama a `https://api.mercadopago.com/oauth/revoke` antes de borrar tokens (best-effort). |
+| I7 | `mp/disconnect` cuenta suscripciones activas del creador y agrega `active_subs=N` al redirect para que el dashboard muestre warning. |
+| I8 | Stripe webhook ahora maneja `invoice.paid` (last_paid_at), `customer.subscription.updated` (pause/resume/cancel), `charge.dispute.created` (cancela inmediata). |
+| I9 | `stripe.prices.create` cacheado en `stripe_price_id`. Antes creaba un Price nuevo por checkout, contaminando el catálogo Stripe. |
+
+#### Pendiente (declarado explícitamente)
+
+- I4: tokens MP en plain text. Migración usa `REVOKE SELECT` a nivel columna (protege contra lectura anon), pero NO encripta en BD. Encriptación con pgcrypto pendiente.
+- I10: rate limiting en checkout endpoints — pendiente.
+- C2/C4: tests de integración con Supabase staging — pendiente (no tenemos staging).
+- Auditar: `src/app/suscribirse/[creator]/actions.ts` (lectura completa), middleware/proxy, RLS de `sala_subscriptions`, encriptación de tokens, logs de producción.
+- Migración `20260517000001_payments_full_fix.sql` debe aplicarse en dashboard manualmente (igual que la anterior).
+
+#### Tests
+
+`npm test` — **26/26 pasan**:
+- 19 originales (C1, C5, parseRef, parsePlatformRef, safeStringEq)
+- +7 nuevos para C7 (`verifyMPSignaturePure`):
+  - acepta firma correcta
+  - rechaza hash de 8 chars (caso del bug original)
+  - rechaza hash de 63 chars (off-by-one)
+  - rechaza header sin ts/v1
+  - rechaza ts fuera de ventana ±5 min (replay attack)
+  - rechaza secret incorrecto
+  - rechaza dataId tampered
+
 ### Pendiente para próximas auditorías
 
-- Auditar scope NO cubierto (lib helpers, RLS, migrations, auth, middleware).
-- Tests de integración con Supabase local contra los webhooks.
-- Tests con fixtures de payloads reales de MP y Stripe (firmas válidas e inválidas).
-- Atacar IMPORTANTES I1–I10.
-- Revisar logs de producción para detectar bugs ya manifestados.
+- Aplicar migración `20260517000001_payments_full_fix.sql` y verificar contra prod.
+- Tests de integración con Supabase staging.
+- I4 (encriptación pgcrypto), I10 (rate limiting).
+- Auditar scope NO cubierto restante: actions.ts de suscribirse, middleware, auth endpoints.
+- Probar flujo de cobro end-to-end contra MP sandbox.

@@ -1,4 +1,5 @@
 import { describe, it, expect } from 'vitest'
+import crypto from 'crypto'
 import {
   PLATFORM_FEE_CLP,
   buildEventId,
@@ -6,6 +7,7 @@ import {
   parseRef,
   parsePlatformRef,
   safeStringEq,
+  verifyMPSignaturePure,
 } from '@/lib/payments/mp-helpers'
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -134,5 +136,112 @@ describe('FIX C3 — safeStringEq (anti timing attack en state CSRF)', () => {
 
   it('strings vacíos iguales', () => {
     expect(safeStringEq('', '')).toBe(true)
+  })
+})
+
+// ─────────────────────────────────────────────────────────────────────────────
+// FIX C7 — verifyMPSignaturePure no crashea con hash de longitud incorrecta
+// ─────────────────────────────────────────────────────────────────────────────
+describe('FIX C7 — verifyMPSignaturePure rechaza firmas malformadas sin lanzar', () => {
+  const SECRET = 'test-webhook-secret'
+  const REQUEST_ID = 'req-abc'
+  const DATA_ID = '12345'
+  const NOW = 1779000000
+  const TS = String(NOW)
+
+  // Helper para generar una firma válida
+  function validSig(): string {
+    const manifest = `id:${DATA_ID};request-id:${REQUEST_ID};ts:${TS};`
+    const hash = crypto.createHmac('sha256', SECRET).update(manifest).digest('hex')
+    return `ts=${TS},v1=${hash}`
+  }
+
+  it('acepta firma correcta', () => {
+    expect(
+      verifyMPSignaturePure({
+        signatureHeader: validSig(),
+        requestId: REQUEST_ID,
+        dataId: DATA_ID,
+        secret: SECRET,
+        nowSec: NOW,
+      })
+    ).toBe(true)
+  })
+
+  it('rechaza hash de 8 chars (caso que provocaba 500 antes del fix)', () => {
+    expect(() =>
+      verifyMPSignaturePure({
+        signatureHeader: `ts=${TS},v1=deadbeef`,
+        requestId: REQUEST_ID,
+        dataId: DATA_ID,
+        secret: SECRET,
+        nowSec: NOW,
+      })
+    ).not.toThrow()
+
+    expect(
+      verifyMPSignaturePure({
+        signatureHeader: `ts=${TS},v1=deadbeef`,
+        requestId: REQUEST_ID,
+        dataId: DATA_ID,
+        secret: SECRET,
+        nowSec: NOW,
+      })
+    ).toBe(false)
+  })
+
+  it('rechaza hash de 63 chars (off-by-one)', () => {
+    const short = 'a'.repeat(63)
+    expect(
+      verifyMPSignaturePure({
+        signatureHeader: `ts=${TS},v1=${short}`,
+        requestId: REQUEST_ID,
+        dataId: DATA_ID,
+        secret: SECRET,
+        nowSec: NOW,
+      })
+    ).toBe(false)
+  })
+
+  it('rechaza header sin ts/v1', () => {
+    expect(verifyMPSignaturePure({ signatureHeader: '', requestId: 'x', dataId: 'y', secret: SECRET, nowSec: NOW })).toBe(false)
+    expect(verifyMPSignaturePure({ signatureHeader: 'garbage', requestId: 'x', dataId: 'y', secret: SECRET, nowSec: NOW })).toBe(false)
+  })
+
+  it('rechaza ts fuera de ventana ±5 min (replay attack)', () => {
+    const oldSig = validSig()
+    expect(
+      verifyMPSignaturePure({
+        signatureHeader: oldSig,
+        requestId: REQUEST_ID,
+        dataId: DATA_ID,
+        secret: SECRET,
+        nowSec: NOW + 400, // 6.6 min después
+      })
+    ).toBe(false)
+  })
+
+  it('rechaza si secret es incorrecto', () => {
+    expect(
+      verifyMPSignaturePure({
+        signatureHeader: validSig(),
+        requestId: REQUEST_ID,
+        dataId: DATA_ID,
+        secret: 'wrong-secret',
+        nowSec: NOW,
+      })
+    ).toBe(false)
+  })
+
+  it('rechaza si dataId no coincide con el del manifest firmado', () => {
+    expect(
+      verifyMPSignaturePure({
+        signatureHeader: validSig(),
+        requestId: REQUEST_ID,
+        dataId: 'tampered-id',
+        secret: SECRET,
+        nowSec: NOW,
+      })
+    ).toBe(false)
   })
 })

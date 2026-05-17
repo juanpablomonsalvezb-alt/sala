@@ -211,10 +211,86 @@ sanidad contra prod" para próximas auditorías.
   - rechaza secret incorrecto
   - rechaza dataId tampered
 
+### 2026-05-17 ronda 3 — C10 (security crítico) descubierto y arreglado
+
+**Trigger:** verificación de migración previa reveló que REVOKE column-level NO
+funciona en Supabase. Anon key (pública, en bundle del frontend) podía leer
+`mp_access_token` de todos los creadores.
+
+**Evidencia bruta del bug:**
+```
+INSERT con SECRET: mp_access_token = "SECRET_TEST_VALUE_xyz123"
+SELECT con ANON:   [{"mp_access_token":"SECRET_TEST_VALUE_xyz123"}]   ← LEÍDO
+```
+
+**Fix C10 (migración `20260517000002_secrets_table.sql`):**
+- Nueva tabla `sala_creator_secrets` con RLS estricta SIN policies.
+- `REVOKE ALL ... FROM anon, authenticated` a nivel tabla.
+- Datos migrados con `INSERT ... SELECT ... ON CONFLICT DO NOTHING`.
+- `ALTER TABLE sala_creators DROP COLUMN mp_access_token, mp_refresh_token, mp_user_id, mp_connected_at, mp_token_expires_at`.
+- Trigger `updated_at`.
+
+**Refactor en código (6 archivos):**
+- `mp/webhook/route.ts` (resolveMPToken consulta sala_creator_secrets)
+- `mp/connect/callback/route.ts` (upsert tras OAuth)
+- `mp/disconnect/route.ts` (DELETE + revoke en MP)
+- `cron/refresh-mp-tokens/route.ts` (SELECT/UPDATE/DELETE)
+- `suscribirse/[creator]/page.tsx` (acceptsPayments check)
+- `suscribirse/[creator]/actions.ts` (split en 2 queries)
+
+**Evidencia bruta del fix:**
+```
+SELECT * con ANON:               permission denied (42501)  ✅
+SELECT específico con ANON:      permission denied (42501)  ✅
+INSERT con ANON (intento ataque): permission denied (42501)  ✅
+SELECT con SECRET:               funciona (devuelve token)  ✅
+SELECT a sala_creators.mp_access_token con SECRET: "does not exist" (column DROPed) ✅
+```
+
+**Webhook MP en producción:**
+```
+POST /api/mp/webhook con firma malformada (hash 8 chars):
+  HTTP 400 {"error":"Invalid signature"}   ← C7 confirmado
+```
+
+**Página /suscribirse/orbbi en producción:** HTTP 200, no crashea.
+
+### Resumen ejecutivo del estado de pagos
+
+| Categoría | Estado |
+|---|---|
+| Idempotencia webhook MP (C1, C2) | ✅ código + migración |
+| Idempotencia webhook Stripe (C4) | ✅ código + migración |
+| OAuth hijacking (C3) | ✅ código |
+| Firma malformada → 500 (C7) | ✅ código + verificado en prod |
+| Schema mp_* faltante (C8) | ✅ migración aplicada |
+| display_name/username faltantes (C9) | ✅ migración aplicada |
+| Anon lee tokens MP (C10) | ✅ refactor + verificado en prod con curl |
+| Legacy SUPABASE_SERVICE_ROLE_KEY (C6) | ✅ código + nueva SECRET_KEY |
+| Validación monto plataforma (C5) | ✅ tolerancia ±1% |
+| created_at pisado en renovaciones (I1) | ✅ last_paid_at separado |
+| Welcome email re-enviado (I2) | ✅ solo si isNewSubscription |
+| Validación monto contra ref (I3) | ✅ defensa en profundidad |
+| Refresh tokens MP (I5) | ✅ cron diario 3am UTC |
+| Disconnect revoca en MP (I6) | ✅ best-effort |
+| Disconnect avisa subs activas (I7) | ✅ ?active_subs=N |
+| Stripe handlers (I8: updated/dispute/paid) | ✅ implementado |
+| Stripe price_id cacheado (I9) | ✅ código + migración |
+
 ### Pendiente para próximas auditorías
 
-- Aplicar migración `20260517000001_payments_full_fix.sql` y verificar contra prod.
-- Tests de integración con Supabase staging.
-- I4 (encriptación pgcrypto), I10 (rate limiting).
-- Auditar scope NO cubierto restante: actions.ts de suscribirse, middleware, auth endpoints.
-- Probar flujo de cobro end-to-end contra MP sandbox.
+- **I4 (encriptación pgcrypto):** los tokens MP ya NO son accesibles vía API
+  pública, pero siguen en plain text en disco. Encriptar con `pgp_sym_encrypt`
+  + key en Vercel env si surge requisito de cumplimiento.
+- **I10 (rate limiting):** ningún endpoint de checkout tiene rate limit.
+  Susceptible a abuso (DOS, scrape, MP API abuse).
+- **Test de integración end-to-end con MP sandbox:** ningún test verifica el
+  ciclo completo de un cobro real. Sería ideal correr esto antes del primer
+  cobro real.
+- **Auditar scope NO cubierto restante:** middleware/proxy, endpoints
+  `/api/auth/*`, RLS de `sala_subscriptions`, RLS de `sala_profiles`.
+- **Monitoreo:** ningún dashboard de error rate o latencia de webhooks.
+- **Reconciliación:** ningún job que compare suscripciones activas en BD
+  vs suscripciones authorized en MP. Discrepancias quedan invisibles.
+- **Backup de tokens MP:** los tokens están en una sola BD. Si Supabase
+  pierde data, los creadores deben re-conectar MP.

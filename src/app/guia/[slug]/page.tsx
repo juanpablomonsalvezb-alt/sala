@@ -75,17 +75,17 @@ export default async function GuiaPage({
       '@type': 'Organization',
       name: 'Nebbuler',
       url: 'https://nebbuler.com',
-      logo: 'https://nebbuler.com/logo.png'
+      logo: 'https://nebbuler.com/nebbuler-logo.png'
     },
     publisher: {
       '@type': 'Organization',
       name: 'Nebbuler',
       url: 'https://nebbuler.com',
-      logo: { '@type': 'ImageObject', url: 'https://nebbuler.com/logo.png', width: 200, height: 60 }
+      logo: { '@type': 'ImageObject', url: 'https://nebbuler.com/nebbuler-logo.png', width: 200, height: 60 }
     },
     url: `https://nebbuler.com/guia/${slug}`,
-    datePublished: new Date().toISOString(),
-    dateModified: new Date().toISOString(),
+    datePublished: '2026-01-01',
+    dateModified: new Date().toISOString().split('T')[0],
     keywords: guide.keywords.join(', '),
     breadcrumb: {
       '@type': 'BreadcrumbList',
@@ -97,6 +97,49 @@ export default async function GuiaPage({
     },
   }
 
+  // HowTo schema — clave para Google AI Overview y citaciones en IAs
+  const howToJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name: guide.title,
+    description: guide.description,
+    totalTime: 'PT30M',
+    estimatedCost: { '@type': 'MonetaryAmount', currency: 'USD', value: '0' },
+    step: [
+      {
+        '@type': 'HowToStep',
+        position: 1,
+        name: `Identificá tu nicho como ${guide.profession}`,
+        text: `Como ${guide.profession}, tu conocimiento más valioso es el que muy pocos pueden ofrecer y muchos necesitan. Definí 1-2 sub-temas donde sos experto y tu audiencia tiene dolor real.`,
+      },
+      {
+        '@type': 'HowToStep',
+        position: 2,
+        name: 'Abrí tu sala en Nebbuler',
+        text: 'Creá tu perfil profesional en Nebbuler en menos de 5 minutos. Definí el precio mensual en tu moneda local (COP, MXN, ARS, PEN, CLP).',
+        url: 'https://nebbuler.com/abrir',
+      },
+      {
+        '@type': 'HowToStep',
+        position: 3,
+        name: 'Publicá tu primer análisis exclusivo',
+        text: 'Empezá con un análisis que demuestre tu valor. No imites a los medios masivos: ofrecé interpretación de coyuntura, opinión informada o guías prácticas que tu audiencia no encuentra gratis.',
+      },
+      {
+        '@type': 'HowToStep',
+        position: 4,
+        name: 'Distribuí en LinkedIn, X y tu newsletter gratuito',
+        text: 'Compartí extractos en redes profesionales. La tasa de conversión típica de audiencia gratuita a suscripción paga en LATAM es del 2% al 8%.',
+      },
+      {
+        '@type': 'HowToStep',
+        position: 5,
+        name: 'Mantené cadencia y mediá retención',
+        text: 'Publicá al menos 2 veces por mes para mantener la retención. Los suscriptores que reciben valor consistente renuevan al 80-90% mensual.',
+      },
+    ],
+  }
+
   const relatedGuides = GUIDES.filter(g => g.slug !== slug && g.profession === guide.profession).slice(0, 3)
 
   return (
@@ -104,6 +147,10 @@ export default async function GuiaPage({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(howToJsonLd) }}
       />
       <div className="min-h-screen bg-white">
         {/* Nav */}

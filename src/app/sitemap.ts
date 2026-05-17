@@ -4,6 +4,7 @@ import { creators as staticCreators } from '@/data/creators'
 import { PROFESSIONS, MARKETS } from '@/data/seo-matrix'
 import { TOPICS } from '@/data/seo-topics'
 import { GUIDES } from '@/data/seo-guides'
+import { COMPETITORS } from '@/data/competitors'
 import { PROFESIONES, PAISES } from '@/data/salarios'
 
 // Import generated content metadata
@@ -193,8 +194,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }))
   )
 
+  // Rutas /vs/[competidor] — comparativas programáticas
+  const vsRoutes: MetadataRoute.Sitemap = COMPETITORS.map((c) => ({
+    url: `${BASE}/vs/${c.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly' as const,
+    priority: 0.85,
+  }))
+
   return [
     { url: BASE, lastModified: new Date(), changeFrequency: 'daily', priority: 1 },
+    { url: `${BASE}/monetizar`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.95 },
     { url: `${BASE}/tendencia`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.9 },
     { url: `${BASE}/directorio`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.9 },
     { url: `${BASE}/analisis`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
@@ -202,7 +212,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${BASE}/prensa`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.75 },
     { url: `${BASE}/para-creadores`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
     { url: `${BASE}/precios`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${BASE}/comparar`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${BASE}/comparar`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.9 },
+    ...vsRoutes,
     { url: `${BASE}/demo`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.5 },
     { url: `${BASE}/terminos`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.2 },
     { url: `${BASE}/privacidad`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.2 },

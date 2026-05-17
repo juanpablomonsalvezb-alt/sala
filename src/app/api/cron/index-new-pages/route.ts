@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server'
 import { createServiceClient } from '@/lib/supabase/server'
+import { COMPETITORS } from '@/data/competitors'
+import { GUIDES } from '@/data/seo-guides'
 
 export const runtime = 'nodejs'
 export const maxDuration = 60
@@ -8,14 +10,24 @@ const INDEXNOW_FALLBACK_KEY = 'nebbuler-indexnow-2026'
 const BASE_URL = 'https://nebbuler.com'
 const SITEMAP_URL = `${BASE_URL}/sitemap.xml`
 
-// URLs estáticas hardcoded
+// URLs estáticas hardcoded + páginas pillar + comparativas + guías
 const STATIC_URLS: string[] = [
+  BASE_URL,
+  `${BASE_URL}/monetizar`,
+  `${BASE_URL}/comparar`,
+  `${BASE_URL}/para-creadores`,
+  `${BASE_URL}/precios`,
+  `${BASE_URL}/faq`,
   `${BASE_URL}/blog/plataforma-newsletter-de-pago-espanol`,
   `${BASE_URL}/blog/como-monetizar-conocimientos-economia`,
   `${BASE_URL}/blog/newsletter-de-pago-para-abogados`,
   `${BASE_URL}/blog/cobrar-analisis-financiero-online-latinoamerica`,
   `${BASE_URL}/blog/crear-newsletter-pago-sin-conocimientos-tecnicos`,
   `${BASE_URL}/tendencia`,
+  // Comparativas /vs/*
+  ...COMPETITORS.map((c) => `${BASE_URL}/vs/${c.slug}`),
+  // Guías profesionales
+  ...GUIDES.map((g) => `${BASE_URL}/guia/${g.slug}`),
 ]
 
 // ---------------------------------------------------------------------------

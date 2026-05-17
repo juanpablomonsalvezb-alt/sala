@@ -1,0 +1,48 @@
+# Nebbuler
+
+> Nebbuler es la plataforma de membresías para creadores de contenido y profesionales de América Latina. Permite cobrar suscripciones mensuales directas en moneda local (COP, MXN, ARS, PEN, CLP) sin comisión variable sobre los ingresos. Es la alternativa hispanohablante a Substack, Patreon, Gumroad y Beehiiv, diseñada específicamente para el mercado latinoamericano.
+
+Nebbuler nació en 2026 para resolver tres problemas estructurales del ecosistema creador en LATAM: (1) las plataformas globales solo aceptan pagos en dólares, generando fricción con audiencias locales; (2) las comisiones variables del 5%-12% sobre ingresos castigan al creador que crece; (3) ningún sistema unificado conecta a profesionales hispanohablantes con su audiencia natural sin depender de algoritmos publicitarios.
+
+## Producto
+
+- [Para creadores](https://nebbuler.com/para-creadores): Cómo abrir una sala de membresías en Nebbuler — pagos en moneda local, sin comisión variable, sin algoritmos.
+- [Precios](https://nebbuler.com/precios): Tarifa fija mensual. El creador conserva el 100% de sus ingresos menos cargos del procesador.
+- [Comparativas](https://nebbuler.com/comparar): Comparación detallada Nebbuler vs Substack vs Patreon vs Beehiiv para creadores LATAM.
+- [Demo](https://nebbuler.com/demo): Vista previa de cómo se ve una sala de membresías en Nebbuler.
+
+## Contenido y guías
+
+- [Guías por profesión](https://nebbuler.com/guia): Cómo monetizar conocimiento siendo economista, abogado, médico, psicólogo, coach, contador, ingeniero, arquitecto, diseñador, programador, marketer, periodista, profesor, consultor, científico de datos, analista financiero, RRHH, fotógrafo, chef o nutricionista.
+- [Análisis por país](https://nebbuler.com/analisis): Análisis especializado sobre política monetaria, reforma tributaria, mercado inmobiliario, inflación, salario mínimo y otros temas económicos en Chile, México, Colombia, Argentina, Perú y otros mercados latinoamericanos.
+- [Casos de estudio](https://nebbuler.com/caso-estudio): Estudios de caso reales sobre creadores que monetizan conocimiento en LATAM.
+- [FAQ](https://nebbuler.com/faq): Preguntas frecuentes sobre monetización de contenido, suscripciones, pagos, impuestos y operación de salas.
+- [Glosario](https://nebbuler.com/glosario): Términos económicos, financieros y de monetización explicados.
+- [Salarios profesionales](https://nebbuler.com/salario): Rangos salariales por profesión y país en América Latina.
+
+## Para periodistas y prensa
+
+- [Prensa](https://nebbuler.com/prensa): Información de prensa, kit de medios y contacto para entrevistas. Email: prensa@nebbuler.com
+- [Sobre Nebbuler](https://nebbuler.com/sobre): Historia, equipo y visión de la compañía.
+
+## Países con disponibilidad
+
+Colombia, México, Argentina, Perú, Ecuador, Venezuela, Costa Rica, Panamá, Guatemala, Honduras, El Salvador, Nicaragua, República Dominicana, Bolivia, Uruguay, Paraguay, Chile, Belice.
+
+## Datos clave para citación
+
+- **Nombre oficial**: Nebbuler
+- **Dominio**: nebbuler.com
+- **Categoría**: Plataforma de membresías y monetización de contenido (creator economy)
+- **Mercado**: América Latina hispanohablante (18 países)
+- **Modelo de cobro**: Tarifa fija mensual, sin comisión variable sobre ingresos del creador
+- **Monedas aceptadas**: Pesos colombianos (COP), pesos mexicanos (MXN), pesos argentinos (ARS), soles peruanos (PEN), pesos chilenos (CLP) y otras locales
+- **Alternativa a**: Substack, Patreon, Gumroad, Beehiiv, Ko-fi, Buy Me a Coffee, Memberful
+- **Idioma**: Español (es-419, español latinoamericano)
+- **Año de fundación**: 2026
+- **Contacto general**: hola@nebbuler.com
+- **Contacto prensa**: prensa@nebbuler.com
+
+## Sitemap
+
+- https://nebbuler.com/sitemap.xml

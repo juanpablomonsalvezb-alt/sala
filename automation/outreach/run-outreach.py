@@ -1,14 +1,16 @@
 #!/usr/bin/env python3
 """
 LinkedIn Outreach — Nebbuler
-Usa cookies de Chrome directamente, sin linkedin-api.
-Extrae publicIdentifier del navigationUrl en resultados de búsqueda.
-Límite: 20 solicitudes/día para evitar restricciones de LinkedIn.
+- Usa linkedin_api para búsqueda (Voyager /search/blended — funciona con cookies)
+- Extrae publicIdentifier del raw response (sin llamar a get_profile que falla)
+- Usa HTTP directo con cookies Chrome para enviar solicitudes (sin la bug de KeyError)
+Límite: 20 solicitudes/día.
 """
 
 import browser_cookie3, requests, json, os, time, warnings, base64
 from datetime import date
 warnings.filterwarnings('ignore')
+from linkedin_api import Linkedin
 
 BASE = 'https://www.linkedin.com'
 MAX_PER_DAY = 20
@@ -68,14 +70,18 @@ MESSAGES = {
 }
 
 
-def get_session():
+def get_session_and_api():
+    """Retorna (requests.Session, csrf_token, Linkedin API)."""
     jar = browser_cookie3.chrome(domain_name='.linkedin.com')
-    s = requests.Session()
+    cookie_jar = requests.cookies.RequestsCookieJar()
     for c in jar:
-        s.cookies.set(c.name, c.value, domain=c.domain, path=c.path or '/')
+        cookie_jar.set(c.name, c.value, domain=c.domain, path=c.path or '/')
 
-    csrf = s.cookies.get('JSESSIONID', '""').strip('"')
-    s.headers.update({
+    session = requests.Session()
+    session.cookies = cookie_jar
+    csrf = cookie_jar.get('JSESSIONID', '""').strip('"')
+
+    session.headers.update({
         'csrf-token': csrf,
         'X-RestLi-Protocol-Version': '2.0.0',
         'X-Li-Lang': 'en_US',
@@ -85,72 +91,74 @@ def get_session():
             'Chrome/124.0.0.0 Safari/537.36'
         ),
         'Accept': 'application/vnd.linkedin.normalized+json+2.1',
-        'Accept-Language': 'es-419,es;q=0.9,en;q=0.8',
+        'Accept-Language': 'es-419,es;q=0.9',
         'Referer': 'https://www.linkedin.com/',
         'Origin': 'https://www.linkedin.com',
     })
-    return s, csrf
+
+    api = Linkedin('', '', cookies=cookie_jar)
+    return session, csrf, api
 
 
-def search_people(session, query, limit=10):
-    """Busca perfiles y retorna list con public_id, name, jobtitle, location, urn."""
-    url = f'{BASE}/voyager/api/search/dash/clusters'
+def search_people_with_public_id(api, query, limit=10):
+    """
+    Usa la API interna de linkedin_api para buscar, pero extrae publicIdentifier
+    del raw response en lugar de hacer get_profile por separado.
+    """
     params = {
-        'decorationId': 'com.linkedin.voyager.dash.deco.search.SearchClusterCollection-175',
-        'count': limit,
         'filters': 'List(resultType->PEOPLE)',
         'keywords': query,
-        'origin': 'SWITCH_SEARCH_VERTICAL',
-        'q': 'all',
+        'queryContext': 'List(spellCorrectionEnabled->true)',
+        'origin': 'GLOBAL_SEARCH_HEADER',
         'start': 0,
+        'count': limit,
+        'q': 'people',
     }
     try:
-        res = session.get(url, params=params, timeout=15)
+        res = api._fetch('/search/blended', params=params)
         if res.status_code != 200:
-            print(f"  [search error] status={res.status_code}")
             return []
         data = res.json()
     except Exception as e:
-        print(f"  [search exception] {e}")
+        print(f"  [search error] {e}")
         return []
 
     results = []
-    for cluster in data.get('elements', []):
-        for item in cluster.get('items', []):
-            entity = item.get('item', {}).get('entityResult', {})
-            if not entity:
+    for element in data.get('elements', []):
+        for item in element.get('elements', []):
+            # Extraer el miniProfile del hit
+            hit = item.get('hitInfo', {})
+            search_profile = (
+                hit.get('com.linkedin.voyager.search.SearchProfile', {})
+                or hit.get('com.linkedin.voyager.search.SearchHitV2', {})
+            )
+            mini = search_profile.get('miniProfile', {})
+            if not mini:
                 continue
 
-            urn = entity.get('entityUrn', '')
-            name = entity.get('title', {}).get('text', '').strip()
-            jobtitle = entity.get('primarySubtitle', {}).get('text', '').strip()[:60]
-            location = entity.get('secondarySubtitle', {}).get('text', '').strip()
-
-            # Extraer slug de /in/username del navigationUrl
-            nav_url = entity.get('navigationUrl', '')
-            public_id = ''
-            if '/in/' in nav_url:
-                public_id = nav_url.split('/in/')[1].split('/')[0].split('?')[0]
-
-            # urn_id: última parte del URN (member ID)
+            public_id = mini.get('publicIdentifier', '')
+            first_name = mini.get('firstName', '')
+            last_name = mini.get('lastName', '')
+            name = f"{first_name} {last_name}".strip()
+            occupation = mini.get('occupation', '')[:60]
+            urn = mini.get('entityUrn', '')
             urn_id = urn.split(':')[-1] if urn else ''
 
-            if name and public_id:
+            if public_id and name:
                 results.append({
                     'urn_id': urn_id,
                     'public_id': public_id,
                     'name': name,
-                    'jobtitle': jobtitle,
-                    'location': location,
+                    'jobtitle': occupation,
+                    'location': '',
                 })
 
     return results
 
 
 def send_connection(session, csrf, public_id, message=''):
-    """Envía solicitud de conexión con mensaje opcional."""
+    """Envía solicitud de conexión con mensaje vía HTTP directo."""
     tracking_id = base64.b64encode(os.urandom(16)).decode()
-
     payload = {
         'trackingId': tracking_id,
         'message': message,
@@ -162,20 +170,17 @@ def send_connection(session, csrf, public_id, message=''):
             }
         },
     }
-
     headers = {
         'Content-Type': 'application/json',
         'accept': 'application/vnd.linkedin.normalized+json+2.1',
         'csrf-token': csrf,
     }
-
     url = f'{BASE}/voyager/api/growth/normInvitations'
     try:
         res = session.post(url, json=payload, headers=headers, timeout=15)
-        return res.status_code in (200, 201)
+        return res.status_code in (200, 201), res.status_code
     except Exception as e:
-        print(f"    [conn error] {e}")
-        return False
+        return False, str(e)
 
 
 def load_log():
@@ -205,14 +210,14 @@ def main():
 
     print(f"Iniciando outreach. Enviados hoy: {sent_today}/{MAX_PER_DAY}")
 
-    session, csrf = get_session()
+    session, csrf, api = get_session_and_api()
     if not csrf:
         print("ERROR: No se encontró JSESSIONID — abrí LinkedIn en Chrome primero.")
         return
 
     sent = sent_today
     results_log = []
-    seen_ids = {r.get('urn_id') for r in log['sent']}
+    seen_ids = {r.get('urn_id') for r in log['sent']} | {r.get('public_id') for r in log['sent']}
 
     day_offset = hash(today) % len(SEARCHES)
 
@@ -224,7 +229,7 @@ def main():
         s = SEARCHES[idx]
 
         print(f"\n[{sent}/{MAX_PER_DAY}] Buscando: \"{s['query']}\"")
-        people = search_people(session, s['query'], limit=10)
+        people = search_people_with_public_id(api, s['query'], limit=10)
         print(f"  Encontrados: {len(people)}")
 
         for person in people:
@@ -241,10 +246,10 @@ def main():
                 continue
 
             msg = MESSAGES[s['msg']].format(nombre=first_name)
-            ok = send_connection(session, csrf, public_id, message=msg)
+            ok, status = send_connection(session, csrf, public_id, message=msg)
 
             if ok:
-                print(f"  ✅ {name} | {person['jobtitle']} | {person['location']}")
+                print(f"  ✅ {name} | {person['jobtitle']} ({public_id})")
                 entry = {
                     'urn_id': urn_id,
                     'public_id': public_id,
@@ -264,7 +269,7 @@ def main():
                 # Pausa humana (20-40 seg)
                 time.sleep(20 + (hash(urn_id) % 20))
             else:
-                print(f"  [fail] {name} ({public_id})")
+                print(f"  [fail] {name} — status {status}")
                 time.sleep(5)
 
         time.sleep(8)
@@ -276,7 +281,7 @@ def main():
     if results_log:
         print("\nPerfiles contactados:")
         for r in results_log:
-            print(f"  - {r['name']} ({r['location']}) — {r['msg_type']}")
+            print(f"  - {r['name']} ({r['location'] or r['public_id']}) — {r['msg_type']}")
 
 
 if __name__ == '__main__':

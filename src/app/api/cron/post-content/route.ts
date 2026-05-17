@@ -59,9 +59,10 @@ export async function GET(req: Request) {
 
   const results: { platform: string; ok: boolean; error?: string }[] = []
 
-  // Intentar publicar en X (puede fallar si cuenta nueva — no bloquea)
+  // X pausado hasta junio 2026 — cuenta nueva bloqueada
+  const xEnabled = process.env.X_ENABLED !== 'false'
   const xLimit = await canPublish('x')
-  if (xLimit.ok) {
+  if (xEnabled && xLimit.ok) {
     try {
       await postOriginalTweet(template.text, pngBuffer)
       await incrementRateLimit('x')

@@ -14,10 +14,14 @@ export const runtime = 'nodejs'
 export const maxDuration = 30
 
 function getSupabase() {
-  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY
+  // Las legacy API keys (SUPABASE_SERVICE_ROLE_KEY, JWT) fueron deshabilitadas
+  // por Supabase el 2026-04-19. La nueva es SUPABASE_SECRET_KEY (sb_secret_*).
+  // Mantenemos fallback al legacy por si algún entorno aún no migró.
+  const serviceKey =
+    process.env.SUPABASE_SECRET_KEY ?? process.env.SUPABASE_SERVICE_ROLE_KEY
   if (!serviceKey) {
-    console.error('[MP webhook] SUPABASE_SERVICE_ROLE_KEY no configurada — abortando')
-    throw new Error('SUPABASE_SERVICE_ROLE_KEY missing')
+    console.error('[MP webhook] SUPABASE_SECRET_KEY no configurada — abortando')
+    throw new Error('SUPABASE_SECRET_KEY missing')
   }
   return createServiceSupabase(process.env.NEXT_PUBLIC_SUPABASE_URL!, serviceKey)
 }

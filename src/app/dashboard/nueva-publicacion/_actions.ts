@@ -111,7 +111,7 @@ export async function createPost(input: CreatePostInput): Promise<PostResult> {
     fetch(`${process.env.NEXT_PUBLIC_APP_URL ?? 'https://nebbuler.com'}/api/indexnow`, {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${process.env.SUPABASE_SERVICE_ROLE_KEY}`,
+        Authorization: `Bearer ${process.env.SUPABASE_SECRET_KEY ?? process.env.SUPABASE_SERVICE_ROLE_KEY}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ urls: [postUrl, `https://nebbuler.com/${creator.slug}`] }),
@@ -196,7 +196,7 @@ export async function updatePost(input: UpdatePostInput): Promise<PostResult> {
     fetch(`${process.env.NEXT_PUBLIC_APP_URL ?? 'https://nebbuler.com'}/api/indexnow`, {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${process.env.SUPABASE_SERVICE_ROLE_KEY}`,
+        Authorization: `Bearer ${process.env.SUPABASE_SECRET_KEY ?? process.env.SUPABASE_SERVICE_ROLE_KEY}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ urls: [postUrl, `https://nebbuler.com/${creator.slug}`] }),

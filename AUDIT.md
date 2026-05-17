@@ -81,9 +81,59 @@
 
 **Solo se afirma:** Los 5 críticos listados existen en las líneas indicadas y los fixes aplicados se demuestran con tests específicos.
 
+### 🔴 Hallazgo POSTERIOR (detectado al verificar migración) — C6
+
+Durante la verificación de la migración en producción (con `curl` al REST API),
+Supabase respondió:
+
+```
+{"message":"Legacy API keys are disabled","hint":"Your legacy API keys (anon,
+service_role) were disabled on 2026-04-19T04:28:56.67029+00:00..."}
+```
+
+**Impacto:** Cualquier código que use `process.env.SUPABASE_SERVICE_ROLE_KEY`
+(JWT viejo) **falla en producción desde el 2026-04-19**. El webhook MP
+(`mp/webhook/route.ts:17`) solo leía esa variable → **el primer pago real
+habría llegado y la suscripción nunca se habría activado.**
+
+Verificación con datos reales del proyecto:
+- Webhooks MP procesados desde 2026-04-19: **0** (`content-range: */0`)
+- Suscripciones activas creadas en último mes: **0**
+
+**Conclusión:** sin daño financiero porque no hubo tráfico real todavía, pero
+el bug era latente y crítico para el primer cobro.
+
+**Archivos arreglados** (cambiados a `SUPABASE_SECRET_KEY ?? SUPABASE_SERVICE_ROLE_KEY`):
+
+| Archivo | Línea | Severidad |
+|---|---|---|
+| `src/app/api/mp/webhook/route.ts` | 9-18 | 🔴 Crítica (pagos) |
+| `src/app/dashboard/nueva-publicacion/_actions.ts` | 114, 199 | 🟡 Media (publicación de posts) |
+| `src/app/api/nominations/route.ts` | 62-67 | 🟡 Media |
+| `src/app/api/newsletter/construyendo/route.ts` | 27-32 | 🟡 Media |
+| `src/app/api/indexnow/route.ts` | 13-17 | 🟢 Baja (solo IndexNow ping) |
+
+**Cómo se detectó:** porque verifiqué la migración haciendo `curl` real al REST
+API de producción en lugar de asumir que funcionaba. Si solo hubiera ejecutado
+`npm test` (que pasa contra mocks/funciones puras), este bug habría quedado
+oculto.
+
+**Lección operacional:** los tests unitarios verifican lógica pura. Los bugs de
+infraestructura (keys expiradas, RLS, env vars) solo se detectan ejerciendo el
+sistema contra producción real. AUDIT.md debe incluir una sección "tests de
+sanidad contra prod" para próximas auditorías.
+
+---
+
 ### Resultado de la remediación
 
 **Tests:** `npm test` — 19/19 pasaron (`tests/mp-helpers.test.ts`).
+
+**Verificación contra producción (Supabase REST):**
+- ✅ INSERT con `status='processing'` y `attempted_at` → 200 OK
+- ✅ UPDATE a `status='done'` con `processed_at` → 200 OK
+- ✅ CHECK constraint `status IN ('processing','done')` activo → rechaza `'bogus'` con código 23514
+- ✅ DELETE → 204 No Content
 
 | # | Fix aplicado en | Test que lo demuestra |
 |---|---|---|

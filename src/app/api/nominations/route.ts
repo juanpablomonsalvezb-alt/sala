@@ -58,8 +58,12 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Use service role key if available, otherwise fall back to anon key
-    const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+    // Legacy SERVICE_ROLE_KEY (JWT) deshabilitada por Supabase 2026-04-19.
+    // Usar nueva SECRET_KEY (sb_secret_*), fallback al legacy, último a anon.
+    const serviceRoleKey =
+      process.env.SUPABASE_SECRET_KEY ||
+      process.env.SUPABASE_SERVICE_ROLE_KEY ||
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
     const supabase = createSupabaseClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       serviceRoleKey!

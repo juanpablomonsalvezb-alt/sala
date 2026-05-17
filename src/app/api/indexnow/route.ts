@@ -9,9 +9,11 @@ const INDEXNOW_ENGINES = [
 ]
 
 export async function POST(request: NextRequest) {
-  // Verificar que viene del servidor interno (no exponer públicamente)
+  // Verificar que viene del servidor interno (no exponer públicamente).
+  // Aceptamos ambas keys durante la transición Supabase legacy → secret.
   const authHeader = request.headers.get('authorization')
-  if (authHeader !== `Bearer ${process.env.SUPABASE_SERVICE_ROLE_KEY}`) {
+  const secret = process.env.SUPABASE_SECRET_KEY ?? process.env.SUPABASE_SERVICE_ROLE_KEY
+  if (!secret || authHeader !== `Bearer ${secret}`) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 

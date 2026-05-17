@@ -6,15 +6,9 @@ export const runtime = 'nodejs'
 /**
  * POST /api/mp/disconnect
  *
- * Desconecta MercadoPago del creador autenticado:
- *   1. Revoca el access_token en MP (fix I6) — el token deja de servir
- *      aunque alguien lo robe de un backup.
- *   2. Borra los tokens de la BD.
- *   3. Informa cuántas suscripciones activas quedan sin procesador (fix I7).
- *
- * Nota: las suscripciones activas NO se cancelan automáticamente porque
- * MP las cobra desde su lado mientras el preapproval esté authorized. Pero
- * sí avisamos al creador para que tome acción.
+ * 1. Revoca el access_token en MP (fix I6).
+ * 2. Borra el row de sala_creator_secrets (fix C10).
+ * 3. Reporta suscripciones activas afectadas (fix I7).
  */
 export async function POST(request: NextRequest) {
   const supabase = await createClient()
@@ -27,40 +21,40 @@ export async function POST(request: NextRequest) {
   }
 
   const service = createServiceClient()
-
-  // Leer tokens actuales y contar suscripciones activas (en paralelo)
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const db = service as any
-  const [creatorRes, subsRes] = await Promise.all([
+
+  // Buscar creator del usuario
+  const { data: creatorRow } = await db
+    .from('sala_creators')
+    .select('id')
+    .eq('user_id', user.id)
+    .maybeSingle()
+
+  const creator = creatorRow as { id: string } | null
+  if (!creator?.id) {
+    return NextResponse.json({ error: 'Creador no encontrado.' }, { status: 404 })
+  }
+
+  // Leer secret actual + contar suscripciones activas (en paralelo)
+  const [secretRes, subsRes] = await Promise.all([
     db
-      .from('sala_creators')
-      .select('id, mp_access_token, mp_user_id')
-      .eq('user_id', user.id)
+      .from('sala_creator_secrets')
+      .select('mp_access_token')
+      .eq('creator_id', creator.id)
       .maybeSingle(),
     db
       .from('sala_subscriptions')
       .select('id', { count: 'exact', head: true })
+      .eq('creator_id', creator.id)
       .eq('status', 'active'),
   ])
 
-  const creator = creatorRes.data as
-    | { id: string; mp_access_token: string | null; mp_user_id: string | null }
-    | null
-  const activeSubs = subsRes.count ?? 0
-
-  // Filtrar suscripciones activas del CREADOR específico
-  let activeSubsThisCreator = 0
-  if (creator?.id) {
-    const { count } = await db
-      .from('sala_subscriptions')
-      .select('id', { count: 'exact', head: true })
-      .eq('creator_id', creator.id)
-      .eq('status', 'active')
-    activeSubsThisCreator = count ?? 0
-  }
+  const secret = secretRes.data as { mp_access_token: string | null } | null
+  const activeSubsThisCreator = subsRes.count ?? 0
 
   // FIX I6: revocar token en MP antes de borrarlo (best-effort)
-  if (creator?.mp_access_token) {
+  if (secret?.mp_access_token) {
     try {
       await fetch('https://api.mercadopago.com/oauth/revoke', {
         method: 'POST',
@@ -68,34 +62,27 @@ export async function POST(request: NextRequest) {
         body: JSON.stringify({
           client_id:     process.env.MP_APP_ID,
           client_secret: process.env.MP_CLIENT_SECRET,
-          token:         creator.mp_access_token,
+          token:         secret.mp_access_token,
         }),
       })
     } catch (revokeErr) {
-      // No bloqueamos la desconexión si MP no responde — el creador igual
-      // quiere que borremos los tokens de nuestra BD.
       console.error('[mp/disconnect] revoke en MP falló:', revokeErr)
     }
   }
 
-  // Borrar tokens
-  const { error: updateError } = await db
-    .from('sala_creators')
-    .update({
-      mp_access_token:     null,
-      mp_refresh_token:    null,
-      mp_user_id:          null,
-      mp_connected_at:     null,
-      mp_token_expires_at: null,
-    })
-    .eq('user_id', user.id)
+  // Borrar row de secrets (FK ON DELETE CASCADE haría lo mismo si borrara
+  // sala_creators, pero acá solo borramos el secret).
+  const { error: deleteError } = await db
+    .from('sala_creator_secrets')
+    .delete()
+    .eq('creator_id', creator.id)
 
-  if (updateError) {
-    console.error('[mp/disconnect] DB error:', updateError)
+  if (deleteError) {
+    console.error('[mp/disconnect] delete secret error:', deleteError)
     return NextResponse.json({ error: 'Error al desconectar.' }, { status: 500 })
   }
 
-  // FIX I7: redirigir con info de impacto si quedan suscriptores activos
+  // FIX I7: warning si quedan suscriptores afectados
   const params = new URLSearchParams({ mp_disconnected: '1' })
   if (activeSubsThisCreator > 0) {
     params.set('active_subs', String(activeSubsThisCreator))

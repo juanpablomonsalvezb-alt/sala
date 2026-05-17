@@ -101,19 +101,38 @@ export async function GET(request: NextRequest) {
     // FIX I5: guardar expires_at para que el cron de refresh sepa cuándo renovar
     const expiresAt = new Date(Date.now() + tokenData.expires_in * 1000).toISOString()
 
-    const { error: updateError } = await supabase
+    // Necesitamos el creator.id para insertar en sala_creator_secrets
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { data: creatorRow } = await (supabase as any)
       .from('sala_creators')
-      .update({
-        mp_access_token:     tokenData.access_token,
-        mp_refresh_token:    tokenData.refresh_token,
-        mp_user_id:          String(tokenData.user_id),
-        mp_connected_at:     new Date().toISOString(),
-        mp_token_expires_at: expiresAt,
-      })
+      .select('id')
       .eq('user_id', userId)
+      .maybeSingle()
 
-    if (updateError) {
-      console.error('[mp/connect/callback] DB update error:', updateError)
+    if (!creatorRow?.id) {
+      console.error('[mp/connect/callback] creator no encontrado para user_id:', userId)
+      return NextResponse.redirect(`${configUrl}?mp_error=creator_missing`)
+    }
+
+    // C10: tokens en tabla separada (sala_creator_secrets), no en sala_creators.
+    // Upsert porque puede ser primera conexión o reconexión.
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { error: secretsError } = await (supabase as any)
+      .from('sala_creator_secrets')
+      .upsert(
+        {
+          creator_id:          creatorRow.id,
+          mp_access_token:     tokenData.access_token,
+          mp_refresh_token:    tokenData.refresh_token,
+          mp_user_id:          String(tokenData.user_id),
+          mp_connected_at:     new Date().toISOString(),
+          mp_token_expires_at: expiresAt,
+        },
+        { onConflict: 'creator_id' }
+      )
+
+    if (secretsError) {
+      console.error('[mp/connect/callback] DB secrets error:', secretsError)
       return NextResponse.redirect(`${configUrl}?mp_error=db_error`)
     }
 

@@ -36,12 +36,15 @@ export async function createCheckoutSession(creatorSlug: string): Promise<Checko
     }
   }
 
-  // Service client para leer mp_access_token (campo sensible, no expuesto a anon)
+  // C10: tokens MP viven en sala_creator_secrets (tabla separada con RLS estricta).
+  // Hacemos 2 queries en paralelo: datos públicos del creador + token desde secrets.
   const service = createServiceClient()
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const { data: creatorRaw, error: creatorError } = await (service as any)
+  const db = service as any
+
+  const { data: creatorRaw, error: creatorError } = await db
     .from('sala_creators')
-    .select('id, name, publication_name, price_clp, mp_access_token')
+    .select('id, name, publication_name, price_clp')
     .eq('slug', creatorSlug)
     .single()
 
@@ -49,16 +52,23 @@ export async function createCheckoutSession(creatorSlug: string): Promise<Checko
     return { ok: false, error: 'Creador no encontrado.' }
   }
 
-  const creator = creatorRaw as {
-    id: string
-    name: string
-    publication_name: string | null
-    price_clp: number
-    mp_access_token: string | null
+  const { data: secretRaw } = await db
+    .from('sala_creator_secrets')
+    .select('mp_access_token')
+    .eq('creator_id', creatorRaw.id)
+    .maybeSingle()
+
+  const creator = {
+    ...(creatorRaw as {
+      id: string
+      name: string
+      publication_name: string | null
+      price_clp: number
+    }),
+    mp_access_token: (secretRaw as { mp_access_token: string | null } | null)?.mp_access_token ?? null,
   }
 
   // Modelo: 100% del pago del lector va al creador.
-  // Sin cuenta MP conectada, el creador no puede recibir pagos.
   if (!creator.mp_access_token) {
     return {
       ok: false,

@@ -238,12 +238,13 @@ export default async function SuscribirsePage({
       // Verificar si tiene MP Connect activo (service client porque el token
       // es campo sensible no expuesto a anon).
       if (creator && !creator.id.startsWith('mock-')) {
+        // C10: tokens en sala_creator_secrets (tabla separada con RLS estricta)
         const service = createServiceClient()
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const { data: mpData } = await (service as any)
-          .from('sala_creators')
+          .from('sala_creator_secrets')
           .select('mp_access_token')
-          .eq('id', creator.id)
+          .eq('creator_id', creator.id)
           .maybeSingle()
         acceptsPayments = !!(mpData?.mp_access_token)
       }

@@ -34,32 +34,28 @@ export async function GET(req: Request) {
   // Threshold: tokens que expiran en los próximos 14 días
   const cutoff = new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString()
 
-  const { data: creators, error } = await db
-    .from('sala_creators')
-    .select('id, user_id, mp_refresh_token, mp_token_expires_at')
+  // C10: refresh tokens contra sala_creator_secrets (no sala_creators)
+  const { data: secrets, error } = await db
+    .from('sala_creator_secrets')
+    .select('creator_id, mp_refresh_token, mp_token_expires_at')
     .not('mp_refresh_token', 'is', null)
     .or(`mp_token_expires_at.is.null,mp_token_expires_at.lt.${cutoff}`)
-    .limit(50) // por seguridad, no más de 50 refreshes por corrida
+    .limit(50)
 
   if (error) {
     console.error('[cron/refresh-mp-tokens] query error:', error)
     return NextResponse.json({ error: 'Query error' }, { status: 500 })
   }
 
-  const results: Array<{
-    creator_id: string
-    ok: boolean
-    detail?: string
-  }> = []
+  const results: Array<{ creator_id: string; ok: boolean; detail?: string }> = []
 
-  for (const c of creators ?? []) {
-    const creator = c as {
-      id: string
-      user_id: string
+  for (const s of secrets ?? []) {
+    const row = s as {
+      creator_id: string
       mp_refresh_token: string | null
       mp_token_expires_at: string | null
     }
-    if (!creator.mp_refresh_token) continue
+    if (!row.mp_refresh_token) continue
 
     try {
       const res = await fetch('https://api.mercadopago.com/oauth/token', {
@@ -68,24 +64,18 @@ export async function GET(req: Request) {
         body: JSON.stringify({
           client_id:     APP_ID,
           client_secret: CLIENT_SECRET,
-          refresh_token: creator.mp_refresh_token,
+          refresh_token: row.mp_refresh_token,
           grant_type:    'refresh_token',
         }),
       })
 
       if (!res.ok) {
-        // Token revocado o expirado por el creador → limpiar para forzar re-OAuth
+        // Token revocado/expirado → borrar para forzar re-OAuth
         await db
-          .from('sala_creators')
-          .update({
-            mp_access_token:     null,
-            mp_refresh_token:    null,
-            mp_user_id:          null,
-            mp_connected_at:     null,
-            mp_token_expires_at: null,
-          })
-          .eq('id', creator.id)
-        results.push({ creator_id: creator.id, ok: false, detail: `refresh failed ${res.status}` })
+          .from('sala_creator_secrets')
+          .delete()
+          .eq('creator_id', row.creator_id)
+        results.push({ creator_id: row.creator_id, ok: false, detail: `refresh failed ${res.status}` })
         continue
       }
 
@@ -97,18 +87,18 @@ export async function GET(req: Request) {
 
       const expiresAt = new Date(Date.now() + data.expires_in * 1000).toISOString()
       await db
-        .from('sala_creators')
+        .from('sala_creator_secrets')
         .update({
           mp_access_token:     data.access_token,
           mp_refresh_token:    data.refresh_token,
           mp_token_expires_at: expiresAt,
         })
-        .eq('id', creator.id)
+        .eq('creator_id', row.creator_id)
 
-      results.push({ creator_id: creator.id, ok: true })
+      results.push({ creator_id: row.creator_id, ok: true })
     } catch (err) {
       results.push({
-        creator_id: creator.id,
+        creator_id: row.creator_id,
         ok: false,
         detail: err instanceof Error ? err.message.slice(0, 80) : 'unknown',
       })

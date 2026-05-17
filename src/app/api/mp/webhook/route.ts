@@ -41,8 +41,10 @@ async function resolveMPToken(request: NextRequest): Promise<string> {
 
   try {
     const supabase = getSupabase()
+    // C10: tokens viven en sala_creator_secrets (no en sala_creators).
+    // Lookup directo por mp_user_id (indexado).
     const { data } = await supabase
-      .from('sala_creators')
+      .from('sala_creator_secrets')
       .select('mp_access_token')
       .eq('mp_user_id', sellerId)
       .maybeSingle()

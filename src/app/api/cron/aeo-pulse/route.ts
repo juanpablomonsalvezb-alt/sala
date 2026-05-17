@@ -66,7 +66,7 @@ async function submitToWayback(urls: string[]) {
   const results = await Promise.allSettled(
     todayUrls.map((url) => {
       const controller = new AbortController()
-      const timeout = setTimeout(() => controller.abort(), 6000)
+      const timeout = setTimeout(() => controller.abort(), 12000)
       return fetch(`https://web.archive.org/save/${url}`, {
         method: 'GET',
         headers: { 'User-Agent': 'NebbulerBot/1.0 (+https://nebbuler.com)' },

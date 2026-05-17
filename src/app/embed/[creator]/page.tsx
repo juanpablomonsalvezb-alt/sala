@@ -190,26 +190,24 @@ export default async function EmbedPage({ params }: Props) {
             Suscribirse
           </a>
 
-          {/* Powered by */}
-          <div
+          {/* Powered by — loop viral */}
+          <a
+            href="https://nebbuler.com/abrir"
+            target="_blank"
+            rel="noopener noreferrer"
             style={{
               fontFamily: "'Public Sans', sans-serif",
               fontSize: '10px',
-              color: '#999',
+              color: '#AAAAAA',
               textAlign: 'center',
               marginTop: '-4px',
+              display: 'block',
+              textDecoration: 'none',
             }}
           >
-            Powered by{' '}
-            <a
-              href="https://nebbuler.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ color: '#999', textDecoration: 'none' }}
-            >
-              Nebbuler
-            </a>
-          </div>
+            ¿Creás contenido? Abrí tu sala en{' '}
+            <span style={{ color: '#888', fontWeight: 600 }}>Nebbuler</span>
+          </a>
         </div>
       </body>
     </html>

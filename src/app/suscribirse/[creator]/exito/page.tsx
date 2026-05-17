@@ -77,6 +77,50 @@ export default async function ExitoPage({
         >
           Explorar otros creadores
         </Link>
+
+        {/* Loop viral — compartir + invitar creadores */}
+        <div className="mt-16 w-full max-w-sm border border-[#DEDEDE] p-6 text-left">
+          <p className="font-serif text-[15px] font-bold text-[#121212] mb-1">
+            ¿También creás contenido?
+          </p>
+          <p className="font-sans text-[12px] text-[#666666] mb-4 leading-relaxed">
+            Abrí tu sala en Nebbuler. 0% comisión los primeros 6 meses. Tus suscriptores pagan en tu moneda.
+          </p>
+          <Link
+            href="/abrir"
+            className="font-sans text-[12px] font-medium text-[#C41C1C] hover:underline block mb-4"
+          >
+            Empezar gratis →
+          </Link>
+          <hr className="border-[#EBEBEB] mb-4" />
+          <p className="font-sans text-[11px] text-[#999] mb-3">Compartir con alguien que crea contenido:</p>
+          <div className="flex gap-2">
+            <a
+              href={`https://wa.me/?text=${encodeURIComponent('Acabo de suscribirme a una newsletter en Nebbuler — la plataforma de membresías para creadores LATAM con 0% comisión. Te puede interesar: https://nebbuler.com')}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-1 text-center font-sans text-[11px] font-medium py-2 border border-[#DEDEDE] text-[#121212] hover:border-[#121212] transition-colors"
+            >
+              WhatsApp
+            </a>
+            <a
+              href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent('https://nebbuler.com')}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-1 text-center font-sans text-[11px] font-medium py-2 border border-[#DEDEDE] text-[#121212] hover:border-[#121212] transition-colors"
+            >
+              LinkedIn
+            </a>
+            <a
+              href={`https://twitter.com/intent/tweet?text=${encodeURIComponent('Acabo de unirme a una sala en @nebbuler — newsletters de pago para profesionales LATAM. 0% comisión los primeros 6 meses. nebbuler.com')}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-1 text-center font-sans text-[11px] font-medium py-2 border border-[#DEDEDE] text-[#121212] hover:border-[#121212] transition-colors"
+            >
+              X
+            </a>
+          </div>
+        </div>
       </main>
 
       {/* Footer */}

@@ -80,6 +80,17 @@ export default function PaywallGate({
         <p className="text-[11px] font-sans text-[#999] mt-4 text-center leading-relaxed">
           Pago directo a {creatorName} vía MercadoPago. Nebbuler no cobra comisión sobre tu suscripción.
         </p>
+
+        {/* Badge viral — invita a otros creadores */}
+        <div className="mt-5 pt-4 border-t border-[#E0E0E0] text-center">
+          <a
+            href="https://nebbuler.com/abrir"
+            className="text-[10px] font-sans text-[#AAAAAA] hover:text-[#C41C1C] transition-colors"
+          >
+            ¿Creás contenido? Abrí tu sala gratis en{' '}
+            <span className="font-semibold text-[#888]">Nebbuler</span>
+          </a>
+        </div>
       </div>
     </>
   )

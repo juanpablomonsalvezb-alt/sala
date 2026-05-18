@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { stripe } from '@/lib/stripe'
 import { createClient } from '@/lib/supabase/server'
+import { rateLimit } from '@/lib/rate-limit'
 import type { Creator } from '@/types/database'
 
 interface CreateCheckoutBody {
@@ -28,6 +29,20 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'No autenticado' }, { status: 401 })
   }
   const userId = user.id
+
+  // Rate limit: 10 intentos de checkout por user / 10 min
+  const rl = await rateLimit({
+    bucket: 'stripe_create_checkout',
+    key: `user:${userId}`,
+    limit: 10,
+    windowSec: 600,
+  })
+  if (!rl.ok) {
+    return NextResponse.json(
+      { error: 'Demasiados intentos. Intentá de nuevo en unos minutos.', retryAfter: rl.resetIn },
+      { status: 429, headers: { 'Retry-After': String(rl.resetIn) } },
+    )
+  }
 
   const { data: creatorRaw, error: creatorError } = await supabase
     .from('sala_creators')

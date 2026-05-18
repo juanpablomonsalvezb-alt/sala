@@ -51,6 +51,14 @@
     {
       "path": "/api/cron/refresh-mp-tokens",
       "schedule": "0 3 * * *"
+    },
+    {
+      "path": "/api/cron/health-deep",
+      "schedule": "15 * * * *"
+    },
+    {
+      "path": "/api/cron/cleanup-rate-limits",
+      "schedule": "30 2 * * *"
     }
   ]
 }

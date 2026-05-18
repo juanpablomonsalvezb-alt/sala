@@ -1,0 +1,71 @@
+name: CI — protección de pagos y schema
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  protect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install deps
+        run: npm ci --legacy-peer-deps
+
+      - name: TypeScript check
+        run: npm run typecheck
+
+      - name: Unit tests (puros, sin BD)
+        run: npm test -- tests/mp-helpers.test.ts
+
+      - name: Schema regression tests (contra prod)
+        # Solo en push a main para no consumir cuota de Supabase en cada PR
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+        run: npm test -- tests/schema-protection.test.ts
+
+      - name: Static check — no legacy SERVICE_ROLE_KEY sin fallback
+        run: |
+          # Falla si algún archivo del codebase usa process.env.SUPABASE_SERVICE_ROLE_KEY
+          # sin tener SECRET_KEY como fallback en la misma línea o cerca.
+          set -e
+          BAD=$(grep -rn "SUPABASE_SERVICE_ROLE_KEY" src/ \
+            | grep -v "SECRET_KEY" \
+            | grep -v "Verifica" \
+            | grep -v "^.*//" \
+            | grep -v "^.*\* " \
+            || true)
+          if [ -n "$BAD" ]; then
+            echo "❌ Encontrados usos de SERVICE_ROLE_KEY sin fallback a SECRET_KEY:"
+            echo "$BAD"
+            exit 1
+          fi
+          echo "✅ Todos los usos de SERVICE_ROLE_KEY tienen fallback a SECRET_KEY"
+
+      - name: Static check — mp_access_token NO leído desde sala_creators
+        run: |
+          set -e
+          # Después del fix C10, mp_access_token vive en sala_creator_secrets.
+          # Si alguien vuelve a poner select('mp_access_token').from('sala_creators'), fallo.
+          BAD=$(grep -rn "sala_creators" src/ \
+            | grep "mp_access_token\|mp_refresh_token\|mp_user_id" \
+            || true)
+          if [ -n "$BAD" ]; then
+            echo "❌ mp_* leído desde sala_creators (debe ir por sala_creator_secrets):"
+            echo "$BAD"
+            exit 1
+          fi
+          echo "✅ Ningún acceso a mp_* desde sala_creators"

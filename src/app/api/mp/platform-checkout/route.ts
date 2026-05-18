@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { MP_API, getHeaders, isMPConfigured } from '@/lib/mercadopago'
+import { rateLimit, getClientIp } from '@/lib/rate-limit'
 
 const PLATFORM_FEE_CLP = 29990
 
@@ -15,6 +16,20 @@ export async function POST(request: NextRequest) {
 
   if (!user) {
     return NextResponse.json({ error: 'No autenticado' }, { status: 401 })
+  }
+
+  // Rate limit: 5 intentos de checkout por user / 5 min
+  const rl = await rateLimit({
+    bucket: 'mp_platform_checkout',
+    key: `user:${user.id}`,
+    limit: 5,
+    windowSec: 300,
+  })
+  if (!rl.ok) {
+    return NextResponse.json(
+      { error: 'Demasiados intentos. Intentá de nuevo en unos minutos.', retryAfter: rl.resetIn },
+      { status: 429, headers: { 'Retry-After': String(rl.resetIn) } },
+    )
   }
 
   const { data: creator } = await db

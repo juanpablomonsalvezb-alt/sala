@@ -54,7 +54,7 @@
     },
     {
       "path": "/api/cron/health-deep",
-      "schedule": "15 * * * *"
+      "schedule": "15 6 * * *"
     },
     {
       "path": "/api/cron/cleanup-rate-limits",

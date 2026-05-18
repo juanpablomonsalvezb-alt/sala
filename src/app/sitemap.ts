@@ -5,6 +5,7 @@ import { PROFESSIONS, MARKETS } from '@/data/seo-matrix'
 import { TOPICS } from '@/data/seo-topics'
 import { GUIDES } from '@/data/seo-guides'
 import { COMPETITORS } from '@/data/competitors'
+import { MIGRATIONS } from '@/data/migrations'
 import { PROFESIONES, PAISES } from '@/data/salarios'
 
 // Import generated content metadata
@@ -202,10 +203,22 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.85,
   }))
 
+  // Rutas /migrar-desde/[fuente] — guías de migración (alta intención)
+  const migrarRoutes: MetadataRoute.Sitemap = MIGRATIONS.map((m) => ({
+    url: `${BASE}/migrar-desde/${m.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly' as const,
+    priority: 0.9,
+  }))
+
   return [
     { url: BASE, lastModified: new Date(), changeFrequency: 'daily', priority: 1 },
     { url: `${BASE}/monetizar`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.95 },
     { url: `${BASE}/calculadora`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.9 },
+    { url: `${BASE}/informe-2026`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.9 },
+    { url: `${BASE}/roadmap`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.7 },
+    { url: `${BASE}/changelog`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.7 },
+    ...migrarRoutes,
     { url: `${BASE}/tendencia`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.9 },
     { url: `${BASE}/directorio`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.9 },
     { url: `${BASE}/analisis`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },

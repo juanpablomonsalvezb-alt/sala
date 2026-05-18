@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { COMPETITORS } from '@/data/competitors'
+import { MIGRATIONS } from '@/data/migrations'
 import { GUIDES } from '@/data/seo-guides'
 
 export const runtime = 'nodejs'
@@ -15,11 +16,15 @@ const PRIORITY_URLS: string[] = [
   `${BASE}/monetizar`,
   `${BASE}/calculadora`,
   `${BASE}/comparar`,
+  `${BASE}/informe-2026`,
+  `${BASE}/roadmap`,
+  `${BASE}/changelog`,
   `${BASE}/llms.txt`,
   `${BASE}/rss.xml`,
   `${BASE}/sitemap-news.xml`,
   `${BASE}/faq`,
   ...COMPETITORS.map((c) => `${BASE}/vs/${c.slug}`),
+  ...MIGRATIONS.map((m) => `${BASE}/migrar-desde/${m.slug}`),
   ...GUIDES.map((g) => `${BASE}/guia/${g.slug}`),
 ]
 

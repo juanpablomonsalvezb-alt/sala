@@ -6,10 +6,12 @@ import { isAuthorizedCron } from '@/lib/cron-auth'
 export const runtime = 'nodejs'
 export const maxDuration = 60
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SECRET_KEY ?? process.env.SUPABASE_SERVICE_ROLE_KEY!
-)
+function adminClient() {
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SECRET_KEY ?? process.env.SUPABASE_SERVICE_ROLE_KEY!
+  )
+}
 
 // Queries de búsqueda para detectar oportunidades virales en LATAM
 const SEARCH_QUERIES = [
@@ -127,6 +129,7 @@ export async function GET(req: Request) {
     return NextResponse.json({ error: 'unauthorized' }, { status: 401 })
   }
 
+  const supabase = adminClient()
   const results = { web: 0, errors: [] as string[], queries_run: 0 }
 
   // Rotar queries para no repetir siempre las mismas

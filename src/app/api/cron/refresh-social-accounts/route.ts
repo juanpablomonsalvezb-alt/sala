@@ -3,16 +3,21 @@ import { createClient } from '@supabase/supabase-js'
 import { getAccountFollowers } from '@/lib/x-client'
 import { isAuthorizedCron } from '@/lib/cron-auth'
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SECRET_KEY ?? process.env.SUPABASE_SERVICE_ROLE_KEY!
-)
+export const runtime = 'nodejs'
+
+function adminClient() {
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SECRET_KEY ?? process.env.SUPABASE_SERVICE_ROLE_KEY!
+  )
+}
 
 export async function GET(req: Request) {
   if (!isAuthorizedCron(req)) {
     return NextResponse.json({ error: 'unauthorized' }, { status: 401 })
   }
 
+  const supabase = adminClient()
   const { data: accounts } = await supabase
     .from('social_monitored_accounts')
     .select('*')

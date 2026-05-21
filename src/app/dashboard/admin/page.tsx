@@ -1,4 +1,5 @@
 import { redirect } from 'next/navigation'
+import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
 
 function formatCLP(n: number) {
@@ -77,6 +78,12 @@ export default async function AdminPage() {
           </div>
           <p className="text-[13px] text-[#666] font-sans capitalize">{today}</p>
         </div>
+        <Link
+          href="/dashboard/admin/invites"
+          className="bg-[#121212] text-white text-[12px] font-medium px-4 py-2 hover:bg-[#2a2a2a]"
+        >
+          Invitaciones VIP →
+        </Link>
       </div>
 
       <main className="flex-1 overflow-y-auto px-8 py-7 space-y-8">

@@ -48,12 +48,17 @@ export async function POST(request: NextRequest) {
   }
 
   // 2. Rate limit anti-fuerza-bruta: 10 intentos / 10 min por user
-  const ip = getClientIp(request.headers)
-  const rl = await rateLimit(`invite-redeem:${user.id}:${ip}`, 10, 10 * 60 * 1000)
-  if (!rl.allowed) {
+  const ip = getClientIp(request)
+  const rl = await rateLimit({
+    bucket: 'invite-redeem',
+    key: `${user.id}:${ip}`,
+    limit: 10,
+    windowSec: 10 * 60,
+  })
+  if (!rl.ok) {
     return NextResponse.json(
       { error: 'Demasiados intentos. Inténtalo más tarde.' },
-      { status: 429, headers: { 'Retry-After': String(rl.retryAfter ?? 600) } }
+      { status: 429, headers: { 'Retry-After': String(rl.resetIn ?? 600) } }
     )
   }
 

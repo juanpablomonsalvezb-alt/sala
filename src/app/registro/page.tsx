@@ -96,17 +96,23 @@ export default function RegistroPage() {
 function RegistroInner() {
   const searchParams = useSearchParams()
   const nextParam = searchParams.get('next')
+  // Si viene con ?invite=CODIGO es un VIP: siempre flujo creator → /abrir.
+  const inviteCode = searchParams.get('invite')
+  const isInviteFlow = Boolean(inviteCode)
 
-  const [path, setPath] = useState<Path>(null)
+  const [path, setPath] = useState<Path>(isInviteFlow ? 'creator' : null)
   const [authError, setAuthError] = useState<string | null>(null)
   const [linkedinLoading, setLinkedinLoading] = useState(false)
   const [googleLoading, setGoogleLoading] = useState(false)
   const [showEmailFallback, setShowEmailFallback] = useState(false)
   const [success, setSuccess] = useState(false)
 
-  // Destinos por tipo de usuario — respetan el `next` explícito si viene del paywall
+  // Destinos por tipo de usuario — respetan el `next` explícito si viene del paywall.
+  // Si es flujo de invite VIP, AMBOS botones llevan a /abrir (no a /directorio).
   const creatorDest = safeNext(nextParam, '/abrir')
-  const readerDest = safeNext(nextParam, '/directorio')
+  const readerDest = isInviteFlow
+    ? safeNext(nextParam, '/abrir')
+    : safeNext(nextParam, '/directorio')
 
   async function handleLinkedIn() {
     setLinkedinLoading(true); setAuthError(null)
@@ -121,9 +127,11 @@ function RegistroInner() {
   async function handleGoogle() {
     setGoogleLoading(true); setAuthError(null)
     const supabase = createClient()
+    // Si hay invite, forzar /abrir aunque sea OAuth Google.
+    const dest = isInviteFlow ? creatorDest : readerDest
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
-      options: { redirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(readerDest)}` },
+      options: { redirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(dest)}` },
     })
     if (error) { setAuthError(error.message); setGoogleLoading(false) }
   }
@@ -150,8 +158,15 @@ function RegistroInner() {
             </h1>
           </div>
 
+          {/* ── Banner VIP si viene con invite ── */}
+          {isInviteFlow && (
+            <div className="mb-6 bg-[#FFFBEA] border border-[#EAB308] px-4 py-3 text-[12px] text-[#7A5900] text-center">
+              <strong className="text-[#C41C1C]">Invitación VIP activa</strong> · Código <code className="font-mono">{inviteCode}</code>
+            </div>
+          )}
+
           {/* ── Selector ── */}
-          {path === null && (
+          {path === null && !isInviteFlow && (
             <div className="flex flex-col gap-4">
               <button type="button" onClick={() => setPath('reader')}
                 className="group w-full border border-[#DEDEDE] hover:border-[#121212] bg-white text-left px-7 py-7 transition-colors">
@@ -192,10 +207,22 @@ function RegistroInner() {
                 {linkedinLoading ? 'Redirigiendo…' : 'Continuar con LinkedIn'}
               </button>
 
+              <div className="flex items-center gap-3 my-4">
+                <div className="flex-1 h-px bg-[#DEDEDE]" />
+                <span className="font-sans text-[11px] text-[#999] uppercase tracking-widest">o</span>
+                <div className="flex-1 h-px bg-[#DEDEDE]" />
+              </div>
+
+              <button type="button" onClick={handleGoogle} disabled={googleLoading}
+                className="w-full border border-[#DEDEDE] bg-white text-[#121212] font-sans text-[13px] font-medium py-4 hover:border-[#121212] hover:bg-[#F7F7F7] transition-colors flex items-center justify-center gap-2.5 disabled:opacity-50">
+                <GoogleIcon />
+                {googleLoading ? 'Redirigiendo…' : 'Continuar con Google'}
+              </button>
+
               {!showEmailFallback && (
                 <button type="button" onClick={() => setShowEmailFallback(true)}
                   className="w-full mt-4 font-sans text-[11px] text-[#AAAAAA] hover:text-[#666] transition-colors text-center">
-                  ¿Problemas con LinkedIn? Registrarte con email
+                  ¿Prefieres email? Registrarte con email
                 </button>
               )}
               {showEmailFallback && <EmailFallbackForm path="creator" nextDest={creatorDest} onSuccess={() => setSuccess(true)} />}

@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
+import { cookies } from 'next/headers'
+import { INVITE_COOKIE } from '@/lib/invite-helpers'
 
 function safeRedirectPath(next: string | null): string | null {
   if (!next) return null
@@ -23,6 +25,14 @@ export async function GET(request: Request) {
     if (!error) {
       const { data: { user } } = await supabase.auth.getUser()
       const provider = user?.app_metadata?.provider as string | undefined
+
+      // Si trae cookie de invite VIP, SIEMPRE va a /abrir (flujo creator gratis).
+      // Esto bypassea cualquier next default que lleve a /directorio.
+      const cookieStore = await cookies()
+      const hasInvite = Boolean(cookieStore.get(INVITE_COOKIE)?.value)
+      if (hasInvite) {
+        return NextResponse.redirect(new URL('/abrir', origin))
+      }
 
       // Si hay un `next` explícito y seguro, lo respetamos (paywall → suscribirse, etc.)
       if (next) {

@@ -19,8 +19,13 @@ export async function GET(request: NextRequest) {
     return NextResponse.redirect(new URL('/', request.url))
   }
 
+  // El VIP es siempre un creador (no lector). Forzamos que post-signup
+  // termine en /abrir para que cree su sala (no en /directorio = lectores).
   const target = new URL(safeNext, request.url)
   target.searchParams.set('invite', code)
+  if (safeNext === '/registro') {
+    target.searchParams.set('next', '/abrir')
+  }
   const res = NextResponse.redirect(target)
   res.cookies.set(INVITE_COOKIE, code, {
     httpOnly: true,

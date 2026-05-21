@@ -23,10 +23,11 @@ export default function Nav() {
           <nav className="flex items-center gap-1 text-[12px] font-sans text-[#666666]">
             {[
               { label: "Explorar", href: "/directorio" },
+              { label: "Pulse", href: "/pulse" },
+              { label: "Ranking", href: "/leaderboard" },
               { label: "Observatorio", href: "/observatorio" },
               { label: "Para creadores", href: "/para-creadores" },
               { label: "Precios", href: "/precios" },
-              { label: "Comparar", href: "/comparar" },
               { label: "Entrar", href: "/entrar" },
             ].map((item, i) => (
               <span key={item.label} className="flex items-center gap-1">

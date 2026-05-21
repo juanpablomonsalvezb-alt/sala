@@ -16,7 +16,7 @@
 import { ImageResponse } from '@vercel/og'
 
 export const runtime = 'nodejs'
-export const revalidate = 3600
+export const dynamic = 'force-dynamic'
 
 const BRAND_RED = '#C41C1C'
 const BRAND_BLACK = '#121212'

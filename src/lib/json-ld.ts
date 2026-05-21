@@ -174,7 +174,7 @@ export function breadcrumbListSchema(
 }
 
 // ItemList genérico para directorios y listados de autores. Usado en
-// /directorio, /influencers-*, /trending. Mejora la representación en
+// /directorio, /expertos, /trending. Mejora la representación en
 // Perplexity y Google AI Overview cuando alguien pregunta "quiénes son los
 // X más leídos de LATAM".
 export function itemListSchema(args: {

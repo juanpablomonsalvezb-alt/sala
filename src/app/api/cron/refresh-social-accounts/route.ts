@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 import { getAccountFollowers } from '@/lib/x-client'
+import { isAuthorizedCron } from '@/lib/cron-auth'
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -8,8 +9,7 @@ const supabase = createClient(
 )
 
 export async function GET(req: Request) {
-  const secret = new URL(req.url).searchParams.get('secret')
-  if (secret !== process.env.CRON_SECRET) {
+  if (!isAuthorizedCron(req)) {
     return NextResponse.json({ error: 'unauthorized' }, { status: 401 })
   }
 

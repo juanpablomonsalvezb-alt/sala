@@ -24,14 +24,19 @@ export async function POST(request: NextRequest) {
     }
 
     // Legacy SERVICE_ROLE_KEY (JWT) deshabilitada por Supabase 2026-04-19.
-    // Usar nueva SECRET_KEY (sb_secret_*), fallback al legacy, último a anon.
+    // Sin fallback a anon: anon no bypasea RLS para insertar suscripciones.
     const serviceRoleKey =
-      process.env.SUPABASE_SECRET_KEY ||
-      process.env.SUPABASE_SERVICE_ROLE_KEY ||
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+      process.env.SUPABASE_SECRET_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY
+    if (!serviceRoleKey) {
+      console.error('[newsletter/construyendo] SUPABASE_SECRET_KEY missing')
+      return NextResponse.json(
+        { error: 'Servicio temporalmente no disponible.' },
+        { status: 500 }
+      )
+    }
     const supabase = createSupabaseClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      serviceRoleKey!
+      serviceRoleKey
     )
 
     const { data, error } = await supabase

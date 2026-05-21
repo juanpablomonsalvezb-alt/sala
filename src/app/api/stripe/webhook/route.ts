@@ -123,11 +123,14 @@ export async function POST(request: Request) {
 
       // UPSERT en lugar de INSERT: si la suscripción ya existe (re-activación
       // tras cancelación, o retry), actualizamos en vez de fallar por unique.
+      // NO pisamos created_at: Postgres lo respeta en UPDATE porque solo está
+      // en el conjunto de columnas en INSERT. last_paid_at refleja la fecha
+      // real del último cobro y es lo que usa isReaderSubscribed.
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const { error } = await (supabase as any)
         .from('sala_subscriptions')
         .upsert(
-          { ...newSub, cancelled_at: null, created_at: new Date().toISOString() },
+          { ...newSub, cancelled_at: null, last_paid_at: new Date().toISOString() },
           { onConflict: 'subscriber_id,creator_id', ignoreDuplicates: false }
         )
 

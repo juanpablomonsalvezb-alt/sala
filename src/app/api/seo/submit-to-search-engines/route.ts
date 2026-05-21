@@ -13,8 +13,15 @@
 
 import { submitToBing } from '@/lib/seo/bing-url-submission'
 import { createMockCoreWebVitals, generateCoreWebVitalsReport } from '@/lib/seo/core-web-vitals-analyzer'
+import { isAuthorizedCron } from '@/lib/cron-auth'
 
 export async function POST(request: Request) {
+  // Endpoint usado por crons internos y scripts admin. Requiere CRON_SECRET para
+  // evitar abuso de cuota IndexNow contra el dominio de Nebbuler.
+  if (!isAuthorizedCron(request)) {
+    return Response.json({ error: 'unauthorized' }, { status: 401 })
+  }
+
   try {
     const { urls = [], analyze = true } = await request.json() as {
       urls?: string[]

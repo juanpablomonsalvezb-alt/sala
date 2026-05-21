@@ -98,7 +98,7 @@ const nextConfig: NextConfig = {
           { key: 'Referrer-Policy',           value: 'strict-origin-when-cross-origin' },
           { key: 'Permissions-Policy',        value: 'camera=(), microphone=(), geolocation=()' },
           { key: 'Strict-Transport-Security',      value: 'max-age=63072000; includeSubDomains; preload' },
-          { key: 'Content-Security-Policy-Report-Only', value: csp },
+          { key: 'Content-Security-Policy', value: csp },
         ],
       },
       // ISR cache headers: articles (1h revalidation)
@@ -111,7 +111,7 @@ const nextConfig: NextConfig = {
           { key: 'Referrer-Policy',           value: 'strict-origin-when-cross-origin' },
           { key: 'Permissions-Policy',        value: 'camera=(), microphone=(), geolocation=()' },
           { key: 'Strict-Transport-Security',      value: 'max-age=63072000; includeSubDomains; preload' },
-          { key: 'Content-Security-Policy-Report-Only', value: csp },
+          { key: 'Content-Security-Policy', value: csp },
         ],
       },
       // Trending articles (1h revalidation)
@@ -124,7 +124,7 @@ const nextConfig: NextConfig = {
           { key: 'Referrer-Policy',           value: 'strict-origin-when-cross-origin' },
           { key: 'Permissions-Policy',        value: 'camera=(), microphone=(), geolocation=()' },
           { key: 'Strict-Transport-Security',      value: 'max-age=63072000; includeSubDomains; preload' },
-          { key: 'Content-Security-Policy-Report-Only', value: csp },
+          { key: 'Content-Security-Policy', value: csp },
         ],
       },
       // Default headers for all other routes
@@ -136,10 +136,11 @@ const nextConfig: NextConfig = {
           { key: 'Referrer-Policy',           value: 'strict-origin-when-cross-origin' },
           { key: 'Permissions-Policy',        value: 'camera=(), microphone=(), geolocation=()' },
           { key: 'Strict-Transport-Security',      value: 'max-age=63072000; includeSubDomains; preload' },
-          // CSP en modo Report-Only: el navegador NO bloquea, solo reporta
-          // violaciones a la consola. Una vez confirmado que ningún recurso
-          // legítimo viola la política, cambiar a 'Content-Security-Policy'.
-          { key: 'Content-Security-Policy-Report-Only', value: csp },
+          // CSP enforcing (audit 2026-05-21). La whitelist cubre PostHog,
+          // GrowthBook, Formbricks, Umami, MercadoPago, Supabase, Vercel,
+          // Meilisearch, YouTube y Vimeo. Si aparece un recurso legítimo no
+          // cubierto, agregarlo arriba en la constante `csp`.
+          { key: 'Content-Security-Policy', value: csp },
         ],
       },
     ]

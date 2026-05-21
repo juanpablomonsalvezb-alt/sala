@@ -167,7 +167,38 @@ async function checkPagesCount(): Promise<CheckResult> {
   }
 }
 
-export async function GET() {
+function hasAdminAuth(request: Request): boolean {
+  const secret = process.env.CRON_SECRET
+  if (!secret) return false
+  const header = request.headers.get('authorization') ?? request.headers.get('Authorization') ?? ''
+  if (!header.startsWith('Bearer ')) return false
+  const provided = header.slice('Bearer '.length).trim()
+  return provided.length === secret.length && provided === secret
+}
+
+async function isSuperadminSession(): Promise<boolean> {
+  try {
+    const { createClient } = await import('@/lib/supabase/server')
+    const supabase = await createClient()
+    const {
+      data: { user },
+    } = await supabase.auth.getUser()
+    if (!user) return false
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { data } = await (supabase as any)
+      .from('sala_profiles')
+      .select('is_superadmin')
+      .eq('id', user.id)
+      .maybeSingle()
+    return Boolean((data as { is_superadmin?: boolean } | null)?.is_superadmin)
+  } catch {
+    return false
+  }
+}
+
+export async function GET(request: Request) {
+  const isAdmin = hasAdminAuth(request) || (await isSuperadminSession())
+
   const [
     database,
     supabase_auth,
@@ -196,6 +227,20 @@ export async function GET() {
     mp_access_token.ok &&
     payment_tables.ok
 
+  // Respuesta pública minimalista (no expone schema interno ni env vars).
+  // Solo {ok, timestamp}. Llamadas sin Bearer reciben este shape.
+  if (!isAdmin) {
+    return NextResponse.json(
+      { ok: allOk, timestamp: new Date().toISOString() },
+      {
+        status: allOk ? 200 : 503,
+        headers: { 'Cache-Control': 'no-store' },
+      }
+    )
+  }
+
+  // Respuesta detallada solo para llamadas autorizadas (cron, monitoreo
+  // interno, superadmin). Incluye nombres de tablas y estado de env vars.
   const response: HealthResponse = {
     ok: allOk,
     timestamp: new Date().toISOString(),
@@ -216,8 +261,6 @@ export async function GET() {
 
   return NextResponse.json(response, {
     status: allOk ? 200 : 503,
-    headers: {
-      'Cache-Control': 'no-store',
-    },
+    headers: { 'Cache-Control': 'no-store' },
   })
 }

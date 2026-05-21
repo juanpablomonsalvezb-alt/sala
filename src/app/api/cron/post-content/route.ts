@@ -5,6 +5,7 @@ import { postOriginalTweet } from '@/lib/x-client'
 import { publishLinkedInPost } from '@/lib/linkedin-client'
 import { canPublish, incrementRateLimit, getNextImage, markImageUsed } from '@/lib/social'
 import { getTodayTemplate } from '@/lib/content-posts'
+import { isAuthorizedCron } from '@/lib/cron-auth'
 
 function adminClient() {
   const key = process.env.SUPABASE_SECRET_KEY ?? process.env.SUPABASE_SERVICE_ROLE_KEY!
@@ -12,8 +13,7 @@ function adminClient() {
 }
 
 export async function GET(req: Request) {
-  const secret = new URL(req.url).searchParams.get('secret')
-  if (secret !== process.env.CRON_SECRET) {
+  if (!isAuthorizedCron(req)) {
     return NextResponse.json({ error: 'unauthorized' }, { status: 401 })
   }
 

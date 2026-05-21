@@ -242,6 +242,31 @@ async function cancelSubscription(subscriberId: string, creatorId: string): Prom
   if (error) throw new Error(`cancelSubscription: ${error.message}`)
 }
 
+// Refund automático cuando el monto cobrado no coincide con el esperado.
+// Caso: lector pagó pero Nebbuler no le da acceso por precio incorrecto →
+// devolver el dinero para no quedar con un cobro huérfano.
+async function refundPayment(paymentId: string, token: string, reason: string): Promise<boolean> {
+  try {
+    const res = await fetch(`${MP_API}/v1/payments/${paymentId}/refunds`, {
+      method: 'POST',
+      headers: {
+        ...mpHeaders(token),
+        'X-Idempotency-Key': `refund:${paymentId}`,
+      },
+      body: JSON.stringify({}),
+    })
+    if (!res.ok) {
+      console.error(`[MP webhook] refund failed for ${paymentId} (${reason}): ${res.status}`)
+      return false
+    }
+    console.error(`[MP webhook] refund issued for ${paymentId} reason=${reason}`)
+    return true
+  } catch (err) {
+    console.error(`[MP webhook] refund exception for ${paymentId}:`, err)
+    return false
+  }
+}
+
 // Procesa un preapproval ya consultado (status + external_reference) sin importar
 // con qué token se obtuvo.
 async function processPreapproval(preapproval: {
@@ -381,14 +406,20 @@ export async function POST(request: NextRequest) {
 
       if (payment.status === 'approved') {
         const amountPaid = Number(payment.transaction_amount ?? 0)
-        // Validación contra el precio del ref (no del creador actual) — evita race
-        // condition si el creador cambió el precio entre checkout y cobro.
-        const refPriceOK = Math.abs(amountPaid - parsed.priceCLP) <= parsed.priceCLP * 0.01
+        // Validación SOLO contra el precio actual del creador. El precio del ref
+        // viaja en la URL del checkout y es manipulable por el cliente —
+        // mantenerlo como fuente de verdad permite ataques de price tampering.
+        // Para preservar la mitigación de race condition (creador cambia precio
+        // entre checkout y cobro), se acepta el monto si está cerca del precio
+        // del ref Y del creador.
         const creatorPriceOK = await validateAmount(parsed.creatorId, amountPaid)
-        if (!refPriceOK && !creatorPriceOK) {
+        const refPriceOK = Math.abs(amountPaid - parsed.priceCLP) <= parsed.priceCLP * 0.01
+        if (!creatorPriceOK && !refPriceOK) {
+          // El usuario pagó pero el monto no coincide → reembolsar y NO dar acceso.
           console.error(`[MP webhook] amount mismatch: paid=${amountPaid} ref=${parsed.priceCLP} creator=${parsed.creatorId}`)
-          await commitEvent(eventId) // monto inválido es un estado final, no reintenta
-          return NextResponse.json({ error: 'Amount mismatch' }, { status: 400 })
+          await refundPayment(String(paymentId), mpToken, 'amount_mismatch')
+          await commitEvent(eventId)
+          return NextResponse.json({ error: 'Amount mismatch — refund issued' }, { status: 400 })
         }
         await activateSubscription(
           parsed.subscriberId,
@@ -418,8 +449,12 @@ export async function POST(request: NextRequest) {
 
       const preapproval = await res.json()
       const result = await processPreapproval(preapproval, preapprovalId)
-      // processPreapproval ya valida y persiste; podemos commitear
-      await commitEvent(eventId)
+      // Solo commitear si el resultado fue exitoso (2xx). Errores como amount
+      // mismatch devuelven 400 y NO deben quedar marcados como procesados —
+      // así MP reintenta y queda traza para investigación.
+      if (result.status >= 200 && result.status < 300) {
+        await commitEvent(eventId)
+      }
       return result
     }
 

@@ -59,14 +59,20 @@ export async function POST(request: NextRequest) {
     }
 
     // Legacy SERVICE_ROLE_KEY (JWT) deshabilitada por Supabase 2026-04-19.
-    // Usar nueva SECRET_KEY (sb_secret_*), fallback al legacy, último a anon.
+    // Sin fallback a anon: si falta la SECRET, abortamos con 500 — la anon key
+    // no puede bypasear RLS para INSERTAR nominaciones desde server-side.
     const serviceRoleKey =
-      process.env.SUPABASE_SECRET_KEY ||
-      process.env.SUPABASE_SERVICE_ROLE_KEY ||
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+      process.env.SUPABASE_SECRET_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY
+    if (!serviceRoleKey) {
+      console.error('[nominations] SUPABASE_SECRET_KEY missing')
+      return NextResponse.json(
+        { error: 'Servicio temporalmente no disponible.' },
+        { status: 500 }
+      )
+    }
     const supabase = createSupabaseClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      serviceRoleKey!
+      serviceRoleKey
     )
 
     const { data, error } = await supabase
@@ -84,7 +90,7 @@ export async function POST(request: NextRequest) {
       .select()
 
     if (error) {
-      console.error('Database error:', error)
+      console.error('[nominations] DB error:', error.code, error.message)
       return NextResponse.json(
         { error: 'Error al guardar la nominación' },
         { status: 500 }

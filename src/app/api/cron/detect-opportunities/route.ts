@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 import { getNextImage, getNextTemplate } from '@/lib/social'
+import { isAuthorizedCron } from '@/lib/cron-auth'
 
 export const runtime = 'nodejs'
 export const maxDuration = 60
@@ -122,9 +123,7 @@ Solo devuelve el JSON, sin texto adicional. Si no encuentras resultados relevant
 }
 
 export async function GET(req: Request) {
-  const authHeader = req.headers.get('Authorization')
-  const secret = new URL(req.url).searchParams.get('secret')
-  if (authHeader !== `Bearer ${process.env.CRON_SECRET}` && secret !== process.env.CRON_SECRET) {
+  if (!isAuthorizedCron(req)) {
     return NextResponse.json({ error: 'unauthorized' }, { status: 401 })
   }
 

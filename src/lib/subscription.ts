@@ -6,9 +6,9 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 // 35 = 30/31 días del ciclo + margen para webhooks tardíos.
 const MAX_AGE_DAYS = 35
 
-export function isSubscriptionFresh(createdAt: string | null | undefined): boolean {
-  if (!createdAt) return false
-  const last = new Date(createdAt).getTime()
+export function isSubscriptionFresh(lastPaidAt: string | null | undefined): boolean {
+  if (!lastPaidAt) return false
+  const last = new Date(lastPaidAt).getTime()
   if (isNaN(last)) return false
   const ageDays = (Date.now() - last) / (1000 * 60 * 60 * 24)
   return ageDays <= MAX_AGE_DAYS
@@ -25,12 +25,14 @@ export async function isReaderSubscribed(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { data } = await (supabase as any)
     .from('sala_subscriptions')
-    .select('id, created_at')
+    .select('id, last_paid_at, created_at')
     .eq('subscriber_id', subscriberId)
     .eq('creator_id', creatorId)
     .eq('status', 'active')
     .maybeSingle()
 
   if (!data) return false
-  return isSubscriptionFresh(data.created_at)
+  // last_paid_at es la fuente de verdad; created_at queda como fallback para
+  // suscripciones legacy donde last_paid_at no se haya escrito todavía.
+  return isSubscriptionFresh(data.last_paid_at ?? data.created_at)
 }

@@ -180,6 +180,9 @@ create policy "sala_posts: delete own" on public.sala_posts for delete
   using (exists (select 1 from public.sala_creators c where c.id = sala_posts.creator_id and c.user_id = auth.uid()));
 
 -- Policies: sala_subscriptions
+-- Solo lectura desde clientes. Las suscripciones se escriben únicamente via
+-- service_role (webhooks MP/Stripe). INSERT/UPDATE/DELETE bloqueados a
+-- anon/authenticated tras auditoría 2026-05-21 (acceso gratis al contenido pagado).
 drop policy if exists "sala_subscriptions: select own"        on public.sala_subscriptions;
 drop policy if exists "sala_subscriptions: select as creator" on public.sala_subscriptions;
 drop policy if exists "sala_subscriptions: insert own"        on public.sala_subscriptions;
@@ -188,9 +191,7 @@ drop policy if exists "sala_subscriptions: delete own"        on public.sala_sub
 create policy "sala_subscriptions: select own"        on public.sala_subscriptions for select using (auth.uid() = subscriber_id);
 create policy "sala_subscriptions: select as creator" on public.sala_subscriptions for select
   using (exists (select 1 from public.sala_creators c where c.id = sala_subscriptions.creator_id and c.user_id = auth.uid()));
-create policy "sala_subscriptions: insert own"        on public.sala_subscriptions for insert with check (auth.uid() = subscriber_id);
-create policy "sala_subscriptions: update own"        on public.sala_subscriptions for update using (auth.uid() = subscriber_id) with check (auth.uid() = subscriber_id);
-create policy "sala_subscriptions: delete own"        on public.sala_subscriptions for delete using (auth.uid() = subscriber_id);
+revoke insert, update, delete on public.sala_subscriptions from anon, authenticated;
 
 -- ─────────────────────────────────────────────────────────────────────────────
 -- sala_disciplines — FK normalizada (DECISIÓN IRREVERSIBLE)

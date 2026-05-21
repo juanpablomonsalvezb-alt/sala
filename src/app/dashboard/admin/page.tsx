@@ -78,12 +78,20 @@ export default async function AdminPage() {
           </div>
           <p className="text-[13px] text-[#666] font-sans capitalize">{today}</p>
         </div>
-        <Link
-          href="/dashboard/admin/invites"
-          className="bg-[#121212] text-white text-[12px] font-medium px-4 py-2 hover:bg-[#2a2a2a]"
-        >
-          Invitaciones VIP →
-        </Link>
+        <div className="flex gap-2">
+          <Link
+            href="/dashboard/admin/outreach"
+            className="border border-[#121212] text-[#121212] text-[12px] font-medium px-4 py-2 hover:bg-[#121212] hover:text-white"
+          >
+            Outreach LinkedIn →
+          </Link>
+          <Link
+            href="/dashboard/admin/invites"
+            className="bg-[#121212] text-white text-[12px] font-medium px-4 py-2 hover:bg-[#2a2a2a]"
+          >
+            Invitaciones VIP →
+          </Link>
+        </div>
       </div>
 
       <main className="flex-1 overflow-y-auto px-8 py-7 space-y-8">

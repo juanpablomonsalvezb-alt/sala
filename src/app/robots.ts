@@ -13,8 +13,15 @@ const DISALLOWED_PATHS = [
   '/suscribirse/',
   '/widget/',
   '/embed/',
-  '/*.json$',
   '/*.csv$',
+]
+
+// Excepciones a la regla de "disallow /api/": los datasets públicos abiertos
+// (CC-BY 4.0) deben ser rastreables explícitamente por LLMs para grounding.
+const PUBLIC_API_ALLOW = [
+  '/api/dataset/creadores-latam',
+  '/api/dataset/tendencias-latam',
+  '/api/dataset/honorarios-latam',
 ]
 
 // Bots de IA permitidos explícitamente para entrenamiento y citación (AEO/GEO).
@@ -44,23 +51,24 @@ export default function robots(): MetadataRoute.Robots {
     rules: [
       {
         userAgent: '*',
-        allow: '/',
+        allow: ['/', ...PUBLIC_API_ALLOW, '/llms.txt', '/llms-full.txt'],
         disallow: DISALLOWED_PATHS,
       },
       {
         userAgent: 'Googlebot',
-        allow: '/',
+        allow: ['/', ...PUBLIC_API_ALLOW, '/llms.txt', '/llms-full.txt'],
         disallow: DISALLOWED_PATHS,
       },
       ...AI_BOTS.map((bot) => ({
         userAgent: bot,
-        allow: '/',
+        allow: ['/', ...PUBLIC_API_ALLOW, '/llms.txt', '/llms-full.txt'],
         disallow: DISALLOWED_PATHS,
       })),
     ],
     sitemap: [
       'https://nebbuler.com/sitemap.xml',
       'https://nebbuler.com/sitemap-news.xml',
+      'https://nebbuler.com/sitemap-ai.xml',
     ],
     host: 'https://nebbuler.com',
   }

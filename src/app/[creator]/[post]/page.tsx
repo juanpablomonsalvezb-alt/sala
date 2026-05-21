@@ -11,7 +11,8 @@ import { creators as staticCreators } from '@/data/creators'
 import { sanitizeHtml, stripHtml } from '@/lib/sanitize'
 import { AlsoReading } from '@/components/also-reading'
 import { QuoteHighlighter } from '@/components/quote-highlighter'
-import { postArticleSchema } from '@/lib/json-ld'
+import { QuoteSelector } from '@/components/QuoteSelector'
+import { postArticleSchema, breadcrumbListSchema } from '@/lib/json-ld'
 import SubscribeWidget from '@/components/newsletter/SubscribeWidget'
 
 // ISR: revalidate each article every 1 hour on-demand
@@ -365,6 +366,7 @@ function ArticleContent({
   return (
     <div>
       <div
+        data-quote-root
         className="prose prose-lg max-w-none
           prose-headings:font-serif prose-headings:text-[#121212] prose-headings:tracking-tight
           prose-h2:text-[24px] prose-h2:mt-10 prose-h2:mb-4
@@ -506,11 +508,22 @@ export default async function PostPage({
 
   const showQuoteHighlighter = post.is_free || isSubscribed
 
+  const breadcrumbsJsonLd = breadcrumbListSchema([
+    { name: 'Nebbuler', url: 'https://nebbuler.com' },
+    { name: 'Directorio', url: 'https://nebbuler.com/directorio' },
+    { name: creator.name, url: `https://nebbuler.com/${creator.slug}` },
+    { name: post.title, url: `https://nebbuler.com/${creator.slug}/${post.slug}` },
+  ])
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbsJsonLd) }}
       />
       <PostViewTracker postId={post.id} />
       <Nav creatorSlug={creator.slug} creatorName={creator.name} />
@@ -631,6 +644,18 @@ export default async function PostPage({
       {/* Quote Highlighter — island client, solo en posts accesibles */}
       {showQuoteHighlighter && (
         <QuoteHighlighter authorName={creator.name} />
+      )}
+
+      {/* Quote-as-Image Viral Engine — solo en posts accesibles */}
+      {showQuoteHighlighter && (
+        <QuoteSelector
+          authorName={creator.name}
+          authorUsername={creator.slug}
+          creatorId={creator.id}
+          postId={post.id}
+          postUrl={`https://nebbuler.com/${creator.slug}/${post.slug}`}
+          rootSelector="[data-quote-root]"
+        />
       )}
 
       <Footer />

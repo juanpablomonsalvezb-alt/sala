@@ -1,9 +1,7 @@
-import { redirect } from 'next/navigation'
 import Link from 'next/link'
-import { cookies } from 'next/headers'
 import { createClient as createServiceSupabase } from '@supabase/supabase-js'
 import { createClient } from '@/lib/supabase/server'
-import { normalizeInviteCode, INVITE_COOKIE } from '@/lib/invite-helpers'
+import { normalizeInviteCode } from '@/lib/invite-helpers'
 import { InviteRedeemButton } from './_redeem-button'
 
 export const dynamic = 'force-dynamic'
@@ -100,16 +98,8 @@ export default async function InvitePage({ params }: PageProps) {
     )
   }
 
-  // Guardar el código en cookie para que /registro y /abrir puedan leerlo
-  // y aplicar el bypass del pago de plataforma. HttpOnly + SameSite=Lax.
-  const cookieStore = await cookies()
-  cookieStore.set(INVITE_COOKIE, result.code, {
-    httpOnly: true,
-    sameSite: 'lax',
-    secure: process.env.NODE_ENV === 'production',
-    path: '/',
-    maxAge: 60 * 60 * 24 * 7, // 7 días
-  })
+  // La cookie nb_invite se setea cuando el usuario hace click en el botón
+  // (via /api/invites/claim), ya que cookies().set() no funciona en pages.
 
   // Si el usuario ya está autenticado, ofrecemos redimir directo.
   const supabase = await createClient()
@@ -172,7 +162,7 @@ export default async function InvitePage({ params }: PageProps) {
           <InviteRedeemButton code={result.code} />
         ) : (
           <Link
-            href={`/registro?invite=${result.code}`}
+            href={`/api/invites/claim?code=${result.code}&next=/registro`}
             className="block w-full text-center bg-[#121212] hover:bg-[#2a2a2a] text-white font-medium text-[14px] py-4 transition-colors"
           >
             Crear cuenta y abrir mi sala →

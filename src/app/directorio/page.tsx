@@ -4,6 +4,8 @@ import DirectorioClient from './directorio-client'
 import { allCreators } from '@/data/creators'
 import SubscribeWidget from '@/components/newsletter/SubscribeWidget'
 import SearchWidget from '@/components/search/SearchWidget'
+import { itemListSchema, breadcrumbListSchema } from '@/lib/json-ld'
+import { safeJsonLd } from '@/lib/rateLimit'
 
 export const metadata: Metadata = {
   title: 'Directorio de Profesionales — Nebbuler',
@@ -45,6 +47,23 @@ const MOCK_CREATORS = allCreators.map((c, i) => ({
 }))
 
 export default function DirectorioPage() {
+  const directoryItemList = itemListSchema({
+    name: 'Directorio de profesionales verificados en LATAM — Nebbuler',
+    description:
+      'Listado público de profesionales latinoamericanos publicando análisis editoriales en Nebbuler. Economistas, abogados, médicos, arquitectos, ingenieros y más.',
+    url: 'https://nebbuler.com/directorio',
+    items: allCreators.slice(0, 50).map((c) => ({
+      name: c.name,
+      url: `https://nebbuler.com/${c.slug}`,
+      description: `${c.specialty} — ${c.bio.slice(0, 160)}`,
+    })),
+  })
+
+  const directoryBreadcrumbs = breadcrumbListSchema([
+    { name: 'Nebbuler', url: 'https://nebbuler.com' },
+    { name: 'Directorio', url: 'https://nebbuler.com/directorio' },
+  ])
+
   return (
     <>
       <script
@@ -59,6 +78,14 @@ export default function DirectorioPage() {
             publisher: { '@type': 'Organization', name: 'Nebbuler', url: 'https://nebbuler.com' },
           }),
         }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(directoryItemList) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(directoryBreadcrumbs) }}
       />
 
       <div className="min-h-screen bg-white">

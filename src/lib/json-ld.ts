@@ -155,3 +155,57 @@ export function trendingItemListSchema(
     })),
   }
 }
+
+// Breadcrumb schema reutilizable. Reduce sensiblemente la tasa de pogosticking
+// en SERP y mejora la representación en AI Overview de Google + Bing Chat.
+export function breadcrumbListSchema(
+  items: Array<{ name: string; url: string }>,
+) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: items.map((item, idx) => ({
+      '@type': 'ListItem',
+      position: idx + 1,
+      name: item.name,
+      item: item.url,
+    })),
+  }
+}
+
+// ItemList genérico para directorios y listados de autores. Usado en
+// /directorio, /influencers-*, /trending. Mejora la representación en
+// Perplexity y Google AI Overview cuando alguien pregunta "quiénes son los
+// X más leídos de LATAM".
+export function itemListSchema(args: {
+  name: string
+  description: string
+  url: string
+  items: Array<{
+    name: string
+    url: string
+    description?: string
+    image?: string
+  }>
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: args.name,
+    description: args.description,
+    url: args.url,
+    numberOfItems: args.items.length,
+    itemListElement: args.items.map((item, idx) => ({
+      '@type': 'ListItem',
+      position: idx + 1,
+      url: item.url,
+      item: {
+        '@type': 'Person',
+        name: item.name,
+        url: item.url,
+        ...(item.description && { description: item.description }),
+        ...(item.image && { image: item.image }),
+      },
+    })),
+  }
+}

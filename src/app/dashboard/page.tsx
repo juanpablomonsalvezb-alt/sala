@@ -4,6 +4,7 @@ import { createClient } from '@/lib/supabase/server'
 import type { Creator, Post, Subscription } from '@/types/database'
 import EmbedCodeCard from './_components/EmbedCodeCard'
 import WhatsAppStatsCard from './_components/WhatsAppStatsCard'
+import RetentionCard from './_components/RetentionCard'
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -389,6 +390,9 @@ export default async function DashboardPage({
               </div>
             </section>
           </div>
+
+          {/* ── Anti-churn predictivo (solo si hay signals pendientes) ── */}
+          <RetentionCard creatorId={creator.id} />
 
           {/* ── WhatsApp stats (solo si hay suscriptores) ── */}
           <WhatsAppStatsCard creatorId={creator.id} />

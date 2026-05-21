@@ -24,12 +24,14 @@ export function WidgetInstaller({ slug, creatorName }: Props) {
   const [copied, setCopied] = useState(false)
 
   const code = `<iframe
-  src="https://nebbuler.com/embed/${slug}"
+  src="https://nebbuler.com/embed/iframe/${slug}?size=standard"
   width="${selectedSize.width}"
   height="${selectedSize.height}"
   frameborder="0"
-  style="border-radius:4px;"
-  title="Newsletter de ${creatorName} · Nebbuler"
+  scrolling="no"
+  style="border-radius:4px;border:0"
+  title="Sala de ${creatorName} · Nebbuler"
+  loading="lazy"
 ></iframe>`
 
   async function handleCopy() {

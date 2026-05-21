@@ -135,9 +135,30 @@ const nextConfig: NextConfig = {
           { key: 'Content-Security-Policy-Report-Only', value: csp },
         ],
       },
+      // Embed iframe routes — deben ser embebibles cross-origin.
+      // Estos headers se aplican ANTES del catch-all '/(.*)' para que
+      // X-Frame-Options no sobrescriba lo que setea el route handler.
+      {
+        source: '/embed/iframe/:creator',
+        headers: [
+          { key: 'X-Frame-Options',           value: 'ALLOWALL' },
+          { key: 'X-Content-Type-Options',    value: 'nosniff' },
+          { key: 'Referrer-Policy',           value: 'strict-origin-when-cross-origin' },
+          { key: 'Access-Control-Allow-Origin', value: '*' },
+        ],
+      },
+      // embed.js — script público accesible desde cualquier origen
+      {
+        source: '/embed.js',
+        headers: [
+          { key: 'X-Content-Type-Options',    value: 'nosniff' },
+          { key: 'Access-Control-Allow-Origin', value: '*' },
+          { key: 'Cache-Control',             value: 'public, max-age=86400, s-maxage=86400, stale-while-revalidate=604800' },
+        ],
+      },
       // Default headers for all other routes
       {
-        source: '/(.*)',
+        source: '/((?!embed/iframe|embed\\.js).*)',
         headers: [
           { key: 'X-Frame-Options',           value: 'SAMEORIGIN' },
           { key: 'X-Content-Type-Options',    value: 'nosniff' },

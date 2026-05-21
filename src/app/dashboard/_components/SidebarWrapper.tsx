@@ -11,6 +11,7 @@ const NAV_ITEMS = [
   { icon: '◉', label: 'Suscriptores',  href: '/dashboard/suscriptores' },
   { icon: '$', label: 'Ingresos',      href: '/dashboard/ingresos' },
   { icon: '▲', label: 'Analíticas',    href: '/dashboard/analiticas' },
+  { icon: '↗', label: 'Referidos',     href: '/dashboard/referidos' },
   { icon: '⚙', label: 'Configuración', href: '/dashboard/configuracion' },
 ]
 

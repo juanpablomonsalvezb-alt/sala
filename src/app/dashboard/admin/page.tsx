@@ -78,12 +78,18 @@ export default async function AdminPage() {
           </div>
           <p className="text-[13px] text-[#666] font-sans capitalize">{today}</p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-2 flex-wrap">
           <Link
             href="/dashboard/admin/outreach"
             className="border border-[#121212] text-[#121212] text-[12px] font-medium px-4 py-2 hover:bg-[#121212] hover:text-white"
           >
             Outreach LinkedIn →
+          </Link>
+          <Link
+            href="/dashboard/admin/press-releases"
+            className="border border-[#121212] text-[#121212] text-[12px] font-medium px-4 py-2 hover:bg-[#121212] hover:text-white"
+          >
+            Press Releases →
           </Link>
           <Link
             href="/dashboard/admin/invites"

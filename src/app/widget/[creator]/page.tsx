@@ -61,8 +61,8 @@ export default async function WidgetPage({ params }: Props) {
             </p>
             <div className="flex justify-center lg:justify-start">
               <iframe
-                src={`/embed/${slug}`}
-                width={300}
+                src={`/embed/iframe/${slug}?size=compact`}
+                width={320}
                 height={420}
                 frameBorder={0}
                 style={{ borderRadius: '4px', display: 'block' }}

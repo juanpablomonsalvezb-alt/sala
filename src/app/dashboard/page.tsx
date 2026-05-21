@@ -2,6 +2,8 @@ import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
 import type { Creator, Post, Subscription } from '@/types/database'
+import EmbedCodeCard from './_components/EmbedCodeCard'
+import WhatsAppStatsCard from './_components/WhatsAppStatsCard'
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -387,6 +389,14 @@ export default async function DashboardPage({
               </div>
             </section>
           </div>
+
+          {/* ── WhatsApp stats (solo si hay suscriptores) ── */}
+          <WhatsAppStatsCard creatorId={creator.id} />
+
+          {/* ── Embed widget (solo planes pagos) ── */}
+          {creator.plan !== 'free' && (
+            <EmbedCodeCard slug={creator.slug} />
+          )}
 
           {/* ── CTA ── */}
           <section className="bg-white border border-[#DEDEDE] px-8 py-7 flex items-center justify-between">

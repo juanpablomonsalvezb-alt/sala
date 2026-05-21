@@ -3,6 +3,12 @@
 import { redirect } from 'next/navigation'
 import { createClient, createServiceClient } from '@/lib/supabase/server'
 import { sendNewPostNotification } from '@/lib/email'
+import {
+  isWhatsAppConfigured,
+  sendWhatsAppMessage,
+  buildNewPostTemplateParams,
+  normalizeE164,
+} from '@/lib/whatsapp'
 import { sanitizeHtml, stripHtml } from '@/lib/sanitize'
 import type { Creator, Post } from '@/types/database'
 
@@ -279,39 +285,112 @@ async function notifySubscribers(args: {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const serviceAny = serviceClient as any
 
+    // Cargar suscripciones activas con preferencia y datos de canal
     const { data: subscriptions } = await serviceAny
       .from('sala_subscriptions')
-      .select('subscriber_id')
+      .select(
+        'subscriber_id, channel_preference, sala_profiles!inner ( email, phone_number, phone_verified )'
+      )
       .eq('creator_id', args.creatorId)
       .eq('status', 'active')
 
-    if (!subscriptions || subscriptions.length === 0) return
+    type Row = {
+      subscriber_id: string
+      channel_preference: 'email' | 'whatsapp' | 'both' | null
+      sala_profiles: {
+        email: string | null
+        phone_number: string | null
+        phone_verified: boolean | null
+      } | null
+    }
 
-    const subscriberIds = subscriptions.map((s: { subscriber_id: string }) => s.subscriber_id)
-    const { data: profiles } = await serviceAny
-      .from('sala_profiles')
-      .select('email')
-      .in('id', subscriberIds)
+    const rows = (subscriptions as Row[] | null) ?? []
+    if (rows.length === 0) return
 
-    const emails: string[] = (profiles ?? [])
-      .map((p: { email: string }) => p.email)
-      .filter(Boolean)
+    const emailRecipients: string[] = []
+    const whatsappRecipients: { subscriber_id: string; phone: string }[] = []
 
-    if (emails.length === 0) return
+    for (const r of rows) {
+      const pref = r.channel_preference ?? 'email'
+      const profile = r.sala_profiles
+      if (!profile) continue
+      const wantEmail = pref === 'email' || pref === 'both'
+      const wantWa = pref === 'whatsapp' || pref === 'both'
 
-    await sendNewPostNotification({
-      subscriberEmails: emails,
-      creatorName: args.creatorName,
-      creatorSlug: args.creatorSlug,
-      publicationName: args.publicationName,
-      postTitle: args.postTitle,
-      postExcerpt: args.postExcerpt,
-      postSlug: args.postSlug,
-      isFree: args.isFree,
-      // Campos extendidos para unsubscribe tokens y precios
-      creatorId: args.creatorId,
-      price_clp: args.price_clp,
-    })
+      let waOk = false
+      if (wantWa && profile.phone_number && profile.phone_verified) {
+        const norm = normalizeE164(profile.phone_number)
+        if (norm) {
+          whatsappRecipients.push({ subscriber_id: r.subscriber_id, phone: norm })
+          waOk = true
+        }
+      }
+      // Fallback: si pidió solo whatsapp pero no tiene phone verificado, usar email
+      if (wantEmail || (wantWa && !waOk)) {
+        if (profile.email) emailRecipients.push(profile.email)
+      }
+    }
+
+    // ── Email (canal principal) ─────────────────────────────────────────
+    if (emailRecipients.length > 0) {
+      await sendNewPostNotification({
+        subscriberEmails: emailRecipients,
+        creatorName: args.creatorName,
+        creatorSlug: args.creatorSlug,
+        publicationName: args.publicationName,
+        postTitle: args.postTitle,
+        postExcerpt: args.postExcerpt,
+        postSlug: args.postSlug,
+        isFree: args.isFree,
+        creatorId: args.creatorId,
+        price_clp: args.price_clp,
+      })
+    }
+
+    // ── WhatsApp (stub-safe: si no hay token, se omite con warning) ────
+    if (whatsappRecipients.length > 0 && isWhatsAppConfigured()) {
+      const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://nebbuler.com'
+      const postUrl = `${baseUrl}/${args.creatorSlug}/${args.postSlug}`
+      const unsubUrl = `${baseUrl}/dashboard/preferencias`
+      const templateName =
+        process.env.WHATSAPP_TEMPLATE_NEW_POST ?? 'nuevo_post_es'
+
+      for (const w of whatsappRecipients) {
+        const params = buildNewPostTemplateParams({
+          creatorName: args.creatorName,
+          postTitle: args.postTitle.slice(0, 60),
+          postUrl,
+          unsubscribeUrl: unsubUrl,
+        })
+        try {
+          const res = await sendWhatsAppMessage({
+            to: w.phone,
+            templateName,
+            params,
+            language: 'es',
+          })
+          try {
+            await serviceAny.from('sala_notification_log').insert({
+              subscriber_id: w.subscriber_id,
+              creator_id: args.creatorId,
+              channel: 'whatsapp',
+              status: res.ok ? 'sent' : 'failed',
+              provider_id: res.messageId ?? null,
+              error: res.ok ? null : (res.error ?? 'unknown').slice(0, 240),
+            })
+          } catch {
+            /* log failure non-fatal */
+          }
+        } catch (err) {
+          console.error('[notifySubscribers:wa] exception:', (err as Error).message)
+        }
+      }
+    } else if (whatsappRecipients.length > 0) {
+      console.warn(
+        '[notifySubscribers] WhatsApp no configurado — %d skipped',
+        whatsappRecipients.length
+      )
+    }
   } catch (err) {
     console.error('[notifySubscribers] error:', err)
   }

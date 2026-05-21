@@ -67,6 +67,10 @@
     {
       "path": "/api/cron/scan-linkedin-targets",
       "schedule": "0 7 * * *"
+    },
+    {
+      "path": "/api/cron/detect-milestones",
+      "schedule": "0 8 * * *"
     }
   ]
 }

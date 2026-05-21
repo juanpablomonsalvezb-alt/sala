@@ -590,6 +590,18 @@ export default function AbrirPage() {
       // y al dashboard. Si no hay cookie o el código falla, seguir al pago.
       setSubmitted(true)
 
+      // Track referral (best-effort, no bloquea el flujo).
+      // Invite tiene prioridad para el plan; referral se cuenta aparte.
+      try {
+        await fetch('/api/referrals/track-signup', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({}),
+        })
+      } catch {
+        // Silencioso — el referral es opcional.
+      }
+
       try {
         const redeemRes = await fetch('/api/invites/redeem', {
           method: 'POST',

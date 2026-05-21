@@ -68,7 +68,7 @@ const ERROR_MESSAGES: Record<string, { title: string; body: string }> = {
   },
 }
 
-export default async function InvitePage({ params }: PageProps) {
+export default async function VipInvitePage({ params }: PageProps) {
   const { code: rawCode } = await params
   const result = await validateCode(rawCode)
 
@@ -98,10 +98,6 @@ export default async function InvitePage({ params }: PageProps) {
     )
   }
 
-  // La cookie nb_invite se setea cuando el usuario hace click en el botón
-  // (via /api/invites/claim), ya que cookies().set() no funciona en pages.
-
-  // Si el usuario ya está autenticado, ofrecemos redimir directo.
   const supabase = await createClient()
   const {
     data: { user },
@@ -182,7 +178,7 @@ export default async function InvitePage({ params }: PageProps) {
 export async function generateMetadata({ params }: PageProps) {
   const { code } = await params
   return {
-    title: `Invitación · Nebbuler`,
+    title: 'Invitación · Nebbuler',
     description: `Invitación VIP para abrir tu sala en Nebbuler sin pagar la tarifa de plataforma. Código ${code}.`,
     robots: { index: false, follow: false },
   }

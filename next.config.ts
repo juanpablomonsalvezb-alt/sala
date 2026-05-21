@@ -1,5 +1,6 @@
 import type { NextConfig } from "next"
 import withPWAInit from "@ducanh2912/next-pwa"
+import { withSentryConfig } from "@sentry/nextjs"
 
 const withPWA = withPWAInit({
   dest: "public",
@@ -176,4 +177,34 @@ const nextConfig: NextConfig = {
   },
 }
 
-export default withPWA(nextConfig)
+// Sentry: envolvemos DESPUÉS de PWA. withSentryConfig sube source maps al
+// build (si SENTRY_AUTH_TOKEN está presente) y conecta los webpack plugins
+// para que stacktraces en producción sean legibles. Si no hay AUTH_TOKEN,
+// el build sigue funcionando sin upload — solo se pierde la des-minificación
+// en el dashboard de Sentry.
+const sentryBuildOptions = {
+  org: process.env.SENTRY_ORG,
+  project: process.env.SENTRY_PROJECT,
+  authToken: process.env.SENTRY_AUTH_TOKEN,
+
+  // Silenciar logs del plugin durante el build (Vercel ya es ruidoso)
+  silent: !process.env.CI,
+
+  // No exponer source maps públicamente en producción
+  hideSourceMaps: true,
+
+  // Nota: disableLogger fue deprecado en Sentry SDK 10.x. El tree-shake del
+  // logger ahora se hace vía webpack.treeshake.removeDebugLogging (no
+  // soportado con Turbopack que es lo que usamos), así que no lo seteamos.
+
+  // No subir source maps si falta el auth token (evita errores de build
+  // en previews / locales / forks que no tienen el secret)
+  sourcemaps: {
+    disable: !process.env.SENTRY_AUTH_TOKEN,
+  },
+
+  // Telemetría del plugin de build hacia Sentry — apagada para no consumir
+  telemetry: false,
+}
+
+export default withSentryConfig(withPWA(nextConfig), sentryBuildOptions)

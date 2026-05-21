@@ -9,6 +9,7 @@ import {
   parseRef,
   parsePlatformRef,
 } from '@/lib/payments/mp-helpers'
+import { captureError, setTag } from '@/lib/observability'
 
 export const runtime = 'nodejs'
 export const maxDuration = 30
@@ -362,11 +363,16 @@ async function processPreapproval(preapproval: {
 
 export async function POST(request: NextRequest) {
   let eventId: string | null = null
+  setTag('webhook', 'mp')
   try {
     const rawBody = await request.text()
 
     if (!verifyMPSignature(request)) {
       console.error('[MP webhook] firma inválida — rechazando')
+      captureError(new Error('MP webhook: invalid signature'), {
+        webhook: 'mp',
+        stage: 'signature-verify',
+      })
       return NextResponse.json({ error: 'Invalid signature' }, { status: 400 })
     }
 
@@ -462,6 +468,11 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ received: true })
   } catch (err) {
     console.error('[MP webhook] error:', err)
+    captureError(err, {
+      webhook: 'mp',
+      eventId,
+      stage: 'top-level-catch',
+    })
     // No commit → la reserva queda 'processing' y expira en 5 min para reintento
     return NextResponse.json({ error: 'Webhook processing error' }, { status: 500 })
   }

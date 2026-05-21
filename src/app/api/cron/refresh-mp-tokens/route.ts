@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { createServiceClient } from '@/lib/supabase/server'
+import { captureError, setTag } from '@/lib/observability'
 
 export const runtime = 'nodejs'
 export const maxDuration = 60
@@ -16,6 +17,7 @@ export const maxDuration = 60
  * que el flujo OAuth re-conexión se dispare en el dashboard.
  */
 export async function GET(req: Request) {
+  setTag('cron', 'refresh-mp-tokens')
   const authHeader = req.headers.get('Authorization')
   if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
     return NextResponse.json({ error: 'unauthorized' }, { status: 401 })
@@ -101,6 +103,10 @@ export async function GET(req: Request) {
         creator_id: row.creator_id,
         ok: false,
         detail: err instanceof Error ? err.message.slice(0, 80) : 'unknown',
+      })
+      captureError(err, {
+        cron: 'refresh-mp-tokens',
+        creator_id: row.creator_id,
       })
     }
   }

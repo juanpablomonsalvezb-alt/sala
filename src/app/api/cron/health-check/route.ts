@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { createServiceClient } from '@/lib/supabase/server'
 import { Resend } from 'resend'
+import { captureError, captureMessage, setTag } from '@/lib/observability'
 
 export const runtime = 'nodejs'
 export const maxDuration = 60
@@ -107,6 +108,7 @@ function buildEmailHtml(failedChecks: string[], details: Record<string, CheckRes
 }
 
 export async function GET(request: Request) {
+  setTag('cron', 'health-check')
   const authHeader = request.headers.get('authorization')
   if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
@@ -120,6 +122,7 @@ export async function GET(request: Request) {
     const res = await fetch(`${baseUrl}/api/health`, { cache: 'no-store' })
     healthData = await res.json()
   } catch (e) {
+    captureError(e, { cron: 'health-check', stage: 'fetch-health' })
     return NextResponse.json({ error: `No se pudo llamar /api/health: ${String(e)}` }, { status: 500 })
   }
 
@@ -166,7 +169,18 @@ export async function GET(request: Request) {
         .eq('checked_at', healthData.timestamp)
     } catch (emailError) {
       console.error('[health-check] Error enviando email:', emailError)
+      captureError(emailError, { cron: 'health-check', stage: 'alert-email' })
     }
+  }
+
+  // Si hubo checks críticos fallando, reportar como mensaje (no exception).
+  // Sirve para que el dashboard de Sentry tenga histórico de degradaciones.
+  if (criticalFailed.length > 0) {
+    captureMessage(
+      `[health-check] checks críticos fallando: ${criticalFailed.join(', ')}`,
+      'error',
+      { cron: 'health-check', failed: failedChecks, critical: criticalFailed }
+    )
   }
 
   return NextResponse.json({

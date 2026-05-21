@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import Parser from 'rss-parser'
+import { captureError, setTag } from '@/lib/observability'
 
 const parser = new Parser({
   timeout: 5000,
@@ -112,6 +113,7 @@ function extractKeywords(text: string): string[] {
 }
 
 export async function GET(request: Request) {
+  setTag('cron', 'detect-trends')
   const authHeader = request.headers.get('authorization')
   const cronSecret = process.env.CRON_SECRET
 
@@ -179,6 +181,7 @@ export async function GET(request: Request) {
     })
   } catch (error) {
     console.error('Trend detection error:', error)
+    captureError(error, { cron: 'detect-trends' })
     return NextResponse.json(
       { success: false, error: error instanceof Error ? error.message : 'Unknown error' },
       { status: 500 }

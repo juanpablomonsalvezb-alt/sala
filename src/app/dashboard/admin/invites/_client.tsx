@@ -64,7 +64,7 @@ export function InvitesAdminClient({ initialInvites }: { initialInvites: InviteR
   }, [invites, filter])
 
   async function copyInviteUrl(code: string) {
-    const url = `${window.location.origin}/invite/${code}`
+    const url = `${window.location.origin}/vip/${code}`
     try {
       await navigator.clipboard.writeText(url)
       setCopiedCode(code)
@@ -318,7 +318,7 @@ function CreateInviteModal({
 
   async function copyUrl() {
     if (!created) return
-    const url = `${window.location.origin}/invite/${created.code}`
+    const url = `${window.location.origin}/vip/${created.code}`
     await navigator.clipboard.writeText(url)
   }
 
@@ -451,7 +451,7 @@ function CreateInviteModal({
             <div className="bg-[#FFFBEA] border border-[#EAB308] p-4 mb-4">
               <p className="text-[10px] uppercase tracking-wider text-[#7A5900] mb-1">Link</p>
               <p className="text-[12px] text-[#121212] break-all">
-                {typeof window !== 'undefined' ? window.location.origin : 'https://nebbuler.com'}/invite/{created.code}
+                {typeof window !== 'undefined' ? window.location.origin : 'https://nebbuler.com'}/vip/{created.code}
               </p>
             </div>
             <div className="flex justify-end gap-3">

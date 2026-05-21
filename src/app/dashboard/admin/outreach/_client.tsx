@@ -183,7 +183,7 @@ export function OutreachAdminClient({
   async function copyPitch(t: OutreachRow) {
     const draft = draftEdits[t.id] ?? t.ai_pitch_draft ?? ''
     const inviteUrl = t.invite_code
-      ? `${window.location.origin}/invite/${t.invite_code}`
+      ? `${window.location.origin}/vip/${t.invite_code}`
       : ''
     const fullMessage = inviteUrl ? `${draft.trim()}\n\n${inviteUrl}` : draft.trim()
 

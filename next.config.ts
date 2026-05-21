@@ -67,6 +67,14 @@ const nextConfig: NextConfig = {
     ],
   },
 
+  async redirects() {
+    return [
+      // Compat: links viejos /invite/CODIGO siguen funcionando.
+      // Movido a /vip/ porque /invite/[code] colisionaba con /[creator]/[post].
+      { source: '/invite/:code', destination: '/vip/:code', permanent: true },
+    ]
+  },
+
   async headers() {
     // CSP — defensa en profundidad contra XSS.
     // 'unsafe-inline' es necesario para Next.js (estilos inline y JSON-LD).

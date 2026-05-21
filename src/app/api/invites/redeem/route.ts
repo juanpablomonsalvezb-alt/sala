@@ -62,16 +62,26 @@ export async function POST(request: NextRequest) {
     )
   }
 
-  // 3. Parsear body
-  let codeRaw: string
+  // 3. Parsear body — el `code` es opcional; si falta, leemos la cookie HttpOnly
+  // nb_invite (set en /api/invites/claim). Esto permite que /abrir/page.tsx
+  // llame al redeem sin tener que leer la cookie en el cliente.
+  let codeRaw: string | null = null
   try {
-    const body = (await request.json()) as { code?: unknown }
-    if (typeof body.code !== 'string') {
-      return NextResponse.json({ error: 'Código requerido.' }, { status: 400 })
+    const body = (await request.json().catch(() => ({}))) as { code?: unknown }
+    if (typeof body.code === 'string' && body.code.length > 0) {
+      codeRaw = body.code
     }
-    codeRaw = body.code
   } catch {
-    return NextResponse.json({ error: 'Body inválido.' }, { status: 400 })
+    // Body vacío o inválido — caer a cookie
+  }
+
+  if (!codeRaw) {
+    const cookieCode = request.cookies.get('nb_invite')?.value
+    if (cookieCode) codeRaw = cookieCode
+  }
+
+  if (!codeRaw) {
+    return NextResponse.json({ error: 'Código requerido.' }, { status: 400 })
   }
 
   const code = normalizeInviteCode(codeRaw)

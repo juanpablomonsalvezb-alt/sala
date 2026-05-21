@@ -585,34 +585,26 @@ export default function AbrirPage() {
         return
       }
 
-      // Perfil creado — verificar si el usuario tiene invite VIP activo.
-      // Si sí, redimir el código (skip pago) y mandar al dashboard.
-      // Si no, iniciar pago de plataforma (US$19/mes).
+      // Perfil creado — intentar redimir invite VIP (si la cookie nb_invite
+      // está presente, el endpoint la lee server-side). Si funciona, skip pago
+      // y al dashboard. Si no hay cookie o el código falla, seguir al pago.
       setSubmitted(true)
 
-      // 1. Intentar leer el código de la cookie de invite (set en /invite/[code])
-      const inviteMatch = document.cookie.match(/(?:^|;\s*)nb_invite=([^;]+)/)
-      const inviteCode = inviteMatch ? decodeURIComponent(inviteMatch[1]) : null
-
-      if (inviteCode) {
-        try {
-          const redeemRes = await fetch('/api/invites/redeem', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ code: inviteCode }),
-          })
-          const redeemData = await redeemRes.json().catch(() => ({}))
-          if (redeemRes.ok && redeemData.success) {
-            // Invite válido — skip pago, ir directo al dashboard
-            // Borrar cookie del invite
-            document.cookie = 'nb_invite=; path=/; max-age=0'
-            window.location.href = '/dashboard?bienvenida=invite'
-            return
-          }
-          // Si el invite falla (revocado/usado), seguir al flujo normal de pago
-        } catch {
-          // Error de red — seguir al flujo normal de pago
+      try {
+        const redeemRes = await fetch('/api/invites/redeem', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({}),
+        })
+        const redeemData = await redeemRes.json().catch(() => ({}))
+        if (redeemRes.ok && redeemData.success) {
+          // Invite válido — skip pago, ir directo al dashboard del creador
+          window.location.href = '/dashboard?bienvenida=invite'
+          return
         }
+        // Si el redeem falla (sin cookie, revocado, etc.), seguir al pago normal
+      } catch {
+        // Error de red — seguir al flujo normal de pago
       }
 
       try {

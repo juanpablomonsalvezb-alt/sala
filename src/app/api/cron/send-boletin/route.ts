@@ -6,7 +6,11 @@ import crypto from 'crypto'
 export const runtime = 'nodejs'
 export const maxDuration = 300
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+function getResend(): Resend {
+  const key = process.env.RESEND_API_KEY
+  if (!key) throw new Error('RESEND_API_KEY missing')
+  return new Resend(key)
+}
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -316,7 +320,7 @@ export async function GET(request: Request) {
         weekLabel,
       })
 
-      return resend.emails.send({
+      return getResend().emails.send({
         from: 'Boletín Profesional Nebbuler <boletin@nebbuler.com>',
         to: user.email,
         subject: `Boletín Profesional Nebbuler — ${weekLabel}`,

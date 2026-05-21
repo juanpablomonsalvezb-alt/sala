@@ -4,7 +4,11 @@ import { rateLimit, getClientIp } from '@/lib/rateLimit'
 
 export const runtime = 'nodejs'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+function getResend(): Resend {
+  const key = process.env.RESEND_API_KEY
+  if (!key) throw new Error('RESEND_API_KEY missing')
+  return new Resend(key)
+}
 
 const RECIPIENT = 'juanpablo.monsalvezb@gmail.com'
 
@@ -66,7 +70,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Error de configuración.' }, { status: 500 })
     }
 
-    await resend.emails.send({
+    await getResend().emails.send({
       from: 'Nebbuler Contacto <noreply@nebbuler.com>',
       to: RECIPIENT,
       replyTo: email,
@@ -76,7 +80,7 @@ export async function POST(request: NextRequest) {
     })
 
     // Confirmación al remitente
-    await resend.emails.send({
+    await getResend().emails.send({
       from: 'Nebbuler <noreply@nebbuler.com>',
       to: email,
       subject: 'Recibimos tu mensaje — Nebbuler',

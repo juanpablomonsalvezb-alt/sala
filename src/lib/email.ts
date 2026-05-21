@@ -3,7 +3,18 @@ import { createServiceClient } from '@/lib/supabase/server'
 import { stripHtml } from '@/lib/sanitize'
 import { randomBytes } from 'crypto'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+// Lazy init: Resend valida en su constructor que RESEND_API_KEY existe.
+// Esto rompe `next build > Collecting page data` si el env var no está en
+// build time. Inicializamos en runtime.
+let _resend: Resend | null = null
+export function getResend(): Resend {
+  if (_resend) return _resend
+  const key = process.env.RESEND_API_KEY
+  if (!key) throw new Error('RESEND_API_KEY missing')
+  _resend = new Resend(key)
+  return _resend
+}
+
 const BASE_URL = process.env.NEXT_PUBLIC_APP_URL ?? 'https://nebbuler.com'
 
 // ─── Template HTML ────────────────────────────────────────────────────────────
@@ -191,7 +202,7 @@ export async function sendNewPostNotification(params: {
         }
 
         try {
-          await resend.emails.send({
+          await getResend().emails.send({
             from: `${params.publicationName} via Nebbuler <notificaciones@nebbuler.com>`,
             to: email,
             subject,

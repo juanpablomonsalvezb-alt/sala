@@ -5,7 +5,11 @@ import { Resend } from 'resend'
 export const runtime = 'nodejs'
 export const maxDuration = 60
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+function getResend(): Resend {
+  const key = process.env.RESEND_API_KEY
+  if (!key) throw new Error('RESEND_API_KEY missing')
+  return new Resend(key)
+}
 
 const CRITICAL_CHECKS = ['database', 'mp_webhook_secret', 'mp_access_token', 'payment_tables'] as const
 
@@ -147,7 +151,7 @@ export async function GET(request: Request) {
     const subject = `⚠️ Nebbuler: ${failedChecks.length} sistema${failedChecks.length > 1 ? 's' : ''} con problemas`
 
     try {
-      await resend.emails.send({
+      await getResend().emails.send({
         from: 'Nebbuler Health <hola@nebbuler.com>',
         to: 'juanpablo.monsalvezb@gmail.com',
         subject,

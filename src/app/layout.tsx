@@ -187,8 +187,8 @@ const PLATFORM_JSONLD = {
   ],
   offers: {
     "@type": "Offer",
-    price: "29990",
-    priceCurrency: "CLP",
+    price: "19",
+    priceCurrency: "USD",
     description: "Tarifa fija mensual — sin comisión sobre ingresos",
     availability: "https://schema.org/InStock",
   },

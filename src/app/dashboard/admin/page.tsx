@@ -44,8 +44,10 @@ export default async function AdminPage() {
   const { data: subsData } = await db.from('sala_subscriptions').select('price_clp').eq('status', 'active')
   const globalMRR = (subsData ?? []).reduce((acc: number, s: { price_clp: number }) => acc + (s.price_clp ?? 0), 0)
 
-  // Ingresos de plataforma (creadores con plan activo × $29.990)
-  const platformRevenue = (activeCreators ?? 0) * 29990
+  // Ingresos de plataforma (creadores con plan activo × tarifa platform).
+  // PLATFORM_PRICE_CLP es la fuente de verdad — actualmente USD 19 ≈ 17990 CLP.
+  const { PLATFORM_PRICE_CLP } = await import('@/lib/pricing')
+  const platformRevenue = (activeCreators ?? 0) * PLATFORM_PRICE_CLP
 
   // ── Lista de creadores ─────────────────────────────────────────────────────
   const { data: creatorsRaw } = await db
@@ -84,7 +86,7 @@ export default async function AdminPage() {
           <p className="text-[11px] uppercase tracking-[0.15em] text-[#999] font-sans font-bold mb-4">Plataforma</p>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-[#DEDEDE] border border-[#DEDEDE]">
             <StatCard label="MRR global" value={`$${formatCLP(globalMRR)}`} sub="CLP · suscripciones activas" accent />
-            <StatCard label="Ingresos plataforma" value={`$${formatCLP(platformRevenue)}`} sub={`${activeCreators ?? 0} creadores activos × $29.990`} />
+            <StatCard label="Ingresos plataforma" value={`$${formatCLP(platformRevenue)}`} sub={`${activeCreators ?? 0} creadores activos × US$19`} />
             <StatCard label="Suscripciones activas" value={(totalSubs ?? 0).toLocaleString('es-CL')} sub="Lectores pagando" />
             <StatCard label="Publicaciones" value={(totalPosts ?? 0).toLocaleString('es-CL')} sub="Artículos publicados" />
           </div>

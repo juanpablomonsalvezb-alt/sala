@@ -82,7 +82,7 @@ export default function TerminosPage() {
 
           <section>
             <h2 className="font-serif text-[22px] font-bold text-[#121212] mb-4">6. Plan de Creadores</h2>
-            <p className="mb-3">Los Creadores pagan a Nebbuler una tarifa fija mensual de <strong>$29.990 CLP</strong> (o su equivalente en moneda local) por uso de la Plataforma. Esta tarifa es independiente del precio que el Creador cobra a sus Lectores.</p>
+            <p className="mb-3">Los Creadores pagan a Nebbuler una tarifa fija mensual de <strong>US$19</strong> (~$17.990 CLP, cobrada en moneda local equivalente) por uso de la Plataforma. Esta tarifa es independiente del precio que el Creador cobra a sus Lectores.</p>
             <p><strong>Nebbuler no cobra comisión sobre las suscripciones cobradas por los Creadores.</strong> El 100% del precio que un Lector paga llega íntegramente al Creador, descontados únicamente los cargos del procesador de pagos (MercadoPago).</p>
           </section>
 

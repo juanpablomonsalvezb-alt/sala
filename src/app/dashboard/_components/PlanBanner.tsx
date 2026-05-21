@@ -64,7 +64,7 @@ export function PlanBanner({ plan }: PlanBannerProps) {
             className="bg-[#009EE3] hover:bg-[#007AB8] text-white text-[12px] font-semibold px-4 py-2 transition-colors disabled:opacity-60"
             style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}
           >
-            {loading ? 'Cargando...' : 'Activar por $29.990/mes →'}
+            {loading ? 'Cargando...' : 'Activar por US$19/mes →'}
           </button>
         </div>
       )}

@@ -1,7 +1,10 @@
 // Funciones puras del webhook MP — extraídas para poder testearlas sin BD ni red.
 // Cualquier cambio aquí debe ir acompañado de tests en `tests/mp-helpers.test.ts`.
 
-export const PLATFORM_FEE_CLP = 29990
+// Re-exportamos desde @/lib/pricing para mantener una sola fuente de verdad.
+// Antes era 29990; bajó a 17990 (≈ USD 19) el 2026-05-21.
+export { PLATFORM_PRICE_CLP as PLATFORM_FEE_CLP } from '@/lib/pricing'
+import { PLATFORM_PRICE_CLP } from '@/lib/pricing'
 
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
 
@@ -16,7 +19,7 @@ export function buildEventId(
 }
 
 export function validatePlatformAmount(amountPaid: number): boolean {
-  return Math.abs(amountPaid - PLATFORM_FEE_CLP) <= PLATFORM_FEE_CLP * 0.01
+  return Math.abs(amountPaid - PLATFORM_PRICE_CLP) <= PLATFORM_PRICE_CLP * 0.01
 }
 
 export function parseRef(

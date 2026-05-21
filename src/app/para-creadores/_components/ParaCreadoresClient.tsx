@@ -141,7 +141,7 @@ function IncomesCalculator() {
             </p>
             <hr className="nyt-rule mb-5" />
             <p className="font-sans text-[13px] text-[#555]">
-              En Nebbuler pagas <strong className="text-[#121212]">$29.990 CLP/mes fijo</strong> y te quedas con el 100%.
+              En Nebbuler pagas <strong className="text-[#121212]">US$19/mes fijo</strong> (~$17.990 CLP) y te quedas con el 100%.
               <br />
               <span className="text-[#888] text-[12px]">Sin comisiones, sin sorpresas.</span>
             </p>

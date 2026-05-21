@@ -193,7 +193,7 @@ export default function SubstackEspanolPage() {
                   <td className="px-3 py-2 border border-[#E5E5E5] text-[#121212] font-semibold">✓ Precio nativo en cada moneda</td>
                   <td className="px-3 py-2 border border-[#E5E5E5] text-[#121212] font-semibold">✓ Integrado</td>
                   <td className="px-3 py-2 border border-[#E5E5E5] text-[#121212] font-semibold">0%</td>
-                  <td className="px-3 py-2 border border-[#E5E5E5] text-[#121212] font-semibold">$29.990 CLP/mes</td>
+                  <td className="px-3 py-2 border border-[#E5E5E5] text-[#121212] font-semibold">US$19/mes</td>
                 </tr>
                 <tr>
                   <td className="px-3 py-2 border border-[#E5E5E5] font-semibold text-[#121212]">Substack</td>

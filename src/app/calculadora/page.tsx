@@ -128,7 +128,7 @@ export default function CalculadoraPage() {
             <h2 className="font-serif text-[1.6rem] font-bold mb-6">¿Cómo funciona el cálculo?</h2>
             <ul className="space-y-3 text-[15px] text-[#444] leading-relaxed">
               <li>
-                <strong>Nebbuler:</strong> tarifa fija mensual (~$29.990 CLP equivalente). 0% comisión variable sobre ingresos. Pagos directos en moneda local.
+                <strong>Nebbuler:</strong> tarifa fija mensual de US$19 (~$17.990 CLP). 0% comisión variable sobre ingresos. Pagos directos en moneda local.
               </li>
               <li>
                 <strong>Substack:</strong> 10% sobre ingresos + ~2.9% + $0.30 USD del procesador (Stripe). Solo USD.

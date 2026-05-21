@@ -211,7 +211,7 @@ export default async function GuiaPage({
               Abre tu sala en Nebbuler
             </h2>
             <p className="font-sans text-[15px] text-[#555] mb-6 leading-relaxed">
-              Sin comisión. Tarifa fija de $29.990 CLP/mes. 100% de tus suscripciones es tuyo.
+              Sin comisión. Tarifa fija de US$19/mes. 100% de tus suscripciones es tuyo.
             </p>
             <Link
               href="/abrir"

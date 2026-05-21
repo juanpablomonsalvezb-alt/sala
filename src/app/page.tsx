@@ -40,12 +40,12 @@ const features = [
 ];
 
 const plans = [
-  { name: "Nebbuler", price: "$29.990", period: "/ mes", note: "0% comisión", cta: "Abrir mi sala →", featured: true, perks: ["Suscriptores ilimitados", "0% de comisión sobre tus ingresos", "Editor premium", "Analytics completo", "Soporte prioritario", "Sin contrato — cancela cuando quieras"] },
+  { name: "Nebbuler", price: "US$19", period: "/ mes", note: "0% comisión · pago en moneda local", cta: "Abrir mi sala →", featured: true, perks: ["Suscriptores ilimitados", "0% de comisión sobre tus ingresos", "Editor premium", "Analytics completo", "Soporte prioritario", "Sin contrato — cancela cuando quieras"] },
 ];
 
 const faqs = [
   { q: "¿Necesito saber programar?",                        a: "No. Configuras tu sala en 15 minutos, sin código ni diseño." },
-  { q: "¿Cómo recibo los pagos?",                           a: "Directo a tu cuenta. Nebbuler cobra $29.990/mes fijo — tú te quedas con el 100% de tus ingresos." },
+  { q: "¿Cómo recibo los pagos?",                           a: "Directo a tu cuenta. Nebbuler cobra US$19/mes fijo — tú te quedas con el 100% de tus ingresos." },
   { q: "¿Puedo tener contenido gratuito y de pago?",        a: "Sí. Tú decides qué es abierto y qué es exclusivo." },
   { q: "¿Qué pasa si cancelo?",                             a: "Cancelas cuando quieras. Tus datos quedan accesibles." },
   { q: "¿Nebbuler funciona fuera de Chile?",                a: "Sí. Disponible en toda Latinoamérica." },

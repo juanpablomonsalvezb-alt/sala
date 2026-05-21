@@ -2,8 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { MP_API, getHeaders, isMPConfigured } from '@/lib/mercadopago'
 import { rateLimit, getClientIp } from '@/lib/rate-limit'
-
-const PLATFORM_FEE_CLP = 29990
+import { PLATFORM_PRICE_CLP as PLATFORM_FEE_CLP } from '@/lib/pricing'
 
 export async function POST(request: NextRequest) {
   const supabase = await createClient()

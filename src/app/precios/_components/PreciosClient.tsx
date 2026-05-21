@@ -12,7 +12,7 @@ const PLANS = [
   {
     id: "nebbuler",
     name: "Nebbuler",
-    price: "$29.990",
+    price: "US$19",
     period: "/mes",
     commission: "0%",
     commissionLabel: "de comisión",
@@ -56,8 +56,8 @@ const FAQ_ITEMS = [
     a: "Sí. Procesamos pagos vía Stripe con tarjetas de débito y crédito emitidas en Chile y el resto del mundo.",
   },
   {
-    q: "¿Por qué $29.990 y no una comisión?",
-    a: "Porque si cobras $500.000 al mes, con Substack pagas $50.000 en comisiones. Con Nebbuler pagas $29.990 fijo y te quedas con todo lo demás.",
+    q: "¿Por qué US$19 y no una comisión?",
+    a: "Porque si cobras $500.000 CLP al mes, con Substack pagas $50.000 en comisiones. Con Nebbuler pagas US$19 (~$17.990 CLP) fijo y te quedas con todo lo demás.",
   },
 ];
 
@@ -240,7 +240,7 @@ function Calculator() {
           <div className="space-y-3">
             {[
               { label: "Substack", sublabel: "10% + ~3% Stripe", value: Math.round(gross * 0.87), highlight: false },
-              { label: "Nebbuler", sublabel: "$29.990/mes fijo · 0% comisión", value: gross - 29990, highlight: true },
+              { label: "Nebbuler", sublabel: "US$19/mes fijo · 0% comisión", value: gross - 17990, highlight: true },
             ].map((row) => (
               <div key={row.label} className={`flex items-center justify-between p-3 ${row.highlight ? 'bg-[#F0FFF4] border border-[#065F46]' : 'bg-[#F7F7F7]'}`}>
                 <div>
@@ -327,7 +327,7 @@ export default function PreciosPage() {
           <p className="section-label mb-4">PRECIOS</p>
           <hr className="nyt-rule mb-8" />
           <h1 className="font-serif text-[52px] md:text-[64px] font-bold text-[#121212] leading-[1.0] tracking-[-0.02em] mb-4">
-            $29.990 al mes.
+            US$19 al mes.
             <br />
             Tú te quedas con todo.
           </h1>

@@ -4,15 +4,16 @@ import { useState } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 
-// Configuración por país: símbolo, moneda, precios sugeridos, tarifa mensual Nebbuler
+// Configuración por país: símbolo, moneda, precios sugeridos, tarifa mensual Nebbuler.
+// La tarifa equivale a US$19/mes — ajustada por país según pricing.ts (2026-05-21).
 const PAISES = {
-  CL: { bandera: "🇨🇱", nombre: "Chile",     simbolo: "$",  moneda: "CLP", precios: [4990,  7990,  9990,  14990, 19990], tarifa: 29990 },
-  AR: { bandera: "🇦🇷", nombre: "Argentina", simbolo: "$",  moneda: "ARS", precios: [3000,  5000,  7000,  10000, 15000], tarifa: 30000 },
-  MX: { bandera: "🇲🇽", nombre: "México",    simbolo: "$",  moneda: "MXN", precios: [60,    99,    149,   199,   299],   tarifa: 600   },
-  CO: { bandera: "🇨🇴", nombre: "Colombia",  simbolo: "$",  moneda: "COP", precios: [12000, 20000, 30000, 45000, 59000], tarifa: 120000},
-  PE: { bandera: "🇵🇪", nombre: "Perú",      simbolo: "S/", moneda: "PEN", precios: [12,    20,    30,    45,    59],    tarifa: 115   },
-  UY: { bandera: "🇺🇾", nombre: "Uruguay",   simbolo: "$",  moneda: "UYU", precios: [150,   250,   390,   590,   750],  tarifa: 1200  },
-  BR: { bandera: "🇧🇷", nombre: "Brasil",    simbolo: "R$", moneda: "BRL", precios: [15,    25,    39,    59,    79],   tarifa: 150   },
+  CL: { bandera: "🇨🇱", nombre: "Chile",     simbolo: "$",  moneda: "CLP", precios: [4990,  7990,  9990,  14990, 19990], tarifa: 17990  },
+  AR: { bandera: "🇦🇷", nombre: "Argentina", simbolo: "$",  moneda: "ARS", precios: [3000,  5000,  7000,  10000, 15000], tarifa: 23990  },
+  MX: { bandera: "🇲🇽", nombre: "México",    simbolo: "$",  moneda: "MXN", precios: [60,    99,    149,   199,   299],   tarifa: 349    },
+  CO: { bandera: "🇨🇴", nombre: "Colombia",  simbolo: "$",  moneda: "COP", precios: [12000, 20000, 30000, 45000, 59000], tarifa: 79000  },
+  PE: { bandera: "🇵🇪", nombre: "Perú",      simbolo: "S/", moneda: "PEN", precios: [12,    20,    30,    45,    59],    tarifa: 69     },
+  UY: { bandera: "🇺🇾", nombre: "Uruguay",   simbolo: "$",  moneda: "UYU", precios: [150,   250,   390,   590,   750],  tarifa: 790    },
+  BR: { bandera: "🇧🇷", nombre: "Brasil",    simbolo: "R$", moneda: "BRL", precios: [15,    25,    39,    59,    79],   tarifa: 109    },
 } as const;
 
 type PaisKey = keyof typeof PAISES;

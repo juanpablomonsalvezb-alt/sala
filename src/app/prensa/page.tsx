@@ -38,7 +38,7 @@ export default function PrensaPage() {
             Press Kit — Nebbuler
           </h1>
           <p className="font-sans text-[18px] text-[#555] leading-relaxed mb-8">
-            La plataforma que conecta profesionales latinoamericanos con suscriptores que pagan por su expertise. Sin comisión. Tarifa fija de $29.990 CLP/mes.
+            La plataforma que conecta profesionales latinoamericanos con suscriptores que pagan por su expertise. Sin comisión. Tarifa fija de US$19/mes.
           </p>
           <a
             href="mailto:prensa@nebbuler.com"
@@ -91,7 +91,7 @@ export default function PrensaPage() {
             <div>
               <h3 className="font-serif text-[20px] font-bold text-[#121212] mb-3">Para creadores</h3>
               <p className="font-sans text-[14px] text-[#555] mb-3">
-                Tarifa fija de $29.990 CLP/mes (~$35 USD). 0% de comisión sobre suscripciones. Pagos en moneda local en 18 países.
+                Tarifa fija de US$19/mes (~$17.990 CLP). 0% de comisión sobre suscripciones. Pagos en moneda local en 18 países.
               </p>
               <ul className="font-sans text-[14px] text-[#666] space-y-2">
                 <li>• Plataforma de publicación editorial premium</li>

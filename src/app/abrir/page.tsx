@@ -585,7 +585,7 @@ export default function AbrirPage() {
         return
       }
 
-      // Perfil creado — iniciar pago de plataforma ($29.990/mes)
+      // Perfil creado — iniciar pago de plataforma (US$19/mes)
       setSubmitted(true)
       try {
         const payRes = await fetch('/api/mp/platform-checkout', { method: 'POST' })

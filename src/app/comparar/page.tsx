@@ -41,7 +41,7 @@ const FAQ_JSONLD = {
       name: "¿Nebbuler cobra comisión por suscriptor?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "No. Nebbuler cobra una tarifa fija de $29.990 CLP al mes y el 100% de las suscripciones que cobres es tuyo, menos los cargos propios del procesador de pagos. No hay comisión variable sobre tus ingresos.",
+        text: "No. Nebbuler cobra una tarifa fija de US$19/mes (~$17.990 CLP) y el 100% de las suscripciones que cobres es tuyo, menos los cargos propios del procesador de pagos. No hay comisión variable sobre tus ingresos.",
       },
     },
     {
@@ -115,7 +115,7 @@ const rows: { label: string; cells: CellValue[] }[] = [
   },
   {
     label: "Precio mensual",
-    cells: ["$29.990 CLP", "Gratis*", "Gratis*", "Gratis*", "~$42 USD"],
+    cells: ["US$19", "Gratis*", "Gratis*", "Gratis*", "~$42 USD"],
   },
   {
     label: "Pagos en CLP / ARS / MXN",
@@ -486,16 +486,16 @@ export default function CompararPage() {
                 </div>
                 <div className="flex justify-between text-[#666]">
                   <span>Tarifa Nebbuler</span>
-                  <span className="font-medium">−$29.990 CLP</span>
+                  <span className="font-medium">−$17.990 CLP (US$19)</span>
                 </div>
                 <div className="w-full h-px bg-[#A7F3D0] my-2" />
                 <div className="flex justify-between font-semibold text-[#121212]">
                   <span>Lo que recibes</span>
-                  <span>$940.010 CLP</span>
+                  <span>$952.010 CLP</span>
                 </div>
                 <div className="flex justify-between font-bold text-emerald-700 text-base pt-1">
                   <span>Costo mensual real</span>
-                  <span>$59.990 CLP</span>
+                  <span>$47.990 CLP</span>
                 </div>
               </div>
             </div>
@@ -546,7 +546,7 @@ export default function CompararPage() {
             {[
               {
                 q: "¿Nebbuler cobra comisión por suscriptor?",
-                a: "No. Nebbuler cobra una tarifa fija de $29.990 CLP al mes y el 100% de las suscripciones que cobres es tuyo, menos los cargos propios del procesador de pagos. No hay comisión variable sobre tus ingresos.",
+                a: "No. Nebbuler cobra una tarifa fija de US$19/mes (~$17.990 CLP) y el 100% de las suscripciones que cobres es tuyo, menos los cargos propios del procesador de pagos. No hay comisión variable sobre tus ingresos.",
               },
               {
                 q: "¿Puedo recibir pagos en pesos chilenos, argentinos o mexicanos?",

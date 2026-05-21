@@ -5,15 +5,20 @@ import { publishLinkedInPost } from '@/lib/linkedin-client'
 import { canPublish, incrementRateLimit, markImageUsed, markTemplateUsed } from '@/lib/social'
 import { isSuperadmin } from '@/lib/supabase/server'
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SECRET_KEY ?? process.env.SUPABASE_SERVICE_ROLE_KEY!
-)
+export const runtime = 'nodejs'
+
+function adminClient() {
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SECRET_KEY ?? process.env.SUPABASE_SERVICE_ROLE_KEY!
+  )
+}
 
 export async function POST(req: Request) {
   if (!await isSuperadmin()) {
     return NextResponse.json({ error: 'forbidden' }, { status: 403 })
   }
+  const supabase = adminClient()
 
   const { opportunityId, comment } = await req.json()
 

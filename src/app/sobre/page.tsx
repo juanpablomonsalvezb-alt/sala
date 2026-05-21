@@ -168,8 +168,8 @@ const ORG_JSONLD = {
   ],
   offers: {
     '@type': 'AggregateOffer',
-    priceCurrency: 'CLP',
-    price: '29990',
+    priceCurrency: 'USD',
+    price: '19',
     description: 'Suscripción mensual a newsletters profesionales',
     priceValidUntil: '2026-12-31',
   },
@@ -252,7 +252,7 @@ export default function SobrePage() {
               <p className="font-sans text-sm text-[#666]">comisión sobre suscripciones</p>
             </div>
             <p className="font-sans text-base text-[#444] leading-relaxed mb-4">
-              <span className="font-semibold text-[#121212]">$29.990 CLP/mes</span> tarifa plana para creadores. El 100% del precio de cada suscripción va al creador, menos los cargos propios del procesador de pagos.
+              <span className="font-semibold text-[#121212]">US$19/mes</span> tarifa plana para creadores (~$17.990 CLP). El 100% del precio de cada suscripción va al creador, menos los cargos propios del procesador de pagos.
             </p>
             <p className="font-sans text-sm text-[#666] leading-relaxed">
               Sin intermediarios. Sin porcentajes variables. Sin sorpresas al final del mes. El creador fija su precio y ese precio es íntegramente suyo.

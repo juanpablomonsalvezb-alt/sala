@@ -1,0 +1,249 @@
+{
+  "campaign": "2026-05-21-mundial-medios-deportivos-latam",
+  "program": "La Sombra",
+  "launch_date": "2026-06-15",
+  "from_name": "Juan Pablo Monsalvez",
+  "from_email": "juanpablo.monsalvezb@gmail.com",
+  "reply_to": "juanpablo.monsalvezb@gmail.com",
+  "founder_whatsapp": "+56 9 XXXX XXXX",
+  "embargo_until": "2026-06-15",
+  "send_window": {
+    "days": ["tuesday", "wednesday", "thursday"],
+    "local_time_start": "10:00",
+    "local_time_end": "11:30"
+  },
+  "follow_up": {
+    "enabled": true,
+    "days_after_first": 4,
+    "max_follow_ups": 1
+  },
+  "recipients": [
+    {
+      "id": "ole-ar",
+      "outlet": "Olé",
+      "country": "AR",
+      "primary_email": "redaccion@ole.com.ar",
+      "secondary_email": "web@ole.com.ar",
+      "linkedin_backup": "Mariano Dayan (Director Olé)",
+      "email_source": "inferred-prisa-clarin-pattern",
+      "subject": "Para Olé: programa que ayuda a periodistas argentinos a cobrar en pesos durante el Mundial",
+      "angle": "creator-economy-deportiva-argentina",
+      "body_file": "pitches-medios-deportivos.md#1-olé-argentina"
+    },
+    {
+      "id": "as-ar",
+      "outlet": "AS Argentina",
+      "country": "AR",
+      "primary_email": "ar.redaccion@as.com",
+      "secondary_email": "redaccion@diarioas.es",
+      "linkedin_backup": "Editor jefe AS Argentina",
+      "email_source": "inferred-prisa-local-pattern",
+      "subject": "Para AS Argentina: nota sobre creator economy deportiva en Argentina (Mundial 2026)",
+      "angle": "economia-del-oficio-periodista-mundial",
+      "body_file": "pitches-medios-deportivos.md#2-as-argentina"
+    },
+    {
+      "id": "as-mx",
+      "outlet": "AS México",
+      "country": "MX",
+      "primary_email": "mx.redaccion@as.com",
+      "secondary_email": "redaccion@diarioas.es",
+      "linkedin_backup": "Editor jefe AS México",
+      "email_source": "inferred-prisa-local-pattern",
+      "subject": "Para AS México: cómo monetizan los periodistas deportivos mexicanos durante el Mundial 2026",
+      "angle": "mexico-coanfitrion-monetizacion-periodistas",
+      "body_file": "pitches-medios-deportivos.md#3-as-méxico"
+    },
+    {
+      "id": "as-co",
+      "outlet": "AS Colombia",
+      "country": "CO",
+      "primary_email": "co.redaccion@as.com",
+      "secondary_email": "redaccion@diarioas.es",
+      "linkedin_backup": "Editor jefe AS Colombia",
+      "email_source": "inferred-prisa-local-pattern",
+      "subject": "Para AS Colombia: por qué los periodistas deportivos colombianos pierden plata en Substack",
+      "angle": "perdida-intermediacion-internacional-colombia",
+      "body_file": "pitches-medios-deportivos.md#4-as-colombia"
+    },
+    {
+      "id": "as-cl",
+      "outlet": "AS Chile",
+      "country": "CL",
+      "primary_email": "cl.redaccion@as.com",
+      "secondary_email": "redaccion@diarioas.es",
+      "linkedin_backup": "Editor jefe AS Chile",
+      "email_source": "inferred-prisa-local-pattern",
+      "subject": "Para AS Chile: startup chilena lanza programa para que periodistas deportivos LATAM cobren en pesos durante el Mundial",
+      "angle": "startup-chilena-impacto-regional",
+      "body_file": "pitches-medios-deportivos.md#5-as-chile"
+    },
+    {
+      "id": "marca-mx",
+      "outlet": "Marca México / Claro Sports",
+      "country": "MX",
+      "primary_email": "contacto@marca.com",
+      "secondary_email": "contacto@clarosports.com",
+      "linkedin_backup": "Editor digital Marca México",
+      "email_source": "verified-clarosports + corporate-marca",
+      "subject": "Para Marca México: cómo los periodistas mexicanos van a cobrar el Mundial 2026",
+      "angle": "mexico-coanfitrion-economia-periodista",
+      "body_file": "pitches-medios-deportivos.md#6-marca-claro--marca-méxico"
+    },
+    {
+      "id": "elgrafico-ar",
+      "outlet": "El Gráfico",
+      "country": "AR",
+      "primary_email": "redaccion@elgrafico.com.ar",
+      "secondary_email": "https://www.elgrafico.com.ar/cliente/contacto",
+      "linkedin_backup": "Editor El Gráfico Web",
+      "email_source": "inferred-domain-pattern + contact-form",
+      "subject": "Para El Gráfico: el periodismo deportivo argentino y la economía del Mundial 2026",
+      "angle": "mirada-larga-oficio-periodismo-deportivo",
+      "body_file": "pitches-medios-deportivos.md#7-el-gráfico-argentina-digital"
+    },
+    {
+      "id": "tyc-ar",
+      "outlet": "TyC Sports",
+      "country": "AR",
+      "primary_email": "tycsports@tycsports.com.ar",
+      "secondary_email": null,
+      "linkedin_backup": "Editor digital TyC Sports",
+      "email_source": "verified-corporate",
+      "subject": "Para TyC Sports: nota digital sobre cómo monetizan los periodistas argentinos durante el Mundial 2026",
+      "angle": "calculadora-interactiva-mundial",
+      "body_file": "pitches-medios-deportivos.md#8-tyc-sports-argentina"
+    },
+    {
+      "id": "espn-latam",
+      "outlet": "ESPN Deportes LATAM",
+      "country": "REGIONAL",
+      "primary_email": "javier.x.dominguez@disney.com",
+      "secondary_email": "Daniel.Ancheyta@espn.com",
+      "cc_email": "Jose.A.Fernandez@espn.com",
+      "linkedin_backup": "Editor regional ESPN Press Room LATAM",
+      "email_source": "verified-espnpressroom-latinamerica",
+      "subject": "Para ESPN LATAM: nota sobre creator economy deportiva regional durante el Mundial 2026",
+      "angle": "cambio-estructural-regional-creator-economy",
+      "body_file": "pitches-medios-deportivos.md#9-espn-deportes-latam"
+    },
+    {
+      "id": "foxsports-mx",
+      "outlet": "Fox Sports LATAM / México",
+      "country": "MX",
+      "primary_email": "https://www.foxsports.com/presspass/about/contact-us/",
+      "secondary_email": "https://ayuda.foxsports.com.mx/hc/es-419",
+      "linkedin_backup": "Editor digital Fox Sports México",
+      "email_source": "official-press-form-only",
+      "subject": "Para Fox Sports LATAM: ángulo editorial sobre la economía del periodismo deportivo durante el Mundial 2026",
+      "angle": "ecosistema-cobertura-mundial-periodismo-independiente",
+      "body_file": "pitches-medios-deportivos.md#10-fox-sports-latam--fox-sports-méxico"
+    },
+    {
+      "id": "dsports",
+      "outlet": "DSports (DirecTV Sports)",
+      "country": "REGIONAL",
+      "primary_email": "prensa@dsports.com",
+      "secondary_email": "contenidos@dsports.com",
+      "linkedin_backup": "Jefe de contenidos Torneos / Editor DSports",
+      "email_source": "inferred-corporate-pattern",
+      "subject": "Para DSports: cómo se monetiza el periodismo deportivo LATAM durante el Mundial 2026",
+      "angle": "footprint-6-paises-periodistas-independientes",
+      "body_file": "pitches-medios-deportivos.md#11-dsports-directv-sports"
+    },
+    {
+      "id": "golcaracol-co",
+      "outlet": "GolCaracol",
+      "country": "CO",
+      "primary_email": "golcaracol@caracoltv.com.co",
+      "secondary_email": "septimodia@caracoltv.com.co",
+      "linkedin_backup": "Editor digital GolCaracol",
+      "email_source": "inferred-caracol-pattern + related-verified",
+      "subject": "Para GolCaracol: cómo los periodistas deportivos colombianos cobrarán el Mundial 2026",
+      "angle": "cobro-local-pesos-colombianos-pse",
+      "body_file": "pitches-medios-deportivos.md#12-golcaracol-colombia"
+    },
+    {
+      "id": "winsports-co",
+      "outlet": "Win Sports",
+      "country": "CO",
+      "primary_email": "prensa@winsports.co",
+      "secondary_email": "redaccion@winsports.co",
+      "linkedin_backup": "Jefe contenidos digitales Win Sports",
+      "email_source": "inferred-mediapro-colombia-pattern",
+      "subject": "Para Win Sports: nota digital sobre creator economy deportiva colombiana durante el Mundial 2026",
+      "angle": "calculadora-interactiva-periodistas-colombia",
+      "body_file": "pitches-medios-deportivos.md#13-win-sports-colombia"
+    },
+    {
+      "id": "elcomercio-pe",
+      "outlet": "El Comercio Deportes / Deporte Total",
+      "country": "PE",
+      "primary_email": "deportes@comercio.com.pe",
+      "secondary_email": "redaccion.deportes@comercio.com.pe",
+      "cc_email": "webmaster@trome.com",
+      "linkedin_backup": "Editor Deporte Total El Comercio",
+      "email_source": "inferred-grupo-elcomercio-pattern + verified-related",
+      "subject": "Para El Comercio Deportes / Deporte Total: cómo cobrarán los periodistas peruanos el Mundial 2026",
+      "angle": "yape-plin-cobro-local-soles",
+      "body_file": "pitches-medios-deportivos.md#14-el-comercio-deportes-perú"
+    },
+    {
+      "id": "ovacion-uy",
+      "outlet": "Ovación (El País Uruguay)",
+      "country": "UY",
+      "primary_email": "ovacion@elpais.com.uy",
+      "secondary_email": "redaccion@ovaciondigital.com.uy",
+      "linkedin_backup": "Editor Ovación Digital",
+      "email_source": "inferred-elpais-uy-pattern",
+      "subject": "Para Ovación: cómo monetizarán los periodistas deportivos uruguayos el Mundial 2026",
+      "angle": "densidad-periodistas-uruguay-cobro-local",
+      "body_file": "pitches-medios-deportivos.md#15-ovación-uruguay-el-país"
+    },
+    {
+      "id": "latercera-cl",
+      "outlet": "La Tercera / El Deportivo",
+      "country": "CL",
+      "primary_email": "eldeportivo@latercera.com",
+      "secondary_email": "deportes@latercera.com",
+      "linkedin_backup": "Editor El Deportivo La Tercera",
+      "email_source": "inferred-copesa-latercera-pattern",
+      "subject": "Para El Deportivo: startup chilena lanza programa que cambia cómo monetizan los periodistas deportivos del país durante el Mundial 2026",
+      "angle": "startup-chilena-local-regional",
+      "body_file": "pitches-medios-deportivos.md#16-la-tercera-deportes--el-deportivo-chile"
+    },
+    {
+      "id": "tudn-mx",
+      "outlet": "TUDN (TelevisaUnivision)",
+      "country": "MX-USA",
+      "primary_email": "redaccion@tudn.com",
+      "secondary_email": "prensa@tudn.com",
+      "linkedin_backup": "Editor digital TUDN México",
+      "email_source": "inferred-tudn-pattern",
+      "subject": "Para TUDN: economía del periodismo deportivo en mercado mexicano y latino-USA durante el Mundial 2026",
+      "angle": "mexico-coanfitrion + latino-usa-doble-audiencia",
+      "body_file": "pitches-medios-deportivos.md#17-tudn-méxicousa-televisaunivision"
+    }
+  ],
+  "assets_to_attach_on_request": [
+    {
+      "name": "dataset-creator-economy-deportiva-latam-2026.pdf",
+      "description": "Dataset agregado anonimizado de monetización de periodistas deportivos LATAM",
+      "embargo_until": "2026-06-15"
+    },
+    {
+      "name": "calculadora-la-sombra-mockup.png",
+      "description": "Mockup de la calculadora interactiva 'cuánto pagaría tu hinchada por tu análisis'"
+    },
+    {
+      "name": "la-sombra-onepager.pdf",
+      "description": "Resumen del programa La Sombra en una página"
+    }
+  ],
+  "notes": [
+    "Varios emails están inferidos por patrón corporativo del medio (PRISA, Grupo Clarín, Grupo El Comercio, Copesa, Caracol, Mediapro). Cada envío inferido debe acompañarse de un mensaje paralelo por LinkedIn al editor digital correspondiente.",
+    "Si bouncea el email primario, escalar al secundario y luego al LinkedIn backup dentro de 24h, según workflow estándar Nebbuler.",
+    "Embargo del dataset hasta 2026-06-15: respetar siempre.",
+    "Nunca enviar emojis. Nunca usar 'espero que estés bien'. Nunca usar buzzwords."
+  ]
+}

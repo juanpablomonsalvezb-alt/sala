@@ -35,13 +35,8 @@ import {
 
 const API_BASE = process.env.NEBBULER_API_BASE ?? 'https://nebbuler.com/api/mundial/v1'
 
-interface ApiOptions {
-  cache?: RequestCache
-}
-
-async function api<T = unknown>(path: string, opts: ApiOptions = {}): Promise<T> {
+async function api<T = unknown>(path: string): Promise<T> {
   const res = await fetch(`${API_BASE}${path}`, {
-    cache: opts.cache ?? 'force-cache',
     headers: {
       Accept: 'application/json',
       'User-Agent': 'nebbuler-mundial-mcp/0.1.0',

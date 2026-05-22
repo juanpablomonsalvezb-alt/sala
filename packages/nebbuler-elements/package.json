@@ -1,5 +1,5 @@
 {
-  "name": "@nebbuler/elements",
+  "name": "nebbuler-elements",
   "version": "0.1.0",
   "description": "Zero-dependency Web Components for embedding Nebbuler Mundial 2026 widgets in any HTML page. Works in WordPress, Squarespace, raw HTML, Shopify, Medium embeds, etc.",
   "keywords": [

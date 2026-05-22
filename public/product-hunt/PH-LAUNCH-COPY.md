@@ -67,8 +67,6 @@ What you can do today:
 Why it's different: it's built for the reality of LATAM — multiple 
 currencies, local billing formats, and language that actually sounds human.
 
-🎁 PH Exclusive: Use code PRODUCTHUNT26 for 3 months free.
-
 One question for the community: if you're a freelancer or consultant, 
 which administrative task steals the most time from your week?
 
@@ -163,13 +161,6 @@ para freelancers en LATAM. Si tienen 30 segundos, sería increíble su apoyo:
 
 ---
 
-## EXCLUSIVE OFFER
-**Código: PRODUCTHUNT26**
-3 meses gratis en plan Pro (US$19/mes)
-Válido solo el día del lanzamiento y 48h después.
-
----
-
 ## ASSETS CHECKLIST
 | Asset | Archivo | Estado |
 |-------|---------|--------|
@@ -182,5 +173,4 @@ Válido solo el día del lanzamiento y 48h después.
 | Maker comment | En este doc | ✅ Listo |
 | LinkedIn post | En este doc | ✅ Listo |
 | X/Twitter post | En este doc | ✅ Listo |
-| Código PH exclusivo | PRODUCTHUNT26 | ⚠️ Activar en Nebbuler |
 | Video demo | — | ❌ Pendiente (opcional pero recomendado) |

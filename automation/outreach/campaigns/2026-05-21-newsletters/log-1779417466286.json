@@ -9,7 +9,9 @@
     "nombre": "Bloomberg Línea",
     "email": "jtolama@bloomberglinea.com",
     "status": "sent",
-    "id": "c3e3d66d-c39d-4247-84d1-1fc04d78c1df"
+    "id": "c3e3d66d-c39d-4247-84d1-1fc04d78c1df",
+    "bounced": true,
+    "bounce_reason": "bounced"
   },
   {
     "nombre": "Whitepaper.mx",
@@ -39,13 +41,17 @@
     "nombre": "Latinometrics",
     "email": "hello@latinometrics.com",
     "status": "sent",
-    "id": "b3e1720e-1e87-4a42-b0b0-eba3a4174f9f"
+    "id": "b3e1720e-1e87-4a42-b0b0-eba3a4174f9f",
+    "bounced": true,
+    "bounce_reason": "bounced"
   },
   {
     "nombre": "Tendenci@s",
     "email": "info@ismaelnafria.com",
     "status": "sent",
-    "id": "49c3e82a-b91e-4cc1-a2a9-6edafe1e2b86"
+    "id": "49c3e82a-b91e-4cc1-a2a9-6edafe1e2b86",
+    "bounced": true,
+    "bounce_reason": "bounced"
   },
   {
     "nombre": "Suma Positiva",

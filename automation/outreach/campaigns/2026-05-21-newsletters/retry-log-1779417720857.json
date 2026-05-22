@@ -1,0 +1,34 @@
+[
+  {
+    "nombre": "Bloomberg Línea (retry)",
+    "email": "info@bloomberglinea.com",
+    "asunto": "Dataset exclusivo: ingresos reales de la creator economy hispanohablante",
+    "cuerpo": "Hola equipo Bloomberg Línea,\n\nLa creator economy hispanohablante factura más de USD 2.000 millones al año en LATAM pero las cifras siguen invisibilizadas en los reportes globales porque Substack, Patreon y Beehiiv no publican breakdowns por región.\n\nLanzamos Nebbuler (nebbuler.com), la primera plataforma de membresías diseñada para creadores LATAM (pagos en moneda local, 0% comisión variable 6 meses) y publicamos un dataset abierto CC-BY con salarios reales de creadores en 18 países hispanohablantes.\n\nLes ofrezco acceso exclusivo a las cifras una semana antes de hacerlas públicas, más una entrevista con datos inéditos sobre cuánto pierden los creadores LATAM en plataformas gringas (US$4,200/año promedio).\n\nDataset: nebbuler.com/datos\nCalculadora interactiva: nebbuler.com/cuanto-te-quitan\n\n¿Les sirve?\n\nJuan Pablo Monsalvez\nFundador, Nebbuler",
+    "prioridad": "alta",
+    "status": "sent",
+    "id": "abfada04-4abe-4ded-ae43-0d212dce0432",
+    "last_event": "bounced",
+    "bounced": true
+  },
+  {
+    "nombre": "Latinometrics (retry)",
+    "email": "info@latinometrics.com",
+    "asunto": "Dataset CC-BY listo para tu próxima infografía: creator economy LATAM",
+    "cuerpo": "Hola Gabriel,\n\nSoy Juan Pablo, fundador de Nebbuler. Vi tus visualizaciones sobre startups LATAM y son las mejores del ecosistema.\n\nLanzamos un dataset abierto CC-BY con los honorarios y salarios reales de creadores hispanohablantes en 18 países: cuánto cobran, cuánto pierden en comisiones, cuánto genera la categoría completa.\n\nLes ofrezco el dataset preprocesado en CSV listo para visualizar, más insights inéditos:\n- US$4,200/año perdidos en promedio por creador LATAM en Substack\n- Pérdida cambiaria oculta 18-22% sobre ingreso bruto\n- 0 plataformas LATAM-first hasta 2026\n\nDataset: nebbuler.com/datos\nCalculadora: nebbuler.com/cuanto-te-quitan\n\nUstedes producen los visuales, nosotros la data. Es vuestro angle si lo quieren.\n\nSaludos,\nJuan Pablo Monsalvez\nFundador, Nebbuler — nebbuler.com",
+    "prioridad": "alta",
+    "status": "sent",
+    "id": "7ab7cd2e-0599-4445-abdc-7c20afd18c62",
+    "last_event": "bounced",
+    "bounced": true
+  },
+  {
+    "nombre": "Ismael Nafría / Tendenci@s (retry)",
+    "email": "ismael.nafria@gmail.com",
+    "asunto": "Para Tendenci@s: primera plataforma membresías LATAM-first lanza con dataset abierto",
+    "cuerpo": "Hola Ismael,\n\nLeí tu pieza reciente sobre el estado del newsletter en español. Tendenci@s es lectura obligada hace años.\n\nLanzamos Nebbuler (nebbuler.com): la primera plataforma de membresías diseñada para el mercado LATAM (pagos en moneda local, 0% comisión variable 6 meses, soporte español, 18 países hispanohablantes).\n\nMaterial que te puede servir:\n\n1. Dataset abierto CC-BY con salarios e ingresos reales de creadores LATAM\n2. Calculadora honesta de cuánto pierde un creador hispanohablante en Substack/Patreon (promedio US$4,200/año)\n3. Acceso anticipado a nuestras métricas de adopción durante los primeros 90 días\n\nNo es promo: es un caso de estudio en tiempo real sobre el dolor estructural de las plataformas globales con audiencia regional.\n\nCalculadora: nebbuler.com/cuanto-te-quitan\nDataset: nebbuler.com/datos\n\nSi te interesa, podemos coordinar una conversación. Si no, gracias por construir Tendenci@s.\n\nSaludos,\nJuan Pablo Monsalvez\nFundador, Nebbuler",
+    "prioridad": "alta",
+    "status": "sent",
+    "id": "f9d5c0db-19a3-4443-aad9-eaa3d42d75df",
+    "last_event": "delivered"
+  }
+]

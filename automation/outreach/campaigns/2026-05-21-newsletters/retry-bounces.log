@@ -1,0 +1,11 @@
+Reenviando 3 pitches...
+  ✓ Bloomberg Línea (retry) <info@bloomberglinea.com> → abfada04-4abe-4ded-ae43-0d212dce0432
+  ✓ Latinometrics (retry) <info@latinometrics.com> → 7ab7cd2e-0599-4445-abdc-7c20afd18c62
+  ✓ Ismael Nafría / Tendenci@s (retry) <ismael.nafria@gmail.com> → f9d5c0db-19a3-4443-aad9-eaa3d42d75df
+
+Esperando 90s para chequear bounces de retry...
+  ⚠ RETRY BOUNCE: Bloomberg Línea (retry) <info@bloomberglinea.com>
+  ⚠ RETRY BOUNCE: Latinometrics (retry) <info@latinometrics.com>
+
+Resultado retry: 1 entregados, 2 rebotados
+Log: /Users/juanpablomonsalvez/Downloads/sala/automation/outreach/campaigns/2026-05-21-newsletters/retry-log-1779417720857.json

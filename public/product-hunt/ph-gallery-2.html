@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=1270"/>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 1270px; height: 760px; overflow: hidden;
+    font-family: Georgia, serif;
+    background: #FFFFFF;
+  }
+  .left-stripe { position: absolute; left: 0; top: 0; width: 8px; height: 760px; background: #B31C1C; }
+  .top-bar {
+    position: absolute; top: 0; left: 8px; right: 0; height: 60px;
+    background: #0A1628; display: flex; align-items: center; padding: 0 48px;
+    justify-content: space-between;
+  }
+  .brand {
+    display: flex; align-items: center; gap: 12px;
+    font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: white;
+  }
+  .brand-n {
+    width: 36px; height: 36px; background: #B31C1C;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; font-weight: 700; color: white;
+  }
+  .nav-items {
+    display: flex; gap: 32px;
+    font-family: 'Public Sans', system-ui, sans-serif;
+    font-size: 13px; color: rgba(255,255,255,0.5); letter-spacing: 1px;
+  }
+  .nav-items span:first-child { color: white; }
+  .main {
+    position: absolute; top: 60px; left: 8px; right: 0; bottom: 0;
+    display: grid; grid-template-columns: 240px 1fr; background: #F7F7F7;
+  }
+  .sidebar {
+    background: white; border-right: 1px solid #DEDEDE; padding: 32px 0;
+  }
+  .sidebar-section {
+    padding: 0 24px 24px; border-bottom: 1px solid #DEDEDE; margin-bottom: 24px;
+  }
+  .sidebar-label {
+    font-family: 'Public Sans', system-ui, sans-serif;
+    font-size: 10px; font-weight: 700; letter-spacing: 3px;
+    color: #999; text-transform: uppercase; margin-bottom: 12px;
+  }
+  .sidebar-item {
+    display: flex; align-items: center; gap: 10px; padding: 8px 0;
+    font-family: 'Public Sans', system-ui, sans-serif;
+    font-size: 13px; color: #444;
+  }
+  .sidebar-item.active { color: #B31C1C; font-weight: 600; }
+  .sidebar-item span { font-size: 15px; }
+  .content-area { padding: 36px 40px; overflow: hidden; }
+  .page-title {
+    font-size: 28px; font-weight: 700; color: #121212; margin-bottom: 8px;
+  }
+  .page-sub {
+    font-family: 'Public Sans', system-ui, sans-serif;
+    font-size: 14px; color: #666; margin-bottom: 32px;
+  }
+  .invoice-header {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 120px;
+    gap: 16px; padding: 10px 20px;
+    font-family: 'Public Sans', system-ui, sans-serif;
+    font-size: 10px; font-weight: 700; letter-spacing: 2px;
+    color: #999; text-transform: uppercase; border-bottom: 2px solid #121212;
+  }
+  .invoice-row {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 120px;
+    gap: 16px; padding: 14px 20px;
+    background: white; border-bottom: 1px solid #DEDEDE;
+    font-family: 'Public Sans', system-ui, sans-serif; align-items: center;
+  }
+  .client-col { font-size: 14px; font-weight: 600; color: #121212; }
+  .client-sub { font-size: 11px; color: #999; margin-top: 2px; }
+  .amount-col { font-size: 15px; font-weight: 700; color: #121212; font-family: Georgia, serif; }
+  .date-col { font-size: 13px; color: #666; }
+  .status-badge {
+    display: inline-block; font-size: 10px; font-weight: 700;
+    letter-spacing: 1.5px; padding: 3px 10px; text-transform: uppercase;
+  }
+  .ai-panel {
+    background: #0A1628; padding: 20px 24px; margin-top: 20px;
+    display: flex; gap: 20px; align-items: flex-start;
+  }
+  .ai-icon-box {
+    width: 40px; height: 40px; background: #B31C1C; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+  }
+  .ai-content { flex: 1; }
+  .ai-title {
+    font-family: 'Public Sans', system-ui, sans-serif;
+    font-size: 11px; font-weight: 700; letter-spacing: 2px;
+    color: #B31C1C; text-transform: uppercase; margin-bottom: 8px;
+  }
+  .ai-text {
+    font-family: 'Public Sans', system-ui, sans-serif;
+    font-size: 13px; color: rgba(255,255,255,0.8); line-height: 1.5;
+  }
+  .ai-action {
+    font-family: 'Public Sans', system-ui, sans-serif;
+    font-size: 11px; font-weight: 700; letter-spacing: 1px;
+    color: #B31C1C; text-transform: uppercase; margin-top: 10px;
+    cursor: pointer; text-decoration: underline;
+  }
+  .kpi-row { display: flex; gap: 16px; margin-bottom: 24px; }
+  .kpi {
+    flex: 1; background: white; border: 1px solid #DEDEDE; padding: 16px 20px;
+    border-top: 3px solid #0A1628;
+  }
+  .kpi-num { font-size: 26px; font-weight: 700; color: #121212; }
+  .kpi-label {
+    font-family: 'Public Sans', system-ui, sans-serif;
+    font-size: 11px; color: #999; text-transform: uppercase; letter-spacing: 1px; margin-top: 4px;
+  }
+  .kpi.highlight { border-top-color: #B31C1C; }
+  .kpi.highlight .kpi-num { color: #B31C1C; }
+</style>
+</head>
+<body>
+<div class="left-stripe"></div>
+<div class="top-bar">
+  <div class="brand">
+    <div class="brand-n">N</div>
+    <span>Nebbuler</span>
+  </div>
+  <div class="nav-items">
+    <span>Dashboard</span>
+    <span>Clients</span>
+    <span>Invoices</span>
+    <span>Projects</span>
+    <span>Reports</span>
+  </div>
+</div>
+<div class="main">
+  <div class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-label">Management</div>
+      <div class="sidebar-item active"><span>📄</span> Invoices</div>
+      <div class="sidebar-item"><span>👥</span> Clients</div>
+      <div class="sidebar-item"><span>📁</span> Projects</div>
+      <div class="sidebar-item"><span>💬</span> Proposals</div>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Finance</div>
+      <div class="sidebar-item"><span>💰</span> Cash Flow</div>
+      <div class="sidebar-item"><span>📊</span> Reports</div>
+      <div class="sidebar-item"><span>🧾</span> Expenses</div>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">AI Tools</div>
+      <div class="sidebar-item"><span>⚡</span> AI Assistant</div>
+      <div class="sidebar-item"><span>✉️</span> Follow-ups</div>
+      <div class="sidebar-item"><span>🔮</span> Forecast</div>
+    </div>
+  </div>
+  <div class="content-area">
+    <div class="page-title">Invoices</div>
+    <p class="page-sub">May 2026 · 12 invoices · CLP / USD / EUR / ARS</p>
+    <div class="kpi-row">
+      <div class="kpi"><div class="kpi-num">$18.400</div><div class="kpi-label">Total billed</div></div>
+      <div class="kpi highlight"><div class="kpi-num">$6.200</div><div class="kpi-label">Overdue</div></div>
+      <div class="kpi"><div class="kpi-num">$9.800</div><div class="kpi-label">Collected</div></div>
+      <div class="kpi"><div class="kpi-num">4</div><div class="kpi-label">Pending</div></div>
+    </div>
+    <div class="invoice-header">
+      <div>Client</div><div>Amount</div><div>Due Date</div><div>Currency</div><div>Status</div>
+    </div>
+    <div class="invoice-row">
+      <div><div class="client-col">Startup Chile</div><div class="client-sub">INV-2026-034</div></div>
+      <div class="amount-col">$2.400</div>
+      <div class="date-col">May 15</div>
+      <div class="date-col">USD</div>
+      <div><span class="status-badge" style="background:#dcfce7;color:#166534">Paid</span></div>
+    </div>
+    <div class="invoice-row">
+      <div><div class="client-col">MiPymes MX</div><div class="client-sub">INV-2026-033</div></div>
+      <div class="amount-col">$1.800</div>
+      <div class="date-col">May 20</div>
+      <div class="date-col">MXN</div>
+      <div><span class="status-badge" style="background:#fef3c7;color:#92400e">Pending</span></div>
+    </div>
+    <div class="invoice-row">
+      <div><div class="client-col">AgenciaBA</div><div class="client-sub">INV-2026-031</div></div>
+      <div class="amount-col">$3.200</div>
+      <div class="date-col">May 1</div>
+      <div class="date-col">ARS</div>
+      <div><span class="status-badge" style="background:#fee2e2;color:#991b1b">Overdue</span></div>
+    </div>
+    <div class="ai-panel">
+      <div class="ai-icon-box">⚡</div>
+      <div class="ai-content">
+        <div class="ai-title">AI Follow-up Assistant</div>
+        <div class="ai-text">AgenciaBA has 3 overdue invoices totaling $6.200. I drafted a professional follow-up email in Spanish. Ready to send?</div>
+        <div class="ai-action">→ Review draft &amp; send</div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

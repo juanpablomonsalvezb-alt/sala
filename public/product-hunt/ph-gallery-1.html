@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=1270"/>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 1270px; height: 760px; overflow: hidden;
+    font-family: Georgia, 'Libre Baskerville', serif;
+    background: #0A1628;
+  }
+  .stripe { position: absolute; left: 0; top: 0; width: 32px; height: 760px; background: #B31C1C; }
+  .content {
+    position: absolute; left: 64px; right: 64px; top: 0; bottom: 0;
+    display: flex; align-items: center; gap: 80px;
+  }
+  .left { flex: 1; }
+  .eyebrow {
+    font-family: 'Public Sans', system-ui, sans-serif;
+    font-size: 13px; font-weight: 600; letter-spacing: 4px;
+    color: #B31C1C; text-transform: uppercase; margin-bottom: 24px;
+  }
+  h1 {
+    font-size: 64px; line-height: 1.05; font-weight: 700;
+    color: #FFFFFF; margin-bottom: 28px;
+  }
+  h1 span { color: #B31C1C; }
+  .desc {
+    font-family: 'Public Sans', system-ui, sans-serif;
+    font-size: 18px; line-height: 1.6; color: #8a9bb8; max-width: 420px;
+  }
+  .tags {
+    display: flex; gap: 12px; margin-top: 36px; flex-wrap: wrap;
+  }
+  .tag {
+    font-family: 'Public Sans', system-ui, sans-serif;
+    font-size: 12px; font-weight: 600; letter-spacing: 2px;
+    padding: 6px 14px; border: 1px solid #2a3a54;
+    color: #8a9bb8; text-transform: uppercase;
+  }
+  .right { width: 380px; flex-shrink: 0; }
+  .mockup {
+    background: #111f35; border: 1px solid #2a3a54;
+    padding: 24px; position: relative; overflow: hidden;
+  }
+  .mockup::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0;
+    height: 3px; background: #B31C1C;
+  }
+  .mockup-header {
+    font-family: 'Public Sans', system-ui, sans-serif;
+    font-size: 11px; font-weight: 700; letter-spacing: 3px;
+    color: #B31C1C; text-transform: uppercase; margin-bottom: 20px;
+  }
+  .stat-row { display: flex; gap: 16px; margin-bottom: 16px; }
+  .stat {
+    flex: 1; background: #0d1a2e; padding: 16px;
+    border: 1px solid #2a3a54;
+  }
+  .stat-num {
+    font-size: 28px; font-weight: 700; color: #fff; margin-bottom: 4px;
+  }
+  .stat-label {
+    font-family: 'Public Sans', system-ui, sans-serif;
+    font-size: 11px; color: #5a7090; text-transform: uppercase; letter-spacing: 1px;
+  }
+  .divider { height: 1px; background: #2a3a54; margin: 16px 0; }
+  .client-row {
+    display: flex; align-items: center; gap: 12px; padding: 10px 0;
+    border-bottom: 1px solid #1a2a40;
+    font-family: 'Public Sans', system-ui, sans-serif;
+  }
+  .client-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .client-name { font-size: 13px; color: #c8d8e8; flex: 1; }
+  .client-amount { font-size: 13px; font-weight: 600; color: #fff; }
+  .client-status {
+    font-size: 10px; font-weight: 700; letter-spacing: 1px;
+    padding: 2px 8px; text-transform: uppercase;
+  }
+  .ai-banner {
+    margin-top: 20px; background: #B31C1C; padding: 12px 16px;
+    display: flex; align-items: center; gap: 10px;
+    font-family: 'Public Sans', system-ui, sans-serif;
+  }
+  .ai-icon { font-size: 18px; }
+  .ai-text { font-size: 12px; color: rgba(255,255,255,0.9); line-height: 1.4; }
+  .logo-badge {
+    position: absolute; bottom: 32px; left: 64px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .logo-n {
+    width: 44px; height: 44px; background: #0A1628;
+    border: 2px solid #2a3a54; display: flex; align-items: center;
+    justify-content: center; font-size: 24px; font-weight: 700; color: white;
+  }
+  .logo-text { font-size: 13px; color: #5a7090; font-family: 'Public Sans', system-ui, sans-serif; letter-spacing: 2px; text-transform: uppercase; }
+</style>
+</head>
+<body>
+<div class="stripe"></div>
+<div class="content">
+  <div class="left">
+    <div class="eyebrow">Product Hunt · May 26, 2026</div>
+    <h1>The OS for<br><span>LATAM</span><br>freelancers</h1>
+    <p class="desc">CRM, invoicing, and AI tools built for the Latin American independent professional. Not a translation — a reimagination.</p>
+    <div class="tags">
+      <div class="tag">CRM</div>
+      <div class="tag">Invoicing</div>
+      <div class="tag">AI Tools</div>
+      <div class="tag">LATAM</div>
+      <div class="tag">Freelance</div>
+    </div>
+  </div>
+  <div class="right">
+    <div class="mockup">
+      <div class="mockup-header">Dashboard · May 2026</div>
+      <div class="stat-row">
+        <div class="stat">
+          <div class="stat-num">$4.2M</div>
+          <div class="stat-label">Revenue tracked</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">847</div>
+          <div class="stat-label">Active users</div>
+        </div>
+      </div>
+      <div class="client-row">
+        <div class="client-dot" style="background:#22c55e"></div>
+        <div class="client-name">Startup Chile</div>
+        <div class="client-amount">$2.400</div>
+        <div class="client-status" style="color:#22c55e">Paid</div>
+      </div>
+      <div class="client-row">
+        <div class="client-dot" style="background:#f59e0b"></div>
+        <div class="client-name">MiPymes MX</div>
+        <div class="client-amount">$1.800</div>
+        <div class="client-status" style="color:#f59e0b">Pending</div>
+      </div>
+      <div class="client-row">
+        <div class="client-dot" style="background:#B31C1C"></div>
+        <div class="client-name">AgenciaBA</div>
+        <div class="client-amount">$3.200</div>
+        <div class="client-status" style="color:#B31C1C">Overdue</div>
+      </div>
+      <div class="ai-banner">
+        <div class="ai-icon">⚡</div>
+        <div class="ai-text"><strong>AI suggestion:</strong> AgenciaBA has 3 unpaid invoices. Send follow-up now?</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="logo-badge">
+  <div class="logo-n">N</div>
+  <div class="logo-text">nebbuler.com</div>
+</div>
+</body>
+</html>

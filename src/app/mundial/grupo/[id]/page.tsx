@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 import { safeJsonLd } from '@/lib/rateLimit'
 import { SELECCIONES_LATAM, MUNDIAL } from '@/data/mundial-bootstrap'
 import mundialData from '@/data/mundial-2026.json'
+import partidosData from '@/data/mundial-partidos.json'
 
 export const revalidate = 3600
 
@@ -78,6 +79,9 @@ export default async function GrupoPage({
 
   const latamEnGrupo = grupo.selecciones.filter((s) => LATAM_NAMES.has(s))
   const otrosGrupos = GRUPOS.filter((g) => g.id !== grupo.id)
+  const partidosGrupo = (partidosData as { slug: string; equipo1: string; equipo2: string; jornada: number; fecha: string; grupo: string | null }[])
+    .filter((p) => p.grupo === grupo.id)
+    .sort((a, b) => a.jornada - b.jornada)
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -214,6 +218,30 @@ export default async function GrupoPage({
               </Link>
             </section>
           )}
+
+          {/* Partidos del grupo */}
+          <section className="mb-16 pt-12 border-t border-white/10">
+            <h2 className="font-serif text-2xl mb-6 tracking-tight">
+              Partidos del Grupo {grupo.id}
+            </h2>
+            <div className="grid sm:grid-cols-2 gap-3">
+              {partidosGrupo.map((p) => (
+                <Link
+                  key={p.slug}
+                  href={`/mundial/partido/${p.slug}`}
+                  className="border border-white/10 p-4 hover:border-white/30 hover:bg-white/[0.02] transition-colors group"
+                >
+                  <p className="text-xs text-white/40 uppercase tracking-widest mb-1">
+                    Jornada {p.jornada}
+                  </p>
+                  <p className="font-medium text-sm group-hover:text-white transition-colors">
+                    {p.equipo1} <span className="text-[#C41C1C]">vs</span> {p.equipo2}
+                  </p>
+                  <p className="text-white/40 text-xs mt-1">{p.fecha}</p>
+                </Link>
+              ))}
+            </div>
+          </section>
 
           <section className="mb-16 pt-12 border-t border-white/10">
             <h2 className="font-serif text-2xl mb-6 tracking-tight">

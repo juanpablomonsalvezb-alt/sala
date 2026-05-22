@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 import { safeJsonLd } from '@/lib/rateLimit'
 import { SELECCIONES_LATAM, MUNDIAL } from '@/data/mundial-bootstrap'
 import partidos from '@/data/mundial-partidos.json'
+import { PARTIDOS_EDITORIAL, GRUPOS_EDITORIAL } from '@/data/mundial-editorial'
 
 export const revalidate = 3600
 
@@ -114,6 +115,8 @@ export default async function PartidoPage({
   const faseLabel = FASE_LABELS[partido.fase] ?? partido.fase_nombre ?? partido.fase
   const isPlaceholder = partido.placeholder ?? false
   const latamEnPartido = [partido.equipo1, partido.equipo2].filter((e) => LATAM_SET.has(e))
+  const editorial = PARTIDOS_EDITORIAL[partido.slug] ?? null
+  const grupoEditorial = partido.grupo ? GRUPOS_EDITORIAL[partido.grupo] ?? null : null
   const sel1 = findSeleccion(partido.equipo1)
   const sel2 = findSeleccion(partido.equipo2)
 
@@ -269,6 +272,50 @@ export default async function PartidoPage({
                   ),
                 )}
               </div>
+            </section>
+          )}
+
+          {/* Contenido editorial */}
+          {editorial && (
+            <section className="mb-16">
+              <div className="border-t-[3px] border-white pt-8 mb-8">
+                <p className="text-[#C41C1C] text-xs font-bold tracking-[0.2em] uppercase mb-4">
+                  Análisis del partido
+                </p>
+                <p className="text-white/80 leading-relaxed text-lg mb-6 font-serif">
+                  {editorial.analisis}
+                </p>
+              </div>
+
+              <div className="grid sm:grid-cols-3 gap-6">
+                <div className="border border-white/10 p-5">
+                  <p className="text-[#C41C1C] text-xs font-bold tracking-[0.15em] uppercase mb-3">Contexto</p>
+                  <p className="text-white/70 text-sm leading-relaxed">{editorial.contexto}</p>
+                </div>
+                <div className="border border-white/10 p-5">
+                  <p className="text-[#C41C1C] text-xs font-bold tracking-[0.15em] uppercase mb-3">Dato histórico</p>
+                  <p className="text-white/70 text-sm leading-relaxed">{editorial.dato_historico}</p>
+                </div>
+                <div className="border border-[#C41C1C]/30 bg-[#C41C1C]/5 p-5">
+                  <p className="text-[#C41C1C] text-xs font-bold tracking-[0.15em] uppercase mb-3">Para creadores</p>
+                  <p className="text-white/70 text-sm leading-relaxed">{editorial.angulo_creador}</p>
+                </div>
+              </div>
+            </section>
+          )}
+
+          {/* Contexto del grupo sin editorial específico */}
+          {!editorial && grupoEditorial && !isPlaceholder && (
+            <section className="mb-16 border-t border-white/10 pt-10">
+              <p className="text-[#C41C1C] text-xs font-bold tracking-[0.2em] uppercase mb-4">
+                Grupo {partido.grupo} · Mundial 2026
+              </p>
+              <p className="text-white/70 leading-relaxed mb-4">{grupoEditorial.descripcion}</p>
+              {grupoEditorial.latam_contexto && (
+                <p className="text-white/60 leading-relaxed text-sm border-l-2 border-[#C41C1C] pl-4">
+                  {grupoEditorial.latam_contexto}
+                </p>
+              )}
             </section>
           )}
 

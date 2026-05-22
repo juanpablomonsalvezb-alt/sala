@@ -125,17 +125,13 @@ export default function Home() {
             {/* Lado izquierdo: eyebrow + H1 — 100% server, visible en primer paint */}
             <div>
               <p className="text-[9px] font-bold uppercase tracking-[0.28em] text-[#767676] mb-2">
-                El conocimiento que antes no se vendía · América Latina
+                Membresías directas · 0% comisión · América Latina
               </p>
               <h1 className="font-serif font-bold text-[clamp(40px,6vw,80px)] leading-[1.056] tracking-[-0.02em]">
-                Tu conocimiento<br />
-                ya tiene{" "}
-                {/*
-                  LineShadowTextServer emite HTML estático con las mismas clases
-                  CSS de animación que el componente original — texto visible sin JS.
-                */}
+                Cobrá por lo<br />
+                que{" "}
                 <span style={{ backgroundColor: '#C41C1C', color: '#fff', padding: '0 6px 2px', display: 'inline' }}>
-                  precio.
+                  sabés.
                 </span>
               </h1>
             </div>

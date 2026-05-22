@@ -1,0 +1,44 @@
+# Smithery MCP Registry Configuration
+# https://smithery.ai/server/nebbuler-mundial-mcp
+
+name: nebbuler-mundial-mcp
+displayName: "Nebbuler Mundial 2026"
+description: |
+  MCP server for FIFA World Cup 2026 data. Gives Claude, Cursor, and other AI agents
+  native tools to query all 104 matches, 12 groups, 48 teams, 16 venues, and LATAM creator
+  earnings for the Programa La Sombra by Nebbuler.
+version: "0.2.0"
+homepage: https://nebbuler.com/mundial
+license: MIT
+
+tools:
+  - mundial_get_torneo
+  - mundial_get_grupos
+  - mundial_get_grupo
+  - mundial_get_sedes
+  - mundial_get_selecciones_latam
+  - mundial_get_seleccion
+  - mundial_get_partidos
+  - mundial_get_partido
+  - calcular_ingreso_creador
+  - programa_la_sombra_info
+
+tags:
+  - soccer
+  - world-cup
+  - fifa
+  - latam
+  - sports
+  - mundial
+  - 2026
+
+startCommand:
+  type: stdio
+  configSchema:
+    type: object
+    properties: {}
+  commandFunction: |-
+    (config) => ({
+      command: "npx",
+      args: ["-y", "nebbuler-mundial-mcp@latest"]
+    })

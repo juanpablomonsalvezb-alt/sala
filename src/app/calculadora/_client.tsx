@@ -5,13 +5,13 @@ import { useMemo, useState } from 'react'
 type Moneda = { code: string; label: string; symbol: string; toUSD: number }
 
 const MONEDAS: Moneda[] = [
-  { code: 'CLP', label: 'Pesos chilenos (CLP)', symbol: '$', toUSD: 1 / 1000 },
+  { code: 'USD', label: 'Dólares (USD)', symbol: 'US$', toUSD: 1 },
   { code: 'COP', label: 'Pesos colombianos (COP)', symbol: '$', toUSD: 1 / 4100 },
   { code: 'MXN', label: 'Pesos mexicanos (MXN)', symbol: '$', toUSD: 1 / 18 },
   { code: 'ARS', label: 'Pesos argentinos (ARS)', symbol: '$', toUSD: 1 / 1100 },
   { code: 'PEN', label: 'Soles peruanos (PEN)', symbol: 'S/', toUSD: 1 / 3.7 },
   { code: 'UYU', label: 'Pesos uruguayos (UYU)', symbol: '$U', toUSD: 1 / 40 },
-  { code: 'USD', label: 'Dólares (USD)', symbol: 'US$', toUSD: 1 },
+  { code: 'CLP', label: 'Pesos chilenos (CLP)', symbol: '$', toUSD: 1 / 1000 },
 ]
 
 // Tarifa fija Nebbuler equivalente a ~$30 USD/mes
@@ -19,8 +19,8 @@ const NEBBULER_FIJO_USD = 30
 
 export function CalculadoraClient() {
   const [subs, setSubs] = useState(100)
-  const [precio, setPrecio] = useState(10000)
-  const [monedaCode, setMonedaCode] = useState('CLP')
+  const [precio, setPrecio] = useState(10)
+  const [monedaCode, setMonedaCode] = useState('USD')
 
   const moneda = MONEDAS.find((m) => m.code === monedaCode) ?? MONEDAS[0]
 

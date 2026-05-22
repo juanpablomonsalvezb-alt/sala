@@ -17,7 +17,7 @@ interface Message {
 
 const SUGGESTED_QUESTIONS = [
   '¿Qué es la TPM y cómo afecta mi hipoteca?',
-  '¿Cómo tributa una SpA en Chile?',
+  '¿Cómo tributa un autónomo en LATAM?',
   '¿Cuál es la diferencia entre EBITDA y flujo de caja?',
   '¿Qué está pasando con la inflación en América Latina?',
 ]

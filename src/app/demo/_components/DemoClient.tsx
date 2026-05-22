@@ -13,25 +13,25 @@ const DEMO_READ_TIME = 7
 const DEMO_PRICE = '$9.990'
 
 const DEMO_CONTENT_HTML = `
-<p>Hay un número que aparece en casi todos los informes de renta fija que circulan en Santiago: la tasa terminal del ciclo actual. El consenso de mercado la ubica consistentemente entre 4,5% y 5,0%. Creo que ese rango está mal, y voy a explicar por qué.</p>
+<p>Hay un número que aparece en casi todos los informes de renta fija que circulan en la región: la tasa terminal del ciclo actual. El consenso de mercado la ubica consistentemente entre 4,5% y 5,0%. Creo que ese rango está mal, y voy a explicar por qué.</p>
 
 <h2>El error de diagnóstico</h2>
 
 <p>El problema no es el modelo. El problema es el supuesto de inflación subyacente que alimenta ese modelo. La mayoría de los analistas está usando expectativas de inflación a dos años que implican una convergencia al 3% mucho más rápida de lo que los datos de servicios justifican.</p>
 
-<p>La inflación de bienes en Chile ya convergió. Eso es cierto. El IPC de bienes transables lleva tres trimestres dentro del rango meta. Pero la inflación de servicios —que el Banco Central monitorea con mayor atención de lo que comunica públicamente— sigue mostrando rigidez.</p>
+<p>La inflación de bienes en la región ya convergió. Eso es cierto. El IPC de bienes transables lleva tres trimestres dentro del rango meta. Pero la inflación de servicios —que los bancos centrales monitorean con mayor atención de lo que comunican públicamente— sigue mostrando rigidez.</p>
 
 <blockquote>Una tasa terminal de 4,5% asume condiciones que los datos de servicios y mercado laboral no respaldan todavía.</blockquote>
 
 <h2>Lo que los datos de mercado laboral están diciendo</h2>
 
-<p>El mercado laboral formal en Chile tiene una tasa de desempleo que parece benigna en el titular pero esconde una composición preocupante. El empleo asalariado formal crece lento. El empleo por cuenta propia —históricamente el refugio en ciclos recesivos— está creciendo de forma anómala para un momento de expansión moderada.</p>
+<p>El mercado laboral formal en LATAM tiene una tasa de desempleo que parece benigna en el titular pero esconde una composición preocupante. El empleo asalariado formal crece lento. El empleo por cuenta propia —históricamente el refugio en ciclos recesivos— está creciendo de forma anómala para un momento de expansión moderada.</p>
 
-<p>Eso sugiere que la brecha de producto está siendo <strong>subestimada por los modelos estándar</strong> del Banco Central. Y si la brecha de producto es mayor, el espacio para bajar la tasa sin riesgo inflacionario es menor de lo que el consenso asume.</p>
+<p>Eso sugiere que la brecha de producto está siendo <strong>subestimada por los modelos estándar</strong> de los bancos centrales. Y si la brecha de producto es mayor, el espacio para bajar la tasa sin riesgo inflacionario es menor de lo que el consenso asume.</p>
 `
 
 const DEMO_PREVIEW_HTML = `
-<p>Hay un número que aparece en casi todos los informes de renta fija que circulan en Santiago: la tasa terminal del ciclo actual. El consenso de mercado la ubica consistentemente entre 4,5% y 5,0%. Creo que ese rango está mal, y voy a explicar por qué.</p>
+<p>Hay un número que aparece en casi todos los informes de renta fija que circulan en la región: la tasa terminal del ciclo actual. El consenso de mercado la ubica consistentemente entre 4,5% y 5,0%. Creo que ese rango está mal, y voy a explicar por qué.</p>
 
 <h2>El error de diagnóstico</h2>
 

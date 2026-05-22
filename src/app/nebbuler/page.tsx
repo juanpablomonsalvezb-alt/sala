@@ -4,11 +4,11 @@ import Link from 'next/link'
 import Nav from '@/components/nav'
 
 export const metadata: Metadata = {
-  title: 'Construyendo Nebbuler · Build in Public desde Chile',
+  title: 'Construyendo Nebbuler · Build in Public en LATAM',
   description:
-    'El equipo de Nebbuler publica 2 veces por semana sobre el proceso de construir una plataforma de newsletters profesionales desde Chile. Métricas reales, decisiones de producto, errores y aprendizajes.',
+    'El equipo de Nebbuler publica 2 veces por semana sobre el proceso de construir una plataforma de newsletters profesionales en LATAM. Métricas reales, decisiones de producto, errores y aprendizajes.',
   openGraph: {
-    title: 'Construyendo Nebbuler · Build in Public desde Chile',
+    title: 'Construyendo Nebbuler · Build in Public en LATAM',
     description:
       'El equipo de Nebbuler publica 2 veces por semana: métricas reales, decisiones de producto, errores y aprendizajes.',
     url: 'https://nebbuler.com/nebbuler',
@@ -26,7 +26,7 @@ const POSTS = [
   },
   {
     id: 2,
-    title: 'Por qué elegimos MercadoPago y no Stripe para Chile',
+    title: 'Por qué elegimos MercadoPago y no Stripe para LATAM',
     date: '5 mayo 2026',
     isoDate: '2026-05-05',
     excerpt:
@@ -71,7 +71,7 @@ export default function NebbulerPage() {
           {/* Bio */}
           <p className="font-sans text-[14px] text-[#444] leading-relaxed mb-4">
             El equipo detrás de Nebbuler. Publicamos 2 veces por semana sobre el proceso de
-            construir una plataforma de newsletters profesionales desde Chile: métricas reales,
+            construir una plataforma de newsletters profesionales en LATAM: métricas reales,
             decisiones de producto, errores y aprendizajes.
           </p>
 

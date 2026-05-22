@@ -48,7 +48,7 @@ const faqs = [
   { q: "¿Cómo recibo los pagos?",                           a: "Directo a tu cuenta. Nebbuler cobra US$19/mes fijo — tú te quedas con el 100% de tus ingresos." },
   { q: "¿Puedo tener contenido gratuito y de pago?",        a: "Sí. Tú decides qué es abierto y qué es exclusivo." },
   { q: "¿Qué pasa si cancelo?",                             a: "Cancelas cuando quieras. Tus datos quedan accesibles." },
-  { q: "¿Nebbuler funciona fuera de Chile?",                a: "Sí. Disponible en toda Latinoamérica." },
+  { q: "¿Nebbuler funciona en toda Latinoamérica?",         a: "Sí. Disponible en toda la región. Cobrá en la moneda local de tu país." },
 ];
 
 const liveEvents = [

@@ -28,7 +28,7 @@ const pillars = [
     title: 'Datos Económicos América Latina 2026',
     subtitle: 'Inflación, PIB per cápita, tipo de cambio y desempleo con visualizaciones',
     description:
-      'Indicadores macroeconómicos curados de fuentes públicas: INE Chile, Banco Central, Banco Mundial y CEPAL. Gráficos interactivos del período 2022–2026 con análisis editorial.',
+      'Indicadores macroeconómicos curados de fuentes públicas: bancos centrales de la región, Banco Mundial y CEPAL. Gráficos interactivos del período 2022–2026 con análisis editorial.',
   },
   {
     href: '/observatorio/substack-en-espanol-2026',
@@ -61,7 +61,7 @@ const pillars = [
   {
     href: '/observatorio/macroeconomia-latam',
     title: 'Macroeconomía en Latinoamérica 2026',
-    subtitle: 'Dónde leer análisis independientes sobre Chile, Argentina, Colombia y México',
+    subtitle: 'Dónde leer análisis independientes sobre Argentina, Colombia, México y toda la región',
     description:
       'Estado macroeconómico de los principales países de la región y por qué los analistas independientes en plataformas de suscripción superan en profundidad a los medios masivos.',
   },

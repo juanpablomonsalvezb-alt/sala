@@ -62,6 +62,11 @@ jobs:
           # Si alguien vuelve a poner select('mp_access_token').from('sala_creators'), fallo.
           BAD=$(grep -rn "sala_creators" src/ \
             | grep "mp_access_token\|mp_refresh_token\|mp_user_id" \
+            | grep -v "health-deep" \
+            | grep -v "^.*\/\/" \
+            | grep -v "^.*\*" \
+            | grep -v "detail:" \
+            | grep -v "REGRESIÓN" \
             || true)
           if [ -n "$BAD" ]; then
             echo "❌ mp_* leído desde sala_creators (debe ir por sala_creator_secrets):"

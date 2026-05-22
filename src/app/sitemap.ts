@@ -247,6 +247,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...guiaRoutes,
     ...faqRoutes,
     ...caseStudyRoutes,
+    { url: `${BASE}/mundial/estadisticas`, lastModified: new Date(), changeFrequency: 'hourly' as const, priority: 0.95 },
     ...trendingRoutes,
     ...mundialPartidoRoutes,
     ...dbEntries,

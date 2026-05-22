@@ -1,0 +1,77 @@
+[
+  {
+    "nombre": "Cenital",
+    "email": "ivan@cenital.com",
+    "status": "dry-run"
+  },
+  {
+    "nombre": "Bloomberg Línea",
+    "email": "jtolama@bloomberglinea.com",
+    "status": "dry-run"
+  },
+  {
+    "nombre": "Whitepaper.mx",
+    "email": "rene@whitepaper.mx",
+    "status": "dry-run"
+  },
+  {
+    "nombre": "Latitud Newsletter",
+    "email": "brian@latitud.com",
+    "status": "dry-run"
+  },
+  {
+    "nombre": "Contxto",
+    "email": "editorial@contxto.com",
+    "status": "dry-run"
+  },
+  {
+    "nombre": "LatamList",
+    "email": "form en https://latamlist.com/contact/",
+    "status": "dry-run"
+  },
+  {
+    "nombre": "Story Baker / The Muffin",
+    "email": "maca@storybaker.co",
+    "status": "dry-run"
+  },
+  {
+    "nombre": "Forbes Centroamérica",
+    "email": "anasella.nieto@forbescentroamerica.com",
+    "status": "dry-run"
+  },
+  {
+    "nombre": "Latinometrics",
+    "email": "hello@latinometrics.com",
+    "status": "dry-run"
+  },
+  {
+    "nombre": "Tendenci@s",
+    "email": "info@ismaelnafria.com",
+    "status": "dry-run"
+  },
+  {
+    "nombre": "Hyper LATAM",
+    "email": "hello@hyperlatam.com",
+    "status": "dry-run"
+  },
+  {
+    "nombre": "DPL News",
+    "email": "dplnews@digitalpolicylaw.com",
+    "status": "dry-run"
+  },
+  {
+    "nombre": "Suma Positiva",
+    "email": "samuel@sumapositiva.com",
+    "status": "dry-run"
+  },
+  {
+    "nombre": "Sintetia",
+    "email": "info@sintetia.com",
+    "status": "dry-run"
+  },
+  {
+    "nombre": "El Sabueso - Animal Político",
+    "email": "sabueso@animalpolitico.com",
+    "status": "dry-run"
+  }
+]

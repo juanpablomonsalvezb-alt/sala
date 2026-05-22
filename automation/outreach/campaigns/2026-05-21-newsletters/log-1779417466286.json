@@ -1,0 +1,56 @@
+[
+  {
+    "nombre": "Cenital",
+    "email": "ivan@cenital.com",
+    "status": "sent",
+    "id": "96bf8a25-4bbc-4889-8222-bf48a1e067ef"
+  },
+  {
+    "nombre": "Bloomberg Línea",
+    "email": "jtolama@bloomberglinea.com",
+    "status": "sent",
+    "id": "c3e3d66d-c39d-4247-84d1-1fc04d78c1df"
+  },
+  {
+    "nombre": "Whitepaper.mx",
+    "email": "rene@whitepaper.mx",
+    "status": "sent",
+    "id": "d033318f-98cb-45b9-ae72-7a22017615c1"
+  },
+  {
+    "nombre": "Latitud Newsletter",
+    "email": "brian@latitud.com",
+    "status": "sent",
+    "id": "f852f93c-8e9f-4c02-8a39-97e769597416"
+  },
+  {
+    "nombre": "Contxto",
+    "email": "editorial@contxto.com",
+    "status": "sent",
+    "id": "02da895e-dfe7-492e-b606-f7a9ba83007a"
+  },
+  {
+    "nombre": "Story Baker / The Muffin",
+    "email": "maca@storybaker.co",
+    "status": "sent",
+    "id": "7a9be451-8eab-4adb-a690-de3edcf1fff0"
+  },
+  {
+    "nombre": "Latinometrics",
+    "email": "hello@latinometrics.com",
+    "status": "sent",
+    "id": "b3e1720e-1e87-4a42-b0b0-eba3a4174f9f"
+  },
+  {
+    "nombre": "Tendenci@s",
+    "email": "info@ismaelnafria.com",
+    "status": "sent",
+    "id": "49c3e82a-b91e-4cc1-a2a9-6edafe1e2b86"
+  },
+  {
+    "nombre": "Suma Positiva",
+    "email": "samuel@sumapositiva.com",
+    "status": "sent",
+    "id": "a6a13afb-8f1c-4665-8e22-b4c61f95b9b2"
+  }
+]

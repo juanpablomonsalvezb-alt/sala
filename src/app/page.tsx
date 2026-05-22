@@ -199,6 +199,34 @@ export default function Home() {
         <FeaturesSection features={features} />
       </div>
 
+      {/* ── POSTERS ──────────────────── manifiesto visual ──────────────── */}
+      <section className="border-t border-[#E0E0E0] py-12 bg-white overflow-hidden">
+        <div className="max-w-6xl mx-auto px-6">
+          <p className="text-[10px] font-sans font-bold tracking-[0.2em] uppercase text-[#C41C1C] mb-8 text-center">
+            Por qué Nebbuler
+          </p>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+            {[
+              { src: '/social-images/posters/nebbuler_v2_1.png', alt: 'Meta lleva años cobrando por lo que tú sabes' },
+              { src: '/social-images/posters/nebbuler_v2_3.png', alt: 'Eres el producto. O eres el dueño.' },
+              { src: '/social-images/posters/nebbuler_v2_5.png', alt: 'No eres un creador de contenido. Eres un experto.' },
+              { src: '/social-images/posters/nebbuler_v2_7.png', alt: '0% de comisión. 100% tuyo.' },
+              { src: '/social-images/posters/nebbuler_v2_9.png', alt: 'Tu conocimiento tiene precio.' },
+            ].map((poster) => (
+              <div key={poster.src} className="relative aspect-[3/4] overflow-hidden">
+                <Image
+                  src={poster.src}
+                  alt={poster.alt}
+                  fill
+                  className="object-cover hover:scale-105 transition-transform duration-500"
+                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ── PARA QUIENES ─────────────── oculto en móvil ───────────────── */}
       <div className="hidden sm:block">
         <ParaQuienes />

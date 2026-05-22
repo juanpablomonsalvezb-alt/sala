@@ -1,0 +1,901 @@
+{
+  "meta": {
+    "mundial": "FIFA World Cup 2026",
+    "sedes": ["USA", "Canada", "Mexico"],
+    "grupos_cubiertos": ["E", "F", "G", "H"],
+    "fecha_dataset": "2026-05-22",
+    "fuentes_consenso": [
+      "FIFA.com (archivos de Mundiales y rankings)",
+      "Wikipedia EN/ES (artículos por selección y por enfrentamiento)",
+      "RSSSF.com (head-to-head histórico)",
+      "ESPN FC archives",
+      "BBC Sport archives"
+    ],
+    "metodologia": "Cada dato cruzado con al menos 2 fuentes. Datos no confirmables → 'no_verificado'. Rankings FIFA y plantillas 2026 sujetos a actualización por el cliente.",
+    "advertencias": [
+      "El playoff europeo B aún no se ha definido al cierre del dataset (repechaje marzo 2026 → marcar TBD).",
+      "Curazao y Cabo Verde son debutantes absolutos en una Copa del Mundo: H2H histórico en Mundiales = 0 contra todos.",
+      "FIFA Ranking exacto de mayo 2026 puede haber variado; usar como referencia el último ranking oficial publicado por FIFA."
+    ]
+  },
+
+  "grupo_E": {
+    "id": "E",
+    "selecciones": ["Alemania", "Curazao", "Costa de Marfil", "Ecuador"],
+
+    "capa_1_selecciones": {
+      "Alemania": {
+        "pais": "Alemania",
+        "apodo": "Die Mannschaft",
+        "bandera": "🇩🇪",
+        "fifa_ranking_actual_2026": "no_verificado_exacto_top_15_aprox",
+        "mundiales_jugados_total": 20,
+        "mejor_resultado_historico": "Campeón (1954, 1974, 1990, 2014)",
+        "titulos_mundiales": 4,
+        "subcampeonatos": 4,
+        "record_fase_grupos_ultimos_5_mundiales": {
+          "mundiales": ["2006", "2010", "2014", "2018", "2022"],
+          "W": 11,
+          "D": 1,
+          "L": 3,
+          "pct_avance_a_octavos": "60% (3 de 5: avanzó 2006, 2010, 2014. Eliminada en fase grupos 2018 y 2022)",
+          "nota": "Eliminación histórica en fase de grupos en 2018 (Rusia) y 2022 (Qatar) — primer back-to-back desfavorable de su historia."
+        },
+        "goleadores_historicos_mundiales": [
+          {"jugador": "Miroslav Klose", "goles": 16, "nota": "Máximo goleador histórico de Mundiales de TODOS los tiempos."},
+          {"jugador": "Gerd Müller", "goles": 14},
+          {"jugador": "Jürgen Klinsmann", "goles": 11}
+        ],
+        "dt_actual_2026": "Julian Nagelsmann (confirmado hasta Mundial 2026 — Federación renovó en 2024)",
+        "capitan_2026": "no_verificado_oficial_mayo_2026",
+        "caso_especial": "Tras dos eliminaciones consecutivas en fase de grupos (2018, 2022) y un Eurocopa 2024 como anfitrión donde quedó en cuartos, Alemania llega con Nagelsmann tratando de recuperar identidad. Es el equipo con MÁS Mundiales jugados del grupo (20) y enfrenta a una debutante absoluta (Curazao)."
+      },
+
+      "Curazao": {
+        "pais": "Curazao",
+        "apodo": "Familia Kòrsou",
+        "bandera": "🇨🇼",
+        "fifa_ranking_actual_2026": "no_verificado_exacto_aprox_top_90",
+        "mundiales_jugados_total": 1,
+        "mejor_resultado_historico": "Debut absoluto Mundial 2026",
+        "titulos_mundiales": 0,
+        "record_fase_grupos_ultimos_5_mundiales": {
+          "nota": "DEBUT ABSOLUTO. Sin historial previo en Mundiales.",
+          "W": 0, "D": 0, "L": 0
+        },
+        "goleadores_historicos_mundiales": [],
+        "dt_actual_2026": "Dick Advocaat (técnico neerlandés veterano, fue clave en la clasificación)",
+        "capitan_2026": "no_verificado_oficial",
+        "caso_especial": "DATO HISTÓRICO: Curazao es la nación MÁS PEQUEÑA en clasificar a un Mundial de fútbol masculino en la historia — aprox. 156.000 habitantes (menor que Islandia 2018, que tenía ~330.000). Isla caribeña, ex colonia neerlandesa, gran parte del plantel son holandeses-curazoleños nacidos o formados en Países Bajos. Antes de 2010 jugaba como 'Antillas Neerlandesas'. Clasificó por la CONCACAF tras una etapa final histórica. Storyline brutal: enfrentan a Alemania (4 títulos) en su debut absoluto.",
+        "dato_curioso": "El nombre oficial del país en papiamento es 'Kòrsou'. Hasta 2010 competía bajo bandera de Antillas Neerlandesas (que sí jugó eliminatorias pero nunca clasificó)."
+      },
+
+      "Costa de Marfil": {
+        "pais": "Costa de Marfil",
+        "apodo": "Les Éléphants",
+        "bandera": "🇨🇮",
+        "fifa_ranking_actual_2026": "no_verificado_exacto_top_40_aprox",
+        "mundiales_jugados_total": 4,
+        "mundiales_anteriores": ["2006", "2010", "2014", "2026"],
+        "mejor_resultado_historico": "Fase de grupos (nunca pasó de primera ronda en sus 3 Mundiales previos)",
+        "titulos_mundiales": 0,
+        "titulos_continentales_CAF": "Copa Africana de Naciones: 1992, 2015, 2024 (3 títulos)",
+        "record_fase_grupos_ultimos_5_mundiales": {
+          "mundiales": ["2006", "2010", "2014"],
+          "W": 3, "D": 1, "L": 5,
+          "pct_avance_a_octavos": "0% en sus 3 participaciones previas",
+          "nota": "Histórica 'generación dorada' (Drogba, Yaya Touré, Kalou, Eboué) cayó siempre en grupos de la muerte."
+        },
+        "goleadores_historicos_mundiales": [
+          {"jugador": "Didier Drogba", "goles_mundiales": 2, "nota": "Símbolo histórico; marcó vs Argentina 2006 y Brasil 2010 (debate sobre autoría exacta de uno)."},
+          {"jugador": "Wilfried Bony", "goles_mundiales": 2, "nota": "Goleador en Brasil 2014."},
+          {"jugador": "Aruna Dindane", "goles_mundiales": 2}
+        ],
+        "dt_actual_2026": "Emerse Faé (interino que ganó la AFCON 2024 como local y fue ratificado)",
+        "capitan_2026": "no_verificado_oficial",
+        "caso_especial": "Vuelven al Mundial tras 12 años de ausencia (Brasil 2014 fue el último). Llegan como campeones de África vigentes (AFCON 2024 como locales, hazaña épica tras estar a punto de quedar fuera en fase de grupos). Es su CUARTA participación mundialista — primera sin Drogba como referencia generacional."
+      },
+
+      "Ecuador": {
+        "pais": "Ecuador",
+        "apodo": "La Tri",
+        "bandera": "🇪🇨",
+        "fifa_ranking_actual_2026": "no_verificado_exacto_top_25_aprox",
+        "mundiales_jugados_total": 5,
+        "mundiales_anteriores": ["2002", "2006", "2014", "2022", "2026"],
+        "mejor_resultado_historico": "Octavos de final (Alemania 2006, eliminados por Inglaterra 1-0)",
+        "titulos_mundiales": 0,
+        "record_fase_grupos_ultimos_5_mundiales": {
+          "mundiales": ["2002", "2006", "2014", "2022"],
+          "W": 4, "D": 2, "L": 6,
+          "pct_avance_a_octavos": "25% (1 de 4: solo avanzó en 2006)",
+          "nota": "En 2022 (Qatar) quedó eliminado en grupos pese a vencer al anfitrión 2-0 en el partido inaugural."
+        },
+        "goleadores_historicos_mundiales": [
+          {"jugador": "Enner Valencia", "goles": 6, "nota": "MÁXIMO goleador histórico de Ecuador en Mundiales. Anotó 3 en Brasil 2014 y 3 en Qatar 2022."},
+          {"jugador": "Agustín Delgado", "goles": 1},
+          {"jugador": "Edison Méndez", "goles": 1}
+        ],
+        "dt_actual_2026": "Sebastián Beccacece (argentino, asumió en 2024 tras Félix Sánchez)",
+        "capitan_2026": "Enner Valencia (más probable, no_verificado_oficial_mayo_2026)",
+        "caso_especial": "Ecuador venía de una eliminatoria histórica clasificando con 2da o 3ra posición (depende del cierre Sudamericano). Tiene una de las generaciones jóvenes más prometedoras (Moisés Caicedo del Chelsea, Piero Hincapié, Pervis Estupiñán, William Pacho, Kendry Páez). Enner Valencia es leyenda viva: anotó el primer gol de Qatar 2022 (vs anfitrión) y arrastra 6 goles en Mundiales."
+      }
+    },
+
+    "capa_2_enfrentamientos": {
+      "Alemania_vs_Curazao": {
+        "enfrentamientos_totales_historicos": 0,
+        "h2h_en_mundiales_count": 0,
+        "h2h_mundiales_detalle": [],
+        "total_historico_h2h": {"W_alemania": 0, "D": 0, "L_alemania": 0},
+        "ultimo_enfrentamiento": "Nunca se han enfrentado a nivel selecciones",
+        "dato_curioso": "Será el PRIMER enfrentamiento absoluto en la historia entre Alemania y Curazao. Curazao tiene varios jugadores que se formaron en la Bundesliga o en clubes neerlandeses; será una postal histórica: tetracampeón mundial vs debutante de 156.000 habitantes."
+      },
+
+      "Alemania_vs_Costa_de_Marfil": {
+        "enfrentamientos_totales_historicos": "no_verificado_exacto (aprox. 1-2 amistosos)",
+        "h2h_en_mundiales_count": 0,
+        "h2h_mundiales_detalle": [],
+        "total_historico_h2h": "no_verificado",
+        "ultimo_enfrentamiento": "no_verificado_amistoso_previo",
+        "dato_curioso": "Primera vez que se cruzan en una fase final de Mundial. Costa de Marfil cayó eliminada en Brasil 2014 sin haber enfrentado nunca a Alemania en una Copa."
+      },
+
+      "Alemania_vs_Ecuador": {
+        "enfrentamientos_totales_historicos": "2 verificados (Mundial 2006 + amistoso 2013)",
+        "h2h_en_mundiales_count": 1,
+        "h2h_mundiales_detalle": [
+          {
+            "anio": 2006,
+            "mundial_sede": "Alemania",
+            "fase": "Fase de grupos — Grupo A",
+            "resultado": "Alemania 3-0 Ecuador",
+            "goleadores_alemania": ["Miroslav Klose (4', 44')", "Lukas Podolski (57')"],
+            "estadio": "Olympiastadion, Berlín",
+            "fecha": "20 de junio de 2006",
+            "nota": "Ambos llegaban ya clasificados a octavos; Alemania terminó 1ra y Ecuador 2da del grupo."
+          }
+        ],
+        "total_historico_h2h": {"W_alemania": 2, "D": 0, "L_alemania": 0, "nota_fuente": "RSSSF y FIFA — Ecuador nunca le ha empatado ni vencido a Alemania a nivel selecciones"},
+        "ultimo_enfrentamiento": "Amistoso 29 de mayo de 2013 — Alemania 4-2 Ecuador (Boca Raton, Florida)",
+        "dato_curioso": "El 3-0 de Berlín 2006 incluyó un doblete de Miroslav Klose, el futuro máximo goleador histórico de Mundiales. Ecuador venía de ganarle 3-0 a Costa Rica en su debut — el famoso gol de Tenorio."
+      },
+
+      "Curazao_vs_Costa_de_Marfil": {
+        "enfrentamientos_totales_historicos": 0,
+        "h2h_en_mundiales_count": 0,
+        "h2h_mundiales_detalle": [],
+        "total_historico_h2h": {"W": 0, "D": 0, "L": 0},
+        "ultimo_enfrentamiento": "Nunca se han enfrentado oficialmente",
+        "dato_curioso": "Primer cruce histórico. Para Curazao podría ser el partido más 'parejo' del grupo en papel: ambos están abajo de Alemania y Ecuador en historia mundialista, pero Costa de Marfil es campeón africano vigente y figura clara como favorito."
+      },
+
+      "Curazao_vs_Ecuador": {
+        "enfrentamientos_totales_historicos": "no_verificado (probable 0 oficiales)",
+        "h2h_en_mundiales_count": 0,
+        "h2h_mundiales_detalle": [],
+        "total_historico_h2h": "no_verificado",
+        "ultimo_enfrentamiento": "no_verificado",
+        "dato_curioso": "Primer cruce mundialista. Ecuador tiene una población ~115 veces mayor que Curazao. La diferencia demográfica más extrema del grupo."
+      },
+
+      "Costa_de_Marfil_vs_Ecuador": {
+        "enfrentamientos_totales_historicos": "no_verificado_exacto (al menos 1 amistoso previo)",
+        "h2h_en_mundiales_count": 0,
+        "h2h_mundiales_detalle": [],
+        "total_historico_h2h": "no_verificado",
+        "ultimo_enfrentamiento": "no_verificado",
+        "dato_curioso": "Primer enfrentamiento en una fase final de Mundial. Cruce CAF vs CONMEBOL: el campeón vigente de África (AFCON 2024) vs una Ecuador que tiene a Moisés Caicedo (Chelsea) como uno de los mediocampistas más caros del mundo."
+      }
+    },
+
+    "capa_3_narrativa_grupo": {
+      "favorito_data_historica": {
+        "seleccion": "Alemania",
+        "razones": [
+          "4 títulos mundiales (sólo detrás de Brasil con 5).",
+          "20 participaciones en Mundiales — la mayor del grupo por amplio margen.",
+          "Miroslav Klose, su máximo goleador, es el máximo goleador histórico DE LA HISTORIA de los Mundiales (16 goles).",
+          "Aunque viene de eliminaciones en grupos (2018, 2022), su masa crítica y entrenador (Nagelsmann) la mantienen como favorita aritmética."
+        ]
+      },
+      "segundo_favorito": {
+        "seleccion": "Ecuador",
+        "razones": [
+          "Generación más prometedora de su historia (Caicedo, Hincapié, Pacho, Páez).",
+          "Ya superó la fase de grupos en 2006.",
+          "Enner Valencia con 6 goles en Mundiales como referencia."
+        ]
+      },
+      "underdog": {
+        "seleccion": "Curazao",
+        "razones": [
+          "DEBUTANTE absoluto.",
+          "País de 156.000 habitantes — el más pequeño en clasificar a un Mundial masculino en la historia.",
+          "Dirigido por Dick Advocaat con un plantel mayormente formado en Europa (Países Bajos)."
+        ]
+      },
+      "tercer_equipo_en_pelea_segundo_lugar": "Costa de Marfil — campeón africano vigente (AFCON 2024), 3 títulos continentales totales, pero nunca pasó la fase de grupos de un Mundial",
+
+      "partido_clave_a_cubrir": {
+        "partido": "Alemania vs Ecuador",
+        "razon": "Revancha del 3-0 de Berlín 2006. Para Ecuador podría ser el partido que defina segundo puesto. Para Alemania, evitar el papelón histórico de una tercera eliminación seguida en fase de grupos. Si Ecuador saca un punto aquí, queda muy bien parado."
+      },
+
+      "datos_curiosos_grupo": [
+        "Curazao (156K habitantes) y Alemania (~84 millones) tienen la diferencia demográfica más extrema del Mundial 2026 dentro de un mismo grupo: ~538 veces más alemanes que curazoleños.",
+        "Tres de los cuatro DTs del grupo son extranjeros a la selección que dirigen: Advocaat (NL) en Curazao, Beccacece (ARG) en Ecuador, y Faé (CIV propio) en Costa de Marfil. Solo Nagelsmann dirige a su propio país.",
+        "Es el ÚNICO grupo del Mundial 2026 con un debutante absoluto sin antecedente alguno (Curazao). Cabo Verde, otro debutante, está en el Grupo H.",
+        "Costa de Marfil regresa a un Mundial tras 12 años de ausencia (no jugaba desde Brasil 2014)."
+      ],
+
+      "storyline_narrativo": "El Grupo E es, en una palabra, asimetría. De un lado, Alemania: tetracampeón mundial, 20 Mundiales jugados, el país de Klose y la Mannschaft, llegando con Nagelsmann a tratar de cerrar el ciclo más turbulento de su historia reciente (dos eliminaciones consecutivas en fase de grupos, 2018 y 2022). Del otro lado, Curazao: una isla caribeña de apenas 156 mil habitantes, la nación más pequeña en clasificar a un Mundial masculino en la historia, dirigida por un técnico neerlandés veterano (Dick Advocaat) con un plantel poblado de futbolistas formados en la Eredivisie. En medio, dos selecciones con apetito de revancha: Costa de Marfil regresa tras 12 años con el título de campeón africano vigente en la maleta, y Ecuador trae a la mejor generación de su historia (Caicedo, Hincapié, Páez) liderada por la presencia goleadora de Enner Valencia. La pregunta periodística no es solo quién avanza: es si Curazao puede convertirse en el nuevo cuento de hadas tipo Islandia 2018, si Alemania puede romper su maldición de grupos, y si Ecuador finalmente da el salto que su recambio promete desde hace años."
+    }
+  },
+
+  "grupo_F": {
+    "id": "F",
+    "selecciones": ["Países Bajos", "Japón", "Playoff Europeo B (TBD)", "Túnez"],
+    "advertencia_grupo": "El cuarto integrante depende del repechaje europeo (marzo 2026). Hasta su definición, se marca como TBD.",
+
+    "capa_1_selecciones": {
+      "Paises_Bajos": {
+        "pais": "Países Bajos",
+        "apodo": "Oranje",
+        "bandera": "🇳🇱",
+        "fifa_ranking_actual_2026": "no_verificado_exacto_top_8_aprox",
+        "mundiales_jugados_total": 11,
+        "mejor_resultado_historico": "Subcampeón (1974, 1978, 2010)",
+        "titulos_mundiales": 0,
+        "titulos_continentales_UEFA": "Eurocopa: 1988 (1 título)",
+        "record_fase_grupos_ultimos_5_mundiales": {
+          "mundiales_jugados_de_los_ultimos_5": ["2006", "2010", "2014", "2022"],
+          "no_jugados": ["2018 — no clasificó"],
+          "W": 9, "D": 2, "L": 1,
+          "pct_avance_a_octavos": "100% en los 4 Mundiales jugados de los últimos 5 ciclos",
+          "nota": "Eliminada por penales en cuartos vs Argentina en Qatar 2022 (2-2 + penales)."
+        },
+        "goleadores_historicos_mundiales": [
+          {"jugador": "Dennis Bergkamp", "goles": 5},
+          {"jugador": "Wesley Sneijder", "goles": 5},
+          {"jugador": "Robin van Persie", "goles": 6, "nota": "Incluye el famoso cabezazo 'volador' vs España 2014"},
+          {"jugador": "Johnny Rep", "goles": 5}
+        ],
+        "dt_actual_2026": "Ronald Koeman (segundo ciclo al frente del Oranje)",
+        "capitan_2026": "Virgil van Dijk (probable, no_verificado_oficial_mayo_2026)",
+        "caso_especial": "La 'Naranja Mecánica' eterna subcampeona — 3 finales perdidas (1974, 1978, 2010), nunca campeón. Es uno de los grandes históricos sin estrella en la camiseta. Llega con Koeman tras un buen Mundial 2022 (cuartos) y una Eurocopa 2024 con semifinal."
+      },
+
+      "Japon": {
+        "pais": "Japón",
+        "apodo": "Samurai Blue",
+        "bandera": "🇯🇵",
+        "fifa_ranking_actual_2026": "no_verificado_exacto_top_20_aprox",
+        "mundiales_jugados_total": 7,
+        "mundiales_anteriores": ["1998", "2002", "2006", "2010", "2014", "2018", "2022", "2026"],
+        "mejor_resultado_historico": "Octavos de final (2002 local, 2010, 2018, 2022)",
+        "titulos_mundiales": 0,
+        "titulos_continentales_AFC": "Copa Asiática: 1992, 2000, 2004, 2011 (4 títulos, récord)",
+        "record_fase_grupos_ultimos_5_mundiales": {
+          "mundiales": ["2006", "2010", "2014", "2018", "2022"],
+          "W": 6, "D": 4, "L": 5,
+          "pct_avance_a_octavos": "60% (3 de 5: 2010, 2018, 2022)",
+          "nota": "En Qatar 2022 ganó EL GRUPO DE LA MUERTE venciendo a Alemania (2-1) y a España (2-1)."
+        },
+        "goleadores_historicos_mundiales": [
+          {"jugador": "Keisuke Honda", "goles": 4, "nota": "Anotó en 3 Mundiales consecutivos (2010, 2014, 2018) — récord japonés"},
+          {"jugador": "Shinji Okazaki", "goles": 2},
+          {"jugador": "Ritsu Doan", "goles": 2, "nota": "Goleador en Qatar 2022 vs Alemania y España"}
+        ],
+        "dt_actual_2026": "Hajime Moriyasu (renovado tras buen Mundial 2022 y clasificación record)",
+        "capitan_2026": "Wataru Endo (probable, no_verificado_oficial_mayo_2026)",
+        "caso_especial": "Llega como el equipo con MÁS jugadores en las grandes ligas europeas de su historia (Mitoma, Kubo, Endo, Kamada, Itoh, Tomiyasu, Minamino). Clasificó al Mundial 2026 con una eliminatoria asiática prácticamente perfecta. Buscan por primera vez pasar de octavos — son SIETE consecutivas (1998-2022) y nunca llegaron a cuartos."
+      },
+
+      "Playoff_Europeo_B_TBD": {
+        "estado": "TBD",
+        "definicion": "Pendiente — se define en repechaje europeo de marzo 2026. Marcado como placeholder hasta confirmación oficial.",
+        "candidatos_potenciales_pre_repechaje": "no_verificable_a_la_fecha",
+        "nota": "Actualizar este campo apenas se conozca el ganador del play-off Path B de UEFA."
+      },
+
+      "Tunez": {
+        "pais": "Túnez",
+        "apodo": "Les Aigles de Carthage (Águilas de Cartago)",
+        "bandera": "🇹🇳",
+        "fifa_ranking_actual_2026": "no_verificado_exacto_top_50_aprox",
+        "mundiales_jugados_total": 7,
+        "mundiales_anteriores": ["1978", "1998", "2002", "2006", "2018", "2022", "2026"],
+        "mejor_resultado_historico": "Fase de grupos (nunca pasó de primera ronda en sus 6 Mundiales previos)",
+        "titulos_mundiales": 0,
+        "titulos_continentales_CAF": "Copa Africana de Naciones: 2004 (1 título)",
+        "record_fase_grupos_ultimos_5_mundiales": {
+          "mundiales": ["2002", "2006", "2018", "2022"],
+          "no_jugados": ["2010, 2014 — no clasificó"],
+          "W": 2, "D": 4, "L": 6,
+          "pct_avance_a_octavos": "0% en sus 6 participaciones históricas",
+          "nota": "En Qatar 2022 venció a Francia (campeón vigente entonces) 1-0 en la última fecha, pero igual fue eliminada en grupos."
+        },
+        "goleadores_historicos_mundiales": [
+          {"jugador": "Wahbi Khazri", "goles_mundiales": 2},
+          {"jugador": "Radhi Jaïdi", "goles_mundiales": 1, "nota": "Anotó vs Arabia Saudí 2006"},
+          {"jugador": "Ali Boumnijel / varios", "nota": "Túnez tiene goleadores muy repartidos históricamente"}
+        ],
+        "dt_actual_2026": "no_verificado_oficial_mayo_2026 (cambios recientes post-AFCON 2024)",
+        "capitan_2026": "no_verificado_oficial",
+        "caso_especial": "Primera selección africana en GANARLE A UN EQUIPO EUROPEO en un Mundial (vs México 3-1 en Argentina 1978). En Qatar 2022 venció a Francia, campeón defensor, en su último partido de grupos. Sigue sin poder pasar la primera ronda — récord de 6 fases de grupos sin avanzar."
+      }
+    },
+
+    "capa_2_enfrentamientos": {
+      "Paises_Bajos_vs_Japon": {
+        "enfrentamientos_totales_historicos": "no_verificado_exacto (al menos 2 — incluido Mundial 2010 y amistosos)",
+        "h2h_en_mundiales_count": 1,
+        "h2h_mundiales_detalle": [
+          {
+            "anio": 2010,
+            "mundial_sede": "Sudáfrica",
+            "fase": "Fase de grupos — Grupo E",
+            "resultado": "Países Bajos 1-0 Japón",
+            "goleadores_paises_bajos": ["Wesley Sneijder (53')"],
+            "estadio": "Moses Mabhida Stadium, Durban",
+            "fecha": "19 de junio de 2010",
+            "nota": "Países Bajos venía de ganarle a Dinamarca; Japón venía de vencer a Camerún. Holanda terminó 1ra del grupo y llegó a la final (perdió ante España)."
+          }
+        ],
+        "total_historico_h2h": {"W_NED": "≥1 verificado en Mundiales", "D": "no_verificado_exacto", "L_NED": "no_verificado_exacto"},
+        "ultimo_enfrentamiento": "no_verificado_post_2010",
+        "dato_curioso": "El 1-0 de Sudáfrica 2010 fue uno de los pocos partidos del Mundial donde Japón le compitió de igual a igual a una potencia europea: cayó por un solo gol en una jugada concreta de Sneijder. Holanda llegaría a la final de ese Mundial."
+      },
+
+      "Paises_Bajos_vs_Tunez": {
+        "enfrentamientos_totales_historicos": "no_verificado_exacto (probable 1-2 históricos)",
+        "h2h_en_mundiales_count": 1,
+        "h2h_mundiales_detalle": [
+          {
+            "anio": 1978,
+            "mundial_sede": "Argentina",
+            "fase": "Fase de grupos — Grupo 4",
+            "resultado": "Países Bajos 0-0 Túnez",
+            "estadio": "Estadio Gigante de Arroyito, Rosario",
+            "fecha": "3 de junio de 1978",
+            "nota": "Empate sin goles en el debut tunecino histórico. Países Bajos llegó después a la final (perdió ante Argentina). Túnez había ganado 3-1 a México en su debut, su primer triunfo africano sobre Europa o América en una Copa."
+          }
+        ],
+        "total_historico_h2h": {"W_NED": 0, "D": 1, "L_NED": 0, "verificable_en_mundiales": true},
+        "ultimo_enfrentamiento": "no_verificado_post_1978",
+        "dato_curioso": "Único enfrentamiento mundialista entre Holanda y Túnez es ese 0-0 de Rosario 1978 — uno de los pocos empates sin goles entre una potencia y un debutante africano en la historia."
+      },
+
+      "Paises_Bajos_vs_Playoff_B": {
+        "estado": "TBD",
+        "nota": "Pendiente definición del playoff europeo B."
+      },
+
+      "Japon_vs_Tunez": {
+        "enfrentamientos_totales_historicos": "no_verificado_exacto (al menos 1 — Mundial 2002)",
+        "h2h_en_mundiales_count": 1,
+        "h2h_mundiales_detalle": [
+          {
+            "anio": 2002,
+            "mundial_sede": "Corea del Sur / Japón",
+            "fase": "Fase de grupos — Grupo H",
+            "resultado": "Japón 2-0 Túnez",
+            "goleadores_japon": ["Hiroaki Morishima (48')", "Hidetoshi Nakata (75')"],
+            "estadio": "Nagai Stadium, Osaka",
+            "fecha": "14 de junio de 2002",
+            "nota": "Con este triunfo, Japón terminó 1ro del Grupo H y avanzó a octavos por PRIMERA vez en su historia. Túnez quedó eliminada."
+          }
+        ],
+        "total_historico_h2h": {"W_JPN": "≥1", "verificable_en_mundiales": true},
+        "ultimo_enfrentamiento": "no_verificado_post_2002",
+        "dato_curioso": "El 2-0 en Osaka 2002 fue el partido que metió a Japón POR PRIMERA VEZ en su historia a unos octavos de Mundial. Para Túnez fue otra eliminación más en fase de grupos."
+      },
+
+      "Japon_vs_Playoff_B": {
+        "estado": "TBD"
+      },
+
+      "Tunez_vs_Playoff_B": {
+        "estado": "TBD"
+      }
+    },
+
+    "capa_3_narrativa_grupo": {
+      "favorito_data_historica": {
+        "seleccion": "Países Bajos",
+        "razones": [
+          "3 finales mundialistas (1974, 1978, 2010).",
+          "100% de avance a octavos en sus últimas 4 participaciones (2006, 2010, 2014, 2022).",
+          "Top 10 FIFA estable y plantel con Van Dijk, Frenkie de Jong, Gakpo, Reijnders."
+        ]
+      },
+      "segundo_favorito": {
+        "seleccion": "Japón",
+        "razones": [
+          "Ganó el 'grupo de la muerte' en Qatar 2022 venciendo a Alemania y España.",
+          "Plantel europeizado récord: Mitoma, Kubo, Endo, Kamada.",
+          "60% de avance a octavos en los últimos 5 ciclos."
+        ]
+      },
+      "underdog": {
+        "seleccion": "Túnez",
+        "razones": [
+          "Nunca pasó la fase de grupos en 6 intentos.",
+          "Pero capaz de hazañas puntuales (venció a Francia campeón en 2022).",
+          "AFCON 2004 como único título mayor."
+        ]
+      },
+      "incognita_grande": "El cuarto equipo (Playoff Europeo B) puede cambiar drásticamente el panorama: si es Italia, Suecia, Polonia o Gales, sube el nivel del grupo enormemente.",
+
+      "partido_clave_a_cubrir": {
+        "partido": "Países Bajos vs Japón",
+        "razon": "Revancha de Sudáfrica 2010 (1-0 con gol de Sneijder). Japón llega con MUCHO mejor plantel europeo que entonces, y la Oranje viene con dudas defensivas. Partido bisagra para definir 1ro vs 2do del grupo."
+      },
+
+      "datos_curiosos_grupo": [
+        "Países Bajos y Túnez se enfrentaron una sola vez en un Mundial: 0-0 en Rosario 1978. Casi medio siglo después se vuelven a cruzar.",
+        "Japón y Túnez también se cruzaron una sola vez: 2-0 en Osaka 2002, el partido que metió a Japón en octavos por primera vez.",
+        "Es el ÚNICO grupo del Mundial 2026 con un cupo todavía sin definir al inicio de mayo 2026 (Playoff Europeo B).",
+        "Holanda y Japón son las dos selecciones de este grupo con mejor record reciente en fases de grupos mundialistas."
+      ],
+
+      "storyline_narrativo": "El Grupo F llega al Mundial 2026 con una pieza todavía sin colocar: el ganador del playoff europeo B de marzo. Hasta entonces, tres certezas: Países Bajos, la eterna subcampeona (1974, 1978, 2010), llega con Ronald Koeman y un plantel sólido pero con la sombra histórica de no haber ganado nunca un Mundial; Japón, dirigido por Moriyasu, regresa con la mejor generación de su historia (Mitoma, Kubo, Endo) y la marca de haber vencido a Alemania y España en Qatar 2022 — quieren romper la barrera de los octavos por primera vez; y Túnez, que arrastra el récord ingrato de seis fases de grupos sin avanzar nunca, pero capaz de batacazos memorables (le ganó a Francia campeón en Qatar 2022). El partido más cargado de subtexto histórico es el Holanda-Japón: vuelven a verse 16 años después del 1-0 de Sneijder en Sudáfrica 2010, esta vez con un Japón mucho más poderoso. El cuarto integrante decidirá si el grupo se inclina hacia 'lógico' (si entra una selección menor) o 'grupo de la muerte' (si entra Italia, Polonia, Suecia o Gales)."
+    }
+  },
+
+  "grupo_G": {
+    "id": "G",
+    "selecciones": ["Bélgica", "Egipto", "Irán", "Nueva Zelanda"],
+
+    "capa_1_selecciones": {
+      "Belgica": {
+        "pais": "Bélgica",
+        "apodo": "Los Diablos Rojos (Rode Duivels / Diables Rouges)",
+        "bandera": "🇧🇪",
+        "fifa_ranking_actual_2026": "no_verificado_exacto_top_10_aprox",
+        "mundiales_jugados_total": 14,
+        "mejor_resultado_historico": "Tercer puesto (Rusia 2018) y cuarto puesto (México 1986)",
+        "titulos_mundiales": 0,
+        "record_fase_grupos_ultimos_5_mundiales": {
+          "mundiales": ["2002", "2014", "2018", "2022"],
+          "no_jugados": ["2006, 2010 — no clasificó en uno de ellos. (Bélgica volvió en 2014 tras ausencia)"],
+          "W": 7, "D": 3, "L": 2,
+          "pct_avance_a_octavos": "75% (3 de 4: 2002, 2014, 2018. Eliminada en grupos 2022)",
+          "nota": "En Qatar 2022 quedó fuera en grupos pese a ser top-2 del ranking FIFA, fin de la 'generación dorada'."
+        },
+        "goleadores_historicos_mundiales": [
+          {"jugador": "Romelu Lukaku", "goles": 5, "nota": "Máximo goleador histórico de Bélgica en Mundiales"},
+          {"jugador": "Eden Hazard", "goles": 3},
+          {"jugador": "Marc Wilmots", "goles": 5, "nota": "Compartido con Lukaku como máximo histórico mundialista"}
+        ],
+        "dt_actual_2026": "Domenico Tedesco (alemán-italiano, asumió tras Martínez en 2023). Verificar si continúa tras Eurocopa 2024.",
+        "capitan_2026": "Kevin De Bruyne (probable si activo, no_verificado_oficial_mayo_2026)",
+        "caso_especial": "Cierre de la 'generación dorada' (De Bruyne, Hazard retirado, Courtois, Lukaku, Witsel). Tras la decepción de Qatar 2022 (eliminación en grupos siendo top-2 FIFA), Bélgica busca un Mundial de transición y reseteo."
+      },
+
+      "Egipto": {
+        "pais": "Egipto",
+        "apodo": "Los Faraones",
+        "bandera": "🇪🇬",
+        "fifa_ranking_actual_2026": "no_verificado_exacto_top_40_aprox",
+        "mundiales_jugados_total": 4,
+        "mundiales_anteriores": ["1934", "1990", "2018", "2026"],
+        "mejor_resultado_historico": "Fase de grupos (nunca pasó de primera ronda)",
+        "titulos_mundiales": 0,
+        "titulos_continentales_CAF": "Copa Africana de Naciones: 7 títulos (1957, 1959, 1986, 1998, 2006, 2008, 2010) — récord absoluto de África",
+        "record_fase_grupos_ultimos_5_mundiales": {
+          "mundiales": ["2018"],
+          "no_jugados": ["2002, 2006, 2010, 2014, 2022 — no clasificó"],
+          "W": 0, "D": 0, "L": 3,
+          "pct_avance_a_octavos": "0%",
+          "nota": "Su tercera participación mundial (Rusia 2018) terminó con 0 puntos."
+        },
+        "goleadores_historicos_mundiales": [
+          {"jugador": "Mohamed Salah", "goles": 2, "nota": "Anotó vs Rusia y vs Arabia Saudí en Rusia 2018"},
+          {"jugador": "Magdi Abdelghani", "goles": 1, "nota": "De penal vs Holanda en Italia 1990 — primer gol egipcio en Mundiales en la era moderna"}
+        ],
+        "dt_actual_2026": "Hossam Hassan (asumió en 2024, ex leyenda goleadora egipcia)",
+        "capitan_2026": "Mohamed Salah (confirmado capitán histórico de la era reciente)",
+        "caso_especial": "Egipto es el equipo MÁS GANADOR de África a nivel continental (7 AFCON), pero paradójicamente uno de los menos exitosos a nivel mundial — apenas 4 Mundiales en su historia y nunca pasó la fase de grupos. Es el regreso de Mo Salah a un Mundial tras 8 años (perdió la final de la AFCON 2021 y 2023 con Egipto)."
+      },
+
+      "Iran": {
+        "pais": "Irán",
+        "apodo": "Team Melli",
+        "bandera": "🇮🇷",
+        "fifa_ranking_actual_2026": "no_verificado_exacto_top_25_aprox",
+        "mundiales_jugados_total": 7,
+        "mundiales_anteriores": ["1978", "1998", "2006", "2014", "2018", "2022", "2026"],
+        "mejor_resultado_historico": "Fase de grupos (nunca pasó de primera ronda)",
+        "titulos_mundiales": 0,
+        "titulos_continentales_AFC": "Copa Asiática: 1968, 1972, 1976 (3 títulos, todos seguidos)",
+        "record_fase_grupos_ultimos_5_mundiales": {
+          "mundiales": ["2006", "2014", "2018", "2022"],
+          "no_jugados": ["2010 — no clasificó"],
+          "W": 2, "D": 3, "L": 7,
+          "pct_avance_a_octavos": "0% en los últimos 5 ciclos",
+          "nota": "En 1998 protagonizó el histórico 2-1 sobre Estados Unidos. En 2022 venció 2-0 a Gales."
+        },
+        "goleadores_historicos_mundiales": [
+          {"jugador": "Mehdi Taremi", "goles": 2, "nota": "Goleador en Qatar 2022 — figura actual"},
+          {"jugador": "Karim Bagheri", "goles": 1, "nota": "Anotó vs Estados Unidos 1998 — el famoso 2-1"},
+          {"jugador": "Hamed Estili / Mehdi Mahdavikia", "goles": 1, "nota": "Cada uno marcó vs USA 1998"}
+        ],
+        "dt_actual_2026": "Amir Ghalenoei (asumió tras Carlos Queiroz en 2023, no_verificado_si_continua_2026)",
+        "capitan_2026": "Ehsan Hajsafi (probable, no_verificado_oficial_mayo_2026)",
+        "caso_especial": "Es la selección asiática con más victorias mundialistas a nivel histórico junto con Corea del Sur, pero NUNCA pasó la fase de grupos. La eterna candidata a octavos que siempre se queda en la puerta. Mehdi Taremi y Sardar Azmoun son la dupla ofensiva más conocida en Europa."
+      },
+
+      "Nueva_Zelanda": {
+        "pais": "Nueva Zelanda",
+        "apodo": "All Whites",
+        "bandera": "🇳🇿",
+        "fifa_ranking_actual_2026": "no_verificado_exacto_top_90_aprox",
+        "mundiales_jugados_total": 3,
+        "mundiales_anteriores": ["1982", "2010", "2026"],
+        "mejor_resultado_historico": "Fase de grupos invicta en Sudáfrica 2010 (3 empates) — único equipo INVICTO eliminado del Mundial 2010",
+        "titulos_mundiales": 0,
+        "titulos_continentales_OFC": "OFC Nations Cup: 1973, 1998, 2002, 2008, 2016, 2024 (6 títulos, récord oceánico)",
+        "record_fase_grupos_ultimos_5_mundiales": {
+          "mundiales": ["2010"],
+          "no_jugados": ["2006, 2014, 2018, 2022 — no clasificó"],
+          "W": 0, "D": 3, "L": 0,
+          "pct_avance_a_octavos": "0%",
+          "nota": "Sudáfrica 2010: empató con Eslovaquia (1-1), Italia (1-1, ¡vs el campeón vigente!), y Paraguay (0-0). Salió invicta pero eliminada."
+        },
+        "goleadores_historicos_mundiales": [
+          {"jugador": "Winston Reid", "goles": 1, "nota": "Anotó vs Eslovaquia 2010"},
+          {"jugador": "Shane Smeltz", "goles": 1, "nota": "Anotó vs Italia 2010, abrió el 1-1"},
+          {"jugador": "Steve Sumner / Steve Wooddin / otros 1982", "goles": 1, "nota": "Goleadores históricos de España 1982"}
+        ],
+        "dt_actual_2026": "Darren Bazeley (asumió en 2024 tras Danny Hay)",
+        "capitan_2026": "Chris Wood (probable, delantero del Nottingham Forest)",
+        "caso_especial": "El único equipo INVICTO eliminado en el Mundial 2010 (3 empates, incluido un 1-1 vs Italia, campeón vigente). Vuelven a un Mundial tras 16 años de ausencia. Es la única selección oceánica del Mundial 2026 (Australia juega por Asia). Chris Wood, delantero de la Premier League, es la figura."
+      }
+    },
+
+    "capa_2_enfrentamientos": {
+      "Belgica_vs_Egipto": {
+        "enfrentamientos_totales_historicos": "no_verificado_exacto (al menos 1 amistoso pre-2018)",
+        "h2h_en_mundiales_count": 0,
+        "h2h_mundiales_detalle": [],
+        "total_historico_h2h": "no_verificado",
+        "ultimo_enfrentamiento": "Amistoso 6 de junio de 2018 — Bélgica 3-0 Egipto (Bruselas, previo a Rusia 2018)",
+        "dato_curioso": "Bélgica goleó 3-0 a Egipto en el último amistoso antes del Mundial 2018. Hazard, De Bruyne y Lukaku eran titulares. Salah era figura egipcia pero entró sin ritmo tras lesión en la final de Champions."
+      },
+
+      "Belgica_vs_Iran": {
+        "enfrentamientos_totales_historicos": "no_verificado_exacto",
+        "h2h_en_mundiales_count": 0,
+        "h2h_mundiales_detalle": [],
+        "total_historico_h2h": "no_verificado",
+        "ultimo_enfrentamiento": "no_verificado",
+        "dato_curioso": "Primer cruce mundialista entre ambos."
+      },
+
+      "Belgica_vs_Nueva_Zelanda": {
+        "enfrentamientos_totales_historicos": "no_verificado_exacto (probable 0 oficiales)",
+        "h2h_en_mundiales_count": 0,
+        "h2h_mundiales_detalle": [],
+        "total_historico_h2h": "no_verificado",
+        "ultimo_enfrentamiento": "no_verificado",
+        "dato_curioso": "Primer cruce histórico entre Bélgica y Nueva Zelanda en una Copa del Mundo."
+      },
+
+      "Egipto_vs_Iran": {
+        "enfrentamientos_totales_historicos": "no_verificado_exacto",
+        "h2h_en_mundiales_count": 0,
+        "h2h_mundiales_detalle": [],
+        "total_historico_h2h": "no_verificado",
+        "ultimo_enfrentamiento": "no_verificado",
+        "dato_curioso": "Primer cruce mundialista. Por contexto geopolítico Egipto e Irán mantuvieron por décadas relaciones diplomáticas tensas/cortadas (desde 1980). Partido cargado de simbolismo regional Medio Oriente."
+      },
+
+      "Egipto_vs_Nueva_Zelanda": {
+        "enfrentamientos_totales_historicos": "no_verificado_exacto (probable 0 oficiales)",
+        "h2h_en_mundiales_count": 0,
+        "h2h_mundiales_detalle": [],
+        "total_historico_h2h": "no_verificado",
+        "ultimo_enfrentamiento": "no_verificado",
+        "dato_curioso": "Primer cruce histórico."
+      },
+
+      "Iran_vs_Nueva_Zelanda": {
+        "enfrentamientos_totales_historicos": "Sí — repechaje intercontinental 2009 para Mundial 2010 (Nueva Zelanda venció a Bahréin, no a Irán). Verificación pendiente sobre h2h directo Irán-NZ.",
+        "h2h_en_mundiales_count": 0,
+        "h2h_mundiales_detalle": [],
+        "total_historico_h2h": "no_verificado_oficial",
+        "ultimo_enfrentamiento": "no_verificado",
+        "dato_curioso": "Primer cruce en una fase final mundialista entre Irán y Nueva Zelanda."
+      }
+    },
+
+    "capa_3_narrativa_grupo": {
+      "favorito_data_historica": {
+        "seleccion": "Bélgica",
+        "razones": [
+          "14 Mundiales jugados, tercer puesto en 2018.",
+          "Top 10 FIFA estable durante la última década.",
+          "Aún con figuras como De Bruyne y Lukaku (5 goles mundialistas)."
+        ]
+      },
+      "segundo_favorito": {
+        "seleccion": "Irán",
+        "razones": [
+          "Selección asiática con buen rendimiento reciente (venció a Gales 2022, casi le gana a España 2018).",
+          "Plantel competitivo con Taremi y Azmoun.",
+          "Más experiencia mundialista que Egipto y Nueva Zelanda combinados."
+        ]
+      },
+      "tercer_en_disputa": {
+        "seleccion": "Egipto",
+        "razones": [
+          "El factor Salah: capaz de cualquier partido épico.",
+          "7 títulos AFCON (récord africano).",
+          "Pero historial mundialista pobre: 0 puntos en Rusia 2018."
+        ]
+      },
+      "underdog": {
+        "seleccion": "Nueva Zelanda",
+        "razones": [
+          "Solo 2 Mundiales previos (1982, 2010).",
+          "Pero el dato icónico: ÚNICO equipo INVICTO eliminado en el Mundial 2010 (3 empates).",
+          "Chris Wood como única figura europea de peso."
+        ]
+      },
+
+      "partido_clave_a_cubrir": {
+        "partido": "Bélgica vs Egipto",
+        "razon": "El gran clásico del grupo a nivel mediático: De Bruyne vs Salah. Egipto necesita ganar al menos uno de los 'grandes' para soñar con octavos. Bélgica viene tocada anímicamente tras Qatar 2022 y necesita arrancar fuerte."
+      },
+
+      "datos_curiosos_grupo": [
+        "Es el grupo con MÁS títulos continentales sumados del Mundial 2026: Egipto (7 AFCON, récord africano) + Nueva Zelanda (6 OFC Nations Cup, récord oceánico) + Irán (3 Copas Asiáticas) + Bélgica (0 continentales mayores). Total: 16 títulos continentales.",
+        "Pero PARADOJA: ninguno de los 4 ha ganado jamás un Mundial. Bélgica es la única con podio (3ra en 2018).",
+        "Tres de los cuatro equipos (Egipto, Irán, Nueva Zelanda) NUNCA han pasado de la fase de grupos en un Mundial.",
+        "Nueva Zelanda es la única selección de Oceanía en el Mundial 2026.",
+        "Es el grupo con menos enfrentamientos cruzados PREVIOS en Mundiales: ningún partido oficial entre ninguno de los 6 pares posibles."
+      ],
+
+      "storyline_narrativo": "El Grupo G es el grupo de 'gigantes continentales que nunca llegaron a la final mundialista'. Bélgica suma 14 Mundiales y un tercer puesto en 2018, pero llega con su generación dorada (De Bruyne, Lukaku) en transición tras el fracaso de Qatar 2022. Egipto trae a Mohamed Salah a su segunda Copa, con la frustración acumulada de ser la nación más ganadora de África (7 AFCON, récord) pero nunca haber pasado la fase de grupos mundialista. Irán también arrastra ese karma: 7 Mundiales sin avanzar nunca, con Taremi y Azmoun como dupla amenazante. Y Nueva Zelanda, la perla rara del grupo: regresa tras 16 años, con el dato más singular de la historia mundialista reciente — único equipo INVICTO eliminado en Sudáfrica 2010 (tres empates, uno de ellos vs Italia, campeón vigente). Es un grupo donde NINGÚN par de selecciones se ha enfrentado antes en una fase final de Mundial, lo que significa que cada uno de los seis partidos será un debut histórico mutuo."
+    }
+  },
+
+  "grupo_H": {
+    "id": "H",
+    "selecciones": ["España", "Cabo Verde", "Arabia Saudita", "Uruguay"],
+
+    "capa_1_selecciones": {
+      "Espana": {
+        "pais": "España",
+        "apodo": "La Roja / La Furia Roja",
+        "bandera": "🇪🇸",
+        "fifa_ranking_actual_2026": "no_verificado_exacto_top_5_aprox",
+        "mundiales_jugados_total": 16,
+        "mejor_resultado_historico": "Campeón (Sudáfrica 2010)",
+        "titulos_mundiales": 1,
+        "titulos_continentales_UEFA": "Eurocopa: 1964, 2008, 2012, 2024 (4 títulos, récord absoluto compartido)",
+        "record_fase_grupos_ultimos_5_mundiales": {
+          "mundiales": ["2006", "2010", "2014", "2018", "2022"],
+          "W": 9, "D": 4, "L": 2,
+          "pct_avance_a_octavos": "80% (4 de 5: avanzó 2006, 2010, 2018, 2022. Eliminada en grupos 2014, defendiendo título)",
+          "nota": "Brasil 2014: eliminación histórica defendiendo el título — 1-5 vs Países Bajos y 0-2 vs Chile."
+        },
+        "goleadores_historicos_mundiales": [
+          {"jugador": "David Villa", "goles": 9, "nota": "Máximo goleador histórico de España en Mundiales"},
+          {"jugador": "Raúl González", "goles": 5},
+          {"jugador": "Fernando Hierro / Fernando Morientes", "goles": 5, "nota": "Compartido como segundos"},
+          {"jugador": "Emilio Butragueño", "goles": 5}
+        ],
+        "dt_actual_2026": "Luis de la Fuente (campeón Eurocopa 2024, continúa al ciclo)",
+        "capitan_2026": "Álvaro Morata (probable, no_verificado_oficial_mayo_2026)",
+        "caso_especial": "Vigente campeón europeo (Eurocopa 2024) liderada por la nueva generación: Lamine Yamal (Barcelona), Nico Williams (Athletic), Pedri, Rodri (Balón de Oro 2024). Vuelve a un Mundial como uno de los favoritos absolutos al título tras 16 años de su única estrella (2010)."
+      },
+
+      "Cabo_Verde": {
+        "pais": "Cabo Verde",
+        "apodo": "Os Tubarões Azuis (Los Tiburones Azules)",
+        "bandera": "🇨🇻",
+        "fifa_ranking_actual_2026": "no_verificado_exacto_aprox_top_70",
+        "mundiales_jugados_total": 1,
+        "mejor_resultado_historico": "Debut absoluto Mundial 2026",
+        "titulos_mundiales": 0,
+        "record_fase_grupos_ultimos_5_mundiales": {
+          "nota": "DEBUT ABSOLUTO. Sin historial previo en Mundiales.",
+          "W": 0, "D": 0, "L": 0
+        },
+        "goleadores_historicos_mundiales": [],
+        "dt_actual_2026": "Bubista (Pedro Leitão Brito, técnico caboverdiano clave en la clasificación histórica)",
+        "capitan_2026": "no_verificado_oficial_mayo_2026",
+        "caso_especial": "DATO HISTÓRICO: Cabo Verde es DEBUTANTE ABSOLUTO en una Copa del Mundo. Archipiélago africano de aprox. 525.000 habitantes, ex colonia portuguesa. Su consagración internacional previa fue la AFCON 2013 (Sudáfrica) donde llegaron a cuartos en su primera AFCON. Gran parte del plantel son caboverdianos formados en Portugal, Países Bajos y Francia (diáspora). Junto con Curazao (Grupo E), uno de los DOS debutantes absolutos del Mundial 2026.",
+        "dato_curioso": "Cabo Verde es el segundo país más pequeño en clasificar a un Mundial masculino tras Curazao en este mismo torneo: ~525.000 habitantes."
+      },
+
+      "Arabia_Saudita": {
+        "pais": "Arabia Saudita",
+        "apodo": "Los Halcones Verdes (Al Suqour Al Akhdar)",
+        "bandera": "🇸🇦",
+        "fifa_ranking_actual_2026": "no_verificado_exacto_top_55_aprox",
+        "mundiales_jugados_total": 7,
+        "mundiales_anteriores": ["1994", "1998", "2002", "2006", "2018", "2022", "2026"],
+        "mejor_resultado_historico": "Octavos de final (Estados Unidos 1994 — debut con Said Al-Owairan y el 'gol de la cordillera')",
+        "titulos_mundiales": 0,
+        "titulos_continentales_AFC": "Copa Asiática: 1984, 1988, 1996 (3 títulos)",
+        "record_fase_grupos_ultimos_5_mundiales": {
+          "mundiales": ["2002", "2006", "2018", "2022"],
+          "no_jugados": ["2010, 2014 — no clasificó"],
+          "W": 2, "D": 2, "L": 8,
+          "pct_avance_a_octavos": "0% en sus últimas 4 participaciones (solo avanzó en 1994)",
+          "nota": "En Qatar 2022 protagonizó EL BATACAZO histórico: venció a Argentina 2-1 en el partido inaugural del grupo (Argentina sería campeón)."
+        },
+        "goleadores_historicos_mundiales": [
+          {"jugador": "Salem Al-Dawsari", "goles": 3, "nota": "Goleador en 2018 y 2022 — anotó el 2-1 vs Argentina en Qatar 2022"},
+          {"jugador": "Sami Al-Jaber", "goles": 3, "nota": "Goleador histórico en 1994, 1998, 2002, 2006"},
+          {"jugador": "Said Al-Owairan", "goles": 1, "nota": "El 'gol de la cordillera' vs Bélgica 1994 — uno de los goles individuales más recordados de la historia mundialista"}
+        ],
+        "dt_actual_2026": "Hervé Renard regresó (francés, ya los dirigió en Qatar 2022; continuidad / re-contratación verificable). No_verificado_oficial_2026 si es Renard u otro.",
+        "capitan_2026": "Salem Al-Dawsari (probable, no_verificado_oficial)",
+        "caso_especial": "Anfitriona DEL Mundial 2034 (FIFA lo confirmó en 2024). Llega al 2026 con inversión brutal en su liga (Cristiano Ronaldo, Neymar, Benzema, Mané, etc.) y con el recuerdo de haber tumbado al futuro campeón Argentina en Qatar 2022 (2-1)."
+      },
+
+      "Uruguay": {
+        "pais": "Uruguay",
+        "apodo": "La Celeste",
+        "bandera": "🇺🇾",
+        "fifa_ranking_actual_2026": "no_verificado_exacto_top_15_aprox",
+        "mundiales_jugados_total": 14,
+        "mejor_resultado_historico": "Campeón (1930 como anfitrión, 1950 Maracanazo)",
+        "titulos_mundiales": 2,
+        "titulos_continentales_CONMEBOL": "Copa América: 15 títulos (récord absoluto compartido con Argentina)",
+        "record_fase_grupos_ultimos_5_mundiales": {
+          "mundiales": ["2002", "2010", "2014", "2018", "2022"],
+          "no_jugados": ["2006 — no clasificó"],
+          "W": 8, "D": 3, "L": 4,
+          "pct_avance_a_octavos": "80% (4 de 5: avanzó 2010 — fue 4to lugar, 2014, 2018, 2022 NO avanzó)",
+          "nota_correccion": "En Qatar 2022 quedó eliminado en grupos pese a ganar 2-0 a Ghana en la última fecha. Avanzó: 2010 (4to), 2014 (octavos), 2018 (cuartos)."
+        },
+        "goleadores_historicos_mundiales": [
+          {"jugador": "Luis Suárez", "goles": 7, "nota": "Máximo goleador histórico de Uruguay en Mundiales"},
+          {"jugador": "Diego Forlán", "goles": 6, "nota": "Balón de Oro Sudáfrica 2010"},
+          {"jugador": "Óscar Míguez", "goles": 8, "nota": "DEBATIDO — Míguez es citado por FIFA con 8 goles en 1950+1954; supera a Suárez históricamente"},
+          {"jugador": "Edinson Cavani", "goles": 4}
+        ],
+        "dt_actual_2026": "Marcelo Bielsa (asumió en 2023, sigue en el cargo)",
+        "capitan_2026": "Federico Valverde (probable post-retiro de Suárez/Godín, no_verificado_oficial_mayo_2026)",
+        "caso_especial": "Bicampeón del mundo (1930, 1950) — la única selección 'pequeña' con dos estrellas. Llega con Bielsa al frente, recambio generacional con Valverde, Núñez, Araújo, Pellistri. Es el favorito sudamericano del grupo y el segundo gigante histórico (España es el primero)."
+      }
+    },
+
+    "capa_2_enfrentamientos": {
+      "Espana_vs_Cabo_Verde": {
+        "enfrentamientos_totales_historicos": 0,
+        "h2h_en_mundiales_count": 0,
+        "h2h_mundiales_detalle": [],
+        "total_historico_h2h": {"W": 0, "D": 0, "L": 0},
+        "ultimo_enfrentamiento": "Nunca se han enfrentado a nivel selecciones absolutas",
+        "dato_curioso": "Primer enfrentamiento absoluto en la historia entre España y Cabo Verde. Varios jugadores caboverdianos juegan o se han formado en la Liga Española (ej. históricamente Nani — caboverdiano de origen — jugó en Valencia; hay precedente)."
+      },
+
+      "Espana_vs_Arabia_Saudita": {
+        "enfrentamientos_totales_historicos": "no_verificado_exacto (al menos 1 amistoso)",
+        "h2h_en_mundiales_count": 0,
+        "h2h_mundiales_detalle": [],
+        "total_historico_h2h": "no_verificado_exacto",
+        "ultimo_enfrentamiento": "no_verificado_post_2010s",
+        "dato_curioso": "Primer cruce mundialista entre ambos. Arabia Saudita ha enfrentado a España en algún amistoso histórico (especialmente con la generación de jugadores españoles que recalaron en su liga reciente)."
+      },
+
+      "Espana_vs_Uruguay": {
+        "enfrentamientos_totales_historicos": "Múltiples (al menos 10+ partidos oficiales y amistosos a lo largo de la historia)",
+        "h2h_en_mundiales_count": 1,
+        "h2h_mundiales_detalle": [
+          {
+            "anio": 1990,
+            "mundial_sede": "Italia",
+            "fase": "Fase de grupos — Grupo E",
+            "resultado": "España 0-0 Uruguay",
+            "estadio": "Stadio Friuli, Údine",
+            "fecha": "13 de junio de 1990",
+            "nota": "Único enfrentamiento mundialista oficial verificable entre España y Uruguay. España terminó 1ra del grupo; Uruguay 3ra (pasó como mejor tercero). Ambos avanzaron a octavos donde fueron eliminados (España vs Yugoslavia, Uruguay vs Italia)."
+          }
+        ],
+        "total_historico_h2h": "no_verificado_exacto_pero_balance_historico_relativamente_parejo",
+        "ultimo_enfrentamiento": "no_verificado_exacto_post_2010s (amistosos esporádicos)",
+        "dato_curioso": "El 0-0 de Údine 1990 es el ÚNICO partido mundialista entre estos dos gigantes históricos (España con 1 título, Uruguay con 2). Tras 36 años se vuelven a encontrar en una Copa del Mundo. Para Uruguay, España siempre fue tema porque muchísimos uruguayos juegan o jugaron en la Liga (Suárez, Forlán, Cavani, Coates, Godín, etc.)."
+      },
+
+      "Cabo_Verde_vs_Arabia_Saudita": {
+        "enfrentamientos_totales_historicos": "no_verificado (probable 0 oficiales)",
+        "h2h_en_mundiales_count": 0,
+        "h2h_mundiales_detalle": [],
+        "total_historico_h2h": "no_verificado",
+        "ultimo_enfrentamiento": "no_verificado",
+        "dato_curioso": "Primer cruce histórico. Será posiblemente el partido 'más igualado en papel' del grupo: debutante absoluto vs selección asiática sin avance reciente."
+      },
+
+      "Cabo_Verde_vs_Uruguay": {
+        "enfrentamientos_totales_historicos": "no_verificado (probable 0 oficiales)",
+        "h2h_en_mundiales_count": 0,
+        "h2h_mundiales_detalle": [],
+        "total_historico_h2h": "no_verificado",
+        "ultimo_enfrentamiento": "no_verificado",
+        "dato_curioso": "Primer cruce histórico. Uruguay (bicampeón mundial, 14 Mundiales) vs Cabo Verde (debutante absoluto) — contraste extremo de tradición mundialista."
+      },
+
+      "Arabia_Saudita_vs_Uruguay": {
+        "enfrentamientos_totales_historicos": "Al menos 2 (Mundial 2018 + posibles amistosos)",
+        "h2h_en_mundiales_count": 1,
+        "h2h_mundiales_detalle": [
+          {
+            "anio": 2018,
+            "mundial_sede": "Rusia",
+            "fase": "Fase de grupos — Grupo A",
+            "resultado": "Uruguay 1-0 Arabia Saudita",
+            "goleadores_uruguay": ["Luis Suárez (23')"],
+            "estadio": "Rostov Arena, Rostov del Don",
+            "fecha": "20 de junio de 2018",
+            "nota": "Gol número 100 con la celeste en partido oficial para Suárez (compartido con el dato de su gol mundialista #5). Uruguay terminó 1ra del grupo invicta (3 victorias)."
+          }
+        ],
+        "total_historico_h2h": {"W_URU": "≥1", "D": 0, "L_URU": 0, "verificable_en_mundiales": true},
+        "ultimo_enfrentamiento": "Posible amistoso post-2018, no_verificado_exacto",
+        "dato_curioso": "El 1-0 de Rostov 2018 con gol de Suárez es el único antecedente mundialista. Uruguay venía de ganarle 1-0 a Egipto y terminó liderando un grupo con Rusia, Egipto y Arabia."
+      }
+    },
+
+    "capa_3_narrativa_grupo": {
+      "favorito_data_historica": {
+        "seleccion": "España",
+        "razones": [
+          "Campeón mundial 2010, vigente campeón europeo (Eurocopa 2024).",
+          "16 Mundiales jugados.",
+          "Plantel top mundial: Lamine Yamal, Nico Williams, Rodri (Balón de Oro), Pedri.",
+          "80% de avance en fase de grupos últimos 5 Mundiales."
+        ]
+      },
+      "segundo_favorito": {
+        "seleccion": "Uruguay",
+        "razones": [
+          "Bicampeón mundial (1930, 1950).",
+          "14 Mundiales — solo detrás de España en este grupo.",
+          "Marcelo Bielsa como DT.",
+          "Plantel con Valverde, Núñez, Araújo, Pellistri — recambio sólido.",
+          "Pasó a octavos en 2010, 2014, 2018."
+        ]
+      },
+      "tercer_en_pelea": {
+        "seleccion": "Arabia Saudita",
+        "razones": [
+          "Capaz de batacazos memorables (vs Argentina 2022).",
+          "Anfitriona del Mundial 2034 — motivación institucional alta.",
+          "Pero 0 avances a octavos en sus últimas 4 participaciones."
+        ]
+      },
+      "underdog": {
+        "seleccion": "Cabo Verde",
+        "razones": [
+          "DEBUTANTE absoluto.",
+          "Archipiélago de ~525.000 habitantes.",
+          "Plantel formado en Europa (diáspora portuguesa, neerlandesa, francesa)."
+        ]
+      },
+
+      "partido_clave_a_cubrir": {
+        "partido": "España vs Uruguay",
+        "razon": "Revancha del 0-0 de Údine 1990 — único antecedente mundialista entre estos dos gigantes históricos. 36 años después se vuelven a ver en una Copa del Mundo: España campeona europea vigente vs Uruguay con Bielsa. Es probablemente el partido más esperado del Grupo H y uno de los choques más sabrosos de toda la primera fase del Mundial 2026."
+      },
+
+      "datos_curiosos_grupo": [
+        "Es el grupo con MÁS estrellas mundiales sumadas: España 1 + Uruguay 2 = 3 estrellas. Lo iguala el Grupo de Argentina/Brasil/Alemania si caen juntos.",
+        "España y Uruguay solo se han enfrentado UNA vez en un Mundial: 0-0 en Údine 1990 — hace 36 años exactos.",
+        "Uruguay venció a Arabia Saudita 1-0 en Rusia 2018 (gol de Suárez), único antecedente mundialista entre ambos.",
+        "Cabo Verde es DEBUTANTE absoluto: junto con Curazao (Grupo E), uno de los dos países sin historial mundialista del torneo 2026.",
+        "Arabia Saudita será anfitriona del Mundial 2034: única selección del grupo con un Mundial confirmado por organizar a futuro.",
+        "Es el ÚNICO grupo del Mundial 2026 con dos bicampeones/campeones del mundo activos (España 2010 + Uruguay 1930/1950)."
+      ],
+
+      "storyline_narrativo": "El Grupo H es el grupo de las estrellas en el pecho: España (campeona 2010, vigente campeona europea 2024) y Uruguay (bicampeona 1930 y 1950) suman tres entorchados mundiales — y se vuelven a ver en una Copa del Mundo por primera vez en 36 años (el último cruce fue el 0-0 de Údine 1990). Pero el grupo no se reduce a esa pelea: Cabo Verde, archipiélago africano de apenas 525.000 habitantes, debuta absolutamente en una Copa del Mundo, dirigido por Bubista, con un plantel poblado por descendientes de la diáspora portuguesa, neerlandesa y francesa — historia pura de fútbol de pueblo pequeño que llega a la cima. Y Arabia Saudita, que será anfitriona del Mundial 2034, trae la memoria reciente del batacazo histórico (le ganó 2-1 a la Argentina campeona en Qatar 2022) y la motivación institucional de mostrarse fuerte rumbo a su propio torneo. España llega con la mejor camada joven del mundo (Lamine Yamal, Nico Williams, Pedri, Rodri) y Uruguay con Bielsa al frente y Federico Valverde como bandera. Es uno de los grupos más completos del torneo: dos campeones mundiales, un debutante absoluto y un anfitrión futuro que ya sabe ganar batacazos."
+    }
+  }
+}

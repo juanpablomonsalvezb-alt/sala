@@ -8,7 +8,7 @@ export const revalidate = 3600
 
 const TITLE = 'La Sombra · Programa Mundial 2026 para periodistas y creadores deportivos LATAM'
 const DESCRIPTION =
-  'Mientras Substack te cobra 10% y paga en dólares, Nebbuler te ofrece 0% comisión variable durante todo el Mundial 2026. Cobrá en pesos a tu hinchada. Programa La Sombra: setup en 24h, sin comisión hasta el 31 de julio.'
+  'Mientras Substack te cobra 10% y paga en dólares, Nebbuler te ofrece 0% comisión variable durante todo el Mundial 2026. Cobra en pesos a tu hinchada. Programa La Sombra: setup en 24h, sin comisión hasta el 31 de julio.'
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -178,7 +178,7 @@ export default function MundialPage() {
             </h1>
 
             <p className="text-2xl md:text-3xl text-white/80 leading-tight mb-8 font-light">
-              Mientras todos juegan en la luz del Mundial, vos cobrás{' '}
+              Mientras todos juegan en la luz del Mundial, tú cobras{' '}
               <span className="italic text-white font-medium">en silencio</span>, en tu moneda, sin
               que Silicon Valley se quede con un peso.
             </p>
@@ -186,7 +186,7 @@ export default function MundialPage() {
             <p className="text-base md:text-lg text-white/60 leading-relaxed max-w-3xl">
               Programa Nebbuler para periodistas, analistas tácticos, podcasters y creadores
               deportivos LATAM. <strong className="text-white">0% comisión variable hasta el 31 de julio</strong>.
-              Setup en 24h. Onboarding 1-a-1 con el fundador. Cobrá en pesos a tu hinchada
+              Setup en 24h. Onboarding 1-a-1 con el fundador. Cobra en pesos a tu hinchada
               durante los 60 días que el mundo entero mira fútbol.
             </p>
           </div>

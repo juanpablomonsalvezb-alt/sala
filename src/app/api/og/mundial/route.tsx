@@ -111,7 +111,7 @@ export async function GET() {
             }}
           >
             Mientras Substack te cobra <span style={{ color: '#C41C1C', fontWeight: 700 }}>10%</span>{' '}
-            durante el Mundial, vos cobrás{' '}
+            durante el Mundial, tú cobras{' '}
             <span style={{ fontStyle: 'italic', color: 'white', fontWeight: 600 }}>en pesos</span>,
             con <span style={{ color: '#C41C1C', fontWeight: 700 }}>0% comisión</span> hasta el 31 de julio.
           </span>

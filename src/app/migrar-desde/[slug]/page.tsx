@@ -240,7 +240,7 @@ export default async function MigrarDesdePage({
               Listo para migrar desde {m.source}
             </h2>
             <p className="text-[15px] text-[#555] mb-6">
-              Abrí tu sala en menos de 5 minutos. El import del CSV viene después.
+              Abre tu sala en menos de 5 minutos. El import del CSV viene después.
             </p>
             <Link
               href="/abrir"

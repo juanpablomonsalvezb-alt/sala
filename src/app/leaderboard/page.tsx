@@ -262,7 +262,7 @@ export default async function LeaderboardPage() {
               Abre tu sala y empieza a aparecer en este ranking.
             </h2>
             <p className="font-serif text-lg italic text-[#666] mb-10 max-w-2xl mx-auto">
-              Cobrá membresías en tu moneda local. Sin comisión variable.
+              Cobra membresías en tu moneda local. Sin comisión variable.
               El próximo lugar del ranking puede ser tuyo en una semana.
             </p>
 

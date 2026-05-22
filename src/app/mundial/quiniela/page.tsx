@@ -76,14 +76,14 @@ export default function QuinielaPage() {
 
           <section className="mt-16 pt-12 border-t border-white/10">
             <p className="text-[#C41C1C] text-xs font-bold tracking-[0.2em] uppercase mb-3">
-              ¿Sos periodista o analista deportivo?
+              ¿Eres periodista o analista deportivo?
             </p>
             <h2 className="font-serif text-3xl mb-4">
               Convertí tus análisis en una sala de membresías
             </h2>
             <p className="text-white/70 mb-6 max-w-2xl">
               El Programa La Sombra de Nebbuler te abre tu sala en 24h. 0% comisión hasta el 31
-              de julio. Cobrá en pesos a tu audiencia hispanohablante.
+              de julio. Cobra en pesos a tu audiencia hispanohablante.
             </p>
             <Link
               href="/mundial"

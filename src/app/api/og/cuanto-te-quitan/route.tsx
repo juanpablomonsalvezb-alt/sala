@@ -80,7 +80,7 @@ export async function GET() {
               maxWidth: 900,
             }}
           >
-            Calculá en 10 segundos cuánto perdés al año por ser creador LATAM en plataformas
+            Calcula en 10 segundos cuánto pierdes al año por ser creador LATAM en plataformas
             pensadas para EE.UU.
           </span>
         </div>

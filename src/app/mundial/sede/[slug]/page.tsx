@@ -241,8 +241,8 @@ export default async function SedePage({
               ¿Cubrís el Mundial desde {s.ciudad}?
             </h2>
             <p className="text-white/70 leading-relaxed mb-6">
-              Si sos periodista, fotógrafo o creador deportivo cubriendo desde {s.ciudad}, aplicá
-              al <strong className="text-white">Programa La Sombra</strong>. Cobrá en moneda local
+              Si eres periodista, fotógrafo o creador deportivo cubriendo desde {s.ciudad}, aplica
+              al <strong className="text-white">Programa La Sombra</strong>. Cobra en moneda local
               a tu audiencia hispanohablante mientras transmitís el Mundial.
             </p>
             <a

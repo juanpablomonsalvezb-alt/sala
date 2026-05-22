@@ -191,10 +191,10 @@ export default async function JugadorPage({
               ¿Cubrís a {j.nombre_completo.split(' ')[0]} en el Mundial?
             </h2>
             <p className="text-white/70 leading-relaxed mb-6">
-              Si sos periodista, analista táctico, podcaster o creador deportivo que cubre a{' '}
-              {j.nombre_completo.split(' ')[0]} o a la {j.bandera} {j.seleccion}, aplicá al{' '}
+              Si eres periodista, analista táctico, podcaster o creador deportivo que cubre a{' '}
+              {j.nombre_completo.split(' ')[0]} o a la {j.bandera} {j.seleccion}, aplica al{' '}
               <strong className="text-white">Programa La Sombra</strong>: 0% comisión variable hasta
-              el 31 de julio. Cobrá en{' '}
+              el 31 de julio. Cobra en{' '}
               {seleccionLatam?.moneda ? `${seleccionLatam.moneda} ` : 'tu moneda local '}
               a tu hinchada. Setup en 24h.
             </p>

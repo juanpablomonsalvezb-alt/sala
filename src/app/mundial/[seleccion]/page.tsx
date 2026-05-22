@@ -20,7 +20,7 @@ export async function generateMetadata({
   if (!s) return {}
 
   const title = `Periodistas y creadores deportivos de ${s.pais} · Mundial 2026 · La Sombra`
-  const description = `Programa Nebbuler La Sombra para periodistas, analistas y podcasters de ${s.pais} (${s.apodo}) durante el Mundial 2026. 0% comisión variable hasta el 31 de julio. Cobrá en ${s.moneda} a tus ${s.audiencia_estimada.toLowerCase()}.`
+  const description = `Programa Nebbuler La Sombra para periodistas, analistas y podcasters de ${s.pais} (${s.apodo}) durante el Mundial 2026. 0% comisión variable hasta el 31 de julio. Cobra en ${s.moneda} a tus ${s.audiencia_estimada.toLowerCase()}.`
 
   return {
     title,

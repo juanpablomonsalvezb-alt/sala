@@ -89,7 +89,7 @@ export function MundialClient() {
     }
   }, [seguidores, nichoInfo.conv, precioUsd, tasa])
 
-  const shareText = `Durante el Mundial 2026, ${seleccion.bandera} con ${calc.suscriptores} hinchas pagando US$${precioUsd}/mes:\n\nSubstack: ${fmtUsd(calc.netoSubstackUsd)}/mes neto\nNebbuler (programa La Sombra): ${fmtUsd(calc.netoNebbulerUsd)}/mes neto\n\nDiferencia 60 días: +${fmtUsd(calc.ganasMas60dUsd)} (${fmtLocal(calc.ganasMas60dLocal, seleccion.moneda_simbolo, seleccion.moneda)})\n\nCalculá lo tuyo: nebbuler.com/mundial`
+  const shareText = `Durante el Mundial 2026, ${seleccion.bandera} con ${calc.suscriptores} hinchas pagando US$${precioUsd}/mes:\n\nSubstack: ${fmtUsd(calc.netoSubstackUsd)}/mes neto\nNebbuler (programa La Sombra): ${fmtUsd(calc.netoNebbulerUsd)}/mes neto\n\nDiferencia 60 días: +${fmtUsd(calc.ganasMas60dUsd)} (${fmtLocal(calc.ganasMas60dLocal, seleccion.moneda_simbolo, seleccion.moneda)})\n\nCalcula lo tuyo: nebbuler.com/mundial`
 
   const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(shareText)}`
   const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`

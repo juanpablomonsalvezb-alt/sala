@@ -255,7 +255,7 @@ export default async function VsPage({
           {/* CTA */}
           <section className="text-center py-12 border-t border-[#DEDEDE]">
             <h2 className="font-serif text-[1.8rem] font-bold mb-3">
-              Abrí tu sala en Nebbuler en menos de 5 minutos
+              Abre tu sala en Nebbuler en menos de 5 minutos
             </h2>
             <p className="text-[15px] text-[#555] mb-6">
               Pagos en tu moneda local, sin comisión variable, sin algoritmos.

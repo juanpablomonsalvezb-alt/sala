@@ -36,8 +36,8 @@ export const MIGRATIONS: Migration[] = [
         estimatedMinutes: 5,
       },
       {
-        title: 'Abrí tu sala en Nebbuler',
-        detail: 'Registrate en nebbuler.com/abrir como creador. Definí tu precio mensual en moneda local (CLP, COP, MXN, ARS, PEN). Para mantener el mismo precio que en Substack, podés usar el tipo de cambio del día — pero te recomendamos bajarlo 15-20% porque al desaparecer la fricción FX, el creador típico ve un aumento de conversión que compensa el menor precio nominal.',
+        title: 'Abre tu sala en Nebbuler',
+        detail: 'Regístrate en nebbuler.com/abrir como creador. Define tu precio mensual en moneda local (CLP, COP, MXN, ARS, PEN). Para mantener el mismo precio que en Substack, puedes usar el tipo de cambio del día — pero te recomendamos bajarlo 15-20% porque al desaparecer la fricción FX, el creador típico ve un aumento de conversión que compensa el menor precio nominal.',
         estimatedMinutes: 10,
       },
       {
@@ -51,8 +51,8 @@ export const MIGRATIONS: Migration[] = [
         estimatedMinutes: 30,
       },
       {
-        title: 'Migrá los posts más importantes',
-        detail: 'No migres todo. Migrá los 10-20 posts top (los que más fueron compartidos / vistos). Nebbuler permite imports masivos pero la calidad > cantidad. Los demás los podés dejar en Substack como archivo público linkeado desde tu nuevo perfil.',
+        title: 'Migra los posts más importantes',
+        detail: 'No migres todo. Migra los 10-20 posts top (los que más fueron compartidos / vistos). Nebbuler permite imports masivos pero la calidad > cantidad. Los demás los puedes dejar en Substack como archivo público linkeado desde tu nuevo perfil.',
         estimatedMinutes: 60,
       },
     ],
@@ -75,7 +75,7 @@ export const MIGRATIONS: Migration[] = [
       },
       {
         q: '¿Mi SEO se ve afectado?',
-        a: 'Solo si migras todos los posts y rompés URLs. Si dejás Substack como archivo público de los posts viejos + redirects 301 a Nebbuler para los nuevos, no perdés ranking. Nebbuler genera schema.org Article + Author + Person automático en cada post, lo cual ayuda a recuperar ranking rápido.',
+        a: 'Solo si migras todos los posts y rompes URLs. Si dejas Substack como archivo público de los posts viejos + redirects 301 a Nebbuler para los nuevos, no pierdes ranking. Nebbuler genera schema.org Article + Author + Person automático en cada post, lo cual ayuda a recuperar ranking rápido.',
       },
     ],
     preserves: [
@@ -142,7 +142,7 @@ export const MIGRATIONS: Migration[] = [
       },
       {
         q: '¿Vale la pena migrar si el 100% de mi audiencia es de EE.UU.?',
-        a: 'Si tu audiencia es 100% USD, Patreon te sirve. Nebbuler tiene sentido cuando >30% de tu audiencia está en LATAM o cuando querés que la audiencia LATAM crezca y no podés captarla en Patreon por la fricción de pago.',
+        a: 'Si tu audiencia es 100% USD, Patreon te sirve. Nebbuler tiene sentido cuando >30% de tu audiencia está en LATAM o cuando quieres que la audiencia LATAM crezca y no puedes captarla en Patreon por la fricción de pago.',
       },
     ],
     preserves: [
@@ -183,7 +183,7 @@ export const MIGRATIONS: Migration[] = [
       },
       {
         title: 'Configurá tu sala en Nebbuler',
-        detail: 'Beehiiv es excelente para growth (referrals, A/B testing). Si tu prioridad es monetización LATAM, Nebbuler es mejor. Si tu prioridad es lista en USD, Beehiiv sigue siendo opción válida — incluso podés usar ambas.',
+        detail: 'Beehiiv es excelente para growth (referrals, A/B testing). Si tu prioridad es monetización LATAM, Nebbuler es mejor. Si tu prioridad es lista en USD, Beehiiv sigue siendo opción válida — incluso puedes usar ambas.',
         estimatedMinutes: 15,
       },
       {
@@ -193,7 +193,7 @@ export const MIGRATIONS: Migration[] = [
       },
       {
         title: 'Configurá tu sistema de referidos',
-        detail: 'Si usabas el referral program de Beehiiv, en Nebbuler podés replicarlo con el sistema de invitaciones. No es tan visual pero cumple la misma función: cada suscriptor tiene un link único para invitar amigos.',
+        detail: 'Si usabas el referral program de Beehiiv, en Nebbuler puedes replicarlo con el sistema de invitaciones. No es tan visual pero cumple la misma función: cada suscriptor tiene un link único para invitar amigos.',
         estimatedMinutes: 20,
       },
     ],

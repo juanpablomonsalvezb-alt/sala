@@ -127,17 +127,17 @@ export default async function NebbulerPostPage({
           <div className="border border-[#DEDEDE] bg-[#F7F7F7] p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div>
               <p className="font-serif text-[15px] font-bold text-[#121212] mb-0.5">
-                ¿Sos profesional independiente?
+                ¿Eres profesional independiente?
               </p>
               <p className="font-sans text-[12px] text-[#666]">
-                Abrí tu sala y cobrá por tu conocimiento. 0% comisión.
+                Abre tu sala y cobra por tu conocimiento. 0% comisión.
               </p>
             </div>
             <Link
               href="/abrir"
               className="inline-flex items-center gap-1.5 px-4 py-2 bg-[#121212] text-white font-sans text-[12px] font-semibold uppercase tracking-[0.06em] hover:bg-[#333] transition-colors whitespace-nowrap"
             >
-              Abrí tu sala →
+              Abre tu sala →
             </Link>
           </div>
 

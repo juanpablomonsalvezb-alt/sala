@@ -22,8 +22,8 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: 'https://nebbuler.com/mundial/sponsors' },
   openGraph: {
-    title: 'Los sponsors del Mundial pagaron US$1.000M · vos perdés 22%',
-    description: 'Análisis del dinero corporativo del Mundial 2026 vs lo que perdés en Substack.',
+    title: 'Los sponsors del Mundial pagaron US$1.000M · vos pierdes 22%',
+    description: 'Análisis del dinero corporativo del Mundial 2026 vs lo que pierdes en Substack.',
     url: 'https://nebbuler.com/mundial/sponsors',
     type: 'article',
     images: [{ url: '/api/og/mundial', width: 1200, height: 630 }],
@@ -156,12 +156,12 @@ export default function SponsorsPage() {
           {/* CTA FINAL */}
           <section className="pt-12 border-t border-white/10">
             <h2 className="font-serif text-3xl md:text-4xl tracking-tight mb-4">
-              Vos no podés competir con Coca-Cola. Pero podés <span className="italic">no perder ante Substack</span>.
+              No puedes competir con Coca-Cola. Pero puedes <span className="italic">no perder ante Substack</span>.
             </h2>
             <p className="text-white/70 text-lg leading-relaxed mb-8 max-w-3xl">
               Durante el Mundial 2026, Nebbuler ofrece el Programa La Sombra:{' '}
               <strong className="text-white">0% comisión variable hasta el 31 de julio</strong>, pagos en pesos a tu
-              hinchada, setup en 24h. Vos no podés pagar US$100M para aparecer en la final, pero podés conservar
+              hinchada, setup en 24h. No puedes pagar US$100M para aparecer en la final, pero puedes conservar
               cada peso que tu audiencia te paga.
             </p>
             <Link

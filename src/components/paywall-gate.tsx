@@ -87,7 +87,7 @@ export default function PaywallGate({
             href="https://nebbuler.com/abrir"
             className="text-[10px] font-sans text-[#AAAAAA] hover:text-[#C41C1C] transition-colors"
           >
-            ¿Creás contenido? Abrí tu sala gratis en{' '}
+            ¿Creas contenido? Abre tu sala gratis en{' '}
             <span className="font-semibold text-[#888]">Nebbuler</span>
           </a>
         </div>

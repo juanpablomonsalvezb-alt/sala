@@ -109,7 +109,7 @@ export function CuantoTeQuitanClient() {
   const shareText = `Cada año pierdo ${fmtUsd(calc.perdidaAnualUsd)} (${fmt(
     calc.perdidaAnualLocal,
     monedaSym,
-  )}) en comisiones de ${PLATAFORMAS[plataforma].nombre} 😱\n\nCalculá lo tuyo en nebbuler.com/cuanto-te-quitan`
+  )}) en comisiones de ${PLATAFORMAS[plataforma].nombre} 😱\n\nCalcula lo tuyo en nebbuler.com/cuanto-te-quitan`
 
   const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(shareText)}`
   const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`

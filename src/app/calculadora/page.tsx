@@ -8,7 +8,7 @@ export const revalidate = 3600
 export const metadata: Metadata = {
   title: 'Calculadora de ingresos para creadores LATAM — Nebbuler',
   description:
-    'Calculá cuánto podés ganar mes a mes con membresías de pago en LATAM. Compará Nebbuler (0% comisión variable) vs Substack (10%) vs Patreon (12%). Pesos, dólares, suscriptores y crecimiento real.',
+    'Calcula cuánto puedes ganar mes a mes con membresías de pago en LATAM. Compará Nebbuler (0% comisión variable) vs Substack (10%) vs Patreon (12%). Pesos, dólares, suscriptores y crecimiento real.',
   keywords: [
     'calculadora ingresos creador',
     'cuanto puedo ganar membresias',
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   alternates: { canonical: 'https://nebbuler.com/calculadora' },
   openGraph: {
     title: 'Calculadora de ingresos para creadores LATAM',
-    description: 'Cuánto podés ganar con membresías. Compará Nebbuler vs Substack vs Patreon en tiempo real.',
+    description: 'Cuánto puedes ganar con membresías. Compará Nebbuler vs Substack vs Patreon en tiempo real.',
     url: 'https://nebbuler.com/calculadora',
     type: 'website',
     images: [
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Calculadora de ingresos para creadores LATAM',
-    description: 'Cuánto podés ganar con membresías de pago en moneda local.',
+    description: 'Cuánto puedes ganar con membresías de pago en moneda local.',
   },
 }
 
@@ -115,7 +115,7 @@ export default function CalculadoraPage() {
               Herramienta gratis
             </p>
             <h1 className="font-serif text-[2.5rem] font-bold text-[#121212] leading-[1.1] mb-4">
-              Calculá cuánto podés ganar con membresías
+              Calcula cuánto puedes ganar con membresías
             </h1>
             <p className="font-sans text-[17px] text-[#555] leading-relaxed max-w-2xl">
               Ajustá los suscriptores, el precio mensual y la moneda. Comparamos en tiempo real cuánto te quedaría neto en Nebbuler, Substack y Patreon.
@@ -145,7 +145,7 @@ export default function CalculadoraPage() {
           <section className="mt-12 bg-[#FFFBE6] p-8 border-l-4 border-[#C41C1C]">
             <h2 className="font-serif text-[1.4rem] font-bold mb-3">¿Listo para empezar?</h2>
             <p className="text-[15px] text-[#444] mb-4">
-              Abrí tu sala en Nebbuler en menos de 5 minutos. Pagos en tu moneda local, sin comisión variable.
+              Abre tu sala en Nebbuler en menos de 5 minutos. Pagos en tu moneda local, sin comisión variable.
             </p>
             <Link
               href="/abrir"

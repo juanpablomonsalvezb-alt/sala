@@ -226,7 +226,7 @@ data.trends.slice(0, 10).forEach((t) => {
             >
               Creative Commons Attribution 4.0 (CC-BY 4.0)
             </a>
-            . Podés usarlos libremente, incluso comercialmente, siempre que atribuyas
+            . Puedes usarlos libremente, incluso comercialmente, siempre que atribuyas
             a Nebbuler con un enlace activo al sitio.
           </p>
           <div className="bg-neutral-50 border-l-4 border-black p-6">

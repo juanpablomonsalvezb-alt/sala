@@ -48,7 +48,7 @@ const faqs = [
   { q: "¿Cómo recibo los pagos?",                           a: "Directo a tu cuenta. Nebbuler cobra US$19/mes fijo — tú te quedas con el 100% de tus ingresos." },
   { q: "¿Puedo tener contenido gratuito y de pago?",        a: "Sí. Tú decides qué es abierto y qué es exclusivo." },
   { q: "¿Qué pasa si cancelo?",                             a: "Cancelas cuando quieras. Tus datos quedan accesibles." },
-  { q: "¿Nebbuler funciona en toda Latinoamérica?",         a: "Sí. Disponible en toda la región. Cobrá en la moneda local de tu país." },
+  { q: "¿Nebbuler funciona en toda Latinoamérica?",         a: "Sí. Disponible en toda la región. Cobra en la moneda local de tu país." },
 ];
 
 const liveEvents = [
@@ -128,10 +128,10 @@ export default function Home() {
                 Membresías directas · 0% comisión · América Latina
               </p>
               <h1 className="font-serif font-bold text-[clamp(40px,6vw,80px)] leading-[1.056] tracking-[-0.02em]">
-                Cobrá por lo<br />
+                Cobra por lo<br />
                 que{" "}
                 <span style={{ backgroundColor: '#C41C1C', color: '#fff', padding: '0 6px 2px', display: 'inline' }}>
-                  sabés.
+                  sabes.
                 </span>
               </h1>
             </div>

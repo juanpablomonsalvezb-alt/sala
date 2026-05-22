@@ -7,7 +7,7 @@ export const revalidate = 3600
 
 const TITLE = '¿Cuánto te está quitando Substack, Patreon o Beehiiv?'
 const DESCRIPTION =
-  'Calculá en 10 segundos cuánto perdés cada año en comisiones, conversión cambiaria y "tarifas ocultas" usando plataformas pensadas para EE.UU. con tu audiencia LATAM. Datos reales 2026.'
+  'Calcula en 10 segundos cuánto pierdes cada año en comisiones, conversión cambiaria y "tarifas ocultas" usando plataformas pensadas para EE.UU. con tu audiencia LATAM. Datos reales 2026.'
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: '¿Cuánto te está quitando tu plataforma actual?',
     description:
-      'Calculadora honesta: cuánto perdés al año en Substack, Patreon o Beehiiv siendo creador LATAM.',
+      'Calculadora honesta: cuánto pierdes al año en Substack, Patreon o Beehiiv siendo creador LATAM.',
     url: 'https://nebbuler.com/cuanto-te-quitan',
     type: 'website',
     images: [
@@ -136,9 +136,9 @@ export default function CuantoTeQuitanPage() {
             </h1>
             <p className="text-white/70 text-lg md:text-xl leading-relaxed">
               Esas plataformas no fueron pensadas para vos. Cobran en USD, tu audiencia paga
-              en pesos, y entre comisiones, procesador y conversión cambiaria, perdés
+              en pesos, y entre comisiones, procesador y conversión cambiaria, pierdes
               <span className="text-white font-medium"> hasta el 22% de cada peso </span>
-              que tus seguidores te pagan. Calculá tu pérdida real en 10 segundos.
+              que tus seguidores te pagan. Calcula tu pérdida real en 10 segundos.
             </p>
           </div>
 
@@ -181,7 +181,7 @@ export default function CuantoTeQuitanPage() {
                 La alternativa
               </p>
               <h3 className="font-serif text-3xl md:text-4xl mb-4 tracking-tight">
-                Nebbuler: cobrá en tu moneda, sin comisión variable por 6 meses
+                Nebbuler: cobra en tu moneda, sin comisión variable por 6 meses
               </h3>
               <p className="text-white/80 text-lg leading-relaxed mb-6 max-w-3xl">
                 Primera plataforma de membresías diseñada para creadores LATAM. Pagos

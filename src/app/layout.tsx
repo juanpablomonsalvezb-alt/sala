@@ -54,7 +54,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Nebbuler · Cobra por tu conocimiento en LATAM — 0% comisión",
     description:
-      "Abrí tu sala y cobrá membresías en tu moneda local. Sin algoritmos, sin comisión, con pagos directos en toda América Latina.",
+      "Abre tu sala y cobra membresías en tu moneda local. Sin algoritmos, sin comisión, con pagos directos en toda América Latina.",
     siteName: "Nebbuler",
     locale: "es_419",
     type: "website",
@@ -66,7 +66,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Nebbuler · Membresías para creadores LATAM — 0% comisión",
-    description: "Cobrá por tu conocimiento en tu moneda. Sin comisión. América Latina.",
+    description: "Cobra por tu conocimiento en tu moneda. Sin comisión. América Latina.",
     images: ["/og-default.png"],
   },
   robots: { index: true, follow: true },
@@ -247,7 +247,7 @@ const FAQ_JSONLD = {
       name: "¿Cómo cobrar por contenido digital en Colombia, México o Argentina?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Para cobrar por contenido digital en Colombia, México o Argentina, la forma más directa es crear una membresía en Nebbuler: registrás tu sala, definís el precio en pesos colombianos, pesos mexicanos o pesos argentinos, y compartís el enlace con tu audiencia. Los suscriptores pagan con tarjeta local y el dinero llega directamente a tu cuenta sin conversión a dólares.",
+        text: "Para cobrar por contenido digital en Colombia, México o Argentina, la forma más directa es crear una membresía en Nebbuler: registra tu sala, define el precio en pesos colombianos, pesos mexicanos o pesos argentinos, y comparte el enlace con tu audiencia. Los suscriptores pagan con tarjeta local y el dinero llega directamente a tu cuenta sin conversión a dólares.",
       },
     },
   ],

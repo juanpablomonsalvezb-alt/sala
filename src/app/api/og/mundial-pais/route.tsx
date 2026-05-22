@@ -90,7 +90,7 @@ export async function GET(req: Request) {
             {s.apodo}
           </span>
           <span style={{ fontSize: 22, color: 'rgba(255,255,255,0.6)', maxWidth: 900 }}>
-            0% comisión durante el Mundial. Cobrá en {s.moneda} a tu hinchada.
+            0% comisión durante el Mundial. Cobra en {s.moneda} a tu hinchada.
           </span>
         </div>
 

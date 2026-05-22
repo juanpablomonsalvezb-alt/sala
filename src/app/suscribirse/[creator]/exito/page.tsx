@@ -84,7 +84,7 @@ export default async function ExitoPage({
             ¿También creás contenido?
           </p>
           <p className="font-sans text-[12px] text-[#666666] mb-4 leading-relaxed">
-            Abrí tu sala en Nebbuler. 0% comisión los primeros 6 meses. Tus suscriptores pagan en tu moneda.
+            Abre tu sala en Nebbuler. 0% comisión los primeros 6 meses. Tus suscriptores pagan en tu moneda.
           </p>
           <Link
             href="/abrir"

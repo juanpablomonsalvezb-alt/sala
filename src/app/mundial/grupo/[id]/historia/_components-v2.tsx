@@ -483,7 +483,7 @@ export function CTAV2({ grupoId }: { grupoId: string }) {
         </p>
         <h2 className="font-serif text-3xl md:text-5xl font-bold tracking-tight leading-tight mb-4 text-white">
           Cubrís el Grupo {grupoId}.<br />
-          <span className="italic">Cobrás en tu moneda.</span>
+          <span className="italic">Cobras en tu moneda.</span>
         </h2>
         <p className="text-white/90 text-base md:text-lg leading-relaxed mb-8 max-w-2xl">
           0% comisión variable hasta el 31 de julio para periodistas, podcasters y analistas

@@ -120,7 +120,7 @@ export default function StickersPage() {
             <h2 className="font-serif text-2xl mb-4">Cómo usarlos en WhatsApp</h2>
             <ol className="space-y-3 text-white/70 list-decimal list-inside">
               <li>Tocá cada sticker que quieras y descárgalo.</li>
-              <li>Abrí la app gratuita <strong>Sticker.ly</strong> o <strong>Top Stickers</strong> en tu teléfono.</li>
+              <li>Abre la app gratuita <strong>Sticker.ly</strong> o <strong>Top Stickers</strong> en tu teléfono.</li>
               <li>Creá un nuevo pack llamado "Nebbuler Mundial 2026".</li>
               <li>Subí las 12 imágenes que descargaste.</li>
               <li>"Add to WhatsApp" → listo. Todos tus contactos pueden recibirlos.</li>
@@ -129,14 +129,14 @@ export default function StickersPage() {
 
           <section className="mt-16 pt-12 border-t border-white/10">
             <p className="text-[#C41C1C] text-xs font-bold tracking-[0.2em] uppercase mb-3">
-              ¿Sos creador deportivo LATAM?
+              ¿Eres creador deportivo LATAM?
             </p>
             <h2 className="font-serif text-3xl mb-4">
               Convertí tu hinchada en suscriptores pagos
             </h2>
             <p className="text-white/70 mb-6 max-w-2xl">
               Programa La Sombra de Nebbuler: 0% comisión variable hasta el 31 de julio para
-              periodistas, podcasters y analistas deportivos LATAM. Cobrá en pesos a tu
+              periodistas, podcasters y analistas deportivos LATAM. Cobra en pesos a tu
               audiencia.
             </p>
             <Link

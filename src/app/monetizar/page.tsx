@@ -60,7 +60,7 @@ const HOW_TO_JSONLD = {
     {
       '@type': 'HowToStep',
       position: 1,
-      name: 'Definí tu nicho de conocimiento',
+      name: 'Define tu nicho de conocimiento',
       text: 'Identificá qué saber tuyo es escaso, valioso y demandado. Los nichos más rentables en LATAM son finanzas personales, derecho laboral, tributario, coaching ejecutivo, marketing digital, programación, salud mental y análisis económico.',
       url: 'https://nebbuler.com/monetizar#paso-1',
     },
@@ -74,8 +74,8 @@ const HOW_TO_JSONLD = {
     {
       '@type': 'HowToStep',
       position: 3,
-      name: 'Abrí tu sala en menos de 5 minutos',
-      text: 'Creá tu perfil, definí el precio mensual en tu moneda local, configurá tu primera publicación y compartí el enlace con tu audiencia.',
+      name: 'Abre tu sala en menos de 5 minutos',
+      text: 'Crea tu perfil, define el precio mensual en tu moneda local, configura tu primera publicación y comparte el enlace con tu audiencia.',
       url: 'https://nebbuler.com/abrir',
     },
     {
@@ -250,7 +250,7 @@ export default function MonetizarPage() {
           </section>
 
           <section className="mb-12 bg-[#FFFBE6] p-8 border-l-4 border-[#C41C1C]">
-            <h2 className="font-serif text-[1.5rem] font-bold mb-4">¿Cuánto podés ganar?</h2>
+            <h2 className="font-serif text-[1.5rem] font-bold mb-4">¿Cuánto puedes ganar?</h2>
             <div className="grid grid-cols-3 gap-4 text-center mb-4">
               <div>
                 <p className="font-serif text-[1.8rem] font-bold">50 subs</p>
@@ -319,7 +319,7 @@ export default function MonetizarPage() {
 
           <section className="text-center py-12 border-t border-[#DEDEDE]">
             <h2 className="font-serif text-[2rem] font-bold mb-3">
-              Abrí tu sala en Nebbuler
+              Abre tu sala en Nebbuler
             </h2>
             <p className="text-[16px] text-[#555] mb-6 max-w-md mx-auto">
               5 minutos. Pagos en tu moneda local. Sin comisión variable. Sin algoritmos.

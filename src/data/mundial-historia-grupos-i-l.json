@@ -1,0 +1,850 @@
+{
+  "_meta": {
+    "version": "1.0.0",
+    "generated_at": "2026-05-22",
+    "generated_by": "Historian agent / Nebbuler",
+    "scope": "Mundial 2026 — Grupos I, J, K, L",
+    "audience": "Creadores deportivos / periodistas LATAM",
+    "metodologia": "Solo datos verificables con 2+ fuentes públicas (FIFA.com, Wikipedia EN/ES, ESPN, BBC, RSSSF). Campos sin verificación cruzada se marcan 'no_verificado' o se omiten.",
+    "fuentes_principales": [
+      "https://en.wikipedia.org/wiki/Senegal_at_the_FIFA_World_Cup",
+      "https://en.wikipedia.org/wiki/Norway_at_the_FIFA_World_Cup",
+      "https://en.wikipedia.org/wiki/Austria_at_the_FIFA_World_Cup",
+      "https://en.wikipedia.org/wiki/Algeria_at_the_FIFA_World_Cup",
+      "https://en.wikipedia.org/wiki/Argentina_at_the_FIFA_World_Cup",
+      "https://en.wikipedia.org/wiki/Croatia_at_the_FIFA_World_Cup",
+      "https://en.wikipedia.org/wiki/England_at_the_FIFA_World_Cup",
+      "https://en.wikipedia.org/wiki/Portugal_at_the_FIFA_World_Cup",
+      "https://en.wikipedia.org/wiki/Colombia_at_the_FIFA_World_Cup",
+      "https://en.wikipedia.org/wiki/Panama_at_the_FIFA_World_Cup",
+      "https://en.wikipedia.org/wiki/Ghana_at_the_FIFA_World_Cup",
+      "https://en.wikipedia.org/wiki/Iraq_at_the_FIFA_World_Cup",
+      "https://en.wikipedia.org/wiki/Jordan_at_the_FIFA_World_Cup",
+      "https://en.wikipedia.org/wiki/Uzbekistan_at_the_FIFA_World_Cup",
+      "https://en.wikipedia.org/wiki/DR_Congo_at_the_FIFA_World_Cup",
+      "https://en.wikipedia.org/wiki/1974_FIFA_World_Cup_Group_2",
+      "https://en.wikipedia.org/wiki/1998_FIFA_World_Cup_knockout_stage",
+      "https://en.wikipedia.org/wiki/2002_FIFA_World_Cup_knockout_stage",
+      "FIFA.com — ranking abril 2026 (vía ESPN)"
+    ]
+  },
+
+  "grupo_i": {
+    "id": "I",
+    "selecciones": ["Francia", "Senegal", "Irak", "Noruega"],
+    "capa_1_selecciones": [
+      {
+        "pais": "Francia",
+        "apodo": "Les Bleus",
+        "bandera": "🇫🇷",
+        "fifa_ranking_abril_2026": 1,
+        "mundiales_jugados_total": 16,
+        "mejor_resultado_historico": "Campeón (1998, 2018)",
+        "titulos_mundiales": 2,
+        "anios_titulos": [1998, 2018],
+        "subcampeonatos": [2006, 2022],
+        "record_fase_grupos_ultimos_5_mundiales": {
+          "ventana": "2006-2022",
+          "mundiales_incluidos": [2006, 2010, 2014, 2018, 2022],
+          "avanzo_a_octavos": "4 de 5 (2006, 2014, 2018, 2022)",
+          "nota": "2010 fue eliminada en fase de grupos en uno de los peores papelones de su historia"
+        },
+        "goleadores_historicos_mundiales_top3": [
+          {"jugador": "Just Fontaine", "goles": 13, "mundiales": "1958 (todos en un solo Mundial — récord histórico)"},
+          {"jugador": "Kylian Mbappé", "goles": 12, "mundiales": "2018, 2022 (activo)"},
+          {"jugador": "Thierry Henry", "goles": 6, "mundiales": "1998, 2002, 2006, 2010"}
+        ],
+        "dt_actual_2026": "Didier Deschamps (último torneo como DT, lo sucede Zidane)",
+        "capitan_2026": "Kylian Mbappé",
+        "caso_especial": "Campeona vigente del FIFA Ranking (#1 abril 2026). Deschamps cierra una era de 13 años dirigiendo. Mbappé persigue el récord histórico de 13 goles de Fontaine."
+      },
+      {
+        "pais": "Senegal",
+        "apodo": "Los Leones de la Teranga",
+        "bandera": "🇸🇳",
+        "fifa_ranking_abril_2026": 14,
+        "mundiales_jugados_total": 4,
+        "anios_mundiales": [2002, 2018, 2022, 2026],
+        "mejor_resultado_historico": "Cuartos de final (2002)",
+        "titulos_mundiales": 0,
+        "record_fase_grupos_ultimos_5_mundiales": {
+          "ventana": "2002-2022 (solo 3 participaciones)",
+          "avanzo_a_octavos": "2 de 3 (2002 cuartos, 2022 octavos). 2018 eliminada por desempate Fair Play",
+          "nota_2018": "Primera selección eliminada por desempate de Fair Play (tarjetas amarillas) en la historia del Mundial"
+        },
+        "goleadores_historicos_mundiales_top3": [
+          {"jugador": "Henri Camara", "goles": 2, "mundiales": "2002 (incluye gol de oro vs Suecia en octavos)"},
+          {"jugador": "Papa Bouba Diop", "goles": 3, "mundiales": "2002"},
+          {"jugador": "Otros", "goles": "1 cada uno", "nota": "Sadio Mané, Diouf, Fadiga, Aliou Cissé, M'Boup, Kalidou Koulibaly, Boulaye Dia, Famara Diédhiou (entre otros)"}
+        ],
+        "dt_actual_2026": "Pape Thiaw",
+        "capitan_2026": "no_verificado",
+        "caso_especial": "Debutó en 2002 con el batacazo del siglo: 1-0 a Francia (defensora del título). Campeona de la Copa Africana de Naciones 2021. Único país de África subsahariana en este grupo."
+      },
+      {
+        "pais": "Irak",
+        "apodo": "Los Leones de Mesopotamia / Asood Al-Rafidain",
+        "bandera": "🇮🇶",
+        "fifa_ranking_abril_2026": 57,
+        "mundiales_jugados_total": 2,
+        "anios_mundiales": [1986, 2026],
+        "mejor_resultado_historico": "Fase de grupos (3 derrotas, 1 gol a favor) en 1986",
+        "titulos_mundiales": 0,
+        "campeon_copa_asia": 2007,
+        "record_fase_grupos_ultimos_5_mundiales": {
+          "ventana": "Una sola aparición previa (1986)",
+          "avanzo_a_octavos": "0 de 1",
+          "detalle_1986": "0-1 vs Paraguay, 1-2 vs Bélgica (gol de Ahmed Radhi), 0-1 vs México. 0 puntos, gol diferencia -2"
+        },
+        "goleadores_historicos_mundiales_top3": [
+          {"jugador": "Ahmed Radhi", "goles": 1, "mundiales": "1986 (único gol histórico de Irak en Mundiales, vs Bélgica, min 59)"}
+        ],
+        "dt_actual_2026": "no_verificado",
+        "capitan_2026": "no_verificado",
+        "caso_especial": "Vuelve al Mundial tras 40 años de ausencia (desde México 1986). Su único gol histórico en Mundiales lo marcó Ahmed Radhi, fallecido por COVID en 2020. Campeón de Asia 2007 jugando en plena ocupación post-guerra de Irak."
+      },
+      {
+        "pais": "Noruega",
+        "apodo": "Drillos / Løvene",
+        "bandera": "🇳🇴",
+        "fifa_ranking_abril_2026": 31,
+        "mundiales_jugados_total": 4,
+        "anios_mundiales": [1938, 1994, 1998, 2026],
+        "mejor_resultado_historico": "Octavos de final (1998, eliminada 0-1 por Italia)",
+        "titulos_mundiales": 0,
+        "record_fase_grupos_ultimos_5_mundiales": {
+          "ventana": "1994-1998 (única ventana relevante, ausente desde 1998)",
+          "avanzo_a_octavos": "1 de 2 (1998)",
+          "dato_curioso": "Nunca ha perdido un partido de Mundial salvo contra Italia. 2 victorias, 3 empates, 3 derrotas históricas; las 3 derrotas fueron todas vs Italia"
+        },
+        "goleadores_historicos_mundiales_top3": [
+          {"jugador": "Kjetil Rekdal", "goles": 2, "mundiales": "1994 y 1998"},
+          {"jugador": "Arne Brustad", "goles": 1, "mundiales": "1938"},
+          {"jugador": "Tore André Flo", "goles": 1, "mundiales": "1998 (vs Brasil)"}
+        ],
+        "dt_actual_2026": "Ståle Solbakken",
+        "capitan_2026": "Martin Ødegaard (probable, no_verificado oficialmente)",
+        "caso_especial": "Vuelve tras 28 años (desde Francia 1998). Generación de oro encabezada por Erling Haaland (Manchester City) y Martin Ødegaard (Arsenal). En 1998 protagonizó la sorpresa de vencer 2-1 a Brasil en fase de grupos."
+      }
+    ],
+
+    "capa_2_enfrentamientos": [
+      {
+        "par": "Francia vs Senegal",
+        "enfrentamientos_totales_historicos": "Pocos enfrentamientos en total; el más famoso es Mundial 2002",
+        "h2h_en_mundiales_count": 1,
+        "h2h_mundiales_detalle": [
+          {
+            "anio": 2002,
+            "mundial_sede": "Corea del Sur / Japón",
+            "fase": "Fase de grupos (partido inaugural del Mundial)",
+            "fecha": "31 mayo 2002",
+            "estadio": "World Cup Stadium, Seúl",
+            "resultado": "Senegal 1 - 0 Francia",
+            "goleadores": ["Papa Bouba Diop (min 30, Senegal)"],
+            "contexto": "Francia era campeona vigente del Mundial 1998 y campeona de Europa 2000. Senegal era debutante absoluta. Considerado uno de los mayores batacazos en la historia de los Mundiales."
+          }
+        ],
+        "total_historico_h2h_en_mundiales": "Senegal 1 - Francia 0 (1 victoria Senegal, 0 empates, 0 derrotas Senegal en Mundiales)",
+        "ultimo_enfrentamiento_mundial": "2002",
+        "dato_curioso": "Senegal es excolonia francesa. Varios jugadores del plantel senegalés de 2002 jugaban en la liga francesa. El plantel francés tenía 3 jugadores de origen senegalés (Vieira, Cissé, otros). El gol de Bouba Diop nació de un error entre Petit y Barthez."
+      },
+      {
+        "par": "Francia vs Irak",
+        "enfrentamientos_totales_historicos": "no_verificado (probablemente cero)",
+        "h2h_en_mundiales_count": 0,
+        "h2h_mundiales_detalle": [],
+        "total_historico_h2h_en_mundiales": "Nunca se enfrentaron en Mundial (primera vez en 2026)",
+        "ultimo_enfrentamiento_mundial": "Ninguno",
+        "dato_curioso": "Primer cruce mundialista entre ambas selecciones. Irak no ve un Mundial desde 1986; Francia es la #1 del ranking FIFA."
+      },
+      {
+        "par": "Francia vs Noruega",
+        "enfrentamientos_totales_historicos": "Varios amistosos y eliminatorias, sin H2H mundialista directo",
+        "h2h_en_mundiales_count": 1,
+        "h2h_mundiales_detalle": [
+          {
+            "anio": 1998,
+            "mundial_sede": "Francia",
+            "fase": "Octavos de final",
+            "fecha": "27 junio 1998 (según fuentes Wikipedia France knockout stage)",
+            "estadio": "Stade Vélodrome, Marseille",
+            "resultado": "Francia 3 - 0 Noruega (resultado según Wikipedia France knockout stage 1998)",
+            "goleadores_detalle": "no_verificado a nivel de minutos individuales",
+            "nota_verificacion": "Una fuente Wikipedia indica Francia 3-0 Noruega en octavos 1998. Sin embargo, otra fuente (Wikipedia Norway at the FIFA WC) indica que Noruega fue eliminada en octavos por Italia 0-1. Hay inconsistencia entre fuentes — campo marcado parcialmente como no_verificado hasta confirmar"
+          }
+        ],
+        "total_historico_h2h_en_mundiales": "no_verificado por inconsistencia de fuentes",
+        "ultimo_enfrentamiento_mundial": "1998 (verificación pendiente)",
+        "dato_curioso": "Noruega jugó el Mundial 1998 organizado por Francia. La eliminación de Noruega en 1998 fue 0-1 ante Italia según la propia Wikipedia de Noruega, lo que sugiere que el cruce con Francia probablemente NO fue en octavos. Marcamos este H2H como 'requiere verificación adicional'."
+      },
+      {
+        "par": "Senegal vs Irak",
+        "enfrentamientos_totales_historicos": "no_verificado (probablemente cero o muy pocos)",
+        "h2h_en_mundiales_count": 0,
+        "h2h_mundiales_detalle": [],
+        "total_historico_h2h_en_mundiales": "Nunca se enfrentaron en Mundial",
+        "ultimo_enfrentamiento_mundial": "Ninguno",
+        "dato_curioso": "Cruce entre la mejor selección africana subsahariana de su generación (Senegal) y el regreso histórico de Irak. Choque cultural y futbolístico inédito en Mundiales."
+      },
+      {
+        "par": "Senegal vs Noruega",
+        "enfrentamientos_totales_historicos": "no_verificado",
+        "h2h_en_mundiales_count": 0,
+        "h2h_mundiales_detalle": [],
+        "total_historico_h2h_en_mundiales": "Nunca se enfrentaron en Mundial",
+        "ultimo_enfrentamiento_mundial": "Ninguno",
+        "dato_curioso": "Duelo de generaciones doradas: la Senegal de Mané/Koulibaly vs la Noruega de Haaland/Ødegaard. Ambos países regresan al protagonismo mundialista tras años de relativa ausencia."
+      },
+      {
+        "par": "Irak vs Noruega",
+        "enfrentamientos_totales_historicos": "no_verificado",
+        "h2h_en_mundiales_count": 0,
+        "h2h_mundiales_detalle": [],
+        "total_historico_h2h_en_mundiales": "Nunca se enfrentaron en Mundial",
+        "ultimo_enfrentamiento_mundial": "Ninguno",
+        "dato_curioso": "Ambos vuelven después de décadas de ausencia: Irak desde 1986 (40 años), Noruega desde 1998 (28 años). Posible partido por el tercer lugar del grupo."
+      }
+    ],
+
+    "capa_3_narrativa": {
+      "favorito_data_historica": {
+        "pais": "Francia",
+        "razon": "FIFA #1 en abril 2026, 2 títulos mundiales (1998, 2018), subcampeona en 2022, generación liderada por Mbappé (12 goles mundialistas). Históricamente clasifica a octavos en 4 de los últimos 5 Mundiales."
+      },
+      "segundo_favorito": {
+        "pais": "Senegal",
+        "razon": "FIFA #14, campeona de África 2021, ya tiene 2 clasificaciones a octavos en sus 3 últimas participaciones (2002 cuartos, 2022 octavos). Tradición de batacazos contra europeos (1-0 a Francia en 2002)."
+      },
+      "underdog": {
+        "pais": "Irak",
+        "razon": "FIFA #57, regreso tras 40 años, sin victorias mundialistas históricas, sólo 1 gol marcado en toda su historia mundialista. Noruega también es underdog cualitativo, pero Haaland eleva su techo."
+      },
+      "partido_clave_a_cubrir": {
+        "partido": "Francia vs Senegal (revancha del batacazo histórico de 2002)",
+        "razon": "Es la rivalidad con mayor carga narrativa del grupo. Francia llega como #1 del mundo a vengar el 0-1 de Seúl 2002 que les hizo arrancar como campeones vigentes con derrota. Senegal, ahora con Mané/Koulibaly y como campeona africana, ya no es debutante. La excolonia desafía a la metrópoli, otra vez."
+      },
+      "datos_curiosos_grupo": [
+        "Noruega regresa al Mundial tras 28 años (desde Francia 1998) con la generación más fuerte de su historia (Haaland, Ødegaard)",
+        "Irak vuelve tras 40 años exactos (México 1986), donde Ahmed Radhi marcó el único gol mundialista de la historia del país (vs Bélgica)",
+        "El único H2H mundialista confirmado del grupo es Senegal 1-0 Francia (2002), considerado uno de los 5 mayores batacazos en la historia del torneo",
+        "Francia es la única selección del grupo con títulos mundiales (2)"
+      ],
+      "storyline_narrativo": "Grupo I es el grupo del eterno retorno. Noruega vuelve después de 28 años con su generación dorada — Haaland y Ødegaard cumplen lo que Tore André Flo y Kjetil Rekdal apenas insinuaron en 1998. Irak vuelve después de 40 años, una eternidad: cuando jugaron por última vez en México 1986, Saddam Hussein aún estaba en el poder y Ahmed Radhi era una promesa. Esta vez vuelven con cero expectativas y todo por ganar. En el medio, dos campeones africanos: Senegal (campeón AFCON 2021) que ya humilló a Francia una vez en 2002 y quiere demostrar que aquel batacazo no fue accidente; y Francia (#1 FIFA, campeona del mundo en 1998 y 2018) que llega como gran favorita pero con la incógnita Deschamps en su último torneo. El partido inaugural Francia-Senegal el 26 de junio en Boston (Foxborough) replicará — 24 años después — el shock de Seúl 2002. La diferencia: ahora Senegal NO es debutante. Si Bouba Diop vivió para verlo, sonreiría."
+    }
+  },
+
+  "grupo_j": {
+    "id": "J",
+    "selecciones": ["Argentina", "Argelia", "Austria", "Jordania"],
+    "capa_1_selecciones": [
+      {
+        "pais": "Argentina",
+        "apodo": "La Albiceleste",
+        "bandera": "🇦🇷",
+        "fifa_ranking_abril_2026": 3,
+        "mundiales_jugados_total": 18,
+        "mejor_resultado_historico": "Campeón (1978, 1986, 2022)",
+        "titulos_mundiales": 3,
+        "anios_titulos": [1978, 1986, 2022],
+        "subcampeonatos": [1930, 1990, 2014],
+        "record_fase_grupos_ultimos_5_mundiales": {
+          "ventana": "2006-2022",
+          "mundiales_incluidos": [2006, 2010, 2014, 2018, 2022],
+          "avanzo_a_octavos": "5 de 5 (100%)",
+          "nota": "Argentina nunca quedó eliminada en fase de grupos en sus últimos 5 Mundiales"
+        },
+        "goleadores_historicos_mundiales_top3": [
+          {"jugador": "Lionel Messi", "goles": 13, "mundiales": "2006, 2010, 2014, 2018, 2022 (líder histórico)"},
+          {"jugador": "Gabriel Batistuta", "goles": 10, "mundiales": "1994, 1998, 2002"},
+          {"jugador": "Diego Maradona", "goles": 8, "mundiales": "1982, 1986, 1990, 1994"},
+          {"jugador_extra": "Guillermo Stábile", "goles": 8, "mundiales": "1930 (único Mundial, en 4 partidos — récord de eficiencia)"}
+        ],
+        "dt_actual_2026": "Lionel Scaloni",
+        "capitan_2026": "Lionel Messi",
+        "caso_especial": "CAMPEONA VIGENTE (Qatar 2022). Busca convertirse en la primera selección en defender el título desde Brasil 1962. Messi va a su sexto Mundial — récord histórico. Última oportunidad mundialista de la generación dorada (Messi, Di María, Otamendi). Récord absoluto: 100% de clasificación a octavos en últimos 5 Mundiales."
+      },
+      {
+        "pais": "Argelia",
+        "apodo": "Los Zorros del Desierto / Les Fennecs",
+        "bandera": "🇩🇿",
+        "fifa_ranking_abril_2026": 28,
+        "mundiales_jugados_total": 5,
+        "anios_mundiales": [1982, 1986, 2010, 2014, 2026],
+        "mejor_resultado_historico": "Octavos de final (2014, eliminada por Alemania 1-2 en tiempo extra)",
+        "titulos_mundiales": 0,
+        "record_fase_grupos_ultimos_5_mundiales": {
+          "ventana": "1982-2014",
+          "avanzo_a_octavos": "1 de 4 (2014)",
+          "nota": "En 1982 ganaron 2-1 a Alemania Occidental (campeona europea vigente) en otro batacazo histórico, pero fueron eliminados por el llamado 'Pacto de no agresión de Gijón' entre Alemania y Austria"
+        },
+        "goleadores_historicos_mundiales_top3": [
+          {"jugador": "Islam Slimani", "goles": "no_verificado en número exacto", "mundiales": "2014"},
+          {"jugador": "Rabah Madjer", "goles": "no_verificado", "mundiales": "1982, 1986"},
+          {"jugador": "Lakhdar Belloumi", "goles": "no_verificado", "mundiales": "1982, 1986"}
+        ],
+        "dt_actual_2026": "Vladimir Petković (no_verificado actualización mayo 2026)",
+        "capitan_2026": "Riyad Mahrez (probable, no_verificado)",
+        "caso_especial": "Sorprendió al mundo en España 1982 derrotando 2-1 a Alemania Occidental, pero fueron eliminados por una conspiración entre Alemania y Austria (el infame 'Anschluss de Gijón'). Justo en 2026 enfrentan otra vez a Austria. Karma narrativo perfecto."
+      },
+      {
+        "pais": "Austria",
+        "apodo": "Das Team",
+        "bandera": "🇦🇹",
+        "fifa_ranking_abril_2026": 24,
+        "mundiales_jugados_total": 7,
+        "anios_mundiales": [1934, 1954, 1958, 1978, 1982, 1990, 1998, 2026],
+        "mejor_resultado_historico": "Tercer lugar (Suiza 1954)",
+        "titulos_mundiales": 0,
+        "record_fase_grupos_ultimos_5_mundiales": {
+          "ventana": "1978-1998 (no clasificó 2002-2022)",
+          "avanzo_a_segunda_ronda": "2 de 4 (1978 segunda ronda, 1982 segunda ronda)",
+          "nota": "No participa en un Mundial desde Francia 1998. 28 años de ausencia"
+        },
+        "goleadores_historicos_mundiales_top3": [
+          {"jugador": "Erich Probst", "goles": 6, "mundiales": "1954 (todos en un solo Mundial)"},
+          {"jugador": "Hans Krankl", "goles": 5, "mundiales": "1978, 1982"},
+          {"jugador": "Otros", "goles": "no_verificado", "mundiales": "varios"}
+        ],
+        "dt_actual_2026": "Ralf Rangnick",
+        "capitan_2026": "no_verificado (David Alaba o Marko Arnautović probables)",
+        "caso_especial": "Vuelve al Mundial tras 28 años (desde 1998). Heredera de la 'Wunderteam' de los 30. Su mayor logro fue tercer lugar en 1954. En 1982 ganaron a Argelia 2-0 en uno de los partidos del polémico 'Pacto de Gijón' con Alemania."
+      },
+      {
+        "pais": "Jordania",
+        "apodo": "Los Caballeros / Al-Nashama",
+        "bandera": "🇯🇴",
+        "fifa_ranking_abril_2026": 63,
+        "mundiales_jugados_total": 1,
+        "anios_mundiales": [2026],
+        "mejor_resultado_historico": "DEBUTANTE EN MUNDIAL 2026",
+        "titulos_mundiales": 0,
+        "record_fase_grupos_ultimos_5_mundiales": {
+          "ventana": "Sin historial mundialista",
+          "avanzo_a_octavos": "0 de 0",
+          "nota": "Clasificaron por primera vez tras una victoria 3-0 sobre Omán el 5 de junio de 2025"
+        },
+        "goleadores_historicos_mundiales_top3": [],
+        "dt_actual_2026": "Jamal Sellami (marroquí)",
+        "capitan_2026": "no_verificado (Musa Al-Tamari probable)",
+        "caso_especial": "DEBUT ABSOLUTO en Mundiales. Más de 10 intentos fallidos previos. Subcampeón de la Copa Asia 2023 (perdieron la final ante Qatar). Su mejor jugador, Musa Al-Tamari, juega en el Montpellier de Francia. Dirigido por el marroquí Jamal Sellami."
+      }
+    ],
+
+    "capa_2_enfrentamientos": [
+      {
+        "par": "Argentina vs Argelia",
+        "enfrentamientos_totales_historicos": "1 amistoso registrado (2007: Argentina 4-3 Argelia)",
+        "h2h_en_mundiales_count": 0,
+        "h2h_mundiales_detalle": [],
+        "total_historico_h2h_en_mundiales": "Nunca se enfrentaron en Mundial — primera vez en 2026",
+        "ultimo_enfrentamiento_mundial": "Ninguno",
+        "dato_curioso": "Primer cruce mundialista absoluto entre los dos. La única referencia histórica es un amistoso de 2007 que Argentina ganó 4-3 en un partido lleno de goles. Para Messi, será un rival nunca enfrentado en Copa del Mundo."
+      },
+      {
+        "par": "Argentina vs Austria",
+        "enfrentamientos_totales_historicos": "Varios amistosos, sin H2H mundialista",
+        "h2h_en_mundiales_count": 0,
+        "h2h_mundiales_detalle": [],
+        "total_historico_h2h_en_mundiales": "NUNCA se enfrentaron en Mundial (confirmado por Wikipedia Argentina/Austria at the FIFA WC). Primera vez en 2026",
+        "ultimo_enfrentamiento_mundial": "Ninguno",
+        "dato_curioso": "El brief original sugería que se habían enfrentado en 1978; es FALSO. En 1978 Austria estuvo en otro grupo (Group 3) y Argentina en Group 1. Tampoco coincidieron en la segunda ronda. Este es su DEBUT mundialista cruzado."
+      },
+      {
+        "par": "Argentina vs Jordania",
+        "enfrentamientos_totales_historicos": "no_verificado (probablemente nunca)",
+        "h2h_en_mundiales_count": 0,
+        "h2h_mundiales_detalle": [],
+        "total_historico_h2h_en_mundiales": "Nunca se enfrentaron en Mundial (Jordania debuta en 2026)",
+        "ultimo_enfrentamiento_mundial": "Ninguno",
+        "dato_curioso": "Jordania jamás enfrentó a Argentina en partido oficial registrado. Será el partido más asimétrico del grupo: campeona del mundo vs debutante absoluta. Para los jordanos, jugar contra Messi es histórico per se."
+      },
+      {
+        "par": "Argelia vs Austria",
+        "enfrentamientos_totales_historicos": "Al menos 1 en Mundiales (1982)",
+        "h2h_en_mundiales_count": 1,
+        "h2h_mundiales_detalle": [
+          {
+            "anio": 1982,
+            "mundial_sede": "España",
+            "fase": "Fase de grupos (Grupo 2)",
+            "fecha": "no_verificado (junio 1982)",
+            "estadio": "no_verificado",
+            "resultado": "Austria 2 - 0 Argelia",
+            "goleadores": "no_verificado a nivel individual",
+            "contexto": "Mismo grupo donde se produjo el infame 'Pacto de no agresión de Gijón' o 'Anschluss de Gijón' entre Alemania y Austria, que eliminó a Argelia pese a sus victorias previas (incluida la victoria 2-1 vs Alemania)"
+          }
+        ],
+        "total_historico_h2h_en_mundiales": "Austria 1 - Argelia 0 (1 victoria Austria, 0 empates, 0 victorias Argelia)",
+        "ultimo_enfrentamiento_mundial": "1982",
+        "dato_curioso": "44 años después de la herida, Argelia vuelve a cruzarse con Austria en un Mundial. En 1982 Austria fue cómplice del pacto con Alemania que eliminó a Argelia. Es el partido con mayor carga histórica subterránea del grupo."
+      },
+      {
+        "par": "Argelia vs Jordania",
+        "enfrentamientos_totales_historicos": "no_verificado",
+        "h2h_en_mundiales_count": 0,
+        "h2h_mundiales_detalle": [],
+        "total_historico_h2h_en_mundiales": "Nunca se enfrentaron en Mundial",
+        "ultimo_enfrentamiento_mundial": "Ninguno",
+        "dato_curioso": "Duelo de mundo árabe-musulmán: Argelia (norte de África, francófona) vs Jordania (Medio Oriente, asiática). Posiblemente el partido más equilibrado del grupo en el papel y el más decisivo para definir el tercer lugar."
+      },
+      {
+        "par": "Austria vs Jordania",
+        "enfrentamientos_totales_historicos": "no_verificado",
+        "h2h_en_mundiales_count": 0,
+        "h2h_mundiales_detalle": [],
+        "total_historico_h2h_en_mundiales": "Nunca se enfrentaron en Mundial (Jordania debuta)",
+        "ultimo_enfrentamiento_mundial": "Ninguno",
+        "dato_curioso": "Primer partido oficial de Jordania en un Mundial probablemente será contra Austria (según calendario preliminar). Choque entre el regreso austríaco (28 años) y el debut absoluto jordano."
+      }
+    ],
+
+    "capa_3_narrativa": {
+      "favorito_data_historica": {
+        "pais": "Argentina",
+        "razon": "Campeona del mundo vigente (Qatar 2022), 3 títulos totales, FIFA #3, 100% de clasificación a octavos en últimos 5 Mundiales. Messi es el máximo goleador mundialista de la albiceleste con 13 goles."
+      },
+      "segundo_favorito": {
+        "pais": "Argelia",
+        "razon": "FIFA #28, mejor ranking de las tres rivales de Argentina. Ya pasó a octavos en 2014. Generación experimentada con Mahrez. Plantel con varios europeos."
+      },
+      "underdog": {
+        "pais": "Jordania",
+        "razon": "DEBUTANTE absoluta (#63 FIFA). Sin historia mundialista. Austria es #24 FIFA y ha estado en 7 Mundiales previos, por lo que Jordania es claramente la outsider del grupo."
+      },
+      "partido_clave_a_cubrir": {
+        "partido": "Argelia vs Austria (revancha del Pacto de Gijón 1982)",
+        "razon": "44 años después de uno de los partidos más infames de la historia de los Mundiales (Alemania-Austria 1-0 que eliminó a Argelia por convenir a ambos europeos), los argelinos vuelven a cruzarse con Austria. El partido inicial entre las dos potencias del grupo Argentina-Argelia es el más mediático, pero el Argelia-Austria tiene la carga histórica más profunda."
+      },
+      "datos_curiosos_grupo": [
+        "Jordania DEBUTA en Mundiales tras más de 10 intentos fallidos previos (calificó el 5 de junio de 2025)",
+        "Argentina es la única defensora del título en este Mundial, y busca ser la primera bicampeona consecutiva desde Brasil 1962",
+        "Austria vuelve al Mundial tras 28 años (desde 1998) — la misma ausencia que Noruega en Grupo I",
+        "Argelia y Austria ya se enfrentaron en el Mundial 1982 (Austria ganó 2-0) en el mismo grupo del polémico Pacto de Gijón",
+        "Lionel Messi disputará su sexto Mundial — récord histórico junto a Cristiano Ronaldo (Grupo K)"
+      ],
+      "storyline_narrativo": "Grupo J es el grupo del campeón vigente y los regresos. Argentina llega como defensora del título, con Messi en su despedida mundialista y Scaloni armando su última sinfonía. Pero el grupo tiene capas: Austria vuelve después de casi tres décadas y carga con la memoria del 'Anschluss de Gijón' de 1982 — esa vergüenza arbitral que eliminó a Argelia. Y ahí está Argelia otra vez, 44 años después, mirando a Austria a los ojos. Argelia tiene su propia mística: en 1982 vencieron a Alemania Occidental 2-1; en 2014 llegaron a octavos. Saben darle batalla a los grandes. Y al fondo del grupo, los caballeros de Jordania, debutantes absolutos, dirigidos por un marroquí, liderados por Musa Al-Tamari (Montpellier), subcampeones de Asia 2023. Para ellos, simplemente estar ya es el premio. El partido inaugural Argentina-Jordania (o vs quien toque) marcará el sexto y probablemente último Mundial de Messi. Si Argentina cumple en el papel, Messi y Jordania se cruzan en historia: el GOAT en su despedida vs el debut absoluto de un país."
+    }
+  },
+
+  "grupo_k": {
+    "id": "K",
+    "selecciones": ["Portugal", "República Democrática del Congo (RDC)", "Uzbekistán", "Colombia"],
+    "capa_1_selecciones": [
+      {
+        "pais": "Portugal",
+        "apodo": "A Seleção das Quinas",
+        "bandera": "🇵🇹",
+        "fifa_ranking_abril_2026": 5,
+        "mundiales_jugados_total": 8,
+        "anios_mundiales": [1966, 1986, 2002, 2006, 2010, 2014, 2018, 2022, 2026],
+        "mejor_resultado_historico": "Tercer lugar (Inglaterra 1966)",
+        "titulos_mundiales": 0,
+        "subcampeonatos_uefa_nations": "Campeón Nations League 2018-19 y 2024-25",
+        "record_fase_grupos_ultimos_5_mundiales": {
+          "ventana": "2006-2022",
+          "mundiales_incluidos": [2006, 2010, 2014, 2018, 2022],
+          "avanzo_a_octavos": "4 de 5 (2006, 2010, 2018, 2022). Eliminada en grupos en 2014",
+          "nota": "Mejor reciente: cuartos en 2006 y 2022"
+        },
+        "goleadores_historicos_mundiales_top3": [
+          {"jugador": "Eusébio", "goles": 9, "mundiales": "1966 (todos en un Mundial — máximo goleador de aquel torneo)"},
+          {"jugador": "Cristiano Ronaldo", "goles": 8, "mundiales": "2006, 2010, 2014, 2018, 2022 (activo)"},
+          {"jugador": "Pauleta", "goles": 4, "mundiales": "2002, 2006"}
+        ],
+        "dt_actual_2026": "Roberto Martínez",
+        "capitan_2026": "Cristiano Ronaldo",
+        "caso_especial": "Cristiano Ronaldo disputará su SEXTO Mundial — récord histórico empatado con Messi. A los 41 años, último Mundial casi seguro. Roberto Martínez llevó un plantel de 27 (en lugar de 26) por necesidades logísticas. Portugal busca su primer título mundial."
+      },
+      {
+        "pais": "República Democrática del Congo",
+        "apodo": "Los Leopardos / Les Léopards",
+        "bandera": "🇨🇩",
+        "fifa_ranking_abril_2026": 46,
+        "mundiales_jugados_total": 2,
+        "anios_mundiales_como_zaire": [1974],
+        "anios_mundiales_como_rdc": [2026],
+        "mejor_resultado_historico": "Fase de grupos (1974 como Zaire — perdió los 3 partidos, gol diferencia 0-14)",
+        "titulos_mundiales": 0,
+        "record_fase_grupos_ultimos_5_mundiales": {
+          "ventana": "Solo aparición previa: 1974 (como Zaire)",
+          "detalle_1974": "0-2 vs Escocia, 0-9 vs Yugoslavia (récord empatado de mayor derrota), 0-3 vs Brasil. 0 puntos, 0 goles a favor, 14 en contra"
+        },
+        "goleadores_historicos_mundiales_top3": [
+          {"jugador": "Ninguno", "goles": 0, "mundiales": "Zaire no marcó ningún gol en Mundial 1974"}
+        ],
+        "dt_actual_2026": "Sébastien Desabre (francés, no_verificado al 100%)",
+        "capitan_2026": "no_verificado",
+        "caso_especial": "Vuelve al Mundial tras 52 AÑOS como RDC (la última vez como Zaire en 1974). Primera selección de África subsahariana en jugar un Mundial. La participación de 1974 quedó marcada por la dictadura de Mobutu, el famoso tiro libre del defensor Mwepu Ilunga, y la negativa de los jugadores a jugar tras no recibir bonos. Vuelven con dignidad recuperada."
+      },
+      {
+        "pais": "Uzbekistán",
+        "apodo": "Los Lobos Blancos / White Wolves",
+        "bandera": "🇺🇿",
+        "fifa_ranking_abril_2026": 50,
+        "mundiales_jugados_total": 1,
+        "anios_mundiales": [2026],
+        "mejor_resultado_historico": "DEBUTANTE EN MUNDIAL 2026",
+        "titulos_mundiales": 0,
+        "record_fase_grupos_ultimos_5_mundiales": {
+          "ventana": "Sin historial mundialista",
+          "avanzo_a_octavos": "0 de 0",
+          "nota": "Calificaron por primera vez tras un empate 0-0 vs EAU el 5 de junio de 2025"
+        },
+        "goleadores_historicos_mundiales_top3": [],
+        "dt_actual_2026": "Fabio Cannavaro (Italia, campeón del Mundo 2006 como jugador y Balón de Oro 2006)",
+        "capitan_2026": "no_verificado",
+        "caso_especial": "DEBUT ABSOLUTO en Mundiales. PRIMER PAÍS DE ASIA CENTRAL en clasificar. Tercera ex-república soviética en jugar un Mundial (después de Rusia y Ucrania). Calificaron tras 7 intentos previos desde la independencia (1994 ingreso a FIFA). Dirigidos por Fabio Cannavaro desde octubre 2025. Defensiva: 4 de sus 6 victorias en eliminatorias fueron 1-0."
+      },
+      {
+        "pais": "Colombia",
+        "apodo": "Los Cafeteros",
+        "bandera": "🇨🇴",
+        "fifa_ranking_abril_2026": 13,
+        "mundiales_jugados_total": 6,
+        "anios_mundiales": [1962, 1990, 1994, 1998, 2014, 2018, 2026],
+        "mejor_resultado_historico": "Cuartos de final (Brasil 2014, eliminada por Brasil 1-2)",
+        "titulos_mundiales": 0,
+        "campeon_copa_america": "no_verificado en lista exacta",
+        "record_fase_grupos_ultimos_5_mundiales": {
+          "ventana": "1990-2018 (no participó 2002, 2006, 2010, 2022)",
+          "avanzo_a_octavos": "3 de 5 (1990, 2014 cuartos, 2018 octavos). Eliminada en grupos en 1994 y 1998"
+        },
+        "goleadores_historicos_mundiales_top3": [
+          {"jugador": "James Rodríguez", "goles": 6, "mundiales": "2014 (Botín de Oro) y 2018"},
+          {"jugador": "Otros", "goles": "no_verificado exacto", "mundiales": "varios"}
+        ],
+        "dt_actual_2026": "Néstor Lorenzo",
+        "capitan_2026": "James Rodríguez (probable, no_verificado oficialmente)",
+        "caso_especial": "Vuelve al Mundial tras la ausencia de Qatar 2022. James Rodríguez ganó el Botín de Oro en Brasil 2014 con 6 goles. Generación de Luis Díaz (Liverpool) en su mejor momento. Subcampeón Copa América 2024."
+      }
+    ],
+
+    "capa_2_enfrentamientos": [
+      {
+        "par": "Portugal vs RDC (Zaire)",
+        "enfrentamientos_totales_historicos": "no_verificado",
+        "h2h_en_mundiales_count": 0,
+        "h2h_mundiales_detalle": [],
+        "total_historico_h2h_en_mundiales": "Nunca se enfrentaron en Mundial. Portugal no estuvo en 1974 cuando Zaire jugó",
+        "ultimo_enfrentamiento_mundial": "Ninguno",
+        "dato_curioso": "Portugal estuvo ausente del Mundial 1974 (no clasificaron entre 1966 y 1986). RDC vuelve 52 años después. Primer cruce histórico absoluto entre ambos."
+      },
+      {
+        "par": "Portugal vs Uzbekistán",
+        "enfrentamientos_totales_historicos": "no_verificado",
+        "h2h_en_mundiales_count": 0,
+        "h2h_mundiales_detalle": [],
+        "total_historico_h2h_en_mundiales": "Nunca (Uzbekistán debuta en 2026)",
+        "ultimo_enfrentamiento_mundial": "Ninguno",
+        "dato_curioso": "Cristiano Ronaldo (potencial gol histórico) vs el debut de Uzbekistán dirigido por otro campeón del Mundo (Cannavaro). Choque entre dos leyendas italianas/portuguesas en lados opuestos del banco."
+      },
+      {
+        "par": "Portugal vs Colombia",
+        "enfrentamientos_totales_historicos": "Varios amistosos (Sofascore confirma historial H2H pero sin Mundial)",
+        "h2h_en_mundiales_count": 0,
+        "h2h_mundiales_detalle": [],
+        "total_historico_h2h_en_mundiales": "Nunca se enfrentaron en Mundial (confirmado por Wikipedia Portugal at the FIFA WC y Colombia at the FIFA WC)",
+        "ultimo_enfrentamiento_mundial": "Ninguno",
+        "dato_curioso": "Aunque suelen aparecer como rivales en amistosos, jamás coincidieron en una Copa del Mundo. Será un cruce inédito entre dos selecciones de top-15 mundial. Partido programado para el 27 de junio 2026 en Hard Rock Stadium, Miami Gardens."
+      },
+      {
+        "par": "RDC vs Uzbekistán",
+        "enfrentamientos_totales_historicos": "no_verificado",
+        "h2h_en_mundiales_count": 0,
+        "h2h_mundiales_detalle": [],
+        "total_historico_h2h_en_mundiales": "Nunca (ambos prácticamente debutantes en Mundiales recientes)",
+        "ultimo_enfrentamiento_mundial": "Ninguno",
+        "dato_curioso": "Choque entre dos selecciones con poca historia mundialista: la RDC (1 sola participación, en 1974 como Zaire) y Uzbekistán (debut absoluto). Probablemente el partido decisivo para el tercer lugar del grupo."
+      },
+      {
+        "par": "RDC vs Colombia",
+        "enfrentamientos_totales_historicos": "no_verificado",
+        "h2h_en_mundiales_count": 0,
+        "h2h_mundiales_detalle": [],
+        "total_historico_h2h_en_mundiales": "Nunca se enfrentaron en Mundial",
+        "ultimo_enfrentamiento_mundial": "Ninguno",
+        "dato_curioso": "Curiosidad: cuando Zaire jugó su único Mundial en 1974, Colombia no estaba (ausente entre 1962 y 1990). Cuando Colombia regresó en los 90, Zaire/RDC quedó fuera. Primer cruce mundialista 52 años después."
+      },
+      {
+        "par": "Uzbekistán vs Colombia",
+        "enfrentamientos_totales_historicos": "no_verificado",
+        "h2h_en_mundiales_count": 0,
+        "h2h_mundiales_detalle": [],
+        "total_historico_h2h_en_mundiales": "Nunca (Uzbekistán debuta)",
+        "ultimo_enfrentamiento_mundial": "Ninguno",
+        "dato_curioso": "Colombia es uno de los grandes nombres de Sudamérica fuera del podio top-3 CONMEBOL. Uzbekistán es la cara nueva de Asia Central. Primer cruce de continentes muy distintos."
+      }
+    ],
+
+    "capa_3_narrativa": {
+      "favorito_data_historica": {
+        "pais": "Portugal",
+        "razon": "FIFA #5, 8 Mundiales jugados, mejor resultado tercer lugar (1966). Cristiano Ronaldo busca su sexto Mundial y su primer título mundial. Roberto Martínez ya llevó a Bélgica a semifinales en 2018."
+      },
+      "segundo_favorito": {
+        "pais": "Colombia",
+        "razon": "FIFA #13, ya alcanzó cuartos de final en 2014. Generación de Luis Díaz (Liverpool) y experiencia de James Rodríguez. Subcampeón Copa América 2024."
+      },
+      "underdog": {
+        "pais": "Uzbekistán",
+        "razon": "DEBUT ABSOLUTO, FIFA #50, sin historia mundialista. Aunque RDC tiene ranking peor (#46), su historia previa (1974) le da algo de bagaje mundialista. Uzbekistán parte literalmente de cero, pero con Cannavaro en el banco."
+      },
+      "partido_clave_a_cubrir": {
+        "partido": "Portugal vs Colombia",
+        "razon": "Cruce inédito entre dos selecciones top-15 que nunca se han enfrentado en Mundiales. Cristiano Ronaldo (record-holder de Mundiales junto a Messi) vs Luis Díaz / James Rodríguez. El partido programado para el 27 de junio 2026 en Miami Gardens es el más mediático y decisivo del grupo."
+      },
+      "datos_curiosos_grupo": [
+        "Uzbekistán es el PRIMER PAÍS DE ASIA CENTRAL en la historia en jugar un Mundial, dirigido por Fabio Cannavaro (campeón mundo 2006)",
+        "RDC vuelve al Mundial tras 52 AÑOS (la mayor ausencia entre rivales de este Mundial). Última aparición como Zaire en 1974, donde perdieron 0-9 vs Yugoslavia (récord empatado de mayor derrota mundialista)",
+        "Cristiano Ronaldo (Portugal) disputará su SEXTO Mundial — récord histórico junto a Lionel Messi (Grupo J)",
+        "Es el ÚNICO grupo del Mundial 2026 donde ninguno de los 4 equipos se ha enfrentado entre sí en una Copa del Mundo previa (excluyendo el amistoso ocasional)"
+      ],
+      "storyline_narrativo": "Grupo K es el grupo de los retornos imposibles y los debuts impensados. Portugal trae a Cristiano Ronaldo a su sexto Mundial (récord), a los 41 años, en lo que será casi seguro su despedida — el reflejo perfecto de Messi en el Grupo J. Cuando Cristiano debutó en mundiales (Alemania 2006), Uzbekistán y la RDC ni siquiera soñaban con estar acá. La RDC vuelve después de medio siglo, cargando el peso del fantasma del Zaire de 1974: aquel equipo humillado bajo Mobutu, aquel 0-9 contra Yugoslavia, aquel mítico Mwepu Ilunga pateando un tiro libre rival antes del silbato. Cinco décadas después, vuelven en libertad. Uzbekistán es la primera selección de Asia Central en la historia, dirigida por otro campeón del mundo: Fabio Cannavaro. Y Colombia, los Cafeteros del pop latino del fútbol — los del fenómeno James Rodríguez, los de Luis Díaz, los del Botín de Oro 2014 — vuelven tras saltarse Qatar. Es un grupo donde nadie se conoce en Mundiales: ningún cruce previo histórico. Todo se escribirá desde cero, con dos figuras leyendas en el banco (Cannavaro) y en la cancha (Ronaldo)."
+    }
+  },
+
+  "grupo_l": {
+    "id": "L",
+    "selecciones": ["Inglaterra", "Croacia", "Ghana", "Panamá"],
+    "capa_1_selecciones": [
+      {
+        "pais": "Inglaterra",
+        "apodo": "Los Tres Leones / The Three Lions",
+        "bandera": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+        "fifa_ranking_abril_2026": 4,
+        "mundiales_jugados_total": 19,
+        "mejor_resultado_historico": "Campeón (Inglaterra 1966)",
+        "titulos_mundiales": 1,
+        "anios_titulos": [1966],
+        "record_fase_grupos_ultimos_5_mundiales": {
+          "ventana": "2006-2022",
+          "mundiales_incluidos": [2006, 2010, 2014, 2018, 2022],
+          "avanzo_a_octavos": "4 de 5 (2006, 2010, 2018 semis, 2022 cuartos). Eliminada en grupos en 2014",
+          "nota": "Subcampeón Eurocopa 2020 (jugada 2021) y 2024. Semifinalista Mundial 2018"
+        },
+        "goleadores_historicos_mundiales_top3": [
+          {"jugador": "Harry Kane", "goles": "no_verificado total exacto", "mundiales": "2018 (Botín de Oro), 2022 (activo)"},
+          {"jugador": "Gary Lineker", "goles": 10, "mundiales": "1986 (Botín de Oro), 1990"},
+          {"jugador": "Geoff Hurst", "goles": 5, "mundiales": "1966 (incluyendo hat-trick en la final — único hat-trick en una final mundialista hasta Mbappé 2022)"}
+        ],
+        "dt_actual_2026": "Thomas Tuchel (alemán)",
+        "capitan_2026": "Harry Kane",
+        "caso_especial": "Único Mundial ganado fue como anfitrión en 1966 (60 años atrás). Generación dorada con Kane, Bellingham, Saka, Foden. Por primera vez dirigida por un DT extranjero campeón Champions (Tuchel ganó con Chelsea 2021)."
+      },
+      {
+        "pais": "Croacia",
+        "apodo": "Los Cuadritos / Vatreni",
+        "bandera": "🇭🇷",
+        "fifa_ranking_abril_2026": 11,
+        "mundiales_jugados_total": 6,
+        "anios_mundiales": [1998, 2002, 2006, 2014, 2018, 2022, 2026],
+        "mejor_resultado_historico": "Subcampeón (Rusia 2018, perdió 2-4 vs Francia en la final)",
+        "titulos_mundiales": 0,
+        "subcampeonatos": [2018],
+        "tercer_lugar": [1998, 2022],
+        "record_fase_grupos_ultimos_5_mundiales": {
+          "ventana": "2006-2022",
+          "mundiales_incluidos": [2006, 2014, 2018, 2022],
+          "avanzo_a_octavos": "3 de 4 (2014 grupos, 2018 final, 2022 tercer lugar)",
+          "nota": "Récord absoluto: 13 victorias, 8 empates, 9 derrotas en 30 partidos mundialistas"
+        },
+        "goleadores_historicos_mundiales_top3": [
+          {"jugador": "Davor Šuker", "goles": 6, "mundiales": "1998 (Botín de Oro de aquel Mundial)"},
+          {"jugador": "Mario Mandžukić", "goles": "no_verificado total exacto", "mundiales": "2014, 2018"},
+          {"jugador": "Andrej Kramarić", "goles": "no_verificado total exacto", "mundiales": "2018, 2022"}
+        ],
+        "dt_actual_2026": "Zlatko Dalić",
+        "capitan_2026": "Luka Modrić",
+        "caso_especial": "Subcampeona del mundo 2018 y tercer lugar en 1998 y 2022 — increíble para un país de 4 millones de habitantes. Luka Modrić (Balón de Oro 2018) en su despedida mundialista. Rivalidad icónica reciente con Inglaterra (eliminó a los Three Lions en semis 2018)."
+      },
+      {
+        "pais": "Ghana",
+        "apodo": "Las Estrellas Negras / Black Stars",
+        "bandera": "🇬🇭",
+        "fifa_ranking_abril_2026": 74,
+        "mundiales_jugados_total": 5,
+        "anios_mundiales": [2006, 2010, 2014, 2022, 2026],
+        "mejor_resultado_historico": "Cuartos de final (Sudáfrica 2010, eliminada por Uruguay en penales tras el infame penal/expulsión de Luis Suárez en el último minuto)",
+        "titulos_mundiales": 0,
+        "record_fase_grupos_ultimos_5_mundiales": {
+          "ventana": "2006-2022",
+          "mundiales_incluidos": [2006, 2010, 2014, 2022],
+          "avanzo_a_octavos": "2 de 4 (2006 octavos, 2010 cuartos). Eliminada en grupos en 2014 y 2022"
+        },
+        "goleadores_historicos_mundiales_top3": [
+          {"jugador": "Asamoah Gyan", "goles": 6, "mundiales": "2006, 2010, 2014 (máximo goleador africano en historia de Mundiales)"},
+          {"jugador": "Otros", "goles": "no_verificado", "mundiales": "varios"}
+        ],
+        "dt_actual_2026": "no_verificado",
+        "capitan_2026": "no_verificado",
+        "caso_especial": "Protagonista del momento más icónico del fútbol africano: cuartos vs Uruguay 2010 (mano de Luis Suárez en la línea, Gyan falla el penalti). Asamoah Gyan es el máximo goleador africano de la historia mundialista (6 goles)."
+      },
+      {
+        "pais": "Panamá",
+        "apodo": "La Marea Roja / La Sele",
+        "bandera": "🇵🇦",
+        "fifa_ranking_abril_2026": 33,
+        "mundiales_jugados_total": 2,
+        "anios_mundiales": [2018, 2026],
+        "mejor_resultado_historico": "Fase de grupos (Rusia 2018, 3 derrotas, 0 puntos)",
+        "titulos_mundiales": 0,
+        "record_fase_grupos_ultimos_5_mundiales": {
+          "ventana": "Solo aparición previa: 2018",
+          "detalle_2018": "0-3 vs Bélgica, 1-6 vs Inglaterra, 1-2 vs Túnez. 0 puntos, 2 goles a favor"
+        },
+        "goleadores_historicos_mundiales_top3": [
+          {"jugador": "Felipe Baloy", "goles": 1, "mundiales": "2018 (único gol histórico de Panamá en Mundiales, vs Inglaterra)"}
+        ],
+        "dt_actual_2026": "Thomas Christiansen (danés-español)",
+        "capitan_2026": "no_verificado",
+        "caso_especial": "Segundo Mundial de la historia. Calificaron a 2018 después de 10 campañas eliminatorias fallidas. Felipe Baloy marcó su único gol mundialista justamente contra Inglaterra (en la goleada 1-6). Ahora vuelven a cruzarse con Inglaterra: revancha imposible."
+      }
+    ],
+
+    "capa_2_enfrentamientos": [
+      {
+        "par": "Inglaterra vs Croacia",
+        "enfrentamientos_totales_historicos": "Varios (incluyendo Eurocopas)",
+        "h2h_en_mundiales_count": 1,
+        "h2h_mundiales_detalle": [
+          {
+            "anio": 2018,
+            "mundial_sede": "Rusia",
+            "fase": "Semifinal",
+            "fecha": "11 julio 2018",
+            "estadio": "Estadio Luzhniki, Moscú",
+            "resultado": "Croacia 2 - 1 Inglaterra (tras tiempo extra)",
+            "goleadores": [
+              "Kieran Trippier (min 5, tiro libre, Inglaterra)",
+              "Ivan Perišić (min 68, Croacia)",
+              "Mario Mandžukić (min 109, Croacia)"
+            ],
+            "contexto": "Inglaterra buscaba su primera final mundialista desde 1966. Croacia logró su PRIMERA final de Mundial en la historia. Mandžukić rompió los corazones ingleses en tiempo suplementario."
+          }
+        ],
+        "total_historico_h2h_en_mundiales": "Croacia 1 - Inglaterra 0 (1 victoria Croacia, 0 empates, 0 victorias Inglaterra). Único cruce mundialista hasta hoy",
+        "ultimo_enfrentamiento_mundial": "2018 (Semifinal Rusia)",
+        "dato_curioso": "El brief original sugería que también se enfrentaron en cuartos de 1998. Es FALSO: en 1998 Croacia eliminó a ALEMANIA (no Inglaterra) en cuartos 3-0. Inglaterra fue eliminada por Argentina en octavos 1998. El único H2H mundialista ENG-CRO es el de Rusia 2018."
+      },
+      {
+        "par": "Inglaterra vs Ghana",
+        "enfrentamientos_totales_historicos": "Solo amistosos (Wembley 2011 fue famoso 1-1)",
+        "h2h_en_mundiales_count": 0,
+        "h2h_mundiales_detalle": [],
+        "total_historico_h2h_en_mundiales": "Nunca se enfrentaron en Mundial",
+        "ultimo_enfrentamiento_mundial": "Ninguno",
+        "dato_curioso": "El amistoso de 2011 en Wembley terminó 1-1 con casi 90.000 ghaneses-británicos en las tribunas: ambiente único. En Mundial, primer cruce histórico."
+      },
+      {
+        "par": "Inglaterra vs Panamá",
+        "enfrentamientos_totales_historicos": "1 (justamente el Mundial 2018)",
+        "h2h_en_mundiales_count": 1,
+        "h2h_mundiales_detalle": [
+          {
+            "anio": 2018,
+            "mundial_sede": "Rusia",
+            "fase": "Fase de grupos (Grupo G)",
+            "fecha": "24 junio 2018",
+            "estadio": "Estadio de Nizhny Novgorod",
+            "resultado": "Inglaterra 6 - 1 Panamá",
+            "goleadores": [
+              "John Stones (min 8, Inglaterra)",
+              "Harry Kane (min 22, penal, Inglaterra)",
+              "Jesse Lingard (min 36, Inglaterra)",
+              "John Stones (min 40, Inglaterra)",
+              "Harry Kane (min 45+1, penal, Inglaterra)",
+              "Harry Kane (min 62, desvío de remate, Inglaterra)",
+              "Felipe Baloy (min 78, Panamá — ÚNICO GOL HISTÓRICO DE PANAMÁ EN MUNDIALES)"
+            ],
+            "contexto": "MAYOR VICTORIA DE INGLATERRA EN UN MUNDIAL en toda su historia. Harry Kane fue el tercer inglés en hacer hat-trick en un Mundial (después de Geoff Hurst 1966 y Gary Lineker 1986). Baloy entró en los libros de historia panameños con el único gol del país en Mundiales."
+          }
+        ],
+        "total_historico_h2h_en_mundiales": "Inglaterra 1 - Panamá 0 (1 victoria 6-1)",
+        "ultimo_enfrentamiento_mundial": "2018",
+        "dato_curioso": "Es la MAYOR GOLEADA DE INGLATERRA EN MUNDIALES EVER (6-1, junio 2018 en Nizhny Novgorod). Felipe Baloy marcó en el min 78 el único gol histórico de Panamá en Mundiales — para los panameños, ese gol vale más que la derrota."
+      },
+      {
+        "par": "Croacia vs Ghana",
+        "enfrentamientos_totales_historicos": "no_verificado",
+        "h2h_en_mundiales_count": 0,
+        "h2h_mundiales_detalle": [],
+        "total_historico_h2h_en_mundiales": "Nunca se enfrentaron en Mundial",
+        "ultimo_enfrentamiento_mundial": "Ninguno",
+        "dato_curioso": "Curiosidad: Croacia y Ghana debutaron en Mundiales con apenas 8 años de diferencia (Croacia 1998, Ghana 2006) y NUNCA coincidieron en un grupo o cruce hasta 2026."
+      },
+      {
+        "par": "Croacia vs Panamá",
+        "enfrentamientos_totales_historicos": "no_verificado",
+        "h2h_en_mundiales_count": 0,
+        "h2h_mundiales_detalle": [],
+        "total_historico_h2h_en_mundiales": "Nunca se enfrentaron en Mundial",
+        "ultimo_enfrentamiento_mundial": "Ninguno",
+        "dato_curioso": "Primer cruce histórico. Luka Modrić (40 años, posible último Mundial) vs los panameños dirigidos por Christiansen, quien curiosamente tiene experiencia europea (dirigió al Leeds y al APOEL)."
+      },
+      {
+        "par": "Ghana vs Panamá",
+        "enfrentamientos_totales_historicos": "no_verificado",
+        "h2h_en_mundiales_count": 0,
+        "h2h_mundiales_detalle": [],
+        "total_historico_h2h_en_mundiales": "Nunca se enfrentaron en Mundial",
+        "ultimo_enfrentamiento_mundial": "Ninguno",
+        "dato_curioso": "Posiblemente el partido decisivo para el tercer lugar del grupo. Dos selecciones con realidades muy distintas: Ghana tiene historia mundialista (cuartos 2010), Panamá apenas su segunda aparición. En el papel, Ghana es favorita pese a su ranking peor (#74 vs #33 Panamá)."
+      }
+    ],
+
+    "capa_3_narrativa": {
+      "favorito_data_historica": {
+        "pais": "Inglaterra",
+        "razon": "FIFA #4, campeón 1966, semifinal 2018, cuartos 2022, subcampeón Euros 2020 y 2024. Generación dorada (Kane, Bellingham, Saka, Foden). Tuchel (campeón Champions con Chelsea 2021) es el primer DT extranjero histórico."
+      },
+      "segundo_favorito": {
+        "pais": "Croacia",
+        "razon": "FIFA #11, finalista 2018 y tercer lugar 2022. Increíble consistencia con 4M de habitantes. Modrić (40 años, posible despedida) sigue siendo motor del equipo. Eliminó a Inglaterra en semis 2018."
+      },
+      "underdog": {
+        "pais": "Ghana",
+        "razon": "FIFA #74, peor ranking del grupo. Aunque Panamá es #33 (mejor ranking), Ghana tiene más experiencia mundialista (5 Mundiales vs 2 de Panamá). Es el equipo con mayor diferencia entre techo (cuartos 2010) y rendimiento reciente (eliminada en grupos 2014, 2022)."
+      },
+      "partido_clave_a_cubrir": {
+        "partido": "Inglaterra vs Croacia (revancha de la semifinal de Rusia 2018)",
+        "razon": "Cruce icónico reciente: hace 8 años Croacia rompió el corazón de Inglaterra en Moscú con el gol de Mandžukić en tiempo extra. Es el partido con mayor carga emocional del Mundial 2026 para los hinchas ingleses. Tuchel vs Dalić, Kane vs Modrić. Si Inglaterra quiere el primer título desde 1966, primero tiene que vencer al fantasma croata."
+      },
+      "datos_curiosos_grupo": [
+        "Inglaterra vs Croacia es la RIVALIDAD MÁS ICÓNICA Y RECIENTE DEL MUNDIAL 2026: Croacia eliminó a los Three Lions en semis 2018 con gol de Mandžukić en tiempo extra (Modrić levantó la selección)",
+        "Felipe Baloy es el ÚNICO GOLEADOR HISTÓRICO DE PANAMÁ EN MUNDIALES, y lo hizo justamente contra Inglaterra en 2018 (6-1 — mayor goleada de Inglaterra en un Mundial)",
+        "Croacia, con apenas 4 millones de habitantes, ha llegado a una final (2018) y dos terceros lugares (1998, 2022) — eficiencia mundialista absurda",
+        "Luka Modrić (40 años) y Cristiano Ronaldo (41) son los jugadores más veteranos confirmados en el Mundial 2026",
+        "Ghana es la única selección de África Occidental en el grupo, históricamente fuerte vs Sudamérica (eliminó a USA en octavos 2010, recordado por la mano de Suárez en cuartos)"
+      ],
+      "storyline_narrativo": "Grupo L es el grupo de la revancha imposible. Cuando Inglaterra y Croacia se cruzaron por última vez en un Mundial fue julio de 2018 en Moscú: Trippier marcó al minuto 5 y los Three Lions soñaron con su primera final desde 1966. Pero Perišić empató en el 68 y Mandžukić sentenció en el 109. Croacia llegó a su primera final mundialista. Inglaterra volvió a casa con la canción 'Football's Coming Home' rota en mil pedazos. Ocho años después, otra vez se ven las caras. Modrić tiene 40, Kane 32, ambos lo saben: este es el último capítulo. Tuchel (alemán, campeón Champions con Chelsea) llega para hacer lo que ningún DT inglés pudo desde Alf Ramsey en 1966. Pero el grupo no es sólo nostalgia británica: Ghana vuelve cargando el peso del momento Suárez 2010 (cuartos contra Uruguay, mano en la línea, Gyan falla el penalti, Ghana eliminada — sigue siendo el momento más doloroso del fútbol africano en Mundiales). Y Panamá, los héroes del único gol histórico de Felipe Baloy, vuelven al lugar del 'crimen' (Inglaterra) buscando demostrar que en 2018 fueron eliminados pero hicieron historia. Es un grupo donde cada partido tiene memoria. Donde el pasado pesa. Donde no se juega solo el presente."
+    }
+  },
+
+  "advertencias_y_correcciones_al_brief": {
+    "correcciones_factualidad": [
+      {
+        "claim_brief": "Argentina vs Austria: Mundial 1978 (Argentina campeón en 78 derrotó a Austria)",
+        "verdad": "FALSO. En el Mundial 1978 Argentina jugó Grupo 1 (vs Hungría, Francia, Italia) y Austria jugó Grupo 3 (vs Brasil, España, Suecia). No coincidieron tampoco en la segunda ronda. Argentina y Austria NUNCA se han enfrentado en un Mundial — confirmado por Wikipedia (Argentina at FIFA WC y Austria at FIFA WC). 2026 es su primer cruce mundialista absoluto."
+      },
+      {
+        "claim_brief": "Argentina vs Austria Mundial 1990",
+        "verdad": "FALSO. En 1990 Argentina llegó a la final, pero no enfrentó a Austria. Austria estuvo en Mundial 1990 (Grupo A vs Italia, Checoslovaquia, USA) y NO coincidió con Argentina. Confirmado."
+      },
+      {
+        "claim_brief": "Inglaterra vs Croacia: Mundial 1998 (cuartos, Croacia 2-1)",
+        "verdad": "FALSO. En 1998 Croacia eliminó a ALEMANIA en cuartos 3-0 (con goles de Jarni, Vlaović, Šuker). Inglaterra fue eliminada por ARGENTINA en octavos 1998 (2-2, penales 4-3). El único H2H mundialista entre Inglaterra y Croacia es el de Rusia 2018 (semifinal, Croacia 2-1)."
+      },
+      {
+        "claim_brief": "France vs Norway: Mundial 1998 (Francia 2-2 Noruega)",
+        "verdad": "PARCIALMENTE FALSO. Una fuente Wikipedia indica que Francia jugó 3-0 a Noruega en octavos 1998. Sin embargo, otra fuente (Wikipedia Norway at FIFA WC) indica que Noruega fue eliminada por Italia 0-1 en octavos 1998 — lo que sugiere que el cruce Francia-Noruega NO ocurrió, o que el resultado 3-0 referido por Wikipedia France knockout stage corresponde a otro partido. El campo se marca con NOTA DE VERIFICACIÓN PENDIENTE. La fuente más fiable (Wikipedia France at the FIFA WC, listado de oponentes histórico) NO incluye a Noruega como oponente histórico de Francia en Mundial."
+      }
+    ],
+    "campos_no_verificados_principales": [
+      "Goleadores históricos totales exactos para: Argelia, Ghana, Croacia (top 3 jerarquizado), Colombia (top 3 jerarquizado), Inglaterra (Harry Kane total exacto)",
+      "Capitanes y DTs actuales 2026 de algunas selecciones menores (Senegal, Argelia, Jordania, RDC, Uzbekistán, Ghana, Panamá, Croacia confirmación, Colombia confirmación)",
+      "Detalles minuto a minuto del partido Austria 2-0 Argelia 1982",
+      "Verificación cruzada definitiva del cruce Francia-Noruega en Mundial 1998"
+    ]
+  }
+}

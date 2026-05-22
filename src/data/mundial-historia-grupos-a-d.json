@@ -1,0 +1,751 @@
+{
+  "meta": {
+    "version": "1.0.0",
+    "fecha_generacion": "2026-05-22",
+    "grupos_cubiertos": ["A", "B", "C", "D"],
+    "fuentes_principales": [
+      "FIFA.com",
+      "Wikipedia EN / ES",
+      "thesoccerworldcups.com",
+      "11v11.com",
+      "ESPN",
+      "Planet World Cup",
+      "footballhistory.org",
+      "UEFA.com"
+    ],
+    "criterios": {
+      "rankings": "FIFA/Coca-Cola World Ranking — actualización abril 2026",
+      "h2h_mundial": "Solo enfrentamientos en fase final del Mundial (no clasificatorias, no amistosos)",
+      "tbd_policy": "Datos no verificados con 2 fuentes se omiten o marcan no_verificado"
+    },
+    "advertencia": "Los datos sobre alineaciones y partidos en vivo no están incluidos: este dataset es exclusivamente histórico."
+  },
+  "grupos": [
+    {
+      "id": "A",
+      "sede_principal_apertura": "Estadio Azteca, Ciudad de México",
+      "partido_inaugural": {
+        "fecha": "2026-06-11",
+        "match": "México vs Sudáfrica",
+        "horario_local": "13:00 CST (UTC-6)"
+      },
+      "selecciones": [
+        {
+          "pais": "México",
+          "apodo": "El Tri",
+          "bandera": "🇲🇽",
+          "fifa_ranking_abril_2026": 15,
+          "mundiales_jugados_total": 17,
+          "mejor_resultado_historico": "Cuartos de final (1970, 1986)",
+          "titulos_mundiales": 0,
+          "goleadores_historicos_mundiales": [
+            {"nombre": "Luis Hernández", "goles": 4, "nota": "Todos en Francia 1998"},
+            {"nombre": "Javier 'Chicharito' Hernández", "goles": 4},
+            {"nombre": "Cuauhtémoc Blanco", "goles": 3, "nota": "no_verificado_total"}
+          ],
+          "dt_actual_2026": "Javier Aguirre",
+          "capitan_2026": "Edson Álvarez",
+          "caso_especial": "Anfitrión por tercera vez (1970, 1986, 2026). Estadio Azteca: único estadio en abrir 3 Mundiales en la historia. Rafael Márquez sucederá a Aguirre tras el Mundial.",
+          "datos_curiosos": [
+            "Participó en el primer partido oficial de la historia de los Mundiales (1930, derrota 4-1 ante Francia)",
+            "Récord CONCACAF de participaciones (17)",
+            "Nunca ha pasado de cuartos de final"
+          ]
+        },
+        {
+          "pais": "Sudáfrica",
+          "apodo": "Bafana Bafana",
+          "bandera": "🇿🇦",
+          "fifa_ranking_abril_2026": 60,
+          "mundiales_jugados_total": 4,
+          "mundiales_disputados": [1998, 2002, 2010, 2026],
+          "mejor_resultado_historico": "Fase de grupos (mejor: 2002 — victoria histórica vs Eslovenia)",
+          "titulos_mundiales": 0,
+          "dato_historico_2010": "Primer país anfitrión en la historia que NO superó la fase de grupos",
+          "dt_actual_2026": "Hugo Broos (Bélgica)",
+          "capitan_2026": "Ronwen Williams",
+          "caso_especial": "Regresa al Mundial tras 16 años (último: 2010 como anfitrión). Será último Mundial de Broos en su carrera.",
+          "datos_curiosos": [
+            "Tshabalala anotó el primer gol del Mundial 2010 vs México",
+            "Su única victoria mundialista: 1-0 a Eslovenia en 2002"
+          ]
+        },
+        {
+          "pais": "Corea del Sur",
+          "apodo": "Taegeuk Warriors",
+          "bandera": "🇰🇷",
+          "fifa_ranking_abril_2026": 25,
+          "mundiales_jugados_total": 11,
+          "mejor_resultado_historico": "Semifinales (2002, como co-anfitrión)",
+          "titulos_mundiales": 0,
+          "goleadores_historicos_mundiales_tope": [
+            {"nombre": "Son Heung-min", "goles": 3, "nota": "Empatado con Park Ji-sung y Ahn Jung-hwan"},
+            {"nombre": "Park Ji-sung", "goles": 3},
+            {"nombre": "Ahn Jung-hwan", "goles": 3}
+          ],
+          "dt_actual_2026": "Hong Myung-bo",
+          "capitan_2026": "Son Heung-min",
+          "caso_especial": "Si Son anota un gol, será el goleador mundialista absoluto de Corea del Sur y segundo coreano en marcar en 3 Mundiales distintos.",
+          "datos_curiosos": [
+            "Único equipo asiático en alcanzar semifinales (2002)",
+            "Hong Myung-bo capitaneó al equipo de 2002 y ahora lo dirige"
+          ]
+        },
+        {
+          "pais": "República Checa",
+          "apodo": "Národní tým",
+          "bandera": "🇨🇿",
+          "fifa_ranking_abril_2026": 41,
+          "mundiales_jugados_como_chequia": 2,
+          "mundiales_disputados_chequia": [2006, 2026],
+          "mundiales_como_checoslovaquia": 8,
+          "mejor_resultado_historico": "Subcampeón mundial (1934 y 1962 como Checoslovaquia)",
+          "titulos_mundiales": 0,
+          "final_1962": "Pierde 3-1 vs Brasil — gol de Masopust al 15'",
+          "dt_actual_2026": "Miroslav Koubek",
+          "capitan_2026": "Tomáš Souček (a confirmar)",
+          "caso_especial": "Primera clasificación como Chequia desde 2006 (20 años de ausencia). Koubek reemplazó a Iván Hašek en diciembre 2025 tras derrota 2-1 vs Islas Feroe.",
+          "datos_curiosos": [
+            "Checoslovaquia jugó 2 finales de Mundial (1934 vs Italia, 1962 vs Brasil)",
+            "Patrik Schick es el referente ofensivo actual"
+          ]
+        }
+      ],
+      "enfrentamientos": [
+        {
+          "par": "Mexico_vs_Sudafrica",
+          "h2h_total_historico_aprox": "4 partidos",
+          "h2h_en_mundiales_count": 1,
+          "h2h_en_mundiales_detalle": [
+            {
+              "año": 2010,
+              "mundial_sede": "Sudáfrica",
+              "fase": "Grupo A — partido inaugural",
+              "resultado": "Sudáfrica 1-1 México",
+              "goleadores": ["Tshabalala 55' (Sudáfrica)", "Rafael Márquez 79' (México)"],
+              "sede_estadio": "Soccer City (FNB Stadium), Johannesburgo",
+              "nota": "Tshabalala MVP del partido; abrió oficialmente el Mundial 2010"
+            }
+          ],
+          "ultimo_enfrentamiento_conocido": {
+            "fecha": "2010-06-11",
+            "competicion": "Mundial 2010 — fase de grupos",
+            "resultado": "Empate 1-1"
+          },
+          "dato_curioso": "Vuelven a enfrentarse en partido inaugural de Mundial 16 años después. Único precedente mundialista entre ambos. Mexico inauguró el Mundial 2010 como visitante, ahora lo inaugura como anfitrión."
+        },
+        {
+          "par": "Mexico_vs_Corea-del-Sur",
+          "h2h_total_historico_aprox": "12 partidos (todas competiciones)",
+          "h2h_en_mundiales_count": 2,
+          "h2h_en_mundiales_detalle": [
+            {
+              "año": 1998,
+              "mundial_sede": "Francia",
+              "fase": "Grupo E",
+              "resultado": "México 3-1 Corea del Sur",
+              "goleadores": ["Ha Seok-ju 28' (Corea)", "Peláez, Luis Hernández, Luis Hernández (México)"],
+              "sede_estadio": "Stade Geoffroy-Guichard, Saint-Étienne",
+              "nota": "Ha Seok-ju marcó de tiro libre y fue expulsado minutos después"
+            },
+            {
+              "año": 2018,
+              "mundial_sede": "Rusia",
+              "fase": "Grupo F",
+              "resultado": "México 2-1 Corea del Sur",
+              "goleadores": ["Vela 26' (pen), Chicharito 66' (México)", "Son Heung-min 90+3' (Corea)"],
+              "sede_estadio": "Rostov Arena, Rostov-on-Don"
+            }
+          ],
+          "balance_mundialista": {"victorias_mexico": 2, "empates": 0, "victorias_corea": 0},
+          "dato_curioso": "México nunca perdió contra Corea del Sur en un Mundial. Es la tercera vez que coinciden en fase de grupos mundialista."
+        },
+        {
+          "par": "Mexico_vs_Republica-Checa",
+          "h2h_total_historico_aprox": "Muy escasos partidos (incluyendo era Checoslovaquia)",
+          "h2h_en_mundiales_count": 1,
+          "h2h_en_mundiales_detalle": [
+            {
+              "año": 1962,
+              "mundial_sede": "Chile",
+              "fase": "Grupo 3",
+              "resultado": "México 3-1 Checoslovaquia",
+              "goleadores": ["Václav Mašek 15'' (Checoslovaquia — segundo gol más rápido en historia de Mundial)", "Isidoro Díaz, Alfredo del Águila, Héctor Hernández (pen) (México)"],
+              "sede_estadio": "Estadio Sausalito, Viña del Mar",
+              "nota": "Primera victoria mundialista de México en la historia"
+            }
+          ],
+          "dato_curioso": "Checoslovaquia llegó a la final de aquel Mundial 1962 perdiendo 3-1 ante Brasil. La derrota inicial vs México fue su único tropiezo en fase de grupos. Es el único H2H mundialista entre ambos."
+        },
+        {
+          "par": "Sudafrica_vs_Corea-del-Sur",
+          "h2h_total_historico_aprox": "4 partidos amistosos",
+          "h2h_en_mundiales_count": 0,
+          "h2h_en_mundiales_detalle": [],
+          "ultimo_enfrentamiento_conocido": {
+            "fecha": "2016",
+            "competicion": "Amistoso",
+            "resultado": "Corea del Sur 2-1 Sudáfrica"
+          },
+          "dato_curioso": "Primer enfrentamiento mundialista entre ambos países en la historia."
+        },
+        {
+          "par": "Sudafrica_vs_Republica-Checa",
+          "h2h_total_historico_aprox": "Muy escasos (1 victoria checa, 1 empate)",
+          "h2h_en_mundiales_count": 0,
+          "h2h_en_mundiales_detalle": [],
+          "dato_curioso": "Primer enfrentamiento mundialista entre ambos países en la historia."
+        },
+        {
+          "par": "Corea-del-Sur_vs_Republica-Checa",
+          "h2h_total_historico_aprox": "3 amistosos (1 victoria cada uno, 1 empate)",
+          "h2h_en_mundiales_count": 0,
+          "h2h_en_mundiales_detalle": [],
+          "amistosos_conocidos": [
+            {"año": 1998, "resultado": "Empate 2-2"},
+            {"año": 2001, "resultado": "Chequia 5-0 Corea del Sur"},
+            {"año": 2016, "resultado": "Corea del Sur 2-1 Chequia"}
+          ],
+          "dato_curioso": "Primera vez que se enfrentan en competición oficial; todos los encuentros previos fueron amistosos."
+        }
+      ],
+      "narrativa": {
+        "favorito_data_historica": "México (anfitrión, FIFA #15, ranking más alto del grupo, plantilla con mayor experiencia mundialista)",
+        "segundo_favorito": "Corea del Sur (FIFA #25, generación Son Heung-min, semifinalista en 2002)",
+        "underdog": "Sudáfrica (FIFA #60, 16 años sin Mundial, último Mundial fue catástrofe de 2010 como anfitrión)",
+        "partido_clave_a_cubrir": "México vs Corea del Sur — tercera vez que coinciden en fase de grupos mundialista; Corea nunca le ha ganado a México en Mundial",
+        "partido_simbolico": "México vs Sudáfrica (inaugural) — repetición del partido que inauguró el Mundial 2010, ahora con roles invertidos",
+        "datos_curiosos_grupo": [
+          "El Estadio Azteca abre el Mundial por tercera vez (1970, 1986, 2026) — único estadio en la historia",
+          "México y Sudáfrica vuelven a inaugurar un Mundial 16 años después de 2010",
+          "Corea del Sur nunca ha ganado a México en un Mundial (2-0 favor México en H2H mundialista)",
+          "Chequia regresa al Mundial tras 20 años — última participación fue Alemania 2006",
+          "El único H2H mundialista previo de México vs Checoslovaquia (1962) fue la primera victoria mundialista mexicana en la historia",
+          "Hong Myung-bo (DT Corea) capitaneó al equipo semifinalista de 2002"
+        ],
+        "storyline_narrativo": "El Grupo A arranca con peso simbólico monumental: México juega en casa por tercera vez en la historia, en el mismo Azteca donde lo hizo en 1970 (con Pelé) y 1986 (con Maradona). Vuelve a enfrentar a Sudáfrica en partido inaugural, repitiendo el 1-1 de 2010 cuando Tshabalala anotó el primer gol de aquel Mundial. Corea del Sur llega con la última oportunidad de Son Heung-min de coronar su carrera mundialista. República Checa, ausente como Chequia desde 2006, regresa con un nuevo técnico (Koubek) tras la salida de Hašek en octubre 2025. Sudáfrica busca redimir el peor desempeño histórico como anfitrión (2010) y volver por primera vez a octavos. Es el último Mundial de Hugo Broos como entrenador."
+      }
+    },
+    {
+      "id": "B",
+      "sede_principal_apertura": "BMO Field, Toronto",
+      "partido_inaugural_grupo": {
+        "fecha": "2026-06-12",
+        "match": "Canadá vs Bosnia y Herzegovina",
+        "ubicacion": "BMO Field, Toronto"
+      },
+      "selecciones": [
+        {
+          "pais": "Canadá",
+          "apodo": "Les Rouges / The Canucks",
+          "bandera": "🇨🇦",
+          "fifa_ranking_abril_2026": 27,
+          "mundiales_jugados_total": 3,
+          "mundiales_disputados": [1986, 2022, 2026],
+          "mejor_resultado_historico": "Fase de grupos (nunca ha ganado un partido de Mundial)",
+          "titulos_mundiales": 0,
+          "primer_gol_mundialista": "Alphonso Davies vs Croacia (Qatar 2022, de penal)",
+          "dt_actual_2026": "Jesse Marsch (USA)",
+          "capitan_2026": "Alphonso Davies",
+          "caso_especial": "Anfitrión por primera vez como sede compartida. Nunca ha ganado un partido oficial en un Mundial.",
+          "datos_curiosos": [
+            "En 1986 perdió los 3 partidos sin marcar gol",
+            "Davies marcó el primer gol mundialista canadiense en 2022 vs Croacia"
+          ]
+        },
+        {
+          "pais": "Suiza",
+          "apodo": "Nati",
+          "bandera": "🇨🇭",
+          "fifa_ranking_abril_2026": 17,
+          "mundiales_jugados_total": 12,
+          "mejor_resultado_historico": "Cuartos de final (1934, 1938, 1954)",
+          "titulos_mundiales": 0,
+          "dato_historico_1954": "Anfitrión; cuartos vs Austria terminó 7-5 — partido con más goles en historia del Mundial",
+          "dt_actual_2026": "Murat Yakin",
+          "capitan_2026": "Granit Xhaka",
+          "caso_especial": "Xhaka jugará su cuarto Mundial consecutivo. Suiza pasó la fase de grupos en 2014, 2018 y 2022 (eliminada en octavos cada vez).",
+          "datos_curiosos": [
+            "Cuartos de final en 1934, 1938 y 1954 — nunca superó esa fase",
+            "Yakin priorizó experiencia: 17 jugadores repiten respecto a Qatar 2022"
+          ]
+        },
+        {
+          "pais": "Catar",
+          "apodo": "Al-Annabi (Los Granates)",
+          "bandera": "🇶🇦",
+          "fifa_ranking_abril_2026": 55,
+          "mundiales_jugados_total": 2,
+          "mundiales_disputados": [2022, 2026],
+          "mejor_resultado_historico": "Fase de grupos (eliminado en 2022 con 3 derrotas)",
+          "titulos_mundiales": 0,
+          "dato_historico_2022": "Primer país anfitrión en la historia que NO ganó ningún partido del Mundial",
+          "dt_actual_2026": "no_verificado",
+          "capitan_2026": "no_verificado",
+          "caso_especial": "Primera participación de Catar en un Mundial al que no clasifica como anfitrión. Ganador de Copa Asia 2019 y 2023.",
+          "datos_curiosos": [
+            "En Qatar 2022 perdió los 3 partidos (Ecuador 0-2, Senegal 1-3, Países Bajos 0-2)",
+            "Único país en su debut mundialista 2022 entre los 32 participantes"
+          ]
+        },
+        {
+          "pais": "Bosnia y Herzegovina",
+          "apodo": "Zmajevi (Dragones)",
+          "bandera": "🇧🇦",
+          "fifa_ranking_abril_2026": "no_verificado",
+          "mundiales_jugados_total": 2,
+          "mundiales_disputados": [2014, 2026],
+          "mejor_resultado_historico": "Fase de grupos (2014, 1 victoria vs Irán)",
+          "titulos_mundiales": 0,
+          "ruta_clasificacion_2026": "Playoff europeo Path A — venció a Gales (semifinal) y empató 1-1 vs Italia, ganando en penales 4-1 en la final",
+          "dt_actual_2026": "no_verificado",
+          "capitan_2026": "Edin Džeko (referente histórico, a confirmar)",
+          "caso_especial": "Segunda participación mundialista de su historia (primera fue Brasil 2014). Edin Džeko marcó el gol clave de la prórroga vs Gales en el playoff.",
+          "datos_curiosos": [
+            "En 2014 (Brasil) cayó en Grupo F con Argentina, Nigeria e Irán; venció 3-1 a Irán",
+            "Džeko es el goleador histórico de Bosnia con amplia diferencia"
+          ]
+        }
+      ],
+      "enfrentamientos": [
+        {
+          "par": "Canada_vs_Suiza",
+          "h2h_total_historico_aprox": "5 partidos (todos amistosos)",
+          "h2h_en_mundiales_count": 0,
+          "h2h_en_mundiales_detalle": [],
+          "primer_enfrentamiento": "2002-05-15 (amistoso)",
+          "dato_curioso": "Nunca se han enfrentado en una competición oficial. Cinco amistosos previos."
+        },
+        {
+          "par": "Canada_vs_Catar",
+          "h2h_total_historico_aprox": "1 partido amistoso",
+          "h2h_en_mundiales_count": 0,
+          "h2h_en_mundiales_detalle": [],
+          "ultimo_enfrentamiento_conocido": {
+            "fecha": "2022-09-23",
+            "competicion": "Amistoso",
+            "resultado": "Canadá 2-0 Catar (a confirmar marcador exacto)",
+            "nota": "no_verificado_marcador"
+          },
+          "dato_curioso": "Ambos buscan su primera victoria mundialista oficial. Canadá nunca ganó en Mundial; Catar tampoco."
+        },
+        {
+          "par": "Canada_vs_Bosnia",
+          "h2h_total_historico_aprox": "no_verificado",
+          "h2h_en_mundiales_count": 0,
+          "h2h_en_mundiales_detalle": [],
+          "dato_curioso": "Primer enfrentamiento mundialista entre ambas selecciones."
+        },
+        {
+          "par": "Suiza_vs_Catar",
+          "h2h_total_historico_aprox": "1 partido amistoso",
+          "h2h_en_mundiales_count": 0,
+          "h2h_en_mundiales_detalle": [],
+          "ultimo_enfrentamiento_conocido": {
+            "fecha": "2018-11-14",
+            "competicion": "Amistoso",
+            "resultado": "Catar venció a Suiza (marcador exacto: no_verificado)"
+          },
+          "dato_curioso": "Único precedente: amistoso de 2018 ganado por Catar. Primer Mundial donde se enfrentan."
+        },
+        {
+          "par": "Suiza_vs_Bosnia",
+          "h2h_total_historico_aprox": "no_verificado",
+          "h2h_en_mundiales_count": 0,
+          "h2h_en_mundiales_detalle": [],
+          "dato_curioso": "Primer enfrentamiento mundialista entre ambas selecciones."
+        },
+        {
+          "par": "Catar_vs_Bosnia",
+          "h2h_total_historico_aprox": "no_verificado",
+          "h2h_en_mundiales_count": 0,
+          "h2h_en_mundiales_detalle": [],
+          "dato_curioso": "Primer enfrentamiento mundialista entre ambas selecciones."
+        }
+      ],
+      "narrativa": {
+        "favorito_data_historica": "Suiza (FIFA #17, 12 participaciones mundialistas, ha pasado la fase de grupos en 3 Mundiales consecutivos)",
+        "segundo_favorito": "Canadá (anfitrión, FIFA #27, jugando en casa por primera vez)",
+        "underdog": "Catar (FIFA #55, sin victoria mundialista en su historia)",
+        "wildcard": "Bosnia y Herzegovina (entró por playoff con momentum, generación Džeko en su último Mundial)",
+        "partido_clave_a_cubrir": "Canadá vs Suiza (24 junio, Vancouver) — partido decisivo por la cabeza del grupo",
+        "datos_curiosos_grupo": [
+          "Tres de las cuatro selecciones (Canadá, Catar, Bosnia) nunca han ganado más de 1 partido mundialista en su historia",
+          "Canadá juega de local por primera vez en la historia",
+          "Catar es la única selección campeón vigente de Asia (Copa Asia 2023)",
+          "Suiza acumula 3 Mundiales seguidos pasando a octavos y siendo eliminada en esa fase"
+        ],
+        "storyline_narrativo": "El Grupo B es el más equilibrado del Mundial en términos de potencial sorpresa. Suiza llega como favorita con Xhaka en su cuarto Mundial y la generación Akanji-Kobel-Rieder. Canadá juega su primer Mundial como anfitrión con Davies recuperándose de lesiones de rodilla. Catar busca redimir su catastrófico 2022 (3 derrotas como anfitrión) en su primera clasificación deportiva real. Bosnia y Herzegovina llega después del playoff europeo donde Edin Džeko marcó el gol que evitó la eliminación vs Gales y luego derribó a Italia en penales — es probablemente el último Mundial del referente bosnio."
+      }
+    },
+    {
+      "id": "C",
+      "sede_principal_apertura": "no_verificado_sede_apertura_grupo",
+      "selecciones": [
+        {
+          "pais": "Brasil",
+          "apodo": "Seleção / Canarinha",
+          "bandera": "🇧🇷",
+          "fifa_ranking_abril_2026": 6,
+          "mundiales_jugados_total": 23,
+          "mejor_resultado_historico": "Campeón (5 títulos: 1958, 1962, 1970, 1994, 2002)",
+          "titulos_mundiales": 5,
+          "dato_unico_historico": "Única selección que ha participado en TODOS los Mundiales sin excepción ni necesidad de repechaje",
+          "goleadores_historicos_mundiales": [
+            {"nombre": "Ronaldo Nazário", "goles": 15, "nota": "Récord histórico brasileño"},
+            {"nombre": "Pelé", "goles": 12},
+            {"nombre": "Ademir / Vavá / Jairzinho", "goles": 9, "nota": "Empatados"},
+            {"nombre": "Neymar", "goles": 8},
+            {"nombre": "Rivaldo", "goles": 8}
+          ],
+          "dt_actual_2026": "Carlo Ancelotti (Italia) — primer DT no brasileño en dirigir a la Seleção en un Mundial",
+          "capitan_2026": "Casemiro",
+          "caso_especial": "Va por su sexta estrella tras 24 años sin ganar (último título: Corea-Japón 2002). Ancelotti llegó por helicóptero a anunciar el plantel.",
+          "datos_curiosos": [
+            "23 participaciones consecutivas — récord absoluto",
+            "Vinícius Júnior es el eje del proyecto Ancelotti",
+            "Neymar fue informado que NO será capitán",
+            "Récord de 5 títulos mundiales, no compartido"
+          ]
+        },
+        {
+          "pais": "Marruecos",
+          "apodo": "Atlas Lions / Leones del Atlas",
+          "bandera": "🇲🇦",
+          "fifa_ranking_abril_2026": 8,
+          "mundiales_jugados_total": 7,
+          "mejor_resultado_historico": "Cuarto puesto (2022) — primera selección africana y árabe en alcanzar semifinales",
+          "titulos_mundiales": 0,
+          "dato_historico_1986": "Primera selección africana en ganar un grupo mundialista y avanzar a octavos",
+          "dt_actual_2026": "Mohamed Ouahbi (sustituye a Walid Regragui, que renunció en marzo 2026)",
+          "capitan_2026": "Achraf Hakimi",
+          "caso_especial": "Llega como semifinalista del Mundial 2022; cambio de DT a 3 meses del Mundial.",
+          "datos_curiosos": [
+            "En 2022 venció a Bélgica (2-0), España (penales) y Portugal (1-0) antes de caer 0-2 con Francia en semis",
+            "Hakimi marcó la 'panenka' decisiva ante España",
+            "Ouahbi llegó tras ganar el Mundial Sub-20 con Marruecos"
+          ]
+        },
+        {
+          "pais": "Haití",
+          "apodo": "Les Grenadiers",
+          "bandera": "🇭🇹",
+          "fifa_ranking_abril_2026": 83,
+          "mundiales_jugados_total": 2,
+          "mundiales_disputados": [1974, 2026],
+          "mejor_resultado_historico": "Fase de grupos (1974, 3 derrotas — pero anotaron gol histórico)",
+          "titulos_mundiales": 0,
+          "dato_historico_1974": "Manuel Sanon marcó vs Italia y terminó la racha de Dino Zoff de 1.142 minutos sin recibir gol",
+          "dt_actual_2026": "no_verificado",
+          "capitan_2026": "no_verificado",
+          "caso_especial": "Vuelve al Mundial 52 años después; única nación caribeña en clasificar a un Mundial.",
+          "datos_curiosos": [
+            "Clasificó tras vencer 2-0 a Nicaragua en Curazao en la última fecha",
+            "Eligió Stockton, NJ, como base de pretemporada"
+          ]
+        },
+        {
+          "pais": "Escocia",
+          "apodo": "Tartan Army (afición) / The Scots",
+          "bandera": "🏴󠁧󠁢󠁳󠁣󠁴󠁿",
+          "fifa_ranking_abril_2026": 43,
+          "mundiales_jugados_total": 9,
+          "mundiales_disputados": [1954, 1958, 1974, 1978, 1982, 1986, 1990, 1998, 2026],
+          "mejor_resultado_historico": "Fase de grupos (nunca ha pasado de primera ronda)",
+          "titulos_mundiales": 0,
+          "racha_eliminaciones": "Eliminado en fase de grupos en sus 8 participaciones previas (a menudo por diferencia de goles)",
+          "dt_actual_2026": "Steve Clarke",
+          "capitan_2026": "Andy Robertson (92 caps — el más experimentado del plantel)",
+          "caso_especial": "Vuelve al Mundial tras 28 años de ausencia (último: Francia 1998). Craig Gordon (43 años) podría ser el segundo jugador más viejo en jugar un Mundial.",
+          "datos_curiosos": [
+            "9 participaciones mundialistas, nunca pasó la fase de grupos",
+            "Eliminada por diferencia de goles en 1974, 1978 y 1982",
+            "John McGinn es figura del medio (20 goles en 85 caps)"
+          ]
+        }
+      ],
+      "enfrentamientos": [
+        {
+          "par": "Brasil_vs_Marruecos",
+          "h2h_total_historico_aprox": "3 partidos (1 victoria cada uno, 1 empate)",
+          "h2h_en_mundiales_count": 1,
+          "h2h_en_mundiales_detalle": [
+            {
+              "año": 1998,
+              "mundial_sede": "Francia",
+              "fase": "Grupo A",
+              "resultado": "Brasil 3-0 Marruecos",
+              "sede_estadio": "Stade de la Beaujoire, Nantes",
+              "goleadores": "Ronaldo, Rivaldo, Bebeto (a confirmar minutos exactos — nota: no_verificado_minutos)"
+            }
+          ],
+          "ultimo_enfrentamiento_conocido": {
+            "fecha": "2023-03-25",
+            "competicion": "Amistoso",
+            "resultado": "Marruecos 2-1 Brasil"
+          },
+          "dato_curioso": "Marruecos venció a Brasil en amistoso 2023 — primera victoria marroquí ante la Seleção en la historia. Único H2H mundialista previo: Francia 1998."
+        },
+        {
+          "par": "Brasil_vs_Haiti",
+          "h2h_total_historico_aprox": "Muy escasos partidos",
+          "h2h_en_mundiales_count": 0,
+          "h2h_en_mundiales_detalle": [],
+          "dato_curioso": "Nunca se han enfrentado en un Mundial. Estuvieron en el mismo torneo en 1974 pero en grupos distintos (Brasil en Grupo 2, Haití en Grupo 4)."
+        },
+        {
+          "par": "Brasil_vs_Escocia",
+          "h2h_total_historico_aprox": "Múltiples partidos, dominio brasileño",
+          "h2h_en_mundiales_count": 4,
+          "h2h_en_mundiales_detalle": [
+            {
+              "año": 1974,
+              "mundial_sede": "Alemania Occidental",
+              "fase": "Primera fase, Grupo 2",
+              "resultado": "Brasil 0-0 Escocia",
+              "nota": "Escocia eliminada por diferencia de goles pese a no perder partido alguno"
+            },
+            {
+              "año": 1982,
+              "mundial_sede": "España",
+              "fase": "Primera fase, Grupo 6",
+              "resultado": "Brasil 4-1 Escocia",
+              "nota": "Brasil con Socrates, Zico, Eder y Falcão"
+            },
+            {
+              "año": 1990,
+              "mundial_sede": "Italia",
+              "fase": "Primera fase, Grupo C",
+              "resultado": "Brasil 1-0 Escocia",
+              "nota": "Müller anotó tras blooper de Jim Leighton"
+            },
+            {
+              "año": 1998,
+              "mundial_sede": "Francia",
+              "fase": "Primera fase, Grupo A (partido inaugural)",
+              "resultado": "Brasil 2-1 Escocia",
+              "nota": "Autogol de Boyd tras rebote en cara de Leighton ante remate de Cafu"
+            }
+          ],
+          "balance_mundialista": {"victorias_brasil": 3, "empates": 1, "victorias_escocia": 0, "goles_brasil": 7, "goles_escocia": 2},
+          "dato_curioso": "Cuarto Mundial consecutivo donde Brasil le gana o empata a Escocia. Ningún país enfrentó tantas veces a Brasil en fase de grupos mundialista sin ganarle nunca."
+        },
+        {
+          "par": "Marruecos_vs_Haiti",
+          "h2h_total_historico_aprox": "no_verificado_total",
+          "h2h_en_mundiales_count": 0,
+          "h2h_en_mundiales_detalle": [],
+          "dato_curioso": "Primer enfrentamiento mundialista entre ambas selecciones."
+        },
+        {
+          "par": "Marruecos_vs_Escocia",
+          "h2h_total_historico_aprox": "1 partido (mundialista)",
+          "h2h_en_mundiales_count": 1,
+          "h2h_en_mundiales_detalle": [
+            {
+              "año": 1998,
+              "mundial_sede": "Francia",
+              "fase": "Grupo A — tercera fecha",
+              "resultado": "Marruecos 3-0 Escocia",
+              "goleadores": ["Bassir 23', 86'", "Hadda 45+2'"],
+              "sede_estadio": "Stade Geoffroy-Guichard, Saint-Étienne"
+            }
+          ],
+          "dato_curioso": "El último H2H mundialista (1998) terminó con paliza marroquí. Pese a la victoria, Marruecos no avanzó porque Noruega ganó a Brasil en simultáneo."
+        },
+        {
+          "par": "Haiti_vs_Escocia",
+          "h2h_total_historico_aprox": "no_verificado_total",
+          "h2h_en_mundiales_count": 0,
+          "h2h_en_mundiales_detalle": [],
+          "dato_curioso": "Primer enfrentamiento mundialista entre ambas selecciones. Será el partido inaugural de ambos en este Mundial."
+        }
+      ],
+      "narrativa": {
+        "favorito_data_historica": "Brasil (5 títulos, FIFA #6, 23ª participación consecutiva — récord absoluto)",
+        "segundo_favorito": "Marruecos (semifinalista 2022, FIFA #8, Hakimi en su prime)",
+        "underdog": "Haití (FIFA #83, 52 años sin Mundial)",
+        "outsider_emocional": "Escocia (28 años sin Mundial, generación Robertson-McTominay)",
+        "partido_clave_a_cubrir": "Brasil vs Escocia — quinto Mundial donde coinciden; Brasil nunca perdió ante Escocia en Mundial (récord: 3-1-0)",
+        "partido_emotivo": "Haití vs Escocia — partido inaugural para ambos; Haití regresa después de 52 años",
+        "datos_curiosos_grupo": [
+          "Brasil suma 23 participaciones consecutivas — récord histórico sin comparación",
+          "Marruecos llega como semifinalista del Mundial 2022 (primera selección africana y árabe en alcanzar esa fase)",
+          "Escocia jamás ha pasado la fase de grupos en sus 8 Mundiales previos",
+          "Haití clasificó por segunda vez en 52 años (última: 1974)",
+          "Brasil y Escocia se enfrentaron en 4 Mundiales seguidos (1974, 1982, 1990, 1998); el 5° es 2026",
+          "Es el primer Mundial de Carlo Ancelotti como entrenador de Brasil — primer DT no brasileño en la historia"
+        ],
+        "storyline_narrativo": "El Grupo C concentra el contraste más extremo del Mundial: el pentacampeón Brasil (única selección presente en todos los Mundiales) comparte sede con Haití (segunda participación en 52 años). Marruecos llega como héroe semifinalista de 2022, pero con un cambio de DT a 3 meses del torneo: Mohamed Ouahbi, ex DT de la Sub-20 campeona, sustituyó a Regragui en marzo 2026. Escocia regresa al Mundial después de 28 años, con su quinto H2H mundialista vs Brasil (récord previo: 0 victorias en 4 partidos). El cruce Brasil-Escocia es estadísticamente el más predecible del Mundial; Marruecos-Brasil es el más emocional (los marroquíes ganaron el último amistoso entre ambos en 2023)."
+      }
+    },
+    {
+      "id": "D",
+      "sede_principal_apertura": "no_verificado_sede_apertura_grupo",
+      "selecciones": [
+        {
+          "pais": "Estados Unidos",
+          "apodo": "USMNT / The Yanks",
+          "bandera": "🇺🇸",
+          "fifa_ranking_abril_2026": 16,
+          "mundiales_jugados_total": 11,
+          "mejor_resultado_historico": "Tercer puesto (1930, semifinal) y cuartos de final (2002)",
+          "titulos_mundiales": 0,
+          "goleadores_historicos_mundiales": [
+            {"nombre": "Landon Donovan", "goles": 5, "nota": "Récord USMNT — 3 Mundiales (2002, 2006, 2010)"},
+            {"nombre": "Clint Dempsey", "goles": 4, "nota": "Primer americano en marcar en 3 Mundiales seguidos"},
+            {"nombre": "Brian McBride", "goles": 4, "nota": "Primer americano en marcar en 2 Mundiales"}
+          ],
+          "dt_actual_2026": "Mauricio Pochettino (Argentina)",
+          "capitan_2026": "Christian Pulisic",
+          "caso_especial": "Co-anfitrión por primera vez desde 1994 (cuando fue único anfitrión).",
+          "datos_curiosos": [
+            "En 1950 venció a Inglaterra 1-0 ('Miracle on Grass')",
+            "Pochettino es el primer DT extranjero del USMNT con CV europeo top",
+            "Pulisic juega por primera vez como capitán mundialista"
+          ]
+        },
+        {
+          "pais": "Paraguay",
+          "apodo": "La Albirroja",
+          "bandera": "🇵🇾",
+          "fifa_ranking_abril_2026": 40,
+          "mundiales_jugados_total": 9,
+          "mundiales_disputados": [1930, 1950, 1958, 1986, 1998, 2002, 2006, 2010, 2026],
+          "mejor_resultado_historico": "Cuartos de final (2010)",
+          "titulos_mundiales": 0,
+          "dt_actual_2026": "Gustavo Alfaro (Argentina)",
+          "capitan_2026": "Gustavo Gómez",
+          "caso_especial": "Vuelve al Mundial tras 16 años (último: 2010 con cuartos). Alfaro logró clasificación con 6to puesto CONMEBOL.",
+          "datos_curiosos": [
+            "En el Mundial inaugural 1930 perdió 0-3 vs USA, su único H2H mundialista",
+            "Su gran 2010: ganó grupo con 5 puntos y eliminó a Japón en penales en octavos",
+            "Junior Alonso y Cáceres son las bandas; Gómez (Palmeiras) capitanea"
+          ]
+        },
+        {
+          "pais": "Australia",
+          "apodo": "Socceroos",
+          "bandera": "🇦🇺",
+          "fifa_ranking_abril_2026": 27,
+          "mundiales_jugados_total": 7,
+          "mundiales_disputados": [1974, 2006, 2010, 2014, 2018, 2022, 2026],
+          "mejor_resultado_historico": "Octavos de final (2006 y 2022)",
+          "titulos_mundiales": 0,
+          "dt_actual_2026": "Tony Popovic",
+          "capitan_2026": "no_verificado",
+          "caso_especial": "Quinto Mundial consecutivo (clasifica desde 2006). En 2022 venció a Túnez y Dinamarca antes de caer 2-1 con Argentina en octavos.",
+          "datos_curiosos": [
+            "En 1974 (debut) no marcó goles en 3 partidos (era equipo amateur)",
+            "En Alemania 2006 cayó 1-0 ante Italia en octavos por penal de Totti al 95'",
+            "Popovic reemplazó a Graham Arnold en septiembre 2024"
+          ]
+        },
+        {
+          "pais": "Turquía",
+          "apodo": "Ay-Yıldızlılar (Estrellas de la Media Luna)",
+          "bandera": "🇹🇷",
+          "fifa_ranking_abril_2026": 22,
+          "mundiales_jugados_total": 4,
+          "mundiales_disputados": [1950, 1954, 2002, 2026],
+          "mejor_resultado_historico": "Tercer puesto (2002)",
+          "titulos_mundiales": 0,
+          "dato_historico_2002": "Hakan Şükür marcó el gol más rápido en historia mundialista (10.8 seg vs Corea del Sur en partido por el 3er puesto)",
+          "dt_actual_2026": "Vincenzo Montella (Italia)",
+          "capitan_2026": "no_verificado",
+          "caso_especial": "Vuelve al Mundial tras 24 años de ausencia (último: 2002 con bronce). Clasificó tras playoff venciendo a Rumania (1-0) y Kosovo (1-0).",
+          "datos_curiosos": [
+            "En su debut 1954 venció 7-0 a Corea del Sur, pero quedó eliminada",
+            "Montella firmó hasta junio 2028",
+            "Bronce histórico en Corea/Japón 2002 con Şükür, Hasan Şaş, Emre Belozoglu"
+          ]
+        }
+      ],
+      "enfrentamientos": [
+        {
+          "par": "USA_vs_Paraguay",
+          "h2h_total_historico_aprox": "8 partidos (USA: 4 victorias, 2 empates, 2 derrotas)",
+          "h2h_en_mundiales_count": 1,
+          "h2h_en_mundiales_detalle": [
+            {
+              "año": 1930,
+              "mundial_sede": "Uruguay (primer Mundial de la historia)",
+              "fase": "Grupo 4",
+              "resultado": "Estados Unidos 3-0 Paraguay",
+              "goleadores": ["Bert Patenaude — primer hat-trick oficial reconocido en la historia de los Mundiales"],
+              "sede_estadio": "Estadio Parque Central, Montevideo",
+              "nota": "Hat-trick de Patenaude originalmente atribuido a Tom Florie; FIFA lo reconoció oficialmente en 2006"
+            }
+          ],
+          "ultimo_enfrentamiento_conocido": {
+            "fecha": "2025-11-15",
+            "competicion": "Amistoso",
+            "resultado": "USA 2-1 Paraguay"
+          },
+          "dato_curioso": "Único H2H mundialista previo fue el primer hat-trick oficial en la historia del Mundial (Patenaude, 1930). Volvieron a enfrentarse 67 años después tras 1930 (empate 1997). Es el partido apertura del grupo en 2026."
+        },
+        {
+          "par": "USA_vs_Australia",
+          "h2h_total_historico_aprox": "3 partidos desde 2010 (USA: 2 victorias, Australia: 1)",
+          "h2h_en_mundiales_count": 0,
+          "h2h_en_mundiales_detalle": [],
+          "ultimo_enfrentamiento_conocido": {
+            "fecha": "2025-10-14",
+            "competicion": "Amistoso",
+            "resultado": "USA 2-1 Australia",
+            "nota": "Doblete de Haji Wright"
+          },
+          "dato_curioso": "Primer enfrentamiento mundialista entre ambas selecciones."
+        },
+        {
+          "par": "USA_vs_Turquia",
+          "h2h_total_historico_aprox": "Múltiples partidos, ninguno en Mundiales",
+          "h2h_en_mundiales_count": 0,
+          "h2h_en_mundiales_detalle": [],
+          "dato_curioso": "Estuvieron simultáneamente en el Mundial 2002 (USA en Grupo D, Turquía en Grupo C — Turquía bronce, USA cuartos). Es el primer cruce mundialista directo."
+        },
+        {
+          "par": "Paraguay_vs_Australia",
+          "h2h_total_historico_aprox": "1 partido amistoso (2010)",
+          "h2h_en_mundiales_count": 0,
+          "h2h_en_mundiales_detalle": [],
+          "ultimo_enfrentamiento_conocido": {
+            "fecha": "2010-10-09",
+            "competicion": "Amistoso",
+            "resultado": "Australia ganó (marcador exacto: no_verificado)"
+          },
+          "dato_curioso": "Primer enfrentamiento mundialista entre ambas selecciones."
+        },
+        {
+          "par": "Paraguay_vs_Turquia",
+          "h2h_total_historico_aprox": "2 partidos (1 empate, 1 victoria paraguaya)",
+          "h2h_en_mundiales_count": 0,
+          "h2h_en_mundiales_detalle": [],
+          "dato_curioso": "Primer enfrentamiento mundialista entre ambas selecciones."
+        },
+        {
+          "par": "Australia_vs_Turquia",
+          "h2h_total_historico_aprox": "3 partidos (Turquía: 2 victorias, 1 empate)",
+          "h2h_en_mundiales_count": 0,
+          "h2h_en_mundiales_detalle": [],
+          "dato_curioso": "Primer enfrentamiento mundialista entre ambas selecciones. Turquía nunca ha perdido vs Australia (2-1-0)."
+        }
+      ],
+      "narrativa": {
+        "favorito_data_historica": "Estados Unidos (anfitrión, FIFA #16, Pochettino al mando, generación Pulisic-Reyna-Weah-Adams)",
+        "segundo_favorito": "Turquía (FIFA #22, bronce 2002, regreso tras 24 años con Montella)",
+        "tercer_favorito": "Australia (FIFA #27, 5 Mundiales seguidos, octavos en 2022)",
+        "underdog": "Paraguay (FIFA #40, vuelve tras 16 años, pero con Alfaro venció a Brasil y Argentina en eliminatorias)",
+        "partido_clave_a_cubrir": "USA vs Paraguay — partido inaugural; único H2H mundialista previo es el primer hat-trick de la historia (1930)",
+        "datos_curiosos_grupo": [
+          "Es el grupo con menos H2H mundialistas previos: solo USA-Paraguay (1930) tiene precedente",
+          "Tres de las cuatro selecciones (Paraguay, Australia, Turquía) regresan al Mundial tras al menos 16 años de ausencia (Australia es la excepción con racha consecutiva)",
+          "Pochettino es el primer DT argentino del USMNT en la historia",
+          "Montella firmó extensión de Turquía hasta 2028 — antes del Mundial",
+          "Alfaro logró clasificar a Paraguay tras vencer a Brasil y Argentina en eliminatorias"
+        ],
+        "storyline_narrativo": "El Grupo D es el grupo de los regresos: tres de cuatro selecciones vuelven al Mundial tras largas ausencias (Paraguay 16 años, Turquía 24 años, USA juega como anfitrión por primera vez desde 1994). Estados Unidos llega con Pochettino al mando — primer DT extranjero del USMNT con CV europeo top — y Pulisic como capitán por primera vez en un Mundial. Turquía regresa después del bronce de 2002 (cuando Hakan Şükür anotó el gol más rápido de la historia mundialista, 10.8 segundos). Paraguay vuelve después de su gran 2010 cuando llegó a cuartos. Australia llega con su quinta clasificación consecutiva y la experiencia de octavos en 2022. El cruce USA-Paraguay tiene el sello histórico más curioso del Mundial: el único H2H previo entre ambos fue el primer hat-trick oficial de la historia (Bert Patenaude, 1930)."
+      }
+    }
+  ]
+}

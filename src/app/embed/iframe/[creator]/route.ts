@@ -204,7 +204,7 @@ function renderCard(
       <svg width="10" height="10" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0" width="6" height="24" fill="#C41C1C"/><text x="14" y="19" font-family="Georgia,serif" font-size="18" font-weight="700" fill="white" text-anchor="middle">N</text></svg>
       Nebbuler
     </a>
-    <a href="https://nebbuler.com/abrir?ref=embed-widget" target="_top" rel="noopener" style="color:#C41C1C;text-decoration:none;font-size:9px;font-weight:600;letter-spacing:.06em;text-transform:uppercase">Abrí tu sala →</a>
+    <a href="https://nebbuler.com/abrir?ref=embed-widget" target="_top" rel="noopener" style="color:#C41C1C;text-decoration:none;font-size:9px;font-weight:600;letter-spacing:.06em;text-transform:uppercase">Abre tu sala →</a>
   </div>
 </div>
 <script>

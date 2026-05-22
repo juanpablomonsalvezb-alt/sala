@@ -183,7 +183,7 @@ nebbuler.com/para-creadores`,
     text: `Para los abogados que leen esto:
 
 Cada reforma tributaria que explicás en redes vale dinero.
-Cada alerta laboral que compartís en grupos vale dinero.
+Cada alerta laboral que compartes en grupos vale dinero.
 Cada análisis de jurisprudencia que redactás "gratis" vale dinero.
 
 150 empresas suscriptas a $100.000 COP/mes = $15.000.000 mensuales.

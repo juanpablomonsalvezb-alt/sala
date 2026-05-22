@@ -110,13 +110,13 @@ export default async function GuiaPage({
         '@type': 'HowToStep',
         position: 1,
         name: `Identificá tu nicho como ${guide.profession}`,
-        text: `Como ${guide.profession}, tu conocimiento más valioso es el que muy pocos pueden ofrecer y muchos necesitan. Definí 1-2 sub-temas donde sos experto y tu audiencia tiene dolor real.`,
+        text: `Como ${guide.profession}, tu conocimiento más valioso es el que muy pocos pueden ofrecer y muchos necesitan. Define 1-2 sub-temas donde eres experto y tu audiencia tiene dolor real.`,
       },
       {
         '@type': 'HowToStep',
         position: 2,
-        name: 'Abrí tu sala en Nebbuler',
-        text: 'Creá tu perfil profesional en Nebbuler en menos de 5 minutos. Definí el precio mensual en tu moneda local (COP, MXN, ARS, PEN, CLP).',
+        name: 'Abre tu sala en Nebbuler',
+        text: 'Crea tu perfil profesional en Nebbuler en menos de 5 minutos. Define el precio mensual en tu moneda local (COP, MXN, ARS, PEN, CLP).',
         url: 'https://nebbuler.com/abrir',
       },
       {

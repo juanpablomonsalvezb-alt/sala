@@ -1,0 +1,168 @@
+name: 'Nebbuler Mundial 2026 Action'
+description: 'Inserta tabla de fixtures + datos del Mundial 2026 + badge "Powered by Nebbuler" en el README de tu repo. Datos CC-BY 4.0.'
+author: 'Juan Pablo Monsalvez · Nebbuler'
+
+branding:
+  icon: 'flag'
+  color: 'red'
+
+inputs:
+  seleccion:
+    description: 'Slug de la selección a destacar: argentina, brasil, mexico, colombia, uruguay, ecuador, chile, peru'
+    required: false
+    default: 'argentina'
+
+  output_file:
+    description: 'Archivo donde insertar el contenido (default: README.md)'
+    required: false
+    default: 'README.md'
+
+  start_marker:
+    description: 'Marcador de inicio en el archivo (default: <!-- NEBBULER:MUNDIAL:START -->)'
+    required: false
+    default: '<!-- NEBBULER:MUNDIAL:START -->'
+
+  end_marker:
+    description: 'Marcador de fin en el archivo (default: <!-- NEBBULER:MUNDIAL:END -->)'
+    required: false
+    default: '<!-- NEBBULER:MUNDIAL:END -->'
+
+  show_badge:
+    description: 'Mostrar badge "Powered by Nebbuler"'
+    required: false
+    default: 'true'
+
+  show_grupos:
+    description: 'Mostrar tabla con todos los 12 grupos'
+    required: false
+    default: 'true'
+
+  show_seleccion:
+    description: 'Mostrar tarjeta de la selección destacada'
+    required: false
+    default: 'true'
+
+  show_calculadora:
+    description: 'Mostrar link a calculadora de creadores'
+    required: false
+    default: 'true'
+
+  api_base:
+    description: 'Override API base URL (default: https://nebbuler.com/api/mundial/v1)'
+    required: false
+    default: 'https://nebbuler.com/api/mundial/v1'
+
+outputs:
+  content:
+    description: 'El bloque markdown generado'
+    value: ${{ steps.generate.outputs.content }}
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Generate Mundial markdown block
+      id: generate
+      shell: bash
+      run: |
+        set -euo pipefail
+        API="${{ inputs.api_base }}"
+        SELECCION="${{ inputs.seleccion }}"
+        SHOW_BADGE="${{ inputs.show_badge }}"
+        SHOW_GRUPOS="${{ inputs.show_grupos }}"
+        SHOW_SELECCION="${{ inputs.show_seleccion }}"
+        SHOW_CALCULADORA="${{ inputs.show_calculadora }}"
+
+        TMP="$(mktemp)"
+
+        # Badge
+        if [ "$SHOW_BADGE" = "true" ]; then
+          echo "[![Powered by Nebbuler · Mundial 2026](https://img.shields.io/badge/Powered_by-Nebbuler_·_Mundial_2026-C41C1C?style=flat-square)](https://nebbuler.com/mundial?utm_source=github-action)" >> "$TMP"
+          echo "" >> "$TMP"
+        fi
+
+        # Selección destacada
+        if [ "$SHOW_SELECCION" = "true" ]; then
+          SEL_JSON=$(curl -fsSL "${API}/selecciones/${SELECCION}" || echo '{}')
+          if [ "$SEL_JSON" != "{}" ]; then
+            PAIS=$(echo "$SEL_JSON" | python3 -c 'import json,sys; print(json.load(sys.stdin).get("pais",""))')
+            APODO=$(echo "$SEL_JSON" | python3 -c 'import json,sys; print(json.load(sys.stdin).get("apodo",""))')
+            BANDERA=$(echo "$SEL_JSON" | python3 -c 'import json,sys; print(json.load(sys.stdin).get("bandera",""))')
+            MONEDA=$(echo "$SEL_JSON" | python3 -c 'import json,sys; print(json.load(sys.stdin).get("moneda",""))')
+            echo "## ${BANDERA} ${PAIS} en el Mundial 2026" >> "$TMP"
+            echo "" >> "$TMP"
+            echo "**${APODO}** · Pagos en **${MONEDA}** · Comisión durante el Mundial: **0%**" >> "$TMP"
+            echo "" >> "$TMP"
+            echo "[Ver creadores destacados →](https://nebbuler.com/mundial/${SELECCION}?utm_source=github-action)" >> "$TMP"
+            echo "" >> "$TMP"
+          fi
+        fi
+
+        # Grupos
+        if [ "$SHOW_GRUPOS" = "true" ]; then
+          GRUPOS_JSON=$(curl -fsSL "${API}/grupos" || echo '{"grupos":[]}')
+          echo "### Grupos del Mundial 2026" >> "$TMP"
+          echo "" >> "$TMP"
+          echo "| Grupo | Selecciones |" >> "$TMP"
+          echo "|-------|-------------|" >> "$TMP"
+          echo "$GRUPOS_JSON" | python3 <<'PY' >> "$TMP"
+        import json, sys
+        d = json.load(sys.stdin)
+        for g in d.get("grupos", []):
+            sels = " · ".join(g.get("selecciones", []))
+            gid = g.get("id","?")
+            print(f"| **{gid}** | {sels} |")
+        PY
+          echo "" >> "$TMP"
+        fi
+
+        # Calculadora
+        if [ "$SHOW_CALCULADORA" = "true" ]; then
+          echo "### Sos creador deportivo LATAM?" >> "$TMP"
+          echo "" >> "$TMP"
+          echo "[Calculá cuánto te quita Substack vs Nebbuler durante el Mundial →](https://nebbuler.com/mundial?utm_source=github-action)" >> "$TMP"
+          echo "" >> "$TMP"
+          echo "_Datos por [Nebbuler](https://nebbuler.com) · CC-BY 4.0_" >> "$TMP"
+        fi
+
+        CONTENT=$(cat "$TMP")
+        {
+          echo 'content<<EOF_CONTENT'
+          echo "$CONTENT"
+          echo 'EOF_CONTENT'
+        } >> "$GITHUB_OUTPUT"
+
+        echo "Generated content:"
+        echo "----------------"
+        cat "$TMP"
+        echo "----------------"
+
+    - name: Update target file if exists
+      shell: bash
+      env:
+        OUTPUT_FILE: ${{ inputs.output_file }}
+        START_MARKER: ${{ inputs.start_marker }}
+        END_MARKER: ${{ inputs.end_marker }}
+        CONTENT: ${{ steps.generate.outputs.content }}
+      run: |
+        set -euo pipefail
+        if [ ! -f "$OUTPUT_FILE" ]; then
+          echo "Output file $OUTPUT_FILE does not exist. Skipping inline update — content available via outputs.content."
+          exit 0
+        fi
+        if ! grep -q "$START_MARKER" "$OUTPUT_FILE" || ! grep -q "$END_MARKER" "$OUTPUT_FILE"; then
+          echo "Markers not found in $OUTPUT_FILE. Add these two lines where you want the block:"
+          echo "  $START_MARKER"
+          echo "  $END_MARKER"
+          exit 0
+        fi
+        python3 - "$OUTPUT_FILE" "$START_MARKER" "$END_MARKER" <<PY
+        import sys, re
+        path, start, end = sys.argv[1], sys.argv[2], sys.argv[3]
+        content = open(path, 'r', encoding='utf-8').read()
+        new_block = """$START_MARKER
+$CONTENT
+$END_MARKER"""
+        new = re.sub(re.escape(start) + r'.*?' + re.escape(end), new_block.replace('\\\\','\\\\\\\\'), content, flags=re.DOTALL)
+        open(path, 'w', encoding='utf-8').write(new)
+        print(f"Updated {path} between markers.")
+        PY

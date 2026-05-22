@@ -1,0 +1,668 @@
+{
+  "meta": {
+    "updated_at": "2026-05-22",
+    "version": "1.0.0",
+    "tournament": "FIFA World Cup 2026 (Canada, Mexico, USA)",
+    "notes": "FIFA no publica los montos oficiales de los acuerdos de sponsoreo. Los valores listados provienen de estimaciones de prensa especializada (Bloomberg, FT, SportBusiness, GlobalData Sport, Sportcal, SportsPro). Cuando un monto no es público se marca como 'no_publico'. Cuando es una estimación derivada, se marca 'estimado' y se cita la fuente. Todos los montos están en USD.",
+    "fuentes_principales": [
+      "FIFA Inside (inside.fifa.com) — comunicados oficiales",
+      "SportBusiness — leaks y reportes de la industria",
+      "GlobalData Sport — valoraciones de patrocinios",
+      "Sportcal — base de datos de derechos",
+      "Sponsorship Marketing Association — proyecciones 2026",
+      "SportsPro Media — análisis comercial Mundiales",
+      "Bloomberg / Financial Times — coberturas de acuerdos",
+      "Sports Value — proyección ingresos Mundial 2026 (US$10.9B totales)",
+      "Original Football Substack — desglose tier por tier 2026",
+      "Zappi — listado oficial por tier 2026",
+      "Statista — share de patrocinios Mundial 2022"
+    ],
+    "rango_oficial_fifa": {
+      "tier1_partners_ciclo_4_anios_usd": "150M-250M (estimado prensa especializada)",
+      "tier1_partners_anual_usd": "37M-100M",
+      "tier2_world_cup_sponsors_usd_por_torneo": "65M-95M",
+      "tier3_regional_supporters_usd_por_torneo": "10M-30M"
+    },
+    "ingresos_totales_proyectados": {
+      "mundial_2026_revenue_total_usd": 10900000000,
+      "mundial_2026_sponsorship_marketing_usd": 2693000000,
+      "mundial_2026_broadcast_usd": 3920000000,
+      "mundial_2026_ticketing_hospitality_usd": 3097000000,
+      "fuente": "FIFA + Sports Value + Ampere Analysis"
+    }
+  },
+  "categorias": {
+    "fifa_partners": [
+      {
+        "id": "adidas",
+        "nombre": "Adidas",
+        "sector": "Indumentaria deportiva / Balón oficial",
+        "pais_origen": "Alemania",
+        "categoria_fifa": "FIFA Partner",
+        "vigencia_contrato": "1970 — 2030",
+        "monto_estimado_usd": 1000000000,
+        "monto_periodo": "ciclo de extension hasta 2030 (estimado SportBusiness / Hollywood Reporter)",
+        "monto_anual_estimado_usd": 100000000,
+        "estado_dato": "estimado_prensa",
+        "activaciones_2026": [
+          "Balón oficial del torneo",
+          "Uniformes de árbitros, voluntarios y staff FIFA",
+          "Licencia exclusiva de merchandising oficial",
+          "Predator / X Speedportal campañas",
+          "7 selecciones equipadas (entre ellas Argentina, México, Alemania, España)"
+        ],
+        "fuentes": [
+          "https://www.hollywoodreporter.com/business/business-news/adidas-extends-fifa-merchandising-deal-658563/",
+          "https://hungrytimes.com/business/adidas-fifa-sponsorship-2026-world-cup/",
+          "https://inside.fifa.com/tournament-organisation/partners/adidas"
+        ]
+      },
+      {
+        "id": "coca_cola",
+        "nombre": "Coca-Cola Company",
+        "sector": "Bebidas no alcohólicas",
+        "pais_origen": "Estados Unidos",
+        "categoria_fifa": "FIFA Partner",
+        "vigencia_contrato": "1978 — 2030 (renovado 2023 por 7 años)",
+        "monto_estimado_usd": 400000000,
+        "monto_periodo": "contrato 7 años 2023-2030 (GlobalData Sport)",
+        "monto_anual_estimado_usd": 57140000,
+        "monto_por_ciclo_mundial_usd": 70000000,
+        "estado_dato": "estimado_prensa",
+        "activaciones_2026": [
+          "Trophy Tour por las 16 ciudades sede",
+          "Activaciones en 22 mercados de Norteamérica",
+          "Campaña 'Magia es estar ahí'",
+          "Patrocinio del FIFA Fan Festival en host cities"
+        ],
+        "fuentes": [
+          "https://www.chiefmarketer.com/coca-cola-extends-long-terms-partnership-with-fifa/",
+          "https://www.coca-colacompany.com/media-center/coca-cola-company-confirmed-for-fifa-club-world-cup-2025"
+        ]
+      },
+      {
+        "id": "visa",
+        "nombre": "Visa",
+        "sector": "Servicios financieros / pagos",
+        "pais_origen": "Estados Unidos",
+        "categoria_fifa": "FIFA Partner",
+        "vigencia_contrato": "2007 — 2030 (extendido enero 2024)",
+        "monto_estimado_usd": "no_publico",
+        "monto_anual_estimado_usd": "estimado en rango Tier 1 (37M-100M USD/anual)",
+        "estado_dato": "no_publico",
+        "activaciones_2026": [
+          "Procesador de pagos exclusivo de FIFA",
+          "Acceso prioritario a ventana de tickets",
+          "Activación 'Visa Live Pass' para fans",
+          "Patrocinador FIFA Women's Champions Cup 2026"
+        ],
+        "fuentes": [
+          "https://inside.fifa.com/media-releases/fifa-extends-global-partnership-with-visa-including-fifa-world-cup-2026-tm",
+          "https://usa.visa.com/about-visa/sponsorships-promotions/fifa-world-cup-partnerships.html"
+        ]
+      },
+      {
+        "id": "hyundai_kia",
+        "nombre": "Hyundai-Kia",
+        "sector": "Automotriz / Mobility",
+        "pais_origen": "Corea del Sur",
+        "categoria_fifa": "FIFA Partner",
+        "vigencia_contrato": "1999 — 2030 (renovado mayo 2023)",
+        "monto_estimado_usd": 220000000,
+        "monto_periodo": "ciclo previo 2015-2022 (GlobalData Sport)",
+        "monto_anual_estimado_usd": 27500000,
+        "estado_dato": "estimado_prensa_ciclo_anterior",
+        "activaciones_2026": [
+          "Flota oficial de vehículos para FIFA y selecciones",
+          "Showcase de Boston Dynamics + Supernal (mobility del futuro)",
+          "Campaña 'Goal of the Century'",
+          "Hyundai eMobility en host cities"
+        ],
+        "fuentes": [
+          "https://www.hyundai.com/worldwide/en/newsroom/detail/hyundai-and-kia-renew-fifa-partnerships-through-2030,-boston-dynamics-and-supernal-to-show-future-mobility-solutions-0000000253",
+          "https://www.sportcal.com/sponsorship/fifa-extends-with-hyundai-and-kia-until-2030/"
+        ]
+      },
+      {
+        "id": "qatar_airways",
+        "nombre": "Qatar Airways",
+        "sector": "Aerolínea",
+        "pais_origen": "Qatar",
+        "categoria_fifa": "FIFA Partner",
+        "vigencia_contrato": "2017 — 2030 (extendido noviembre 2023)",
+        "monto_estimado_usd": "no_publico",
+        "monto_anual_estimado_usd": "no_publico para FIFA en particular; portfolio global Qatar Airways en futbol ~167M EUR/año",
+        "estado_dato": "no_publico",
+        "activaciones_2026": [
+          "Aerolínea oficial del torneo",
+          "Logística aérea de selecciones y staff FIFA",
+          "Activación FIFA Connect"
+        ],
+        "fuentes": [
+          "https://inside.fifa.com/tournament-organisation/commercial/media-releases/fifa-renews-longstanding-partnership-with-qatar-airways-extending-through-to-2030",
+          "https://arthnova.com/qatar-airways-football-sponsor-550m-uefa-deal/"
+        ]
+      },
+      {
+        "id": "aramco",
+        "nombre": "Saudi Aramco",
+        "sector": "Energía / Petróleo (estatal)",
+        "pais_origen": "Arabia Saudita",
+        "categoria_fifa": "FIFA Partner (Major Worldwide Partner)",
+        "vigencia_contrato": "2024 — 2027 (4 años) + extensiones a Mundial 2030 negociandose",
+        "monto_estimado_usd": 400000000,
+        "monto_periodo": "4 años 2024-2027 (reportado 100M USD/año por Reuters/SportBusiness)",
+        "monto_anual_estimado_usd": 100000000,
+        "estado_dato": "estimado_prensa",
+        "activaciones_2026": [
+          "Sponsor exclusivo en categoria energía",
+          "FIFA Intercontinental Cup 2024-2025 (presenting partner)",
+          "Sponsor oficial FIFA Women's Champions Cup 2026",
+          "Campañas STEM con FIFA Foundation"
+        ],
+        "controversias": [
+          "Grupos de fans (Fossil Free Football) piden a FIFA terminar el acuerdo por sportswashing y greenwashing",
+          "Criticado por grupos LGBTQ+ por leyes de Arabia Saudita",
+          "Cuestionado por huella de carbono inconsistente con compromisos climáticos FIFA"
+        ],
+        "fuentes": [
+          "https://inside.fifa.com/tournament-organisation/commercial/media-releases/aramco-and-fifa-announce-global-partnership",
+          "https://www.fossilfreefootball.org/2025/11/28/fifa-and-aramco-factsheet/",
+          "https://www.insideworldfootball.com/2025/10/02/criticism-fifas-aramco-sponsorship-amplifies-ahead-2026-world-cup/"
+        ]
+      },
+      {
+        "id": "lenovo",
+        "nombre": "Lenovo",
+        "sector": "Tecnología / Hardware empresarial",
+        "pais_origen": "China",
+        "categoria_fifa": "FIFA Partner (Official Technology Partner)",
+        "vigencia_contrato": "2024 — 2029 (anunciado octubre 2024)",
+        "monto_estimado_usd": "no_publico",
+        "monto_anual_estimado_usd": "estimado en rango Tier 1 (37M-100M USD/anual)",
+        "estado_dato": "no_publico",
+        "activaciones_2026": [
+          "Provedor oficial de infraestructura tecnológica FIFA",
+          "ThinkPad, tablets, Motorola, servidores en todas las sedes",
+          "Football AI Pro: plataforma de inteligencia artificial para análisis táctico",
+          "Reemplaza el rol histórico de Sony/Hisense en tech"
+        ],
+        "fuentes": [
+          "https://news.lenovo.com/pressroom/press-releases/official-fifa-technology-partner-tw2024/",
+          "https://www.sportico.com/business/sponsorship/2024/fifa-lenovo-global-tech-partner-world-cup-1234801312/",
+          "https://www.sportbusiness.com/news/lenovo-claims-seventh-fifa-partner-position/"
+        ]
+      },
+      {
+        "id": "wanda_group",
+        "nombre": "Wanda Group (Dalian Wanda)",
+        "sector": "Real Estate / Conglomerado / Entretenimiento",
+        "pais_origen": "China",
+        "categoria_fifa": "FIFA Partner (status disputado)",
+        "vigencia_contrato": "2016 — 2030 (con disputa por pagos atrasados en 2024)",
+        "monto_estimado_usd": 791980000,
+        "monto_periodo": "ciclo 2016-2030 (estimado GlobalData Sport ~56.57M USD/año)",
+        "monto_anual_estimado_usd": 56570000,
+        "estado_dato": "estimado_prensa_con_disputa_activa",
+        "activaciones_2026": [
+          "Activaciones reducidas tras disputa por pagos atrasados (marzo 2024, SportBusiness)",
+          "FIFA suspendió temporalmente activación de derechos"
+        ],
+        "notas": "FIFA dejó de activar los derechos de Wanda en marzo 2024 por pagos faltantes. Status oficial al Mundial 2026 sigue como FIFA Partner pero con presencia comercial muy reducida.",
+        "fuentes": [
+          "https://www.sportbusiness.com/news/exclusive-fifa-withdraws-wanda-sponsorship-rights-over-missed-payments/",
+          "https://www.globaldata.com/media/sport/fifa-wanda-group-partnership-largest-annual-sponsorship-deal-construction-real-estate-sector-reveals-globaldata/"
+        ]
+      }
+    ],
+    "fifa_world_cup_sponsors": [
+      {
+        "id": "ab_inbev",
+        "nombre": "Anheuser-Busch InBev (Budweiser)",
+        "sector": "Bebidas alcohólicas / Cerveza",
+        "pais_origen": "Bélgica / EE.UU.",
+        "categoria_fifa": "FIFA World Cup Sponsor",
+        "vigencia_contrato": "Relación de ~40 años; ciclo 2026",
+        "monto_estimado_usd": 75000000,
+        "monto_periodo": "rango Tier 2 (65M-95M USD por torneo)",
+        "estado_dato": "estimado_rango_tier",
+        "activaciones_2026": [
+          "Budweiser, Michelob Ultra, Modelo, Stella Artois como marcas activas",
+          "Cerveza oficial del torneo",
+          "FIFA Fan Festival en host cities norteamericanas",
+          "'Bring Home the Cup' campaign global"
+        ],
+        "fuentes": [
+          "https://originalfootball.substack.com/p/world-cup-2026-sponsors-whos-paying",
+          "https://www.zappi.io/web/blog/complete-list-of-brands-behind-the-2026-fifa-world-cup-official-sponsors/"
+        ]
+      },
+      {
+        "id": "bank_of_america",
+        "nombre": "Bank of America",
+        "sector": "Banca / Servicios financieros",
+        "pais_origen": "Estados Unidos",
+        "categoria_fifa": "FIFA World Cup Sponsor",
+        "vigencia_contrato": "Anunciado agosto 2024 para Mundial 2026",
+        "monto_estimado_usd": 80000000,
+        "monto_periodo": "rango Tier 2 (65M-95M USD por torneo)",
+        "estado_dato": "estimado_rango_tier",
+        "activaciones_2026": [
+          "Primer sponsor global FIFA categoría bancaria (no payment processing)",
+          "Programas de inclusión financiera en host cities",
+          "Acceso prioritario a tickets para clientes premium"
+        ],
+        "fuentes": [
+          "https://originalfootball.substack.com/p/world-cup-2026-sponsors-whos-paying"
+        ]
+      },
+      {
+        "id": "frito_lay",
+        "nombre": "Frito-Lay (PepsiCo)",
+        "sector": "Snacks / Alimentos",
+        "pais_origen": "Estados Unidos",
+        "categoria_fifa": "FIFA World Cup Sponsor",
+        "vigencia_contrato": "Activo, upgrade para 2026",
+        "monto_estimado_usd": 75000000,
+        "monto_periodo": "rango Tier 2 (65M-95M USD por torneo)",
+        "estado_dato": "estimado_rango_tier",
+        "activaciones_2026": [
+          "Lay's, Doritos, Cheetos como marcas oficiales de snacks",
+          "Campañas con embajadores futbolistas",
+          "Promociones in-pack con tickets y experiencias"
+        ],
+        "fuentes": [
+          "https://www.zappi.io/web/blog/complete-list-of-brands-behind-the-2026-fifa-world-cup-official-sponsors/"
+        ]
+      },
+      {
+        "id": "hisense",
+        "nombre": "Hisense",
+        "sector": "Electrónica de consumo / Televisores",
+        "pais_origen": "China",
+        "categoria_fifa": "FIFA World Cup Sponsor",
+        "vigencia_contrato": "Renovado para Mundial 2026 (sponsor desde 2018)",
+        "monto_estimado_usd": 75000000,
+        "monto_periodo": "rango Tier 2 (65M-95M USD por torneo)",
+        "estado_dato": "estimado_rango_tier",
+        "activaciones_2026": [
+          "Pantallas oficiales de las sedes",
+          "Patrocinio de la transmisión VAR oficial",
+          "Campaña global con embajadores"
+        ],
+        "fuentes": [
+          "https://www.zappi.io/web/blog/complete-list-of-brands-behind-the-2026-fifa-world-cup-official-sponsors/"
+        ]
+      },
+      {
+        "id": "mcdonalds",
+        "nombre": "McDonald's",
+        "sector": "Restauración rápida",
+        "pais_origen": "Estados Unidos",
+        "categoria_fifa": "FIFA World Cup Sponsor",
+        "vigencia_contrato": "Desde 1994; renovado para 2026",
+        "monto_estimado_usd": 75000000,
+        "monto_periodo": "rango Tier 2 (65M-95M USD por torneo)",
+        "estado_dato": "estimado_rango_tier",
+        "activaciones_2026": [
+          "Player Escort Programme (niños que acompañan a jugadores)",
+          "FIFA Fantasy con McDonald's",
+          "Promociones in-store globales"
+        ],
+        "fuentes": [
+          "https://originalfootball.substack.com/p/world-cup-2026-sponsors-whos-paying"
+        ]
+      },
+      {
+        "id": "mengniu",
+        "nombre": "Mengniu Dairy",
+        "sector": "Lácteos",
+        "pais_origen": "China",
+        "categoria_fifa": "FIFA World Cup Sponsor",
+        "vigencia_contrato": "Renovado de ciclo Qatar 2022",
+        "monto_estimado_usd": 75000000,
+        "monto_periodo": "rango Tier 2 (65M-95M USD por torneo)",
+        "estado_dato": "estimado_rango_tier",
+        "activaciones_2026": [
+          "Marca principal de lácteos del torneo",
+          "Campañas de nutrición con FIFA Foundation",
+          "Distribución en host cities asiáticas (China principalmente)"
+        ],
+        "fuentes": [
+          "https://www.zappi.io/web/blog/complete-list-of-brands-behind-the-2026-fifa-world-cup-official-sponsors/"
+        ]
+      },
+      {
+        "id": "unilever",
+        "nombre": "Unilever (Dove Men+Care)",
+        "sector": "Cuidado personal / Consumo masivo",
+        "pais_origen": "Reino Unido / Países Bajos",
+        "categoria_fifa": "FIFA World Cup Sponsor",
+        "vigencia_contrato": "Activo para 2026",
+        "monto_estimado_usd": 75000000,
+        "monto_periodo": "rango Tier 2 (65M-95M USD por torneo)",
+        "estado_dato": "estimado_rango_tier",
+        "activaciones_2026": [
+          "Dove Men+Care como marca activa principal",
+          "Patrocinio de vestuarios oficiales",
+          "Campaña sobre paternidad y futbol"
+        ],
+        "fuentes": [
+          "https://www.zappi.io/web/blog/complete-list-of-brands-behind-the-2026-fifa-world-cup-official-sponsors/"
+        ]
+      },
+      {
+        "id": "verizon",
+        "nombre": "Verizon",
+        "sector": "Telecomunicaciones / Conectividad",
+        "pais_origen": "Estados Unidos",
+        "categoria_fifa": "FIFA World Cup Sponsor",
+        "vigencia_contrato": "Anunciado septiembre 2024 para Mundial 2026",
+        "monto_estimado_usd": 80000000,
+        "monto_periodo": "rango Tier 2 (65M-95M USD por torneo)",
+        "estado_dato": "estimado_rango_tier",
+        "activaciones_2026": [
+          "Proveedor oficial de telecomunicaciones del torneo",
+          "5G en sedes y fan festivals norteamericanos",
+          "Experiencias inmersivas para fans"
+        ],
+        "fuentes": [
+          "https://originalfootball.substack.com/p/world-cup-2026-sponsors-whos-paying"
+        ]
+      }
+    ],
+    "regional_supporters_americas": [
+      {
+        "id": "american_airlines",
+        "nombre": "American Airlines",
+        "sector": "Aerolínea",
+        "pais_origen": "Estados Unidos",
+        "categoria_fifa": "Regional Supporter (North America)",
+        "vigencia_contrato": "Anunciado abril 2025",
+        "monto_estimado_usd": 20000000,
+        "monto_periodo": "rango Tier 3 (10M-30M USD por torneo)",
+        "estado_dato": "estimado_rango_tier",
+        "activaciones_2026": [
+          "Aerolínea oficial doméstica en Norteamérica",
+          "Conexión entre 11 ciudades sede USA + 2 Canadá + 3 México",
+          "Activaciones en aeropuertos hub (DFW, MIA, JFK, LAX)"
+        ],
+        "fuentes": [
+          "https://originalfootball.substack.com/p/world-cup-2026-sponsors-whos-paying"
+        ]
+      },
+      {
+        "id": "marriott_bonvoy",
+        "nombre": "Marriott Bonvoy",
+        "sector": "Hotelería",
+        "pais_origen": "Estados Unidos",
+        "categoria_fifa": "Regional Supporter (North America)",
+        "vigencia_contrato": "Anunciado enero 2026",
+        "monto_estimado_usd": 15000000,
+        "monto_periodo": "deal completo (reportado por Sportcal)",
+        "estado_dato": "estimado_prensa",
+        "activaciones_2026": [
+          "Cubre 30+ marcas hoteleras del grupo",
+          "Hospedaje oficial selecciones y staff FIFA",
+          "Paquetes premium para fans"
+        ],
+        "fuentes": [
+          "https://www.sportcal.com/news/fifa-adds-marriott-bonvoy-as-regional-world-cup-partner/"
+        ]
+      },
+      {
+        "id": "airbnb",
+        "nombre": "Airbnb",
+        "sector": "Hospedaje alternativo / Plataforma",
+        "pais_origen": "Estados Unidos",
+        "categoria_fifa": "Regional Supporter (North America)",
+        "vigencia_contrato": "Multi-tournament (incluye Women's 2027)",
+        "monto_estimado_usd": 20000000,
+        "monto_periodo": "rango Tier 3 (10M-30M USD por torneo)",
+        "estado_dato": "estimado_rango_tier",
+        "activaciones_2026": [
+          "Hospedaje alternativo oficial en Norteamérica",
+          "Host City Impact Program de USD 5M",
+          "1,000 tickets para jóvenes NY/NJ",
+          "Airbnb Experiences fan-focused"
+        ],
+        "fuentes": [
+          "https://news.airbnb.com/airbnb-and-fifa-announce-major-multi-tournament-partnership/",
+          "https://news.airbnb.com/airbnb-provides-1000-ny-nj-youth-fifa-world-cup-2026-tickets/"
+        ]
+      },
+      {
+        "id": "diageo",
+        "nombre": "Diageo",
+        "sector": "Bebidas espirituosas (whisky, tequila, ron)",
+        "pais_origen": "Reino Unido",
+        "categoria_fifa": "Regional Supporter (Americas)",
+        "vigencia_contrato": "Activo para 2026",
+        "monto_estimado_usd": 20000000,
+        "monto_periodo": "rango Tier 3 (10M-30M USD por torneo)",
+        "estado_dato": "estimado_rango_tier",
+        "activaciones_2026": [
+          "Sponsor oficial de bebidas espirituosas en las Américas",
+          "Don Julio, Johnnie Walker, Captain Morgan como marcas activas",
+          "Programas de consumo responsable"
+        ],
+        "fuentes": [
+          "https://www.zappi.io/web/blog/complete-list-of-brands-behind-the-2026-fifa-world-cup-official-sponsors/"
+        ]
+      },
+      {
+        "id": "home_depot",
+        "nombre": "The Home Depot",
+        "sector": "Retail / Mejoras del hogar",
+        "pais_origen": "Estados Unidos",
+        "categoria_fifa": "Regional Supporter (North America)",
+        "vigencia_contrato": "Activo para 2026",
+        "monto_estimado_usd": 20000000,
+        "monto_periodo": "rango Tier 3 (10M-30M USD por torneo)",
+        "estado_dato": "estimado_rango_tier",
+        "activaciones_2026": [
+          "Infraestructura y soporte logístico para sedes",
+          "Programa comunitario en host cities",
+          "Campañas retail in-store"
+        ],
+        "fuentes": [
+          "https://www.zappi.io/web/blog/complete-list-of-brands-behind-the-2026-fifa-world-cup-official-sponsors/"
+        ]
+      },
+      {
+        "id": "valvoline",
+        "nombre": "Valvoline",
+        "sector": "Lubricantes automotrices",
+        "pais_origen": "Estados Unidos",
+        "categoria_fifa": "Regional Supporter (North America)",
+        "vigencia_contrato": "Activo para 2026",
+        "monto_estimado_usd": 15000000,
+        "monto_periodo": "rango Tier 3 (10M-30M USD por torneo)",
+        "estado_dato": "estimado_rango_tier",
+        "activaciones_2026": [
+          "Categoría aftermarket automotriz",
+          "Activaciones road-trip con fans"
+        ],
+        "fuentes": [
+          "https://www.zappi.io/web/blog/complete-list-of-brands-behind-the-2026-fifa-world-cup-official-sponsors/"
+        ]
+      },
+      {
+        "id": "globant",
+        "nombre": "Globant",
+        "sector": "Servicios tecnológicos / IT",
+        "pais_origen": "Argentina",
+        "categoria_fifa": "Regional Supporter (North America + Europe)",
+        "vigencia_contrato": "Anunciado noviembre 2025 (expansión de relación de 4 años)",
+        "monto_estimado_usd": 25000000,
+        "monto_periodo": "rango Tier 3 (10M-30M USD por torneo)",
+        "estado_dato": "estimado_rango_tier",
+        "activaciones_2026": [
+          "Plataformas digitales oficiales FIFA",
+          "Nueva app móvil del torneo",
+          "FIFA Player Data Marketplace (lanzamiento)",
+          "ÚNICO sponsor regional de origen latinoamericano (Argentina) en Mundial 2026"
+        ],
+        "fuentes": [
+          "https://www.prnewswire.com/news-releases/fifa-and-globant-sign-expanded-partnership-to-deliver-innovative-digital-services-302625670.html",
+          "https://www.globant.com/news/globant-fifa-renewed-partnership-2026-2027",
+          "https://www.frontrowsoccer.com/2025/11/26/soccer-business-globant-agrees-to-become-2026-world-cup-supporter/"
+        ]
+      },
+      {
+        "id": "doordash",
+        "nombre": "DoorDash",
+        "sector": "Delivery on-demand",
+        "pais_origen": "Estados Unidos",
+        "categoria_fifa": "Regional Supporter (North America)",
+        "vigencia_contrato": "Activo para 2026",
+        "monto_estimado_usd": 20000000,
+        "monto_periodo": "rango Tier 3 (10M-30M USD por torneo)",
+        "estado_dato": "estimado_rango_tier",
+        "activaciones_2026": [
+          "Primer Official On-Demand Delivery Supporter en historia FIFA",
+          "Primer Official Restaurant Reservations Platform Supporter",
+          "Activaciones en fan festivals"
+        ],
+        "fuentes": [
+          "https://fwcschedule.com/fifa-world-cup-2026-sponsors/"
+        ]
+      },
+      {
+        "id": "boggi_milano",
+        "nombre": "Boggi Milano",
+        "sector": "Indumentaria formal",
+        "pais_origen": "Italia",
+        "categoria_fifa": "Regional Supporter / Official Licensee",
+        "vigencia_contrato": "2026 + 2027 (4 años)",
+        "monto_estimado_usd": "no_publico",
+        "estado_dato": "no_publico",
+        "activaciones_2026": [
+          "Indumentaria formal oficial del workforce FIFA",
+          "Uniforme oficial del Consejo FIFA",
+          "Línea licensee co-branded"
+        ],
+        "fuentes": [
+          "https://wwd.com/fashion-news/fashion-scoops/boggi-milano-fifa-world-cup-official-formalwear-partner-1238371892/",
+          "https://inside.fifa.com/media-releases/boggi-milano-supply-formalwear-world-cup-womens"
+        ]
+      },
+      {
+        "id": "fanatics",
+        "nombre": "Fanatics",
+        "sector": "Retail deportivo",
+        "pais_origen": "Estados Unidos",
+        "categoria_fifa": "Regional Supporter / Official Retail Partner",
+        "vigencia_contrato": "Exclusivo USA + Canadá + México para los 104 partidos",
+        "monto_estimado_usd": "no_publico",
+        "estado_dato": "no_publico",
+        "activaciones_2026": [
+          "Retail oficial en estadios",
+          "Fan Festival stores",
+          "Pop-ups en host cities",
+          "E-commerce oficial del torneo"
+        ],
+        "fuentes": [
+          "https://sportsmintmedia.com/fifa-expands-lifestyle-and-retail-portfolio-with-boggi-milano-and-fanatics/"
+        ]
+      },
+      {
+        "id": "banorte_estadio",
+        "nombre": "Banorte (naming rights Estadio Azteca → Estadio Banorte)",
+        "sector": "Banca (México)",
+        "pais_origen": "México",
+        "categoria_fifa": "Host City / Stadium Sponsor (no FIFA-tier)",
+        "vigencia_contrato": "Naming rights del Estadio Azteca",
+        "monto_estimado_usd": 121000000,
+        "monto_periodo": "MXN 2.100M por naming rights (~USD 121M)",
+        "estado_dato": "publico_estimado",
+        "activaciones_2026": [
+          "Naming rights del estadio sede de la inauguración del Mundial 2026",
+          "El estadio se renombra Estadio Banorte fuera del Mundial",
+          "FIFA prohibe el branding Banorte durante el torneo (clean stadium rule), pero el contrato es válido fuera de ese periodo"
+        ],
+        "nota": "NO es sponsor FIFA. Es un acuerdo separado entre Banorte y los dueños del Estadio Azteca. Relevante porque es el ÚNICO sponsor mexicano de gran calibre vinculado al Mundial 2026.",
+        "fuentes": [
+          "https://colombiaone.com/2026/04/23/azteca-stadium-banorte-world-cup-2026/"
+        ]
+      }
+    ]
+  },
+  "totales": {
+    "monto_total_estimado_usd": 2693000000,
+    "monto_total_metodo": "Proyección FIFA + Ampere Analysis para marketing & sponsorship Mundial 2026",
+    "sponsors_count_oficial": 22,
+    "tier_1_partners_count": 8,
+    "tier_2_sponsors_count": 8,
+    "tier_3_supporters_count": 11,
+    "promedio_estimado_tier_1_usd": 80000000,
+    "promedio_estimado_tier_2_usd": 76250000,
+    "promedio_estimado_tier_3_usd": 19400000,
+    "ingreso_total_mundial_2026_usd": 10900000000,
+    "share_sponsorship_sobre_total": 0.247,
+    "comparativa_mundiales": {
+      "rusia_2018_sponsorship_usd": 1660000000,
+      "qatar_2022_sponsorship_usd": 1700000000,
+      "canada_mexico_usa_2026_sponsorship_usd": 2693000000,
+      "crecimiento_2018_a_2026_porcentaje": 62.2,
+      "crecimiento_2022_a_2026_porcentaje": 58.4
+    }
+  },
+  "comparativas_creator_economy": {
+    "substack": {
+      "fee_plataforma_porcentaje": 10,
+      "fee_stripe_estimado_porcentaje": 3.6,
+      "fee_efectivo_total_porcentaje": 13.6,
+      "creador_promedio_anual_usd": 16000,
+      "creador_mediana_anual_usd": 4000,
+      "creadores_que_ganan_menos_de_500_porcentaje": 50,
+      "top_10_porcentaje_captura": 62,
+      "creadores_que_ganan_1M_usd_anuales": 50,
+      "subscripciones_pagas_totales": 5000000,
+      "gross_writer_revenue_run_rate_usd": 450000000,
+      "fuente": "https://mazkara.studio/en/blog/substack-earnings-reality-2026/"
+    },
+    "patreon": {
+      "fee_plataforma_porcentaje": 10,
+      "fee_efectivo_total_porcentaje": 14,
+      "fee_apple_in_app_porcentaje_primer_anio": 30,
+      "fee_apple_in_app_porcentaje_despues_primer_anio": 15,
+      "lifetime_payouts_creadores_usd": 10000000000,
+      "annual_processing_usd": 2000000000,
+      "memberships_pagas_totales": 25000000,
+      "fuente": "https://research.contrary.com/company/patreon"
+    },
+    "calculos_clave": {
+      "fee_anual_creador_substack_1000_usd_mes_usd": 1200,
+      "explicacion_fee_anual_1000": "Creador con USD 1.000/mes en suscripciones paga ~USD 120/mes a Substack (10%) = USD 1.440/año solo plataforma; con Stripe ~13.6% efectivo = USD 1.632/año",
+      "para_igualar_aramco_anual_creadores_substack_de_1k_mes": 83333,
+      "explicacion_aramco_igualacion": "Aramco paga USD 100M/año a FIFA. Substack ganando USD 1.200/año por creador = 83.333 creadores LATAM necesarios para igualar UN solo año de UN solo sponsor",
+      "para_igualar_total_sponsorship_mundial_2026_creadores_substack_de_1k_mes": 2244166,
+      "explicacion_total_igualacion": "USD 2.693B (sponsorship total Mundial 2026) / USD 1.200 (fee anual por creador a USD 1k/mes) = 2.24 millones de creadores LATAM necesarios",
+      "para_igualar_adidas_solo_creadores": 833333,
+      "explicacion_adidas": "Adidas paga ~USD 100M/año estimado. Substack necesitaria 833 mil creadores LATAM pagando USD 1.2k/año cada uno solo para igualar UN sponsor por UN año"
+    }
+  },
+  "casos_historicos": {
+    "rusia_2018": {
+      "sponsorship_revenue_usd": 1660000000,
+      "tier_partners_que_renovaron": ["Coca-Cola", "Adidas", "Hyundai-Kia", "Visa", "Gazprom", "Qatar Airways", "Wanda Group"],
+      "tier_partners_que_se_fueron": ["Sony (no renovado 2014)", "Emirates (no renovado)", "Continental (2015)", "Johnson & Johnson (2015)", "Castrol (2015)"],
+      "razones_salida": "Escándalo de corrupción FIFA 2015 (FBI investigación, arrestos Sepp Blatter era); cuestionamientos a Rusia 2018 y Qatar 2022",
+      "fuente": "https://www.cnbc.com/2018/06/14/the-business-of-the-world-cup--who-makes-money-and-how-much.html"
+    },
+    "qatar_2022": {
+      "sponsorship_revenue_usd": 1700000000,
+      "share_sponsors_chinos_usd": 1400000000,
+      "share_sponsors_usa_usd": 1100000000,
+      "nuevo_partner": "QatarEnergy (host country state-owned)",
+      "controversia_principal": "Migrant workers, derechos humanos LGBTQ+, prohibición cerveza en estadios (Budweiser)",
+      "fuente": "https://www.statista.com/statistics/1331000/sponsorship-spending-fifa-world-cup-category/"
+    },
+    "mundial_2026_record": {
+      "milestone": "Primer Mundial en historia FIFA con TODOS los 16 cupos globales de sponsorship vendidos ANTES del torneo (marzo 2026)",
+      "crecimiento_vs_qatar_porcentaje": 58.4,
+      "fuente": "https://footyroom.co/articles/fifa-sells-out-world-cup-2026-sponsorships-in-record-breaking-deal-69ce609df6cd50172a367502"
+    }
+  }
+}

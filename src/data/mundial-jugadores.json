@@ -1,0 +1,948 @@
+{
+  "meta": {
+    "total": 50,
+    "updated_at": "2026-05-22",
+    "metodologia": "Solo jugadores de selecciones CLASIFICADAS al Mundial 2026. LATAM clasificadas: Argentina, Brasil, Uruguay, Colombia, Ecuador, Mexico, Paraguay (7). NO incluidos: Chile, Peru, Venezuela, Bolivia (no clasificaron). Edades calculadas desde fecha de nacimiento publica documentada al 1 de junio de 2026. Clubes: temporada 2025-26 al cierre. Mundiales jugados: torneos previos al Mundial 2026 (NO incluye este). Campos marcados PENDIENTE requieren verificacion adicional con squad oficial publicado por cada federacion.",
+    "sources": [
+      "FIFA.com - clasificaciones oficiales y squads preliminares",
+      "Transfermarkt - clubes, edades, valores de mercado",
+      "ESPN Deportes / ESPN.com - perfiles y trayectoria",
+      "Wikipedia ES/EN - biografias verificadas",
+      "Prensa LATAM: Clarin, Globo Esporte, El Tiempo (Colombia), Record (Mexico), El Pais (Uruguay)",
+      "Prensa europea: L'Equipe, Marca, AS, Gazzetta dello Sport, The Athletic"
+    ],
+    "distribucion": {
+      "latam": 37,
+      "europa": 11,
+      "africa_asia_otros": 2
+    },
+    "notas_relevancia": "WHALE = busquedas globales masivas (Messi, Cristiano, Mbappe, Vinicius, Yamal, Bellingham). MEDIUM = estrellas establecidas o emergentes con alcance regional fuerte. NICHE = relevantes para LATAM o nichos especificos pero menor volumen global."
+  },
+  "jugadores": [
+    {
+      "slug": "lionel-messi",
+      "nombre_completo": "Lionel Andres Messi",
+      "seleccion": "Argentina",
+      "bandera": "🇦🇷",
+      "posicion": "delantero",
+      "edad_2026": 38,
+      "fecha_nacimiento": "1987-06-24",
+      "club_2026": "Inter Miami",
+      "mundiales_jugados": 5,
+      "apodo": "La Pulga",
+      "relevancia": "WHALE",
+      "highlights_2024_2026": [
+        "Capitan del campeon vigente Qatar 2022",
+        "Campeon Copa America 2024 con Argentina",
+        "Maximo goleador historico de Argentina y de Mundiales para Argentina (13 goles)"
+      ],
+      "caso_especial": "Posible ultimo Mundial. Busquedas extremas globales. Sera el unico jugador con 6 Mundiales jugados si participa todos los partidos."
+    },
+    {
+      "slug": "lautaro-martinez",
+      "nombre_completo": "Lautaro Javier Martinez",
+      "seleccion": "Argentina",
+      "bandera": "🇦🇷",
+      "posicion": "delantero",
+      "edad_2026": 28,
+      "fecha_nacimiento": "1997-08-22",
+      "club_2026": "Inter de Milan",
+      "mundiales_jugados": 1,
+      "apodo": "El Toro",
+      "relevancia": "MEDIUM",
+      "highlights_2024_2026": [
+        "Goleador de Copa America 2024 (Bota de Oro del torneo)",
+        "Capitan alterno de la Albiceleste",
+        "Goleador historico del Inter en era post-Lukaku"
+      ]
+    },
+    {
+      "slug": "julian-alvarez",
+      "nombre_completo": "Julian Alvarez",
+      "seleccion": "Argentina",
+      "bandera": "🇦🇷",
+      "posicion": "delantero",
+      "edad_2026": 26,
+      "fecha_nacimiento": "2000-01-31",
+      "club_2026": "Atletico de Madrid",
+      "mundiales_jugados": 1,
+      "apodo": "La Arana",
+      "relevancia": "MEDIUM",
+      "highlights_2024_2026": [
+        "Campeon del Mundo Qatar 2022 con 4 goles",
+        "Transferencia record al Atletico de Madrid en 2024",
+        "Figura ofensiva consolidada del Atletico bajo Simeone"
+      ]
+    },
+    {
+      "slug": "enzo-fernandez",
+      "nombre_completo": "Enzo Jeremias Fernandez",
+      "seleccion": "Argentina",
+      "bandera": "🇦🇷",
+      "posicion": "centrocampista",
+      "edad_2026": 25,
+      "fecha_nacimiento": "2001-01-17",
+      "club_2026": "Chelsea",
+      "mundiales_jugados": 1,
+      "apodo": "Enzo",
+      "relevancia": "MEDIUM",
+      "highlights_2024_2026": [
+        "Mejor Jugador Joven del Mundial Qatar 2022",
+        "Mediocampista titular indiscutido de Argentina",
+        "Pieza clave del Chelsea de la era post-Boehly"
+      ]
+    },
+    {
+      "slug": "alexis-mac-allister",
+      "nombre_completo": "Alexis Mac Allister",
+      "seleccion": "Argentina",
+      "bandera": "🇦🇷",
+      "posicion": "centrocampista",
+      "edad_2026": 27,
+      "fecha_nacimiento": "1998-12-24",
+      "club_2026": "Liverpool",
+      "mundiales_jugados": 1,
+      "apodo": "Alexis",
+      "relevancia": "MEDIUM",
+      "highlights_2024_2026": [
+        "Campeon del Mundo Qatar 2022",
+        "Titular en el mediocampo del Liverpool",
+        "Hijo del Coloradito Mac Allister, segunda generacion mundialista"
+      ]
+    },
+    {
+      "slug": "cristian-romero",
+      "nombre_completo": "Cristian Gabriel Romero",
+      "seleccion": "Argentina",
+      "bandera": "🇦🇷",
+      "posicion": "defensor",
+      "edad_2026": 28,
+      "fecha_nacimiento": "1998-04-27",
+      "club_2026": "Tottenham Hotspur",
+      "mundiales_jugados": 1,
+      "apodo": "Cuti",
+      "relevancia": "MEDIUM",
+      "highlights_2024_2026": [
+        "Campeon del Mundo Qatar 2022 y Copa America 2024",
+        "Central titular indiscutido de Argentina",
+        "Capitan ocasional del Tottenham"
+      ]
+    },
+    {
+      "slug": "emiliano-martinez",
+      "nombre_completo": "Damian Emiliano Martinez Romero",
+      "seleccion": "Argentina",
+      "bandera": "🇦🇷",
+      "posicion": "portero",
+      "edad_2026": 33,
+      "fecha_nacimiento": "1992-09-02",
+      "club_2026": "Aston Villa",
+      "mundiales_jugados": 1,
+      "apodo": "Dibu",
+      "relevancia": "WHALE",
+      "highlights_2024_2026": [
+        "Guante de Oro Qatar 2022, heroe de la final ante Francia",
+        "Guante de Oro Copa America 2024",
+        "Icono de la cultura futbolera argentina post-Qatar"
+      ],
+      "caso_especial": "Personaje mediatico masivo en LATAM. Busquedas asociadas a memes, tapadas historicas y final 2022."
+    },
+    {
+      "slug": "rodrigo-de-paul",
+      "nombre_completo": "Rodrigo Javier De Paul",
+      "seleccion": "Argentina",
+      "bandera": "🇦🇷",
+      "posicion": "centrocampista",
+      "edad_2026": 31,
+      "fecha_nacimiento": "1994-05-24",
+      "club_2026": "Atletico de Madrid",
+      "mundiales_jugados": 1,
+      "apodo": "El Motorcito",
+      "relevancia": "MEDIUM",
+      "highlights_2024_2026": [
+        "Companero inseparable de Messi en la cancha",
+        "Campeon del Mundo Qatar 2022 y Copa America 2024",
+        "Volante box-to-box del Atletico de Simeone"
+      ]
+    },
+    {
+      "slug": "nicolas-otamendi",
+      "nombre_completo": "Nicolas Hernan Gonzalo Otamendi",
+      "seleccion": "Argentina",
+      "bandera": "🇦🇷",
+      "posicion": "defensor",
+      "edad_2026": 38,
+      "fecha_nacimiento": "1988-02-12",
+      "club_2026": "Benfica",
+      "mundiales_jugados": 3,
+      "apodo": "El General",
+      "relevancia": "NICHE",
+      "highlights_2024_2026": [
+        "Veterano campeon del Mundo Qatar 2022",
+        "Central referente del Benfica",
+        "Posible ultimo Mundial a los 38 anos"
+      ],
+      "caso_especial": "Probable ultimo Mundial. Si juega, sera de los mayores del torneo."
+    },
+    {
+      "slug": "vinicius-junior",
+      "nombre_completo": "Vinicius Jose Paixao de Oliveira Junior",
+      "seleccion": "Brasil",
+      "bandera": "🇧🇷",
+      "posicion": "delantero",
+      "edad_2026": 25,
+      "fecha_nacimiento": "2000-07-12",
+      "club_2026": "Real Madrid",
+      "mundiales_jugados": 1,
+      "apodo": "Vini Jr",
+      "relevancia": "WHALE",
+      "highlights_2024_2026": [
+        "Segundo en Balon de Oro 2024",
+        "Figura ofensiva del Real Madrid tras la salida de Kroos",
+        "Cara visible de la lucha contra el racismo en LaLiga"
+      ],
+      "caso_especial": "Estrella mayor de Brasil tras retiro de Neymar de la elite competitiva. Maxima atraccion mediatica brasilena del torneo."
+    },
+    {
+      "slug": "rodrygo",
+      "nombre_completo": "Rodrygo Silva de Goes",
+      "seleccion": "Brasil",
+      "bandera": "🇧🇷",
+      "posicion": "delantero",
+      "edad_2026": 25,
+      "fecha_nacimiento": "2001-01-09",
+      "club_2026": "Real Madrid",
+      "mundiales_jugados": 1,
+      "apodo": "Rodry",
+      "relevancia": "MEDIUM",
+      "highlights_2024_2026": [
+        "Companero de ataque de Vinicius y Mbappe en Real Madrid",
+        "Goleador clave del Real Madrid en Champions 2023-24",
+        "Titular fijo de Brasil bajo Dorival/Ancelotti"
+      ]
+    },
+    {
+      "slug": "neymar",
+      "nombre_completo": "Neymar da Silva Santos Junior",
+      "seleccion": "Brasil",
+      "bandera": "🇧🇷",
+      "posicion": "delantero",
+      "edad_2026": 34,
+      "fecha_nacimiento": "1992-02-05",
+      "club_2026": "Santos",
+      "mundiales_jugados": 3,
+      "apodo": "Ney",
+      "relevancia": "WHALE",
+      "highlights_2024_2026": [
+        "Maximo goleador historico de Brasil (empate/superacion de Pele)",
+        "Regreso al Santos en 2025 tras paso por Al-Hilal",
+        "Recuperacion de lesiones graves de rodilla 2023-25"
+      ],
+      "caso_especial": "Mundial despedida potencial. Inclusion en lista final depende de estado fisico. Tema mediatico permanente en Brasil."
+    },
+    {
+      "slug": "raphinha",
+      "nombre_completo": "Raphael Dias Belloli",
+      "seleccion": "Brasil",
+      "bandera": "🇧🇷",
+      "posicion": "delantero",
+      "edad_2026": 29,
+      "fecha_nacimiento": "1996-12-14",
+      "club_2026": "FC Barcelona",
+      "mundiales_jugados": 1,
+      "apodo": "Raphinha",
+      "relevancia": "MEDIUM",
+      "highlights_2024_2026": [
+        "Goleador y asistidor clave del Barcelona 2024-25",
+        "Top scorer de Champions League en una temporada reciente",
+        "Titular consolidado de Brasil"
+      ]
+    },
+    {
+      "slug": "endrick",
+      "nombre_completo": "Endrick Felipe Moreira de Sousa",
+      "seleccion": "Brasil",
+      "bandera": "🇧🇷",
+      "posicion": "delantero",
+      "edad_2026": 19,
+      "fecha_nacimiento": "2006-07-21",
+      "club_2026": "Real Madrid",
+      "mundiales_jugados": 0,
+      "apodo": "Endrick",
+      "relevancia": "WHALE",
+      "highlights_2024_2026": [
+        "Debut goleador con Brasil ante Inglaterra en Wembley (2024)",
+        "Promesa fichada por Real Madrid a los 16 anos",
+        "Joya generacional del futbol brasileno"
+      ],
+      "caso_especial": "Joven debutante mundialista. Potencial para 3-4 Mundiales en carrera."
+    },
+    {
+      "slug": "estevao",
+      "nombre_completo": "Estevao Willian Almeida de Oliveira Goncalves",
+      "seleccion": "Brasil",
+      "bandera": "🇧🇷",
+      "posicion": "delantero",
+      "edad_2026": 19,
+      "fecha_nacimiento": "2007-04-24",
+      "club_2026": "Chelsea",
+      "mundiales_jugados": 0,
+      "apodo": "Messinho",
+      "relevancia": "MEDIUM",
+      "highlights_2024_2026": [
+        "Fichado por Chelsea desde Palmeiras por mas de 60 millones de euros",
+        "Apodado Messinho por la prensa brasilena",
+        "Debut en Premier League en temporada 2025-26"
+      ],
+      "caso_especial": "Joven debutante. La nueva ola Brasil junto a Endrick."
+    },
+    {
+      "slug": "bruno-guimaraes",
+      "nombre_completo": "Bruno Guimaraes Rodriguez Moura",
+      "seleccion": "Brasil",
+      "bandera": "🇧🇷",
+      "posicion": "centrocampista",
+      "edad_2026": 28,
+      "fecha_nacimiento": "1997-11-16",
+      "club_2026": "Newcastle United",
+      "mundiales_jugados": 1,
+      "apodo": "Bruno G",
+      "relevancia": "MEDIUM",
+      "highlights_2024_2026": [
+        "Mediocampista titular de Brasil",
+        "Capitan ocasional del Newcastle en Premier League",
+        "Volante mas valorado de la era post-Casemiro"
+      ]
+    },
+    {
+      "slug": "casemiro",
+      "nombre_completo": "Carlos Henrique Jose Francisco Venancio Casimiro",
+      "seleccion": "Brasil",
+      "bandera": "🇧🇷",
+      "posicion": "centrocampista",
+      "edad_2026": 34,
+      "fecha_nacimiento": "1992-02-23",
+      "club_2026": "Manchester United",
+      "mundiales_jugados": 2,
+      "apodo": "Case",
+      "relevancia": "MEDIUM",
+      "highlights_2024_2026": [
+        "Pentacampeon de Champions League con Real Madrid",
+        "Veterano del mediocampo de Brasil",
+        "Lider vestuario en Manchester United"
+      ]
+    },
+    {
+      "slug": "alisson",
+      "nombre_completo": "Alisson Ramses Becker",
+      "seleccion": "Brasil",
+      "bandera": "🇧🇷",
+      "posicion": "portero",
+      "edad_2026": 33,
+      "fecha_nacimiento": "1992-10-02",
+      "club_2026": "Liverpool",
+      "mundiales_jugados": 2,
+      "apodo": "Ali",
+      "relevancia": "MEDIUM",
+      "highlights_2024_2026": [
+        "Considerado entre los 3 mejores porteros del mundo en los ultimos anos",
+        "Portero titular del Liverpool y Brasil",
+        "Yashin Trophy nominee multiple"
+      ]
+    },
+    {
+      "slug": "federico-valverde",
+      "nombre_completo": "Federico Santiago Valverde Dipetta",
+      "seleccion": "Uruguay",
+      "bandera": "🇺🇾",
+      "posicion": "centrocampista",
+      "edad_2026": 27,
+      "fecha_nacimiento": "1998-07-22",
+      "club_2026": "Real Madrid",
+      "mundiales_jugados": 1,
+      "apodo": "Pajarito",
+      "relevancia": "MEDIUM",
+      "highlights_2024_2026": [
+        "Pieza fundamental del Real Madrid en mediocampo y banda",
+        "Capitan emergente de Uruguay",
+        "Una de las clausulas mas altas del futbol mundial"
+      ]
+    },
+    {
+      "slug": "darwin-nunez",
+      "nombre_completo": "Darwin Gabriel Nunez Ribeiro",
+      "seleccion": "Uruguay",
+      "bandera": "🇺🇾",
+      "posicion": "delantero",
+      "edad_2026": 26,
+      "fecha_nacimiento": "1999-06-24",
+      "club_2026": "Liverpool",
+      "mundiales_jugados": 1,
+      "apodo": "Darwin",
+      "relevancia": "MEDIUM",
+      "highlights_2024_2026": [
+        "Delantero titular del Liverpool",
+        "9 de la celeste post-Suarez/Cavani",
+        "Polemico cabezazo en Copa America 2024 vs Colombia"
+      ]
+    },
+    {
+      "slug": "ronald-araujo",
+      "nombre_completo": "Ronald Federico Araujo da Silva",
+      "seleccion": "Uruguay",
+      "bandera": "🇺🇾",
+      "posicion": "defensor",
+      "edad_2026": 27,
+      "fecha_nacimiento": "1999-03-07",
+      "club_2026": "FC Barcelona",
+      "mundiales_jugados": 1,
+      "apodo": "Araujo",
+      "relevancia": "MEDIUM",
+      "highlights_2024_2026": [
+        "Central titular y capitan ocasional del Barcelona",
+        "Uno de los defensores con mejor estadistica 1v1 de Europa",
+        "Lider defensivo de Uruguay"
+      ]
+    },
+    {
+      "slug": "manuel-ugarte",
+      "nombre_completo": "Manuel Ugarte Ribeiro",
+      "seleccion": "Uruguay",
+      "bandera": "🇺🇾",
+      "posicion": "centrocampista",
+      "edad_2026": 25,
+      "fecha_nacimiento": "2001-04-11",
+      "club_2026": "Manchester United",
+      "mundiales_jugados": 0,
+      "apodo": "Ugarte",
+      "relevancia": "NICHE",
+      "highlights_2024_2026": [
+        "Fichado por Manchester United desde PSG en 2024",
+        "Volante de marca titular de Uruguay bajo Bielsa",
+        "Reemplazante natural de Casemiro en United"
+      ],
+      "caso_especial": "Joven debutante mundialista probable."
+    },
+    {
+      "slug": "luis-suarez",
+      "nombre_completo": "Luis Alberto Suarez Diaz",
+      "seleccion": "Uruguay",
+      "bandera": "🇺🇾",
+      "posicion": "delantero",
+      "edad_2026": 39,
+      "fecha_nacimiento": "1987-01-24",
+      "club_2026": "Inter Miami",
+      "mundiales_jugados": 4,
+      "apodo": "El Pistolero",
+      "relevancia": "WHALE",
+      "highlights_2024_2026": [
+        "Maximo goleador historico de Uruguay",
+        "Companero de Messi en Inter Miami desde 2024",
+        "Convocatoria a Mundial 2026 incierta por edad y forma fisica"
+      ],
+      "caso_especial": "Convocatoria PENDIENTE - tras Copa America 2024 dejo la seleccion mayor, pero rumores de retorno en 2025-26. Incluir solo si Bielsa lo convoca."
+    },
+    {
+      "slug": "luis-diaz",
+      "nombre_completo": "Luis Fernando Diaz Marulanda",
+      "seleccion": "Colombia",
+      "bandera": "🇨🇴",
+      "posicion": "delantero",
+      "edad_2026": 29,
+      "fecha_nacimiento": "1997-01-13",
+      "club_2026": "Liverpool",
+      "mundiales_jugados": 0,
+      "apodo": "Lucho",
+      "relevancia": "WHALE",
+      "highlights_2024_2026": [
+        "Goleador y figura de Colombia en Copa America 2024 (finalista)",
+        "Extremo titular del Liverpool",
+        "Primer Mundial tras ausencia de Colombia en Qatar 2022"
+      ],
+      "caso_especial": "Debutante mundialista a los 29. Maxima estrella colombiana junto a James."
+    },
+    {
+      "slug": "james-rodriguez",
+      "nombre_completo": "James David Rodriguez Rubio",
+      "seleccion": "Colombia",
+      "bandera": "🇨🇴",
+      "posicion": "centrocampista",
+      "edad_2026": 34,
+      "fecha_nacimiento": "1991-07-12",
+      "club_2026": "PENDIENTE",
+      "mundiales_jugados": 2,
+      "apodo": "El 10",
+      "relevancia": "WHALE",
+      "highlights_2024_2026": [
+        "Bota de Oro Mundial 2014 - leyenda viva colombiana",
+        "MVP Copa America 2024 con Colombia subcampeona",
+        "Capitan historico de la Tricolor"
+      ],
+      "caso_especial": "Mundial despedida potencial. Club al 2026-05 cambiante (paso por Rayo Vallecano, Club Leon en Mexico). Verificar al cierre temporada."
+    },
+    {
+      "slug": "jhon-duran",
+      "nombre_completo": "Jhon Jader Duran Palacios",
+      "seleccion": "Colombia",
+      "bandera": "🇨🇴",
+      "posicion": "delantero",
+      "edad_2026": 22,
+      "fecha_nacimiento": "2003-12-13",
+      "club_2026": "Al-Nassr",
+      "mundiales_jugados": 0,
+      "apodo": "Jhoder",
+      "relevancia": "MEDIUM",
+      "highlights_2024_2026": [
+        "Goles espectaculares de larga distancia en Premier League con Aston Villa",
+        "Fichaje millonario al Al-Nassr en 2025 (companero de Cristiano)",
+        "Joven 9 de Colombia post-Falcao"
+      ],
+      "caso_especial": "Joven debutante mundialista."
+    },
+    {
+      "slug": "moises-caicedo",
+      "nombre_completo": "Moises Isaac Caicedo Corozo",
+      "seleccion": "Ecuador",
+      "bandera": "🇪🇨",
+      "posicion": "centrocampista",
+      "edad_2026": 24,
+      "fecha_nacimiento": "2001-11-02",
+      "club_2026": "Chelsea",
+      "mundiales_jugados": 1,
+      "apodo": "Niche",
+      "relevancia": "MEDIUM",
+      "highlights_2024_2026": [
+        "Fichaje record britanico al Chelsea en 2023 (115M GBP)",
+        "Volante de marca titular de Ecuador y Chelsea",
+        "Lider de la nueva generacion ecuatoriana"
+      ]
+    },
+    {
+      "slug": "piero-hincapie",
+      "nombre_completo": "Piero Martin Hincapie Reyna",
+      "seleccion": "Ecuador",
+      "bandera": "🇪🇨",
+      "posicion": "defensor",
+      "edad_2026": 24,
+      "fecha_nacimiento": "2002-01-09",
+      "club_2026": "Bayer Leverkusen",
+      "mundiales_jugados": 1,
+      "apodo": "Piero",
+      "relevancia": "NICHE",
+      "highlights_2024_2026": [
+        "Campeon de Bundesliga 2023-24 con Leverkusen invicto",
+        "Central zurdo titular de Ecuador",
+        "Pretendido por Premier League en mercado 2025"
+      ]
+    },
+    {
+      "slug": "kendry-paez",
+      "nombre_completo": "Kendry Jair Paez Cobena",
+      "seleccion": "Ecuador",
+      "bandera": "🇪🇨",
+      "posicion": "centrocampista",
+      "edad_2026": 19,
+      "fecha_nacimiento": "2007-05-04",
+      "club_2026": "Chelsea",
+      "mundiales_jugados": 0,
+      "apodo": "Kendry",
+      "relevancia": "MEDIUM",
+      "highlights_2024_2026": [
+        "Mas joven en debutar y anotar en Independiente del Valle",
+        "Fichado por Chelsea (incorporacion oficial al cumplir 18)",
+        "Promesa generacional de Ecuador"
+      ],
+      "caso_especial": "Joven debutante mundialista. Potencial para 3+ Mundiales."
+    },
+    {
+      "slug": "enner-valencia",
+      "nombre_completo": "Enner Remberto Valencia Lastra",
+      "seleccion": "Ecuador",
+      "bandera": "🇪🇨",
+      "posicion": "delantero",
+      "edad_2026": 36,
+      "fecha_nacimiento": "1989-11-04",
+      "club_2026": "Internacional de Porto Alegre",
+      "mundiales_jugados": 2,
+      "apodo": "Superman",
+      "relevancia": "NICHE",
+      "highlights_2024_2026": [
+        "Maximo goleador historico de Ecuador en Mundiales",
+        "Capitan y referente veterano de la Tri",
+        "Goleador en Brasileirao con Internacional"
+      ],
+      "caso_especial": "Probable ultimo Mundial."
+    },
+    {
+      "slug": "raul-jimenez",
+      "nombre_completo": "Raul Alonso Jimenez Rodriguez",
+      "seleccion": "Mexico",
+      "bandera": "🇲🇽",
+      "posicion": "delantero",
+      "edad_2026": 35,
+      "fecha_nacimiento": "1991-05-05",
+      "club_2026": "Fulham",
+      "mundiales_jugados": 2,
+      "apodo": "Lobo",
+      "relevancia": "MEDIUM",
+      "highlights_2024_2026": [
+        "Regreso a la titularidad de Mexico bajo Aguirre",
+        "Goleador de Fulham en Premier League 2024-25",
+        "Recuperacion completa de fractura craneal de 2020"
+      ]
+    },
+    {
+      "slug": "edson-alvarez",
+      "nombre_completo": "Edson Omar Alvarez Velazquez",
+      "seleccion": "Mexico",
+      "bandera": "🇲🇽",
+      "posicion": "centrocampista",
+      "edad_2026": 28,
+      "fecha_nacimiento": "1997-10-24",
+      "club_2026": "West Ham United",
+      "mundiales_jugados": 1,
+      "apodo": "Machin",
+      "relevancia": "MEDIUM",
+      "highlights_2024_2026": [
+        "Capitan del Tri en Copa America 2024",
+        "Volante de marca titular del West Ham",
+        "Lider del nuevo ciclo mexicano"
+      ]
+    },
+    {
+      "slug": "santiago-gimenez",
+      "nombre_completo": "Santiago Gimenez Sanchez",
+      "seleccion": "Mexico",
+      "bandera": "🇲🇽",
+      "posicion": "delantero",
+      "edad_2026": 25,
+      "fecha_nacimiento": "2001-04-18",
+      "club_2026": "AC Milan",
+      "mundiales_jugados": 0,
+      "apodo": "Bebote",
+      "relevancia": "MEDIUM",
+      "highlights_2024_2026": [
+        "Fichado por AC Milan en enero 2025 desde Feyenoord",
+        "Goleador en Eredivisie y Champions League con Feyenoord",
+        "9 emergente del Tri, hijo del Chaco Gimenez"
+      ],
+      "caso_especial": "Joven debutante mundialista. Segunda generacion mundialista (su padre jugo Sudafrica 2010 con Mexico)."
+    },
+    {
+      "slug": "hirving-lozano",
+      "nombre_completo": "Hirving Rodrigo Lozano Bahena",
+      "seleccion": "Mexico",
+      "bandera": "🇲🇽",
+      "posicion": "delantero",
+      "edad_2026": 30,
+      "fecha_nacimiento": "1995-07-30",
+      "club_2026": "San Diego FC",
+      "mundiales_jugados": 2,
+      "apodo": "Chucky",
+      "relevancia": "MEDIUM",
+      "highlights_2024_2026": [
+        "Heroe del gol historico vs Alemania en Rusia 2018",
+        "Fichaje franquicia del San Diego FC en MLS (2025)",
+        "Extremo titular del Tri en Mundial local"
+      ]
+    },
+    {
+      "slug": "guillermo-ochoa",
+      "nombre_completo": "Francisco Guillermo Ochoa Magana",
+      "seleccion": "Mexico",
+      "bandera": "🇲🇽",
+      "posicion": "portero",
+      "edad_2026": 40,
+      "fecha_nacimiento": "1985-07-13",
+      "club_2026": "PENDIENTE",
+      "mundiales_jugados": 5,
+      "apodo": "Memo",
+      "relevancia": "WHALE",
+      "highlights_2024_2026": [
+        "Unico jugador junto a Messi con potencial 6to Mundial",
+        "5 Mundiales jugados: 2006, 2010, 2014, 2018, 2022",
+        "Iconico por sus actuaciones vs Brasil 2014 y Argentina 2022"
+      ],
+      "caso_especial": "Posible 6to Mundial - igualaria record de Carbajal/Matthaus/Messi. Convocatoria PENDIENTE: dependera de su situacion de club y forma. Sin equipo estable a comienzos de 2025-26."
+    },
+    {
+      "slug": "miguel-almiron",
+      "nombre_completo": "Miguel Angel Almiron Rejala",
+      "seleccion": "Paraguay",
+      "bandera": "🇵🇾",
+      "posicion": "centrocampista",
+      "edad_2026": 32,
+      "fecha_nacimiento": "1994-02-10",
+      "club_2026": "Atlanta United",
+      "mundiales_jugados": 0,
+      "apodo": "Migue",
+      "relevancia": "NICHE",
+      "highlights_2024_2026": [
+        "Capitan y referente de Paraguay tras larga ausencia mundialista",
+        "Regreso a Atlanta United desde Newcastle (2025)",
+        "Lider del proyecto que regresa a Paraguay al Mundial tras 16 anos"
+      ],
+      "caso_especial": "Debutante mundialista a los 32. Paraguay rompe sequia desde Sudafrica 2010."
+    },
+    {
+      "slug": "julio-enciso",
+      "nombre_completo": "Julio Cesar Enciso Galeano",
+      "seleccion": "Paraguay",
+      "bandera": "🇵🇾",
+      "posicion": "delantero",
+      "edad_2026": 22,
+      "fecha_nacimiento": "2004-01-23",
+      "club_2026": "Brighton & Hove Albion",
+      "mundiales_jugados": 0,
+      "apodo": "Enciso",
+      "relevancia": "NICHE",
+      "highlights_2024_2026": [
+        "Joven figura ofensiva de Paraguay",
+        "Gol del ano nominado en Premier League 2022-23 con Brighton",
+        "Promesa generacional paraguaya"
+      ],
+      "caso_especial": "Joven debutante mundialista."
+    },
+    {
+      "slug": "kylian-mbappe",
+      "nombre_completo": "Kylian Mbappe Lottin",
+      "seleccion": "Francia",
+      "bandera": "🇫🇷",
+      "posicion": "delantero",
+      "edad_2026": 27,
+      "fecha_nacimiento": "1998-12-20",
+      "club_2026": "Real Madrid",
+      "mundiales_jugados": 2,
+      "apodo": "Donatello",
+      "relevancia": "WHALE",
+      "highlights_2024_2026": [
+        "Campeon del Mundo Rusia 2018, finalista Qatar 2022 con hat-trick",
+        "Fichaje al Real Madrid en 2024 tras 7 anos en PSG",
+        "Bota de Oro Qatar 2022 y maximo goleador de la Ligue 1 historica"
+      ],
+      "caso_especial": "Posible Mundial cumbre de su carrera. Capitan de Francia. Busquedas masivas globales."
+    },
+    {
+      "slug": "lamine-yamal",
+      "nombre_completo": "Lamine Yamal Nasraoui Ebana",
+      "seleccion": "Espana",
+      "bandera": "🇪🇸",
+      "posicion": "delantero",
+      "edad_2026": 18,
+      "fecha_nacimiento": "2007-07-13",
+      "club_2026": "FC Barcelona",
+      "mundiales_jugados": 0,
+      "apodo": "Lamine",
+      "relevancia": "WHALE",
+      "highlights_2024_2026": [
+        "Campeon Eurocopa 2024 a los 16 anos - mejor jugador joven",
+        "Goleador en semifinal de Eurocopa vs Francia",
+        "Trophee Kopa 2024 al mejor sub-21 del mundo"
+      ],
+      "caso_especial": "Joven debutante mundialista. Potencial para 4+ Mundiales. Estrella generacional confirmada."
+    },
+    {
+      "slug": "pedri",
+      "nombre_completo": "Pedro Gonzalez Lopez",
+      "seleccion": "Espana",
+      "bandera": "🇪🇸",
+      "posicion": "centrocampista",
+      "edad_2026": 23,
+      "fecha_nacimiento": "2002-11-25",
+      "club_2026": "FC Barcelona",
+      "mundiales_jugados": 1,
+      "apodo": "Pedri",
+      "relevancia": "MEDIUM",
+      "highlights_2024_2026": [
+        "Campeon Eurocopa 2024 con Espana",
+        "Trophee Kopa 2021 al mejor sub-21",
+        "Mediocampista titular de Barcelona y Espana"
+      ]
+    },
+    {
+      "slug": "rodri",
+      "nombre_completo": "Rodrigo Hernandez Cascante",
+      "seleccion": "Espana",
+      "bandera": "🇪🇸",
+      "posicion": "centrocampista",
+      "edad_2026": 29,
+      "fecha_nacimiento": "1996-06-22",
+      "club_2026": "Manchester City",
+      "mundiales_jugados": 1,
+      "apodo": "Rodri",
+      "relevancia": "WHALE",
+      "highlights_2024_2026": [
+        "Balon de Oro 2024",
+        "Campeon Eurocopa 2024 - Mejor Jugador del torneo",
+        "Recuperacion de lesion grave de rodilla 2024-25"
+      ],
+      "caso_especial": "Estado fisico PENDIENTE - lesion grave de LCA en septiembre 2024 marca proceso de recuperacion."
+    },
+    {
+      "slug": "jude-bellingham",
+      "nombre_completo": "Jude Victor William Bellingham",
+      "seleccion": "Inglaterra",
+      "bandera": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      "posicion": "centrocampista",
+      "edad_2026": 22,
+      "fecha_nacimiento": "2003-06-29",
+      "club_2026": "Real Madrid",
+      "mundiales_jugados": 1,
+      "apodo": "Jude",
+      "relevancia": "WHALE",
+      "highlights_2024_2026": [
+        "Subcampeon de Eurocopa 2024",
+        "Goleador clave del Real Madrid",
+        "Top 3 Balon de Oro 2024"
+      ]
+    },
+    {
+      "slug": "harry-kane",
+      "nombre_completo": "Harry Edward Kane",
+      "seleccion": "Inglaterra",
+      "bandera": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      "posicion": "delantero",
+      "edad_2026": 32,
+      "fecha_nacimiento": "1993-07-28",
+      "club_2026": "Bayern Munich",
+      "mundiales_jugados": 2,
+      "apodo": "Hurricane",
+      "relevancia": "WHALE",
+      "highlights_2024_2026": [
+        "Bota de Oro Mundial 2018",
+        "Maximo goleador historico de Inglaterra",
+        "Goleador de Bundesliga records con Bayern"
+      ]
+    },
+    {
+      "slug": "cristiano-ronaldo",
+      "nombre_completo": "Cristiano Ronaldo dos Santos Aveiro",
+      "seleccion": "Portugal",
+      "bandera": "🇵🇹",
+      "posicion": "delantero",
+      "edad_2026": 41,
+      "fecha_nacimiento": "1985-02-05",
+      "club_2026": "Al-Nassr",
+      "mundiales_jugados": 5,
+      "apodo": "CR7",
+      "relevancia": "WHALE",
+      "highlights_2024_2026": [
+        "Maximo goleador historico de selecciones (varones)",
+        "Unico jugador en anotar en 5 Mundiales distintos",
+        "Capitan de Portugal y figura del Al-Nassr"
+      ],
+      "caso_especial": "Posible ultimo Mundial. A los 41, igualaria 6 Mundiales (record con Carbajal y Matthaus). Busquedas extremas globales junto a Messi."
+    },
+    {
+      "slug": "bruno-fernandes",
+      "nombre_completo": "Bruno Miguel Borges Fernandes",
+      "seleccion": "Portugal",
+      "bandera": "🇵🇹",
+      "posicion": "centrocampista",
+      "edad_2026": 31,
+      "fecha_nacimiento": "1994-09-08",
+      "club_2026": "Manchester United",
+      "mundiales_jugados": 2,
+      "apodo": "Bruno",
+      "relevancia": "MEDIUM",
+      "highlights_2024_2026": [
+        "Capitan del Manchester United",
+        "10 titular de Portugal junto a Cristiano",
+        "Lider creativo de la nueva generacion portuguesa"
+      ]
+    },
+    {
+      "slug": "rafael-leao",
+      "nombre_completo": "Rafael Alexandre Conceicao Leao",
+      "seleccion": "Portugal",
+      "bandera": "🇵🇹",
+      "posicion": "delantero",
+      "edad_2026": 27,
+      "fecha_nacimiento": "1999-06-10",
+      "club_2026": "AC Milan",
+      "mundiales_jugados": 1,
+      "apodo": "Leao",
+      "relevancia": "MEDIUM",
+      "highlights_2024_2026": [
+        "Extremo titular del AC Milan",
+        "Companero de Cristiano en Portugal",
+        "Una de las estrellas de la nueva ola portuguesa"
+      ]
+    },
+    {
+      "slug": "virgil-van-dijk",
+      "nombre_completo": "Virgil van Dijk",
+      "seleccion": "Paises Bajos",
+      "bandera": "🇳🇱",
+      "posicion": "defensor",
+      "edad_2026": 34,
+      "fecha_nacimiento": "1991-07-08",
+      "club_2026": "Liverpool",
+      "mundiales_jugados": 1,
+      "apodo": "Virgil",
+      "relevancia": "MEDIUM",
+      "highlights_2024_2026": [
+        "Capitan de Liverpool y Paises Bajos",
+        "Considerado el mejor defensor de la decada 2015-2025",
+        "Semifinalista Eurocopa 2024"
+      ]
+    },
+    {
+      "slug": "florian-wirtz",
+      "nombre_completo": "Florian Richard Wirtz",
+      "seleccion": "Alemania",
+      "bandera": "🇩🇪",
+      "posicion": "centrocampista",
+      "edad_2026": 23,
+      "fecha_nacimiento": "2003-05-03",
+      "club_2026": "Bayer Leverkusen",
+      "mundiales_jugados": 0,
+      "apodo": "Wirtz",
+      "relevancia": "MEDIUM",
+      "highlights_2024_2026": [
+        "Campeon de Bundesliga 2023-24 invicto con Leverkusen",
+        "10 titular de Alemania post-Kroos",
+        "Mejor jugador joven Bundesliga reciente"
+      ],
+      "caso_especial": "Joven debutante mundialista probable. Club al cierre 2025-26 PENDIENTE - vinculado a fichajes top en mercado."
+    },
+    {
+      "slug": "erling-haaland",
+      "nombre_completo": "Erling Braut Haaland",
+      "seleccion": "Noruega",
+      "bandera": "🇳🇴",
+      "posicion": "delantero",
+      "edad_2026": 25,
+      "fecha_nacimiento": "2000-07-21",
+      "club_2026": "Manchester City",
+      "mundiales_jugados": 0,
+      "apodo": "El Robot",
+      "relevancia": "WHALE",
+      "highlights_2024_2026": [
+        "Goleador serial Premier League con Manchester City",
+        "Botas de Oro Premier League 2022-23, 2023-24",
+        "Capitan goleador de Noruega"
+      ],
+      "caso_especial": "Convocatoria al Mundial 2026 PENDIENTE de clasificacion de Noruega. Verificar repechaje UEFA marzo 2026 antes de publicar. Si Noruega no clasifica, REMOVER del dataset."
+    },
+    {
+      "slug": "mohamed-salah",
+      "nombre_completo": "Mohamed Salah Hamed Mahrous Ghaly",
+      "seleccion": "Egipto",
+      "bandera": "🇪🇬",
+      "posicion": "delantero",
+      "edad_2026": 33,
+      "fecha_nacimiento": "1992-06-15",
+      "club_2026": "Liverpool",
+      "mundiales_jugados": 1,
+      "apodo": "Mo Salah",
+      "relevancia": "WHALE",
+      "highlights_2024_2026": [
+        "Bota de Oro Premier League multiple",
+        "Maximo goleador historico de Egipto y Liverpool africano",
+        "Capitan de Egipto"
+      ],
+      "caso_especial": "Convocatoria al Mundial 2026 PENDIENTE de clasificacion de Egipto via eliminatorias CAF. Verificar antes de publicar."
+    }
+  ]
+}

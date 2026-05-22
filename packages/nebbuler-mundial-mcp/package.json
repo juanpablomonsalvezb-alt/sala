@@ -1,0 +1,54 @@
+{
+  "name": "nebbuler-mundial-mcp",
+  "version": "0.1.0",
+  "description": "MCP (Model Context Protocol) server for Nebbuler Mundial 2026 open data. Gives Claude, Cursor, Windsurf and other AI agents native tools to query World Cup data, calculate creator earnings, and find LATAM sports creators.",
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "claude",
+    "cursor",
+    "windsurf",
+    "anthropic",
+    "world-cup",
+    "mundial",
+    "fifa",
+    "soccer",
+    "latam",
+    "nebbuler"
+  ],
+  "author": "Juan Pablo Monsalvez <juanpablo@nebbuler.com>",
+  "license": "MIT",
+  "homepage": "https://nebbuler.com/mundial",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/juanpablomonsalvezb-alt/nebbuler-mundial-mcp.git"
+  },
+  "bin": {
+    "nebbuler-mundial-mcp": "./dist/index.js"
+  },
+  "main": "./dist/index.js",
+  "type": "module",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.4.0"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

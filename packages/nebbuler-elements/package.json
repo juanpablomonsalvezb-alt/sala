@@ -1,0 +1,58 @@
+{
+  "name": "@nebbuler/elements",
+  "version": "0.1.0",
+  "description": "Zero-dependency Web Components for embedding Nebbuler Mundial 2026 widgets in any HTML page. Works in WordPress, Squarespace, raw HTML, Shopify, Medium embeds, etc.",
+  "keywords": [
+    "web-components",
+    "custom-elements",
+    "world-cup",
+    "mundial",
+    "fifa",
+    "soccer",
+    "latam",
+    "nebbuler",
+    "embed",
+    "widget"
+  ],
+  "author": "Juan Pablo Monsalvez <juanpablo@nebbuler.com>",
+  "license": "MIT",
+  "homepage": "https://nebbuler.com/mundial",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/juanpablomonsalvezb-alt/nebbuler-elements.git"
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "unpkg": "./dist/index.umd.js",
+  "jsdelivr": "./dist/index.umd.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "prepublishOnly": "npm run build"
+  },
+  "devDependencies": {
+    "tsup": "^8.0.0",
+    "typescript": "^5.4.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "sideEffects": [
+    "./dist/index.js",
+    "./dist/index.mjs",
+    "./dist/index.umd.js"
+  ]
+}

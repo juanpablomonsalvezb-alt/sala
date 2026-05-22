@@ -7,6 +7,7 @@ import { GUIDES } from '@/data/seo-guides'
 import { COMPETITORS } from '@/data/competitors'
 import { MIGRATIONS } from '@/data/migrations'
 import { PROFESIONES, PAISES } from '@/data/salarios'
+import partidosData from '@/data/mundial-partidos.json'
 
 // Import generated content metadata
 let generatedFaqs: Record<string, unknown> = {}
@@ -211,6 +212,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.9,
   }))
 
+  // 104 páginas de partido Mundial 2026
+  const mundialPartidoRoutes: MetadataRoute.Sitemap = (partidosData as { slug: string; fecha: string }[]).map((p) => ({
+    url: `${BASE}/mundial/partido/${p.slug}`,
+    lastModified: new Date(p.fecha),
+    changeFrequency: 'weekly' as const,
+    priority: 0.85,
+  }))
+
   return [
     { url: BASE, lastModified: new Date(), changeFrequency: 'daily', priority: 1 },
     { url: `${BASE}/monetizar`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.95 },
@@ -239,6 +248,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...faqRoutes,
     ...caseStudyRoutes,
     ...trendingRoutes,
+    ...mundialPartidoRoutes,
     ...dbEntries,
     ...staticEntries,
   ]

@@ -1,0 +1,69 @@
+{
+  "name": "nebbuler-mundial-sdk",
+  "version": "0.1.0",
+  "description": "TypeScript SDK for Nebbuler Mundial 2026 open API. Get groups, fixtures, teams, venues. Zero dependencies. Optional React widget.",
+  "keywords": [
+    "world-cup",
+    "mundial",
+    "fifa",
+    "soccer",
+    "futbol",
+    "latam",
+    "latin-america",
+    "creator-economy",
+    "nebbuler",
+    "sports-api",
+    "open-data"
+  ],
+  "author": "Juan Pablo Monsalvez <juanpablo@nebbuler.com>",
+  "license": "MIT",
+  "homepage": "https://nebbuler.com/api/mundial/v1/docs",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/juanpablomonsalvezb-alt/nebbuler-mundial-sdk.git"
+  },
+  "bugs": {
+    "url": "https://github.com/juanpablomonsalvezb-alt/nebbuler-mundial-sdk/issues"
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./react": {
+      "types": "./dist/react/index.d.ts",
+      "import": "./dist/react/index.js",
+      "require": "./dist/react/index.cjs"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "prepublishOnly": "npm run build"
+  },
+  "peerDependencies": {
+    "react": ">=18.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react": { "optional": true }
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.0",
+    "react": "^18.3.0",
+    "tsup": "^8.0.0",
+    "typescript": "^5.4.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "sideEffects": false
+}

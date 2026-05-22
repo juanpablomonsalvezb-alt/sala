@@ -10,14 +10,14 @@
 Nebbuler
 ```
 
-### Tagline (50/60 chars)
+### Tagline (54/60 chars)
 ```
-AI-powered CRM & invoicing for LATAM freelancers
+CRM, facturación e IA para el freelancer latinoamericano
 ```
 
-### Description (213/260 chars)
+### Description (218/260 chars)
 ```
-LATAM freelancers waste 6h/week on admin. Nebbuler centralizes clients, projects, invoices & collections — with AI that automates proposals, follow-ups, and cash flow forecasts. Built for Latin America, not translated.
+Los freelancers en LATAM pierden 6h/semana en admin. Nebbuler centraliza clientes, proyectos, facturas y cobranzas — con IA que automatiza propuestas, seguimientos y proyección de caja. Hecho para LATAM, no traducido.
 ```
 
 ### Topics / Tags

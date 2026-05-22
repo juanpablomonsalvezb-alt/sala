@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=1270"/>
@@ -7,7 +7,7 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
     width: 1270px; height: 760px; overflow: hidden;
-    font-family: Georgia, serif;
+    font-family: 'Public Sans', system-ui, sans-serif;
     background: #FFFFFF;
   }
   .left-stripe { position: absolute; left: 0; top: 0; width: 8px; height: 760px; background: #B31C1C; }
@@ -56,6 +56,7 @@
   .content-area { padding: 36px 40px; overflow: hidden; }
   .page-title {
     font-size: 28px; font-weight: 700; color: #121212; margin-bottom: 8px;
+    font-family: Georgia, serif;
   }
   .page-sub {
     font-family: 'Public Sans', system-ui, sans-serif;
@@ -105,14 +106,13 @@
     font-family: 'Public Sans', system-ui, sans-serif;
     font-size: 11px; font-weight: 700; letter-spacing: 1px;
     color: #B31C1C; text-transform: uppercase; margin-top: 10px;
-    cursor: pointer; text-decoration: underline;
   }
   .kpi-row { display: flex; gap: 16px; margin-bottom: 24px; }
   .kpi {
     flex: 1; background: white; border: 1px solid #DEDEDE; padding: 16px 20px;
     border-top: 3px solid #0A1628;
   }
-  .kpi-num { font-size: 26px; font-weight: 700; color: #121212; }
+  .kpi-num { font-size: 26px; font-weight: 700; color: #121212; font-family: Georgia, serif; }
   .kpi-label {
     font-family: 'Public Sans', system-ui, sans-serif;
     font-size: 11px; color: #999; text-transform: uppercase; letter-spacing: 1px; margin-top: 4px;
@@ -129,74 +129,74 @@
     <span>Nebbuler</span>
   </div>
   <div class="nav-items">
-    <span>Dashboard</span>
-    <span>Clients</span>
-    <span>Invoices</span>
-    <span>Projects</span>
-    <span>Reports</span>
+    <span>Panel</span>
+    <span>Clientes</span>
+    <span>Facturas</span>
+    <span>Proyectos</span>
+    <span>Reportes</span>
   </div>
 </div>
 <div class="main">
   <div class="sidebar">
     <div class="sidebar-section">
-      <div class="sidebar-label">Management</div>
-      <div class="sidebar-item active"><span>📄</span> Invoices</div>
-      <div class="sidebar-item"><span>👥</span> Clients</div>
-      <div class="sidebar-item"><span>📁</span> Projects</div>
-      <div class="sidebar-item"><span>💬</span> Proposals</div>
+      <div class="sidebar-label">Gestión</div>
+      <div class="sidebar-item active"><span>📄</span> Facturas</div>
+      <div class="sidebar-item"><span>👥</span> Clientes</div>
+      <div class="sidebar-item"><span>📁</span> Proyectos</div>
+      <div class="sidebar-item"><span>💬</span> Propuestas</div>
     </div>
     <div class="sidebar-section">
-      <div class="sidebar-label">Finance</div>
-      <div class="sidebar-item"><span>💰</span> Cash Flow</div>
-      <div class="sidebar-item"><span>📊</span> Reports</div>
-      <div class="sidebar-item"><span>🧾</span> Expenses</div>
+      <div class="sidebar-label">Finanzas</div>
+      <div class="sidebar-item"><span>💰</span> Flujo de caja</div>
+      <div class="sidebar-item"><span>📊</span> Reportes</div>
+      <div class="sidebar-item"><span>🧾</span> Gastos</div>
     </div>
     <div class="sidebar-section">
-      <div class="sidebar-label">AI Tools</div>
-      <div class="sidebar-item"><span>⚡</span> AI Assistant</div>
-      <div class="sidebar-item"><span>✉️</span> Follow-ups</div>
-      <div class="sidebar-item"><span>🔮</span> Forecast</div>
+      <div class="sidebar-label">Herramientas IA</div>
+      <div class="sidebar-item"><span>⚡</span> Asistente IA</div>
+      <div class="sidebar-item"><span>✉️</span> Seguimientos</div>
+      <div class="sidebar-item"><span>🔮</span> Proyección</div>
     </div>
   </div>
   <div class="content-area">
-    <div class="page-title">Invoices</div>
-    <p class="page-sub">May 2026 · 12 invoices · CLP / USD / EUR / ARS</p>
+    <div class="page-title">Facturas</div>
+    <p class="page-sub">Mayo 2026 · 12 facturas · CLP / USD / EUR / ARS</p>
     <div class="kpi-row">
-      <div class="kpi"><div class="kpi-num">$18.400</div><div class="kpi-label">Total billed</div></div>
-      <div class="kpi highlight"><div class="kpi-num">$6.200</div><div class="kpi-label">Overdue</div></div>
-      <div class="kpi"><div class="kpi-num">$9.800</div><div class="kpi-label">Collected</div></div>
-      <div class="kpi"><div class="kpi-num">4</div><div class="kpi-label">Pending</div></div>
+      <div class="kpi"><div class="kpi-num">$18.400</div><div class="kpi-label">Total facturado</div></div>
+      <div class="kpi highlight"><div class="kpi-num">$6.200</div><div class="kpi-label">Vencido</div></div>
+      <div class="kpi"><div class="kpi-num">$9.800</div><div class="kpi-label">Cobrado</div></div>
+      <div class="kpi"><div class="kpi-num">4</div><div class="kpi-label">Pendientes</div></div>
     </div>
     <div class="invoice-header">
-      <div>Client</div><div>Amount</div><div>Due Date</div><div>Currency</div><div>Status</div>
+      <div>Cliente</div><div>Monto</div><div>Vencimiento</div><div>Moneda</div><div>Estado</div>
     </div>
     <div class="invoice-row">
-      <div><div class="client-col">Startup Chile</div><div class="client-sub">INV-2026-034</div></div>
+      <div><div class="client-col">Startup Chile</div><div class="client-sub">FAC-2026-034</div></div>
       <div class="amount-col">$2.400</div>
-      <div class="date-col">May 15</div>
+      <div class="date-col">15 mayo</div>
       <div class="date-col">USD</div>
-      <div><span class="status-badge" style="background:#dcfce7;color:#166534">Paid</span></div>
+      <div><span class="status-badge" style="background:#dcfce7;color:#166534">Pagado</span></div>
     </div>
     <div class="invoice-row">
-      <div><div class="client-col">MiPymes MX</div><div class="client-sub">INV-2026-033</div></div>
+      <div><div class="client-col">MiPymes MX</div><div class="client-sub">FAC-2026-033</div></div>
       <div class="amount-col">$1.800</div>
-      <div class="date-col">May 20</div>
+      <div class="date-col">20 mayo</div>
       <div class="date-col">MXN</div>
-      <div><span class="status-badge" style="background:#fef3c7;color:#92400e">Pending</span></div>
+      <div><span class="status-badge" style="background:#fef3c7;color:#92400e">Pendiente</span></div>
     </div>
     <div class="invoice-row">
-      <div><div class="client-col">AgenciaBA</div><div class="client-sub">INV-2026-031</div></div>
+      <div><div class="client-col">AgenciaBA</div><div class="client-sub">FAC-2026-031</div></div>
       <div class="amount-col">$3.200</div>
-      <div class="date-col">May 1</div>
+      <div class="date-col">1 mayo</div>
       <div class="date-col">ARS</div>
-      <div><span class="status-badge" style="background:#fee2e2;color:#991b1b">Overdue</span></div>
+      <div><span class="status-badge" style="background:#fee2e2;color:#991b1b">Vencido</span></div>
     </div>
     <div class="ai-panel">
       <div class="ai-icon-box">⚡</div>
       <div class="ai-content">
-        <div class="ai-title">AI Follow-up Assistant</div>
-        <div class="ai-text">AgenciaBA has 3 overdue invoices totaling $6.200. I drafted a professional follow-up email in Spanish. Ready to send?</div>
-        <div class="ai-action">→ Review draft &amp; send</div>
+        <div class="ai-title">Asistente de Seguimiento IA</div>
+        <div class="ai-text">AgenciaBA tiene 3 facturas vencidas por $6.200. Redacté un correo de seguimiento profesional. ¿Lo enviamos?</div>
+        <div class="ai-action">→ Revisar borrador y enviar</div>
       </div>
     </div>
   </div>

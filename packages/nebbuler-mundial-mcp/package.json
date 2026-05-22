@@ -1,6 +1,6 @@
 {
   "name": "nebbuler-mundial-mcp",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "MCP (Model Context Protocol) server for Nebbuler Mundial 2026 open data. Gives Claude, Cursor, Windsurf and other AI agents native tools to query World Cup data, calculate creator earnings, and find LATAM sports creators.",
   "keywords": [
     "mcp",

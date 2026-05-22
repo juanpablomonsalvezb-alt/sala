@@ -39,7 +39,7 @@ async function api<T = unknown>(path: string): Promise<T> {
   const res = await fetch(`${API_BASE}${path}`, {
     headers: {
       Accept: 'application/json',
-      'User-Agent': 'nebbuler-mundial-mcp/0.1.0',
+      'User-Agent': 'nebbuler-mundial-mcp/0.2.0',
     },
   })
   if (!res.ok) {
@@ -51,7 +51,7 @@ async function api<T = unknown>(path: string): Promise<T> {
 const server = new Server(
   {
     name: 'nebbuler-mundial',
-    version: '0.1.0',
+    version: '0.2.0',
   },
   {
     capabilities: {
@@ -127,6 +127,43 @@ server.setRequestHandler(ListToolsRequestSchema, async () => ({
           slug: {
             type: 'string',
             description: 'Team slug: argentina, brasil, mexico, colombia, uruguay, ecuador, chile, peru.',
+          },
+        },
+        required: ['slug'],
+      },
+    },
+    {
+      name: 'mundial_get_partidos',
+      description:
+        'Get the full list of 104 World Cup 2026 matches. Filter by fase (grupos, dieciseisavos, octavos, cuartos, semifinales, final), grupo (A-L), or equipo name. Returns slug, teams, date, and nebbuler.com URL for each match.',
+      inputSchema: {
+        type: 'object',
+        properties: {
+          fase: {
+            type: 'string',
+            description: 'Filter by phase: grupos, dieciseisavos, octavos, cuartos, semifinales, final',
+          },
+          grupo: {
+            type: 'string',
+            description: 'Filter by group letter: A to L',
+          },
+          equipo: {
+            type: 'string',
+            description: 'Filter by team name (partial match, e.g. "Argentina", "Mexico")',
+          },
+        },
+      },
+    },
+    {
+      name: 'mundial_get_partido',
+      description:
+        'Get details of a single World Cup 2026 match by slug. Returns teams, group, matchday, date, phase, and the nebbuler.com page URL. Use when asked about a specific match.',
+      inputSchema: {
+        type: 'object',
+        properties: {
+          slug: {
+            type: 'string',
+            description: 'Match slug, e.g. argentina-vs-argelia-grupo-j-mundial-2026',
           },
         },
         required: ['slug'],
@@ -254,6 +291,26 @@ server.setRequestHandler(CallToolRequestSchema, async (req) => {
         return contentJson(data, 'Programa La Sombra · Nebbuler · nebbuler.com/mundial')
       }
 
+      case 'mundial_get_partidos': {
+        const fase = ((args ?? {}).fase as string | undefined) ?? ''
+        const grupo = ((args ?? {}).grupo as string | undefined) ?? ''
+        const equipo = ((args ?? {}).equipo as string | undefined) ?? ''
+        const params = new URLSearchParams()
+        if (fase) params.set('fase', fase)
+        if (grupo) params.set('grupo', grupo)
+        if (equipo) params.set('equipo', equipo)
+        const qs = params.toString() ? `?${params.toString()}` : ''
+        const data = await api<unknown>(`/partidos${qs}`)
+        return contentJson(data, '104 partidos Mundial 2026 · nebbuler.com/mundial')
+      }
+
+      case 'mundial_get_partido': {
+        const slug = (args ?? {}).slug as string
+        if (!slug) return error('slug is required')
+        const data = await api<unknown>(`/partidos/${slug}`)
+        return contentJson(data, `Partido · nebbuler.com/mundial/partido/${slug}`)
+      }
+
       default:
         return error(`Unknown tool: ${name}`)
     }
@@ -290,4 +347,4 @@ function error(message: string) {
 const transport = new StdioServerTransport()
 await server.connect(transport)
 // MCP servers don't log to stdout (it's reserved for protocol).
-process.stderr.write('Nebbuler Mundial MCP server v0.1.0 running on stdio.\n')
+process.stderr.write('Nebbuler Mundial MCP server v0.2.0 running on stdio.\n')

@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { FounderSubscribeForm } from './founder-subscribe-form'
 import Link from 'next/link'
 import Nav from '@/components/nav'
+import { NEBBULER_POSTS } from '@/data/nebbuler-posts'
 
 export const metadata: Metadata = {
   title: 'Construyendo Nebbuler · Build in Public en LATAM',
@@ -15,32 +16,7 @@ export const metadata: Metadata = {
   },
 }
 
-const POSTS = [
-  {
-    id: 1,
-    title: 'Cero a lanzamiento: los primeros 30 días construyendo Nebbuler',
-    date: '8 mayo 2026',
-    isoDate: '2026-05-08',
-    excerpt:
-      'Arrancamos desde una hoja en blanco y en 30 días teníamos un producto en producción con los primeros creadores. Acá el registro exacto de decisiones, errores y lo que haríamos diferente.',
-  },
-  {
-    id: 2,
-    title: 'Por qué elegimos MercadoPago y no Stripe para LATAM',
-    date: '5 mayo 2026',
-    isoDate: '2026-05-05',
-    excerpt:
-      'Stripe es la opción obvia para cualquier SaaS, pero en Chile la tasa de conversión con tarjetas locales lo cambia todo. Detallamos los números que nos hicieron cambiar de decisión.',
-  },
-  {
-    id: 3,
-    title: 'El stack técnico de Nebbuler: Next.js 16, Supabase, Vercel y lo que aprendimos',
-    date: '1 mayo 2026',
-    isoDate: '2026-05-01',
-    excerpt:
-      'Un recorrido por cada pieza del stack que elegimos, qué funcionó desde el día uno y qué tuvimos que refactorizar a la semana de lanzar.',
-  },
-]
+const POSTS = NEBBULER_POSTS
 
 export default function NebbulerPage() {
   return (
@@ -77,7 +53,7 @@ export default function NebbulerPage() {
 
           {/* Stats */}
           <div className="flex items-center gap-3 mb-8">
-            <span className="font-sans text-[12px] text-[#666]">12 publicaciones</span>
+            <span className="font-sans text-[12px] text-[#666]">{NEBBULER_POSTS.length} publicaciones</span>
             <span className="text-[#DEDEDE]">·</span>
             <span className="font-sans text-[12px] text-[#666]">Desde mayo 2026</span>
             <span className="text-[#DEDEDE]">·</span>
@@ -92,23 +68,22 @@ export default function NebbulerPage() {
               Publicaciones recientes
             </h2>
             {POSTS.map((post) => (
-              <article key={post.id} className="border border-[#DEDEDE] bg-white p-5 rounded">
+              <Link key={post.id} href={`/nebbuler/${post.slug}`} className="block group">
+              <article className="border border-[#DEDEDE] bg-white p-5 hover:border-[#C41C1C] transition-colors">
                 <div className="flex items-start justify-between gap-3 mb-2">
-                  <h3 className="font-serif text-[16px] font-bold text-[#121212] leading-snug flex-1">
+                  <h3 className="font-serif text-[16px] font-bold text-[#121212] leading-snug flex-1 group-hover:text-[#C41C1C] transition-colors">
                     {post.title}
                   </h3>
-                  <span className="inline-flex items-center px-2 py-0.5 rounded bg-[#F0FFF4] border border-[#BBEECC] font-sans text-[9px] uppercase tracking-[0.06em] text-[#2A7A47] font-semibold whitespace-nowrap flex-shrink-0">
+                  <span className="inline-flex items-center px-2 py-0.5 bg-[#F0FFF4] border border-[#BBEECC] font-sans text-[9px] uppercase tracking-[0.06em] text-[#2A7A47] font-semibold whitespace-nowrap flex-shrink-0">
                     Gratuito
                   </span>
                 </div>
-                <time
-                  dateTime={post.isoDate}
-                  className="block font-sans text-[11px] text-[#999] mb-3"
-                >
-                  {post.date}
+                <time dateTime={post.isoDate} className="block font-sans text-[11px] text-[#999] mb-3">
+                  {post.date} · {post.readingTime} min de lectura
                 </time>
                 <p className="font-sans text-[13px] text-[#555] leading-relaxed">{post.excerpt}</p>
               </article>
+              </Link>
             ))}
           </section>
 

@@ -68,10 +68,15 @@ const nextConfig: NextConfig = {
     ],
   },
 
+  async rewrites() {
+    return [
+      { source: '/.well-known/ai-plugin.json', destination: '/api/well-known/ai-plugin' },
+      { source: '/.well-known/openapi.yaml',   destination: '/api/well-known/openapi' },
+    ]
+  },
+
   async redirects() {
     return [
-      // Compat: links viejos /invite/CODIGO siguen funcionando.
-      // Movido a /vip/ porque /invite/[code] colisionaba con /[creator]/[post].
       { source: '/invite/:code', destination: '/vip/:code', permanent: true },
     ]
   },

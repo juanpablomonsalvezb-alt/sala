@@ -200,8 +200,11 @@ function renderCard(
   </div>
   ${ctaBlock}
   <div class="nbb-footer">
-    <a href="https://nebbuler.com" target="_top" rel="noopener">Powered by Nebbuler</a>
-    <a href="https://nebbuler.com/abrir" target="_top" rel="noopener">Abrí tu sala →</a>
+    <a href="https://nebbuler.com?ref=embed" target="_top" rel="noopener" style="display:inline-flex;align-items:center;gap:4px;background:#0A1628;color:#fff;padding:4px 8px;border-radius:2px;font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none">
+      <svg width="10" height="10" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0" width="6" height="24" fill="#C41C1C"/><text x="14" y="19" font-family="Georgia,serif" font-size="18" font-weight="700" fill="white" text-anchor="middle">N</text></svg>
+      Nebbuler
+    </a>
+    <a href="https://nebbuler.com/abrir?ref=embed-widget" target="_top" rel="noopener" style="color:#C41C1C;text-decoration:none;font-size:9px;font-weight:600;letter-spacing:.06em;text-transform:uppercase">Abrí tu sala →</a>
   </div>
 </div>
 <script>

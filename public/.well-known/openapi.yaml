@@ -1,0 +1,108 @@
+openapi: 3.0.3
+info:
+  title: Nebbuler API
+  description: |
+    Public API for Nebbuler — the membership and CRM platform for Latin American independent professionals.
+    Data is CC-BY 4.0. No auth required.
+  version: "1.0.0"
+  contact:
+    email: hola@nebbuler.com
+  x-logo:
+    url: https://nebbuler.com/nebbuler-logo.png
+
+servers:
+  - url: https://nebbuler.com/api/mundial/v1
+    description: Nebbuler Mundial 2026 API
+
+paths:
+  /torneo:
+    get:
+      operationId: getTorneo
+      summary: FIFA World Cup 2026 general info
+      description: Returns dates, format, host countries, number of teams, defending champion for FIFA World Cup 2026.
+      responses:
+        "200":
+          description: Tournament data
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /grupos:
+    get:
+      operationId: getGrupos
+      summary: All 12 World Cup 2026 groups
+      description: Returns all 12 groups (A-L) with their 4 teams each.
+      responses:
+        "200":
+          description: Groups data
+
+  /grupos/{id}:
+    get:
+      operationId: getGrupo
+      summary: Single World Cup 2026 group
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Group letter (a-l)
+      responses:
+        "200":
+          description: Group data
+
+  /partidos:
+    get:
+      operationId: getPartidos
+      summary: All 104 World Cup 2026 matches
+      description: Returns all matches. Filter by fase (grupos/dieciseisavos/octavos/cuartos/semifinales/final), grupo (A-L), or equipo name.
+      parameters:
+        - name: fase
+          in: query
+          schema:
+            type: string
+        - name: grupo
+          in: query
+          schema:
+            type: string
+        - name: equipo
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Matches list
+
+  /partidos/{slug}:
+    get:
+      operationId: getPartido
+      summary: Single match detail
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Match slug e.g. argentina-vs-argelia-grupo-j-mundial-2026
+      responses:
+        "200":
+          description: Match data
+
+  /selecciones:
+    get:
+      operationId: getSelecciones
+      summary: LATAM teams in World Cup 2026
+      description: Returns all Latin American national teams with nicknames, currencies, and creator ecosystem info.
+      responses:
+        "200":
+          description: LATAM teams
+
+  /programa-la-sombra:
+    get:
+      operationId: getProgramaLaSombra
+      summary: Programa La Sombra details
+      description: Returns details of Nebbuler's 0% commission program for LATAM sports creators during the 2026 World Cup (valid through July 31, 2026).
+      responses:
+        "200":
+          description: Program details

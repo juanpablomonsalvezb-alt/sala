@@ -157,6 +157,15 @@ const nextConfig: NextConfig = {
           { key: 'Cache-Control',             value: 'public, max-age=86400, s-maxage=86400, stale-while-revalidate=604800' },
         ],
       },
+      // .well-known — acceso público para crawlers de IA
+      {
+        source: '/.well-known/:path*',
+        headers: [
+          { key: 'Access-Control-Allow-Origin', value: '*' },
+          { key: 'Content-Type', value: 'application/json' },
+          { key: 'Cache-Control', value: 'public, max-age=86400' },
+        ],
+      },
       // Default headers for all other routes
       {
         source: '/((?!embed/iframe|embed\\.js).*)',

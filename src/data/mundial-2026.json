@@ -1,0 +1,320 @@
+{
+  "torneo": {
+    "nombre": "Mundial 2026",
+    "nombre_alternativo": "Copa del Mundo 2026",
+    "organizador": "FIFA",
+    "edicion": 23,
+    "fecha_inicio": "2026-06-11",
+    "fecha_fin": "2026-07-19",
+    "duracion_dias": 39,
+    "selecciones": 48,
+    "partidos_totales": 104,
+    "grupos": 12,
+    "equipos_por_grupo": 4,
+    "sedes_paises": ["Estados Unidos", "Mexico", "Canada"],
+    "sedes_ciudades_total": 16,
+    "sedes_distribucion": {
+      "Estados Unidos": 11,
+      "Mexico": 3,
+      "Canada": 2
+    },
+    "partido_inaugural": {
+      "fecha": "2026-06-11",
+      "estadio": "Estadio Azteca",
+      "ciudad": "Ciudad de Mexico",
+      "pais": "Mexico",
+      "partido": "Mexico vs Sudafrica"
+    },
+    "final": {
+      "fecha": "2026-07-19",
+      "estadio": "MetLife Stadium",
+      "ciudad": "East Rutherford, Nueva Jersey",
+      "pais": "Estados Unidos"
+    },
+    "semifinales": {
+      "estadios": ["SoFi Stadium (Los Angeles)", "AT&T Stadium (Dallas)"]
+    },
+    "fase_grupos": {
+      "fecha_inicio": "2026-06-11",
+      "fecha_fin": "2026-06-27"
+    },
+    "fases_eliminatorias": [
+      "Dieciseisavos de final",
+      "Octavos de final",
+      "Cuartos de final",
+      "Semifinales",
+      "Final"
+    ],
+    "formato_clasificacion": "Avanzan los 2 mejores de cada grupo (24) + 8 mejores terceros = 32 equipos a dieciseisavos",
+    "primicia_historica": "Primera Copa del Mundo organizada por 3 paises y primera con 48 selecciones"
+  },
+  "grupos": [
+    {
+      "id": "A",
+      "cabeza_serie": "Mexico",
+      "selecciones": ["Mexico", "Sudafrica", "Corea del Sur", "Republica Checa"],
+      "nota": "Republica Checa clasifico via repechaje europeo D"
+    },
+    {
+      "id": "B",
+      "cabeza_serie": "Canada",
+      "selecciones": ["Canada", "Suiza", "Catar", "Playoff europeo A"],
+      "nota": "TBD - ganador playoff europeo A confirmado tras repesca marzo 2026"
+    },
+    {
+      "id": "C",
+      "cabeza_serie": "Brasil",
+      "selecciones": ["Brasil", "Marruecos", "Haiti", "Escocia"]
+    },
+    {
+      "id": "D",
+      "cabeza_serie": "Estados Unidos",
+      "selecciones": ["Estados Unidos", "Paraguay", "Australia", "Turquia"],
+      "nota": "Turquia clasifico via repechaje europeo C"
+    },
+    {
+      "id": "E",
+      "cabeza_serie": "Alemania",
+      "selecciones": ["Alemania", "Curazao", "Costa de Marfil", "Ecuador"]
+    },
+    {
+      "id": "F",
+      "cabeza_serie": "Paises Bajos",
+      "selecciones": ["Paises Bajos", "Japon", "Playoff europeo B", "Tunez"],
+      "nota": "TBD - ganador playoff europeo B"
+    },
+    {
+      "id": "G",
+      "cabeza_serie": "Belgica",
+      "selecciones": ["Belgica", "Egipto", "Iran", "Nueva Zelanda"]
+    },
+    {
+      "id": "H",
+      "cabeza_serie": "Espana",
+      "selecciones": ["Espana", "Cabo Verde", "Arabia Saudita", "Uruguay"]
+    },
+    {
+      "id": "I",
+      "cabeza_serie": "Francia",
+      "selecciones": ["Francia", "Senegal", "Irak", "Noruega"]
+    },
+    {
+      "id": "J",
+      "cabeza_serie": "Argentina",
+      "selecciones": ["Argentina", "Argelia", "Austria", "Jordania"]
+    },
+    {
+      "id": "K",
+      "cabeza_serie": "Portugal",
+      "selecciones": ["Portugal", "Republica Democratica del Congo", "Uzbekistan", "Colombia"]
+    },
+    {
+      "id": "L",
+      "cabeza_serie": "Inglaterra",
+      "selecciones": ["Inglaterra", "Croacia", "Ghana", "Panama"]
+    }
+  ],
+  "sedes": [
+    {
+      "ciudad": "Ciudad de Mexico",
+      "pais": "Mexico",
+      "estadio": "Estadio Azteca",
+      "nombre_torneo": "Estadio Ciudad de Mexico",
+      "capacidad": 83000,
+      "rol": "Partido inaugural"
+    },
+    {
+      "ciudad": "Guadalajara",
+      "pais": "Mexico",
+      "estadio": "Estadio Akron",
+      "nombre_torneo": "Estadio Guadalajara",
+      "capacidad": 49000
+    },
+    {
+      "ciudad": "Monterrey",
+      "pais": "Mexico",
+      "estadio": "Estadio BBVA",
+      "nombre_torneo": "Estadio Monterrey",
+      "capacidad": 53500
+    },
+    {
+      "ciudad": "Toronto",
+      "pais": "Canada",
+      "estadio": "BMO Field",
+      "nombre_torneo": "Toronto Stadium",
+      "capacidad": 45000
+    },
+    {
+      "ciudad": "Vancouver",
+      "pais": "Canada",
+      "estadio": "BC Place",
+      "nombre_torneo": "Vancouver Stadium",
+      "capacidad": 54500
+    },
+    {
+      "ciudad": "Atlanta",
+      "pais": "Estados Unidos",
+      "estadio": "Mercedes-Benz Stadium",
+      "nombre_torneo": "Atlanta Stadium",
+      "capacidad": 75000
+    },
+    {
+      "ciudad": "Boston (Foxborough)",
+      "pais": "Estados Unidos",
+      "estadio": "Gillette Stadium",
+      "nombre_torneo": "Boston Stadium",
+      "capacidad": 68000
+    },
+    {
+      "ciudad": "Dallas (Arlington)",
+      "pais": "Estados Unidos",
+      "estadio": "AT&T Stadium",
+      "nombre_torneo": "Dallas Stadium",
+      "capacidad": 94000,
+      "rol": "Semifinal"
+    },
+    {
+      "ciudad": "Houston",
+      "pais": "Estados Unidos",
+      "estadio": "NRG Stadium",
+      "nombre_torneo": "Houston Stadium",
+      "capacidad": 72000
+    },
+    {
+      "ciudad": "Kansas City",
+      "pais": "Estados Unidos",
+      "estadio": "Arrowhead Stadium",
+      "nombre_torneo": "Kansas City Stadium",
+      "capacidad": 76000
+    },
+    {
+      "ciudad": "Los Angeles (Inglewood)",
+      "pais": "Estados Unidos",
+      "estadio": "SoFi Stadium",
+      "nombre_torneo": "Los Angeles Stadium",
+      "capacidad": 70000,
+      "rol": "Semifinal"
+    },
+    {
+      "ciudad": "Miami (Miami Gardens)",
+      "pais": "Estados Unidos",
+      "estadio": "Hard Rock Stadium",
+      "nombre_torneo": "Miami Stadium",
+      "capacidad": 75000
+    },
+    {
+      "ciudad": "Nueva Jersey (East Rutherford)",
+      "pais": "Estados Unidos",
+      "estadio": "MetLife Stadium",
+      "nombre_torneo": "New York New Jersey Stadium",
+      "capacidad": 82500,
+      "rol": "Final"
+    },
+    {
+      "ciudad": "Philadelphia",
+      "pais": "Estados Unidos",
+      "estadio": "Lincoln Financial Field",
+      "nombre_torneo": "Philadelphia Stadium",
+      "capacidad": 69000
+    },
+    {
+      "ciudad": "San Francisco Bay Area (Santa Clara)",
+      "pais": "Estados Unidos",
+      "estadio": "Levi's Stadium",
+      "nombre_torneo": "Bay Area Stadium",
+      "capacidad": 71000
+    },
+    {
+      "ciudad": "Seattle",
+      "pais": "Estados Unidos",
+      "estadio": "Lumen Field",
+      "nombre_torneo": "Seattle Stadium",
+      "capacidad": 72000
+    }
+  ],
+  "mascotas": [
+    {
+      "nombre": "Maple",
+      "pais": "Canada",
+      "animal": "Alce antropomorfico",
+      "color": "Rojo",
+      "posicion": "Portero",
+      "significado": "Creatividad y resiliencia. Inspirado en la hoja de arce, simbolo nacional canadiense",
+      "fecha_anuncio": "2025-09-25"
+    },
+    {
+      "nombre": "Zayu",
+      "pais": "Mexico",
+      "animal": "Jaguar antropomorfico",
+      "color": "Verde",
+      "posicion": "Delantero",
+      "significado": "Su nombre significa unidad, fortaleza y alegria. Inspirado en la importancia del jaguar para las civilizaciones antiguas mesoamericanas",
+      "fecha_anuncio": "2025-09-25"
+    },
+    {
+      "nombre": "Clutch",
+      "pais": "Estados Unidos",
+      "animal": "Aguila calva antropomorfica",
+      "color": "Azul",
+      "posicion": "Mediocampista",
+      "significado": "Valentia, liderazgo y unidad",
+      "fecha_anuncio": "2025-09-25"
+    }
+  ],
+  "repechaje_intercontinental": {
+    "fecha": "Marzo 2026",
+    "sedes": ["Monterrey", "Guadalajara"],
+    "participantes": ["Irak (Asia)", "Republica Democratica del Congo (Africa)", "Bolivia (Conmebol)", "Nueva Caledonia (Oceania)", "Jamaica (Concacaf)", "Surinam (Concacaf)"],
+    "clasificados": ["Irak", "Republica Democratica del Congo"],
+    "eliminados_destacados": ["Bolivia (perdio final ante Irak)"]
+  },
+  "datos_curiosos": [
+    "Primera Copa del Mundo con 48 selecciones (vs 32 anteriores)",
+    "Primera Copa del Mundo organizada por 3 paises simultaneamente",
+    "Primera vez que se juegan 104 partidos (vs 64 anteriores)",
+    "Se estrena la fase de dieciseisavos de final como nueva ronda eliminatoria",
+    "Estadio Azteca se convierte en el primer estadio en albergar partidos de 3 Copas del Mundo distintas (1970, 1986, 2026)",
+    "AT&T Stadium en Dallas es el estadio con mayor capacidad del torneo: 94.000 espectadores",
+    "Argentina llega como campeon vigente tras ganar Qatar 2022",
+    "Lionel Messi, Cristiano Ronaldo y Guillermo Ochoa podrian convertirse en los jugadores con mas participaciones mundialistas (6)",
+    "Carlo Ancelotti es el primer DT extranjero de Brasil en la era moderna",
+    "Marcelo Bielsa (argentino) dirige a Uruguay",
+    "Gustavo Alfaro (argentino) dirige a Paraguay",
+    "Sebastian Beccacece (argentino) dirige a Ecuador",
+    "El nuevo trofeo y branding incluye por primera vez una imagen del trofeo junto al ano del torneo en el logo oficial",
+    "Bolivia perdio la final del repechaje intercontinental ante Irak y se quedo fuera; no juega un Mundial desde USA 1994",
+    "6 selecciones de CONMEBOL clasificaron directamente: Argentina, Brasil, Uruguay, Ecuador, Colombia y Paraguay"
+  ],
+  "formato_eliminatorias_clasificacion": {
+    "AFC (Asia)": "8 plazas directas + 1 repechaje",
+    "CAF (Africa)": "9 plazas directas + 1 repechaje",
+    "CONCACAF": "3 plazas directas (anfitriones) + 3 cupos + repechajes",
+    "CONMEBOL": "6 plazas directas + 1 repechaje",
+    "OFC (Oceania)": "1 plaza directa + 1 repechaje",
+    "UEFA": "16 plazas"
+  },
+  "trofeo": {
+    "nombre": "Copa Mundial de la FIFA",
+    "uso": "Mismo trofeo desde 1974",
+    "material": "Oro de 18 quilates",
+    "altura_cm": 36.8,
+    "peso_kg": 6.175,
+    "novedad_2026": "Por primera vez una imagen del trofeo se exhibe junto al ano del torneo en el logo/branding oficial"
+  },
+  "campeon_vigente": {
+    "seleccion": "Argentina",
+    "ano": 2022,
+    "sede": "Qatar"
+  },
+  "favoritos_apuestas": ["Argentina", "Brasil", "Espana", "Francia", "Inglaterra", "Portugal", "Alemania"],
+  "fuentes_principales": [
+    "fifa.com",
+    "espn.com.ar",
+    "espn.com.mx",
+    "olympics.com",
+    "uefa.com",
+    "es.wikipedia.org",
+    "cnnespanol.cnn.com",
+    "conmebol.com"
+  ]
+}

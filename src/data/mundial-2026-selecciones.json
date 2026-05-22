@@ -1,0 +1,382 @@
+{
+  "metadata": {
+    "descripcion": "Selecciones LATAM clasificadas al Mundial 2026 con detalles completos",
+    "fecha_actualizacion": "2026-05-21",
+    "total_selecciones_latam": 7,
+    "notas": "Hora UTC base. ART = UTC-3, CLT = UTC-4 (sin DST en mayo), COT = UTC-5, MXN = UTC-6 (CDMX), ECT = UTC-5, PYT = UTC-4, UYT = UTC-3. Horarios de partidos confirmados segun fuentes oficiales FIFA/medios; verificar zonas horarias finales con calendario oficial actualizado"
+  },
+  "selecciones": [
+    {
+      "pais": "Argentina",
+      "codigo": "ARG",
+      "apodo_oficial": "La Albiceleste",
+      "apodos_populares": ["La Scaloneta", "La Seleccion"],
+      "confederacion": "CONMEBOL",
+      "ranking_fifa_aprox": 1,
+      "dt": "Lionel Scaloni",
+      "capitan": "Lionel Messi",
+      "estrellas_principales": ["Lionel Messi", "Lautaro Martinez", "Julian Alvarez", "Enzo Fernandez", "Alexis Mac Allister", "Cristian Romero", "Emiliano Martinez"],
+      "titulos_mundiales": 3,
+      "anos_titulos": [1978, 1986, 2022],
+      "es_campeon_vigente": true,
+      "participaciones_mundiales": 19,
+      "goleadores_historicos_mundiales": [
+        {"jugador": "Gabriel Batistuta", "goles": 10},
+        {"jugador": "Lionel Messi", "goles": 13},
+        {"jugador": "Diego Maradona", "goles": 8}
+      ],
+      "clasificacion": {
+        "metodo": "Eliminatorias CONMEBOL",
+        "fecha_clasificacion": "2025-03-25",
+        "posicion_eliminatorias": 1,
+        "nota": "Primera seleccion en clasificarse al Mundial 2026"
+      },
+      "grupo": "J",
+      "rivales_grupo": ["Argelia", "Austria", "Jordania"],
+      "fixture": [
+        {
+          "jornada": 1,
+          "fecha": "2026-06-16",
+          "rival": "Argelia",
+          "sede": "Arrowhead Stadium",
+          "ciudad": "Kansas City",
+          "pais": "Estados Unidos"
+        },
+        {
+          "jornada": 2,
+          "fecha": "2026-06-22",
+          "rival": "Austria",
+          "sede": "AT&T Stadium",
+          "ciudad": "Dallas",
+          "pais": "Estados Unidos"
+        },
+        {
+          "jornada": 3,
+          "fecha": "2026-06-27",
+          "rival": "Jordania",
+          "sede": "TBD",
+          "ciudad": "TBD",
+          "pais": "Estados Unidos"
+        }
+      ],
+      "narrativa_seo": "Argentina llega como vigente campeona del mundo tras Qatar 2022. Posible ultimo Mundial de Lionel Messi. La Albiceleste busca su cuarta estrella."
+    },
+    {
+      "pais": "Brasil",
+      "codigo": "BRA",
+      "apodo_oficial": "La Verdeamarela",
+      "apodos_populares": ["La Canarinha", "El Scratch", "La Selecao"],
+      "confederacion": "CONMEBOL",
+      "ranking_fifa_aprox": 5,
+      "dt": "Carlo Ancelotti",
+      "capitan": "TBD (a confirmar antes de junio 2026)",
+      "estrellas_principales": ["Vinicius Junior", "Rodrygo", "Neymar", "Raphinha", "Bruno Guimaraes", "Casemiro", "Alisson"],
+      "titulos_mundiales": 5,
+      "anos_titulos": [1958, 1962, 1970, 1994, 2002],
+      "es_campeon_vigente": false,
+      "participaciones_mundiales": 23,
+      "es_unico_pais": "Unico pais que ha jugado todas las Copas del Mundo",
+      "clasificacion": {
+        "metodo": "Eliminatorias CONMEBOL",
+        "fecha_clasificacion": "2025-06-10",
+        "nota": "Clasificacion confirmada tras vencer a Paraguay en fecha 16"
+      },
+      "grupo": "C",
+      "rivales_grupo": ["Marruecos", "Escocia", "Haiti"],
+      "fixture": [
+        {
+          "jornada": 1,
+          "fecha": "2026-06-13",
+          "hora_local": "18:00",
+          "rival": "Marruecos",
+          "sede": "MetLife Stadium",
+          "ciudad": "Nueva York / Nueva Jersey",
+          "pais": "Estados Unidos"
+        },
+        {
+          "jornada": 2,
+          "fecha": "2026-06-19",
+          "hora_local": "21:00",
+          "rival": "Haiti",
+          "sede": "Lincoln Financial Field",
+          "ciudad": "Philadelphia",
+          "pais": "Estados Unidos"
+        },
+        {
+          "jornada": 3,
+          "fecha": "2026-06-24",
+          "hora_local": "18:00",
+          "rival": "Escocia",
+          "sede": "Hard Rock Stadium",
+          "ciudad": "Miami",
+          "pais": "Estados Unidos"
+        }
+      ],
+      "narrativa_seo": "Brasil estrena DT extranjero por primera vez en la era moderna: Carlo Ancelotti, ganador de 5 Champions League. La Verdeamarela busca su sexta estrella tras 24 anos sin titulo mundial."
+    },
+    {
+      "pais": "Uruguay",
+      "codigo": "URU",
+      "apodo_oficial": "La Celeste",
+      "apodos_populares": ["La Garra Charrua"],
+      "confederacion": "CONMEBOL",
+      "ranking_fifa_aprox": 11,
+      "dt": "Marcelo Bielsa",
+      "capitan": "TBD (probable Federico Valverde o Jose Maria Gimenez)",
+      "estrellas_principales": ["Federico Valverde", "Darwin Nunez", "Ronald Araujo", "Jose Maria Gimenez", "Manuel Ugarte", "Maximiliano Araujo"],
+      "titulos_mundiales": 2,
+      "anos_titulos": [1930, 1950],
+      "es_campeon_vigente": false,
+      "hito_historico": "Campeon del primer Mundial de la historia (Uruguay 1930)",
+      "clasificacion": {
+        "metodo": "Eliminatorias CONMEBOL",
+        "fecha_clasificacion": "2025-09-04"
+      },
+      "grupo": "H",
+      "rivales_grupo": ["Espana", "Cabo Verde", "Arabia Saudita"],
+      "fixture": [
+        {
+          "jornada": 1,
+          "fecha": "2026-06-15",
+          "rival": "Arabia Saudita",
+          "sede": "Hard Rock Stadium",
+          "ciudad": "Miami",
+          "pais": "Estados Unidos"
+        },
+        {
+          "jornada": 2,
+          "fecha": "2026-06-21",
+          "rival": "Cabo Verde",
+          "sede": "Hard Rock Stadium",
+          "ciudad": "Miami",
+          "pais": "Estados Unidos"
+        },
+        {
+          "jornada": 3,
+          "fecha": "2026-06-26",
+          "rival": "Espana",
+          "sede": "Estadio Akron",
+          "ciudad": "Guadalajara",
+          "pais": "Mexico"
+        }
+      ],
+      "narrativa_seo": "Uruguay vuelve al Mundial dirigido por Marcelo Bielsa, argentino. La Celeste, primer campeon del mundo (1930), busca recuperar protagonismo con generacion joven encabezada por Valverde y Nunez."
+    },
+    {
+      "pais": "Colombia",
+      "codigo": "COL",
+      "apodo_oficial": "La Tricolor",
+      "apodos_populares": ["Los Cafeteros", "La Tri"],
+      "confederacion": "CONMEBOL",
+      "ranking_fifa_aprox": 14,
+      "dt": "Nestor Lorenzo",
+      "capitan": "James Rodriguez",
+      "estrellas_principales": ["James Rodriguez", "Luis Diaz", "Jhon Duran", "Daniel Munoz", "Davinson Sanchez", "Richard Rios"],
+      "titulos_mundiales": 0,
+      "mejor_actuacion": "Cuartos de final (Brasil 2014)",
+      "es_campeon_vigente": false,
+      "clasificacion": {
+        "metodo": "Eliminatorias CONMEBOL",
+        "fecha_clasificacion": "2025-09-04"
+      },
+      "grupo": "K",
+      "rivales_grupo": ["Portugal", "Republica Democratica del Congo", "Uzbekistan"],
+      "fixture": [
+        {
+          "jornada": 1,
+          "fecha": "2026-06-17",
+          "hora_colombia": "21:00",
+          "rival": "Uzbekistan",
+          "sede": "Estadio Azteca",
+          "ciudad": "Ciudad de Mexico",
+          "pais": "Mexico"
+        },
+        {
+          "jornada": 2,
+          "fecha": "2026-06-23",
+          "hora_colombia": "23:00",
+          "rival": "Republica Democratica del Congo",
+          "sede": "Estadio Akron",
+          "ciudad": "Guadalajara",
+          "pais": "Mexico"
+        },
+        {
+          "jornada": 3,
+          "fecha": "2026-06-27",
+          "hora_colombia": "18:30",
+          "rival": "Portugal",
+          "sede": "Hard Rock Stadium",
+          "ciudad": "Miami",
+          "pais": "Estados Unidos"
+        }
+      ],
+      "narrativa_seo": "Colombia vuelve a un Mundial tras ausencia en Qatar 2022. Bajo Nestor Lorenzo (argentino) y con James Rodriguez como referente, La Tricolor afronta el grupo de Cristiano Ronaldo y Portugal."
+    },
+    {
+      "pais": "Ecuador",
+      "codigo": "ECU",
+      "apodo_oficial": "La Tri",
+      "apodos_populares": ["La Tricolor"],
+      "confederacion": "CONMEBOL",
+      "ranking_fifa_aprox": 23,
+      "dt": "Sebastian Beccacece",
+      "capitan": "Enner Valencia",
+      "estrellas_principales": ["Moises Caicedo", "Piero Hincapie", "Willian Pacho", "Pervis Estupinan", "Gonzalo Plata", "Kendry Paez", "Enner Valencia"],
+      "titulos_mundiales": 0,
+      "mejor_actuacion": "Octavos de final (Alemania 2006)",
+      "es_campeon_vigente": false,
+      "clasificacion": {
+        "metodo": "Eliminatorias CONMEBOL",
+        "fecha_clasificacion": "2025-06-10"
+      },
+      "grupo": "E",
+      "rivales_grupo": ["Alemania", "Curazao", "Costa de Marfil"],
+      "fixture": [
+        {
+          "jornada": 1,
+          "fecha": "2026-06-14",
+          "rival": "Costa de Marfil",
+          "sede": "Lincoln Financial Field",
+          "ciudad": "Philadelphia",
+          "pais": "Estados Unidos"
+        },
+        {
+          "jornada": 2,
+          "fecha": "TBD junio 2026",
+          "rival": "Curazao o Alemania",
+          "sede": "Arrowhead Stadium",
+          "ciudad": "Kansas City",
+          "pais": "Estados Unidos"
+        },
+        {
+          "jornada": 3,
+          "fecha": "TBD junio 2026",
+          "rival": "Alemania o Curazao",
+          "sede": "MetLife Stadium",
+          "ciudad": "Nueva York / Nueva Jersey",
+          "pais": "Estados Unidos"
+        }
+      ],
+      "narrativa_seo": "Ecuador llega al Mundial 2026 con la generacion mas talentosa de su historia: Caicedo (Chelsea), Hincapie (Bayer Leverkusen), Pacho (PSG). Beccacece (argentino) dirige a La Tri."
+    },
+    {
+      "pais": "Mexico",
+      "codigo": "MEX",
+      "apodo_oficial": "El Tricolor",
+      "apodos_populares": ["El Tri", "La Verde"],
+      "confederacion": "CONCACAF",
+      "ranking_fifa_aprox": 17,
+      "dt": "Javier Aguirre",
+      "capitan": "Edson Alvarez (probable)",
+      "estrellas_principales": ["Edson Alvarez", "Raul Jimenez", "Guillermo Ochoa", "Johan Vasquez", "Cesar Montes", "Santiago Gimenez", "Hirving Lozano"],
+      "titulos_mundiales": 0,
+      "mejor_actuacion": "Cuartos de final (1970 y 1986, ambas como anfitrion)",
+      "es_anfitrion": true,
+      "es_campeon_vigente": false,
+      "clasificacion": {
+        "metodo": "Clasificacion automatica por ser pais anfitrion"
+      },
+      "grupo": "A",
+      "rivales_grupo": ["Sudafrica", "Corea del Sur", "Republica Checa"],
+      "fixture": [
+        {
+          "jornada": 1,
+          "fecha": "2026-06-11",
+          "hora_local_mx": "12:00",
+          "rival": "Sudafrica",
+          "sede": "Estadio Azteca",
+          "ciudad": "Ciudad de Mexico",
+          "pais": "Mexico",
+          "nota": "Partido inaugural del Mundial 2026"
+        },
+        {
+          "jornada": 2,
+          "fecha": "TBD junio 2026",
+          "rival": "Corea del Sur",
+          "sede": "Estadio Akron",
+          "ciudad": "Guadalajara",
+          "pais": "Mexico"
+        },
+        {
+          "jornada": 3,
+          "fecha": "2026-06-24",
+          "rival": "Republica Checa",
+          "sede": "Estadio Azteca",
+          "ciudad": "Ciudad de Mexico",
+          "pais": "Mexico"
+        }
+      ],
+      "narrativa_seo": "Mexico abre el Mundial 2026 en su mitico Estadio Azteca, primer estadio en albergar partidos de 3 Copas del Mundo (1970, 1986, 2026). El Tri busca por fin superar el quinto partido bajo Javier Aguirre. Guillermo Ochoa apunta a su sexta Copa del Mundo."
+    },
+    {
+      "pais": "Paraguay",
+      "codigo": "PAR",
+      "apodo_oficial": "La Albirroja",
+      "apodos_populares": ["La Guarani"],
+      "confederacion": "CONMEBOL",
+      "ranking_fifa_aprox": 38,
+      "dt": "Gustavo Alfaro",
+      "capitan": "TBD",
+      "estrellas_principales": ["Antonio Sanabria", "Miguel Almiron", "Julio Enciso", "Omar Alderete", "Gustavo Velazquez"],
+      "titulos_mundiales": 0,
+      "mejor_actuacion": "Cuartos de final (Sudafrica 2010)",
+      "es_campeon_vigente": false,
+      "clasificacion": {
+        "metodo": "Eliminatorias CONMEBOL",
+        "fecha_clasificacion": "2025-09-04",
+        "nota": "Vuelve a un Mundial despues de 16 anos (ausente desde Sudafrica 2010)"
+      },
+      "grupo": "D",
+      "rivales_grupo": ["Estados Unidos", "Australia", "Turquia"],
+      "fixture": [
+        {
+          "jornada": 1,
+          "fecha": "2026-06-12",
+          "rival": "Estados Unidos",
+          "sede": "SoFi Stadium",
+          "ciudad": "Inglewood (Los Angeles)",
+          "pais": "Estados Unidos"
+        },
+        {
+          "jornada": 2,
+          "fecha": "2026-06-19",
+          "rival": "Turquia",
+          "sede": "Levi's Stadium",
+          "ciudad": "Santa Clara (Bay Area)",
+          "pais": "Estados Unidos"
+        },
+        {
+          "jornada": 3,
+          "fecha": "2026-06-25",
+          "rival": "Australia",
+          "sede": "Levi's Stadium",
+          "ciudad": "Santa Clara (Bay Area)",
+          "pais": "Estados Unidos"
+        }
+      ],
+      "narrativa_seo": "Paraguay regresa al Mundial despues de 16 anos de ausencia. La Albirroja, dirigida por el argentino Gustavo Alfaro, debutara nada menos que contra el anfitrion Estados Unidos."
+    }
+  ],
+  "selecciones_latam_no_clasificadas": [
+    {
+      "pais": "Chile",
+      "apodo": "La Roja",
+      "motivo": "Ultimo de Eliminatorias CONMEBOL. Tercer Mundial consecutivo sin clasificar (Rusia 2018, Qatar 2022, Mundial 2026)"
+    },
+    {
+      "pais": "Peru",
+      "apodo": "La Bicolor",
+      "motivo": "No clasifico via Eliminatorias CONMEBOL"
+    },
+    {
+      "pais": "Venezuela",
+      "apodo": "La Vinotinto",
+      "motivo": "No clasifico via Eliminatorias CONMEBOL. Sigue siendo la unica seleccion sudamericana sin Mundial"
+    },
+    {
+      "pais": "Bolivia",
+      "apodo": "La Verde",
+      "motivo": "Perdio la final del repechaje intercontinental ante Irak en marzo 2026"
+    }
+  ]
+}

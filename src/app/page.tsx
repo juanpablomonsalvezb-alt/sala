@@ -212,8 +212,8 @@ export default function Home() {
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
             {[
               { src: '/social-images/posters/nebbuler_v2_1.png', alt: 'Meta lleva años cobrando por lo que tú sabes' },
-              { src: '/social-images/posters/nebbuler_v2_3.png', alt: 'Eres el producto. O eres el dueño.' },
-              { src: '/social-images/posters/nebbuler_v2_5.png', alt: 'No eres un creador de contenido. Eres un experto.' },
+              { src: '/social-images/posters/nebbuler_v2_2.png', alt: 'Cada vez que publicas gratis, alguien más gana dinero con tu conocimiento.' },
+              { src: '/social-images/posters/nebbuler_v2_6.png', alt: 'Años de contenido de excelencia regalado. Ya es hora de que alguien te pague a ti.' },
               { src: '/social-images/posters/nebbuler_v2_7.png', alt: '0% de comisión. 100% tuyo.' },
               { src: '/social-images/posters/nebbuler_v2_9.png', alt: 'Tu conocimiento tiene precio.' },
             ].map((poster) => (

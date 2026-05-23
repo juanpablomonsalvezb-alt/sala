@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { COMPETITORS } from '@/data/competitors'
 import { safeJsonLd } from '@/lib/rateLimit'
+import { RelatedLinks } from '@/components/related-links'
 
 export const revalidate = false
 
@@ -267,6 +268,9 @@ export default async function VsPage({
               Abrir mi sala →
             </Link>
           </section>
+
+          {/* Internal linking mesh */}
+          <RelatedLinks currentPath={`/vs/${slug}`} />
 
           {/* Otras comparativas */}
           <section className="mt-12 pt-12 border-t border-[#DEDEDE]">

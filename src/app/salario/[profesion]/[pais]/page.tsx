@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { PAISES, PROFESIONES, SALARIOS } from '@/data/salarios'
 import { safeJsonLd } from '@/lib/rateLimit'
+import { RelatedLinks } from '@/components/related-links'
 
 export const revalidate = false
 
@@ -43,7 +44,8 @@ export async function generateMetadata({
     const localeMap: Record<string, string> = {
       argentina: 'es-AR', chile: 'es-CL', colombia: 'es-CO', mexico: 'es-MX',
       peru: 'es-PE', uruguay: 'es-UY', ecuador: 'es-EC', venezuela: 'es-VE',
-      bolivia: 'es-BO', paraguay: 'es-PY',
+      bolivia: 'es-BO', paraguay: 'es-PY', panama: 'es-PA',
+      'costa-rica': 'es-CR', 'republica-dominicana': 'es-DO',
     }
     const locale = localeMap[p.slug]
     if (locale) {
@@ -448,6 +450,13 @@ export default async function SalarioPage({
               </div>
             </div>
           </section>
+
+          {/* Internal linking mesh */}
+          <RelatedLinks
+            currentPath={`/salario/${profesionSlug}/${paisSlug}`}
+            profession={profesionSlug}
+            country={paisSlug}
+          />
 
           {/* CTA final */}
           <div className="bg-[#F7F7F7] border border-[#E0E0E0] p-8 text-center">

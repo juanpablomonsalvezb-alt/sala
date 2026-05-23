@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import { PAISES_COMP, FACTOR_PROFESION, PROFESIONES_COMP_SLUGS } from '@/data/programmatic/comparativas-pais'
+import { RelatedLinks } from '@/components/related-links'
 
 export const revalidate = 86400
 
@@ -36,6 +37,9 @@ function calcular(paisSlug: string, profesionSlug: string) {
     ecuador: 1,
     bolivia: 6.96,
     paraguay: 7350,
+    panama: 1,
+    'costa-rica': 515,
+    'republica-dominicana': 58,
   }
   const medioLocal = Math.round((medioUsd * (tc[paisSlug] ?? 1)) / 50) * 50
   const netoUsd = Math.round(medioUsd * (1 - pais.impuestoEfectivo / 100))
@@ -45,14 +49,35 @@ function calcular(paisSlug: string, profesionSlug: string) {
 
 export async function generateStaticParams() {
   const params: Array<{ profesion: string; paises: string }> = []
-  // Top 5 profesiones × top 5 pares para ISR — el resto on-demand
-  const topProf = ['economista', 'abogado', 'medico', 'ingeniero-informatico', 'consultor-negocios']
+  // Top profesiones × top pares para ISR — el resto on-demand
+  const topProf = [
+    'economista', 'abogado', 'medico', 'ingeniero-informatico', 'consultor-negocios',
+    'desarrollador', 'data-scientist', 'product-manager', 'contador', 'arquitecto',
+    'programador', 'desarrollador-web', 'desarrollador-mobile', 'data-engineer',
+    'ux-designer', 'scrum-master', 'trader', 'analista-financiero', 'actuario',
+    'psicologo', 'nutricionista', 'dentista', 'farmaceutico', 'auditor',
+  ]
   const topPares = [
     'chile-vs-argentina',
     'mexico-vs-colombia',
     'chile-vs-mexico',
     'argentina-vs-uruguay',
     'peru-vs-colombia',
+    'chile-vs-peru',
+    'mexico-vs-peru',
+    'colombia-vs-ecuador',
+    'argentina-vs-chile',
+    'uruguay-vs-paraguay',
+    'panama-vs-costa-rica',
+    'chile-vs-panama',
+    'mexico-vs-argentina',
+    'colombia-vs-peru',
+    'republica-dominicana-vs-panama',
+    'costa-rica-vs-colombia',
+    'ecuador-vs-peru',
+    'bolivia-vs-paraguay',
+    'chile-vs-colombia',
+    'mexico-vs-ecuador',
   ]
   for (const p of topProf) for (const par of topPares) params.push({ profesion: p, paises: par })
   return params
@@ -289,6 +314,15 @@ export default async function CompararPage({ params }: PageProps) {
               )
             })}
           </div>
+        </div>
+      </section>
+
+      <section className="px-6 pb-12">
+        <div className="max-w-3xl mx-auto">
+          <RelatedLinks
+            currentPath={`/comparar/${profesion}/${paises}`}
+            profession={profesion}
+          />
         </div>
       </section>
     </main>

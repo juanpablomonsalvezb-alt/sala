@@ -33,9 +33,29 @@ const TEMPLATES: Record<string, { title: string; text: string; subreddit: string
     title: 'Newsletter de pago for LATAM professionals — a gap in the market nobody is filling',
     text: `Been looking at the creator economy in Latin America. Substack has 3M+ paying subscribers, almost all English. The Spanish-language professional content market is virtually empty. Economists, lawyers, doctors in Chile/Colombia/Mexico are giving away analysis that people clearly want to pay for. Nebbuler.com is building the infrastructure for this (0% commission, local currency payments via MercadoPago). Has anyone here built a professional newsletter business in LATAM? What was the hardest part?`,
   },
+  worldcup: {
+    subreddit: 'worldcup',
+    title: 'Free tool: Add all 72 group stage matches to your Google Calendar or Apple Calendar (auto timezone)',
+    text: `Built a simple tool that lets you add all 72 FIFA World Cup 2026 group stage matches to your personal calendar with one click. It auto-detects your timezone so you see match times in your local time. You can also filter by team if you only want to follow specific countries. Works with Google Calendar, Apple Calendar, and Outlook. No app needed, no signup. Just a .ics file or a direct Google Calendar link. fifa2026.nebbuler.com/calendario`,
+  },
+  soccer: {
+    subreddit: 'soccer',
+    title: 'World Cup 2026: one-click calendar with all 72 group stage matches (auto timezone)',
+    text: `With the World Cup starting June 11, I made a tool that adds all group stage matches to your Google Calendar or Apple Calendar in one click. It detects your timezone automatically — no more converting UTC. You can filter by team if you only care about specific groups. Free, no signup, no app. Just click and all matches appear in your calendar. fifa2026.nebbuler.com/calendario`,
+  },
+  futbol: {
+    subreddit: 'futbol',
+    title: 'Calendario Mundial 2026: todos los partidos de fase de grupos en tu Google Calendar con un clic',
+    text: `Hice una herramienta que agrega los 72 partidos de la fase de grupos del Mundial 2026 a tu calendario personal (Google Calendar, Apple Calendar, Outlook). Detecta tu zona horaria automáticamente. Puedes filtrar por selección si solo quieres seguir a un equipo. Gratis, sin registro, sin app. fifa2026.nebbuler.com/calendario`,
+  },
+  ligamx: {
+    subreddit: 'LigaMX',
+    title: 'Calendario Mundial 2026: todos los partidos de México en tu Google Calendar con un clic',
+    text: `Con el Mundial arrancando el 11 de junio en casa, hice una herramienta para agregar todos los partidos a tu calendario. Puedes filtrar solo por México y te muestra los horarios en tu zona horaria automáticamente. Un clic para Google Calendar o descarga .ics para Apple Calendar. Sin app, sin registro. fifa2026.nebbuler.com/calendario`,
+  },
 }
 
-const ROTATION: string[] = ['chile', 'colombia', 'mexico', 'argentina', 'Entrepreneur', 'chile', 'colombia']
+const ROTATION: string[] = ['chile', 'colombia', 'mexico', 'worldcup', 'argentina', 'soccer', 'Entrepreneur', 'futbol', 'ligamx', 'chile', 'colombia', 'mexico', 'worldcup', 'argentina']
 const COOLDOWN_HOURS = 48
 
 // ---------------------------------------------------------------------------

@@ -385,13 +385,110 @@ Nebbuler es la plataforma nativa para ese mercado. 0% comisión.
 nebbuler.com`,
     imageTone: 'professional',
   },
+
+  // === MUNDIAL 2026 — CALENDARIO ===
+  {
+    text: `Faltan días para el Mundial.
+
+Hice algo que me habría gustado encontrar: un calendario con los 72 partidos de la fase de grupos que se agrega a tu Google Calendar o Apple Calendar con un solo clic.
+
+Se ajusta automáticamente a tu zona horaria. Si estás en Santiago, ves horario de Santiago. Si estás en Ciudad de México, ves horario de CDMX.
+
+Un archivo. Un botón. Cero apps que instalar.
+
+También puedes filtrar por selección — solo ver los partidos de Argentina, Brasil, México o la que quieras.
+
+Si conoces a alguien que va a seguir el Mundial, pásale el link. Le va a servir.
+
+fifa2026.nebbuler.com/calendario`,
+    imageTone: 'viral',
+  },
+  {
+    text: `72 partidos. 12 grupos. 48 selecciones.
+
+¿Vas a buscar los horarios del Mundial uno por uno? ¿En serio?
+
+Un solo clic y todos los partidos de la fase de grupos quedan en tu calendario personal. Google Calendar, Apple Calendar, Outlook.
+
+Se ajusta solo a tu zona horaria. No tienes que calcular nada.
+
+Gratis. Sin app. Sin registro.
+
+fifa2026.nebbuler.com/calendario`,
+    imageTone: 'viral',
+  },
+  {
+    text: `Pregunta seria:
+
+¿Ya sabes a qué hora juega tu selección en el Mundial?
+
+Porque dependiendo de tu ciudad, el mismo partido puede ser a las 10 AM o a las 2 PM.
+
+Hicimos un calendario que detecta tu zona horaria automáticamente y te muestra todos los partidos en TU hora local. Un clic para agregarlo a Google Calendar o Apple Calendar.
+
+Pásalo a quien necesite organizarse para junio.
+
+fifa2026.nebbuler.com/calendario`,
+    imageTone: 'viral',
+  },
+  {
+    text: `El Mundial empieza el 11 de junio.
+
+14 ciudades. 3 países sede. 72 partidos solo en fase de grupos. Y cada uno tiene un horario diferente según dónde vivas.
+
+Hicimos lo más simple posible: un calendario que descargas en un clic. Se sincroniza con Google Calendar, Apple Calendar u Outlook. Los horarios se ajustan automáticos a tu zona horaria.
+
+Filtra por selección si solo quieres ver los de Argentina, México, Brasil o la que sea.
+
+fifa2026.nebbuler.com/calendario`,
+    imageTone: 'viral',
+  },
+  {
+    text: `La herramienta que todo hincha necesita antes del 11 de junio:
+
+Los 72 partidos de la fase de grupos del Mundial 2026 → directo a tu calendario personal.
+
+Un botón. Tu zona horaria. Sin buscar horarios en 15 sitios distintos.
+
+Google Calendar. Apple Calendar. Outlook.
+
+Compártelo con tu grupo de WhatsApp. Te lo van a agradecer.
+
+fifa2026.nebbuler.com/calendario`,
+    imageTone: 'viral',
+  },
+  {
+    text: `No es una app. No necesitas registrarte. No cuesta nada.
+
+Es un calendario con todos los partidos del Mundial 2026 que se agrega a tu teléfono con un clic.
+
+Los horarios se ajustan solos a tu zona horaria. Puedes filtrar por selección.
+
+Lo hicimos como parte de Nebbuler, la plataforma que estamos construyendo para creadores profesionales en LATAM.
+
+El Mundial era la excusa perfecta para hacer algo útil.
+
+fifa2026.nebbuler.com/calendario`,
+    imageTone: 'viral',
+  },
 ]
+
+const MUNDIAL_START = new Date('2026-06-11T00:00:00Z')
+const MUNDIAL_END = new Date('2026-07-01T00:00:00Z')
 
 export function getTodayTemplate(): ContentTemplate {
   const now = new Date()
   const start = new Date(now.getFullYear(), 0, 0)
   const diff = now.getTime() - start.getTime()
   const dayOfYear = Math.floor(diff / (1000 * 60 * 60 * 24))
+
+  if (now >= new Date('2026-05-20T00:00:00Z') && now < MUNDIAL_END) {
+    const mundialTemplates = TEMPLATES.filter(t => t.text.includes('fifa2026.nebbuler.com'))
+    if (mundialTemplates.length > 0 && dayOfYear % 2 === 0) {
+      return mundialTemplates[dayOfYear % mundialTemplates.length]
+    }
+  }
+
   const index = dayOfYear % TEMPLATES.length
   return TEMPLATES[index]
 }

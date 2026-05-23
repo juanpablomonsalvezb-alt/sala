@@ -1,6 +1,17 @@
 import Link from "next/link";
 import Image from "next/image";
 
+const NAV_ITEMS = [
+  { label: "Explorar", href: "/directorio" },
+  { label: "Pulse", href: "/pulse" },
+  { label: "Ranking", href: "/leaderboard" },
+  { label: "Observatorio", href: "/observatorio" },
+  { label: "Para creadores", href: "/para-creadores" },
+  { label: "Precios", href: "/precios" },
+  { label: "Herramientas", href: "/cuanto-te-quitan" },
+  { label: "Entrar", href: "/entrar" },
+];
+
 export default function Nav() {
   return (
     <header>
@@ -20,16 +31,8 @@ export default function Nav() {
             </span>
           </Link>
           <div className="h-px w-full bg-[#DEDEDE]" />
-          <nav className="flex items-center gap-1 text-[12px] font-sans text-[#666666]">
-            {[
-              { label: "Explorar", href: "/directorio" },
-              { label: "Pulse", href: "/pulse" },
-              { label: "Ranking", href: "/leaderboard" },
-              { label: "Observatorio", href: "/observatorio" },
-              { label: "Para creadores", href: "/para-creadores" },
-              { label: "Precios", href: "/precios" },
-              { label: "Entrar", href: "/entrar" },
-            ].map((item, i) => (
+          <nav className="flex items-center gap-1 flex-wrap justify-center text-[12px] font-sans text-[#666666]">
+            {NAV_ITEMS.map((item, i) => (
               <span key={item.label} className="flex items-center gap-1">
                 {i > 0 && <span className="text-[#DEDEDE] px-1">·</span>}
                 <Link

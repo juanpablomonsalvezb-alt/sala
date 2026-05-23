@@ -36,12 +36,11 @@ export async function GET(req: Request) {
       .sort()
 
     if (posterFiles.length > 0) {
-      const dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 0).getTime()) / 86400000)
-      const file = posterFiles[dayOfYear % posterFiles.length]
+      const file = posterFiles[Math.floor(Math.random() * posterFiles.length)]
       const filePath = join(postersDir, file)
       const rawBuffer = await readFile(filePath)
       pngBuffer = await sharp(rawBuffer).resize(1200, 675).png().toBuffer()
-      imageUrl = `/social-images/posters/${file}`
+      imageUrl = `https://nebbuler.com/social-images/posters/${file}`
     } else {
       const imageRecord = await getNextImage(template.imageTone)
       if (imageRecord?.storage_url) {
@@ -81,11 +80,11 @@ export async function GET(req: Request) {
     }
   }
 
-  // Publicar en LinkedIn (independiente de X)
+  // Publicar en LinkedIn — solo poster, sin texto de template
   const liLimit = await canPublish('linkedin')
   if (liLimit.ok) {
     try {
-      await publishLinkedInPost(template.text, imageUrl?.startsWith('http') ? imageUrl : undefined)
+      await publishLinkedInPost('nebbuler.com', imageUrl?.startsWith('http') ? imageUrl : undefined)
       await incrementRateLimit('linkedin')
       await supabase.from('social_posted_content').insert({
         platform: 'linkedin', text: template.text, image_url: imageUrl ?? null,

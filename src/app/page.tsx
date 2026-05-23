@@ -21,6 +21,7 @@ import {
 } from "@/components/home-animations";
 import { featuredCreators as featuredCreatorsData } from "@/data/creators"
 import SubscribeWidget from "@/components/newsletter/SubscribeWidget"
+import { ToolsDropdown } from "@/components/tools-dropdown"
 
 /* ─── Data estática — permanece en el servidor ──────────────────────────── */
 
@@ -94,6 +95,7 @@ export default function Home() {
                 {label}
               </Link>
             ))}
+            <ToolsDropdown />
           </nav>
 
           {/* CTA — siempre visible, compacto en móvil */}
@@ -297,6 +299,75 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── HERRAMIENTAS GRATUITAS ─────────────────────────────────────── */}
+      <section className="border-t border-[#E0E0E0] py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex items-baseline justify-between mb-10">
+            <div>
+              <p className="text-[10px] font-sans font-bold tracking-[0.2em] uppercase text-[#C41C1C] mb-1">Acceso libre</p>
+              <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#121212]">Herramientas gratuitas</h2>
+            </div>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-[#DEDEDE]">
+            {([
+              {
+                tag: "VIRAL",
+                title: "¿Cuánto te quitan?",
+                desc: "Descubre cuánto cobran las plataformas por tu trabajo. Compara y decide dónde publicar.",
+                href: "/cuanto-te-quitan",
+                cta: "Calcular →",
+              },
+              {
+                tag: "MUNDIAL 2026",
+                title: "Calendario de partidos",
+                desc: "Agrega los 72 partidos del Mundial a tu Google Calendar o Apple Calendar con un clic.",
+                href: "https://fifa2026.nebbuler.com/calendario",
+                cta: "Ver calendario →",
+                external: true,
+              },
+              {
+                tag: "MUNDIAL 2026",
+                title: "Predictor de bracket",
+                desc: "Predice el Mundial completo: 12 grupos, 32 eliminatorias, final. Compite con amigos.",
+                href: "https://fifa2026.nebbuler.com",
+                cta: "Hacer predicción →",
+                external: true,
+              },
+              {
+                tag: "DATOS",
+                title: "Salarios LATAM",
+                desc: "Rangos salariales por profesión y país en toda América Latina. Datos actualizados.",
+                href: "/salario",
+                cta: "Consultar →",
+              },
+            ] as { tag: string; title: string; desc: string; href: string; cta: string; external?: boolean }[]).map((tool) => (
+              <div key={tool.title} className="bg-white p-6 flex flex-col">
+                <p className="text-[9px] font-bold uppercase tracking-[0.15em] text-[#C41C1C] mb-3">{tool.tag}</p>
+                <h3 className="font-serif text-lg font-bold text-[#121212] mb-2 leading-tight">{tool.title}</h3>
+                <p className="text-[12px] text-[#666] leading-relaxed mb-5 flex-1">{tool.desc}</p>
+                {tool.external ? (
+                  <a
+                    href={tool.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[11px] font-bold uppercase tracking-[0.08em] text-[#B31C1C] hover:text-[#8E1515] transition-colors border-t border-[#DEDEDE] pt-4"
+                  >
+                    {tool.cta}
+                  </a>
+                ) : (
+                  <Link
+                    href={tool.href}
+                    className="text-[11px] font-bold uppercase tracking-[0.08em] text-[#B31C1C] hover:text-[#8E1515] transition-colors border-t border-[#DEDEDE] pt-4"
+                  >
+                    {tool.cta}
+                  </Link>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ── NEWSLETTER ──────────────────────────────────────────────────── */}
       <section className="bg-white py-16 border-t border-gray-100">
         <div className="max-w-xl mx-auto px-6">
@@ -321,7 +392,7 @@ export default function Home() {
       {/* ── FOOTER — estático, servidor ─────────────────────────────────── */}
       <footer className="bg-[#0A0A0A] border-t border-white/10">
         <div className="max-w-7xl mx-auto px-6 py-16">
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-10 mb-12">
+          <div className="grid grid-cols-2 md:grid-cols-6 gap-10 mb-12">
             <div className="col-span-2 md:col-span-1">
               <div className="flex items-center gap-2 mb-4">
                 <Image src="/nebbuler-logo.png" alt="Nebbuler" width={24} height={24} className="h-6 w-auto brightness-0 invert" />
@@ -351,6 +422,13 @@ export default function Home() {
                 { label: "Trending",      href: "/trending" },
                 { label: "Pregunta",      href: "/pregunta" },
               ]},
+              { title: "Herramientas", links: [
+                { label: "¿Cuánto te quitan?",   href: "/cuanto-te-quitan" },
+                { label: "Mundial 2026",          href: "/mundial" },
+                { label: "Calendario partidos",   href: "https://fifa2026.nebbuler.com/calendario" },
+                { label: "Predictor bracket",     href: "https://fifa2026.nebbuler.com" },
+                { label: "Salarios LATAM",        href: "/salario" },
+              ]},
               { title: "Empresa", links: [
                 { label: "Sobre Nebbuler", href: "/sobre" },
                 { label: "Contacto",       href: "/contacto" },
@@ -364,10 +442,12 @@ export default function Home() {
                 </p>
                 <div className="space-y-2.5">
                   {links.map(({ label, href }) => (
-                    href.startsWith('mailto:') ? (
+                    href.startsWith('mailto:') || href.startsWith('https://') ? (
                       <a
                         key={label}
                         href={href}
+                        target={href.startsWith('https://') ? '_blank' : undefined}
+                        rel={href.startsWith('https://') ? 'noopener noreferrer' : undefined}
                         className="block text-[12px] text-white/25 hover:text-white/60 transition-colors"
                       >
                         {label}

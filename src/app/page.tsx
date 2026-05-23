@@ -8,6 +8,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { TrendingModule, ObservatorioModule, PreguntaModule, GlosarioModule } from "@/components/home-discovery";
 import { HomeTicker } from "@/components/home-ticker";
+import { SocialProofCounter } from "@/components/social-proof-counter";
 import { CategoryMarqueeDynamic } from "@/components/category-marquee-dynamic";
 import {
   HeroAnimations,
@@ -148,6 +149,11 @@ export default function Home() {
 
           {/* CTA + Stats bar — Client Islands */}
           <HeroCta />
+
+          {/* Social proof — pulsing dot + counter */}
+          <div className="mt-4 flex justify-center">
+            <SocialProofCounter />
+          </div>
         </div>
       </section>
 

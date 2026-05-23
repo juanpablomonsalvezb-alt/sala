@@ -4,6 +4,7 @@ import { Libre_Baskerville, Public_Sans, Inter, Playfair_Display } from "next/fo
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { GrowthStackProvider } from "@/components/providers/GrowthStackProvider"
+import { ExitIntentPopup } from "@/components/exit-intent-popup"
 import "./globals.css"
 
 const UMAMI_WEBSITE_ID = process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID
@@ -364,6 +365,7 @@ export default function RootLayout({
         />
         <GrowthStackProvider>
           {children}
+          <ExitIntentPopup />
         </GrowthStackProvider>
         <Analytics />
         <SpeedInsights />

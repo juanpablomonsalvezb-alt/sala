@@ -5,6 +5,7 @@ import { createClient, createServiceClient } from '@/lib/supabase/server'
 import type { Creator } from '@/types/database'
 import CheckoutButton from './_components/CheckoutButton'
 import { creators as staticCreators } from '@/data/creators'
+import { PoweredByBadge } from '@/components/powered-by-badge'
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -267,6 +268,9 @@ export default async function SuscribirsePage({
         ) : (
           <NotAcceptingPayments creator={creator} />
         )}
+        <div className="flex justify-center mt-12">
+          <PoweredByBadge variant="light" />
+        </div>
       </main>
       <Footer />
     </div>

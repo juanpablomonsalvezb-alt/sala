@@ -106,16 +106,20 @@ export function CuantoTeQuitanClient() {
   }, [plataforma, moneda, suscriptores, precioLocal])
 
   const monedaSym = MONEDAS[moneda].simbolo
-  const shareText = `Cada año pierdo ${fmtUsd(calc.perdidaAnualUsd)} (${fmt(
+  const perdidaRounded = Math.round(calc.perdidaAnualUsd).toLocaleString('en-US')
+  const shareUrl = `https://nebbuler.com/cuanto-te-quitan?p=${plataforma}&perdida=${perdidaRounded}&moneda=${moneda}`
+  const shareText = `Cada año pierdo US$${perdidaRounded} (${fmt(
     calc.perdidaAnualLocal,
     monedaSym,
-  )}) en comisiones de ${PLATAFORMAS[plataforma].nombre} 😱\n\nCalcula lo tuyo en nebbuler.com/cuanto-te-quitan`
+  )}) en comisiones de ${PLATAFORMAS[plataforma].nombre} 😱\n\nCalcula lo tuyo → ${shareUrl}`
 
   const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(shareText)}`
   const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`
-  const linkedinUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
-    'https://nebbuler.com/cuanto-te-quitan',
-  )}`
+  const linkedinUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`
+
+  const copyResult = () => {
+    navigator.clipboard.writeText(shareText)
+  }
 
   return (
     <div className="bg-white text-black p-6 md:p-10 shadow-2xl">

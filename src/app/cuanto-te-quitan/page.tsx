@@ -9,38 +9,65 @@ const TITLE = '¿Cuánto te está quitando Substack, Patreon o Beehiiv?'
 const DESCRIPTION =
   'Calcula en 10 segundos cuánto pierdes cada año en comisiones, conversión cambiaria y "tarifas ocultas" usando plataformas pensadas para EE.UU. con tu audiencia LATAM. Datos reales 2026.'
 
-export const metadata: Metadata = {
-  title: TITLE,
-  description: DESCRIPTION,
-  keywords: [
-    'cuanto cobra substack',
-    'comisiones substack patreon',
-    'alternativa substack en español',
-    'monetizar membresias latam',
-    'calculadora perdida substack',
-    'patreon vs substack vs nebbuler',
-  ],
-  alternates: { canonical: 'https://nebbuler.com/cuanto-te-quitan' },
-  openGraph: {
-    title: '¿Cuánto te está quitando tu plataforma actual?',
-    description:
-      'Calculadora honesta: cuánto pierdes al año en Substack, Patreon o Beehiiv siendo creador LATAM.',
-    url: 'https://nebbuler.com/cuanto-te-quitan',
-    type: 'website',
-    images: [
-      {
-        url: '/api/og/cuanto-te-quitan',
-        width: 1200,
-        height: 630,
-        alt: 'Cuánto te quitan Substack, Patreon y Beehiiv',
-      },
+const NOMBRES_PLAT: Record<string, string> = {
+  substack: 'Substack',
+  patreon: 'Patreon',
+  beehiiv: 'Beehiiv',
+  gumroad: 'Gumroad',
+}
+
+type Props = { searchParams: Promise<Record<string, string | undefined>> }
+
+export async function generateMetadata({ searchParams }: Props): Promise<Metadata> {
+  const sp = await searchParams
+  const p = sp.p ?? ''
+  const perdida = sp.perdida ?? ''
+
+  const hasResult = !!(p && perdida && NOMBRES_PLAT[p])
+  const ogUrl = hasResult
+    ? `/api/og/cuanto-te-quitan?p=${p}&perdida=${perdida}&moneda=${sp.moneda ?? 'USD'}`
+    : '/api/og/cuanto-te-quitan'
+  const title = hasResult
+    ? `Pierdo US$${perdida}/año en ${NOMBRES_PLAT[p]} — Calculadora Nebbuler`
+    : TITLE
+
+  return {
+    title,
+    description: DESCRIPTION,
+    keywords: [
+      'cuanto cobra substack',
+      'comisiones substack patreon',
+      'alternativa substack en español',
+      'monetizar membresias latam',
+      'calculadora perdida substack',
+      'patreon vs substack vs nebbuler',
     ],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: '¿Cuánto te quitó tu plataforma este año?',
-    description: 'Calculadora honesta para creadores LATAM. Datos reales 2026.',
-  },
+    alternates: { canonical: 'https://nebbuler.com/cuanto-te-quitan' },
+    openGraph: {
+      title: hasResult
+        ? `Pierdo US$${perdida}/año en ${NOMBRES_PLAT[p]}. ¿Y tú?`
+        : '¿Cuánto te está quitando tu plataforma actual?',
+      description:
+        'Calculadora honesta: cuánto pierdes al año en Substack, Patreon o Beehiiv siendo creador LATAM.',
+      url: 'https://nebbuler.com/cuanto-te-quitan',
+      type: 'website',
+      images: [
+        {
+          url: ogUrl,
+          width: 1200,
+          height: 630,
+          alt: 'Cuánto te quitan Substack, Patreon y Beehiiv',
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: hasResult
+        ? `Pierdo US$${perdida}/año en ${NOMBRES_PLAT[p]} 😱`
+        : '¿Cuánto te quitó tu plataforma este año?',
+      description: 'Calculadora honesta para creadores LATAM. Datos reales 2026.',
+    },
+  }
 }
 
 const JSON_LD = {

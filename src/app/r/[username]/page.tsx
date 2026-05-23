@@ -245,9 +245,16 @@ export default async function ReferralLandingPage({ params }: Props) {
           ))}
         </div>
 
-        <p className="mt-10 text-center text-[11px] text-[#999]">
-          Nebbuler · Espacios editoriales independientes
-        </p>
+        <div className="mt-10 flex justify-center">
+          <a
+            href="https://nebbuler.com?ref=badge"
+            target="_blank"
+            rel="noopener"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-[11px] font-medium tracking-[0.06em] text-black/40 hover:text-black/70 bg-black/[0.03] hover:bg-black/[0.06] border border-black/[0.06] transition-all no-underline"
+          >
+            Powered by <span className="font-bold">Nebbuler</span>
+          </a>
+        </div>
       </div>
     </main>
   )

@@ -129,7 +129,7 @@ export default function Home() {
               <p className="text-[9px] font-bold uppercase tracking-[0.28em] text-[#767676] mb-2">
                 Membresías directas · 0% comisión · América Latina
               </p>
-              <h1 className="font-serif font-bold text-[clamp(40px,6vw,80px)] leading-[1.056] tracking-[-0.02em]">
+              <h1 className="font-serif font-bold text-[clamp(36px,5.5vw,80px)] leading-[1.056] tracking-[-0.02em]">
                 Cobra por lo<br />
                 que{" "}
                 <span style={{ backgroundColor: '#C41C1C', color: '#fff', padding: '0 6px 2px', display: 'inline' }}>

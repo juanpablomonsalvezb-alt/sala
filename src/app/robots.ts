@@ -69,6 +69,7 @@ export default function robots(): MetadataRoute.Robots {
       'https://nebbuler.com/sitemap.xml',
       'https://nebbuler.com/sitemap-news.xml',
       'https://nebbuler.com/sitemap-ai.xml',
+      'https://nebbuler.com/sitemap-mundial.xml',
     ],
     host: 'https://nebbuler.com',
   }

@@ -254,6 +254,11 @@ export default async function SalarioPage({
               ¿Cuánto gana un {profesion.nombre} en {pais.nombre}? [{AÑO}]
             </h1>
 
+            {/* Featured snippet target — Google Position 0 */}
+            <p className="sr-only">
+              El salario de un {profesion.nombre} en {pais.nombre} en {AÑO} es de {fmt(salario.promedio)} {pais.moneda} al mes en promedio. El rango salarial va desde {fmt(salario.min)} (junior) hasta {fmt(salario.max)} (senior) mensuales.
+            </p>
+
             {/* Salario destacado */}
             <div className="bg-[#F7F7F7] border border-[#E0E0E0] p-8 mb-6">
               <p className="font-sans text-[11px] font-bold tracking-[0.2em] uppercase text-[#999] mb-2">

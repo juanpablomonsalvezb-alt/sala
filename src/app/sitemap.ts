@@ -237,6 +237,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${BASE}/precios`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
     { url: `${BASE}/comparar`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.9 },
     ...vsRoutes,
+    // Review pages — competitor brand interception
+    ...['substack-2026', 'patreon-2026', 'beehiiv-2026', 'gumroad-2026', 'kajabi-2026', 'hotmart-2026'].map(slug => ({
+      url: `${BASE}/review/${slug}`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly' as const,
+      priority: 0.85,
+    })),
+    // Embeddable widget
+    { url: `${BASE}/embed/salario`, lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.3 },
+    // AI FAQ
+    { url: `${BASE}/ai-faq`, lastModified: new Date(), changeFrequency: 'weekly' as const, priority: 0.7 },
     { url: `${BASE}/demo`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.5 },
     { url: `${BASE}/terminos`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.2 },
     { url: `${BASE}/privacidad`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.2 },

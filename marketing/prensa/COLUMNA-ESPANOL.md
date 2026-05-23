@@ -1,69 +1,46 @@
-# COLUMNA DE OPINIÓN — Expansión MX / Infobae / La Tercera / El Tiempo
-## Enviar a: opinion@expansion.mx | opinion@infobae.com | tribuna@latercera.com | opinion@eltiempo.com
-## Idioma: Español LATAM
-## Longitud: ~800 palabras
+# COLUMNA DE OPINIÓN — Español
+## Enviar a: opinion@infobae.com | tribuna@latercera.com | opinion@eltiempo.com | opinion@expansion.mx
+## Autor: Juan Pablo Monsalvez, fundador de Nebbuler
+## Longitud: ~900 palabras
 
 ---
 
 **ASUNTO DEL EMAIL:**
-Columna de opinión: El profesional senior es el gran ganador de la IA (si sabe cobrar)
+Columna de opinión: Los últimos analógicos — por qué la Generación X tiene la clave de la era IA
 
 ---
 
-**TEXTO DE LA COLUMNA:**
+# Los últimos analógicos: por qué la Generación X tiene la clave de la era IA
 
-# El conocimiento que la IA no puede fabricar — y que usted probablemente está regalando
+*Vivimos dos revoluciones tecnológicas en una sola vida. Eso no nos hace nostálgicos. Nos hace irremplazables.*
 
-Hay una conversación que no está ocurriendo sobre la inteligencia artificial en América Latina.
+Hay una imagen que me persigue: un adolescente rebobinando una cinta de casete con un lápiz para no gastar las pilas del Walkman. Ese gesto —paciente, analógico, casi meditativo— pertenece a un mundo que ya no existe. Y quienes lo recuerdan con nitidez, quienes alguna vez lo ejecutaron sin pensarlo, somos nosotros: la Generación X, los nacidos entre 1965 y 1980. Los últimos analógicos.
 
-La que sí ocurre es la del miedo: que la IA reemplazará empleos, que el conocimiento técnico perderá valor, que los profesionales con décadas de experiencia quedarán obsoletos frente a modelos que saben todo y no cobran nada.
+Hoy ese mismo lápiz se ha convertido en un prompt. El casete, en un modelo de lenguaje. Y la pregunta que flota en el aire de cada sala de juntas, cada aula, cada conversación familiar es siempre la misma: ¿qué hacemos con la inteligencia artificial? Curiosamente, la generación que menos aparece en los titulares sobre IA —ni los centennials deslumbrados ni los boomers aterrados— podría ser la que mejor respuesta tiene.
 
-Esa conversación es parcialmente correcta y profundamente incompleta.
+> "No llegamos a la tecnología por derecho de nacimiento ni por obligación generacional. Llegamos por necesidad, por curiosidad y por supervivencia. Y eso hace toda la diferencia."
 
-**Lo que los modelos de lenguaje no saben hacer**
+El escritor canadiense Douglas Coupland nos bautizó en 1991 con su novela *Generation X: Tales for an Accelerated Culture*. La "X" no era un insulto; era una incógnita, una variable sin definir, una generación que se negaba a ser etiquetada con facilidad. Décadas después, esa ambigüedad fundacional resulta ser nuestra mayor ventaja frente a la IA: no tenemos una relación romántica con la tecnología ni tampoco una reacción de rechazo reflejo. Tenemos criterio.
 
-Existe un tipo de conocimiento que no aparece en ningún dataset de entrenamiento. No es información — es criterio. La capacidad de leer una situación específica y reconocer el patrón que no encaja. De decir "he visto esto antes y sé cómo termina". De entender que en este sector, en este país, con esta regulación y estas personas, la teoría funciona diferente.
+Crecimos sin internet pero lo construimos. Google fue cofundado por Sergey Brin y Larry Page, ambos nacidos en 1973. YouTube fue creado por Steve Chen, Chad Hurley y Jawed Karim, todos Gen X. No somos la generación que heredó el mundo digital; somos la generación que lo fabricó, a veces sin saber del todo lo que estábamos haciendo. Aprendimos con DOS, con Geocities, con el módem de 56K que tardaba cuatro minutos en cargar una imagen. Aprendimos a prueba y error, en silencio, sin tutoriales en video porque ese video todavía no existía.
 
-Ese conocimiento se acumula durante años de práctica. No se puede sintetizar, no se puede promediar, no se puede destilar en un prompt.
+Ese aprendizaje autodidacta, esa tolerancia al error y a la ambigüedad, nos prepara de manera singular para la era de la IA. Según el Global Workforce Hopes and Fears Survey 2025 de PwC, el 59 por ciento de los trabajadores mexicanos de entre 45 y 60 años —el núcleo de la Generación X— reportaron haber usado inteligencia artificial en su trabajo durante los últimos doce meses. No como curiosidad, sino como herramienta estratégica. Y el 55 por ciento de Gen X a nivel global, según PCMag, cree que la IA impactará positivamente su vida. No es ingenuidad: es la misma actitud pragmática con que adoptamos el correo electrónico cuando nadie más lo usaba.
 
-Un abogado tributario con veinte años litigando en jurisdicciones latinoamericanas no tiene información — tiene juicio. Sabe cuál argumento funciona con cuál juez, en qué momento la administración tributaria suele ceder, qué errores cometen los contribuyentes que piensan que entienden la norma pero no entienden su aplicación práctica. Eso no está en ninguna base de datos.
+> "Conocemos el antes. Eso nos permite juzgar el después con una lucidez que ninguna generación nativa digital puede tener todavía."
 
-La pregunta no es si ese conocimiento tiene valor. La pregunta es si el profesional que lo posee está cobrando por él.
+Pero hay algo más profundo que los datos. Hay una epistemología generacional. La Generación X sabe lo que es pensar sin asistencia algorítmica. Sabemos leer un mapa de papel, escribir una carta a mano, buscar en una enciclopedia física. Tenemos en el cuerpo la experiencia de la cognición sin prótesis digitales. Y eso —que a veces parece solo nostalgia— es en realidad un recurso crítico: podemos distinguir cuándo la IA nos amplifica y cuándo simplemente nos reemplaza.
 
-**El problema que encontré construyendo Nebbuler**
+Los investigadores que estudian la adopción tecnológica entre generaciones observan que Gen X no persigue tendencias; las evalúa. Somos escépticos por naturaleza —crecimos durante el Watergate, la crisis del petróleo, el sida—, pero no paralizados por ese escepticismo. Adoptamos lo que funciona y descartamos lo que no. Con la IA estamos haciendo exactamente eso: ni el entusiasmo acrítico de quien nunca vivió sin tecnología, ni el miedo paralizante de quien no entiende cómo funciona.
 
-Cuando empecé a investigar por qué tantos profesionales latinoamericanos distribuían su análisis de forma gratuita en LinkedIn, esperaba encontrar un problema de mentalidad — la creencia de que el público no pagaría por contenido digital.
+Hay una metáfora que circula en la literatura sobre nuestra generación: somos el tejido conectivo. No los titulares, no el protagonismo, sino la fibra invisible que une lo que fue con lo que viene. En la era de la inteligencia artificial, ese papel se vuelve más necesario que nunca. Alguien tiene que recordar por qué escribíamos a mano. Alguien tiene que saber qué se pierde cuando una máquina redacta por nosotros. Alguien tiene que hacer las preguntas incómodas.
 
-Lo que encontré fue un problema de infraestructura.
-
-Substack cobra el 10% y opera en dólares. Patreon está diseñado para artistas y gamers. Kajabi cuesta ciento cuarenta y nueve dólares mensuales. Ninguna de estas plataformas fue construida para un economista colombiano que quiere cobrar a su audiencia en pesos, con una tarjeta de débito local, sin conversión de moneda.
-
-El resultado es que una cantidad enorme de conocimiento valioso circula gratuitamente en LinkedIn, no porque el mercado no pague por él, sino porque la fricción para cobrar es demasiado alta.
-
-No es un problema de demanda. Es un problema de acceso al pago.
-
-**Por qué la IA empeora esto — y después lo mejora**
-
-En el corto plazo, la inteligencia artificial democratiza la producción de contenido genérico. Hoy cualquier persona puede producir un análisis de mercado competente con las herramientas adecuadas. Esto genera presión real en el extremo más básico del mercado del conocimiento.
-
-Pero esa compresión en el extremo inferior simultáneamente aumenta la prima por el extremo superior. Cuando el análisis genérico se vuelve barato y abundante, la escasez se desplaza hacia lo que es genuinamente irremplazable: el criterio del practicante, el contexto específico del sector, la opinión calibrada que viene de haber estado equivocado de formas interesantes durante dos décadas.
-
-La respuesta del profesional senior a este entorno no debería ser miedo — debería ser precio.
-
-**Lo que veo desde la plataforma**
-
-Los profesionales que funcionan en Nebbuler no son los que tienen más seguidores en redes sociales. Son los que tienen el conocimiento más específico y la comprensión más clara de qué saben que otros no saben.
-
-Una nutricionista con quince años de práctica clínica en patologías metabólicas complejas. Un economista que pasó una década dentro de un banco central. Un abogado corporativo que vio cometer el mismo error regulatorio en tres jurisdicciones distintas y sabe exactamente cómo termina.
-
-No son influencers. Son profesionales que llevan años creando valor en silencio y que están comenzando, por primera vez, a extraer parte de ese valor directamente de la audiencia que ya los sigue.
-
-**La implicación práctica**
-
-Si usted es un profesional senior que observa la ola de la IA con ansiedad, le ofrezco un marco distinto: mientras más la IA comoditice la experticia genérica, más valioso se vuelve su juicio específico, acumulado e irremplazable.
-
-El riesgo no es ser reemplazado. El riesgo es seguir regalándolo.
+Ese alguien somos nosotros. Los que rebobinamos casetes con lápices. Los últimos analógicos. Y tal vez, sin proponérnoslo, los primeros en entender de verdad lo que significa ser humano en la era de las máquinas que piensan.
 
 ---
 
-*Juan Pablo Monsalvez es fundador de Nebbuler (nebbuler.com), plataforma de membresías para profesionales independientes en América Latina. Escribe sobre economía del conocimiento, el futuro del trabajo independiente y por qué los profesionales más amenazados por la IA no son los que todos piensan.*
+*Juan Pablo Monsalvez es fundador de Nebbuler (nebbuler.com), plataforma de membresías para profesionales independientes en América Latina.*
+
+---
+
+**Fuentes**
+PwC Global Workforce Hopes & Fears Survey 2025 (capítulo México, n=826) · PCMag / GenAI Confidence Index Report 2025 · Douglas Coupland, Generation X: Tales for an Accelerated Culture, 1991 · Kadence Research, "Generation X: The Silent Disruptors Shaping the Future", oct. 2025 · Hyperdeflation.blog, "Digital Pioneers: How Gen X Bridged the Gap Between Analog and Digital", nov. 2025 · Signals from the Edge (Substack), "The Last Analog Generation: Gen X in the Age of AI", 2025

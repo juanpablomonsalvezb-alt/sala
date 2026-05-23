@@ -1,68 +1,47 @@
-# COLUMNA DE OPINIÓN — Forbes / Fast Company / Inc.com
+# COLUMNA DE OPINIÓN — English adaptation
 ## Enviar a: opinion@forbes.com | ideas@fastcompany.com | contributors@inc.com
-## Idioma: English
+## Autor: Juan Pablo Monsalvez, founder of Nebbuler
 ## Longitud: ~900 palabras
-## Exclusivo: NO publicar en otro lugar antes de recibir respuesta (política Forbes)
+## IMPORTANTE: Forbes requiere exclusividad — no publicar en otro medio en inglés antes de recibir respuesta
 
 ---
 
 **ASUNTO DEL EMAIL:**
-Opinion piece: Why Generation X professionals are the unexpected winners of the AI revolution
+Opinion piece: The Last Analogics — Why Generation X holds the key to the AI era
 
 ---
 
-**TEXTO DE LA COLUMNA:**
+# The Last Analogics: Why Generation X Holds the Key to the AI Era
 
-# The Workers AI Won't Replace — And Why They're Over 45
+*We lived through two technological revolutions in a single lifetime. That doesn't make us nostalgic. It makes us irreplaceable.*
 
-Everyone is having the wrong conversation about AI.
+There's an image that stays with me: a teenager rewinding a cassette tape with a pencil to save the Walkman's batteries. That gesture — patient, analog, almost meditative — belongs to a world that no longer exists. And those who remember it clearly, who once performed it without thinking, are us: Generation X, born between 1965 and 1980. The last analogics.
 
-The dominant narrative frames artificial intelligence as a threat to experienced workers — the people who spent decades building expertise in a field are now, supposedly, at greatest risk. Their knowledge is being commoditized. Their skills, automated.
+Today that same pencil has become a prompt. The cassette, a language model. And the question hovering in every boardroom, every classroom, every family conversation is always the same: what do we do with artificial intelligence? Curiously, the generation that appears least in AI headlines — neither the dazzled centennials nor the terrified boomers — may be the one with the best answer.
 
-I built a platform for these professionals in Latin America. What I found was exactly the opposite.
+> "We didn't come to technology by birthright or generational obligation. We came by necessity, curiosity, and survival. And that makes all the difference."
 
-**The asset AI cannot manufacture**
+Canadian writer Douglas Coupland named us in 1991 with his novel *Generation X: Tales for an Accelerated Culture*. The "X" wasn't an insult; it was an unknown, an undefined variable, a generation that refused to be easily labeled. Decades later, that foundational ambiguity turns out to be our greatest advantage facing AI: we have neither a romantic relationship with technology nor a reflexive rejection of it. We have judgment.
 
-There is a specific kind of knowledge that does not exist in any training dataset. It is not information — it is judgment. The ability to read a room, to recognize the pattern that doesn't fit, to say "I've seen this before and here's why it ends badly." This is the knowledge that accumulates over decades of practice, not the kind you can prompt-engineer your way into.
+We grew up without the internet but we built it. Google was cofounded by Sergey Brin and Larry Page, both born in 1973. YouTube was created by Steve Chen, Chad Hurley, and Jawed Karim — all Gen X. We are not the generation that inherited the digital world; we are the generation that manufactured it, sometimes without fully knowing what we were doing. We learned with DOS, with Geocities, with the 56K modem that took four minutes to load an image. We learned through trial and error, in silence, without video tutorials because that video didn't exist yet.
 
-A 48-year-old business consultant in Bogotá who has navigated three recessions, two currency crises, and the specific cultural dynamics of doing business in the Andean region has something no language model can replicate. ChatGPT can write a market analysis. It cannot tell you which of those market trends will actually matter in that specific context, and why — because that context is not in the training data.
+That self-taught learning, that tolerance for error and ambiguity, prepares us uniquely for the AI era. According to PwC's Global Workforce Hopes and Fears Survey 2025, 59 percent of Mexican workers between 45 and 60 years old — the core of Generation X — reported using artificial intelligence in their work during the past twelve months. Not as a curiosity, but as a strategic tool. And 55 percent of Gen X globally, according to PCMag, believe AI will positively impact their lives. This isn't naivety: it's the same pragmatic attitude with which we adopted email when nobody else was using it.
 
-This is what Generation X professionals have. The question is whether they know it — and whether they can monetize it.
+> "We know the before. That allows us to judge the after with a clarity that no digital-native generation can yet have."
 
-**The problem isn't their knowledge. It's their infrastructure.**
+But there's something deeper than the data. There's a generational epistemology. Generation X knows what it means to think without algorithmic assistance. We know how to read a paper map, write a letter by hand, look something up in a physical encyclopedia. We carry in our bodies the experience of cognition without digital prosthetics. And that — which sometimes seems like mere nostalgia — is actually a critical resource: we can distinguish when AI amplifies us and when it simply replaces us.
 
-When I started researching why so many senior Latin American professionals were giving away their expertise for free on LinkedIn, I expected to find a motivation problem. What I found was an infrastructure problem.
+Researchers who study technological adoption across generations observe that Gen X doesn't chase trends; it evaluates them. We are natural skeptics — we grew up through Watergate, the oil crisis, AIDS — but not paralyzed by that skepticism. We adopt what works and discard what doesn't. With AI we are doing exactly that: neither the uncritical enthusiasm of someone who never lived without technology, nor the paralyzing fear of someone who doesn't understand how it works.
 
-A tax lawyer with 20 years of experience publishing sharp, original analysis of fiscal policy every week — to thousands of followers, at zero charge — was not doing it because he lacked confidence in the value of his work. He was doing it because the platforms available to him were built for a different market.
+There's a metaphor that circulates in the literature about our generation: we are the connective tissue. Not the headlines, not the protagonists, but the invisible fiber that joins what was with what's coming. In the age of artificial intelligence, that role becomes more necessary than ever. Someone has to remember why we wrote by hand. Someone has to know what is lost when a machine drafts for us. Someone has to ask the uncomfortable questions.
 
-Substack charges 10% and pays in dollars. Patreon wasn't designed for someone who publishes regulatory analysis. Kajabi costs $149/month and requires a US credit card to pay naturally. None of these platforms were built for a professional whose audience is in Bogotá, paying in pesos, on a local debit card.
-
-The result: an enormous amount of valuable knowledge circulating for free, not because the market won't pay for it, but because the payment friction is too high.
-
-**Why AI makes this worse — and then better**
-
-In the short term, AI democratizes the production of generic content. A 25-year-old with access to GPT-4 can now produce a competent market summary. This creates real competitive pressure at the commodity end of the knowledge market.
-
-But this compression at the bottom end simultaneously increases the premium for the top. When generic analysis becomes cheap and widely available, the scarcity premium shifts to insight that is genuinely irreplaceable: the practitioner's judgment, the domain-specific context, the calibrated opinion that comes from having been wrong in interesting ways for two decades.
-
-The senior professional's response to this environment should not be fear — it should be pricing. If your knowledge is genuinely irreplaceable, the market will pay for it. The question is whether you have the infrastructure to collect that payment.
-
-**What I see building Nebbuler**
-
-I built Nebbuler to solve this specific problem for Latin American professionals — a membership platform that accepts local currencies, integrates with regional payment processors, and is designed for the person charging for editorial analysis rather than for the YouTuber monetizing an audience.
-
-The professionals who are finding success on the platform are not the ones with the largest social media followings. They are the ones with the deepest expertise and the clearest understanding of what they know that others don't.
-
-A nutritionist with 15 years of clinical practice and a hyper-specific focus on metabolic conditions in high-altitude populations. An economist who spent a decade inside the central bank of his country. A corporate lawyer who has seen the same regulatory mistakes made in three different jurisdictions and knows exactly how they end.
-
-These are not influencers. They are professionals who have been creating value in silence for years and are now, for the first time, extracting some of that value directly from the audience that already follows their work.
-
-**The practical implication**
-
-If you are a senior professional watching the AI wave with anxiety, I want to offer a different frame: the more AI commoditizes generic expertise, the more valuable your specific, accumulated, irreplaceable judgment becomes.
-
-The risk is not being replaced. The risk is continuing to give it away.
+That someone is us. The ones who rewound cassettes with pencils. The last analogics. And perhaps, without intending to, the first ones to truly understand what it means to be human in the age of thinking machines.
 
 ---
 
-*Juan Pablo Monsalvez is the founder of Nebbuler (nebbuler.com), a membership platform for independent professionals in Latin America. He writes about the knowledge economy, the future of independent work, and why the professionals most threatened by AI are not the ones everyone thinks.*
+*Juan Pablo Monsalvez is the founder of Nebbuler (nebbuler.com), a membership platform for independent professionals in Latin America. He writes about the knowledge economy and the future of independent work in the AI era.*
+
+---
+
+**Sources**
+PwC Global Workforce Hopes & Fears Survey 2025 (Mexico chapter, n=826) · PCMag / GenAI Confidence Index Report 2025 · Douglas Coupland, Generation X: Tales for an Accelerated Culture, 1991 · Kadence Research, "Generation X: The Silent Disruptors Shaping the Future", Oct. 2025 · Signals from the Edge (Substack), "The Last Analog Generation: Gen X in the Age of AI", 2025

@@ -1,22 +1,26 @@
 # Nebbuler — Contenido para Directorios
 
 ## ALTERNATIVETO — alternativeto.net
+
 **URL:** alternativeto.net/software/nebbuler/about/
 
-### Descripción (213 chars — ready to paste)
+### Descripción (218 chars — ready to paste)
 ```
-CRM + invoicing + AI platform built for Latin American freelancers. Multi-currency invoices (CLP/ARS/MXN/USD/EUR), AI-powered payment follow-ups in Spanish, and cash flow forecasting. US$19/mo.
+Membership platform for Latin American knowledge professionals. Psychologists, coaches, consultants and analysts charge for their content in local currency (CLP/ARS/MXN/COP). Zero commission. US$19/mo.
 ```
 
 ### Tags
-`crm` `invoicing` `freelance` `invoice` `client-management` `billing` `cash-flow` `latin-america` `spanish` `ai` `independent-consultant` `multi-currency`
+`memberships` `subscriptions` `content-monetization` `latin-america` `spanish` `independent-consultant` `coach` `newsletter` `knowledge-economy` `no-commission` `local-payments`
 
 ### Competitors a marcar como alternativas
-- Bonsai
-- HoneyBook
-- Dubsado
-- FreshBooks
-- Zoho Invoice
+- Substack
+- Patreon
+- Gumroad
+- Beehiiv
+- Ko-fi
+- Ghost
+- Kajabi
+- Hotmart
 
 ---
 
@@ -24,40 +28,40 @@ CRM + invoicing + AI platform built for Latin American freelancers. Multi-curren
 
 ### Tagline
 ```
-The CRM and invoicing platform built for Latin American freelancers. Manage clients, issue multi-currency invoices, and let AI chase payments for you — in Spanish.
+The membership platform built for Latin American knowledge professionals. Charge for your expertise in local currency — zero commission.
 ```
 
 ### Long Description
 ```
-Nebbuler is an all-in-one CRM, invoicing, and AI platform built specifically for freelancers and independent consultants operating in Latin America. It handles the full client lifecycle: from tracking leads and managing projects to issuing professional invoices and forecasting cash flow — all in one place, at US$19/month.
+Nebbuler is a membership platform built specifically for independent professionals in Latin America: psychologists, coaches, business consultants, lawyers, analysts, nutritionists, and anyone who charges for their knowledge.
 
-Most freelance tools on the market were designed for the US or European context — they don't handle Chilean pesos, Argentine or Mexican invoicing norms, or the cultural dynamics of doing business in Spanish. Nebbuler is built from the ground up for LATAM professionals, with native support for CLP, ARS, MXN, USD, and EUR in the same invoice, without workarounds.
+Most membership platforms on the market were designed for the US or European market — they don't accept Chilean pesos, Argentine or Mexican payments, or understand the cultural reality of an independent professional in LATAM. Substack charges 10% and pays in USD. Patreon charges up to 12%. Kajabi starts at $149/month. None of them have local payment support for Latin America.
 
-The platform's AI layer does the uncomfortable work: it sends payment follow-up messages to clients in natural, professional Spanish — adapting tone depending on how overdue the payment is. No more copy-pasting awkward reminder emails.
+Nebbuler flips that: a fixed monthly fee of US$19, zero variable commission on your subscribers' payments, and direct payments in COP, MXN, ARS, PEN, CLP and other local currencies — no USD conversion, no international card friction.
 
-Nebbuler's cash flow forecasting module gives freelancers a real-time picture of expected income, outstanding invoices, and projected monthly revenue.
+Professionals open their "sala" (room) in minutes, publish their content, and start receiving memberships from their audience — in their own currency, directly to their MercadoPago account.
 ```
 
 ### Key Features
-1. Multi-currency invoicing — CLP, ARS, MXN, USD, EUR
-2. CRM for freelancers — full client and project management
-3. AI payment follow-ups in Spanish — automated reminders
-4. Cash flow forecasting — projected income tracking
-5. Invoice templates — professional, localized for LATAM
-6. Client portal — clients can view and pay invoices online
-7. All-in-one dashboard — no separate tools needed
+1. Zero commission on memberships — fixed US$19/month, nothing else
+2. Payments in local LATAM currencies — COP, MXN, ARS, PEN, CLP and more
+3. Professional public page — your own "sala" with your content and pricing
+4. Built for knowledge professionals — not for video creators or course sellers
+5. MercadoPago Connect — subscribers pay locally, money goes directly to you
+6. Spanish-first — platform, support, and UX designed for LATAM
+7. Setup in under 24 hours — no technical knowledge required
 
 ### Competitors
-Bonsai, HoneyBook, Dubsado, FreshBooks, Zoho Invoice, AND.CO
+Substack, Patreon, Gumroad, Beehiiv, Ko-fi, Ghost, Kajabi, Hotmart, Buy Me a Coffee, Memberful
 
 ### Tags
-`crm` `invoicing` `freelance` `latin-america` `billing` `ai` `cash-flow` `client-management` `multi-currency` `independent-consultant` `saas` `productivity` `spanish`
+`memberships` `subscriptions` `knowledge-economy` `latin-america` `spanish` `coaching` `consulting` `no-commission` `local-payments` `independent-professional` `saas`
 
 ---
 
 ## CAPTERRA MX — capterra.com.mx
 **URL:** software.capterra.com.mx/vendors
-- Categorías: CRM + Facturación
+- Categorías: Membership Management + Content Monetization
 - Mismo copy que SaaSHub
 
 ## LATAMLIST — latamlist.com/submit
@@ -69,7 +73,7 @@ Bonsai, HoneyBook, Dubsado, FreshBooks, Zoho Invoice, AND.CO
 ---
 
 ## ORDEN DE PRIORIDAD
-1. AlternativeTo (10 min) — aparece en páginas de Bonsai/HoneyBook/Dubsado
+1. AlternativeTo (10 min) — aparece en páginas de Substack/Patreon/Hotmart
 2. SaaSHub (15 min)
 3. Capterra MX (20 min) — mejor SEO Google.com.mx
 4. LatamList (5 min)

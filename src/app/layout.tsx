@@ -50,7 +50,18 @@ export const metadata: Metadata = {
   description:
     "Nebbuler es la plataforma donde profesionales de América Latina monetizan su expertise con membresías directas. Pagos en tu moneda, 0% comisión. Colombia, México, Argentina, Perú y más.",
   metadataBase: new URL("https://nebbuler.com"),
-  alternates: { canonical: "https://nebbuler.com" },
+  alternates: {
+    canonical: "https://nebbuler.com",
+    languages: {
+      'es': 'https://nebbuler.com',
+      'es-CL': 'https://nebbuler.com',
+      'es-MX': 'https://nebbuler.com',
+      'es-CO': 'https://nebbuler.com',
+      'es-AR': 'https://nebbuler.com',
+      'es-PE': 'https://nebbuler.com',
+      'x-default': 'https://nebbuler.com',
+    },
+  },
   openGraph: {
     title: "Nebbuler · Cobra por tu conocimiento en LATAM — 0% comisión",
     description:
@@ -164,9 +175,25 @@ const WEBSITE_JSONLD = {
   description: "Plataforma de membresías y monetización de contenido para profesionales de América Latina.",
   potentialAction: {
     "@type": "SearchAction",
-    target: "https://nebbuler.com/directorio?q={search_term_string}",
+    target: "https://nebbuler.com/explorar?q={search_term_string}",
     "query-input": "required name=search_term_string",
   },
+}
+
+const BREADCRUMB_JSONLD = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Inicio", item: "https://nebbuler.com" },
+    { "@type": "ListItem", position: 2, name: "Calculadora", item: "https://nebbuler.com/cuanto-te-quitan" },
+    { "@type": "ListItem", position: 3, name: "Mundial", item: "https://nebbuler.com/mundial" },
+    { "@type": "ListItem", position: 4, name: "Datos", item: "https://nebbuler.com/datos" },
+    { "@type": "ListItem", position: 5, name: "Precios", item: "https://nebbuler.com/precios" },
+    { "@type": "ListItem", position: 6, name: "Explorar", item: "https://nebbuler.com/explorar" },
+    { "@type": "ListItem", position: 7, name: "Blog", item: "https://nebbuler.com/blog" },
+    { "@type": "ListItem", position: 8, name: "Salarios", item: "https://nebbuler.com/salario" },
+    { "@type": "ListItem", position: 9, name: "Comparar", item: "https://nebbuler.com/comparar" },
+  ],
 }
 
 const PLATFORM_JSONLD = {
@@ -295,6 +322,10 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: safeJsonLd(PLATFORM_JSONLD) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: safeJsonLd(BREADCRUMB_JSONLD) }}
         />
         <script
           type="application/ld+json"

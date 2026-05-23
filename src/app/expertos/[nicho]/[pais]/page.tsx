@@ -25,9 +25,19 @@ function adminSupabase() {
 }
 
 export async function generateStaticParams() {
-  // Top 5 nichos × 5 países = 25 paths ISR-pre-generados, resto on-demand
-  const topNichos = ['economia', 'finanzas-personales', 'derecho-tributario', 'startups', 'marketing']
-  const topPaises = ['chile', 'argentina', 'mexico', 'colombia', 'peru']
+  // All niches × all countries for maximum SEO coverage
+  const topNichos = [
+    'economia', 'finanzas-personales', 'derecho-tributario', 'startups', 'marketing',
+    'derecho-laboral', 'real-estate', 'salud-mental', 'nutricion', 'fitness',
+    'parenting', 'educacion', 'tech', 'sostenibilidad', 'lifestyle',
+    'tecnologia', 'marketing-digital', 'recursos-humanos', 'supply-chain',
+    'psicologia', 'odontologia', 'arquitectura', 'ingenieria', 'ciencia-de-datos',
+  ]
+  const topPaises = [
+    'chile', 'argentina', 'mexico', 'colombia', 'peru',
+    'uruguay', 'ecuador', 'paraguay', 'bolivia',
+    'panama', 'costa-rica', 'republica-dominicana',
+  ]
   const params: Array<{ nicho: string; pais: string }> = []
   for (const n of topNichos) for (const p of topPaises) params.push({ nicho: n, pais: p })
   return params

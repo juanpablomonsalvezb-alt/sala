@@ -28,6 +28,9 @@ export const PAISES_COMP: PaisComp[] = [
   { slug: 'ecuador',   nombre: 'Ecuador',   paisEmoji: '🇪🇨', moneda: 'USD', simbolo: '$',  salarioMedioUsd: 1300, costoVidaUsd: 800,  impuestoEfectivo: 15, regulacionTrabajo: 'RIMPE o régimen general SRI' },
   { slug: 'bolivia',   nombre: 'Bolivia',   paisEmoji: '🇧🇴', moneda: 'BOB', simbolo: 'Bs', salarioMedioUsd: 950,  costoVidaUsd: 650,  impuestoEfectivo: 13, regulacionTrabajo: 'NIT + facturación electrónica' },
   { slug: 'paraguay',  nombre: 'Paraguay',  paisEmoji: '🇵🇾', moneda: 'PYG', simbolo: '₲',  salarioMedioUsd: 1050, costoVidaUsd: 700,  impuestoEfectivo: 10, regulacionTrabajo: 'IRP-RSP régimen profesional simplificado' },
+  { slug: 'panama',           nombre: 'Panamá',              paisEmoji: '🇵🇦', moneda: 'USD', simbolo: '$',  salarioMedioUsd: 1600, costoVidaUsd: 950,  impuestoEfectivo: 15, regulacionTrabajo: 'Aviso de operaciones + RUC, sin IVA sobre servicios profesionales' },
+  { slug: 'costa-rica',       nombre: 'Costa Rica',          paisEmoji: '🇨🇷', moneda: 'CRC', simbolo: '₡', salarioMedioUsd: 1400, costoVidaUsd: 900,  impuestoEfectivo: 17, regulacionTrabajo: 'Régimen tradicional o simplificado Hacienda' },
+  { slug: 'republica-dominicana', nombre: 'República Dominicana', paisEmoji: '🇩🇴', moneda: 'DOP', simbolo: 'RD$', salarioMedioUsd: 1100, costoVidaUsd: 750, impuestoEfectivo: 14, regulacionTrabajo: 'Régimen PST simplificado DGII' },
 ]
 
 // Factor por profesión sobre salario medio nacional
@@ -63,6 +66,26 @@ export const FACTOR_PROFESION: Record<string, { nombre: string; nombreMayus: str
   'data-scientist':        { nombre: 'data scientist', nombreMayus: 'Data Scientist', area: 'Tecnología', factor: 2.1 },
   'auditor':               { nombre: 'auditor', nombreMayus: 'Auditor', area: 'Finanzas', factor: 1.4 },
   'farmaceutico':          { nombre: 'farmacéutico', nombreMayus: 'Farmacéutico', area: 'Salud', factor: 1.3 },
+  'programador':           { nombre: 'programador', nombreMayus: 'Programador', area: 'Tecnología', factor: 1.8 },
+  'desarrollador-web':     { nombre: 'desarrollador web', nombreMayus: 'Desarrollador Web', area: 'Tecnología', factor: 1.7 },
+  'desarrollador-mobile':  { nombre: 'desarrollador mobile', nombreMayus: 'Desarrollador Mobile', area: 'Tecnología', factor: 1.9 },
+  'data-engineer':         { nombre: 'data engineer', nombreMayus: 'Data Engineer', area: 'Tecnología', factor: 2.0 },
+  'ux-designer':           { nombre: 'diseñador UX', nombreMayus: 'Diseñador UX', area: 'Diseño', factor: 1.5 },
+  'ui-designer':           { nombre: 'diseñador UI', nombreMayus: 'Diseñador UI', area: 'Diseño', factor: 1.4 },
+  'scrum-master':          { nombre: 'scrum master', nombreMayus: 'Scrum Master', area: 'Gestión', factor: 1.7 },
+  'community-manager':     { nombre: 'community manager', nombreMayus: 'Community Manager', area: 'Marketing Digital', factor: 0.9 },
+  'publicista':            { nombre: 'publicista', nombreMayus: 'Publicista', area: 'Publicidad', factor: 1.2 },
+  'comunicador':           { nombre: 'comunicador', nombreMayus: 'Comunicador', area: 'Comunicación', factor: 1.1 },
+  'investigador':          { nombre: 'investigador', nombreMayus: 'Investigador', area: 'Ciencia', factor: 1.3 },
+  'academico':             { nombre: 'académico', nombreMayus: 'Académico', area: 'Educación', factor: 1.2 },
+  'ingeniero-mecanico':    { nombre: 'ingeniero mecánico', nombreMayus: 'Ingeniero Mecánico', area: 'Ingeniería', factor: 1.6 },
+  'trader':                { nombre: 'trader', nombreMayus: 'Trader', area: 'Finanzas', factor: 2.3 },
+  'analista-financiero':   { nombre: 'analista financiero', nombreMayus: 'Analista Financiero', area: 'Finanzas', factor: 1.7 },
+  'actuario':              { nombre: 'actuario', nombreMayus: 'Actuario', area: 'Seguros', factor: 1.9 },
+  'biologo':               { nombre: 'biólogo', nombreMayus: 'Biólogo', area: 'Ciencia', factor: 1.0 },
+  'quimico':               { nombre: 'químico', nombreMayus: 'Químico', area: 'Ciencia', factor: 1.1 },
+  'veterinario':           { nombre: 'veterinario', nombreMayus: 'Veterinario', area: 'Salud Animal', factor: 1.2 },
+  'fisioterapeuta':        { nombre: 'fisioterapeuta', nombreMayus: 'Fisioterapeuta', area: 'Salud', factor: 1.0 },
 }
 
 export const PROFESIONES_COMP_SLUGS = Object.keys(FACTOR_PROFESION)

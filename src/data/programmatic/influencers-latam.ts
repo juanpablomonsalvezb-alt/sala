@@ -25,6 +25,15 @@ export const NICHOS: Nicho[] = [
   { slug: 'tech',                nombre: 'tech',                nombreMayus: 'Tech',                descripcion: 'Software, IA, ciberseguridad y producto.' },
   { slug: 'sostenibilidad',      nombre: 'sostenibilidad',      nombreMayus: 'Sostenibilidad',      descripcion: 'ESG, energía y cambio climático.' },
   { slug: 'lifestyle',           nombre: 'lifestyle',           nombreMayus: 'Lifestyle',           descripcion: 'Cultura, hábitos y vida profesional.' },
+  { slug: 'tecnologia',          nombre: 'tecnología',          nombreMayus: 'Tecnología',          descripcion: 'Desarrollo de software, infraestructura cloud, DevOps y producto digital.' },
+  { slug: 'marketing-digital',   nombre: 'marketing digital',   nombreMayus: 'Marketing Digital',   descripcion: 'SEO, paid media, growth hacking, email marketing y analytics.' },
+  { slug: 'recursos-humanos',    nombre: 'recursos humanos',    nombreMayus: 'Recursos Humanos',    descripcion: 'Talent acquisition, cultura organizacional, people analytics y compensaciones.' },
+  { slug: 'supply-chain',        nombre: 'supply chain',        nombreMayus: 'Supply Chain',        descripcion: 'Logística, cadena de suministro, procurement y operaciones.' },
+  { slug: 'psicologia',          nombre: 'psicología',          nombreMayus: 'Psicología',          descripcion: 'Psicología clínica, organizacional, neuropsicología y terapias basadas en evidencia.' },
+  { slug: 'odontologia',         nombre: 'odontología',         nombreMayus: 'Odontología',         descripcion: 'Odontología general, ortodoncia, implantología y estética dental.' },
+  { slug: 'arquitectura',        nombre: 'arquitectura',        nombreMayus: 'Arquitectura',        descripcion: 'Diseño arquitectónico, urbanismo, interiorismo y construcción sostenible.' },
+  { slug: 'ingenieria',          nombre: 'ingeniería',          nombreMayus: 'Ingeniería',          descripcion: 'Ingeniería civil, industrial, mecánica y de procesos.' },
+  { slug: 'ciencia-de-datos',    nombre: 'ciencia de datos',    nombreMayus: 'Ciencia de Datos',    descripcion: 'Machine learning, estadística aplicada, big data y visualización de datos.' },
 ]
 
 export interface PaisInf {
@@ -42,7 +51,10 @@ export const PAISES_INF: PaisInf[] = [
   { slug: 'uruguay',   nombre: 'Uruguay',   emoji: '🇺🇾' },
   { slug: 'ecuador',   nombre: 'Ecuador',   emoji: '🇪🇨' },
   { slug: 'paraguay',  nombre: 'Paraguay',  emoji: '🇵🇾' },
-  { slug: 'bolivia',   nombre: 'Bolivia',   emoji: '🇧🇴' },
+  { slug: 'bolivia',              nombre: 'Bolivia',              emoji: '🇧🇴' },
+  { slug: 'panama',              nombre: 'Panamá',               emoji: '🇵🇦' },
+  { slug: 'costa-rica',          nombre: 'Costa Rica',           emoji: '🇨🇷' },
+  { slug: 'republica-dominicana', nombre: 'República Dominicana', emoji: '🇩🇴' },
 ]
 
 export interface PerfilPublico {
@@ -122,6 +134,47 @@ export function generarPerfilesArquetipo(nichoSlug: string, paisSlug: string): P
     'lifestyle': [
       { nombre: 'Periodista Cultural', handle: 'cultura-' + paisSlug, red: 'twitter', bio: 'Columnista de cultura y tendencias urbanas.', url: 'https://twitter.com/search?q=cultura%20' + paisSlug },
       { nombre: 'Diseñador de Contenido', handle: 'lifestyle-' + paisSlug, red: 'instagram', bio: 'Creador con foco en diseño y hábitos.', url: 'https://www.instagram.com/explore/tags/lifestyle' + paisSlug },
+    ],
+    'tecnologia': [
+      { nombre: 'Arquitecto de Software', handle: 'arq-sw-' + paisSlug, red: 'linkedin', bio: 'Staff engineer, charlas de arquitectura cloud y microservicios.', url: 'https://www.linkedin.com/search/results/people/?keywords=arquitecto%20software%20' + paisSlug },
+      { nombre: 'DevOps Lead', handle: 'devops-' + paisSlug, red: 'twitter', bio: 'SRE/DevOps, contenido de infra, Kubernetes y CI/CD.', url: 'https://twitter.com/search?q=devops%20' + paisSlug },
+      { nombre: 'Fundador de SaaS', handle: 'saas-' + paisSlug, red: 'twitter', bio: 'Founder bootstrapped, comparte métricas y aprendizajes.', url: 'https://twitter.com/search?q=saas%20founder%20' + paisSlug },
+    ],
+    'marketing-digital': [
+      { nombre: 'Consultor SEO Senior', handle: 'seo-' + paisSlug, red: 'linkedin', bio: 'Especialista en posicionamiento orgánico y content strategy.', url: 'https://www.linkedin.com/search/results/people/?keywords=seo%20' + paisSlug },
+      { nombre: 'Growth Hacker', handle: 'growth-hack-' + paisSlug, red: 'twitter', bio: 'Paid media, CRO y experimentación para startups.', url: 'https://twitter.com/search?q=growth%20hacking%20' + paisSlug },
+      { nombre: 'Email Marketing Specialist', handle: 'email-mkt-' + paisSlug, red: 'linkedin', bio: 'Automatización, segmentación y lifecycle marketing.', url: 'https://www.linkedin.com/search/results/people/?keywords=email%20marketing%20' + paisSlug },
+    ],
+    'recursos-humanos': [
+      { nombre: 'Head of People', handle: 'hr-' + paisSlug, red: 'linkedin', bio: 'Líder de RRHH en scaleup, foco en cultura y retención.', url: 'https://www.linkedin.com/search/results/people/?keywords=head%20people%20' + paisSlug },
+      { nombre: 'Talent Acquisition Lead', handle: 'talent-' + paisSlug, red: 'linkedin', bio: 'Recruiting tech, employer branding y people analytics.', url: 'https://www.linkedin.com/search/results/people/?keywords=talent%20acquisition%20' + paisSlug },
+    ],
+    'supply-chain': [
+      { nombre: 'Director de Logística', handle: 'logistics-' + paisSlug, red: 'linkedin', bio: 'Supply chain management, optimización de inventarios.', url: 'https://www.linkedin.com/search/results/people/?keywords=supply%20chain%20' + paisSlug },
+      { nombre: 'Consultor de Operaciones', handle: 'ops-' + paisSlug, red: 'linkedin', bio: 'Lean manufacturing, Six Sigma y mejora continua.', url: 'https://www.linkedin.com/search/results/people/?keywords=operaciones%20logistica%20' + paisSlug },
+    ],
+    'psicologia': [
+      { nombre: 'Psicólogo Clínico', handle: 'psi-clinico-' + paisSlug, red: 'instagram', bio: 'Divulgación de terapia cognitivo-conductual y bienestar.', url: 'https://www.instagram.com/explore/tags/psicologia' + paisSlug },
+      { nombre: 'Neuropsicólogo', handle: 'neuro-' + paisSlug, red: 'linkedin', bio: 'Investigador en neurociencia cognitiva y rehabilitación.', url: 'https://www.linkedin.com/search/results/people/?keywords=neuropsicologo%20' + paisSlug },
+      { nombre: 'Psicólogo Organizacional', handle: 'psi-org-' + paisSlug, red: 'linkedin', bio: 'Consultor de clima laboral y desarrollo organizacional.', url: 'https://www.linkedin.com/search/results/people/?keywords=psicologo%20organizacional%20' + paisSlug },
+    ],
+    'odontologia': [
+      { nombre: 'Ortodoncista Reconocido', handle: 'orto-' + paisSlug, red: 'instagram', bio: 'Ortodoncista con foco en alineadores y sonrisa digital.', url: 'https://www.instagram.com/explore/tags/ortodoncia' + paisSlug },
+      { nombre: 'Implantólogo', handle: 'implanto-' + paisSlug, red: 'linkedin', bio: 'Especialista en implantes dentales y rehabilitación oral.', url: 'https://www.linkedin.com/search/results/people/?keywords=implantologia%20' + paisSlug },
+    ],
+    'arquitectura': [
+      { nombre: 'Arquitecto Sustentable', handle: 'arq-sust-' + paisSlug, red: 'linkedin', bio: 'Diseño bioclimático y certificaciones LEED.', url: 'https://www.linkedin.com/search/results/people/?keywords=arquitectura%20sustentable%20' + paisSlug },
+      { nombre: 'Diseñador de Interiores', handle: 'interiorismo-' + paisSlug, red: 'instagram', bio: 'Interiorismo residencial y comercial de alta gama.', url: 'https://www.instagram.com/explore/tags/interiorismo' + paisSlug },
+      { nombre: 'Urbanista', handle: 'urbanismo-' + paisSlug, red: 'twitter', bio: 'Planificación urbana y ciudades sostenibles.', url: 'https://twitter.com/search?q=urbanismo%20' + paisSlug },
+    ],
+    'ingenieria': [
+      { nombre: 'Ingeniero Civil Senior', handle: 'ing-civil-' + paisSlug, red: 'linkedin', bio: 'Gestión de megaproyectos de infraestructura.', url: 'https://www.linkedin.com/search/results/people/?keywords=ingeniero%20civil%20' + paisSlug },
+      { nombre: 'Ingeniero Industrial', handle: 'ing-ind-' + paisSlug, red: 'linkedin', bio: 'Optimización de procesos y gestión de calidad.', url: 'https://www.linkedin.com/search/results/people/?keywords=ingeniero%20industrial%20' + paisSlug },
+    ],
+    'ciencia-de-datos': [
+      { nombre: 'Data Scientist Lead', handle: 'ds-' + paisSlug, red: 'linkedin', bio: 'ML engineer en fintech, comparte papers y tutoriales.', url: 'https://www.linkedin.com/search/results/people/?keywords=data%20scientist%20' + paisSlug },
+      { nombre: 'Analista de Datos', handle: 'analytics-' + paisSlug, red: 'twitter', bio: 'Visualización de datos, SQL y Python para negocio.', url: 'https://twitter.com/search?q=data%20analytics%20' + paisSlug },
+      { nombre: 'ML Engineer', handle: 'ml-' + paisSlug, red: 'linkedin', bio: 'Deep learning, NLP y MLOps en producción.', url: 'https://www.linkedin.com/search/results/people/?keywords=machine%20learning%20' + paisSlug },
     ],
   }
 

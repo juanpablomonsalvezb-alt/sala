@@ -59,6 +59,72 @@ export const ALTERNATIVES = [
     description:
       'Comparativa Gumroad vs Nebbuler. Por qué las membresías recurrentes ganan a las ventas one-shot a largo plazo.',
   },
+  {
+    slug: 'convertkit-en-espanol',
+    competitor: 'ConvertKit',
+    title: 'ConvertKit en español: la alternativa LATAM para creadores',
+    h1: 'ConvertKit en español: la alternativa para creadores LATAM',
+    kicker: 'CONVERTKIT EN ESPAÑOL',
+    summary:
+      'ConvertKit es excelente para email marketing en inglés, pero su pricing escala rápido ($29+ USD/mes) y su sistema de pagos solo opera en USD vía Stripe. Para creadores hispanohablantes que quieren cobrar membresías en pesos, Nebbuler es la alternativa nativa LATAM.',
+    description:
+      'Comparativa ConvertKit vs Nebbuler para creadores hispanohablantes. Pricing, monedas locales, comisiones y por qué Nebbuler conviene para LATAM.',
+  },
+  {
+    slug: 'kajabi-para-latam',
+    competitor: 'Kajabi',
+    title: 'Alternativa a Kajabi para creadores en Latinoamérica',
+    h1: 'Alternativa a Kajabi para creadores en Latinoamérica',
+    kicker: 'KAJABI LATAM',
+    summary:
+      'Kajabi cuesta desde $149 USD/mes (~$141.000 CLP) y está diseñada para coaches anglosajones con ingresos consolidados en dólares. Para el profesional latinoamericano en etapa de crecimiento, Nebbuler ofrece las mismas funcionalidades editoriales core a US$19/mes con pagos en moneda local.',
+    description:
+      'Comparativa Kajabi vs Nebbuler. Por qué los $149 USD/mes de Kajabi no tienen sentido para creadores LATAM.',
+  },
+  {
+    slug: 'ghost-en-espanol',
+    competitor: 'Ghost',
+    title: 'Ghost en español: la alternativa sin servidor para LATAM',
+    h1: 'Ghost en español: la alternativa sin servidor para LATAM',
+    kicker: 'GHOST EN ESPAÑOL',
+    summary:
+      'Ghost es un CMS open-source poderoso, pero requiere conocimientos técnicos para self-hosting o pagar Ghost Pro ($9-$199 USD/mes). Para profesionales LATAM que quieren publicar y cobrar sin configurar servidores, Nebbuler ofrece la misma lógica editorial con pagos en pesos.',
+    description:
+      'Comparativa Ghost vs Nebbuler para creadores hispanohablantes. Editor, pricing, pagos locales y por qué no necesitas administrar servidores.',
+  },
+  {
+    slug: 'ko-fi-alternativa-latam',
+    competitor: 'Ko-fi',
+    title: 'Ko-fi alternativa LATAM: de propinas a membresía profesional',
+    h1: 'Ko-fi alternativa LATAM: de propinas a membresía profesional',
+    kicker: 'KO-FI ALTERNATIVA LATAM',
+    summary:
+      'Ko-fi sirve para recibir donaciones simbólicas en dólares, pero no está diseñado para construir un negocio de membresías profesional. Nebbuler transforma el modelo "invítame un café" en una membresía real con contenido exclusivo, pagos recurrentes en moneda local y herramientas editoriales serias.',
+    description:
+      'Comparativa Ko-fi vs Nebbuler. Por qué las donaciones en USD no escalan y las membresías en pesos sí.',
+  },
+  {
+    slug: 'hotmart-vs-nebbuler',
+    competitor: 'Hotmart',
+    title: 'Hotmart vs Nebbuler: comisiones, membresías y LATAM',
+    h1: 'Hotmart vs Nebbuler: comisiones, membresías y control total',
+    kicker: 'HOTMART VS NEBBULER',
+    summary:
+      'Hotmart cobra ~10% de comisión por cada venta y está diseñada para lanzamientos masivos de cursos. Para el profesional independiente que quiere cobrar mensualmente por su análisis y conocimiento sin comisión variable ni modelo de afiliados, Nebbuler es la alternativa directa.',
+    description:
+      'Comparativa Hotmart vs Nebbuler. Comisiones, modelo de negocio y por qué las membresías editoriales superan al modelo de lanzamientos.',
+  },
+  {
+    slug: 'teachable-en-espanol',
+    competitor: 'Teachable',
+    title: 'Teachable en español: alternativa LATAM para profesionales',
+    h1: 'Teachable en español: alternativa LATAM para profesionales',
+    kicker: 'TEACHABLE EN ESPAÑOL',
+    summary:
+      'Teachable cobra desde $59 USD/mes + 5% de comisión en su plan Basic, y está orientada a cursos en video para el mercado anglosajón. Para profesionales LATAM que publican contenido editorial recurrente, Nebbuler ofrece US$19/mes con 0% comisión y pagos en moneda local.',
+    description:
+      'Comparativa Teachable vs Nebbuler. Pricing real, comisiones y por qué Nebbuler es mejor para contenido editorial LATAM.',
+  },
 ] as const
 
 export type AlternativeSlug = (typeof ALTERNATIVES)[number]['slug']

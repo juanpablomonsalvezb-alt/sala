@@ -3,50 +3,72 @@
 import { useState, useMemo } from 'react'
 import partidosData from '@/data/mundial-partidos.json'
 
-/* ── Pricing data (USD, base price without FIFA 15% fee) ── */
-const PRICING: Record<string, { cat1: [number, number]; cat2: [number, number]; cat3: [number, number]; cat4: [number, number] }> = {
+/* ── Pricing data (USD, base price without FIFA 15% fee) ──
+   Source: FIFA.com official pricing, verified May 2026
+   [min, max] — range depends on demand, city, teams
+   "neutral" = no host nation team; "host" = USA/Mexico/Canada playing ── */
+
+type PriceRange = { cat1: [number, number]; cat2: [number, number]; cat3: [number, number]; supporter: [number, number] }
+
+const PRICING_NEUTRAL: Record<string, PriceRange> = {
   grupos: {
-    cat1: [345, 620],
-    cat2: [260, 465],
-    cat3: [120, 215],
-    cat4: [60, 105],
+    cat1: [700, 1200],
+    cat2: [500, 900],
+    cat3: [120, 200],
+    supporter: [60, 60],
   },
   dieciseisavos: {
-    cat1: [440, 480],
-    cat2: [335, 360],
-    cat3: [160, 175],
-    cat4: [125, 135],
+    cat1: [540, 540],
+    cat2: [440, 440],
+    cat3: [225, 225],
+    supporter: [60, 60],
   },
   octavos: {
-    cat1: [590, 890],
-    cat2: [450, 675],
-    cat3: [220, 330],
-    cat4: [170, 260],
+    cat1: [640, 640],
+    cat2: [515, 515],
+    cat3: [240, 240],
+    supporter: [60, 60],
   },
   cuartos: {
-    cat1: [1125, 1690],
-    cat2: [765, 1150],
-    cat3: [485, 725],
-    cat4: [275, 410],
+    cat1: [1775, 1775],
+    cat2: [1200, 1200],
+    cat3: [450, 450],
+    supporter: [60, 60],
   },
   semifinales: {
-    cat1: [2565, 2780],
-    cat2: [1775, 1920],
-    cat3: [660, 720],
-    cat4: [420, 455],
+    cat1: [3295, 3295],
+    cat2: [2350, 2350],
+    cat3: [930, 930],
+    supporter: [60, 60],
   },
   'tercer-lugar': {
-    cat1: [1000, 1000],
-    cat2: [715, 715],
-    cat3: [360, 360],
-    cat4: [165, 165],
+    cat1: [800, 800],
+    cat2: [600, 600],
+    cat3: [250, 250],
+    supporter: [60, 60],
   },
   final: {
-    cat1: [6370, 6370],
-    cat2: [4210, 4210],
-    cat3: [2790, 2790],
-    cat4: [2030, 2030],
+    cat1: [6730, 7875],
+    cat2: [4500, 5500],
+    cat3: [1490, 2200],
+    supporter: [60, 60],
   },
+}
+
+const PRICING_HOST: Record<string, PriceRange> = {
+  grupos: {
+    cat1: [1500, 2735],
+    cat2: [1100, 1800],
+    cat3: [400, 700],
+    supporter: [60, 60],
+  },
+  // Knockout rounds — same as neutral (teams TBD at draw)
+  dieciseisavos: PRICING_NEUTRAL.dieciseisavos,
+  octavos: PRICING_NEUTRAL.octavos,
+  cuartos: PRICING_NEUTRAL.cuartos,
+  semifinales: PRICING_NEUTRAL.semifinales,
+  'tercer-lugar': PRICING_NEUTRAL['tercer-lugar'],
+  final: PRICING_NEUTRAL.final,
 }
 
 const FASE_LABELS: Record<string, string> = {
@@ -59,8 +81,8 @@ const FASE_LABELS: Record<string, string> = {
   final: 'Final',
 }
 
-const CAT_LABELS = ['Categoría 1 (Premium)', 'Categoría 2 (Alta)', 'Categoría 3 (Media)', 'Categoría 4 (Básica)']
-const CAT_KEYS: ('cat1' | 'cat2' | 'cat3' | 'cat4')[] = ['cat1', 'cat2', 'cat3', 'cat4']
+const CAT_LABELS = ['Categoría 1 (Premium)', 'Categoría 2 (Alta)', 'Categoría 3 (General)', 'Supporter (Federación)']
+const CAT_KEYS: ('cat1' | 'cat2' | 'cat3' | 'supporter')[] = ['cat1', 'cat2', 'cat3', 'supporter']
 
 const HOST_TEAMS = ['Mexico', 'Estados Unidos', 'Canada']
 
@@ -99,7 +121,7 @@ function fmt(n: number, symbol: string): string {
 export function EntradasClient() {
   const [fase, setFase] = useState('grupos')
   const [matchId, setMatchId] = useState<number | null>(null)
-  const [category, setCategory] = useState<'cat1' | 'cat2' | 'cat3' | 'cat4'>('cat3')
+  const [category, setCategory] = useState<'cat1' | 'cat2' | 'cat3' | 'supporter'>('cat3')
   const [quantity, setQuantity] = useState(2)
   const [currency, setCurrency] = useState('USD')
   const [showFee, setShowFee] = useState(true)
@@ -112,12 +134,11 @@ export function EntradasClient() {
     ? HOST_TEAMS.includes(selectedMatch.equipo1) || HOST_TEAMS.includes(selectedMatch.equipo2)
     : false
 
-  const pricing = PRICING[fase]
+  const pricing = isHostMatch ? (PRICING_HOST[fase] ?? PRICING_NEUTRAL[fase]) : PRICING_NEUTRAL[fase]
   const curr = CURRENCIES.find((c) => c.code === currency) ?? CURRENCIES[0]
 
   const [minBase, maxBase] = pricing[category]
-  // Host nation matches tend toward the high end
-  const estimatedBase = isHostMatch ? maxBase : Math.round((minBase + maxBase) / 2)
+  const estimatedBase = minBase === maxBase ? minBase : Math.round((minBase + maxBase) / 2)
   const feeMultiplier = showFee ? 1.15 : 1
   const unitPrice = Math.round(estimatedBase * feeMultiplier)
   const totalUSD = unitPrice * quantity
@@ -315,28 +336,58 @@ export function EntradasClient() {
                   <th className="px-4 py-3 text-right font-semibold">Cat 1</th>
                   <th className="px-4 py-3 text-right font-semibold">Cat 2</th>
                   <th className="px-4 py-3 text-right font-semibold">Cat 3</th>
-                  <th className="px-4 py-3 text-right font-semibold">Cat 4</th>
+                  <th className="px-4 py-3 text-right font-semibold">Supporter</th>
                 </tr>
               </thead>
               <tbody>
-                {Object.entries(PRICING).map(([f, p]) => (
-                  <tr
-                    key={f}
-                    className={`border-b border-white/5 transition hover:bg-white/5 ${f === fase ? 'bg-amber-500/10' : ''}`}
-                  >
-                    <td className="px-4 py-3 font-medium">{FASE_LABELS[f]}</td>
-                    {CAT_KEYS.map((ck) => {
-                      const [lo, hi] = p[ck]
-                      return (
-                        <td key={ck} className="whitespace-nowrap px-4 py-3 text-right text-neutral-300">
-                          {lo === hi
-                            ? `US$${lo.toLocaleString('es-CL')}`
-                            : `US$${lo.toLocaleString('es-CL')} – ${hi.toLocaleString('es-CL')}`}
+                {Object.entries(PRICING_NEUTRAL).map(([f, p]) => {
+                  const hostP = PRICING_HOST[f]
+                  const hasHostDiff = f === 'grupos'
+                  return (
+                    <>
+                      <tr
+                        key={f}
+                        className={`border-b border-white/5 transition hover:bg-white/5 ${f === fase ? 'bg-amber-500/10' : ''}`}
+                      >
+                        <td className="px-4 py-3 font-medium">
+                          {FASE_LABELS[f]}
+                          {hasHostDiff && <span className="ml-1 text-xs text-neutral-500">(neutral)</span>}
                         </td>
-                      )
-                    })}
-                  </tr>
-                ))}
+                        {CAT_KEYS.map((ck) => {
+                          const [lo, hi] = p[ck]
+                          return (
+                            <td key={ck} className="whitespace-nowrap px-4 py-3 text-right text-neutral-300">
+                              {lo === hi
+                                ? `US$${lo.toLocaleString('es-CL')}`
+                                : `US$${lo.toLocaleString('es-CL')} – ${hi.toLocaleString('es-CL')}`}
+                            </td>
+                          )
+                        })}
+                      </tr>
+                      {hasHostDiff && (
+                        <tr
+                          key={`${f}-host`}
+                          className={`border-b border-white/5 transition hover:bg-white/5 ${f === fase && isHostMatch ? 'bg-amber-500/10' : ''}`}
+                        >
+                          <td className="px-4 py-3 font-medium">
+                            {FASE_LABELS[f]}
+                            <span className="ml-1 text-xs text-amber-400">(anfitrión)</span>
+                          </td>
+                          {CAT_KEYS.map((ck) => {
+                            const [lo, hi] = hostP[ck]
+                            return (
+                              <td key={ck} className="whitespace-nowrap px-4 py-3 text-right text-amber-300">
+                                {lo === hi
+                                  ? `US$${lo.toLocaleString('es-CL')}`
+                                  : `US$${lo.toLocaleString('es-CL')} – ${hi.toLocaleString('es-CL')}`}
+                              </td>
+                            )
+                          })}
+                        </tr>
+                      )}
+                    </>
+                  )
+                })}
               </tbody>
             </table>
           </div>
@@ -374,9 +425,10 @@ export function EntradasClient() {
 
         {/* sr-only for featured snippets */}
         <p className="sr-only">
-          Las entradas al Mundial 2026 cuestan entre US$60 (Categoría 4, Fase de Grupos) y US$6,370 (Categoría 1, Final).
-          Una entrada de Fase de Grupos Categoría 3 cuesta entre US$120 y US$215.
-          La final del Mundial 2026 cuesta US$2,030 (Cat 4), US$2,790 (Cat 3), US$4,210 (Cat 2) o US$6,370 (Cat 1).
+          Las entradas al Mundial 2026 cuestan entre US$60 (Supporter Tier vía federación) y US$7,875 (Categoría 1, Final).
+          Una entrada de Fase de Grupos Categoría 3 cuesta entre US$120 y US$200 para partidos neutrales, o US$400 a US$700 si juega una selección anfitriona.
+          La final del Mundial 2026 cuesta desde US$1,490 (Cat 3) hasta US$7,875 (Cat 1). Son las entradas más caras en la historia de los Mundiales.
+          Partidos de USA, México y Canadá en fase de grupos cuestan hasta US$2,735 en Categoría 1.
           FIFA cobra una tasa de servicio del 15% adicional sobre todos los precios.
         </p>
 

@@ -86,17 +86,35 @@ export default async function GrupoPage({
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'SportsEvent',
-    name: `Grupo ${grupo.id} - Mundial 2026`,
+    name: `Grupo ${grupo.id.toUpperCase()} - Copa del Mundo FIFA 2026`,
     description: `Fase de grupos del Mundial 2026. ${grupo.selecciones.join(', ')}`,
-    startDate: MUNDIAL.fecha_inicio,
-    endDate: '2026-06-27',
+    startDate: '2026-06-11T18:00:00-05:00',
+    endDate: '2026-06-27T20:00:00-05:00',
     sport: 'Soccer',
     eventStatus: 'https://schema.org/EventScheduled',
-    organizer: { '@type': 'SportsOrganization', name: 'FIFA' },
+    eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+    location: {
+      '@type': 'Place',
+      name: 'Estadios del Mundial 2026',
+      address: { '@type': 'PostalAddress', addressCountry: 'US' },
+    },
+    organizer: { '@type': 'Organization', name: 'FIFA', url: 'https://www.fifa.com' },
+    performer: grupo.selecciones.map((s) => ({
+      '@type': 'SportsTeam',
+      name: `Selección de fútbol de ${s}`,
+    })),
     competitor: grupo.selecciones.map((s) => ({
       '@type': 'SportsTeam',
       name: `Selección de fútbol de ${s}`,
     })),
+    image: 'https://nebbuler.com/mundial-og.png',
+    offers: {
+      '@type': 'Offer',
+      url: 'https://nebbuler.com/mundial/entradas',
+      price: '120',
+      priceCurrency: 'USD',
+      availability: 'https://schema.org/InStock',
+    },
   }
 
   const breadcrumbLd = {

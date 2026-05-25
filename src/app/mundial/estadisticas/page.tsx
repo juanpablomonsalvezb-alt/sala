@@ -137,10 +137,26 @@ export default async function EstadisticasPage() {
     about: {
       '@type': 'SportsEvent',
       name: 'Copa del Mundo FIFA 2026',
-      startDate: '2026-06-11',
-      endDate: '2026-07-19',
+      startDate: '2026-06-11T18:00:00-05:00',
+      endDate: '2026-07-19T18:00:00-05:00',
       sport: 'Soccer',
-      organizer: { '@type': 'SportsOrganization', name: 'FIFA' },
+      eventStatus: 'https://schema.org/EventScheduled',
+      eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+      location: {
+        '@type': 'Place',
+        name: 'Estadios del Mundial 2026',
+        address: { '@type': 'PostalAddress', addressCountry: 'US' },
+      },
+      organizer: { '@type': 'Organization', name: 'FIFA', url: 'https://www.fifa.com' },
+      performer: { '@type': 'Organization', name: 'FIFA' },
+      image: 'https://nebbuler.com/mundial-og.png',
+      offers: {
+        '@type': 'Offer',
+        url: 'https://nebbuler.com/mundial/entradas',
+        price: '60',
+        priceCurrency: 'USD',
+        availability: 'https://schema.org/InStock',
+      },
     },
   }
 

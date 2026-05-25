@@ -134,14 +134,41 @@ export default async function PartidoPage({
         '@type': 'SportsEvent',
         name: `${partido.equipo1} vs ${partido.equipo2} - ${faseLabel} - Mundial 2026`,
         description: `Partido del Mundial FIFA 2026: ${partido.equipo1} contra ${partido.equipo2}`,
-        startDate: partido.fecha,
+        startDate: `${partido.fecha}T18:00:00-05:00`,
+        endDate: `${partido.fecha}T20:00:00-05:00`,
         sport: 'Soccer',
         eventStatus: 'https://schema.org/EventScheduled',
-        organizer: { '@type': 'SportsOrganization', name: 'FIFA', url: 'https://www.fifa.com' },
+        eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+        location: {
+          '@type': 'Place',
+          name: 'Sede del Mundial 2026',
+          address: {
+            '@type': 'PostalAddress',
+            addressCountry: 'US',
+          },
+        },
+        organizer: {
+          '@type': 'Organization',
+          name: 'FIFA',
+          url: 'https://www.fifa.com',
+        },
+        performer: [
+          { '@type': 'SportsTeam', name: partido.equipo1 },
+          { '@type': 'SportsTeam', name: partido.equipo2 },
+        ],
         competitor: [
           { '@type': 'SportsTeam', name: partido.equipo1 },
           { '@type': 'SportsTeam', name: partido.equipo2 },
         ],
+        image: 'https://nebbuler.com/mundial-og.png',
+        offers: {
+          '@type': 'Offer',
+          url: 'https://nebbuler.com/mundial/entradas',
+          price: '120',
+          priceCurrency: 'USD',
+          availability: 'https://schema.org/InStock',
+          validFrom: '2025-10-01',
+        },
         superEvent: {
           '@type': 'SportsEvent',
           name: 'Copa del Mundo FIFA 2026',

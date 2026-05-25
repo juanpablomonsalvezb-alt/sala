@@ -115,11 +115,35 @@ const JSON_LD_FAQ = {
 const JSON_LD_SPORTS_EVENT = {
   '@context': 'https://schema.org',
   '@type': 'SportsEvent',
-  name: 'Mundial 2026',
-  description: 'Copa del Mundo de Fútbol 2026 organizada en Estados Unidos, México y Canadá',
-  startDate: MUNDIAL.fecha_inicio,
-  endDate: MUNDIAL.fecha_fin,
-  location: MUNDIAL.sedes.map((sede) => ({ '@type': 'Country', name: sede })),
+  name: 'Copa del Mundo FIFA 2026',
+  description: 'Copa del Mundo de Fútbol 2026 organizada en Estados Unidos, México y Canadá. 48 selecciones, 104 partidos.',
+  startDate: '2026-06-11T18:00:00-05:00',
+  endDate: '2026-07-19T18:00:00-05:00',
+  eventStatus: 'https://schema.org/EventScheduled',
+  eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+  location: [
+    { '@type': 'Place', name: 'MetLife Stadium', address: { '@type': 'PostalAddress', addressLocality: 'East Rutherford', addressRegion: 'NJ', addressCountry: 'US' } },
+    { '@type': 'Place', name: 'Estadio Azteca', address: { '@type': 'PostalAddress', addressLocality: 'Ciudad de México', addressCountry: 'MX' } },
+    { '@type': 'Place', name: 'BMO Field', address: { '@type': 'PostalAddress', addressLocality: 'Toronto', addressCountry: 'CA' } },
+  ],
+  organizer: {
+    '@type': 'Organization',
+    name: 'FIFA',
+    url: 'https://www.fifa.com',
+  },
+  performer: {
+    '@type': 'Organization',
+    name: 'FIFA',
+  },
+  image: 'https://nebbuler.com/mundial-og.png',
+  offers: {
+    '@type': 'Offer',
+    url: 'https://nebbuler.com/mundial/entradas',
+    price: '60',
+    priceCurrency: 'USD',
+    availability: 'https://schema.org/InStock',
+    validFrom: '2025-10-01',
+  },
   sport: 'Soccer',
 }
 

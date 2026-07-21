@@ -67,5 +67,14 @@
     "tailwindcss": "^4",
     "typescript": "^5",
     "vitest": "^4.1.6"
+  },
+  "allowScripts": {
+    "@sentry/cli@2.58.6": true,
+    "core-js@3.49.0": true,
+    "fsevents@2.3.3": true,
+    "fsevents@2.3.2": true,
+    "msgpackr-extract@3.0.3": true,
+    "protobufjs@7.5.8": true,
+    "sharp@0.34.5": true
   }
 }

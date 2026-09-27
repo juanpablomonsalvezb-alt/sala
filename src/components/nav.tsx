@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { NavAuthLink } from "@/components/auth-nav-actions";
 
 const NAV_ITEMS = [
   { label: "Explorar", href: "/directorio" },
@@ -9,7 +10,6 @@ const NAV_ITEMS = [
   { label: "Para creadores", href: "/para-creadores" },
   { label: "Precios", href: "/precios" },
   { label: "Herramientas", href: "/cuanto-te-quitan" },
-  { label: "Entrar", href: "/entrar" },
 ];
 
 export default function Nav() {
@@ -43,6 +43,8 @@ export default function Nav() {
                 </Link>
               </span>
             ))}
+            <span className="text-[#DEDEDE] px-1">·</span>
+            <NavAuthLink className="hover:text-[#121212] transition-colors duration-150 uppercase tracking-[0.08em] text-[11px] font-medium" />
             <span className="text-[#DEDEDE] px-1">·</span>
             <Link
               href="/glosario"

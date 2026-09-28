@@ -48,6 +48,15 @@ function isAIBot(ua: string): boolean {
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
+
+  // Si Supabase cae al Site URL (redirectTo no permitido), el `code` de OAuth
+  // llega a "/" y nadie lo canjea. Lo reenviamos al callback.
+  if (pathname === '/' && request.nextUrl.searchParams.has('code')) {
+    const callbackUrl = request.nextUrl.clone()
+    callbackUrl.pathname = '/auth/callback'
+    return NextResponse.redirect(callbackUrl)
+  }
+
   const { supabaseResponse, user } = await updateSession(request)
 
   const isProtected = PROTECTED_PREFIXES.some((prefix) =>

@@ -23,6 +23,7 @@ import {
 import { featuredCreators as featuredCreatorsData } from "@/data/creators"
 import SubscribeWidget from "@/components/newsletter/SubscribeWidget"
 import { ToolsDropdown } from "@/components/tools-dropdown"
+import { HomeAuthActions } from "@/components/auth-nav-actions"
 
 /* ─── Data estática — permanece en el servidor ──────────────────────────── */
 
@@ -99,23 +100,8 @@ export default function Home() {
             <ToolsDropdown />
           </nav>
 
-          {/* CTA — siempre visible, compacto en móvil */}
-          <div className="flex items-center gap-0">
-            <Link
-              href="/entrar"
-              className="h-full flex items-center px-3 sm:px-5 text-[11px] sm:text-[12px] font-medium text-[#555] hover:text-[#111] border-l border-[#E0E0E0] transition-colors whitespace-nowrap"
-            >
-              <span className="hidden sm:inline">Iniciar sesión</span>
-              <span className="sm:hidden">Entrar</span>
-            </Link>
-            <Link
-              href="/abrir"
-              className="h-full flex items-center px-3 sm:px-6 bg-[#B31C1C] text-white text-[11px] sm:text-[12px] font-bold tracking-[0.04em] uppercase hover:bg-[#8E1515] transition-colors whitespace-nowrap"
-            >
-              <span className="hidden sm:inline">Abre tu espacio</span>
-              <span className="sm:hidden">Abrir</span>
-            </Link>
-          </div>
+          {/* CTA — isla cliente: muestra la sesión si el usuario ya entró */}
+          <HomeAuthActions />
         </div>
       </header>
 

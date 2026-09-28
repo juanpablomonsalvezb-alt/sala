@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { createClient } from '@/lib/supabase/client'
+import { AlreadySignedInNotice } from '@/components/auth-nav-actions'
 
 function safeNext(raw: string | null, fallback: string): string {
   if (!raw) return fallback
@@ -151,6 +152,7 @@ function RegistroInner() {
 
       <main className="flex-1 flex flex-col items-center justify-start px-6 py-14">
         <div className="w-full max-w-[480px]">
+          <AlreadySignedInNotice />
 
           <div className="mb-10 text-center">
             <h1 className="font-serif text-[#121212] leading-tight" style={{ fontSize: '2rem', fontWeight: 700, letterSpacing: '-0.01em' }}>

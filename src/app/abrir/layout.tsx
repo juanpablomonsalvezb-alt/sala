@@ -22,6 +22,15 @@ export default async function AbrirLayout({ children }: { children: React.ReactN
     if (!user) {
       redirect('/registro?next=/abrir')
     }
+    // Ya tiene sala → no mostrar el formulario de alta de nuevo
+    const { data: creator } = await supabase
+      .from('sala_creators')
+      .select('slug')
+      .eq('user_id', user.id)
+      .maybeSingle()
+    if (creator) {
+      redirect('/dashboard')
+    }
     email = user.email ?? null
   }
   return (

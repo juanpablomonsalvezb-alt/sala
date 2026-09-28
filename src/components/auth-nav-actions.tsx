@@ -140,7 +140,7 @@ export function AlreadySignedInNotice() {
       </p>
       <div className="mt-3 flex items-center gap-4">
         <Link
-          href={creatorSlug ? '/dashboard' : '/directorio'}
+          href={creatorSlug ? '/dashboard' : '/'}
           className="bg-[#121212] text-white font-sans text-[12px] font-medium px-4 py-2 hover:bg-[#333] transition-colors"
         >
           {creatorSlug ? 'Ir a mi espacio →' : 'Continuar →'}

@@ -113,7 +113,7 @@ function RegistroInner() {
   const creatorDest = safeNext(nextParam, '/abrir')
   const readerDest = isInviteFlow
     ? safeNext(nextParam, '/abrir')
-    : safeNext(nextParam, '/directorio')
+    : safeNext(nextParam, '/')
 
   async function handleLinkedIn() {
     setLinkedinLoading(true); setAuthError(null)

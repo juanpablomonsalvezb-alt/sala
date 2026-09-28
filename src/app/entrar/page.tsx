@@ -69,7 +69,9 @@ function EntrarInner() {
       setAuthError(error.message === 'Invalid login credentials' ? 'Email o contraseña incorrectos.' : error.message)
       setLoading(false); return
     }
-    window.location.href = safeNext(nextParam, '/dashboard')
+    const dest = new URL(safeNext(nextParam, '/'), window.location.origin)
+    dest.searchParams.set('bienvenida', 'sesion')
+    window.location.href = dest.pathname + dest.search
   }
 
   async function handleLinkedIn() {
@@ -86,7 +88,7 @@ function EntrarInner() {
   async function handleGoogle() {
     setGoogleLoading(true); setAuthError(null)
     const supabase = createClient()
-    const next = safeNext(nextParam, '/directorio')
+    const next = safeNext(nextParam, '/')
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: { redirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(next)}` },

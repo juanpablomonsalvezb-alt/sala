@@ -82,7 +82,7 @@ export async function GET() {
   <channel>
     <title>Nebbuler — Membresías para creadores LATAM</title>
     <link>${BASE}</link>
-    <description>Guías, comparativas y contenido para profesionales latinoamericanos que monetizan su conocimiento con membresías directas.</description>
+    <description>Contenido experto de América Latina: análisis sobre economía, derecho, impuestos, negocios y salud, escrito por profesionales de la región.</description>
     <language>es-419</language>
     <atom:link href="${BASE}/rss.xml" rel="self" type="application/rss+xml" />
     <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>

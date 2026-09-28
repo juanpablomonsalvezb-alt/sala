@@ -1,7 +1,7 @@
 {
   "name": "Nebbuler — Newsletters profesionales",
   "short_name": "Nebbuler",
-  "description": "La plataforma donde profesionales cobran por su conocimiento. Suscripciones directas, 0% comisión.",
+  "description": "Contenido experto de América Latina: economía, derecho, impuestos, negocios y salud, escrito por profesionales. Sello Sin IA para autores verificados.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
@@ -43,7 +43,7 @@
     {
       "name": "Directorio",
       "short_name": "Directorio",
-      "description": "Explorar profesionales verificados",
+      "description": "Explorar autores",
       "url": "/directorio",
       "icons": [{ "src": "/icons/icon-192x192.png", "sizes": "192x192" }]
     }

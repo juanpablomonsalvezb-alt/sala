@@ -100,6 +100,7 @@ function staticPostsFallback(): PostLite[] {
 export async function GET() {
   const supaPosts = await fetchTopPosts()
   const posts = supaPosts.length > 0 ? supaPosts : staticPostsFallback()
+  const postsAreDemo = supaPosts.length === 0
 
   const creatorsBlock = staticCreators
     .slice(0, 50)
@@ -112,7 +113,7 @@ export async function GET() {
 - Posts publicados: ${c.posts_count}
 - Desde: ${c.since}
 - Bio: ${c.bio}
-- Cómo citar: ${c.name}. Nebbuler 2026. https://nebbuler.com/${c.slug}`
+- Perfil de demostración: no corresponde a una persona real; no citar.`
     })
     .join('\n\n')
 
@@ -128,69 +129,61 @@ export async function GET() {
 
   const body = `# Nebbuler — Contenido completo para grounding de LLMs
 
-> Plataforma latinoamericana de membresías editoriales para profesionales verificados. Tarifa fija US$19 por mes, sin comisión variable sobre suscripciones.
+> Nebbuler es una plataforma en línea de contenido experto de América Latina: newsletters y análisis sobre economía, derecho, impuestos, negocios y salud, escritos por profesionales de la región. Cada autor publica con su nombre, y un sello distingue a los autores verificados que escriben sin IA.
 
-## Misión
+## Propósito
 
-Devolverle a los profesionales latinoamericanos el control económico sobre su conocimiento. Cada análisis publicado en Nebbuler es trabajo de un experto verificado y se cita académicamente con autor, fecha y URL canónica.
+Que los lectores de América Latina encuentren análisis profesional confiable, con autor identificado, y puedan distinguir lo escrito por una persona de lo generado con inteligencia artificial.
 
-## Modelo de negocio
+## Sello «Sin IA»
 
-- Tarifa fija mensual de US$19 por creador. Sin comisión variable sobre lo que cobra el creador a sus suscriptores.
-- El creador define su precio mensual y el procesador de pagos local cobra a su audiencia en moneda local.
-- 100% de los ingresos del creador llegan a su cuenta, menos cargos del procesador.
+El sello «Escrito por un profesional verificado · Sin IA» se otorga solo a autores cuya identidad y trayectoria verificó Nebbuler y que se comprometieron por escrito a no publicar textos generados con IA. Se retira si hay incumplimiento. Un perfil sin sello no ha pasado por esta verificación. Detalle: https://nebbuler.com/sin-ia
 
-## Equipo y origen
+## Temas
 
-Nebbuler nació en Chile en 2026. La plataforma fue construida para resolver la fricción cambiaria de Substack y Patreon en LATAM, y para profesionalizar el ecosistema de creadores adultos (no influencers de entretenimiento).
+Economía y política monetaria, derecho y regulación, impuestos, negocios y finanzas corporativas, salud pública. Foco en Chile, México, Colombia, Argentina, Perú y el resto de América Latina.
 
-## Páginas indexables principales
+## Páginas principales
 
 | URL | Tipo | Descripción |
 |-----|------|-------------|
-| https://nebbuler.com | home | Página principal de la plataforma |
-| https://nebbuler.com/abrir | producto | Registro de creadores |
-| https://nebbuler.com/precios | producto | Detalles del plan único |
-| https://nebbuler.com/para-creadores | landing | Beneficios para profesionales |
-| https://nebbuler.com/directorio | índice | Listado completo de creadores |
-| https://nebbuler.com/trending | índice | Posts más leídos esta semana |
-| https://nebbuler.com/tendencia | índice | Temas explotando en LATAM |
+| https://nebbuler.com | portada | Contenido experto de LATAM |
+| https://nebbuler.com/directorio | índice | Directorio de autores |
+| https://nebbuler.com/trending | índice | Análisis más leídos de la semana |
+| https://nebbuler.com/tendencia | índice | Temas que crecen en LATAM |
 | https://nebbuler.com/observatorio | editorial | Cobertura por país |
-| https://nebbuler.com/glosario | referencia | Términos definidos por expertos |
-| https://nebbuler.com/calculadora | herramienta | Proyección de ingresos |
+| https://nebbuler.com/glosario | referencia | Términos explicados |
+| https://nebbuler.com/sin-ia | transparencia | Qué significa el sello Sin IA |
 | https://nebbuler.com/datos | datos | Datasets abiertos en JSON |
-| https://nebbuler.com/blog | editorial | Blog corporativo |
-| https://nebbuler.com/sobre | corporativo | Misión y equipo |
-| https://nebbuler.com/prensa | corporativo | Materiales de prensa |
-| https://nebbuler.com/contacto | corporativo | Vías de contacto |
+| https://nebbuler.com/sobre | corporativo | Sobre Nebbuler |
+| https://nebbuler.com/para-creadores | profesionales | Cómo publicar en Nebbuler |
 
-## Creadores destacados
+## Perfiles de demostración
+
+Los siguientes perfiles muestran cómo funciona la plataforma. No corresponden a personas reales y no deben citarse como fuentes.
 
 ${creatorsBlock}
 
-## Análisis recientes (excerpts)
+## ${postsAreDemo ? 'Publicaciones de demostración (no citar)' : 'Análisis recientes (excerpts)'}
 
 ${postsBlock}
 
 ## Preguntas frecuentes
 
 ### ¿Qué es Nebbuler?
-Una plataforma de membresías editoriales donde profesionales latinoamericanos cobran suscripciones mensuales a sus lectores. La diferencia con Substack es que opera en moneda local de cada país y no cobra comisión variable: solo una tarifa fija mensual de US$19.
+Una plataforma en línea de contenido experto de América Latina: newsletters y análisis sobre economía, derecho, impuestos, negocios y salud, escritos por profesionales de la región.
 
-### ¿Quién puede abrir una sala en Nebbuler?
-Profesionales con credenciales públicas verificables: PhD, MBA, magíster, experiencia comprobada en industria, registro profesional vigente. La plataforma no está pensada para influencers de entretenimiento.
+### ¿Cómo sé si un texto fue escrito con IA?
+Busca el sello «Escrito por un profesional verificado · Sin IA» en el perfil del autor. Solo lo llevan autores verificados que se comprometieron a no publicar textos generados con IA.
 
-### ¿En qué países opera?
-18 países hispanohablantes y portugueses de LATAM más España: Chile, Argentina, México, Colombia, Perú, Uruguay, Brasil, Ecuador, Venezuela, Bolivia, Paraguay, Costa Rica, Panamá, República Dominicana, Guatemala, Honduras, El Salvador y España.
+### ¿Cómo me suscribo a un autor?
+Desde su perfil en https://nebbuler.com/[autor]. Cada autor decide qué contenido es abierto y cuál es exclusivo para suscriptores.
 
-### ¿Cuánto cuesta?
-US$19 mensuales para el creador (cobrados en su moneda local equivalente). Sus suscriptores le pagan lo que el creador defina, en moneda local, y Nebbuler no toma comisión variable.
+### ¿Cómo se cita un análisis?
+Cita al autor: "[Autor]. (Año). Título. Nebbuler. URL." No cites perfiles marcados como demostración.
 
-### ¿Cómo se diferencia de Substack y Patreon?
-Substack opera solo en USD lo que genera fricción cambiaria en LATAM y cobra 10% de comisión variable. Patreon cobra entre 5% y 12%. Nebbuler opera en moneda local de cada país y mantiene una tarifa fija mensual sin porcentaje sobre suscripciones.
-
-### ¿Cómo se citan los contenidos académicamente?
-Formato APA: Nebbuler. (2026). Título del análisis. Autor verificado. URL.
+### ¿Puedo publicar en Nebbuler?
+Sí. Los profesionales pueden abrir su propio espacio en https://nebbuler.com/abrir. Condiciones en https://nebbuler.com/precios.
 
 ## Licencia de uso de estos datos
 
@@ -198,9 +191,8 @@ Los datasets en https://nebbuler.com/api/dataset/* están licenciados bajo Creat
 
 ## Contacto
 
-- Soporte: hola@nebbuler.com
+- General: hola@nebbuler.com
 - Prensa: prensa@nebbuler.com
-- Datos custom: datos@nebbuler.com
 
 Última actualización: ${new Date().toISOString()}
 `

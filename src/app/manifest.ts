@@ -2,15 +2,15 @@ import type { MetadataRoute } from 'next'
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'Nebbuler — Membresías para creadores LATAM',
+    name: 'Nebbuler — Expertos de LATAM, sin filtros',
     short_name: 'Nebbuler',
-    description: 'Plataforma de membresías para creadores profesionales en Latinoamérica. 0% comisión. Pagos en moneda local.',
+    description: 'Contenido experto de América Latina: economía, derecho, impuestos, negocios y salud, escrito por profesionales. Sello Sin IA para autores verificados.',
     start_url: '/',
     display: 'standalone',
     background_color: '#FFFFFF',
     theme_color: '#0A0A0A',
     orientation: 'portrait',
-    categories: ['business', 'finance', 'productivity'],
+    categories: ['news', 'education', 'business'],
     lang: 'es',
     icons: [
       { src: '/icons/icon-192x192.png', sizes: '192x192', type: 'image/png' },

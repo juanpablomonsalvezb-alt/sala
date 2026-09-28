@@ -1,5 +1,6 @@
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
+import { SignOutButton } from '@/components/auth-nav-actions'
 
 function isSupabaseConfigured(): boolean {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL ?? ''
@@ -40,9 +41,7 @@ export default async function AbrirLayout({ children }: { children: React.ReactN
         <div className="bg-[#121212] text-white px-6 py-2.5 text-center font-sans text-[12px]">
           Creando tu espacio con la cuenta <strong className="font-semibold">{email}</strong>
           <span className="mx-2 text-[#666]">·</span>
-          <form action="/api/auth/signout" method="post" className="inline">
-            <button type="submit" className="underline text-[#BBBBBB] hover:text-white">¿No eres tú? Cambiar cuenta</button>
-          </form>
+          <SignOutButton className="underline text-[#BBBBBB] hover:text-white">¿No eres tú? Cambiar cuenta</SignOutButton>
         </div>
       )}
       {children}

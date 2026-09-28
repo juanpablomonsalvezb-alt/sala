@@ -45,6 +45,25 @@ export function useSessionUser(): SessionState {
   return state
 }
 
+/** Cierra sesión en el cliente (limpia cookies sb-*) y recarga en el mismo dominio. */
+export function SignOutButton({ className, children }: { className?: string; children: React.ReactNode }) {
+  const [pending, setPending] = useState(false)
+  return (
+    <button
+      type="button"
+      disabled={pending}
+      className={className}
+      onClick={async () => {
+        setPending(true)
+        await createClient().auth.signOut()
+        window.location.href = '/'
+      }}
+    >
+      {children}
+    </button>
+  )
+}
+
 export function displayName(user: User): string {
   const full = (user.user_metadata?.full_name ?? user.user_metadata?.name) as string | undefined
   return full?.split(' ')[0] || user.email?.split('@')[0] || 'Mi cuenta'
@@ -63,9 +82,7 @@ export function HomeAuthActions() {
     const avatar = user.user_metadata?.avatar_url as string | undefined
     return (
       <div className="flex items-center gap-0">
-        <form action="/api/auth/signout" method="post" className="h-full flex">
-          <button type="submit" className={linkCls}>Salir</button>
-        </form>
+        <SignOutButton className={linkCls}>Salir</SignOutButton>
         <span className={`${linkCls} gap-2 cursor-default`} title={user.email ?? undefined}>
           {avatar ? (
             // eslint-disable-next-line @next/next/no-img-element
@@ -128,11 +145,9 @@ export function AlreadySignedInNotice() {
         >
           {creatorSlug ? 'Ir a mi espacio →' : 'Continuar →'}
         </Link>
-        <form action="/api/auth/signout" method="post">
-          <button type="submit" className="font-sans text-[12px] text-[#666] underline hover:text-[#121212]">
-            Usar otra cuenta
-          </button>
-        </form>
+        <SignOutButton className="font-sans text-[12px] text-[#666] underline hover:text-[#121212]">
+          Usar otra cuenta
+        </SignOutButton>
       </div>
     </div>
   )

@@ -116,12 +116,12 @@ export default function Home() {
               <p className="text-[9px] font-bold uppercase tracking-[0.28em] text-[#767676] mb-2">
                 Conocimiento profesional · América Latina
               </p>
-              <h1 className="font-serif font-bold text-[clamp(32px,4.6vw,68px)] leading-[1.12] tracking-[-0.02em] max-w-[16ch] sm:max-w-none">
-                El conocimiento experto de LATAM,<br className="hidden sm:block" />{" "}
+              <h1 className="font-serif font-bold text-[clamp(36px,5.5vw,80px)] leading-[1.12] tracking-[-0.02em]">
+                Expertos de LATAM,<br />
+                sin{" "}
                 <span style={{ backgroundColor: '#C41C1C', color: '#fff', padding: '0 6px 2px', display: 'inline' }}>
-                  sin filtros
-                </span>{" "}
-                ni algoritmos.
+                  filtros.
+                </span>
               </h1>
             </div>
           </div>

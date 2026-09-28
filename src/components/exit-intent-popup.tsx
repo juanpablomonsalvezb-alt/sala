@@ -64,7 +64,7 @@ export function ExitIntentPopup() {
           Antes de irte
         </p>
 
-        <h3 className="font-serif text-2xl md:text-3xl font-bold leading-tight mb-3">
+        <h3 className="font-serif text-2xl md:text-3xl font-bold leading-tight mb-3 text-white">
           ¿Sabías que pierdes hasta{' '}
           <span className="text-[#C41C1C]">22% de cada pago</span> en plataformas gringas?
         </h3>

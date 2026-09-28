@@ -46,11 +46,11 @@ const playfair = Playfair_Display({
 
 export const metadata: Metadata = {
   title: {
-    default: "Nebbuler · Cobra por tu conocimiento en LATAM — 0% comisión",
+    default: "Nebbuler · Expertos de LATAM, sin filtros",
     template: "%s · Nebbuler",
   },
   description:
-    "Nebbuler es la plataforma donde profesionales de América Latina monetizan su expertise con membresías directas. Pagos en tu moneda, 0% comisión. Colombia, México, Argentina, Perú y más.",
+    "Economistas, abogados, médicos y arquitectos de América Latina que publican lo que realmente saben. Autores verificados, sin algoritmos.",
   metadataBase: new URL("https://nebbuler.com"),
   alternates: {
     canonical: "https://nebbuler.com",
@@ -65,9 +65,9 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Nebbuler · Cobra por tu conocimiento en LATAM — 0% comisión",
+    title: "Nebbuler · Expertos de LATAM, sin filtros",
     description:
-      "Abre tu sala y cobra membresías en tu moneda local. Sin algoritmos, sin comisión, con pagos directos en toda América Latina.",
+      "Economistas, abogados, médicos y arquitectos de América Latina que publican lo que realmente saben. Autores verificados, sin algoritmos.",
     siteName: "Nebbuler",
     locale: "es_419",
     type: "website",
@@ -78,8 +78,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Nebbuler · Membresías para creadores LATAM — 0% comisión",
-    description: "Cobra por tu conocimiento en tu moneda. Sin comisión. América Latina.",
+    title: "Nebbuler · Expertos de LATAM, sin filtros",
+    description: "Economistas, abogados, médicos y arquitectos de América Latina que publican lo que realmente saben. Autores verificados, sin algoritmos.",
     images: ["/og-default.png"],
   },
   robots: { index: true, follow: true },

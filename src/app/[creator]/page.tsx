@@ -10,6 +10,7 @@ import { creators as staticCreators } from '@/data/creators'
 import { ProfileShare } from '@/components/profile-share'
 import { creatorProfilePageSchema } from '@/lib/json-ld'
 import { AlsoReading } from '@/components/also-reading'
+import { HumanBadge, DemoProfileLabel } from '@/components/human-badge'
 
 // ISR: revalidate each creator profile every 24 hours
 export const revalidate = 86400
@@ -333,6 +334,8 @@ function HeroSection({
   creator: Creator
   isSubscribed: boolean
 }) {
+  // Los perfiles de src/data/creators y el MOCK_CREATOR llevan id "mock-…"
+  const isDemoCreator = creator.id.startsWith('mock-')
   return (
     <section>
       {creator.cover_image_url ? (
@@ -365,20 +368,14 @@ function HeroSection({
         {creator.publication_name && creator.publication_name !== creator.name && (
           <p className="font-sans text-sm text-[#666] mb-1">
             por <span className="font-bold text-[#121212]">{creator.name}</span>
-            {creator.verified && (
-              <span className="ml-2 text-[9px] font-bold tracking-[0.1em] uppercase text-[#065F46] border-l border-[#065F46] pl-2">
-                EXPERTO RECONOCIDO
-              </span>
-            )}
           </p>
         )}
-        {(!creator.publication_name || creator.publication_name === creator.name) && creator.verified && (
-          <p className="font-sans text-sm text-[#666] mb-1">
-            <span className="text-[9px] font-bold tracking-[0.1em] uppercase text-[#065F46]">
-              EXPERTO RECONOCIDO POR NEBBULER
-            </span>
-          </p>
-        )}
+        {/* Sello humano solo para creadores reales verificados; los de ejemplo se marcan como tales */}
+        {isDemoCreator ? (
+          <DemoProfileLabel className="mb-2" />
+        ) : creator.verified ? (
+          <p className="mb-1"><HumanBadge /></p>
+        ) : null}
         <p className="text-xs font-sans text-[#999] mb-6">
           Publicado en Nebbuler · plataforma de conocimiento profesional
         </p>

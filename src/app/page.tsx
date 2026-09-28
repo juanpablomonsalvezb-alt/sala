@@ -12,7 +12,7 @@ import { SocialProofCounter } from "@/components/social-proof-counter";
 import { CategoryMarqueeDynamic } from "@/components/category-marquee-dynamic";
 import {
   HeroAnimations,
-  HeroCta,
+  PlatformStats,
   LiveActivity,
   FeaturesSection,
   ParaQuienes,
@@ -22,8 +22,9 @@ import {
 } from "@/components/home-animations";
 import { featuredCreators as featuredCreatorsData } from "@/data/creators"
 import SubscribeWidget from "@/components/newsletter/SubscribeWidget"
-import { ToolsDropdown } from "@/components/tools-dropdown"
-import { HomeAuthActions } from "@/components/auth-nav-actions"
+import { ToolsDropdown, CreatorsDropdown } from "@/components/tools-dropdown"
+import { HomeAuthActions, HeroAuthButtons } from "@/components/auth-nav-actions"
+import { HumanBadge, DemoProfileLabel } from "@/components/human-badge"
 
 /* ─── Data estática — permanece en el servidor ──────────────────────────── */
 
@@ -87,7 +88,6 @@ export default function Home() {
             {[
               { label: "Explorar",        href: "/directorio" },
               { label: "Demo",            href: "/demo" },
-              { label: "Para creadores",  href: "/para-creadores" },
             ].map(({ label, href }) => (
               <Link
                 key={label}
@@ -97,6 +97,7 @@ export default function Home() {
                 {label}
               </Link>
             ))}
+            <CreatorsDropdown />
             <ToolsDropdown />
           </nav>
 
@@ -105,27 +106,24 @@ export default function Home() {
         </div>
       </header>
 
-      {/* ── HERO — portada editorial ─────────────────────────────────────── */}
+      {/* ── HERO — portada editorial: primero el lector ─────────────────── */}
       <section className="border-b border-[#E0E0E0]">
         <div className="max-w-7xl mx-auto px-6 pt-12 pb-0">
 
           {/* Cabecera de portada — H1 en el servidor para LCP óptimo */}
           <div className="flex items-end justify-between pb-5 border-b-[3px] border-[#111]">
-            {/* Lado izquierdo: eyebrow + H1 — 100% server, visible en primer paint */}
             <div>
               <p className="text-[9px] font-bold uppercase tracking-[0.28em] text-[#767676] mb-2">
-                Membresías directas · 0% comisión · América Latina
+                Conocimiento profesional · América Latina
               </p>
               <h1 className="font-serif font-bold text-[clamp(36px,5.5vw,80px)] leading-[1.12] tracking-[-0.02em]">
-                Cobra por lo<br />
-                que{" "}
+                Expertos de LATAM,<br />
+                sin{" "}
                 <span style={{ backgroundColor: '#C41C1C', color: '#fff', padding: '0 6px 2px', display: 'inline' }}>
-                  sabes.
+                  filtros.
                 </span>
               </h1>
             </div>
-
-            {/* Lado derecho eliminado */}
           </div>
 
           {/* Lista editorial de creadores — Client Island con BlurFade */}
@@ -133,8 +131,31 @@ export default function Home() {
             <HeroAnimations featuredCreators={featuredCreators} />
           </div>
 
-          {/* CTA + Stats bar — Client Islands */}
-          <HeroCta />
+          {/* Subtítulo + CTA: explorar primero; registro / abrir espacio como secundarios */}
+          <div className="py-8 flex flex-col sm:flex-row items-start sm:items-center gap-6 border-b-[3px] border-[#111]">
+            <div className="flex-1">
+              <p className="text-[16px] font-semibold text-[#111] leading-[1.5]">
+                Economistas, abogados, médicos y arquitectos{" "}
+                <span className="text-[#767676] font-normal">
+                  que publican lo que realmente saben.
+                </span>
+              </p>
+              <p className="mt-3 text-[11px] text-[#767676] flex flex-wrap items-center gap-x-1.5 gap-y-1">
+                Busca el sello
+                <HumanBadge className="border border-[#DEDEDE] px-1.5 py-0.5" />
+                en los autores verificados.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-3 shrink-0">
+              <Link
+                href="/directorio"
+                className="bg-[#B31C1C] text-white px-5 py-3 text-[12px] font-bold uppercase tracking-[0.04em] hover:bg-[#8E1515] transition-colors"
+              >
+                Explorar creadores →
+              </Link>
+              <HeroAuthButtons />
+            </div>
+          </div>
 
           {/* Social proof — pulsing dot + counter */}
           <div className="mt-4 flex justify-center">
@@ -146,11 +167,6 @@ export default function Home() {
       {/* ── TICKER NEGRO — oculto en móvil (marquee pesado) ────────────── */}
       <div className="hidden sm:block">
         <CategoryMarqueeDynamic />
-      </div>
-
-      {/* ── LIVE ACTIVITY — oculto en móvil ─────────────────────────────── */}
-      <div className="hidden sm:block">
-        <LiveActivity liveEvents={liveEvents} />
       </div>
 
       {/* ── CREADORES DESTACADOS — grid editorial ───────────────────────── */}
@@ -171,9 +187,8 @@ export default function Home() {
                 <p className="text-[10px] font-sans font-bold tracking-[0.15em] uppercase text-[#C41C1C] mb-2">{creator.specialty}</p>
                 <h3 className="font-serif text-lg font-bold text-[#121212] mb-2 leading-tight group-hover:text-[#C41C1C] transition-colors">{creator.name}</h3>
                 <p className="text-xs font-sans text-[#666] leading-relaxed mb-4 line-clamp-2">{creator.bio}</p>
-                {creator.verified && (
-                  <p className="text-[9px] font-sans font-bold tracking-[0.1em] uppercase text-[#065F46] border-l-2 border-[#C41C1C] pl-2 mb-4">EXPERTO RECONOCIDO POR NEBBULER</p>
-                )}
+                {/* Datos de src/data/creators: son perfiles de ejemplo, no verificados */}
+                <DemoProfileLabel className="mb-4" />
                 <div className="border-t border-[#DEDEDE] pt-4 flex justify-between items-center">
                   <span className="text-xs font-sans"><span className="font-bold text-[#121212]">${creator.price_clp.toLocaleString('es-CL')}</span><span className="text-[#999]">/mes</span></span>
                   <span className="text-xs font-sans text-[#999]"><span className="font-bold text-[#121212]">{creator.subscriber_count.toLocaleString('es-CL')}</span> suscriptores</span>
@@ -184,50 +199,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── FEATURES ─────────────────── oculto en móvil ───────────────── */}
-      <div className="hidden sm:block">
-        <FeaturesSection features={features} />
-      </div>
-
-      {/* ── POSTERS ──────────────────── manifiesto visual ──────────────── */}
-      <section className="border-t border-[#E0E0E0] py-12 bg-white overflow-hidden">
-        <div className="max-w-6xl mx-auto px-6">
-          <p className="text-[10px] font-sans font-bold tracking-[0.2em] uppercase text-[#C41C1C] mb-8 text-center">
-            Por qué Nebbuler
-          </p>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
-            {[
-              { src: '/social-images/posters/nebbuler_v2_1.png', alt: 'Meta lleva años cobrando por lo que tú sabes' },
-              { src: '/social-images/posters/nebbuler_v2_2.png', alt: 'Cada vez que publicas gratis, alguien más gana dinero con tu conocimiento.' },
-              { src: '/social-images/posters/nebbuler_v2_6.png', alt: 'Años de contenido de excelencia regalado. Ya es hora de que alguien te pague a ti.' },
-              { src: '/social-images/posters/nebbuler_v2_7.png', alt: '0% de comisión. 100% tuyo.' },
-              { src: '/social-images/posters/nebbuler_v2_9.png', alt: 'Tu conocimiento tiene precio.' },
-            ].map((poster) => (
-              <div key={poster.src} className="relative aspect-[3/4] overflow-hidden">
-                <Image
-                  src={poster.src}
-                  alt={poster.alt}
-                  fill
-                  className="object-cover hover:scale-105 transition-transform duration-500"
-                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── PARA QUIENES ─────────────── oculto en móvil ───────────────── */}
-      <div className="hidden sm:block">
-        <ParaQuienes />
-      </div>
-
-      {/* ── PRICING ─────────────────────────────────────────────────────── */}
-      <PricingSection plans={plans} />
-
-      {/* ── FAQ ─────────────────────────────────────────────────────────── */}
-      <FaqSection faqs={faqs} />
-
       {/* ── DESCUBRIMIENTO — oculto en móvil ────────────────────────────── */}
       <div className="hidden sm:block">
         <TrendingModule />
@@ -236,58 +207,14 @@ export default function Home() {
         <GlosarioModule />
       </div>
 
-      {/* ── INSTALAR COMO APP ───────────────────────────────────────────── */}
-      <section className="border-t border-[#E0E0E0] py-16 bg-[#F8F7F5]">
-        <div className="max-w-4xl mx-auto px-6">
-          <div className="flex flex-col sm:flex-row items-center gap-10">
-
-            {/* QR */}
-            <div className="flex-shrink-0 flex flex-col items-center gap-3">
-              <div className="bg-white border border-[#E0E0E0] p-4 shadow-sm">
-                <Image src="/nebbuler-qr.svg" alt="QR para instalar Nebbuler" width={120} height={120} />
-              </div>
-              <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#999]">Apunta tu cámara aquí</p>
-            </div>
-
-            {/* Texto + instrucciones */}
-            <div className="flex-1 text-center sm:text-left">
-              <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#B31C1C] mb-3">Acceso instantáneo</p>
-              <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#111] mb-4">
-                Nebbuler en tu pantalla de inicio
-              </h2>
-              <p className="text-sm text-[#555] mb-6 leading-relaxed">
-                Sin ir al App Store. Escanea el código con tu cámara y agrégala directamente desde el navegador.
-              </p>
-
-              <div className="flex flex-col sm:flex-row gap-4">
-                {/* iOS */}
-                <div className="flex-1 bg-white border border-[#E0E0E0] p-4">
-                  <p className="text-[9px] font-bold uppercase tracking-[0.15em] text-[#999] mb-3">iPhone / iPad</p>
-                  <ol className="space-y-2">
-                    {["Abre nebbuler.com en Safari", "Toca el ícono compartir ⎙", "Selecciona «Agregar a inicio»", "Toca «Agregar»"].map((step, i) => (
-                      <li key={i} className="flex items-start gap-2 text-[11px] text-[#444]">
-                        <span className="font-bold text-[#B31C1C] shrink-0">{i + 1}.</span>
-                        {step}
-                      </li>
-                    ))}
-                  </ol>
-                </div>
-
-                {/* Android */}
-                <div className="flex-1 bg-white border border-[#E0E0E0] p-4">
-                  <p className="text-[9px] font-bold uppercase tracking-[0.15em] text-[#999] mb-3">Android</p>
-                  <ol className="space-y-2">
-                    {["Abre nebbuler.com en Chrome", "Toca el menú ⋮ arriba a la derecha", "Selecciona «Agregar a pantalla»", "Confirma tocando «Instalar»"].map((step, i) => (
-                      <li key={i} className="flex items-start gap-2 text-[11px] text-[#444]">
-                        <span className="font-bold text-[#B31C1C] shrink-0">{i + 1}.</span>
-                        {step}
-                      </li>
-                    ))}
-                  </ol>
-                </div>
-              </div>
-            </div>
-          </div>
+      {/* ── NEWSLETTER ──────────────────────────────────────────────────── */}
+      <section className="bg-white py-16 border-t border-gray-100">
+        <div className="max-w-xl mx-auto px-6">
+          <SubscribeWidget
+            title="Análisis profesional cada semana"
+            description="Economistas, abogados y médicos explicando LATAM. Sin spam. Baja cuando quieras."
+            ctaLabel="Suscribirme gratis"
+          />
         </div>
       </section>
 
@@ -360,16 +287,118 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── NEWSLETTER ──────────────────────────────────────────────────── */}
-      <section className="bg-white py-16 border-t border-gray-100">
-        <div className="max-w-xl mx-auto px-6">
-          <SubscribeWidget
-            title="Análisis profesional cada semana"
-            description="Economistas, abogados y médicos explicando LATAM. Sin spam. Baja cuando quieras."
-            ctaLabel="Suscribirme gratis"
-          />
+      {/* ── INSTALAR COMO APP ───────────────────────────────────────────── */}
+      <section className="border-t border-[#E0E0E0] py-16 bg-[#F8F7F5]">
+        <div className="max-w-4xl mx-auto px-6">
+          <div className="flex flex-col sm:flex-row items-center gap-10">
+
+            {/* QR */}
+            <div className="flex-shrink-0 flex flex-col items-center gap-3">
+              <div className="bg-white border border-[#E0E0E0] p-4 shadow-sm">
+                <Image src="/nebbuler-qr.svg" alt="QR para instalar Nebbuler" width={120} height={120} />
+              </div>
+              <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#999]">Apunta tu cámara aquí</p>
+            </div>
+
+            {/* Texto + instrucciones */}
+            <div className="flex-1 text-center sm:text-left">
+              <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#B31C1C] mb-3">Acceso instantáneo</p>
+              <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#111] mb-4">
+                Nebbuler en tu pantalla de inicio
+              </h2>
+              <p className="text-sm text-[#555] mb-6 leading-relaxed">
+                Sin ir al App Store. Escanea el código con tu cámara y agrégala directamente desde el navegador.
+              </p>
+
+              <div className="flex flex-col sm:flex-row gap-4">
+                {/* iOS */}
+                <div className="flex-1 bg-white border border-[#E0E0E0] p-4">
+                  <p className="text-[9px] font-bold uppercase tracking-[0.15em] text-[#999] mb-3">iPhone / iPad</p>
+                  <ol className="space-y-2">
+                    {["Abre nebbuler.com en Safari", "Toca el ícono compartir ⎙", "Selecciona «Agregar a inicio»", "Toca «Agregar»"].map((step, i) => (
+                      <li key={i} className="flex items-start gap-2 text-[11px] text-[#444]">
+                        <span className="font-bold text-[#B31C1C] shrink-0">{i + 1}.</span>
+                        {step}
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+
+                {/* Android */}
+                <div className="flex-1 bg-white border border-[#E0E0E0] p-4">
+                  <p className="text-[9px] font-bold uppercase tracking-[0.15em] text-[#999] mb-3">Android</p>
+                  <ol className="space-y-2">
+                    {["Abre nebbuler.com en Chrome", "Toca el menú ⋮ arriba a la derecha", "Selecciona «Agregar a pantalla»", "Confirma tocando «Instalar»"].map((step, i) => (
+                      <li key={i} className="flex items-start gap-2 text-[11px] text-[#444]">
+                        <span className="font-bold text-[#B31C1C] shrink-0">{i + 1}.</span>
+                        {step}
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
+
+      {/* ══ PARA CREADORES — monetización al final, como un plus ══════════ */}
+
+      {/* ── LIVE ACTIVITY — oculto en móvil ─────────────────────────────── */}
+      <div className="hidden sm:block">
+        <LiveActivity liveEvents={liveEvents} />
+      </div>
+
+      {/* ── FEATURES ─────────────────── oculto en móvil ───────────────── */}
+      <div className="hidden sm:block">
+        <FeaturesSection features={features} />
+      </div>
+
+      {/* ── POSTERS ──────────────────── manifiesto visual ──────────────── */}
+      <section className="border-t border-[#E0E0E0] py-12 bg-white overflow-hidden">
+        <div className="max-w-6xl mx-auto px-6">
+          <p className="text-[10px] font-sans font-bold tracking-[0.2em] uppercase text-[#C41C1C] mb-8 text-center">
+            Por qué Nebbuler
+          </p>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+            {[
+              { src: '/social-images/posters/nebbuler_v2_1.png', alt: 'Meta lleva años cobrando por lo que tú sabes' },
+              { src: '/social-images/posters/nebbuler_v2_2.png', alt: 'Cada vez que publicas gratis, alguien más gana dinero con tu conocimiento.' },
+              { src: '/social-images/posters/nebbuler_v2_6.png', alt: 'Años de contenido de excelencia regalado. Ya es hora de que alguien te pague a ti.' },
+              { src: '/social-images/posters/nebbuler_v2_7.png', alt: '0% de comisión. 100% tuyo.' },
+              { src: '/social-images/posters/nebbuler_v2_9.png', alt: 'Tu conocimiento tiene precio.' },
+            ].map((poster) => (
+              <div key={poster.src} className="relative aspect-[3/4] overflow-hidden">
+                <Image
+                  src={poster.src}
+                  alt={poster.alt}
+                  fill
+                  className="object-cover hover:scale-105 transition-transform duration-500"
+                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── PARA QUIENES ─────────────── oculto en móvil ───────────────── */}
+      <div className="hidden sm:block">
+        <ParaQuienes />
+      </div>
+
+      {/* ── CIFRAS DE LA PLATAFORMA ─────────────────────────────────────── */}
+      <section className="border-t border-[#E0E0E0]">
+        <div className="max-w-7xl mx-auto px-6">
+          <PlatformStats />
+        </div>
+      </section>
+
+      {/* ── PRICING ─────────────────────────────────────────────────────── */}
+      <PricingSection plans={plans} />
+
+      {/* ── FAQ ─────────────────────────────────────────────────────────── */}
+      <FaqSection faqs={faqs} />
 
       {/* ── CTA FINAL ───────────────────────────────────────────────────── */}
       <section className="bg-[#111] py-36 relative overflow-hidden">

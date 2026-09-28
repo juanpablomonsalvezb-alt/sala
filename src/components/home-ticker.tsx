@@ -4,11 +4,11 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 
 const tickerItems = [
-  "Rodrigo F. generó $510.000 en su primer trimestre",
-  "Isabel C. alcanzó 500 suscriptores pagando",
-  "Marco S. publicó su análisis semanal con 312 lectores",
-  "Lucía M. lanzó su sala de finanzas hace 30 días",
-  "34 creadores activos · 2.418 suscriptores · $180K generados",
+  "Rodrigo F. publicó: Inflación subyacente en Chile, la trampa del IPC servicios",
+  "Carolina V. publicó: El error que destruye el 30% del valor en las DCF locales",
+  "Matías C. publicó: Reforma previsional, lo que el SII ya está auditando",
+  "Andrea P. publicó: 847.000 casos en lista de espera quirúrgica, qué los explica",
+  "Nuevos análisis de economía, derecho y salud cada semana",
 ];
 
 export function HomeTicker() {

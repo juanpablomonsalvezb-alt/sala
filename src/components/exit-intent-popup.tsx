@@ -2,14 +2,20 @@
 
 import { useEffect, useState, useCallback } from 'react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+
+// Solo en páginas para creadores: el resto del sitio habla primero al lector.
+const CREATOR_PATHS = ['/para-creadores', '/precios', '/abrir']
 
 /**
  * Exit-intent popup — se muestra cuando el usuario mueve el mouse fuera del viewport.
  * Solo desktop (mouseleave). Se muestra 1 vez por sesión (sessionStorage).
- * CTA: calculadora /cuanto-te-quitan.
+ * CTA: calculadora /cuanto-te-quitan. Solo en CREATOR_PATHS.
  */
 export function ExitIntentPopup() {
   const [show, setShow] = useState(false)
+  const pathname = usePathname()
+  const isCreatorPage = CREATOR_PATHS.some((p) => pathname === p || pathname.startsWith(`${p}/`))
 
   const handleMouseLeave = useCallback((e: MouseEvent) => {
     // Solo si sale por arriba (intención de cerrar tab/ir a URL bar)
@@ -23,6 +29,7 @@ export function ExitIntentPopup() {
   useEffect(() => {
     // No mostrar en móvil ni si ya se mostró
     if (typeof window === 'undefined') return
+    if (!isCreatorPage) return
     if (window.innerWidth < 768) return
     if (sessionStorage.getItem('nbb-exit-shown')) return
 
@@ -35,9 +42,9 @@ export function ExitIntentPopup() {
       clearTimeout(timer)
       document.removeEventListener('mouseleave', handleMouseLeave)
     }
-  }, [handleMouseLeave])
+  }, [handleMouseLeave, isCreatorPage])
 
-  if (!show) return null
+  if (!show || !isCreatorPage) return null
 
   return (
     <div

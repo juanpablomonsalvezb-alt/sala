@@ -62,8 +62,8 @@ export async function GET(request: Request) {
         return NextResponse.redirect(withWelcome(destination))
       }
 
-      // Google / email → lector
-      return NextResponse.redirect(withWelcome('/directorio'))
+      // Google / email → vuelve al inicio, ya con sesión
+      return NextResponse.redirect(withWelcome('/'))
     }
   }
 

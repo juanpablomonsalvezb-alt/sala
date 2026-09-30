@@ -301,29 +301,42 @@ export default async function DashboardPage({
                   Así se ve tu sala ahora mismo, en vivo
                 </p>
               </div>
-              <Link
-                href={`/${creator.slug}`}
-                target="_blank"
-                className="text-[12px] text-[#C41C1C] hover:underline font-medium flex-shrink-0"
-                style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}
-              >
-                Ver mi sala →
-              </Link>
+              {creator.plan !== 'free' && (
+                <Link
+                  href={`/${creator.slug}`}
+                  target="_blank"
+                  className="text-[12px] text-[#C41C1C] hover:underline font-medium flex-shrink-0"
+                  style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}
+                >
+                  Ver mi sala →
+                </Link>
+              )}
             </div>
-            <div className="relative w-full overflow-hidden bg-[#F7F7F7]" style={{ height: 420 }}>
-              <iframe
-                src={`/${creator.slug}`}
-                title="Vista previa en vivo de tu sala"
-                className="absolute top-0 left-0 border-0 pointer-events-none"
-                style={{
-                  width: '1440px',
-                  height: '1400px',
-                  transform: 'scale(0.5)',
-                  transformOrigin: 'top left',
-                }}
-              />
-              <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-white to-transparent" />
-            </div>
+            {creator.plan === 'free' ? (
+              <div className="px-6 py-10 text-center">
+                <p
+                  className="text-[14px] text-[#666666]"
+                  style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}
+                >
+                  Tu sala aún no es pública — actívala arriba para verla aquí en vivo.
+                </p>
+              </div>
+            ) : (
+              <div className="relative w-full overflow-hidden bg-[#F7F7F7]" style={{ height: 420 }}>
+                <iframe
+                  src={`/${creator.slug}`}
+                  title="Vista previa en vivo de tu sala"
+                  className="absolute top-0 left-0 border-0 pointer-events-none"
+                  style={{
+                    width: '1440px',
+                    height: '1400px',
+                    transform: 'scale(0.5)',
+                    transformOrigin: 'top left',
+                  }}
+                />
+                <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-white to-transparent" />
+              </div>
+            )}
           </section>
 
           {/* ── Two-column lower section ── */}

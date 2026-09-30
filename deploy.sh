@@ -17,10 +17,12 @@ echo "${GREEN}✅ Build OK${NC}"
 
 # 2. Deploy a preview
 echo "\n☁️  Paso 2/4: Desplegando a preview..."
-VERCEL_OUTPUT=$(npx vercel --yes 2>&1)
-PREVIEW_URL=$(echo "$VERCEL_OUTPUT" | grep -oE 'https://builder-orbbi-[a-z0-9]+-jps-projects-[a-z0-9]+\.vercel\.app' | tail -1)
+VERCEL_OUTPUT=$(npx vercel --yes 2>&1) || { echo "$VERCEL_OUTPUT"; echo "${RED}❌ Deploy a preview falló — ver salida de Vercel arriba${NC}"; exit 1; }
+PREVIEW_URL=$(echo "$VERCEL_OUTPUT" | grep -oE 'https://[a-zA-Z0-9.-]+\.vercel\.app' | head -1)
 if [ -z "$PREVIEW_URL" ]; then
-  PREVIEW_URL=$(echo "$VERCEL_OUTPUT" | grep "https://" | grep "vercel.app" | tail -1 | tr -d ' ')
+  echo "${RED}❌ No se pudo extraer la URL del preview${NC}"
+  echo "$VERCEL_OUTPUT"
+  exit 1
 fi
 echo "Preview: $PREVIEW_URL"
 
@@ -29,7 +31,7 @@ sleep 15
 
 # 3. Health check en preview
 echo "\n🏥 Paso 3/4: Verificando sistema en preview..."
-HEALTH=$(curl -s "$PREVIEW_URL/api/health")
+HEALTH=$(npx vercel curl "$PREVIEW_URL/api/health" 2>/dev/null)
 ALL_OK=$(echo $HEALTH | python3 -c "import sys,json; d=json.load(sys.stdin); print('true' if d.get('ok') else 'false')" 2>/dev/null)
 
 if [ "$ALL_OK" != "true" ]; then
@@ -51,7 +53,7 @@ echo "${GREEN}✅ Health check OK — 11/11 sistemas funcionando${NC}"
 
 # 4. Alias a producción
 echo "\n🌐 Paso 4/4: Publicando en nebbuler.com..."
-npx vercel alias "$PREVIEW_URL" nebbuler.com --yes
+npx vercel alias "$PREVIEW_URL" nebbuler.com --non-interactive
 echo "${GREEN}✅ nebbuler.com actualizado${NC}"
 
 echo "\n${GREEN}🎉 Deploy completado exitosamente${NC}"

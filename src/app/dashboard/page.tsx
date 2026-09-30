@@ -68,6 +68,44 @@ function MetricCard({
   )
 }
 
+// ─── Compact metric strip ──────────────────────────────────────────────────
+
+function MetricStripItem({
+  value,
+  label,
+  sub,
+  prefix,
+}: {
+  value: string
+  label: string
+  sub: string
+  prefix?: string
+}) {
+  return (
+    <div className="flex items-baseline gap-2 px-6 py-3.5">
+      <span
+        className="text-[11px] uppercase tracking-[0.1em] text-[#666666] font-sans whitespace-nowrap"
+        style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}
+      >
+        {label}
+      </span>
+      <span
+        className="text-[15px] font-bold text-[#121212] whitespace-nowrap"
+        style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
+      >
+        {prefix}
+        {value}
+      </span>
+      <span
+        className="text-[12px] text-[#999999] whitespace-nowrap"
+        style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}
+      >
+        {sub}
+      </span>
+    </div>
+  )
+}
+
 // ─── No creator CTA ───────────────────────────────────────────────────────────
 
 function NoCreatorCTA() {
@@ -246,30 +284,45 @@ export default async function DashboardPage({
             </section>
           )}
 
-          {/* ── Metrics row ── */}
-          <section>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-[#DEDEDE] border border-[#DEDEDE]">
-              <MetricCard
-                label="Suscriptores activos"
-                value={subscriberCount.toLocaleString('es-CL')}
-                sub={`Precio: $${formatCLP(creator.price_clp)}/mes`}
+          {/* ── Vistazo general: cómo se ve tu sala ahora mismo ── */}
+          <section className="bg-white border border-[#DEDEDE]">
+            <div className="px-6 py-4 border-b border-[#DEDEDE] flex items-center justify-between">
+              <div>
+                <h2
+                  className="text-[13px] font-semibold uppercase tracking-[0.12em] text-[#121212]"
+                  style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}
+                >
+                  Vistazo general
+                </h2>
+                <p
+                  className="text-[12px] text-[#666666] mt-0.5"
+                  style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}
+                >
+                  Así se ve tu sala ahora mismo, en vivo
+                </p>
+              </div>
+              <Link
+                href={`/${creator.slug}`}
+                target="_blank"
+                className="text-[12px] text-[#C41C1C] hover:underline font-medium flex-shrink-0"
+                style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}
+              >
+                Ver mi sala →
+              </Link>
+            </div>
+            <div className="relative w-full overflow-hidden bg-[#F7F7F7]" style={{ height: 420 }}>
+              <iframe
+                src={`/${creator.slug}`}
+                title="Vista previa en vivo de tu sala"
+                className="absolute top-0 left-0 border-0 pointer-events-none"
+                style={{
+                  width: '1440px',
+                  height: '1400px',
+                  transform: 'scale(0.5)',
+                  transformOrigin: 'top left',
+                }}
               />
-              <MetricCard
-                label="Ingresos estimados mes"
-                value={formatCLP(ingresosMes)}
-                prefix="$"
-                sub="CLP · mes actual"
-              />
-              <MetricCard
-                label="Publicaciones totales"
-                value={totalPostsCount.toString()}
-                sub={drafts > 0 ? `${drafts} borrador${drafts > 1 ? 'es' : ''}` : 'Sin borradores'}
-              />
-              <MetricCard
-                label="Tasa de retención"
-                value="—"
-                sub="Próximamente"
-              />
+              <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-white to-transparent" />
             </div>
           </section>
 
@@ -390,6 +443,31 @@ export default async function DashboardPage({
               </div>
             </section>
           </div>
+
+          {/* ── Métricas (franja compacta) ── */}
+          <section className="bg-white border border-[#DEDEDE] flex flex-wrap divide-x divide-[#DEDEDE]">
+            <MetricStripItem
+              label="Suscriptores"
+              value={subscriberCount.toLocaleString('es-CL')}
+              sub={`$${formatCLP(creator.price_clp)}/mes`}
+            />
+            <MetricStripItem
+              label="Ingresos mes"
+              value={formatCLP(ingresosMes)}
+              prefix="$"
+              sub="CLP"
+            />
+            <MetricStripItem
+              label="Publicaciones"
+              value={totalPostsCount.toString()}
+              sub={drafts > 0 ? `${drafts} borrador${drafts > 1 ? 'es' : ''}` : 'sin borradores'}
+            />
+            <MetricStripItem
+              label="Retención"
+              value="—"
+              sub="próximamente"
+            />
+          </section>
 
           {/* ── Anti-churn predictivo (solo si hay signals pendientes) ── */}
           <RetentionCard creatorId={creator.id} />

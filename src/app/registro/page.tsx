@@ -59,9 +59,11 @@ function EmailFallbackForm({ path, nextDest, onSuccess }: { path: Path; nextDest
     })
     if (error) { setAuthError(error.message); setLoading(false); return }
     const { data: { session } } = await supabase.auth.getSession()
-    if (session) { window.location.href = nextDest }
+    if (session) {
+      // Lector nuevo sin destino explícito (paywall, etc.) → onboarding primero.
+      window.location.href = path === 'reader' && nextDest === '/' ? '/onboarding' : nextDest
+    }
     else onSuccess()
-    void path // suprimir unused
   }
 
   return (

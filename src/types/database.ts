@@ -59,6 +59,10 @@ export type Profile = {
   is_creator: boolean
   is_superadmin: boolean
   created_at: string
+  onboarding_completed: boolean
+  profession: string | null
+  interests: string[] | null
+  content_frequency: string | null
 }
 
 export type Discipline = {

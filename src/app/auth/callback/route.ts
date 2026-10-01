@@ -62,7 +62,18 @@ export async function GET(request: Request) {
         return NextResponse.redirect(withWelcome(destination))
       }
 
-      // Google / email → vuelve al inicio, ya con sesión
+      // Google / email → lector nuevo pasa primero por el onboarding
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const { data: profile } = await (supabase.from('sala_profiles') as any)
+        .select('onboarding_completed')
+        .eq('id', user!.id)
+        .maybeSingle()
+
+      if (profile?.onboarding_completed === false) {
+        return NextResponse.redirect(new URL('/onboarding', origin))
+      }
+
+      // Vuelve al inicio, ya con sesión
       return NextResponse.redirect(withWelcome('/'))
     }
   }

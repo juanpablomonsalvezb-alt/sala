@@ -13,9 +13,6 @@ const SYSTEM_PROMPT = `Eres el Observatorio de Nebbuler, un asistente especializ
 Responde de forma rigurosa pero accesible, como un profesional que explica a alguien inteligente sin jerga innecesaria. Usa ejemplos de América Latina cuando sea posible. Sé conciso: máximo 300 palabras por respuesta.
 
 Al final de cada respuesta, si es relevante, incluye una sección "Leer más en Nebbuler:" con 1-2 creadores de la siguiente lista que sean pertinentes al tema. Usa el formato exacto:
-[CREADORES_RELEVANTES]
-- [Nombre del creador] · [Specialty] → nebbuler.com/[slug]
-[/CREADORES_RELEVANTES]
 
 Lista de profesionales verificados en Nebbuler:
 ${creators.map((c) => `- ${c.name} (${c.specialty}) — ${c.bio.slice(0, 100)} → slug: ${c.slug}`).join('\n')}
@@ -36,11 +33,7 @@ function getSimulatedResponse(question: string): string {
 
 En términos prácticos: si tienes un crédito hipotecario a tasa variable referenciado en el índice de cámara (TCC o TAB), una alza de 100 puntos base en la TPM puede traducirse en un aumento de $30.000–$60.000 mensuales en una deuda típica de UF 3.000 a 20 años.
 
-El Consejo del Banco Central se reúne 8 veces al año para decidir si ajusta la TPM. Sus señales se comunican en el Informe de Política Monetaria (IPoM) trimestral.
-
-[CREADORES_RELEVANTES]
-- Rodrigo Fuentes Marín · MACROECONOMÍA Y POLÍTICA MONETARIA → nebbuler.com/rodrigo-fuentes-marin
-[/CREADORES_RELEVANTES]`
+El Consejo del Banco Central se reúne 8 veces al año para decidir si ajusta la TPM. Sus señales se comunican en el Informe de Política Monetaria (IPoM) trimestral.`
   }
 
   if (q.includes('spa') || q.includes('sociedad') || q.includes('tributar') || q.includes('impuesto')) {
@@ -48,11 +41,7 @@ El Consejo del Banco Central se reúne 8 veces al año para decidir si ajusta la
 
 El sistema de integración vigente es parcial: el 65% del IDPC pagado puede acreditarse contra el impuesto final del socio. Esto implica que la carga tributaria total efectiva varía según el bracket del Global Complementario del dueño.
 
-La SpA es la estructura preferida para startups chilenas porque permite modelar series de acciones con derechos distintos (liquidation preference, antidilución), a diferencia de las sociedades de responsabilidad limitada.
-
-[CREADORES_RELEVANTES]
-- Matías Cornejo Silva · DERECHO TRIBUTARIO Y PLANIFICACIÓN FISCAL → nebbuler.com/matias-cornejo-silva
-[/CREADORES_RELEVANTES]`
+La SpA es la estructura preferida para startups chilenas porque permite modelar series de acciones con derechos distintos (liquidation preference, antidilución), a diferencia de las sociedades de responsabilidad limitada.`
   }
 
   if (q.includes('ebitda') || q.includes('flujo de caja') || q.includes('valoracion') || q.includes('valoración')) {
@@ -60,11 +49,7 @@ La SpA es la estructura preferida para startups chilenas porque permite modelar 
 
 La diferencia es crítica: una empresa puede mostrar EBITDA de $10M pero generar solo $3M de FCF si es intensiva en activos (minería, retail). Usar el múltiplo EV/EBITDA sin entender la intensidad de capital puede llevar a sobrevaluar activos del sector industrial o de infraestructura.
 
-Para valuar correctamente, los analistas usan el EBITDA como métrica comparativa (comparable companies), pero validan con DCF sobre FCF para entender el valor intrínseco.
-
-[CREADORES_RELEVANTES]
-- Carolina Vega Toro · FINANZAS CORPORATIVAS Y VALORACIÓN → nebbuler.com/carolina-vega-toro
-[/CREADORES_RELEVANTES]`
+Para valuar correctamente, los analistas usan el EBITDA como métrica comparativa (comparable companies), pero validan con DCF sobre FCF para entender el valor intrínseco.`
   }
 
   if (q.includes('inflacion') || q.includes('inflación') || q.includes('latam') || q.includes('precios')) {
@@ -72,11 +57,7 @@ Para valuar correctamente, los analistas usan el EBITDA como métrica comparativ
 
 Los factores que mantienen presión inflacionaria en la región son: servicios con alta indexación salarial, depreciaciones cambiarias en países con vulnerabilidades de cuenta corriente, y rigideces en el mercado de arriendos urbanos.
 
-El riesgo más relevante para Chile en 2026 es la inflación de servicios: componentes como transporte urbano, educación y salud muestran resistencia a la baja incluso con brecha del producto negativa.
-
-[CREADORES_RELEVANTES]
-- Rodrigo Fuentes Marín · MACROECONOMÍA Y POLÍTICA MONETARIA → nebbuler.com/rodrigo-fuentes-marin
-[/CREADORES_RELEVANTES]`
+El riesgo más relevante para Chile en 2026 es la inflación de servicios: componentes como transporte urbano, educación y salud muestran resistencia a la baja incluso con brecha del producto negativa.`
   }
 
   return `Gracias por tu pregunta. El Observatorio de Nebbuler conecta con profesionales verificados —economistas, abogados tributarios, analistas financieros y médicos epidemiólogos— que publican análisis sobre este tipo de temas.

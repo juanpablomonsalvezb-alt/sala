@@ -30,41 +30,6 @@ const pillars = [
     description:
       'Indicadores macroeconómicos curados de fuentes públicas: bancos centrales de la región, Banco Mundial y CEPAL. Gráficos interactivos del período 2022–2026 con análisis editorial.',
   },
-  {
-    href: '/observatorio/substack-en-espanol-2026',
-    title: 'Substack en Español 2026',
-    subtitle: 'Alternativas, plataformas y el auge del newsletter profesional',
-    description:
-      'Qué es Substack, por qué no escala para América Latina y cuáles son las mejores alternativas en español con pagos locales en CLP, ARS, COP y MXN sin conversión de divisa.',
-  },
-  {
-    href: '/observatorio/economistas-chile-2026',
-    title: 'Economistas Chilenos con Newsletter en 2026',
-    subtitle: 'Ex Banco Central, PhDs y analistas independientes que cobran por su análisis',
-    description:
-      'El fenómeno de los economistas chilenos que dejaron los think-tanks institucionales para publicar análisis de política monetaria, inflación y ciclo económico directamente a sus suscriptores.',
-  },
-  {
-    href: '/observatorio/derecho-tributario-latam',
-    title: 'Newsletters de Derecho Tributario en América Latina',
-    subtitle: 'Abogados tributarios que monetizan su expertise de forma independiente',
-    description:
-      'Abogados tributarios con LLM internacional que publican análisis sobre el SII, reforma fiscal y tributación internacional para contadores, CFOs y directores financieros de la región.',
-  },
-  {
-    href: '/observatorio/think-tanks-individuales-chile',
-    title: 'Think Tanks Individuales en Chile',
-    subtitle: 'El auge de los analistas independientes que cobran por su análisis',
-    description:
-      'Una generación de profesionales con credenciales de primer nivel rompe con las instituciones y construye audiencias directas. Modelo económico, casos reales y diferencias con los think-tanks tradicionales.',
-  },
-  {
-    href: '/observatorio/macroeconomia-latam',
-    title: 'Macroeconomía en Latinoamérica 2026',
-    subtitle: 'Dónde leer análisis independientes sobre Argentina, Colombia, México y toda la región',
-    description:
-      'Estado macroeconómico de los principales países de la región y por qué los analistas independientes en plataformas de suscripción superan en profundidad a los medios masivos.',
-  },
 ]
 
 const jsonLd = {

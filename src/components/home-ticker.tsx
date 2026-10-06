@@ -4,10 +4,6 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 
 const tickerItems = [
-  "Rodrigo F. publicó: Inflación subyacente en Chile, la trampa del IPC servicios",
-  "Carolina V. publicó: El error que destruye el 30% del valor en las DCF locales",
-  "Matías C. publicó: Reforma previsional, lo que el SII ya está auditando",
-  "Andrea P. publicó: 847.000 casos en lista de espera quirúrgica, qué los explica",
   "Nuevos análisis de economía, derecho y salud cada semana",
 ];
 

@@ -150,7 +150,7 @@ export default function ViralizarPage() {
               type="text"
               value={name}
               onChange={e => setName(e.target.value)}
-              placeholder="Rodrigo Fuentes — Política Monetaria"
+              placeholder="Tu nombre — Tu especialidad"
               className="w-full font-sans text-[14px] text-[#121212] border border-[#DEDEDE] px-3 py-2.5 focus:outline-none focus:border-[#121212] placeholder:text-[#BDBDBD]"
             />
           </div>
@@ -167,7 +167,7 @@ export default function ViralizarPage() {
               type="text"
               value={url}
               onChange={e => setUrl(e.target.value)}
-              placeholder="nebbuler.com/rodrigo-fuentes-marin"
+              placeholder="nebbuler.com/tu-nombre"
               className="w-full font-sans text-[14px] text-[#121212] border border-[#DEDEDE] px-3 py-2.5 focus:outline-none focus:border-[#121212] placeholder:text-[#BDBDBD]"
             />
           </div>

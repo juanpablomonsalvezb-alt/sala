@@ -115,81 +115,6 @@ function findStaticCreator(slug: string): { creator: Creator; posts: Post[] } | 
   return { creator, posts }
 }
 
-// ─── Fallback mock (cuando Supabase no está configurado) ──────────────────────
-
-const MOCK_CREATOR: Creator = {
-  id: 'mock-1',
-  user_id: 'mock-user-1',
-  name: 'Rodrigo Fuentes',
-  slug: 'rodrigo-fuentes',
-  specialty: 'ANÁLISIS FINANCIERO',
-  bio: 'Economista con 12 años en banca de inversión. Explico lo que los medios simplifican de más y los analistas complican demasiado.',
-  bio_long:
-    'Llevo más de una década analizando mercados financieros en entornos donde las decisiones valen millones. He visto de cerca cómo los grandes actores interpretan —y en muchos casos tergiversan— los datos macroeconómicos.',
-  linkedin_url: null,
-  price_clp: 9990,
-  plan: 'pro',
-  publish_frequency: 'Publica cada jueves',
-  created_at: '2024-03-01T00:00:00Z',
-  subscriber_count: 847,
-  stripe_account_id: null,
-  verified: true,
-  publication_name: 'Análisis Económico',
-  pull_quote: 'El tipo de cambio no sube ni baja por las razones que los medios te dicen.',
-  cover_image_url: null,
-}
-
-const MOCK_POSTS: Post[] = [
-  {
-    id: 'mock-post-1',
-    creator_id: 'mock-1',
-    title: 'Por qué el tipo de cambio te está mintiendo',
-    excerpt: 'El dólar no sube ni baja por las razones que los medios te dicen. Hay fuerzas estructurales que los titulares nunca mencionan y que definen el movimiento real.',
-    content: '',
-    is_free: false,
-    published_at: '2025-05-12T00:00:00Z',
-    created_at: '2025-05-12T00:00:00Z',
-    read_time_minutes: 6,
-    slug: 'tipo-de-cambio-te-miente',
-  },
-  {
-    id: 'mock-post-2',
-    creator_id: 'mock-1',
-    title: 'El efecto silencioso de la TPM en tu cartera',
-    excerpt: 'Cuando el Banco Central mueve la tasa, el impacto no es inmediato ni uniforme. Cada clase de activo absorbe el shock de manera distinta y en tiempos distintos.',
-    content: '',
-    is_free: false,
-    published_at: '2025-05-05T00:00:00Z',
-    created_at: '2025-05-05T00:00:00Z',
-    read_time_minutes: 8,
-    slug: 'tpm-efecto-cartera',
-  },
-  {
-    id: 'mock-post-3',
-    creator_id: 'mock-1',
-    title: 'Inflación importada: el canal que nadie ve venir',
-    excerpt: 'Más allá del IPC doméstico, existe un vector de presión inflacionaria que cruza fronteras. Entender este mecanismo es clave para anticipar movimientos de política monetaria.',
-    content: '',
-    is_free: false,
-    published_at: '2025-04-28T00:00:00Z',
-    created_at: '2025-04-28T00:00:00Z',
-    read_time_minutes: 7,
-    slug: 'inflacion-importada',
-  },
-  {
-    id: 'mock-post-4',
-    creator_id: 'mock-1',
-    title: 'Cómo leer un balance bancario sin ser contador',
-    excerpt: 'Los estados financieros de un banco son crípticos por diseño. En este análisis desgloso los tres indicadores que realmente importan para evaluar solvencia y riesgo de crédito.',
-    content: '',
-    is_free: false,
-    published_at: '2025-04-14T00:00:00Z',
-    created_at: '2025-04-14T00:00:00Z',
-    read_time_minutes: 10,
-    slug: 'leer-balance-bancario',
-  },
-]
-
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
 function getDisciplineColor(specialty: string): string {
@@ -265,7 +190,6 @@ export async function generateMetadata({
     const staticMatch = findStaticCreator(slug)
     if (staticMatch) creator = staticMatch.creator
   }
-  if (!creator && slug === 'rodrigo-fuentes') creator = MOCK_CREATOR
 
   if (!creator) {
     return { title: 'Perfil no encontrado' }
@@ -684,24 +608,6 @@ export default async function CreatorPage({
 
       posts = postsData ?? []
     } catch {
-      if (slug === 'rodrigo-fuentes') {
-        creator = MOCK_CREATOR
-        posts = MOCK_POSTS
-      } else {
-        const staticMatch = findStaticCreator(slug)
-        if (staticMatch) {
-          creator = staticMatch.creator
-          posts = staticMatch.posts
-        } else {
-          notFound()
-        }
-      }
-    }
-  } else {
-    if (slug === 'rodrigo-fuentes') {
-      creator = MOCK_CREATOR
-      posts = MOCK_POSTS
-    } else {
       const staticMatch = findStaticCreator(slug)
       if (staticMatch) {
         creator = staticMatch.creator
@@ -709,6 +615,14 @@ export default async function CreatorPage({
       } else {
         notFound()
       }
+    }
+  } else {
+    const staticMatch = findStaticCreator(slug)
+    if (staticMatch) {
+      creator = staticMatch.creator
+      posts = staticMatch.posts
+    } else {
+      notFound()
     }
   }
 

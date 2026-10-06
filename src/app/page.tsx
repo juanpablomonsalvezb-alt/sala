@@ -6,14 +6,12 @@
 import type { CSSProperties } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { TrendingModule, ObservatorioModule, PreguntaModule, GlosarioModule } from "@/components/home-discovery";
+import { PreguntaModule, GlosarioModule } from "@/components/home-discovery";
 import { HomeTicker } from "@/components/home-ticker";
 import { SocialProofCounter } from "@/components/social-proof-counter";
 import { CategoryMarqueeDynamic } from "@/components/category-marquee-dynamic";
 import {
-  HeroAnimations,
   PlatformStats,
-  LiveActivity,
   FeaturesSection,
   ParaQuienes,
   PricingSection,
@@ -27,12 +25,6 @@ import { HomeAuthActions, HeroAuthButtons } from "@/components/auth-nav-actions"
 import { HumanBadge, DemoProfileLabel } from "@/components/human-badge"
 
 /* ─── Data estática — permanece en el servidor ──────────────────────────── */
-
-const featuredCreators = [
-  { initial: "RF", name: "RODRIGO FUENTES MARÍN",  specialty: "MACROECONOMÍA",          color: "#1a1a2e", earnings: "2.613.762", trend: "+38%", subscribers: 524, posts: 67, since: "Nov 2025", href: "/rodrigo-fuentes-marin"  },
-  { initial: "CV", name: "CAROLINA VEGA TORO",      specialty: "FINANZAS CORPORATIVAS",  color: "#1a2e1a", earnings: "1.958.076", trend: "+43%", subscribers: 392, posts: 44, since: "Nov 2025", href: "/carolina-vega-toro" },
-  { initial: "MC", name: "MATÍAS CORNEJO SILVA",    specialty: "DERECHO TRIBUTARIO",     color: "#2e1a1a", earnings: "1.701.192", trend: "+29%", subscribers: 341, posts: 51, since: "Dic 2025", href: "/matias-cornejo-silva" },
-];
 
 const features = [
   { num: "I",   title: "Editor profesional",   body: "Escribe, formatea y publica contenido largo. Tú controlas qué es libre y qué es exclusivo." },
@@ -53,14 +45,6 @@ const faqs = [
   { q: "¿Puedo tener contenido gratuito y de pago?",        a: "Sí. Tú decides qué es abierto y qué es exclusivo." },
   { q: "¿Qué pasa si cancelo?",                             a: "Cancelas cuando quieras. Tus datos quedan accesibles." },
   { q: "¿Nebbuler funciona en toda Latinoamérica?",         a: "Sí. Disponible en toda la región. Cobra en la moneda local de tu país." },
-];
-
-const liveEvents = [
-  { initial: "MC", color: "#1a1a2e", name: "María C.",    creator: "Rodrigo Fuentes",  tag: "ECONOMÍA",    price: "$9.990/mes",  time: "ahora" },
-  { initial: "JP", color: "#1a2e1a", name: "Juan P.",     creator: "Isabel Contreras", tag: "DERECHO",     price: "$12.990/mes", time: "1 min" },
-  { initial: "AR", color: "#2e1a1a", name: "Ana R.",      creator: "Marco Salinas",    tag: "ARQUITECTURA",price: "$7.990/mes",  time: "3 min" },
-  { initial: "CF", color: "#1e2a3e", name: "Carlos F.",   creator: "Lucía Morales",    tag: "FINANZAS",    price: "$8.990/mes",  time: "5 min" },
-  { initial: "SV", color: "#2a1e2e", name: "Sofía V.",    creator: "Carlos Venegas",   tag: "MEDICINA",    price: "$14.990/mes", time: "7 min" },
 ];
 
 /* ─── Page (Server Component) ───────────────────────────────────────────── */
@@ -126,11 +110,6 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Lista editorial de creadores — Client Island con BlurFade */}
-          <div className="py-0">
-            <HeroAnimations featuredCreators={featuredCreators} />
-          </div>
-
           {/* Subtítulo + CTA: explorar primero; registro / abrir espacio como secundarios */}
           <div className="py-8 flex flex-col sm:flex-row items-start sm:items-center gap-6 border-b-[3px] border-[#111]">
             <div className="flex-1">
@@ -170,6 +149,7 @@ export default function Home() {
       </div>
 
       {/* ── CREADORES DESTACADOS — grid editorial ───────────────────────── */}
+      {featuredCreatorsData.length > 0 && (
       <section className="border-t border-[#DEDEDE] py-16">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex items-baseline justify-between mb-8">
@@ -198,11 +178,10 @@ export default function Home() {
           </div>
         </div>
       </section>
+      )}
 
       {/* ── DESCUBRIMIENTO — oculto en móvil ────────────────────────────── */}
       <div className="hidden sm:block">
-        <TrendingModule />
-        <ObservatorioModule />
         <PreguntaModule />
         <GlosarioModule />
       </div>
@@ -343,11 +322,6 @@ export default function Home() {
       </section>
 
       {/* ══ PARA CREADORES — monetización al final, como un plus ══════════ */}
-
-      {/* ── LIVE ACTIVITY — oculto en móvil ─────────────────────────────── */}
-      <div className="hidden sm:block">
-        <LiveActivity liveEvents={liveEvents} />
-      </div>
 
       {/* ── FEATURES ─────────────────── oculto en móvil ───────────────── */}
       <div className="hidden sm:block">

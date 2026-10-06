@@ -148,46 +148,6 @@ function findStaticPost(
   return null
 }
 
-// ─── Mock data (Supabase no configurado) ─────────────────────────────────────
-
-const MOCK_CREATOR: Creator = {
-  id: 'mock-1',
-  user_id: 'mock-user-1',
-  name: 'Rodrigo Fuentes',
-  slug: 'rodrigo-fuentes',
-  specialty: 'ECONOMÍA',
-  bio: 'Economista. Ex Banco Central. Analiza el mercado chileno desde adentro.',
-  bio_long: null,
-  linkedin_url: null,
-  price_clp: 9990,
-  plan: 'pro',
-  publish_frequency: 'Publica cada jueves',
-  created_at: '2024-03-01T00:00:00Z',
-  subscriber_count: 847,
-  stripe_account_id: null,
-  publication_name: 'Análisis Económico',
-  pull_quote: null,
-  cover_image_url: null,
-}
-
-const MOCK_POST: Post = {
-  id: 'mock-post-1',
-  creator_id: 'mock-1',
-  title: 'Por qué el peso cae cuando el cobre sube: la paradoja que nadie explica bien',
-  excerpt:
-    'Existe una correlación que todos los analistas conocen pero muy pocos se atreven a cuestionar. Este análisis va al fondo.',
-  content: `El tipo de cambio es, en esencia, el precio relativo de dos economías. Cuando el cobre sube, Codelco y las mineras privadas reciben más dólares por cada tonelada exportada. Esos dólares eventualmente ingresan al sistema financiero chileno y se convierten en pesos, lo que debería apreciar la moneda. Hasta aquí, la teoría.
-
-El problema está en el tiempo. Entre la venta del mineral en los mercados de futuros y la liquidación efectiva de divisas en el mercado chileno pueden pasar entre 30 y 90 días. Durante ese período, el mercado cambiario opera sobre expectativas, no sobre flujos reales.
-
-El Banco Central tiene un mandato implícito de suavizar la volatilidad cambiaria. Cuando el cobre sube de manera brusca, la institución suele intervenir comprando dólares para evitar una apreciación excesiva del peso que dañe la competitividad de exportadores no mineros: forestales, salmones, vino.`,
-  is_free: false,
-  published_at: '2025-05-12T00:00:00Z',
-  created_at: '2025-05-12T00:00:00Z',
-  read_time_minutes: 8,
-  slug: 'por-que-el-peso-cae-cuando-el-cobre-sube',
-}
-
 // ─── Metadata ─────────────────────────────────────────────────────────────────
 
 export async function generateMetadata({
@@ -231,9 +191,6 @@ export async function generateMetadata({
     if (staticResult) {
       post = staticResult.post
       creator = staticResult.creator
-    } else if (creatorSlug === MOCK_CREATOR.slug) {
-      post = { ...MOCK_POST, slug: postSlug }
-      creator = MOCK_CREATOR
     }
   }
 
@@ -480,9 +437,6 @@ export default async function PostPage({
       creator = staticResult.creator
       post = { ...staticResult.post, is_free: false }
       console.log(`[post page] static found — post.id=${post.id}`)
-    } else if (creatorSlug === MOCK_CREATOR.slug) {
-      post = { ...MOCK_POST, slug: postSlug, is_free: false }
-      creator = MOCK_CREATOR
     }
   }
 

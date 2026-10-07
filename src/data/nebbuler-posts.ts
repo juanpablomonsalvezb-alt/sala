@@ -307,4 +307,127 @@ export const NEBBULER_POSTS: NebbulerPost[] = [
 <p>El Mundial genera visibilidad. Nosotros ofrecemos la infraestructura para convertir esa visibilidad en ingresos. No parece un trato injusto para nadie.</p>
     `,
   },
+  {
+    id: 7,
+    slug: 'runway-no-es-cuantos-meses-te-quedan',
+    title: 'Runway: por qué «te quedan 14 meses» casi nunca es verdad',
+    date: '6 octubre 2026',
+    isoDate: '2026-10-06',
+    readingTime: 5,
+    excerpt:
+      'Dividir la caja por el gasto mensual da un número cómodo y engañoso. Cómo calcular el runway de una startup considerando ingresos, crecimiento y los plazos reales de levantar capital.',
+    content: `
+<p>La fórmula que casi todos aprendemos primero es simple: caja dividida por gasto mensual. Si tienes 60 millones y gastas 5 al mes, «te quedan 12 meses». El número es limpio, fácil de decir en una reunión y, la mayoría de las veces, incorrecto.</p>
+
+<h2>El error de usar el gasto en vez del burn neto</h2>
+
+<p>Lo que consume tu caja no es lo que gastas, sino lo que gastas <em>menos lo que ingresa</em>. Ese es el burn neto. Una startup que gasta 5 y factura 2 está quemando 3, y su runway es el doble del que calcula quien ignora los ingresos.</p>
+
+<p>El error inverso también existe: contar como ingreso recurrente algo que no lo es. Un proyecto puntual, un pago anual que ya cobraste o un cliente que está por irse no deberían sostener tu proyección.</p>
+
+<h2>El crecimiento cambia la curva, pero no es gratis</h2>
+
+<p>Si tus ingresos crecen cada mes, el burn neto baja con el tiempo y tu runway real es más largo que el simple. Pero el crecimiento casi siempre viene con más gasto: contrataciones, publicidad, infraestructura. Proyectar crecimiento de ingresos sin proyectar el gasto que lo produce es la forma más común de engañarse con optimismo.</p>
+
+<p>Una práctica sana es calcular dos escenarios: uno conservador, sin crecimiento, y uno esperado. La diferencia entre ambos te dice cuánto de tu futuro depende de un supuesto.</p>
+
+<h2>Lo que el cálculo no incluye</h2>
+
+<ul>
+<li><strong>El tiempo de levantar capital.</strong> Una ronda toma meses entre las primeras conversaciones y el dinero en la cuenta. Si empiezas a levantar cuando te quedan seis meses, ya estás negociando con urgencia.</li>
+<li><strong>Impuestos y pagos con rezago.</strong> Hay gastos que llegan de golpe, no repartidos en doce partes iguales.</li>
+<li><strong>Los meses malos.</strong> Un cliente grande que paga tarde puede dejarte sin caja antes de lo que dice cualquier promedio.</li>
+</ul>
+
+<h2>Cómo usarlo en la práctica</h2>
+
+<p>Actualiza el cálculo cada mes con números reales, no con el presupuesto. Define de antemano un umbral —por ejemplo, el mes en que empiezas a levantar capital o a recortar— y trátalo como una fecha límite, no como una sugerencia. Mucho antes de que la caja llegue a cero, ya perdiste opciones.</p>
+
+<p>Si quieres probar con tus números, hicimos una <a href="/herramientas/runway">calculadora de runway</a> que simula mes a mes con tus ingresos, tus gastos y el crecimiento que esperas, y te da un enlace para compartir el resultado con tu equipo o tus inversionistas.</p>
+    `,
+  },
+  {
+    id: 8,
+    slug: 'ltv-cac-payback-matematica-minima',
+    title: 'LTV, CAC y payback: la matemática mínima antes de gastar en crecer',
+    date: '6 octubre 2026',
+    isoDate: '2026-10-06',
+    readingTime: 6,
+    excerpt:
+      'Tres números que te dicen si cada cliente nuevo te acerca o te aleja de un negocio sostenible. Qué miden, cómo se calculan y dónde se equivoca casi todo el mundo.',
+    content: `
+<p>Antes de poner dinero en publicidad, en un equipo de ventas o en un programa de referidos, conviene responder una pregunta aburrida: <em>¿cada cliente que consigo me deja más de lo que me costó conseguirlo?</em> Tres números la responden: CAC, LTV y payback.</p>
+
+<h2>CAC: lo que cuesta un cliente nuevo</h2>
+
+<p>El costo de adquisición de clientes es todo lo que gastas en conseguir clientes en un periodo, dividido por los clientes que conseguiste. La trampa habitual es contar solo la publicidad. Si pagas el sueldo de quien vende, las herramientas que usa y el tiempo del fundador en reuniones comerciales, eso también es CAC.</p>
+
+<h2>LTV: lo que deja un cliente en toda su vida</h2>
+
+<p>El valor de vida del cliente se estima con tres datos: cuánto paga al mes, qué parte de eso es margen real y cuánto tiempo se queda. Una forma práctica de calcularlo es: <strong>ingreso mensual × margen bruto ÷ churn mensual</strong>.</p>
+
+<p>Dos advertencias. Primero, usa margen y no ingreso: un cliente que paga 100 y te cuesta 70 servirlo vale mucho menos de lo que parece. Segundo, el churn tiene un efecto enorme: bajar de 6% a 3% mensual duplica la vida esperada del cliente.</p>
+
+<h2>Payback: cuánto tardas en recuperar la inversión</h2>
+
+<p>El payback es el CAC dividido por el margen mensual del cliente. Si gastaste 90 en conseguirlo y te deja 24 al mes, tardas casi cuatro meses en recuperar lo invertido. Importa porque el LTV es una promesa a futuro, pero el payback es caja: mientras no lo recuperas, estás financiando a ese cliente con tu propio dinero.</p>
+
+<h2>La relación LTV:CAC y sus límites</h2>
+
+<p>Dividir LTV entre CAC da una relación que muchos equipos usan como referencia, con el 3 a 1 como cifra muy repetida. Úsala como orientación, no como ley. Un negocio con mucha caja y un mercado grande puede aceptar relaciones más bajas por un tiempo. Y una relación muy alta puede significar que estás invirtiendo poco en crecer.</p>
+
+<h2>Dónde se equivoca casi todo el mundo</h2>
+
+<ul>
+<li>Calcular el churn con muy pocos meses de datos.</li>
+<li>Mezclar clientes de canales distintos: el CAC del boca a boca y el de la publicidad pagada no son comparables.</li>
+<li>Usar un LTV a cinco años cuando tu negocio tiene seis meses de vida.</li>
+</ul>
+
+<p>Para ponerlo en práctica con tus propios números, usa la <a href="/herramientas/unit-economics">calculadora de LTV, CAC y payback</a>. Ingresas ingreso por cliente, margen, churn y CAC, y te muestra la relación, el payback y una lectura de qué significa.</p>
+    `,
+  },
+  {
+    id: 9,
+    slug: 'validar-newsletter-de-pago-en-30-dias',
+    title: 'Cómo validar una newsletter de pago en 30 días, sin construir nada',
+    date: '6 octubre 2026',
+    isoDate: '2026-10-06',
+    readingTime: 6,
+    excerpt:
+      'Antes de elegir plataforma o diseñar un logo, comprueba si alguien pagaría por lo que sabes. Un plan de cuatro semanas para profesionales que quieren monetizar su conocimiento.',
+    content: `
+<p>Muchos profesionales empiezan una newsletter de pago por donde es más cómodo: la plataforma, el nombre, el diseño. Pasan semanas ahí y recién después descubren si alguien está dispuesto a pagar. Conviene invertir el orden. Antes de construir, valida.</p>
+
+<h2>Semana 1: define una promesa concreta</h2>
+
+<p>«Escribo sobre economía» no es una promesa. «Cada martes te explico qué significa para tu empresa la decisión del Banco Central, en cinco minutos» sí lo es. Una buena promesa responde tres cosas: para quién es, qué recibe y cada cuánto. Escríbela en una sola frase y pruébala con cinco personas de tu público objetivo. Si no la entienden a la primera, afínala.</p>
+
+<h2>Semana 2: encuentra a tus primeras 20 personas</h2>
+
+<p>No necesitas una audiencia grande, necesitas veinte personas que tengan el problema. Mira dónde ya te leen o te preguntan: LinkedIn, tu círculo profesional, grupos de WhatsApp de tu industria, antiguos clientes. Escríbeles de forma directa, una por una. La conversación individual enseña más que cualquier encuesta.</p>
+
+<h2>Semana 3: pide un compromiso real</h2>
+
+<p>Aquí está el punto central: la validación no es que te digan «me interesa». Es que paguen, o que se comprometan de una forma que cueste algo. Ofrece un precio de fundador a quienes se suscriban antes de que exista la publicación, o una lista de espera con depósito simbólico. Si nadie da ese paso, tampoco habrá suscriptores cuando lo construyas, y es mejor saberlo hoy.</p>
+
+<h2>Semana 4: publica la primera edición y mide</h2>
+
+<p>Con los primeros suscriptores, publica una edición real y observa tres cosas: cuántos la abren, cuántos responden y cuántos cancelan. La respuesta a «¿qué más quieres que cubra?» es la mejor guía de contenido que tendrás.</p>
+
+<h2>Qué señales indican que vale la pena seguir</h2>
+
+<ul>
+<li>Pagos o compromisos de personas que no son tus amigos.</li>
+<li>Lectores que responden con preguntas, no solo con elogios.</li>
+<li>Suscriptores que recomiendan la publicación sin que se lo pidas.</li>
+</ul>
+
+<h2>Cuánto cobrar</h2>
+
+<p>Parte de lo que le ahorras o le generas al lector, no de lo que cobran otros. Una referencia útil es tu propia tarifa profesional: si una hora tuya vale cierto monto, una publicación que le ahorra horas a cientos de personas puede justificar un precio mensual que a ti te parezca alto. Puedes estimar tu tarifa con la <a href="/herramientas/tarifa-hora">calculadora de tarifa por hora</a>.</p>
+
+<p>Cuando tengas validación, el paso siguiente es técnico y bastante corto. En Nebbuler puedes <a href="/abrir">abrir tu sala</a> y empezar a cobrar en tu moneda local, sin comisión.</p>
+    `,
+  },
 ]

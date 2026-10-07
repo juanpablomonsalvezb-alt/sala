@@ -39,6 +39,22 @@ const TOOLS = [
     icon: '📄',
     keywords: ['contrato', 'acuerdo', 'servicios', 'honorarios'],
   },
+  {
+    slug: 'runway',
+    title: 'Calculadora de runway y burn rate',
+    description: 'Ingresa tu caja, gastos e ingresos mensuales y descubre cuántos meses de vida le quedan a tu startup. Comparte tu resultado.',
+    cta: 'Calcular mi runway',
+    icon: '🛫',
+    keywords: ['startup', 'runway', 'burn rate', 'caja'],
+  },
+  {
+    slug: 'unit-economics',
+    title: 'Calculadora de LTV, CAC y payback',
+    description: 'Mide la economía por cliente de tu negocio: LTV, relación LTV:CAC y meses para recuperar lo que gastas en adquirir clientes.',
+    cta: 'Calcular LTV y CAC',
+    icon: '📈',
+    keywords: ['startup', 'LTV', 'CAC', 'payback', 'SaaS'],
+  },
 ]
 
 export default function HerramientasPage() {

@@ -6,7 +6,7 @@ import Link from 'next/link'
 // ─── Contenido de ejemplo ─────────────────────────────────────────────────────
 
 const DEMO_TITLE = 'La tasa terminal que el mercado no está leyendo bien'
-const DEMO_CREATOR = 'Rodrigo Fuentes Marín'
+const DEMO_CREATOR = 'Autor de ejemplo'
 const DEMO_SPECIALTY = 'MACROECONOMÍA Y POLÍTICA MONETARIA'
 const DEMO_DATE = '14 de octubre de 2025'
 const DEMO_READ_TIME = 7

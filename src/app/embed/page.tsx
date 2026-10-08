@@ -45,7 +45,7 @@ async function pickPreviewSlug(): Promise<string> {
   } catch {
     // sin DB local
   }
-  return 'rodrigo-fuentes-marin'
+  return 'tu-nombre'
 }
 
 // ─── Snippet renderer ─────────────────────────────────────────────────────────

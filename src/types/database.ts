@@ -21,6 +21,7 @@ export type Creator = {
   mp_user_id?:       string | null
   mp_connected_at?:  string | null
   verified?: boolean
+  is_official?: boolean
   discipline_name_es?: string
   publication_name: string | null
   pull_quote: string | null

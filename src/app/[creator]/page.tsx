@@ -281,12 +281,19 @@ function HeroSection({
         </p>
 
         {/* H1 = nombre de la publicación */}
-        <h1
-          className="font-serif font-bold text-[#121212] leading-tight tracking-[-0.02em] mb-2"
-          style={{ fontSize: 'clamp(36px, 5vw, 64px)' }}
-        >
-          {creator.publication_name ?? creator.name}
-        </h1>
+        <div className="flex items-center gap-2.5 mb-2">
+          <h1
+            className="font-serif font-bold text-[#121212] leading-tight tracking-[-0.02em]"
+            style={{ fontSize: 'clamp(36px, 5vw, 64px)' }}
+          >
+            {creator.publication_name ?? creator.name}
+          </h1>
+          {creator.is_official && (
+            <span className="inline-flex items-center px-1.5 py-0.5 bg-[#C41C1C] rounded text-white font-sans text-[9px] uppercase tracking-[0.08em] font-semibold flex-shrink-0">
+              Oficial
+            </span>
+          )}
+        </div>
 
         {/* Byline — solo si la publicación tiene nombre distinto al autor */}
         {creator.publication_name && creator.publication_name !== creator.name && (

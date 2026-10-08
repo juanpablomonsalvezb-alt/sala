@@ -8,6 +8,7 @@ type CreatorCardProps = {
   price_clp: number
   subscriber_count: number
   verified?: boolean
+  is_official?: boolean
   discipline_name_es?: string
   publish_frequency: string
   plan: 'free' | 'creator' | 'pro'
@@ -31,6 +32,7 @@ export default function CreatorCard({
   price_clp,
   subscriber_count,
   verified,
+  is_official,
   publish_frequency,
   plan,
 }: CreatorCardProps) {
@@ -50,8 +52,13 @@ export default function CreatorCard({
       </p>
 
       {/* Nombre */}
-      <h3 className="font-serif text-base font-bold text-[#121212] leading-tight group-hover:text-[#C41C1C] transition-colors">
+      <h3 className="font-serif text-base font-bold text-[#121212] leading-tight group-hover:text-[#C41C1C] transition-colors flex items-center gap-1.5">
         {name}
+        {is_official && (
+          <span className="inline-flex items-center px-1.5 py-0.5 bg-[#C41C1C] rounded text-white font-sans text-[8px] uppercase tracking-[0.08em] font-semibold flex-shrink-0">
+            Oficial
+          </span>
+        )}
       </h3>
 
       {/* Bio */}

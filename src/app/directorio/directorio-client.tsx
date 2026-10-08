@@ -14,6 +14,7 @@ type DirectorioClientProps = {
     price_clp: number
     subscriber_count: number
     verified?: boolean
+    is_official?: boolean
     publish_frequency: string
     plan: 'free' | 'creator' | 'pro'
     discipline?: string
@@ -62,6 +63,7 @@ export default function DirectorioClient({ creators, disciplines }: DirectorioCl
                   price_clp={creator.price_clp}
                   subscriber_count={creator.subscriber_count}
                   verified={creator.verified}
+                  is_official={creator.is_official}
                   publish_frequency={creator.publish_frequency}
                   plan={creator.plan}
                 />

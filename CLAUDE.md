@@ -44,7 +44,7 @@ Una auditoría que no hace click en los botones no es una auditoría.
 NUNCA usar `npx vercel --prod` directamente. SIEMPRE usar:
 
 ```bash
-cd /Users/juanpablomonsalvez/Downloads/sala && ./deploy.sh
+cd /Users/sebastianmonsalvez/Desktop/Nebbuler/sala && ./deploy.sh
 ```
 
 Este script: construye → despliega a preview → valida health check → solo si todo está verde publica en nebbuler.com.

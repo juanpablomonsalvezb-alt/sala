@@ -12,26 +12,12 @@ import { creatorProfilePageSchema } from '@/lib/json-ld'
 import { AlsoReading } from '@/components/also-reading'
 import { HumanBadge, DemoProfileLabel } from '@/components/human-badge'
 
-// ISR: revalidate each creator profile every 24 hours
-export const revalidate = 86400
-
-// Pre-build top creators at build time; remaining creators built on-demand
-export async function generateStaticParams(): Promise<Array<{ creator: string }>> {
-  try {
-    const supabase = await createClient()
-    const { data: creators } = await supabase
-      .from('sala_creators')
-      .select('slug')
-      .eq('plan', 'pro')
-      .order('subscriber_count', { ascending: false })
-      .limit(50)
-
-    if (!creators) return []
-    return creators.map((c: { slug: string }) => ({ creator: c.slug }))
-  } catch {
-    return staticCreators.slice(0, 20).map((c) => ({ creator: c.slug }))
-  }
-}
+// Forzado a dinámico: la página necesita auth.getUser() (cookies()) por
+// request para saber si el lector está suscrito. Combinar eso con
+// generateStaticParams + revalidate (ISR) rompía el render estático con
+// "Page changed from static to dynamic at runtime" → 500 para cualquier
+// slug fuera del set pre-generado (es decir, casi todos los perfiles reales).
+export const dynamic = 'force-dynamic'
 
 // ─── Mapeo de mes español a número ───────────────────────────────────────────
 
@@ -172,10 +158,7 @@ export async function generateMetadata({
 
   let creator: Creator | null = null
 
-  // Service client (sin cookies): generateMetadata corre bajo generateStaticParams
-  // + revalidate (ISR), y leer cookies() aquí rompe el render estático con
-  // "Page changed from static to dynamic at runtime" para cualquier slug fuera
-  // del top-50 pre-generado. Esta metadata es pública, no necesita sesión.
+  // Service client (sin cookies): esta metadata es pública, no necesita sesión.
   if (isSupabaseConfigured()) {
     try {
       const supabase = createServiceClient()

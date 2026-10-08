@@ -22,11 +22,11 @@ export async function generateMetadata({
   return {
     title: `${post.title} · Nebbuler`,
     description: post.excerpt,
-    alternates: { canonical: `https://nebbuler.com/nebbuler/${post.slug}` },
+    alternates: { canonical: `https://nebbuler.com/equipo/${post.slug}` },
     openGraph: {
       title: post.title,
       description: post.excerpt,
-      url: `https://nebbuler.com/nebbuler/${post.slug}`,
+      url: `https://nebbuler.com/equipo/${post.slug}`,
       type: 'article',
       publishedTime: post.isoDate,
     },
@@ -52,7 +52,7 @@ export default async function NebbulerPostPage({
 
           {/* Breadcrumb */}
           <nav className="text-xs text-[#999] mb-8">
-            <Link href="/nebbuler" className="hover:text-[#121212]">
+            <Link href="/equipo" className="hover:text-[#121212]">
               Equipo Nebbuler
             </Link>
             {' / '}
@@ -110,7 +110,7 @@ export default async function NebbulerPostPage({
                 {otherPosts.map((p) => (
                   <Link
                     key={p.slug}
-                    href={`/nebbuler/${p.slug}`}
+                    href={`/equipo/${p.slug}`}
                     className="block border border-[#DEDEDE] bg-white p-4 hover:border-[#C41C1C] transition-colors group"
                   >
                     <h3 className="font-serif text-[15px] font-bold text-[#121212] leading-snug group-hover:text-[#C41C1C] transition-colors mb-1">

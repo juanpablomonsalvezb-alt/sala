@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
-import { createClient } from '@/lib/supabase/server'
+import { createClient, createServiceClient } from '@/lib/supabase/server'
 import { safeJsonLd } from '@/lib/rateLimit'
 import type { Creator, Post } from '@/types/database'
 import { CreatorStickyBar } from '@/components/creator-sticky-bar'
@@ -172,9 +172,13 @@ export async function generateMetadata({
 
   let creator: Creator | null = null
 
+  // Service client (sin cookies): generateMetadata corre bajo generateStaticParams
+  // + revalidate (ISR), y leer cookies() aquí rompe el render estático con
+  // "Page changed from static to dynamic at runtime" para cualquier slug fuera
+  // del top-50 pre-generado. Esta metadata es pública, no necesita sesión.
   if (isSupabaseConfigured()) {
     try {
-      const supabase = await createClient()
+      const supabase = createServiceClient()
       const { data } = await supabase
         .from('sala_creators')
         .select('*')

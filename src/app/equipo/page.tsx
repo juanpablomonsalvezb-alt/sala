@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     title: 'Construyendo Nebbuler · Build in Public en LATAM',
     description:
       'El equipo de Nebbuler publica 2 veces por semana: métricas reales, decisiones de producto, errores y aprendizajes.',
-    url: 'https://nebbuler.com/nebbuler',
+    url: 'https://nebbuler.com/equipo',
   },
 }
 
@@ -68,7 +68,7 @@ export default function NebbulerPage() {
               Publicaciones recientes
             </h2>
             {POSTS.map((post) => (
-              <Link key={post.id} href={`/nebbuler/${post.slug}`} className="block group">
+              <Link key={post.id} href={`/equipo/${post.slug}`} className="block group">
               <article className="border border-[#DEDEDE] bg-white p-5 hover:border-[#C41C1C] transition-colors">
                 <div className="flex items-start justify-between gap-3 mb-2">
                   <h3 className="font-serif text-[16px] font-bold text-[#121212] leading-snug flex-1 group-hover:text-[#C41C1C] transition-colors">

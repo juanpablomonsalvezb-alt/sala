@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { openaiComplete } from '@/lib/openai'
+import { geminiComplete } from '@/lib/gemini'
 import { fetchStartupBusinessArticles, formatArticlesForPrompt } from '@/lib/news-feeds'
 import { sendTelegramMessage } from '@/lib/telegram'
 import { captureError, setTag } from '@/lib/observability'
@@ -50,7 +50,7 @@ Fuentes: <a href="URL">Nombre medio</a>, <a href="URL">Nombre medio</a>
 
 No agregues explicaciones fuera de este formato.`
 
-    const draft = await openaiComplete(prompt, 4000)
+    const draft = await geminiComplete(prompt, 4000)
 
     const header = `✍️ <b>Nebbuler — Borradores del día</b>\n\n`
 

@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { openaiComplete } from '@/lib/openai'
+import { geminiComplete } from '@/lib/gemini'
 import { fetchStartupBusinessArticles, formatArticlesForPrompt } from '@/lib/news-feeds'
 import { sendTelegramMessage } from '@/lib/telegram'
 import { captureError, setTag } from '@/lib/observability'
@@ -38,7 +38,7 @@ Separa cada noticia con una línea en blanco. No agregues introducción ni cierr
 ARTÍCULOS:
 ${formatArticlesForPrompt(articles)}`
 
-    const digest = await openaiComplete(prompt, 1500)
+    const digest = await geminiComplete(prompt, 1500)
 
     const today = new Date().toLocaleDateString('es-CL', {
       weekday: 'long',

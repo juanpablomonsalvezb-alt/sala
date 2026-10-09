@@ -6,6 +6,7 @@ import { captureError, setTag } from '@/lib/observability'
 
 export const runtime = 'nodejs'
 export const maxDuration = 90
+export const dynamic = 'force-dynamic'
 
 export async function GET(request: Request) {
   setTag('cron', 'content-draft')

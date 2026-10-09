@@ -6,6 +6,11 @@ import { captureError, setTag } from '@/lib/observability'
 
 export const runtime = 'nodejs'
 export const maxDuration = 120
+// Sin esto, Next.js puede tratar esta ruta como estática (solo lee headers
+// del Request crudo, no usa las APIs dinámicas de next/headers) y Vercel
+// cachea la respuesta en el edge — incluido un error — sirviéndola en
+// ejecuciones futuras del cron en vez de correr la función de nuevo.
+export const dynamic = 'force-dynamic'
 
 function escapeHtml(text: string): string {
   return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')

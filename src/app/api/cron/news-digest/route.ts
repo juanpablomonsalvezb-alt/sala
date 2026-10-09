@@ -5,7 +5,7 @@ import { sendTelegramMessage } from '@/lib/telegram'
 import { captureError, setTag } from '@/lib/observability'
 
 export const runtime = 'nodejs'
-export const maxDuration = 60
+export const maxDuration = 120
 
 function escapeHtml(text: string): string {
   return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')

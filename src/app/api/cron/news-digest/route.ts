@@ -1,13 +1,11 @@
 import { NextResponse } from 'next/server'
-import Anthropic from '@anthropic-ai/sdk'
+import { openaiComplete } from '@/lib/openai'
 import { fetchStartupBusinessArticles, formatArticlesForPrompt } from '@/lib/news-feeds'
 import { sendTelegramMessage } from '@/lib/telegram'
 import { captureError, setTag } from '@/lib/observability'
 
 export const runtime = 'nodejs'
 export const maxDuration = 60
-
-const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
 
 function escapeHtml(text: string): string {
   return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
@@ -40,16 +38,7 @@ Separa cada noticia con una línea en blanco. No agregues introducción ni cierr
 ARTÍCULOS:
 ${formatArticlesForPrompt(articles)}`
 
-    const message = await anthropic.messages.create({
-      model: 'claude-haiku-4-5-20251001',
-      max_tokens: 1500,
-      messages: [{ role: 'user', content: prompt }],
-    })
-
-    const digest = message.content
-      .map((block) => (block.type === 'text' ? block.text : ''))
-      .join('\n')
-      .trim()
+    const digest = await openaiComplete(prompt, 1500)
 
     const today = new Date().toLocaleDateString('es-CL', {
       weekday: 'long',

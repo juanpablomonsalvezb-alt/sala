@@ -1,13 +1,11 @@
 import { NextResponse } from 'next/server'
-import Anthropic from '@anthropic-ai/sdk'
+import { openaiComplete } from '@/lib/openai'
 import { fetchStartupBusinessArticles, formatArticlesForPrompt } from '@/lib/news-feeds'
 import { sendTelegramMessage } from '@/lib/telegram'
 import { captureError, setTag } from '@/lib/observability'
 
 export const runtime = 'nodejs'
 export const maxDuration = 90
-
-const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
 
 export async function GET(request: Request) {
   setTag('cron', 'content-draft')
@@ -52,16 +50,7 @@ Fuentes: <a href="URL">Nombre medio</a>, <a href="URL">Nombre medio</a>
 
 No agregues explicaciones fuera de este formato.`
 
-    const message = await anthropic.messages.create({
-      model: 'claude-opus-4-7',
-      max_tokens: 4000,
-      messages: [{ role: 'user', content: prompt }],
-    })
-
-    const draft = message.content
-      .map((block) => (block.type === 'text' ? block.text : ''))
-      .join('\n')
-      .trim()
+    const draft = await openaiComplete(prompt, 4000)
 
     const header = `✍️ <b>Nebbuler — Borradores del día</b>\n\n`
 
